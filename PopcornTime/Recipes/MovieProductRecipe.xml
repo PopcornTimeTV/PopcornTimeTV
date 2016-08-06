@@ -1,0 +1,89 @@
+<head>
+<style>
+    .badge {
+        tv-tint-color: rgb(255,255,255);
+    }
+    .hover {
+        tv-text-highlight-style: marquee-and-show-on-highlight;
+    }
+    .img {
+    tv-placeholder:movie;
+    }
+</style>
+</head>
+<productTemplate>
+    <banner>
+        <infoList>
+            <info>
+                <header>
+                    <title>Genre</title>
+                </header>
+                {{GENRES}}
+            </info>
+            <info>
+                <header>
+                    <title>Directors</title>
+                </header>
+                {{DIRECTORS}}
+            </info>
+            <info>
+                <header>
+                    <title>Staring</title>
+                </header>
+                {{ACTORS}}
+            </info>
+        </infoList>
+        
+        <stack>
+            <title>{{TITLE}}</title>
+            <row>
+                <text>{{RUNTIME}}</text>
+                <text>{{YEAR}}</text> 
+                <badge src="resource://mpaa-{{RATING}}" class="badge" />
+                <badge src="resource://hd" class="badge" />
+                <badge src="resource://cc" class="badge" />
+                <ratingBadge value="0.{{STAR_RATING}}">
+                </ratingBadge>
+
+                {{AIR_DATE_TIME}}
+            </row>
+            <description allowsZooming="true" moreLabel="more" actionID="showDescription»{{TITLE}}»{{DESCRIPTION}}">{{DESCRIPTION}}</description>
+            <row>
+                <buttonLockup actionID="playPreview»{{YOUTUBE_PREVIEW_URL}}">
+                    <badge src="resource://button-preview" />
+                    <title>Preview</title>
+                </buttonLockup>
+                
+                <buttonLockup actionID="playMovie»{{IMAGE}}»{{BACKGROUND_IMAGE}}»{{TITLE}}»{{SHORT_DESCRIPTION}}»{{TORRENTS}}»{{IMDBID}}">
+                    <badge src="resource://button-play" />
+                    <title>Play</title>
+                </buttonLockup>
+                
+                {{WATCH_LIST_BUTTON}}
+            </row>
+        </stack>
+        
+        <heroImg src="{{IMAGE}}" />
+    </banner>
+    
+    <!-- Suggestions -->
+    <shelf>
+        <header>
+            <title>{{SUGGESTIONS_TITLE}}</title>
+        </header>
+        <section>
+            {{SUGGESTIONS}}
+        </section>
+    </shelf>
+    
+    <!-- Cast -->
+    <shelf>
+        <header>
+            <title>Cast and Crew</title>
+        </header>
+        <section>
+            {{CAST}}
+        </section>
+    </shelf>
+
+</productTemplate>

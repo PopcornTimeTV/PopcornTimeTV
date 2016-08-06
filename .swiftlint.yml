@@ -1,0 +1,13 @@
+included: # paths to include during linting. `--path` is ignored if present.
+  - PopcornTime
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - Carthage
+  - Pods
+disabled_rules:
+  - line_length
+  - variable_name
+  - file_length
+  - cyclomatic_complexity
+  - nesting
+  - function_parameter_count
+  - function_body_length
