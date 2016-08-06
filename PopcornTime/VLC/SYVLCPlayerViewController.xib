@@ -8,14 +8,9 @@
             <connections>
                 <outlet property="audioButton" destination="5Gn-8K-d7y" id="iCW-5s-ypE"/>
                 <outlet property="audioTabBarCollectionView" destination="kwv-WD-zTy" id="gDL-yb-Bez"/>
-                <outlet property="backSubtitle" destination="eSt-ui-PBw" id="wCG-LW-kzt"/>
-                <outlet property="backSubtitleView" destination="0Db-nR-7bN" id="7JV-Mf-Y8g"/>
                 <outlet property="backgroundImageView" destination="Jsj-a1-sA5" id="fnq-nD-J0I"/>
                 <outlet property="containerView" destination="dwT-9z-IZV" id="V8Z-0L-qAQ"/>
                 <outlet property="dimmingView" destination="xEb-xs-LS2" id="5Ki-iP-FF3"/>
-                <outlet property="heightSubtitleConstraint" destination="xap-b2-ZS9" id="2bB-Gv-QO5"/>
-                <outlet property="heightSubtitleTextConstraint" destination="RfZ-mh-Yb7" id="pFy-RG-BaA"/>
-                <outlet property="heightSubtitleViewConstraint" destination="ZFi-33-hBZ" id="1l6-Gv-sLO"/>
                 <outlet property="imageView" destination="4Zy-wr-ICI" id="9e0-MZ-BXv"/>
                 <outlet property="indicatorView" destination="CmR-ro-YLC" id="clu-Q3-htO"/>
                 <outlet property="loadingLogo" destination="wJG-J6-EmN" id="LyA-oK-Uph"/>
@@ -31,8 +26,6 @@
                 <outlet property="subValueDelayButton" destination="75H-uT-MX6" id="Ojb-Mf-p0A"/>
                 <outlet property="subsButton" destination="4ip-gh-Ldh" id="I4A-6A-mAr"/>
                 <outlet property="subsDelayButton" destination="XUr-bI-bSF" id="DC4-cx-5km"/>
-                <outlet property="subtitleTextView" destination="dlQ-Pp-c2V" id="ZpI-Aj-fzJ"/>
-                <outlet property="subtitlesBottomSpace" destination="GsB-Gz-DQH" id="s5I-XB-4qm"/>
                 <outlet property="swipeMesaggeContainerView" destination="DAd-2S-Jzs" id="pcd-1y-Wmq"/>
                 <outlet property="swipeMesaggeLabel" destination="td7-vn-6lv" id="3oi-3W-or3"/>
                 <outlet property="swipeTopConstraint" destination="PQ5-FC-dMR" id="tFI-2F-Ycy"/>
@@ -42,8 +35,6 @@
                 <outlet property="topTopMenuSpace" destination="dqy-VD-pfJ" id="i0r-KH-3nx"/>
                 <outlet property="transportBar" destination="kgA-b9-38e" id="RLH-2i-NtV"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Eym-vH-oyN"/>
-                <outlet property="widthSubtitleConstraint" destination="gRS-6c-wQw" id="WkR-xK-OGV"/>
-                <outlet property="widthSubtitleViewConstraint" destination="diG-g9-WKF" id="hfI-ki-AWe"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -172,33 +163,6 @@
                     <rect key="frame" x="0.0" y="97" width="1920" height="886"/>
                     <color key="backgroundColor" red="0.57858573719999995" green="0.57858573719999995" blue="0.57858573719999995" alpha="0.45000000000000001" colorSpace="calibratedRGB"/>
                 </view>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eSt-ui-PBw">
-                    <rect key="frame" x="0.0" y="800" width="1920" height="243"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="1920" id="gRS-6c-wQw"/>
-                        <constraint firstAttribute="height" constant="243" id="xap-b2-ZS9"/>
-                    </constraints>
-                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                </button>
-                <view hidden="YES" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Db-nR-7bN" userLabel="Back Subtitle">
-                    <rect key="frame" x="0.0" y="800" width="1920" height="248"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="248" id="ZFi-33-hBZ"/>
-                        <constraint firstAttribute="width" constant="1920" id="diG-g9-WKF"/>
-                    </constraints>
-                </view>
-                <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dlQ-Pp-c2V">
-                    <rect key="frame" x="0.0" y="785" width="1920" height="223"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="223" id="RfZ-mh-Yb7"/>
-                    </constraints>
-                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="54"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                </textView>
                 <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DAd-2S-Jzs" userLabel="Swipe Container">
                     <rect key="frame" x="564" y="26" width="792" height="128"/>
                     <subviews>
@@ -401,31 +365,24 @@
                 <constraint firstAttribute="trailing" secondItem="V2b-SN-sQy" secondAttribute="trailing" id="4gE-UE-gc5"/>
                 <constraint firstItem="dwT-9z-IZV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="4nt-QR-6Hy"/>
                 <constraint firstItem="dwT-9z-IZV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="E8k-j4-kfd"/>
-                <constraint firstAttribute="trailing" secondItem="dlQ-Pp-c2V" secondAttribute="trailing" id="EPO-y3-jrF"/>
-                <constraint firstItem="dlQ-Pp-c2V" firstAttribute="top" secondItem="eSt-ui-PBw" secondAttribute="top" constant="-15" id="Egn-Ye-Uch"/>
                 <constraint firstItem="CmR-ro-YLC" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Gey-wN-8Xd"/>
-                <constraint firstAttribute="bottom" secondItem="dlQ-Pp-c2V" secondAttribute="bottom" constant="72" id="GsB-Gz-DQH"/>
                 <constraint firstItem="DAd-2S-Jzs" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="JUC-us-WKL"/>
                 <constraint firstItem="wJG-J6-EmN" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-20" id="MQt-ey-ulr"/>
                 <constraint firstItem="DAd-2S-Jzs" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="26" id="PQ5-FC-dMR"/>
                 <constraint firstAttribute="trailing" secondItem="vsy-a5-o94" secondAttribute="trailing" id="QgW-7x-QG4"/>
                 <constraint firstItem="vsy-a5-o94" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="RcA-KT-Sd6"/>
                 <constraint firstItem="CmR-ro-YLC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="TKI-Ib-Ai5"/>
-                <constraint firstItem="0Db-nR-7bN" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="TYU-Do-mhU"/>
                 <constraint firstItem="xEb-xs-LS2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Tlp-z6-EP4"/>
                 <constraint firstItem="nxK-5P-fgT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Vf8-oT-GN4"/>
                 <constraint firstItem="wJG-J6-EmN" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="X7J-2V-nUR"/>
-                <constraint firstItem="eSt-ui-PBw" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Yui-Rs-Uw8"/>
                 <constraint firstAttribute="trailing" secondItem="nxK-5P-fgT" secondAttribute="trailing" id="bs1-Jn-lrM"/>
                 <constraint firstAttribute="bottom" secondItem="xEb-xs-LS2" secondAttribute="bottom" constant="97" id="cSD-Lb-MkO"/>
                 <constraint firstItem="V2b-SN-sQy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="-232" id="dqy-VD-pfJ"/>
                 <constraint firstItem="xEb-xs-LS2" firstAttribute="top" secondItem="V2b-SN-sQy" secondAttribute="bottom" constant="97" id="e5Q-YE-ukF"/>
-                <constraint firstItem="dlQ-Pp-c2V" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="iPb-5G-tjp"/>
                 <constraint firstItem="vsy-a5-o94" firstAttribute="top" secondItem="V2b-SN-sQy" secondAttribute="bottom" id="jP6-99-q3C"/>
                 <constraint firstItem="V2b-SN-sQy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="nQ3-c2-cOt"/>
                 <constraint firstAttribute="trailing" secondItem="xEb-xs-LS2" secondAttribute="trailing" id="ngb-Qj-MfI"/>
                 <constraint firstItem="V2b-SN-sQy" firstAttribute="top" secondItem="nxK-5P-fgT" secondAttribute="bottom" id="qpZ-tb-XKF"/>
-                <constraint firstItem="0Db-nR-7bN" firstAttribute="top" secondItem="dlQ-Pp-c2V" secondAttribute="top" constant="15" id="r3z-5q-EbB"/>
                 <constraint firstAttribute="trailing" secondItem="dwT-9z-IZV" secondAttribute="trailing" id="tfR-4G-ZVF"/>
                 <constraint firstAttribute="bottom" secondItem="dwT-9z-IZV" secondAttribute="bottom" id="vFX-8O-4PR"/>
             </constraints>
