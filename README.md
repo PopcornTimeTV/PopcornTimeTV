@@ -1,6 +1,6 @@
 #PopcornTime TV
-[![Build Status](https://travis-ci.org/PopcornTimeTV/PopcornTimeTV.svg?branch=master)](https://travis-ci.org/PopcornTimeTV/PopcornTimeTV)
-[![Slack Status](https://popcorntimetv.herokuapp.com/badge.svg)](https://popcorntimetv.herokuapp.com)
+[![Build Status](https://travis-ci.org/PTCE/PopcornTimeTV.svg?branch=master)](https://travis-ci.org/PTCE/PopcornTimeTV)
+
 
 **NOTE: You must build the project with Xcode 7. Swift 3 and Xcode 8 support will be available when tvOS 10 launched in the fall.**
 
@@ -9,7 +9,7 @@ A simple and easy to use application based on TVML to bring the native desktop
 PopcornTime experience to Apple TV.
 
 ##Version
-Release notes for every version can be [found here](https://github.com/PopcornTimeTV/PopcornTimeTV/releases)
+Release notes for every version can be [found here](https://github.com/PTCE/PopcornTimeTV/releases)
 
 ##Setup
 
@@ -23,7 +23,7 @@ Setting up PopcornTime is quite easy.
 
 ```
 cd ~/Desktop
-git clone https://github.com/PopcornTimeTV/PopcornTimeTV.git
+git clone https://github.com/PTCE/PopcornTimeTV.git
 cd ~/Desktop/PopcornTimeTV
 swift install.swift
 ```
@@ -36,7 +36,7 @@ If you are installing PopcornTime for the first time run and are having issues t
 
 If issues persist when installing TVVLC, remove the Pods folder and Podfile.lock and run this command in terminal `rm -rf ~/.cocoapods/repos/popcorntimetv`
 
-Or you can find super easy [guide here](https://github.com/PopcornTimeTV/PopcornTimeTV/wiki/Building-PopcornTime)
+Or you can find super easy [guide here](https://github.com/PTCE/PopcornTimeTV/wiki/Building-PopcornTime)
 
 **Open the project with**
 
@@ -48,6 +48,6 @@ PopcornTime.xcworkspace
 
 ##Want to help?
 
-Join the project [Slack channel](http://popcorntimetv.herokuapp.com) and be part of the PopcornTime experience for AppleTV. Designer? Developer? Curious person? You're welcome! Come in and say hello. Want to report a bug, request a feature or even contribute? You can join our community Slack group to keep up-to-date and speak to the team.
+Join the project [Discuss](http://discuss.popcorntimece.ch) and be part of the PopcornTime experience for AppleTV. Designer? Developer? Curious person? You're welcome! Come in and say hello. Want to report a bug, request a feature or even contribute? You can join our community Slack group to keep up-to-date and speak to the team.
 
 If you plan on contributing, make sure to follow along with the guidelines found in the `CONTRIBUTING.md` file.
