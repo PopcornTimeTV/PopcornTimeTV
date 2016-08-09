@@ -69,7 +69,7 @@ run("-c", "git stash", "git fetch", "git rebase")
 print("\n# Fetching the latest verion info...")
 
 var versions = [String]()
-if let jsonData = NSURLSession.requestSynchronousJSONWithURLString("https://api.github.com/repos/popcornMaster/PopcornTimeTV/releases") as? [[String : AnyObject]] {
+if let jsonData = NSURLSession.requestSynchronousJSONWithURLString("https://api.github.com/repos/PopcornTimeTV/PopcornTimeTV/releases") as? [[String : AnyObject]] {
     
     for info in jsonData {
         if let string = info["tag_name"] as? String {
@@ -107,7 +107,7 @@ if podsInstalled.rangeOfString("no") != nil {
 
 // Install all of the pods
 print("Updating and installing Cocoapods...")
-run("-c","rm -rf ~/.cocoapods/repos/popcornmaster")
+run("-c","rm -rf ~/.cocoapods/repos/PopcornTimeTV")
 run("-c","rm -rf Podfile.lock")
 run("-c","pod cache clean --all")
 run("-c","rm -rf ~/Library/Developer/Xcode/DerivedData/PopcornTime-*")
