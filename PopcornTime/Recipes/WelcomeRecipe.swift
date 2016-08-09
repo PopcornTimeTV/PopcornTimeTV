@@ -6,7 +6,7 @@ import PopcornKit
 public struct WelcomeRecipe: RecipeType {
 
     public let theme = DefaultTheme()
-    public let presentationType = PresentationType.DefaultWithLoadingIndicator
+    public let presentationType = PresentationType.Default
 
     let title: String
     let movies: [Movie]
