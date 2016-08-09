@@ -1,5 +1,4 @@
 #PopcornTime TV
-[![Build Status](https://travis-ci.org/PTCE/PopcornTimeTV.svg?branch=master)](https://travis-ci.org/PTCE/PopcornTimeTV)
 
 **You must build the project with Xcode 7. Swift 3 and Xcode 8 support will be available when tvOS 10 launched in the fall.**
 
@@ -23,7 +22,7 @@ swift install.swift
 ```
 Follow the instructions in the install sript to update your copy of PopcornTime. For all future updates, just run `swift install.swift` and it will walk you through the rest.
 
-Or you can find super easy [guide here](https://github.com/PopcornTime/PopcornTimeTV/wiki/Building-PopcornTime)
+Or you can find super easy [guide here](https://github.com/PopcornTimeTV/PopcornTimeTV/wiki/Building-PopcornTime)
 
 ##Screenshots
 
