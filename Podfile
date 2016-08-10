@@ -11,7 +11,7 @@ target 'PopcornTime' do
   pod 'PopcornKit', :git => 'https://github.com/PopcornTimeTV/PopcornKit.git', :tag => '1.1.0'
   pod 'AlamofireXMLRPC', :git => 'https://github.com/PopcornTimeTV/AlamofireXMLRPC.git'
   pod 'PopcornTorrent'
-  pod 'TVVLCKit-unstable', '~>3.0.0a10'
+  pod 'TVVLCKit-unstable', '3.0.0a10'
   pod 'GCDWebServer', '~> 3.3.2'
 end
 
