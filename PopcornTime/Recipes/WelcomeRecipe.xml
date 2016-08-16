@@ -1,0 +1,64 @@
+<head>
+    <style>
+        .round {
+            tv-img-treatment:corner-small;
+        }
+        .hover {
+            tv-text-highlight-style: marquee-and-show-on-highlight;
+        }
+        .overlay {
+        tv-position: top;
+        tv-align: left;
+        margin: 0 0 38;
+        
+        }
+        .text {
+            text-shadow: 2px 5px 10px #000000;
+        }
+        .img {
+        tv-placeholder:movie;
+        }
+    </style>
+</head>
+
+<stackTemplate>
+    <background>
+        <img src="http://i.cubeupload.com/DYdaxx.png"></img>
+    </background>
+    <collectionList>
+        <shelf>
+            <section>
+                <lockup actionID="showMovies">
+                    <img class="round" src="http://moviefail.com/wp-content/uploads/2014/04/divergent1.jpg" width="548" height="250"></img>
+                    <overlay>
+                        <title>Movies</title>
+                    </overlay>
+                </lockup>
+                <lockup actionID="showTVShows">
+                    <img class="round" src="{{TVSHOWS_BACKGROUND}}" width="548" height="250"></img>
+                    <overlay>
+                        <title>TV Shows</title>
+                    </overlay>
+                </lockup>
+                <lockup actionID="showGlobalWatchlist">
+                    <img class="round" src="{{WATCHLIST_BACKGROUND}}" width="548" height="250"></img>
+                    <overlay>
+                        <title>Watchlist</title>
+                    </overlay>
+                </lockup>
+                {{KAT_SEARCH}}
+                <lockup actionID="showSettings">
+                    <img class="round" src="https://github.com/PopcornTimeTV/PopcornTimeTV/blob/master/Assets/settings.lsr?raw=true" width="548" height="250"></img>
+                    <overlay>
+                        <title>Settings</title>
+                    </overlay>
+                </lockup>
+            </section>
+        </shelf>
+
+        
+        {{SHELFS}}
+    
+    </collectionList>
+    
+</stackTemplate>

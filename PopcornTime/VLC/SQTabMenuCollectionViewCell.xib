@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TabMenuCollectionViewCell" id="kr4-1H-Seo" customClass="SQTabMenuCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="72"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="300" height="72"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Off" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aID-ba-BzS">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="72"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="32"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="aID-ba-BzS" secondAttribute="bottom" id="2jK-VX-x6C"/>
+                <constraint firstItem="aID-ba-BzS" firstAttribute="top" secondItem="kr4-1H-Seo" secondAttribute="top" id="QBc-iL-7Oi"/>
+                <constraint firstItem="aID-ba-BzS" firstAttribute="leading" secondItem="kr4-1H-Seo" secondAttribute="leading" id="fBk-WY-ZnP"/>
+                <constraint firstAttribute="trailing" secondItem="aID-ba-BzS" secondAttribute="trailing" id="h6H-hN-Lxe"/>
+            </constraints>
+            <size key="customSize" width="475" height="412"/>
+            <connections>
+                <outlet property="nameLabel" destination="aID-ba-BzS" id="lNq-ic-Dx1"/>
+            </connections>
+            <point key="canvasLocation" x="743" y="432"/>
+        </collectionViewCell>
+    </objects>
+</document>
