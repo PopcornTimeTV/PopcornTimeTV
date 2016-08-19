@@ -18,7 +18,7 @@
     NSData *codedData = [[NSUserDefaults standardUserDefaults]objectForKey:@"subtitleSettings"];
     
     if (!codedData) {
-        subSetting.sizeFloat = 66.0;
+        subSetting.sizeFloat = 16.0;
         subSetting.textColor = [UIColor whiteColor];
         subSetting.fontName = @"system";
         subSetting.backgroundType = SQSubSettingBackgroundNone;
