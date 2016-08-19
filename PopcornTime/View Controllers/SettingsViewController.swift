@@ -35,7 +35,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             return 1
         }
         if section == 1 {
-            return 2
+            return 3
         }
         if section == 2 {
             return 4
@@ -75,13 +75,13 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             let settings = SQSubSetting.loadFromDisk()
             if indexPath.row == 0 {
                 cell.textLabel?.text = "Font Size"
-                if settings.sizeFloat == 46.0 {
+                if settings.sizeFloat == 20.0 {
                     cell.detailTextLabel?.text = "Small"
-                } else if settings.sizeFloat == 56.0 {
+                } else if settings.sizeFloat == 16.0 {
                     cell.detailTextLabel?.text = "Medium"
-                } else if settings.sizeFloat == 66.0 {
+                } else if settings.sizeFloat == 12.0 {
                     cell.detailTextLabel?.text = "Medium Large"
-                } else if settings.sizeFloat == 96.0 {
+                } else if settings.sizeFloat == 6.0 {
                     cell.detailTextLabel?.text = "Large"
                 }
                 cell.accessoryType = .None
@@ -105,6 +105,13 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
                 cell.accessoryType = .None
             }
+            
+            if indexPath.row == 2 {
+                cell.textLabel?.text = "Subtitle Encoding"
+                cell.detailTextLabel?.text = settings.encoding
+                cell.accessoryType = .None
+            }
+
 
         case 2:
             if indexPath.row == 0 {
@@ -188,25 +195,25 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     let alertController = UIAlertController(title: "Subtitle Font Size", message: "Choose a font size for subtitles.", preferredStyle: .Alert)
                     alertController.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
                     alertController.addAction(UIAlertAction(title: "Small (46pts)", style: .Default, handler: { action in
-                        settings.sizeFloat = 46.0
+                        settings.sizeFloat = 20.0
                         settings.writeToDisk()
                         tableView.reloadData()
                     }))
 
                     alertController.addAction(UIAlertAction(title: "Medium (56pts)", style: .Default, handler: { action in
-                        settings.sizeFloat = 56.0
+                        settings.sizeFloat = 16.0
                         settings.writeToDisk()
                         tableView.reloadData()
                     }))
 
                     alertController.addAction(UIAlertAction(title: "Medium Large (66pts)", style: .Default, handler: { action in
-                        settings.sizeFloat = 66.0
+                        settings.sizeFloat = 12.0
                         settings.writeToDisk()
                         tableView.reloadData()
                     }))
 
                     alertController.addAction(UIAlertAction(title: "Large (96pts)", style: .Default, handler: { action in
-                        settings.sizeFloat = 96.0
+                        settings.sizeFloat = 6.0
                         settings.writeToDisk()
                         tableView.reloadData()
                     }))
@@ -242,6 +249,25 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
 
                     }))
 
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                }
+                
+                if indexPath.row == 2 {
+                    let alertController = UIAlertController(title: "Subtitle Encoding", message: "Choose an encoding for the subtitles.", preferredStyle: .Alert)
+                    alertController.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+                    let path = NSBundle.mainBundle().pathForResource("encodingTypes", ofType: "plist")
+                    let labels = NSDictionary.init(contentsOfFile: path!)
+                    let titles = labels!["Titles"] as? NSArray
+                    let values = labels!["Values"] as? NSArray
+                    for title in titles! {
+                        print("Values of title ",values![(titles?.indexOfObject(title))!] as? String)
+                        alertController.addAction(UIAlertAction(title: title as? String ,style: .Default, encoding:values![(titles?.indexOfObject(title))!] as? String, handler: { action in
+                            print("encoding selected ",action.encodingArg)
+                            settings.encoding = action.encodingArg
+                            settings.writeToDisk()
+                            tableView.reloadData()
+                        }))
+                    }
                     self.presentViewController(alertController, animated: true, completion: nil)
                 }
             }

@@ -18,6 +18,8 @@
 #import "VLCIRTVTapGestureRecognizer.h"
 #import "VLCSiriRemoteGestureRecognizer.h"
 
+
+
 typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 {
     VLCPlayerScanStateNone,
@@ -283,6 +285,10 @@ static NSString *const kText = @"kText";
     
     // Media player
     _mediaplayer.media = [VLCMedia mediaWithURL:_url];
+    [[_mediaplayer media]synchronousParse];
+    
+    [[_mediaplayer media] addOptions:@{kVLCSettingTextEncoding : subSetting.encoding}];
+    [_mediaplayer performSelector:@selector(setTextRendererFontSize:) withObject:[NSNumber numberWithFloat:subSetting.sizeFloat]];
     [_mediaplayer play];
     
     NSUserDefaults *streamContinuanceDefaults = [[NSUserDefaults alloc]initWithSuiteName:@"group.com.popcorntime.PopcornTime.StreamContinuance"];
@@ -858,34 +864,6 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     
     [self playbackPositionUpdated];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #pragma mark - Change focus
 

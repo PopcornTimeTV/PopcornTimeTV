@@ -18,10 +18,11 @@
     NSData *codedData = [[NSUserDefaults standardUserDefaults]objectForKey:@"subtitleSettings"];
     
     if (!codedData) {
-        subSetting.sizeFloat = 56.0;
+        subSetting.sizeFloat = 66.0;
         subSetting.textColor = [UIColor whiteColor];
         subSetting.fontName = @"system";
         subSetting.backgroundType = SQSubSettingBackgroundNone;
+        subSetting.encoding = @"Windows-1252";
         return subSetting;
     }
     
@@ -79,6 +80,7 @@
         self.textColor = [coder decodeObjectForKey:@"textColor"];
         self.fontName  = [coder decodeObjectForKey:@"fontName"];
         self.backgroundType = [coder decodeIntegerForKey:@"backgroundType"];
+        self.encoding = [coder decodeObjectForKey:@"encoding"];
     }
     
     return self;
@@ -93,6 +95,7 @@
     [coder encodeObject:self.textColor forKey:@"textColor"];
     [coder encodeObject:self.fontName forKey:@"fontName"];
     [coder encodeInteger:self.backgroundType forKey:@"backgroundType"];
+    [coder encodeObject:self.encoding forKey:@"encoding"];
     
 }// encodeWithCoder
 
