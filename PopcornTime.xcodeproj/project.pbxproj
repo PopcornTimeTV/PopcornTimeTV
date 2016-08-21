@@ -83,6 +83,7 @@
 		92D0A7DC1CE28EF300B3279B /* WatchlistRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0A7DB1CE28EF300B3279B /* WatchlistRecipe.swift */; };
 		92DF99D11CA6FB0800D6944C /* Welcome+Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DF99D01CA6FB0800D6944C /* Welcome+Carousel.swift */; };
 		D94F191D1D12065C00245177 /* KATSearchRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = D94F191C1D12065C00245177 /* KATSearchRecipe.xml */; };
+		D99067F41D6A0775006DFDEB /* encodingTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = D99067F31D6A0775006DFDEB /* encodingTypes.plist */; };
 		D9C3D2211D4196340054BD9A /* VLCBufferingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C3D2181D4196340054BD9A /* VLCBufferingBar.m */; };
 		D9C3D2221D4196340054BD9A /* VLCFrostedGlasView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C3D21A1D4196340054BD9A /* VLCFrostedGlasView.m */; };
 		D9C3D2231D4196340054BD9A /* VLCIRTVTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C3D21C1D4196340054BD9A /* VLCIRTVTapGestureRecognizer.m */; };
@@ -234,6 +235,7 @@
 		AFEF107134131C2FAC746C22 /* Pods-TopShelf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TopShelf.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TopShelf/Pods-TopShelf.debug.xcconfig"; sourceTree = "<group>"; };
 		C900A4508BB37D7070FA6888 /* Pods_PopcornTime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopcornTime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94F191C1D12065C00245177 /* KATSearchRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = KATSearchRecipe.xml; sourceTree = "<group>"; };
+		D99067F31D6A0775006DFDEB /* encodingTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = encodingTypes.plist; sourceTree = "<group>"; };
 		D9C3D2171D4196340054BD9A /* VLCBufferingBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCBufferingBar.h; sourceTree = "<group>"; };
 		D9C3D2181D4196340054BD9A /* VLCBufferingBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCBufferingBar.m; sourceTree = "<group>"; };
 		D9C3D2191D4196340054BD9A /* VLCFrostedGlasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCFrostedGlasView.h; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 		287B85491C988AD600EEF5C8 /* Supporting FIles */ = {
 			isa = PBXGroup;
 			children = (
+				D99067F31D6A0775006DFDEB /* encodingTypes.plist */,
 				9211E3F11CDC0ADD00BEEB9D /* PopcornTime-Bridging-Header.h */,
 				287B853E1C9873A200EEF5C8 /* Assets.xcassets */,
 				287B85401C9873A200EEF5C8 /* Info.plist */,
@@ -723,6 +726,7 @@
 				925F8DEB1CA9E44C007100EB /* SearchRecipe.xml in Resources */,
 				002A55A41CEDF2FA00252C3F /* SeasonProductRecipe.js in Resources */,
 				925F8DE51CA9E44C007100EB /* CatalogRecipe.xml in Resources */,
+				D99067F41D6A0775006DFDEB /* encodingTypes.plist in Resources */,
 				925F8DED1CA9E44C007100EB /* MovieProductRecipe.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

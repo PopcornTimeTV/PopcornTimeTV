@@ -262,7 +262,6 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     for title in titles! {
                         print("Values of title ",values![(titles?.indexOfObject(title))!] as? String)
                         alertController.addAction(UIAlertAction(title: title as? String ,style: .Default, encoding:values![(titles?.indexOfObject(title))!] as? String, handler: { action in
-                            print("encoding selected ",action.encodingArg)
                             settings.encoding = action.encodingArg
                             settings.writeToDisk()
                             tableView.reloadData()
