@@ -512,7 +512,7 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
             } else {
                 WatchlistManager.sharedManager().addItemToWatchList(WatchItem(name: name, id: id, coverImage: cover, fanartImage: fanart, type: type, imdbId: imdb, tvdbId: tvdb, slugged: slugged), completion: { added in
                     if added {
-                        Kitchen.serve(recipe: AlertRecipe(title: "Added", description: "\(name) was added your favourites.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal))
+                        Kitchen.serve(recipe: AlertRecipe(title: "Added", description: "\(name) was added to your favourites.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal))
                     } else {
                         Kitchen.serve(recipe: AlertRecipe(title: "Already Added", description: "\(name) is already in your favourites.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal))
                     }
