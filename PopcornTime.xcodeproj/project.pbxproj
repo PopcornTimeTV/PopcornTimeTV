@@ -88,6 +88,7 @@
 		D9C3D2231D4196340054BD9A /* VLCIRTVTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C3D21C1D4196340054BD9A /* VLCIRTVTapGestureRecognizer.m */; };
 		D9C3D2241D4196340054BD9A /* VLCSiriRemoteGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C3D21E1D4196340054BD9A /* VLCSiriRemoteGestureRecognizer.m */; };
 		D9C3D2251D4196340054BD9A /* VLCTransportBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C3D2201D4196340054BD9A /* VLCTransportBar.m */; };
+		D9E239BB1D69F86400FF8FC7 /* UIAlertAction+Subtitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E239BA1D69F86400FF8FC7 /* UIAlertAction+Subtitles.swift */; };
 		DD32B1C21D0274D00015EB28 /* WebServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD32B1C11D0274D00015EB28 /* WebServerManager.swift */; };
 		E6295F2B1CACF96100CD45E3 /* SeasonPickerRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6295F2A1CACF96100CD45E3 /* SeasonPickerRecipe.swift */; };
 		E6295F2D1CACF9C100CD45E3 /* SeasonPickerRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = E6295F2C1CACF9C100CD45E3 /* SeasonPickerRecipe.xml */; };
@@ -243,6 +244,7 @@
 		D9C3D21E1D4196340054BD9A /* VLCSiriRemoteGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCSiriRemoteGestureRecognizer.m; sourceTree = "<group>"; };
 		D9C3D21F1D4196340054BD9A /* VLCTransportBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCTransportBar.h; sourceTree = "<group>"; };
 		D9C3D2201D4196340054BD9A /* VLCTransportBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCTransportBar.m; sourceTree = "<group>"; };
+		D9E239BA1D69F86400FF8FC7 /* UIAlertAction+Subtitles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIAlertAction+Subtitles.swift"; path = "Extensions/UIAlertAction+Subtitles.swift"; sourceTree = "<group>"; };
 		DD32B1C11D0274D00015EB28 /* WebServerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServerManager.swift; sourceTree = "<group>"; };
 		DD53E3861D01F5E400147716 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		E31248A9DC45B7AEBE724E1D /* Pods-PopcornTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.release.xcconfig"; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				92DF99D01CA6FB0800D6944C /* Welcome+Carousel.swift */,
+				D9E239BA1D69F86400FF8FC7 /* UIAlertAction+Subtitles.swift */,
 				28EB626B1CA3364300985F78 /* String+Cleaned.swift */,
 				00987D411CDB6B9C005AFB22 /* Show+Lockup.swift */,
 				00987D431CDB6CD2005AFB22 /* Movie+Lockup.swift */,
@@ -962,6 +965,7 @@
 				92D0A7DC1CE28EF300B3279B /* WatchlistRecipe.swift in Sources */,
 				92CF4A081CE6692100D666A8 /* ZKLog.m in Sources */,
 				9211E3EF1CDC0A8C00BEEB9D /* SYVLCPlayerViewController.m in Sources */,
+				D9E239BB1D69F86400FF8FC7 /* UIAlertAction+Subtitles.swift in Sources */,
 				922F6A6A1CE0E481007B1EA3 /* NSDate+Equatable.swift in Sources */,
 				00987D441CDB6CD2005AFB22 /* Movie+Lockup.swift in Sources */,
 				925F8DEA1CA9E44C007100EB /* MovieProductRecipe.swift in Sources */,
