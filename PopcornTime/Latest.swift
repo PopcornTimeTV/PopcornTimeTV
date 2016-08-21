@@ -24,7 +24,7 @@ struct Latest: TabItem {
                     // this is temporary limit until solve pagination
                     manager.fetchShows([1], sort: "updated") { shows, error in
                         if let shows = shows {
-                            let recipe = CatalogRecipe(title: "Recently Release", shows: shows.sort({ show1, show2 -> Bool in
+                            let recipe = CatalogRecipe(title: "Recently Released", shows: shows.sort({ show1, show2 -> Bool in
                                 if let date1 = show1.lastUpdated, let date2 = show2.lastUpdated {
                                     return date1 < date2
                                 }
