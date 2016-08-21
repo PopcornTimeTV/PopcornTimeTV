@@ -111,8 +111,8 @@ import AlamofireXMLRPC
     }
 
     func login(completion: (success: Bool) -> Void) {
-        AlamofireXMLRPC.request(secureBaseURL, methodName: "LogIn", parameters: ["", "", "en", userAgent]).responseXMLRPC { response in
-            guard response.result.isSuccess else {
+        AlamofireXMLRPC.request(secureBaseURL, methodName: "LogIn", parameters: ["", "", "en", userAgent]).validate().responseXMLRPC { response in
+            guard response.result.isSuccess && Int(response.result.value![0]["status"].string!.componentsSeparatedByString(" ").first!)! == 200 else {
                 print("Error is \(response.result.error!)")
                 completion(success: false)
                 return
@@ -136,8 +136,8 @@ import AlamofireXMLRPC
                 let array: XMLRPCArray = [params]
                 let limit: XMLRPCStructure = ["limit": "300"]
                 let queue = dispatch_queue_create("com.popcorn-time.response.queue", DISPATCH_QUEUE_CONCURRENT)
-                AlamofireXMLRPC.request(self.secureBaseURL, methodName: "SearchSubtitles", parameters: [self.token, array, limit], headers: ["User-Agent": self.userAgent]).response(queue: queue, responseSerializer: Request.XMLRPCResponseSerializer(), completionHandler: { response in
-                    guard response.result.isSuccess else {
+                AlamofireXMLRPC.request(self.secureBaseURL, methodName: "SearchSubtitles", parameters: [self.token, array, limit], headers: ["User-Agent": self.userAgent]).validate().response(queue: queue, responseSerializer: Request.XMLRPCResponseSerializer(), completionHandler: { response in
+                    guard response.result.isSuccess && Int(response.result.value![0]["status"].string!.componentsSeparatedByString(" ").first!)! == 200 else {
                         print("Error is \(response.result.error!)")
                         return
                     }
@@ -177,8 +177,8 @@ import AlamofireXMLRPC
                     let array: XMLRPCArray = [params]
                     let limit: XMLRPCStructure = ["limit": "300"]
                     let queue = dispatch_queue_create("com.popcorn-time.response.queue", DISPATCH_QUEUE_CONCURRENT)
-                    AlamofireXMLRPC.request(self.secureBaseURL, methodName: "SearchSubtitles", parameters: [self.token, array, limit], headers: ["User-Agent": self.userAgent]).response(queue: queue, responseSerializer: Request.XMLRPCResponseSerializer(), completionHandler: { response in
-                        guard response.result.isSuccess else {
+                    AlamofireXMLRPC.request(self.secureBaseURL, methodName: "SearchSubtitles", parameters: [self.token, array, limit], headers: ["User-Agent": self.userAgent]).validate().response(queue: queue, responseSerializer: Request.XMLRPCResponseSerializer(), completionHandler: { response in
+                        guard response.result.isSuccess && Int(response.result.value![0]["status"].string!.componentsSeparatedByString(" ").first!)! == 200 else {
                             print("Error is \(response.result.error!)")
                             return
                         }
