@@ -5,15 +5,15 @@ import PopcornKit
 
 struct Latest: TabItem {
 
-    let title = "Latest"
+    let title = "Recently Released"
     var fetchType: FetchType! = .Movies
 
     func handler() {
         switch self.fetchType! {
         case .Movies:
-            NetworkManager.sharedManager().fetchMovies(limit: 50, page: 1, quality: "1080p", minimumRating: 0, queryTerm: nil, genre: nil, sortBy: "date_added", orderBy: "desc") { movies, error in
+            NetworkManager.sharedManager().fetchMovies(limit: 50, page: 1, quality: "1080p", minimumRating: 0, queryTerm: nil, genre: nil, sortBy: "year", orderBy: "desc") { movies, error in
                 if let movies = movies {
-                    let recipe = CatalogRecipe(title: "Latest Movies", movies: movies)
+                    let recipe = CatalogRecipe(title: "Recently Released", movies: movies)
                     self.serveRecipe(recipe)
                 }
             }
@@ -24,7 +24,7 @@ struct Latest: TabItem {
                     // this is temporary limit until solve pagination
                     manager.fetchShows([1], sort: "updated") { shows, error in
                         if let shows = shows {
-                            let recipe = CatalogRecipe(title: "Recently Updated", shows: shows.sort({ show1, show2 -> Bool in
+                            let recipe = CatalogRecipe(title: "Recently Release", shows: shows.sort({ show1, show2 -> Bool in
                                 if let date1 = show1.lastUpdated, let date2 = show2.lastUpdated {
                                     return date1 < date2
                                 }

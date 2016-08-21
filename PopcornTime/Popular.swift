@@ -10,14 +10,14 @@ enum FetchType {
 
 struct Popular: TabItem {
 
-    var title = "Popular"
+    var title = "Top Movies"
 
     var fetchType: FetchType! = .Movies {
         didSet {
             if let _ = self.fetchType {
                 switch self.fetchType! {
-                case .Movies: title = "Popular"
-                case .Shows: title = "Popular"
+                case .Movies: title = "Top Movies"
+                case .Shows: title = "Top Shows"
 
                 }
             }
@@ -29,7 +29,7 @@ struct Popular: TabItem {
         case .Movies:
             NetworkManager.sharedManager().fetchMovies(limit: 50, page: 1, quality: "1080p", minimumRating: 3, queryTerm: nil, genre: nil, sortBy: "seeds", orderBy: "desc") { movies, error in
                 if let movies = movies {
-                    let recipe = CatalogRecipe(title: "Popular Movies", movies: movies)
+                    let recipe = CatalogRecipe(title: "Top Movies", movies: movies)
                     recipe.minimumRating = 3
                     recipe.sortBy = "seeds"
                     self.serveRecipe(recipe)
@@ -43,7 +43,7 @@ struct Popular: TabItem {
                     // this is temporary limit until solve pagination
                     manager.fetchShows([1], sort: "trending") { shows, error in
                         if let shows = shows {
-                            let recipe = CatalogRecipe(title: "Popular", shows: shows.sort({ show1, show2 -> Bool in
+                            let recipe = CatalogRecipe(title: "Top Shows", shows: shows.sort({ show1, show2 -> Bool in
                                 if let date1 = show1.lastUpdated, let date2 = show2.lastUpdated {
                                     return date1 < date2
                                 }

@@ -10,7 +10,7 @@ public class CatalogRecipe: RecipeType {
     public var genre = ""
 
     public let theme = DefaultTheme()
-    public var presentationType = PresentationType.Tab
+    public var presentationType = PresentationType.Default
     var fetchType: FetchType! = .Movies
 
     let title: String
