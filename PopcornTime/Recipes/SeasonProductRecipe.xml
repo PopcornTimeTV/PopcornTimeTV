@@ -27,7 +27,7 @@
 </head>
 <productBundleTemplate>
     <background>
-        <!--<img class="imgGradient" src="{{FANART_IMAGE}}" style="tv-tint-color: linear-gradient(top, 0.33, transparent, 0.66, rgba(000,000,000,0.7), rgba(000,000,000,1.0));" />-->
+        <img class="imgGradient" src="{{FANART_IMAGE}}" style="tv-tint-color: linear-gradient(top, 0.33, transparent, 0.66, rgba(000,000,000,0.7), rgba(000,000,000,1.0));" />
     </background>
     <banner>
         <stack>
@@ -47,8 +47,6 @@
                 {{WATCH_LIST_BUTTON}}
             </row>
         </stack>
-        
-        <heroImg src="{{IMAGE}}" />
         
     </banner>
     

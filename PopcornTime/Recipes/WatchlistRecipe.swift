@@ -65,8 +65,8 @@ public struct WatchlistRecipe: RecipeType {
 
     public var template: String {
         var shelfs = ""
-        shelfs += self.buildShelf("Movies Watchlist", content: moviesWatchList)
-        shelfs += self.buildShelf("TV Shows Watchlist", content: showsWatchList)
+        shelfs += self.buildShelf("Movies Favourites", content: moviesWatchList)
+        shelfs += self.buildShelf("TV Shows Favourites", content: showsWatchList)
 
         var xml = ""
         if let file = NSBundle.mainBundle().URLForResource("WatchlistRecipe", withExtension: "xml") {

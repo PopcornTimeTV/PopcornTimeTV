@@ -26,8 +26,8 @@ public struct ShowWatchlistRecipe: RecipeType {
 
     public var movieString: String {
         let mapped: [String] = items.map {
+            
             var string = "<lockup actionID=\"showShow»\($0.id)»\($0.slugged)»\($0.tvdbId)\">"
-
             string += "<img src=\"\($0.coverImage)\" width=\"250\" height=\"375\" />"
             string += "<title class=\"hover\">\($0.name.cleaned)</title>"
             string += "</lockup>"

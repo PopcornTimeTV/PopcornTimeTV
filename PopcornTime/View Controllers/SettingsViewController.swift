@@ -121,16 +121,6 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             }
 
             if indexPath.row == 1 {
-                cell.textLabel?.text = "Kick Ass Search"
-                if let katSearch = NSUserDefaults.standardUserDefaults().objectForKey("KATSearch") as? Bool {
-                    cell.detailTextLabel?.text = katSearch.boolValue ? "Yes" : "No"
-                } else {
-                    cell.detailTextLabel?.text = "No"
-                }
-                cell.accessoryType = .None
-            }
-
-            if indexPath.row == 2 {
                 cell.textLabel?.text = "Start web server"
                 if let startWebServer = NSUserDefaults.standardUserDefaults().objectForKey("StartWebServer") as? Bool {
                     cell.detailTextLabel?.text = startWebServer.boolValue ? "Yes" : "No"
@@ -140,12 +130,23 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 cell.accessoryType = .None
             }
 
-            if indexPath.row == 3 {
+            if indexPath.row == 2 {
                 cell.textLabel?.text = "Version"
                 cell.detailTextLabel?.text = "\(version) (\(build))"
                 cell.accessoryType = .None
             }
 
+            /*
+             if indexPath.row == 3 {
+             cell.textLabel?.text = "Kick Ass Search"
+             if let katSearch = NSUserDefaults.standardUserDefaults().objectForKey("KATSearch") as? Bool {
+             cell.detailTextLabel?.text = katSearch.boolValue ? "Yes" : "No"
+             } else {
+             cell.detailTextLabel?.text = "No"
+             }
+             cell.accessoryType = .None
+             }
+             */
         default: break
         }
 

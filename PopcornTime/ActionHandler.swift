@@ -51,7 +51,7 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
             let watchlist = WatchlistManager.sharedManager()
             watchlist.fetchWatchListItems(forType: .Movie) { watchListMovies in
                 watchlist.fetchWatchListItems(forType: .Show) { watchListShows in
-                    Kitchen.serve(recipe: WatchlistRecipe(title: "Watchlist", watchListMovies: watchListMovies, watchListShows: watchListShows))
+                    Kitchen.serve(recipe: WatchlistRecipe(title: "Favourites", watchListMovies: watchListMovies, watchListShows: watchListShows))
                 }
             }
 
@@ -504,17 +504,17 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
             if exists {
                 WatchlistManager.sharedManager().removeItemFromWatchList(WatchItem(name: name, id: id, coverImage: cover, fanartImage: fanart, type: type, imdbId: imdb, tvdbId: tvdb, slugged: slugged), completion: { removed in
                     if removed {
-                        Kitchen.serve(recipe: AlertRecipe(title: "Removed", description: "\(name) was removed from your watchlist.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal))
+                        Kitchen.serve(recipe: AlertRecipe(title: "Removed", description: "\(name) was removed from your favourites.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal))
                     } else {
-                        Kitchen.serve(recipe: AlertRecipe(title: "Not Found", description: "\(name) is not found in your watchlist.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal))
+                        Kitchen.serve(recipe: AlertRecipe(title: "Not Found", description: "\(name) is not found in your favourites.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal))
                     }
                 })
             } else {
                 WatchlistManager.sharedManager().addItemToWatchList(WatchItem(name: name, id: id, coverImage: cover, fanartImage: fanart, type: type, imdbId: imdb, tvdbId: tvdb, slugged: slugged), completion: { added in
                     if added {
-                        Kitchen.serve(recipe: AlertRecipe(title: "Added", description: "\(name) was added your watchlist.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal))
+                        Kitchen.serve(recipe: AlertRecipe(title: "Added", description: "\(name) was added your favourites.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal))
                     } else {
-                        Kitchen.serve(recipe: AlertRecipe(title: "Already Added", description: "\(name) is already in your watchlist.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal))
+                        Kitchen.serve(recipe: AlertRecipe(title: "Already Added", description: "\(name) is already in your favourites.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal))
                     }
                 })
             }

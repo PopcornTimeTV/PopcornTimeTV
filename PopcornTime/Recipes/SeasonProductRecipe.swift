@@ -133,7 +133,7 @@ public struct SeasonProductRecipe: RecipeType {
     var watchlistButton: String {
         var string = "<buttonLockup actionID=\"addWatchlist»\(show.id)»\(show.title)»show»\(show.posterImage)»\(show.fanartImage)»\(show.imdbId)»\(show.tvdbId)»\(show.title.slugged)\">\n"
         string += "<badge src=\"resource://button-{{WATCHLIST_ACTION}}\" />\n"
-        string += "<title>Watchlist</title>\n"
+        string += "<title>Favourites</title>\n"
         string += "</buttonLockup>"
         return string
     }
@@ -152,13 +152,13 @@ public struct SeasonProductRecipe: RecipeType {
     }
 
     var seasonsButtonTitle: String {
-        return "\(seasonInfo.first) to \(seasonInfo.last)"
+        return "<badge src=\"http://i.cubeupload.com/trh7eQ.png\" width=\"50px\" height=\"37px\"></badge>"
     }
 
     var seasonsButton: String {
         var string = "<buttonLockup actionID=\"showSeasons»\(show.id)»\(show.title.slugged)»\(show.tvdbId)\">"
-        string += "<text>\(seasonsButtonTitle)</text>"
-        string += "<title>Seasons</title>"
+        string += "\(seasonsButtonTitle)"
+        string += "<title>Series</title>"
         string += "</buttonLockup>"
         return string
     }
