@@ -38,7 +38,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             return 3
         }
         if section == 2 {
-            return 4
+            return 3
         }
         return 0
     }
@@ -129,27 +129,15 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
                 cell.accessoryType = .None
             }
-
+            
             if indexPath.row == 2 {
                 cell.textLabel?.text = "Version"
                 cell.detailTextLabel?.text = "\(version) (\(build))"
                 cell.accessoryType = .None
             }
-
-            /*
-             if indexPath.row == 3 {
-             cell.textLabel?.text = "Kick Ass Search"
-             if let katSearch = NSUserDefaults.standardUserDefaults().objectForKey("KATSearch") as? Bool {
-             cell.detailTextLabel?.text = katSearch.boolValue ? "Yes" : "No"
-             } else {
-             cell.detailTextLabel?.text = "No"
-             }
-             cell.accessoryType = .None
-             }
-             */
+            
         default: break
         }
-
         return cell
     }
 
@@ -276,15 +264,17 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             if indexPath.row == 0 {
                 // TV Shows Theme
                 let alertController = UIAlertController(title: "Clear Cache", message: "Clearing the cache will delete any unused images, incomplete torrent downloads and subtitles.", preferredStyle: .Alert)
-                alertController.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
                 alertController.addAction(UIAlertAction(title: "Clear Cache", style: .Destructive, handler: { action in
                     self.clearCache()
+                    alertController.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
                 }))
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+
 
                 self.presentViewController(alertController, animated: true, completion: nil)
             }
 
-            if indexPath.row == 1 {
+            /*if indexPath.row == 1 {
                 let alertController = UIAlertController(title: "Kick Ass Torrent Search", message: "Activate Kick Ass torrent search that allows you search movies & tv shows from \"kat.cr\". You must restart application to apply this setting.", preferredStyle: .Alert)
                 alertController.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { action in
                     NSUserDefaults.standardUserDefaults().setBool(true, forKey: "KATSearch")
@@ -295,9 +285,9 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     tableView.reloadData()
                 }))
                 self.presentViewController(alertController, animated: true, completion: nil)
-            }
+            }*/
 
-            if indexPath.row == 2 {
+            if indexPath.row == 1 {
                 var ip = WebServerManager.sharedManager().getWiFiAddress()
                 if ip == nil {
                     ip = WebServerManager.sharedManager().getLANAddress()
@@ -316,7 +306,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.presentViewController(alertController, animated: true, completion: nil)
             }
 
-            if indexPath.row == 3 {
+            if indexPath.row == 2 {
                 UpdateManager.sharedManager().checkForUpdates(forVersion: version) { (updateAvailable, name, releaseNotes, error) in
                     if updateAvailable {
                         let alertController = UIAlertController(title: "Update Available", message: "A new version of PopcornTime is available.\n\(name!)\n\n\(releaseNotes!)\n\nVisit https://github.com/PopcornTimeTV/PopcornTimeTV to update.", preferredStyle: .Alert)
