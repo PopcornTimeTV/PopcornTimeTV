@@ -447,10 +447,10 @@ static NSString *const kText = @"kText";
         bar.playbackFraction = bar.scrubbingFraction;
         [self stopScrubbing];
         [_mediaplayer setPosition:bar.scrubbingFraction];
-    } else if(_mediaplayer.playing) {
+    } else if(_mediaplayer.playing && ![self isTopMenuOnScreen]) {
         [_mediaplayer pause];
         selectActivated=YES;
-    }else if(!_mediaplayer.playing){
+    }else if(!_mediaplayer.playing && ![self isTopMenuOnScreen]){
         [self playandPause:nil];
     }
 }
@@ -498,7 +498,7 @@ static NSString *const kText = @"kText";
     BOOL paused = !_mediaplayer.isPlaying;
     if (paused) {
         [self jumpBackward];
-    } else
+    } else if(![self isTopMenuOnScreen])
     {
         [self scanForwardPrevious];
     }
@@ -515,7 +515,7 @@ static NSString *const kText = @"kText";
     BOOL paused = !_mediaplayer.isPlaying;
     if (paused) {
         [self jumpForward];
-    } else {
+    } else if(![self isTopMenuOnScreen]){
         [self scanForwardNext];
     }
 }
