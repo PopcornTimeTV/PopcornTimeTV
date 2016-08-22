@@ -462,16 +462,15 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
 
         Kitchen.dismissModal()
         let magnet = "magnet:?xt=urn:btih:\(pieces[1])&tr=" + Trackers.map { $0 }.joinWithSeparator("&tr=")
-
+        
         let info: [String : AnyObject] = [
-            "magnet" : magnet,
+            "magnet" : pieces[1].containsString("https://") ? pieces[1] : magnet,
             "imdbId" : pieces[6],
             "imageAddress" : pieces[2],
             "backgroundImageAddress" : pieces[3],
             "movieName" : pieces[4],
             "shortDescription" : pieces[5]
         ]
-
 //        if pieces.indices.count > 7 {
 //            info["episodeName"] = pieces[7]
 //            info["episodeNumber"] = Int(pieces[8])!

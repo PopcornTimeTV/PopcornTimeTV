@@ -18,8 +18,6 @@
 #import "VLCIRTVTapGestureRecognizer.h"
 #import "VLCSiriRemoteGestureRecognizer.h"
 
-
-
 typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 {
     VLCPlayerScanStateNone,
@@ -129,11 +127,43 @@ static NSString *const kText = @"kText";
     
 }// initWithURL:
 
+-(NSString*) downloadTorrent:(NSString*) torrent{
+    // 1
+    NSURL *url = [NSURL URLWithString:torrent];
+    
+    // 2
+    NSURL* downloadPath = [[NSFileManager defaultManager] URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask].lastObject;
+    BOOL isDir=true;
+    NSError* err;
+    if(![[NSFileManager defaultManager]fileExistsAtPath:[downloadPath URLByAppendingPathComponent:@"Downloads"].relativePath isDirectory:&isDir]){
+        [[NSFileManager defaultManager] createDirectoryAtPath:[downloadPath URLByAppendingPathComponent:@"Downloads"].relativePath withIntermediateDirectories:YES attributes:nil error:&err];
+        if(err!=nil)NSLog(@"error while creating folder %@",err.description);
+        return nil;
+    }
+    dispatch_semaphore_t sem = dispatch_semaphore_create(0);
+    downloadPath = [downloadPath URLByAppendingPathComponent:@"Downloads"];
+    downloadPath = [downloadPath URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.torrent",[_videoInfo[@"movieName"] stringByReplacingOccurrencesOfString:@" " withString:@""]]];
+    downloadPath = [NSURL fileURLWithPath:[[NSString stringWithString:downloadPath.relativePath] stringByReplacingOccurrencesOfString:@":" withString:@""]];
+    if([[NSFileManager defaultManager]fileExistsAtPath:downloadPath.relativePath])return [downloadPath relativePath];
+    NSURLSessionDownloadTask *downloadTask = [[NSURLSession sharedSession]
+                                          downloadTaskWithURL:url completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                                              NSError *erro;
+                                              [[NSFileManager defaultManager] moveItemAtURL:location toURL:downloadPath error:&erro];
+                                              dispatch_semaphore_signal(sem);
+                                          }];
+    
+    // 3
+    [downloadTask resume];
+    dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+    
+    return [downloadPath relativePath];
+}
 
 - (void)beginStreamingTorrent {
     // lets not get a retain cycle going
     __weak __typeof__(self) weakSelf = self;
     selectActivated=NO;
+    if([_magnet containsString:@"https://"])_magnet=[self downloadTorrent:_magnet];
     [[PTTorrentStreamer sharedStreamer] startStreamingFromFileOrMagnetLink:_magnet progress:^(PTTorrentStatus status) {
         
         // Percentage
