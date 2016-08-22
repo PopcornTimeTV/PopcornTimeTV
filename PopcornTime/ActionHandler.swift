@@ -504,18 +504,21 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
             if exists {
                 WatchlistManager.sharedManager().removeItemFromWatchList(WatchItem(name: name, id: id, coverImage: cover, fanartImage: fanart, type: type, imdbId: imdb, tvdbId: tvdb, slugged: slugged), completion: { removed in
                     if removed {
-                        Kitchen.serve(recipe: AlertRecipe(title: "Removed", description: "\(name) was removed from your favourites.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal))
-                    } else {
-                        Kitchen.serve(recipe: AlertRecipe(title: "Not Found", description: "\(name) is not found in your favourites.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal))
+                        print(Kitchen.appController.window?.subviews)
+                        Kitchen.appController.evaluateInJavaScriptContext({ (context) in
+                            let updateButton = context.objectForKeyedSubscript("updateWatchlistButton")//execute this in order to update the favorite button, runs the function in JS
+                            updateButton.callWithArguments([])
+                            }, completion: { (evaluate) in
+                        })
                     }
                 })
             } else {
                 WatchlistManager.sharedManager().addItemToWatchList(WatchItem(name: name, id: id, coverImage: cover, fanartImage: fanart, type: type, imdbId: imdb, tvdbId: tvdb, slugged: slugged), completion: { added in
-                    if added {
-                        Kitchen.serve(recipe: AlertRecipe(title: "Added", description: "\(name) was added to your favourites.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal))
-                    } else {
-                        Kitchen.serve(recipe: AlertRecipe(title: "Already Added", description: "\(name) is already in your favourites.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal))
-                    }
+                        Kitchen.appController.evaluateInJavaScriptContext({ (context) in
+                            let updateButton = context.objectForKeyedSubscript("updateWatchlistButton")//execute this in order to update the favorite button, runs the function in JS
+                            updateButton.callWithArguments([])
+                            }, completion: { (evaluate) in
+                        })
                 })
             }
 
