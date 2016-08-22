@@ -112,13 +112,34 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
     }
 
     static func showMovie(pieces: [String]) {
+        var presentedDetails = false
         NetworkManager.sharedManager().showDetailsForMovie(movieId: Int(pieces.last!)!, withImages: false, withCast: true) { movie, error in
             if let movie = movie {
                 NetworkManager.sharedManager().suggestionsForMovie(movieId: Int(pieces.last!)!, completion: { movies, error in
                     if let movies = movies {
                         WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.id), forType: .Movie, completion: { exists in
-                            let product = MovieProductRecipe(movie: movie, suggestions: movies, existsInWatchList: exists)
-                            Kitchen.serve(recipe: product)
+                            if !presentedDetails {
+                                WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.id), forType: .Movie, completion: { exists in
+                                    let recipe = MovieProductRecipe(movie: movie, suggestions: movies, existsInWatchList: exists)
+                                    Kitchen.appController.evaluateInJavaScriptContext({jsContext in
+                                        let disableThemeSong: @convention(block) String -> Void = { message in
+                                            AudioManager.sharedManager().stopTheme()
+                                        }
+                                        jsContext.setObject(unsafeBitCast(disableThemeSong, AnyObject.self),
+                                            forKeyedSubscript: "disableThemeSong")
+                                        if let file = NSBundle.mainBundle().URLForResource("MovieProductRecipe", withExtension: "js") {
+                                            do {
+                                                var js = try String(contentsOfURL: file)
+                                                js = js.stringByReplacingOccurrencesOfString("{{RECIPE}}", withString: recipe.xmlString)
+                                                jsContext.evaluateScript(js)
+                                            } catch {
+                                                print("Could not open MovieProductRecipe.js")
+                                            }
+                                        }
+                                        }, completion: nil)
+                                    presentedDetails = true
+                                })
+                            }
                         })
                     } else if let _ = error {
 
@@ -504,7 +525,6 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
             if exists {
                 WatchlistManager.sharedManager().removeItemFromWatchList(WatchItem(name: name, id: id, coverImage: cover, fanartImage: fanart, type: type, imdbId: imdb, tvdbId: tvdb, slugged: slugged), completion: { removed in
                     if removed {
-                        print(Kitchen.appController.window?.subviews)
                         Kitchen.appController.evaluateInJavaScriptContext({ (context) in
                             let updateButton = context.objectForKeyedSubscript("updateWatchlistButton")//execute this in order to update the favorite button, runs the function in JS
                             updateButton.callWithArguments([])
