@@ -26,6 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 WebServerManager.sharedManager().startServer(8181)
             }
         }
+        
+        if NSUserDefaults.standardUserDefaults().objectForKey("TVShowVolume") == nil{
+            NSUserDefaults.standardUserDefaults().setInteger(0, forKey:"TVShowVolume")
+        }
 
         let manager = NetworkManager.sharedManager()
         manager.fetchServers { servers, error in
