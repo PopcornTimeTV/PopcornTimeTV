@@ -17,6 +17,7 @@
 #import "UIImageView+Network.h"
 #import "VLCIRTVTapGestureRecognizer.h"
 #import "VLCSiriRemoteGestureRecognizer.h"
+#import <MediaAccessibility/MediaAccessibility.h>
 
 typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 {
@@ -137,8 +138,10 @@ static NSString *const kText = @"kText";
     NSError* err;
     if(![[NSFileManager defaultManager]fileExistsAtPath:[downloadPath URLByAppendingPathComponent:@"Downloads"].relativePath isDirectory:&isDir]){
         [[NSFileManager defaultManager] createDirectoryAtPath:[downloadPath URLByAppendingPathComponent:@"Downloads"].relativePath withIntermediateDirectories:YES attributes:nil error:&err];
-        if(err!=nil)NSLog(@"error while creating folder %@",err.description);
-        return nil;
+        if(err!=nil){
+            NSLog(@"error while creating folder %@",err.description);
+            return nil;
+        }
     }
     dispatch_semaphore_t sem = dispatch_semaphore_create(0);
     downloadPath = [downloadPath URLByAppendingPathComponent:@"Downloads"];
@@ -149,6 +152,7 @@ static NSString *const kText = @"kText";
                                           downloadTaskWithURL:url completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                                               NSError *erro;
                                               [[NSFileManager defaultManager] moveItemAtURL:location toURL:downloadPath error:&erro];
+                                              if(erro!=nil)NSLog(@"error while moving file%@",erro.description);
                                               dispatch_semaphore_signal(sem);
                                           }];
     
@@ -1516,21 +1520,33 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 
 - (void) restoreSub
 {
+    CFArrayRef subarray =  MACaptionAppearanceCopySelectedLanguages(kMACaptionAppearanceDomainDefault);
     NSString *currentSubs = [[NSUserDefaults standardUserDefaults] valueForKey:@"currentSubs"];
-    if (!currentSubs || [currentSubs isEqual:@"off"]) {
+    if ((!currentSubs || [currentSubs isEqual:@"off"]) && CFArrayGetCount(subarray)<=0) {
         return;
     }
     
+    NSLocale *locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
+    NSString* subname = [locale displayNameForKey:NSLocaleIdentifier value:CFArrayGetValueAtIndex(subarray, 0)].lowercaseString;
     for (Subtitle *sub in _subsTracks) {
         
         NSString *name = [[sub language] lowercaseString];
-        
-        if ([name isEqual:currentSubs]) {
-            NSUInteger row = [_subsTracks indexOfObject:sub];
-            _lastIndexPathSubtitle = [NSIndexPath indexPathForRow:row inSection:0];
-            [self newSubSelected];
-            return;
+        if (currentSubs==nil){
+            if ([name isEqual:subname]) {
+                NSUInteger row = [_subsTracks indexOfObject:sub];
+                _lastIndexPathSubtitle = [NSIndexPath indexPathForRow:row inSection:0];
+                [self newSubSelected];
+                return;
+            }
+        }else{
+            if ([name isEqual:currentSubs]) {
+                NSUInteger row = [_subsTracks indexOfObject:sub];
+                _lastIndexPathSubtitle = [NSIndexPath indexPathForRow:row inSection:0];
+                [self newSubSelected];
+                return;
+            }
         }
+            
     }
     
 }
