@@ -16,7 +16,7 @@ Setting up PopcornTime is quite easy.
 
 ```
 cd ~/Desktop
-git clone https://github.com/PopcornTime/PopcornTimeTV.git
+git clone https://github.com/PopcornTimeTV/PopcornTimeTV.git
 cd ~/Desktop/PopcornTimeTV
 swift install.swift
 ```
