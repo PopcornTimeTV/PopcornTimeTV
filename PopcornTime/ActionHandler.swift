@@ -113,6 +113,48 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
 
     static func showMovie(pieces: [String]) {
         var presentedDetails = false
+        if (pieces.last?.containsString("tt") == true){
+            NetworkManager.sharedManager().fetchMovies(limit: 1, page: 1, quality: nil, minimumRating: 0, queryTerm: pieces.last!, genre: nil, sortBy: "desc", orderBy: "seeds", completion: { movies,error in
+                for movie in movies!{
+                    NetworkManager.sharedManager().showDetailsForMovie(movieId: movie.id, withImages: false, withCast: true) { movie, error in
+                        if let movie = movie {
+                            NetworkManager.sharedManager().suggestionsForMovie(movieId: movie.id, completion: { movies, error in
+                                if let movies = movies {
+                                    WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.id), forType: .Movie, completion: { exists in
+                                        if !presentedDetails {
+                                            WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.id), forType: .Movie, completion: { exists in
+                                                let recipe = MovieProductRecipe(movie: movie, suggestions: movies, existsInWatchList: exists)
+                                                Kitchen.appController.evaluateInJavaScriptContext({jsContext in
+                                                    let disableThemeSong: @convention(block) String -> Void = { message in
+                                                        AudioManager.sharedManager().stopTheme()
+                                                    }
+                                                    jsContext.setObject(unsafeBitCast(disableThemeSong, AnyObject.self),
+                                                        forKeyedSubscript: "disableThemeSong")
+                                                    if let file = NSBundle.mainBundle().URLForResource("MovieProductRecipe", withExtension: "js") {
+                                                        do {
+                                                            var js = try String(contentsOfURL: file)
+                                                            js = js.stringByReplacingOccurrencesOfString("{{RECIPE}}", withString: recipe.xmlString)
+                                                            jsContext.evaluateScript(js)
+                                                        } catch {
+                                                            print("Could not open MovieProductRecipe.js")
+                                                        }
+                                                    }
+                                                    }, completion: nil)
+                                                presentedDetails = true
+                                            })
+                                        }
+                                    })
+                                } else if let _ = error {
+                                    
+                                }
+                            })
+                        } else if let _ = error {
+                            
+                        }
+                    }
+                }
+            })
+        }else{
         NetworkManager.sharedManager().showDetailsForMovie(movieId: Int(pieces.last!)!, withImages: false, withCast: true) { movie, error in
             if let movie = movie {
                 NetworkManager.sharedManager().suggestionsForMovie(movieId: Int(pieces.last!)!, completion: { movies, error in
@@ -148,6 +190,7 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
             } else if let _ = error {
 
             }
+        }
         }
     }
 

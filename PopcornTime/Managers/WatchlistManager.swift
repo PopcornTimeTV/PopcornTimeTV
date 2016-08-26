@@ -1,6 +1,8 @@
 
 
 import Foundation
+import PopcornKit
+import ObjectMapper
 
 public enum ItemType: String {
     case Movie = "movie"
@@ -16,9 +18,9 @@ public struct WatchItem {
     var tvdbId: String!
     var type: ItemType!
     var slugged: String!
-
+    
     var dictionaryRepresentation = [String : AnyObject]()
-
+    
     init(name: String, id: String, coverImage: String, fanartImage: String, type: String, imdbId: String, tvdbId: String, slugged: String) {
         self.name = name
         self.id = id
@@ -77,6 +79,8 @@ public struct WatchItem {
 }
 
 public class WatchlistManager {
+    
+    let trakt = TraktTVAPI()
 
     class func sharedManager() -> WatchlistManager {
         struct Struct {
@@ -126,7 +130,6 @@ public class WatchlistManager {
             }
         }
     }
-
     func fetchWatchListItems(forType type: ItemType, completion: (([WatchItem]) -> Void)?) {
         self.readJSONFile { json in
             if let json = json {
@@ -138,7 +141,22 @@ public class WatchlistManager {
                         }
                     }
                 }
-                completion?(parsedItems)
+                self.trakt.getWatched(forType: type == .Movie ? .Movies : .Shows) { results in
+                    
+                    for result in results{
+                        if(type == .Movie){
+                            let movie = result as! Movie
+                            parsedItems.append(WatchItem(name: movie.title, id: movie.imdbId, coverImage: movie.mediumCoverImage, fanartImage: movie.smallCoverImage, type: "movie", imdbId: movie.imdbId, tvdbId: "", slugged: movie.slug))
+                        }else{
+                            let show = result as! Show
+                            parsedItems.append(WatchItem(name: show.title, id: show.id, coverImage: show.posterImage, fanartImage: show.fanartImage, type: "show", imdbId: "", tvdbId: String(show.tvdbId), slugged: show.slug))
+                        }
+                    }
+
+                    completion?(parsedItems)
+                    
+                }
+                
             } else {
                 completion?([])
             }

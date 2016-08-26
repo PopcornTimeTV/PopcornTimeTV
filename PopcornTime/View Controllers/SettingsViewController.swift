@@ -4,8 +4,10 @@ import UIKit
 import PopcornKit
 import TVMLKitchen
 
-class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,TraktTVAPIViewDelegate {
+    let trakt = TraktTVAPI()
+    let manager = NetworkManager.sharedManager()
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var settingsIcon: UIImageView!
 
@@ -27,7 +29,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: Table View
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -40,6 +42,9 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         if section == 2 {
             return 3
         }
+        if section == 3 {
+            return 1
+        }
         return 0
     }
 
@@ -48,6 +53,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         case 0: return "TV Shows"
         case 1: return "Player"
         case 2: return "Other"
+        case 3: return "Trakt"
         default: return nil
         }
     }
@@ -135,7 +141,17 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 cell.detailTextLabel?.text = "\(version) (\(build))"
                 cell.accessoryType = .None
             }
-            
+        case 3:
+            if indexPath.row == 0 {
+                cell.textLabel?.text = "Sign into Trakt"
+                cell.detailTextLabel?.text = ""
+                if trakt.userLoaded() {
+                    cell.textLabel?.text = "Signout from Trakt"
+                    cell.detailTextLabel?.text = trakt.user
+                }
+                cell.accessoryType = .None
+            }
+    
         default: break
         }
         return cell
@@ -319,6 +335,18 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     }
                 }
             }
+        case 3:
+            if indexPath.row == 0{
+                if trakt.userLoaded(){
+                    trakt.clearToken()
+                    self.tableView.reloadData()
+                }else{
+                    if let vc: UIViewController = trakt.authenticateUser(self){
+                        self.presentViewController(vc, animated:true, completion:nil)
+                    }
+                }
+                
+            }
         default: break
         }
     }
@@ -363,5 +391,16 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
     }
-
+    
+    func TraktDidCancel(controller: UIViewController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func TraktDidAuthenticate(controller: UIViewController) {
+        self.tableView.reloadData()
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 }
+
+
