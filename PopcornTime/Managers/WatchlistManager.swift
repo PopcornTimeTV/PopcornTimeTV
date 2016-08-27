@@ -95,7 +95,7 @@ public class WatchlistManager {
     // MARK: Public parts
     
     func addItemToWatchList(item: WatchItem, completion: ((added: Bool) -> Void)?) {
-        self.itemExistsInWatchList(itemId: item.id, forType: item.type) { exists in
+        self.itemExistsInWatchList(itemId: item.imdbId, forType: item.type) { exists in
             if exists || TraktTVAPI.sharedManager().isFavourited(item.imdbId){
                 completion?(added: false)
             } else {
@@ -104,10 +104,10 @@ public class WatchlistManager {
                         if TraktTVAPI.sharedManager().userLoaded(){
                             TraktTVAPI.sharedManager().getTraktMetadata(withName: item.slugged,type: item.type == .Movie ? .  Movies : .Shows) { traktID in
                                 if traktID != nil {
-                                    TraktTVAPI.sharedManager().addToWatchlist(withType: item.type == .Movie ? .  Movies : .Shows, itemID: traktID!){ result in
+                                    TraktTVAPI.sharedManager().addToWatchlist(withType: item.type == .Movie ? .  Movies : .Shows, itemID: traktID!,completion: { result in
                                         completion?(added: result)
                                         return
-                                    }
+                                        },imdbID: item.imdbId)
                                 }else{
                                     completion?(added: false)
                                     return
@@ -132,10 +132,10 @@ public class WatchlistManager {
         if TraktTVAPI.sharedManager().userLoaded(){
             TraktTVAPI.sharedManager().getTraktMetadata(withName: item.slugged,type: item.type == .Movie ? .  Movies : .Shows) { traktID in
                 if traktID != nil {
-                    TraktTVAPI.sharedManager().addToWatchlist(withType: item.type == .Movie ? .  Movies : .Shows, itemID: traktID!){ result in
+                    TraktTVAPI.sharedManager().addToWatchlist(withType: item.type == .Movie ? .  Movies : .Shows, itemID: traktID!,completion: { result in
                         completion?(added: result)
                         return
-                    }
+                    },imdbID: item.imdbId)
                 }else{
                     completion?(added: false)
                     return

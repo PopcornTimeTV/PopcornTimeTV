@@ -122,7 +122,7 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
                                 if let movies = movies {
                                     WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.id), forType: .Movie, completion: { exists in
                                         if !presentedDetails {
-                                            WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.id), forType: .Movie, completion: { exists in
+                                            WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.imdbId), forType: .Movie, completion: { exists in
                                                 let recipe = MovieProductRecipe(movie: movie, suggestions: movies, existsInWatchList: exists)
                                                 Kitchen.appController.evaluateInJavaScriptContext({jsContext in
                                                     let disableThemeSong: @convention(block) String -> Void = { message in
@@ -553,6 +553,8 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
         var imdb = ""
         if pieces.indices.contains(6) {
             imdb = pieces[6]
+        }else{
+            imdb = id
         }
         var tvdb = ""
         if pieces.indices.contains(7) {
@@ -563,7 +565,7 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
             slugged = pieces[8]
         }
 
-        WatchlistManager.sharedManager().itemExistsInWatchList(itemId: id, forType: ItemType(rawValue: type)!, completion: { exists in
+        WatchlistManager.sharedManager().itemExistsInWatchList(itemId: imdb, forType: ItemType(rawValue: type)!, completion: { exists in
             if exists {
                 WatchlistManager.sharedManager().removeItemFromWatchList(WatchItem(name: name, id: id, coverImage: cover, fanartImage: fanart, type: type, imdbId: imdb, tvdbId: tvdb, slugged: slugged), completion: { removed in
                     if removed {
