@@ -543,7 +543,7 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
 
     static func addWatchlist(pieces: [String]) {
         // ["addWatchlist", "tt1632701", "Suits", "show", "https://walter.trakt.us/images/shows/000/037/522/posters/original/0e6117705c.jpg", "https://walter.trakt.us/images/shows/000/037/522/fanarts/original/6ecdb75c1c.jpg", "247808", "suits"]
-        // ["addWatchlist", "5093", "Risen", "movie", "http://62.210.81.37/assets/images/movies/risen_2016/large-cover.jpg", "http://62.210.81.37/assets/images/movies/risen_2016/background.jpg"]
+        // ["addWatchlist", "5093", "Risen", "movie", "http://62.210.81.37/assets/images/movies/risen_2016/large-cover.jpg", "http://62.210.81.37/assets/images/movies/risen_2016/background.jpg","","","risen-2016"]
 //        print(pieces)
         let name = pieces[2]
         let id = pieces[1]

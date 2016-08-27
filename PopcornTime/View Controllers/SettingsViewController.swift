@@ -5,7 +5,6 @@ import PopcornKit
 import TVMLKitchen
 
 class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,TraktTVAPIViewDelegate {
-    let trakt = TraktTVAPI()
     let manager = NetworkManager.sharedManager()
     
     @IBOutlet weak var tableView: UITableView!
@@ -145,9 +144,9 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             if indexPath.row == 0 {
                 cell.textLabel?.text = "Sign into Trakt"
                 cell.detailTextLabel?.text = ""
-                if trakt.userLoaded() {
+                if TraktTVAPI.sharedManager().userLoaded() {
                     cell.textLabel?.text = "Signout from Trakt"
-                    cell.detailTextLabel?.text = trakt.user
+                    cell.detailTextLabel?.text = TraktTVAPI.sharedManager().user
                 }
                 cell.accessoryType = .None
             }
@@ -337,11 +336,11 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         case 3:
             if indexPath.row == 0{
-                if trakt.userLoaded(){
-                    trakt.clearToken()
+                if TraktTVAPI.sharedManager().userLoaded(){
+                    TraktTVAPI.sharedManager().clearToken()
                     self.tableView.reloadData()
                 }else{
-                    if let vc: UIViewController = trakt.authenticateUser(self){
+                    if let vc: UIViewController = TraktTVAPI.sharedManager().authenticateUser(self){
                         self.presentViewController(vc, animated:true, completion:nil)
                     }
                 }
