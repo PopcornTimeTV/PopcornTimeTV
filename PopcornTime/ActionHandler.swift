@@ -125,6 +125,7 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
         if (pieces.last?.containsString("tt") == true){
             NetworkManager.sharedManager().fetchMovies(limit: 1, page: 1, quality: nil, minimumRating: 0, queryTerm: pieces.last!, genre: nil, sortBy: "desc", orderBy: "seeds", completion: { movies,error in
                 for movie in movies!{
+                    Kitchen.serve(recipe: LoadingRecipe(message: movie.title))
                     NetworkManager.sharedManager().showDetailsForMovie(movieId: movie.id, withImages: false, withCast: true) { movie, error in
                         if let movie = movie {
                             NetworkManager.sharedManager().suggestionsForMovie(movieId: movie.id, completion: { movies, error in
@@ -149,6 +150,13 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
                                                         }
                                                     }
                                                     }, completion: nil)
+                                                let delayInSeconds = 1.0;
+                                                let popTime = dispatch_time(DISPATCH_TIME_NOW, (Int64(delayInSeconds) * Int64(NSEC_PER_SEC)));
+                                                dispatch_after(popTime, dispatch_get_main_queue()) {
+                                                    var viewcontrollers = Kitchen.navigationController.viewControllers
+                                                    viewcontrollers.removeAtIndex(viewcontrollers.count-2)
+                                                    Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
+                                                }
                                                 presentedDetails = true
                                             })
                                         }
