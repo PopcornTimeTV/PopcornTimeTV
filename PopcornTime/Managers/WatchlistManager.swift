@@ -96,7 +96,7 @@ public class WatchlistManager {
     
     func addItemToWatchList(item: WatchItem, completion: ((added: Bool) -> Void)?) {
         self.itemExistsInWatchList(itemId: item.imdbId, forType: item.type) { exists in
-            if exists || TraktTVAPI.sharedManager().isFavourited(item.imdbId){
+            if exists || TraktTVAPI.sharedManager().isFavourite(item.imdbId){
                 completion?(added: false)
             } else { // the item does not exist in either list trakt or our own, so let's add it
                 self.readJSONFile { json in
@@ -136,7 +136,10 @@ public class WatchlistManager {
                             
                         }
                     }else{
-                        completion?(added: false)
+                        var mutableJson = [[String : AnyObject]]()
+                        mutableJson.append(item.dictionaryRepresentation)
+                        self.writeJSONFile(mutableJson)
+                        completion?(added: true)
                     }
                     
                     
@@ -216,6 +219,9 @@ public class WatchlistManager {
                         return
                         
                     }
+                }else{
+                    completion?(parsedItems)
+                    return
                 }
             } else if(TraktTVAPI.sharedManager().userLoaded()) {
                 var parsedItems = [WatchItem]()
@@ -251,24 +257,18 @@ public class WatchlistManager {
                 } else {
                     result = false
                 }
-            } else if(TraktTVAPI.sharedManager().userLoaded()){
-                if TraktTVAPI.sharedManager().isFavourited(id){
-                    completion?(exists:true)
-                    return
+                if(TraktTVAPI.sharedManager().userLoaded()){
+                    if TraktTVAPI.sharedManager().isFavourite(id){
+                        result = true
+                    }
                 }
-                completion?(exists:result)
-                return
-            }else{
-                completion?(exists: result)
-                return
+            } else if(TraktTVAPI.sharedManager().userLoaded()){
+                if TraktTVAPI.sharedManager().isFavourite(id){
+                    result = true
+                }
             }
-        }
-        if(TraktTVAPI.sharedManager().userLoaded()){
-            if TraktTVAPI.sharedManager().isFavourited(id){
-                completion?(exists:true)
-                return
-            }
-            completion?(exists:false)
+            completion?(exists: result)
+            return
         }
     }
     

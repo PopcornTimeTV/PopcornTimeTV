@@ -337,6 +337,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         case 3:
             if indexPath.row == 0{
                 if TraktTVAPI.sharedManager().userLoaded(){
+                    
                     TraktTVAPI.sharedManager().clearToken()
                     self.tableView.reloadData()
                 }else{
