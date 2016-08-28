@@ -66,7 +66,7 @@ public struct SeasonProductRecipe: RecipeType {
     let existsInWatchList: Bool
 
     public let theme = DefaultTheme()
-    public let presentationType = PresentationType.DefaultWithLoadingIndicator
+    public let presentationType = PresentationType.Default
 
     public init(show: Show, showInfo: ShowInfo, episodes: [Episode], detailedEpisodes: [DetailedEpisode], seasonInfo: SeasonInfo, existsInWatchlist: Bool) {
         self.show = show
@@ -204,23 +204,27 @@ public struct SeasonProductRecipe: RecipeType {
             if let synopsis = $0.episode.overview {
                 overview = synopsis.cleaned
             }
-            var string = "<lockup actionID=\"playMovie»\($0.fullScreenshot)»\(show.fanartImage)»\($0.episodeTitle.cleaned)»\(overview)»\(torrents($0.episode).cleaned)»\($0.episode.tvdbId)»\(show.title.cleaned)»\($0.episode.episode)»\($0.episode.season)\">" + "\n"
-            string += "<img src=\"\($0.mediumScreenshot)\" width=\"310\" height=\"175\" />" + "\n"
-            string += "<title>\($0.episode.episode). \($0.episodeTitle.cleaned)</title>" + "\n"
+            let fullscreen = $0.fullScreenshot ?? ""
+            let mediumscreen = $0.mediumScreenshot ?? ""
+            let episodetitle = $0.episodeTitle?.cleaned ?? ""
+            let title = show.title?.cleaned ?? ""
+            var string = "<lockup actionID=\"playMovie»\(fullscreen)»\(show.fanartImage)»\(episodetitle)»\(overview)»\(torrents($0.episode).cleaned ?? "")»\($0.episode.tvdbId)»\(title)»\($0.episode.episode)»\($0.episode.season)\">" + "\n"
+            string += "<img src=\"\(mediumscreen)\" width=\"310\" height=\"175\" />" + "\n"
+            string += "<title>\($0.episode.episode). \(episodetitle)</title>" + "\n"
             string += "<overlay class=\"overlayPosition\">" + "\n"
             string += "<badge src=\"resource://button-play\" class=\"whiteButton overlayPosition\"/>" + "\n"
             string += "</overlay>" + "\n"
             string += "<relatedContent>" + "\n"
             string += "<infoTable>" + "\n"
             string +=   "<header>" + "\n"
-            string +=       "<title>\($0.episodeTitle.cleaned)</title>" + "\n"
+            string +=       "<title>\(episodetitle)</title>" + "\n"
             string +=       "<description>Episode \($0.episode.episode)</description>" + "\n"
             string +=   "</header>" + "\n"
             string +=   "<info>" + "\n"
             string +=       "<header>" + "\n"
             string +=           "<title>Description</title>" + "\n"
             string +=       "</header>" + "\n"
-            string +=       "<description allowsZooming=\"true\" moreLabel=\"more\" actionID=\"showDescription»\($0.episodeTitle.cleaned)»\(overview)\">\(overview)</description>" + "\n"
+            string +=       "<description allowsZooming=\"true\" moreLabel=\"more\" actionID=\"showDescription»\(episodetitle)»\(overview)\">\(overview)</description>" + "\n"
             string +=   "</info>" + "\n"
             string += "</infoTable>" + "\n"
             string += "</relatedContent>" + "\n"

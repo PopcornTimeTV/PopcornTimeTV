@@ -212,7 +212,6 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
     }
 
     static func serveCatalogRecipe(recipe: CatalogRecipe) {
-        print(recipe.xmlString)
         Kitchen.appController.evaluateInJavaScriptContext({jsContext in
             let highlightLockup: @convention(block) (Int, JSValue) -> () = {(nextPage, callback) in
                 recipe.highlightLockup(nextPage) { string in
@@ -244,7 +243,6 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
         case "movie":
             NetworkManager.sharedManager().fetchMovies(limit: 50, page: 1, quality: "720p", minimumRating: 0, queryTerm: nil, genre: String(UTF8String: pieces[1])!, sortBy: "seeds", orderBy: "desc") { movies, error in
                 if error != nil {
-                    Kitchen.navigationController.popViewControllerAnimated(false) // Dismiss LoadingView
                     return
                 }
                 if let _ = movies {
@@ -253,12 +251,6 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
                     recipe.sortBy = "seeds"
                     recipe.genre = pieces[1]
                     serveCatalogRecipe(recipe)
-                } else {
-                    // To Do: Go back to the movie overview instead of main home view
-                    Kitchen.navigationController.popToRootViewControllerAnimated(false)
-                    let recipe = AlertRecipe(title: "Sorry, " + String(UTF8String: pieces.last!)! + " has no movies", description: "This can happen because we are not using the same data sources for movies, tv shows and actors", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal)
-
-                    Kitchen.serve(recipe: recipe)
                     let delayInSeconds = 1.0;
                     let popTime = dispatch_time(DISPATCH_TIME_NOW, (Int64(delayInSeconds) * Int64(NSEC_PER_SEC)));
                     dispatch_after(popTime, dispatch_get_main_queue()) {
@@ -266,6 +258,11 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
                         viewcontrollers.removeAtIndex(viewcontrollers.count-2)
                         Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
                     }
+                } else {
+                    // To Do: Go back to the movie overview instead of main home view
+                    Kitchen.navigationController.popToRootViewControllerAnimated(false)
+                    let recipe = AlertRecipe(title: "Sorry, " + String(UTF8String: pieces.last!)! + " has no movies", description: "This can happen because we are not using the same data sources for movies, tv shows and actors", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal)
+                    Kitchen.serve(recipe: recipe)
                 }
             }
         case "show":
