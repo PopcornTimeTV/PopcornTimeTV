@@ -49,9 +49,18 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
 
         case "showGlobalWatchlist":
             let watchlist = WatchlistManager.sharedManager()
+            Kitchen.serve(recipe: LoadingRecipe(message:"Loading..."))
             watchlist.fetchWatchListItems(forType: .Movie) { watchListMovies in
                 watchlist.fetchWatchListItems(forType: .Show) { watchListShows in
                     Kitchen.serve(recipe: WatchlistRecipe(title: "Favourites", watchListMovies: watchListMovies, watchListShows: watchListShows))
+                    let delayInSeconds = 1.0;
+                    let popTime = dispatch_time(DISPATCH_TIME_NOW, (Int64(delayInSeconds) * Int64(NSEC_PER_SEC)));
+                    dispatch_after(popTime, dispatch_get_main_queue()) {
+                        var viewcontrollers = Kitchen.navigationController.viewControllers
+                        viewcontrollers.removeAtIndex(viewcontrollers.count-2)
+                        Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
+                    }
+
                 }
             }
 
@@ -115,6 +124,7 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
         var presentedDetails = false
         NetworkManager.sharedManager().showDetailsForMovie(movieId: Int(pieces.last!)!, withImages: false, withCast: true) { movie, error in
             if let movie = movie {
+                Kitchen.serve(recipe: LoadingRecipe(message: movie.title))
                 NetworkManager.sharedManager().suggestionsForMovie(movieId: Int(pieces.last!)!, completion: { movies, error in
                     if let movies = movies {
                         WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.id), forType: .Movie, completion: { exists in
@@ -127,16 +137,15 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
                                         }
                                         jsContext.setObject(unsafeBitCast(disableThemeSong, AnyObject.self),
                                             forKeyedSubscript: "disableThemeSong")
-                                        if let file = NSBundle.mainBundle().URLForResource("MovieProductRecipe", withExtension: "js") {
-                                            do {
-                                                var js = try String(contentsOfURL: file)
-                                                js = js.stringByReplacingOccurrencesOfString("{{RECIPE}}", withString: recipe.xmlString)
-                                                jsContext.evaluateScript(js)
-                                            } catch {
-                                                print("Could not open MovieProductRecipe.js")
-                                            }
-                                        }
                                         }, completion: nil)
+                                    Kitchen.serve(recipe: recipe)
+                                    let delayInSeconds = 1.0;
+                                    let popTime = dispatch_time(DISPATCH_TIME_NOW, (Int64(delayInSeconds) * Int64(NSEC_PER_SEC)));
+                                    dispatch_after(popTime, dispatch_get_main_queue()) {
+                                        var viewcontrollers = Kitchen.navigationController.viewControllers
+                                        viewcontrollers.removeAtIndex(viewcontrollers.count-2)
+                                        Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
+                                    }
                                     presentedDetails = true
                                 })
                             }
@@ -179,7 +188,7 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
     }
 
     static func showGenre(pieces: [String], genre: Bool = true) {
-        print(pieces)
+        Kitchen.serve(recipe: LoadingRecipe(message: pieces[1]))
         switch pieces.last! {
         case "movie":
             NetworkManager.sharedManager().fetchMovies(limit: 50, page: 1, quality: "720p", minimumRating: 0, queryTerm: nil, genre: String(UTF8String: pieces[1])!, sortBy: "seeds", orderBy: "desc") { movies, error in
@@ -199,6 +208,13 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
                     let recipe = AlertRecipe(title: "Sorry, " + String(UTF8String: pieces.last!)! + " has no movies", description: "This can happen because we are not using the same data sources for movies, tv shows and actors", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal)
 
                     Kitchen.serve(recipe: recipe)
+                    let delayInSeconds = 1.0;
+                    let popTime = dispatch_time(DISPATCH_TIME_NOW, (Int64(delayInSeconds) * Int64(NSEC_PER_SEC)));
+                    dispatch_after(popTime, dispatch_get_main_queue()) {
+                        var viewcontrollers = Kitchen.navigationController.viewControllers
+                        viewcontrollers.removeAtIndex(viewcontrollers.count-2)
+                        Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
+                    }
                 }
             }
         case "show":
@@ -217,7 +233,13 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
                     // To Do: Go back to the movie overview instead of main home view
                     Kitchen.navigationController.popToRootViewControllerAnimated(false)
                     let recipe = AlertRecipe(title: "Sorry, " + String(UTF8String: pieces.last!)! + " has no tv shows", description: "This can happen because we are not using the same data sources for movies, tv shows and actors", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal)
-
+                    let delayInSeconds = 1.0;
+                    let popTime = dispatch_time(DISPATCH_TIME_NOW, (Int64(delayInSeconds) * Int64(NSEC_PER_SEC)));
+                    dispatch_after(popTime, dispatch_get_main_queue()) {
+                        var viewcontrollers = Kitchen.navigationController.viewControllers
+                        viewcontrollers.removeAtIndex(viewcontrollers.count-2)
+                        Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
+                    }
                     Kitchen.serve(recipe: recipe)
                 }
             }
@@ -262,7 +284,6 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
     }
 
     static func showSeasonWithNumber(pieces: [String], seasonNumber: Int) {
-        print(pieces)
         var presentedDetails = false
         let showId = pieces[1]
         let tvdbId = pieces[3]
@@ -270,7 +291,7 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
         let manager = NetworkManager.sharedManager()
         manager.fetchShowDetails(showId) { show, error in
             if let show = show {
-
+                Kitchen.serve(recipe: LoadingRecipe(message: show.title))
                 var existingSeasons = Set<Int>()
 
                 for episode in show.episodes {
@@ -337,16 +358,16 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
                                             }
                                             jsContext.setObject(unsafeBitCast(disableThemeSong, AnyObject.self),
                                                 forKeyedSubscript: "disableThemeSong")
-                                            if let file = NSBundle.mainBundle().URLForResource("SeasonProductRecipe", withExtension: "js") {
-                                                do {
-                                                    var js = try String(contentsOfURL: file)
-                                                    js = js.stringByReplacingOccurrencesOfString("{{RECIPE}}", withString: recipe.xmlString)
-                                                    jsContext.evaluateScript(js)
-                                                } catch {
-                                                    print("Could not open SeasonProductRecipe.js")
-                                                }
-                                            }
                                         }, completion: nil)
+                                        Kitchen.serve(recipe: recipe)
+                                        let delayInSeconds = 1.0;
+                                        let popTime = dispatch_time(DISPATCH_TIME_NOW, (Int64(delayInSeconds) * Int64(NSEC_PER_SEC)));
+                                        dispatch_after(popTime, dispatch_get_main_queue()) {
+                                            var viewcontrollers = Kitchen.navigationController.viewControllers
+                                            viewcontrollers.removeAtIndex(viewcontrollers.count-2)
+                                            Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
+                                        }
+
                                         presentedDetails = true
                                     })
                                 }

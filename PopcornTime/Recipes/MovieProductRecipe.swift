@@ -10,7 +10,7 @@ public struct MovieProductRecipe: RecipeType {
     let existsInWatchList: Bool
 
     public let theme = DefaultTheme()
-    public let presentationType = PresentationType.DefaultWithLoadingIndicator
+    public let presentationType = PresentationType.Default
 
     public init(movie: Movie, suggestions: [Movie], existsInWatchList: Bool) {
         self.movie = movie
