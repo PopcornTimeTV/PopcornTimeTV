@@ -1,4 +1,5 @@
 
+source 'https://github.com/Hackormahn/Specs'
 source 'https://github.com/CocoaPods/Specs'
 
 platform :tvos
@@ -10,7 +11,7 @@ target 'PopcornTime' do
   pod 'PopcornKit', :git => 'https://github.com/PopcornTimeTV/PopcornKit.git'
   pod 'AlamofireXMLRPC', :git => 'https://github.com/PopcornTimeTV/AlamofireXMLRPC.git'
   pod 'PopcornTorrent', git: 'https://github.com/PopcornTimeTV/PopcornTorrent.git'
-  pod 'TVVLCKit-unstable', '3.0.0a10'
+  pod 'TVVLCKit-bitcode', '3.0.1'
   pod 'GCDWebServer', '~> 3.3.2'
 end
 
