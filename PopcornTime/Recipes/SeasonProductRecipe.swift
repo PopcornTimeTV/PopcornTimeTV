@@ -153,7 +153,7 @@ public struct SeasonProductRecipe: RecipeType {
     }
 
     var watchlistButton: String {
-        var string = "<buttonLockup id =\"favoriteButton\" actionID=\"addWatchlist»\(show.id)»\(show.title)»show»\(show.posterImage)»\(show.fanartImage)»\(show.imdbId)»\(show.tvdbId)»\(show.title.slugged)\">\n"
+        var string = "<buttonLockup id =\"favoriteButton\" actionID=\"addWatchlist»\(show.id)»\(show.title)»show»\(show.posterImage)»\(show.fanartImage)»\(show.id)»\(show.tvdbId)»\(show.title.slugged)\">\n"
         string += "<badge id =\"favoriteButtonBadge\" src=\"resource://button-{{WATCHLIST_ACTION}}\" />\n"
         string += "<title>Favourites</title>\n"
         string += "</buttonLockup>"

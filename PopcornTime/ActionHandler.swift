@@ -122,14 +122,56 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
 
     static func showMovie(pieces: [String]) {
         var presentedDetails = false
+        if (pieces.last?.containsString("tt") == true){
+            NetworkManager.sharedManager().fetchMovies(limit: 1, page: 1, quality: nil, minimumRating: 0, queryTerm: pieces.last!, genre: nil, sortBy: "desc", orderBy: "seeds", completion: { movies,error in
+                for movie in movies!{
+                    NetworkManager.sharedManager().showDetailsForMovie(movieId: movie.id, withImages: false, withCast: true) { movie, error in
+                        if let movie = movie {
+                            NetworkManager.sharedManager().suggestionsForMovie(movieId: movie.id, completion: { movies, error in
+                                if let movies = movies {
+                                    WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.imdbId), forType: .Movie, completion: { exists in
+                                        if !presentedDetails {
+                                            WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.imdbId), forType: .Movie, completion: { exists in
+                                                let recipe = MovieProductRecipe(movie: movie, suggestions: movies, existsInWatchList: exists)
+                                                Kitchen.appController.evaluateInJavaScriptContext({jsContext in
+                                                    let disableThemeSong: @convention(block) String -> Void = { message in
+                                                        AudioManager.sharedManager().stopTheme()
+                                                    }
+                                                    jsContext.setObject(unsafeBitCast(disableThemeSong, AnyObject.self),
+                                                        forKeyedSubscript: "disableThemeSong")
+                                                    if let file = NSBundle.mainBundle().URLForResource("MovieProductRecipe", withExtension: "js") {
+                                                        do {
+                                                            var js = try String(contentsOfURL: file)
+                                                            js = js.stringByReplacingOccurrencesOfString("{{RECIPE}}", withString: recipe.xmlString)
+                                                            jsContext.evaluateScript(js)
+                                                        } catch {
+                                                            print("Could not open MovieProductRecipe.js")
+                                                        }
+                                                    }
+                                                    }, completion: nil)
+                                                presentedDetails = true
+                                            })
+                                        }
+                                    })
+                                } else if let _ = error {
+                                    
+                                }
+                            })
+                        } else if let _ = error {
+                            
+                        }
+                    }
+                }
+            })
+        }else{
         NetworkManager.sharedManager().showDetailsForMovie(movieId: Int(pieces.last!)!, withImages: false, withCast: true) { movie, error in
             if let movie = movie {
                 Kitchen.serve(recipe: LoadingRecipe(message: movie.title))
                 NetworkManager.sharedManager().suggestionsForMovie(movieId: Int(pieces.last!)!, completion: { movies, error in
                     if let movies = movies {
-                        WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.id), forType: .Movie, completion: { exists in
+                        WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.imdbId), forType: .Movie, completion: { exists in
                             if !presentedDetails {
-                                WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.id), forType: .Movie, completion: { exists in
+                                WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.imdbId), forType: .Movie, completion: { exists in
                                     let recipe = MovieProductRecipe(movie: movie, suggestions: movies, existsInWatchList: exists)
                                     Kitchen.appController.evaluateInJavaScriptContext({jsContext in
                                         let disableThemeSong: @convention(block) String -> Void = { message in
@@ -157,6 +199,7 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
             } else if let _ = error {
 
             }
+        }
         }
     }
 
@@ -521,7 +564,7 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
 
     static func addWatchlist(pieces: [String]) {
         // ["addWatchlist", "tt1632701", "Suits", "show", "https://walter.trakt.us/images/shows/000/037/522/posters/original/0e6117705c.jpg", "https://walter.trakt.us/images/shows/000/037/522/fanarts/original/6ecdb75c1c.jpg", "247808", "suits"]
-        // ["addWatchlist", "5093", "Risen", "movie", "http://62.210.81.37/assets/images/movies/risen_2016/large-cover.jpg", "http://62.210.81.37/assets/images/movies/risen_2016/background.jpg"]
+        // ["addWatchlist", "5093", "Risen", "movie", "http://62.210.81.37/assets/images/movies/risen_2016/large-cover.jpg", "http://62.210.81.37/assets/images/movies/risen_2016/background.jpg","","","risen-2016"]
 //        print(pieces)
         let name = pieces[2]
         let id = pieces[1]
@@ -531,6 +574,8 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
         var imdb = ""
         if pieces.indices.contains(6) {
             imdb = pieces[6]
+        }else{
+            imdb = id
         }
         var tvdb = ""
         if pieces.indices.contains(7) {
@@ -541,7 +586,7 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
             slugged = pieces[8]
         }
 
-        WatchlistManager.sharedManager().itemExistsInWatchList(itemId: id, forType: ItemType(rawValue: type)!, completion: { exists in
+        WatchlistManager.sharedManager().itemExistsInWatchList(itemId: imdb, forType: ItemType(rawValue: type)!, completion: { exists in
             if exists {
                 WatchlistManager.sharedManager().removeItemFromWatchList(WatchItem(name: name, id: id, coverImage: cover, fanartImage: fanart, type: type, imdbId: imdb, tvdbId: tvdb, slugged: slugged), completion: { removed in
                     if removed {
@@ -554,11 +599,13 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
                 })
             } else {
                 WatchlistManager.sharedManager().addItemToWatchList(WatchItem(name: name, id: id, coverImage: cover, fanartImage: fanart, type: type, imdbId: imdb, tvdbId: tvdb, slugged: slugged), completion: { added in
+                    if added {
                         Kitchen.appController.evaluateInJavaScriptContext({ (context) in
                             let updateButton = context.objectForKeyedSubscript("updateWatchlistButton")//execute this in order to update the favorite button, runs the function in JS
                             updateButton.callWithArguments([])
                             }, completion: { (evaluate) in
                         })
+                    }
                 })
             }
 
