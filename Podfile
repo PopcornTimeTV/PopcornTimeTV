@@ -9,11 +9,7 @@ target 'PopcornTime' do
   pod 'TVMLKitchen', :git => 'https://github.com/toshi0383/TVMLKitchen.git', :branch => 'swift2.2'
   pod 'PopcornKit', :git => 'https://github.com/PopcornTimeTV/PopcornKit.git', :branch => 'trakt'
   pod 'AlamofireXMLRPC', :git => 'https://github.com/PopcornTimeTV/AlamofireXMLRPC.git'
-<<<<<<< HEAD
   pod 'PopcornTorrent', git: 'https://github.com/PopcornTimeTV/PopcornTorrent.git'
-=======
-  pod 'PopcornTorrent', :git => 'https://github.com/PopcornTimeTV/PopcornTorrent.git'
->>>>>>> TRAKT
   pod 'TVVLCKit-unstable', '3.0.0a10'
   pod 'GCDWebServer', '~> 3.3.2'
 end
