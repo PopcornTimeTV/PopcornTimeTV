@@ -27,7 +27,7 @@ public struct MovieProductRecipe: RecipeType {
     }
 
     var directorsString: String {
-        return movie.directors.map { "<text>\($0.name.cleaned)</text>" }.joinWithSeparator("")
+        return movie.directors!.map { "<text>\($0.name.cleaned)</text>" }.joinWithSeparator("")
     }
 
     var actorsString: String {
@@ -76,7 +76,7 @@ public struct MovieProductRecipe: RecipeType {
             string += "</monogramLockup>" + "\n"
             return string
         }
-        let directors: [String] = movie.directors.map {
+        let directors: [String] = movie.directors!.map {
             var headshot = ""
             if $0.mediumImage != "http://62.210.81.37/assets/images/directors/default_avatar.jpg" {
                 headshot = " src=\"\($0.mediumImage)\""

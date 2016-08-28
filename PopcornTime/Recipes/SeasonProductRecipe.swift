@@ -92,7 +92,7 @@ public struct SeasonProductRecipe: RecipeType {
     }
 
     var actorsString: String {
-        return showInfo.cast.map { "<text>\($0.cleaned)</text>" }.joinWithSeparator("")
+        return show.actors.map { "<text>\($0.name.cleaned)</text>" }.joinWithSeparator("")
     }
 
     var genresString: String {
@@ -116,17 +116,39 @@ public struct SeasonProductRecipe: RecipeType {
 
     var castString: String {
 
-        let mapped: [String] = showInfo.cast.map {
+        let actors: [String] = show.actors.map {
 
-            let name = $0.componentsSeparatedByString(" ")
-            var string = "<monogramLockup actionID=\"showActor»\($0)\">" + "\n"
-            string += "<monogram firstName=\"\(name.first!)\" lastName=\"\(name.last!)\" src=\"\"/>"
-            string += "<title>\($0.cleaned)</title>" + "\n"
+            var headshot = ""
+            if $0.mediumImage != "http://62.210.81.37/assets/images/actors/default_avatar.jpg" {
+                headshot = " src=\"\($0.mediumImage)\""
+            }
+            let name = $0.name.componentsSeparatedByString(" ")
+            var string = "<monogramLockup actionID=\"showActor»\($0.name)\">" + "\n"
+            string += "<monogram firstName=\"\(name.first!)\" lastName=\"\(name.last!)\"\(headshot)/>"
+            string += "<title>\($0.name.cleaned)</title>" + "\n"
             string += "<subtitle>Actor</subtitle>" + "\n"
             string += "</monogramLockup>" + "\n"
             return string
         }
+        var directors: [String] = [""]
+        if show.directors != nil {
+            directors = show.directors.map {
+            var headshot = ""
+            if $0.mediumImage != "http://62.210.81.37/assets/images/directors/default_avatar.jpg" {
+                headshot = " src=\"\($0.mediumImage)\""
+            }
+            let name = $0.name.componentsSeparatedByString(" ")
+            var string = "<monogramLockup actionID=\"showDirector»\($0.name)\">" + "\n"
+            string += "<monogram firstName=\"\(name.first!)\" lastName=\"\(name.last!)\"\(headshot)/>"
+            string += "<title>\($0.name.cleaned)</title>" + "\n"
+            string += "<subtitle>Director</subtitle>" + "\n"
+            string += "</monogramLockup>" + "\n"
+            return string
+            }
+        }
 
+        let mapped = actors+directors
+        
         return mapped.joinWithSeparator("\n")
     }
 
