@@ -98,10 +98,10 @@ public class WatchlistManager {
         self.itemExistsInWatchList(itemId: item.imdbId, forType: item.type) { exists in
             if exists || TraktTVAPI.sharedManager().isFavourited(item.imdbId){
                 completion?(added: false)
-            } else {
+            } else { // the item does not exist in either list trakt or our own, so let's add it
                 self.readJSONFile { json in
                     if let json = json {
-                        if TraktTVAPI.sharedManager().userLoaded(){
+                        if TraktTVAPI.sharedManager().userLoaded(){ //do we use trakt? if yes we will add it to that list only
                             TraktTVAPI.sharedManager().getTraktMetadata(withName: item.slugged,type: item.type == .Movie ? .  Movies : .Shows) { traktID in
                                 if traktID != nil {
                                     TraktTVAPI.sharedManager().addToWatchlist(withType: item.type == .Movie ? .  Movies : .Shows, itemID: traktID!,completion: { result in
@@ -114,76 +114,79 @@ public class WatchlistManager {
                                 }
                                 
                             }
-                        }else{
+                        }else{ // if we don't use trakt we will add it to our own!
                             var mutableJson = json
                             mutableJson.append(item.dictionaryRepresentation)
                             self.writeJSONFile(mutableJson)
                             completion?(added: true)
                             return
                         }
-                    } else {
-                        
-                        
+                    } else if TraktTVAPI.sharedManager().userLoaded(){ //we don't use our own list? let's see if we use trakt
+                        // we do so let's add it there
+                        TraktTVAPI.sharedManager().getTraktMetadata(withName: item.slugged,type: item.type == .Movie ? .  Movies : .Shows) { traktID in
+                            if traktID != nil {
+                                TraktTVAPI.sharedManager().addToWatchlist(withType: item.type == .Movie ? .  Movies : .Shows, itemID: traktID!,completion: { result in
+                                    completion?(added: result)
+                                    return
+                                    },imdbID: item.imdbId)
+                            }else{
+                                completion?(added: false)
+                                return
+                            }
+                            
+                        }
+                    }else{
+                        completion?(added: false)
                     }
+                    
+                    
                 }
+                
                 
             }
         }
-        if TraktTVAPI.sharedManager().userLoaded(){
-            TraktTVAPI.sharedManager().getTraktMetadata(withName: item.slugged,type: item.type == .Movie ? .  Movies : .Shows) { traktID in
-                if traktID != nil {
-                    TraktTVAPI.sharedManager().addToWatchlist(withType: item.type == .Movie ? .  Movies : .Shows, itemID: traktID!,completion: { result in
-                        completion?(added: result)
-                        return
-                    },imdbID: item.imdbId)
-                }else{
-                    completion?(added: false)
-                    return
-                }
-                
-            }
-        }
+        
     }
     
     func removeItemFromWatchList(item: WatchItem, completion: ((removed: Bool) -> Void)?) {
         self.readJSONFile { json in
-            if let json = json {
-                var mutableJson = json
-                if let index = json.indexOf({ $0["id"] as? String == item.id && $0["type"] as? String == item.type.rawValue }) {
-                    if TraktTVAPI.sharedManager().userLoaded(){
-                        TraktTVAPI.sharedManager().getTraktMetadata(withName: item.slugged,type: item.type == .Movie ? .  Movies : .Shows){ traktID in
-                            if traktID != nil{
-                                TraktTVAPI.sharedManager().removeFromWatchlist(withType: item.type == .Movie ? .Movies : .Shows, itemID: traktID!, imdbID: item.imdbId){ result in
-                                    completion?(removed: result)
-                                    return
-                                }
-                            }else{
-                                completion?(removed: false)
+            if let json = json { //do we use our own favourite's list?
+                var mutableJson = json // we do
+                if TraktTVAPI.sharedManager().userLoaded(){ // do we use trakt, then we will only need to remove it from there
+                    TraktTVAPI.sharedManager().getTraktMetadata(withName: item.slugged,type: item.type == .Movie ? .  Movies : .Shows){ traktID in
+                        if traktID != nil{
+                            TraktTVAPI.sharedManager().removeFromWatchlist(withType: item.type == .Movie ? .Movies : .Shows, itemID: traktID!, imdbID: item.imdbId){ result in
+                                completion?(removed: result)
                                 return
                             }
+                        }else{
+                            completion?(removed: false)
+                            return
                         }
-                    }else{
+                    }
+                if let index = json.indexOf({ $0["imdbId"] as? String == item.imdbId && $0["type"] as? String == item.type.rawValue }) { // if we only use our own favourite implementation, we will remove it from there only!
                         mutableJson.removeAtIndex(index)
                         self.writeJSONFile(mutableJson)
                         completion?(removed: true)
                         return
                     }
                 }
-            }
-        }
-        if TraktTVAPI.sharedManager().userLoaded(){
-            TraktTVAPI.sharedManager().getTraktMetadata(withName: item.slugged,type: item.type == .Movie ? .  Movies : .Shows){ traktID in
-                if traktID != nil{
-                    TraktTVAPI.sharedManager().removeFromWatchlist(withType: item.type == .Movie ? .Movies : .Shows, itemID: traktID!, imdbID: item.imdbId){ result in
-                        completion?(removed: result)
-                        return
+            } else if TraktTVAPI.sharedManager().userLoaded(){ // we don't use our own implementation! how about trakt?
+                //we use trakt! we will add it remove it from there then!
+                    TraktTVAPI.sharedManager().getTraktMetadata(withName: item.slugged,type: item.type == .Movie ? .  Movies : .Shows){ traktID in
+                        if traktID != nil{
+                            TraktTVAPI.sharedManager().removeFromWatchlist(withType: item.type == .Movie ? .Movies : .Shows, itemID: traktID!, imdbID: item.imdbId){ result in
+                                completion?(removed: result)
+                                return
+                            }
+                        }else{
+                            completion?(removed: false)
+                            return
+                        }
                     }
-                }else{
-                    completion?(removed: false)
-                    return
                 }
-            }
         }
+        
     }
     func fetchWatchListItems(forType type: ItemType, completion: (([WatchItem]) -> Void)?) {
         self.readJSONFile { json in
@@ -243,7 +246,7 @@ public class WatchlistManager {
         var result = false
         self.readJSONFile { json in
             if let json = json {
-                if let _ = json.indexOf({ $0["id"] as? String == id && $0["type"] as? String == type.rawValue }) {
+                if let _ = json.indexOf({ $0["imdbId"] as? String == id && $0["type"] as? String == type.rawValue }) {
                     result = true
                 } else {
                     result = false
@@ -253,9 +256,7 @@ public class WatchlistManager {
                     completion?(exists:true)
                     return
                 }
-                if result==false {completion?(exists:false)}else{
-                    completion?(exists:true)
-                }
+                completion?(exists:result)
                 return
             }else{
                 completion?(exists: result)

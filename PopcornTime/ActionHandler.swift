@@ -120,7 +120,7 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
                         if let movie = movie {
                             NetworkManager.sharedManager().suggestionsForMovie(movieId: movie.id, completion: { movies, error in
                                 if let movies = movies {
-                                    WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.id), forType: .Movie, completion: { exists in
+                                    WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.imdbId), forType: .Movie, completion: { exists in
                                         if !presentedDetails {
                                             WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.imdbId), forType: .Movie, completion: { exists in
                                                 let recipe = MovieProductRecipe(movie: movie, suggestions: movies, existsInWatchList: exists)
@@ -159,9 +159,9 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
             if let movie = movie {
                 NetworkManager.sharedManager().suggestionsForMovie(movieId: Int(pieces.last!)!, completion: { movies, error in
                     if let movies = movies {
-                        WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.id), forType: .Movie, completion: { exists in
+                        WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.imdbId), forType: .Movie, completion: { exists in
                             if !presentedDetails {
-                                WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.id), forType: .Movie, completion: { exists in
+                                WatchlistManager.sharedManager().itemExistsInWatchList(itemId: String(movie.imdbId), forType: .Movie, completion: { exists in
                                     let recipe = MovieProductRecipe(movie: movie, suggestions: movies, existsInWatchList: exists)
                                     Kitchen.appController.evaluateInJavaScriptContext({jsContext in
                                         let disableThemeSong: @convention(block) String -> Void = { message in
@@ -578,11 +578,13 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
                 })
             } else {
                 WatchlistManager.sharedManager().addItemToWatchList(WatchItem(name: name, id: id, coverImage: cover, fanartImage: fanart, type: type, imdbId: imdb, tvdbId: tvdb, slugged: slugged), completion: { added in
+                    if added {
                         Kitchen.appController.evaluateInJavaScriptContext({ (context) in
                             let updateButton = context.objectForKeyedSubscript("updateWatchlistButton")//execute this in order to update the favorite button, runs the function in JS
                             updateButton.callWithArguments([])
                             }, completion: { (evaluate) in
                         })
+                    }
                 })
             }
 
