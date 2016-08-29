@@ -21,6 +21,7 @@
 		00FD28B71CE0CB3A00D29EA8 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FD28B61CE0CB3A00D29EA8 /* Genre.swift */; };
 		00FD28BB1CE0CB5600D29EA8 /* GenreRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 00FD28B91CE0CB5600D29EA8 /* GenreRecipe.xml */; };
 		00FD28BC1CE0CB5600D29EA8 /* GenreRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FD28BA1CE0CB5600D29EA8 /* GenreRecipe.swift */; };
+		098B2026095198FE56AF33E0 /* Pods_PopcornTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DC191EE356BC3B5A5E8F16 /* Pods_PopcornTime.framework */; };
 		280910321C99DFDA00C8EC1C /* Popular.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280910311C99DFDA00C8EC1C /* Popular.swift */; };
 		280910341C99E0E000C8EC1C /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280910331C99E0E000C8EC1C /* Search.swift */; };
 		280910381C99E6CA00C8EC1C /* Loading.xml in Resources */ = {isa = PBXBuildFile; fileRef = 280910371C99E6CA00C8EC1C /* Loading.xml */; };
@@ -29,8 +30,6 @@
 		287B85471C98771300EEF5C8 /* ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287B85461C98771300EEF5C8 /* ActionHandler.swift */; };
 		28EB626C1CA3364300985F78 /* String+Cleaned.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB626B1CA3364300985F78 /* String+Cleaned.swift */; };
 		40CD02871D295C4800995E48 /* Movie+Parallax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CD02861D295C4800995E48 /* Movie+Parallax.swift */; };
-		4D6953C8BDE957ED2E9EFD94 /* Pods_PopcornTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C900A4508BB37D7070FA6888 /* Pods_PopcornTime.framework */; };
-		6230DD5B10305EF5B545642E /* Pods_TopShelf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F0B1AC1E109CFA23D328453 /* Pods_TopShelf.framework */; };
 		9205508D1CE6F71E00B8623F /* SRTParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9205508A1CE6F71E00B8623F /* SRTParser.m */; };
 		9205508E1CE6F71E00B8623F /* SRTSubtitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 9205508C1CE6F71E00B8623F /* SRTSubtitle.m */; };
 		920C33D91CFE77C7003278EE /* UIImageView+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 920C33D81CFE77C7003278EE /* UIImageView+Network.m */; };
@@ -82,6 +81,7 @@
 		92D0A7DA1CE28EE900B3279B /* WatchlistRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92D0A7D91CE28EE900B3279B /* WatchlistRecipe.xml */; };
 		92D0A7DC1CE28EF300B3279B /* WatchlistRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0A7DB1CE28EF300B3279B /* WatchlistRecipe.swift */; };
 		92DF99D11CA6FB0800D6944C /* Welcome+Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DF99D01CA6FB0800D6944C /* Welcome+Carousel.swift */; };
+		CDBF82134E6AA2D3AFAC0C2C /* Pods_TopShelf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */; };
 		D94F191D1D12065C00245177 /* KATSearchRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = D94F191C1D12065C00245177 /* KATSearchRecipe.xml */; };
 		D99067F41D6A0775006DFDEB /* encodingTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = D99067F31D6A0775006DFDEB /* encodingTypes.plist */; };
 		D9B274611D6B15C9004BF98D /* MovieProductRecipe.js in Resources */ = {isa = PBXBuildFile; fileRef = D9B274601D6B15C9004BF98D /* MovieProductRecipe.js */; };
@@ -146,6 +146,7 @@
 		00FD28B61CE0CB3A00D29EA8 /* Genre.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		00FD28B91CE0CB5600D29EA8 /* GenreRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = GenreRecipe.xml; sourceTree = "<group>"; };
 		00FD28BA1CE0CB5600D29EA8 /* GenreRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreRecipe.swift; sourceTree = "<group>"; };
+		249A54E2A9C7529A3CC82622 /* Pods-TopShelf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TopShelf.release.xcconfig"; path = "Pods/Target Support Files/Pods-TopShelf/Pods-TopShelf.release.xcconfig"; sourceTree = "<group>"; };
 		280910311C99DFDA00C8EC1C /* Popular.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popular.swift; sourceTree = "<group>"; };
 		280910331C99E0E000C8EC1C /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		280910371C99E6CA00C8EC1C /* Loading.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Loading.xml; sourceTree = "<group>"; };
@@ -155,9 +156,10 @@
 		287B85401C9873A200EEF5C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		287B85461C98771300EEF5C8 /* ActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionHandler.swift; sourceTree = "<group>"; };
 		28EB626B1CA3364300985F78 /* String+Cleaned.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Cleaned.swift"; path = "Extensions/String+Cleaned.swift"; sourceTree = "<group>"; };
+		3E2A1684A64499B8ED0B31B3 /* Pods-TopShelf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TopShelf.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TopShelf/Pods-TopShelf.debug.xcconfig"; sourceTree = "<group>"; };
 		40CD02861D295C4800995E48 /* Movie+Parallax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Movie+Parallax.swift"; path = "Extensions/Movie+Parallax.swift"; sourceTree = "<group>"; };
-		599430A8BF92BACDAFBDDD7B /* Pods-TopShelf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TopShelf.release.xcconfig"; path = "Pods/Target Support Files/Pods-TopShelf/Pods-TopShelf.release.xcconfig"; sourceTree = "<group>"; };
-		5F0B1AC1E109CFA23D328453 /* Pods_TopShelf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TopShelf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		59BE8A67A9D4954F63D16C0E /* Pods-PopcornTime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.debug.xcconfig"; sourceTree = "<group>"; };
+		796C61914EF57FAF09B30DFE /* Pods-PopcornTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.release.xcconfig"; sourceTree = "<group>"; };
 		920550891CE6F71E00B8623F /* SRTParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRTParser.h; sourceTree = "<group>"; };
 		9205508A1CE6F71E00B8623F /* SRTParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRTParser.m; sourceTree = "<group>"; };
 		9205508B1CE6F71E00B8623F /* SRTSubtitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRTSubtitle.h; sourceTree = "<group>"; };
@@ -233,8 +235,8 @@
 		92D0A7D91CE28EE900B3279B /* WatchlistRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = WatchlistRecipe.xml; sourceTree = "<group>"; };
 		92D0A7DB1CE28EF300B3279B /* WatchlistRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchlistRecipe.swift; sourceTree = "<group>"; };
 		92DF99D01CA6FB0800D6944C /* Welcome+Carousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Welcome+Carousel.swift"; path = "Extensions/Welcome+Carousel.swift"; sourceTree = "<group>"; };
-		AFEF107134131C2FAC746C22 /* Pods-TopShelf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TopShelf.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TopShelf/Pods-TopShelf.debug.xcconfig"; sourceTree = "<group>"; };
-		C900A4508BB37D7070FA6888 /* Pods_PopcornTime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopcornTime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TopShelf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7DC191EE356BC3B5A5E8F16 /* Pods_PopcornTime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopcornTime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94F191C1D12065C00245177 /* KATSearchRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = KATSearchRecipe.xml; sourceTree = "<group>"; };
 		D99067F31D6A0775006DFDEB /* encodingTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = encodingTypes.plist; sourceTree = "<group>"; };
 		D9B274601D6B15C9004BF98D /* MovieProductRecipe.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = MovieProductRecipe.js; sourceTree = "<group>"; };
@@ -251,12 +253,10 @@
 		D9E239BA1D69F86400FF8FC7 /* UIAlertAction+Subtitles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIAlertAction+Subtitles.swift"; path = "Extensions/UIAlertAction+Subtitles.swift"; sourceTree = "<group>"; };
 		DD32B1C11D0274D00015EB28 /* WebServerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServerManager.swift; sourceTree = "<group>"; };
 		DD53E3861D01F5E400147716 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
-		E31248A9DC45B7AEBE724E1D /* Pods-PopcornTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.release.xcconfig"; sourceTree = "<group>"; };
 		E6295F2A1CACF96100CD45E3 /* SeasonPickerRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeasonPickerRecipe.swift; sourceTree = "<group>"; };
 		E6295F2C1CACF9C100CD45E3 /* SeasonPickerRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SeasonPickerRecipe.xml; sourceTree = "<group>"; };
 		E6B5F78E1CB08954000F0644 /* SeasonProductRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeasonProductRecipe.swift; sourceTree = "<group>"; };
 		E6B5F7901CB08FDE000F0644 /* SeasonProductRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SeasonProductRecipe.xml; sourceTree = "<group>"; };
-		F2F65676E59D10FCE8C9BE15 /* Pods-PopcornTime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,7 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				002682121CD0B76200F51D31 /* TVServices.framework in Frameworks */,
-				6230DD5B10305EF5B545642E /* Pods_TopShelf.framework in Frameworks */,
+				CDBF82134E6AA2D3AFAC0C2C /* Pods_TopShelf.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,7 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92CF4A0A1CE6692900D666A8 /* libz.tbd in Frameworks */,
-				4D6953C8BDE957ED2E9EFD94 /* Pods_PopcornTime.framework in Frameworks */,
+				098B2026095198FE56AF33E0 /* Pods_PopcornTime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,8 +327,8 @@
 				287B85361C9873A200EEF5C8 /* PopcornTime */,
 				002682131CD0B76200F51D31 /* TopShelf */,
 				287B85351C9873A200EEF5C8 /* Products */,
-				5F2FC6E89C601B1D29CD992F /* Pods */,
 				F1EDDAB5F2E1772C41C22B7A /* Frameworks */,
+				EEE12C7C1689183C4338F937 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -387,17 +387,6 @@
 				40CD02861D295C4800995E48 /* Movie+Parallax.swift */,
 			);
 			name = Extensions;
-			sourceTree = "<group>";
-		};
-		5F2FC6E89C601B1D29CD992F /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F2F65676E59D10FCE8C9BE15 /* Pods-PopcornTime.debug.xcconfig */,
-				E31248A9DC45B7AEBE724E1D /* Pods-PopcornTime.release.xcconfig */,
-				AFEF107134131C2FAC746C22 /* Pods-TopShelf.debug.xcconfig */,
-				599430A8BF92BACDAFBDDD7B /* Pods-TopShelf.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		920550871CE6F71E00B8623F /* Objective-C */ = {
@@ -600,14 +589,25 @@
 			path = ZipKit/ZipKit;
 			sourceTree = "<group>";
 		};
+		EEE12C7C1689183C4338F937 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				59BE8A67A9D4954F63D16C0E /* Pods-PopcornTime.debug.xcconfig */,
+				796C61914EF57FAF09B30DFE /* Pods-PopcornTime.release.xcconfig */,
+				3E2A1684A64499B8ED0B31B3 /* Pods-TopShelf.debug.xcconfig */,
+				249A54E2A9C7529A3CC82622 /* Pods-TopShelf.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F1EDDAB5F2E1772C41C22B7A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				DD53E3861D01F5E400147716 /* libiconv.tbd */,
 				92CF4A091CE6692900D666A8 /* libz.tbd */,
-				C900A4508BB37D7070FA6888 /* Pods_PopcornTime.framework */,
 				002682111CD0B76200F51D31 /* TVServices.framework */,
-				5F0B1AC1E109CFA23D328453 /* Pods_TopShelf.framework */,
+				D7DC191EE356BC3B5A5E8F16 /* Pods_PopcornTime.framework */,
+				B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -625,7 +625,6 @@
 				0026820D1CD0B76200F51D31 /* Frameworks */,
 				0026820E1CD0B76200F51D31 /* Resources */,
 				C7D00E5B2BF0BC3307FB3BE0 /* [CP] Copy Pods Resources */,
-				F5C3E1819E9516669816D3B4 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -647,8 +646,6 @@
 				287B85321C9873A200EEF5C8 /* Resources */,
 				85B764B0AA36833E1E9526FC /* [CP] Embed Pods Frameworks */,
 				1B4490875F574D4B15982419 /* [CP] Copy Pods Resources */,
-				5F0A8FD16E3C29A44C805B14 /* 📦 Embed Pods Frameworks */,
-				38D540A7F3ACB45353BAFF90 /* 📦 Copy Pods Resources */,
 				0026821D1CD0B76300F51D31 /* Embed App Extensions */,
 				92CF49871CE668A100D666A8 /* Embed Frameworks */,
 				7608A9FC1D30F0D200B7564A /* Set Build number */,
@@ -753,36 +750,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		38D540A7F3ACB45353BAFF90 /* 📦 Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5F0A8FD16E3C29A44C805B14 /* 📦 Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7608A9FC1D30F0D200B7564A /* Set Build number */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -870,21 +837,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		F5C3E1819E9516669816D3B4 /* 📦 Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TopShelf/Pods-TopShelf-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F86603FA0D441AE41BDB3192 /* [CP] Check Pods Manifest.lock */ = {
@@ -1007,7 +959,7 @@
 /* Begin XCBuildConfiguration section */
 		0026821A1CD0B76300F51D31 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AFEF107134131C2FAC746C22 /* Pods-TopShelf.debug.xcconfig */;
+			baseConfigurationReference = 3E2A1684A64499B8ED0B31B3 /* Pods-TopShelf.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1024,7 +976,7 @@
 		};
 		0026821B1CD0B76300F51D31 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 599430A8BF92BACDAFBDDD7B /* Pods-TopShelf.release.xcconfig */;
+			baseConfigurationReference = 249A54E2A9C7529A3CC82622 /* Pods-TopShelf.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1122,7 +1074,7 @@
 		};
 		287B85441C9873A200EEF5C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F2F65676E59D10FCE8C9BE15 /* Pods-PopcornTime.debug.xcconfig */;
+			baseConfigurationReference = 59BE8A67A9D4954F63D16C0E /* Pods-PopcornTime.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1152,7 +1104,7 @@
 		};
 		287B85451C9873A200EEF5C8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E31248A9DC45B7AEBE724E1D /* Pods-PopcornTime.release.xcconfig */;
+			baseConfigurationReference = 796C61914EF57FAF09B30DFE /* Pods-PopcornTime.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

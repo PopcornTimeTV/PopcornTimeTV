@@ -352,19 +352,8 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
 
                 manager.searchTVDBSeries(Int(tvdbId)!) { response, error in
                     if let xml = response {
-                        let seriesInfo = xml["Data"]["Series"]
 
-                        var slug = seriesInfo["SeriesName"].element!.text!.slugged
-                        if slug.rangeOfString(".") != nil {
-                            let characterAfterDot = slug.componentsSeparatedByString(".")[1].characters.first
-                            if String(characterAfterDot).rangeOfString("-") != nil {
-                              slug = slug.removeSpecialCharacters()
-                            } else {
-                              slug = slug.stringByReplacingOccurrencesOfString(".", withString: "-")
-                            }
-                        }
-
-                        manager.fetchTraktSeasonEpisodesInfoForIMDB(slug, season: seasonInfo.current) { response, error in
+                        manager.fetchTraktSeasonEpisodesInfoForIMDB(show.id, season: seasonInfo.current) { response, error in
                             if let response = response {
                                 var episodes = [Episode]()
                                 for episode in show.episodes {
@@ -408,7 +397,7 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
                                                 forKeyedSubscript: "disableThemeSong")
                                         }, completion: nil)
                                         Kitchen.serve(recipe: recipe)
-                                        let delayInSeconds = 1.0;
+                                        let delayInSeconds = 2.0;
                                         let popTime = dispatch_time(DISPATCH_TIME_NOW, (Int64(delayInSeconds) * Int64(NSEC_PER_SEC)));
                                         dispatch_after(popTime, dispatch_get_main_queue()) {
                                             var viewcontrollers = Kitchen.navigationController.viewControllers
