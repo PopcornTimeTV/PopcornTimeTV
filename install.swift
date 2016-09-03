@@ -111,7 +111,7 @@ run("-c","rm -rf ~/.cocoapods/repos/PopcornTimeTV")
 run("-c","rm -rf Podfile.lock")
 run("-c","pod cache clean --all")
 run("-c","rm -rf ~/Library/Developer/Xcode/DerivedData/PopcornTime-*")
-run("-c","pod setup;pod repo update")
+run("-c","pod repo remove popcornmaster;pod setup;pod repo update")
 run("-c","pod install")
 run("-c","pod update")
 
