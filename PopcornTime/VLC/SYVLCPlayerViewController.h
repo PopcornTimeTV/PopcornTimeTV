@@ -18,7 +18,6 @@
 @property (nonatomic, weak) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet VLCTransportBar *transportBar;
 @property (weak, nonatomic) IBOutlet VLCFrostedGlasView *osdView;
-@property (weak, nonatomic) IBOutlet UIView *dimmingView;
 
 @property (nonatomic, weak) IBOutlet UIView *topButtonContainerView;
 

@@ -15,8 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface VLCBufferingBar : UIView
 @property (nonatomic) CGFloat bufferStartFraction;
 @property (nonatomic) CGFloat bufferEndFraction;
+@property (nonatomic) CGFloat playerEndFraction;
 
 @property (nonatomic) UIColor *bufferColor;
 @property (nonatomic) UIColor *borderColor;
+@property (nonatomic) UIColor *playingColor;
 @end
 NS_ASSUME_NONNULL_END

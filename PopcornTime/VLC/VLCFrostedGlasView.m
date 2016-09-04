@@ -67,12 +67,28 @@
         }
     }
 #else
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height*0.2);
+    gradient.colors = [NSArray arrayWithObjects: (id)[[UIColor blackColor] CGColor], nil];
     _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
-    _effectView.frame = self.bounds;
-    _effectView.alpha=0.3;
+    _effectView.frame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height*0.15);
+    _effectView.alpha=0.6;
     _effectView.clipsToBounds = YES;
     _effectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self insertSubview:_effectView atIndex:0];
+    [[_effectView layer] addSublayer:gradient];
+    //[self insertSubview:_effectView atIndex:0];
+    [self.layer insertSublayer:gradient atIndex:0];
+    _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+    _effectView.frame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y+self.bounds.size.height-(self.bounds.size.height*0.15), self.bounds.size.width, self.bounds.size.height*0.15);
+    _effectView.alpha=0.6;
+    _effectView.clipsToBounds = YES;
+    _effectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    gradient = [CAGradientLayer layer];
+    gradient.colors = [NSArray arrayWithObjects: (id)[[UIColor clearColor] CGColor],(id)[[UIColor blackColor] CGColor], nil];
+    gradient.frame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y+self.bounds.size.height-(self.bounds.size.height*0.2), self.bounds.size.width, self.bounds.size.height*0.2);
+    [[_effectView layer] addSublayer:gradient];
+    //[self insertSubview:_effectView atIndex:1];
+    [self.layer insertSublayer:gradient atIndex:1];
 #endif
 }
 

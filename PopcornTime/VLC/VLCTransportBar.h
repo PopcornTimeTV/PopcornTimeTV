@@ -23,8 +23,9 @@ typedef NS_ENUM(NSUInteger, VLCTransportBarHint) {
 IB_DESIGNABLE @interface VLCTransportBar : UIView
 @property (nonatomic) IBInspectable CGFloat bufferStartFraction;
 @property (nonatomic) IBInspectable CGFloat bufferEndFraction;
-@property (nonatomic) IBInspectable CGFloat playbackFraction;
+@property (nonatomic) IBInspectable CGFloat playbackEndFraction;
 @property (nonatomic) IBInspectable CGFloat scrubbingFraction;
+@property (nonatomic) IBInspectable UIImage *screenshot;
 @property (nonatomic, getter=isScrubbing) IBInspectable BOOL scrubbing;
 
 @property (nonatomic, readonly) UILabel *markerTimeLabel;
