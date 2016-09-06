@@ -324,13 +324,23 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             if indexPath.row == 2 {
                 UpdateManager.sharedManager().checkForUpdates(forVersion: version) { (updateAvailable, name, releaseNotes, error) in
                     if updateAvailable {
-                        let alertController = UIAlertController(title: "Update Available", message: "A new version of PopcornTime is available.\n\(name!)\n\n\(releaseNotes!)\n\nVisit https://github.com/PopcornTimeTV/PopcornTimeTV to update.", preferredStyle: .Alert)
+                        let alertController = UIAlertController(title: "Update Available", message: nil, preferredStyle: .Alert)
+                        alertController.addTextFieldWithConfigurationHandler({ textField in
+                            //textField.text = "A new version of PopcornTime is available.\n\(name!)\n\n\(releaseNotes!)\n\nVisit https://github.com/PopcornTimeTV/PopcornTimeTV to update."
+                            let textView = UITextView()
+                            textView.text = "A new version of PopcornTime is available.\n\(name!)\n\n\(releaseNotes!)\n\nVisit https://github.com/PopcornTimeTV/PopcornTimeTV to update."
+                            let size = textView.sizeThatFits(CGSizeMake(textField.frame.width, CGFloat.max))
+                            textView.frame = CGRectMake(textField.bounds.origin.x, textField.bounds.origin.y, size.width, size.height)
+                            textField.removeFromSuperview()
+                            alertController.view.addSubview(textView)
+                        })
+                        alertController.addAction(UIAlertAction(title: "Close", style: .Cancel, handler: nil))
                         self.presentViewController(alertController, animated: true, completion: nil)
-                        alertController.addAction(UIAlertAction(title: nil, style: .Cancel, handler: nil))
                     } else {
                         let alertController = UIAlertController(title: "No Updates Available", message: "You are using the latest version, \(self.version), however, if you are a developer, there might be a minor update avaible as a commit, you are using commit \(self.build), check https://github.com/PopcornTimeTV/PopcornTimeTV to see if new commits are available.", preferredStyle: .Alert)
+                        alertController.addAction(UIAlertAction(title: "Close", style: .Cancel, handler: nil))
                         self.presentViewController(alertController, animated: true, completion: nil)
-                        alertController.addAction(UIAlertAction(title: nil, style: .Cancel, handler: nil))
+                        
                     }
                 }
             }
