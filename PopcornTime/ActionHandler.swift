@@ -145,19 +145,19 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
                                                             var js = try String(contentsOfURL: file)
                                                             js = js.stringByReplacingOccurrencesOfString("{{RECIPE}}", withString: recipe.xmlString)
                                                             jsContext.evaluateScript(js)
+                                                            let delayInSeconds = 1.0;
+                                                            let popTime = dispatch_time(DISPATCH_TIME_NOW, (Int64(delayInSeconds) * Int64(NSEC_PER_SEC)));
+                                                            dispatch_after(popTime, dispatch_get_main_queue()) {
+                                                                var viewcontrollers = Kitchen.navigationController.viewControllers
+                                                                viewcontrollers.removeAtIndex(viewcontrollers.count-2)
+                                                                Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
+                                                            }
                                                         } catch {
                                                             print("Could not open MovieProductRecipe.js")
                                                         }
                                                     }
                                                     }, completion: nil)
-                                                let delayInSeconds = 1.0;
-                                                let popTime = dispatch_time(DISPATCH_TIME_NOW, (Int64(delayInSeconds) * Int64(NSEC_PER_SEC)));
-                                                dispatch_after(popTime, dispatch_get_main_queue()) {
-                                                    var viewcontrollers = Kitchen.navigationController.viewControllers
-                                                    viewcontrollers.removeAtIndex(viewcontrollers.count-2)
-                                                    Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
-                                                }
-                                                presentedDetails = true
+                                                    presentedDetails = true
                                             })
                                         }
                                     })
@@ -187,15 +187,23 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
                                         }
                                         jsContext.setObject(unsafeBitCast(disableThemeSong, AnyObject.self),
                                             forKeyedSubscript: "disableThemeSong")
+                                        if let file = NSBundle.mainBundle().URLForResource("MovieProductRecipe", withExtension: "js") {
+                                            do {
+                                                var js = try String(contentsOfURL: file)
+                                                js = js.stringByReplacingOccurrencesOfString("{{RECIPE}}", withString: recipe.xmlString)
+                                                jsContext.evaluateScript(js)
+                                                let delayInSeconds = 1.0;
+                                                let popTime = dispatch_time(DISPATCH_TIME_NOW, (Int64(delayInSeconds) * Int64(NSEC_PER_SEC)));
+                                                dispatch_after(popTime, dispatch_get_main_queue()) {
+                                                    var viewcontrollers = Kitchen.navigationController.viewControllers
+                                                    viewcontrollers.removeAtIndex(viewcontrollers.count-2)
+                                                    Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
+                                                }
+                                            } catch {
+                                                print("Could not open MovieProductRecipe.js")
+                                            }
+                                        }
                                         }, completion: nil)
-                                    Kitchen.serve(recipe: recipe)
-                                    let delayInSeconds = 1.0;
-                                    let popTime = dispatch_time(DISPATCH_TIME_NOW, (Int64(delayInSeconds) * Int64(NSEC_PER_SEC)));
-                                    dispatch_after(popTime, dispatch_get_main_queue()) {
-                                        var viewcontrollers = Kitchen.navigationController.viewControllers
-                                        viewcontrollers.removeAtIndex(viewcontrollers.count-2)
-                                        Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
-                                    }
                                     presentedDetails = true
                                 })
                             }
@@ -308,10 +316,17 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
             }
 
             if let _ = movies, let _ = shows {
-                Kitchen.navigationController.popViewControllerAnimated(false) // Dismiss LoadingView
                 let recipe = CatalogRecipe(title: pieces.last!, movies: movies, shows: shows)
                 recipe.presentationType = .DefaultWithLoadingIndicator
-                Kitchen.serve(recipe: recipe)
+                serveCatalogRecipe(recipe)
+                let delayInSeconds = 1.0;
+                let popTime = dispatch_time(DISPATCH_TIME_NOW, (Int64(delayInSeconds) * Int64(NSEC_PER_SEC)));
+                dispatch_after(popTime, dispatch_get_main_queue()) {
+                    var viewcontrollers = Kitchen.navigationController.viewControllers
+                    viewcontrollers.removeAtIndex(viewcontrollers.count-2)
+                    Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
+                }
+
             } else {
                 // To Do: Go back to the movie overview instead of main home view
                 Kitchen.navigationController.popToRootViewControllerAnimated(false)
@@ -395,8 +410,23 @@ struct ActionHandler { // swiftlint:disable:this type_body_length
                                             }
                                             jsContext.setObject(unsafeBitCast(disableThemeSong, AnyObject.self),
                                                 forKeyedSubscript: "disableThemeSong")
+                                            if let file = NSBundle.mainBundle().URLForResource("SeasonProductRecipe", withExtension: "js") {
+                                                do {
+                                                    var js = try String(contentsOfURL: file)
+                                                    js = js.stringByReplacingOccurrencesOfString("{{RECIPE}}", withString: recipe.xmlString)
+                                                    jsContext.evaluateScript(js)
+                                                    let delayInSeconds = 1.0;
+                                                    let popTime = dispatch_time(DISPATCH_TIME_NOW, (Int64(delayInSeconds) * Int64(NSEC_PER_SEC)));
+                                                    dispatch_after(popTime, dispatch_get_main_queue()) {
+                                                        var viewcontrollers = Kitchen.navigationController.viewControllers
+                                                        viewcontrollers.removeAtIndex(viewcontrollers.count-2)
+                                                        Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
+                                                    }
+                                                } catch {
+                                                    print("Could not open MovieProductRecipe.js")
+                                                }
+                                            }
                                         }, completion: nil)
-                                        Kitchen.serve(recipe: recipe)
                                         let delayInSeconds = 2.0;
                                         let popTime = dispatch_time(DISPATCH_TIME_NOW, (Int64(delayInSeconds) * Int64(NSEC_PER_SEC)));
                                         dispatch_after(popTime, dispatch_get_main_queue()) {

@@ -14,7 +14,6 @@
 
 @interface VLCTransportBar ()
 @property (nonatomic) VLCBufferingBar *bufferingBar;
-//@property (nonatomic) UIView *playbackPositionMarker;
 @property (nonatomic) UIView *scrubbingPostionMarker;
 
 @property (nonatomic) UIImageView *leftHintImageView;
@@ -42,12 +41,6 @@ static inline void sharedSetup(VLCTransportBar *self) {
     [self addSubview:bar];
 
     // Marker:
-    UIColor *markerColor = [UIColor whiteColor];
-//    UIView *playbackMarker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, VLCTransportBarMarkerWidth, CGRectGetHeight(bounds))];
-//    playbackMarker.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-//    playbackMarker.backgroundColor = markerColor;
-//    [self addSubview:playbackMarker];
-//    self.playbackPositionMarker = playbackMarker;
     self.screenshotImageView = [[UIImageView alloc] init];
     UIView *scrubbingMarker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, VLCTransportBarMarkerWidth, CGRectGetHeight(bounds))];
     [self addSubview:scrubbingMarker];
@@ -195,8 +188,16 @@ static inline void sharedSetup(VLCTransportBar *self) {
                                                                                   withThumbnail);
     self.scrubbingPostionMarker.frame = scrubberFrame;
     if (_screenshot != nil && _scrubbing){
-        self.screenshotImageView.frame=CGRectMake(self.scrubbingPostionMarker.frame.origin.x-300, self.scrubbingPostionMarker.frame.origin.y-400, 600, 400);
+        float leftBorder;
+        if(self.scrubbingPostionMarker.frame.origin.x+240 <= self.bounds.size.width){
+            leftBorder = self.scrubbingPostionMarker.frame.origin.x-240 >=0 ?self.scrubbingPostionMarker.frame.origin.x-240:0;
+        }else{
+            leftBorder = self.scrubbingPostionMarker.frame.origin.x+240 <= self.bounds.size.width ?self.scrubbingPostionMarker.frame.origin.x-240:self.bounds.origin.x+self.bounds.size.width-240;
+        }
+        self.screenshotImageView.frame=CGRectMake(leftBorder, self.scrubbingPostionMarker.frame.origin.y-300, 480, 270);
         [self addSubview:self.screenshotImageView];
+    }else{
+        self.screenshotImageView.image = nil;
     }
 
     UILabel *remainingLabel = self.remainingTimeLabel;

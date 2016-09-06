@@ -323,6 +323,8 @@ static NSString *const kText = @"kText";
     _mediaplayer.media = [VLCMedia mediaWithURL:_url];
     [[_mediaplayer media]synchronousParse];
     
+    _videoTitle.text = _videoInfo[@"movieName"];
+    
     [[_mediaplayer media] addOptions:@{kVLCSettingTextEncoding : subSetting.encoding}];
     [_mediaplayer performSelector:@selector(setTextRendererFontSize:) withObject:[NSNumber numberWithFloat:subSetting.sizeFloat]];
     [_mediaplayer play];
@@ -765,24 +767,30 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     bar.markerTimeLabel.text = [scrubbingTime stringValue];
     VLCTime *remainingTime = [VLCTime timeWithInt:-(int)(_mediaplayer.media.length.intValue-scrubbingTime.intValue)];
     bar.remainingTimeLabel.text = [remainingTime stringValue];
-    if(([[NSDate date] timeIntervalSince1970] - onceToken)>0.5){
-        bar.screenshot = [self saveScreenshotOnTime: scrubbingTime.value withRemainingTime:remainingTime.value];
-        onceToken = [[NSDate date] timeIntervalSince1970];
-    }
+    [self saveScreenshotOnTime: scrubbingTime.value withRemainingTime:remainingTime.value completion:^(UIImage * _Nullable image) {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            bar.screenshot = image;
+        });
+        
+    }];
 }
 
--(UIImage*)saveScreenshotOnTime:(NSNumber*)time withRemainingTime:(NSNumber*)remainingTime{
+-(void)saveScreenshotOnTime:(NSNumber*)time withRemainingTime:(NSNumber*)remainingTime completion:(void(^)(UIImage* _Nullable image))completionBlock{
     AVAssetImageGenerator* imageGen = [AVAssetImageGenerator assetImageGeneratorWithAsset:[[AVURLAsset alloc ]initWithURL:_url options:nil]];
     imageGen.appliesPreferredTrackTransform = true;
     imageGen.requestedTimeToleranceAfter= kCMTimeZero;
     imageGen.requestedTimeToleranceBefore = kCMTimeZero;
-    NSError *err;
-    CMTime timePicture = kCMTimeZero;
     [imageGen cancelAllCGImageGeneration];
-    CGImageRef cgimage = [imageGen copyCGImageAtTime:CMTimeMakeWithSeconds(time.floatValue/1000.0,1000000) actualTime:&timePicture error:&err];
-    if(err!=nil)return nil;
-    UIImage *image = [UIImage imageWithCGImage:cgimage];
-    return image;
+    [imageGen generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:CMTimeMakeWithSeconds(time.floatValue/1000.0,1000000)]] completionHandler:^(CMTime requestedTime, CGImageRef  _Nullable image, CMTime actualTime, AVAssetImageGeneratorResult result, NSError * _Nullable error) {
+        if(error==nil){
+            UIImage *uiImage = [UIImage imageWithCGImage:image];
+            if (completionBlock != nil) completionBlock(uiImage);
+            uiImage=nil;
+        }else{
+            NSLog(@"could not retrieve screenshot, error:%@",error.description);
+            completionBlock(nil);
+        }
+    }];
 
 }
 
@@ -1001,7 +1009,6 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     } else if (context.nextFocusedView.tag == 1001) {
         if ([context.previouslyFocusedView isKindOfClass:[SQTabMenuCollectionViewCell class]]) {
             [self deactiveCollectionViews];
-            //            self.middleButton.hidden = YES;
             [self setNeedsFocusUpdate];
         } else {
             [self closeTopMenu];
@@ -1031,7 +1038,7 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 
 - (void) openTopMenu
 {
-    
+    [self hideOSD];
     self.subsButton.enabled      = NO;
     self.subsDelayButton.enabled = NO;
     self.audioButton.enabled     = NO;
@@ -1254,12 +1261,9 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     
     if (!_videoDidOpened) {
         
-        self.swipeTopConstraint.constant = 30.0;
         self.osdView.alpha = .0;
-        //self.swipeMesaggeContainerView.alpha = .0;
         
         self.osdView.hidden = NO;
-        //self.swipeMesaggeContainerView.hidden = NO;
         
         [self showOSD];
         
@@ -1273,7 +1277,6 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
         
         [UIView animateWithDuration:0.3 animations:^{
             self.loadingLogo.alpha = .0;
-            //            self.progressView.alpha = .0;
             if(self.indicatorView.isAnimating)[self.indicatorView stopAnimating];
             self.indicatorView.hidden = NO;
         }];
@@ -1289,39 +1292,6 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 
 
 #pragma mark - OSD
-
-//- (void) showSwipeMessage
-//{
-//    
-//    if (self.swipeTopConstraint.constant == 26) {
-//        return;
-//    }
-//    
-//    self.swipeTopConstraint.constant = 26;
-//    
-//    [UIView animateWithDuration:0.3 animations:^{
-//        self.swipeMesaggeContainerView.alpha = 1.0;
-//        [self.view layoutIfNeeded];
-//    } completion:^(BOOL finished) {
-//    }];
-//}
-//
-//
-//- (void) hideSwipeMessage
-//{
-//    if (self.swipeTopConstraint.constant == 36) {
-//        return;
-//    }
-//    
-//    self.swipeTopConstraint.constant = 36;
-//    
-//    [UIView animateWithDuration:0.3 animations:^{
-//        self.swipeMesaggeContainerView.alpha = .0;
-//        [self.view layoutIfNeeded];
-//    }completion:^(BOOL finished) {
-//    }];
-//}
-
 
 - (void) showOSD
 {
