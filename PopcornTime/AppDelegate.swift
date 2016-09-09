@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     watchlist.fetchWatchListItems(forType: .Movie) { watchListMovies in
                                         watchlist.fetchWatchListItems(forType: .Show) { watchListShows in
                                             Kitchen.serve(recipe: WelcomeRecipe(title: "PopcornTime", movies: movies, shows: shows, watchListMovies: watchListMovies, watchListShows: watchListShows))
-
+                                            self.checkForUpdates()
                                             if let url = launchOptions?[UIApplicationLaunchOptionsURLKey] as? NSURL {
                                                 self.handleURL(url)
                                             }
@@ -70,7 +70,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         SubtitleManager.sharedManager().cleanSubs()
-
         return true
     }
 

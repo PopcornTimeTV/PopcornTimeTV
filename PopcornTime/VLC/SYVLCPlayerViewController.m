@@ -464,13 +464,25 @@ static NSString *const kText = @"kText";
         translation.x = 0.0;
         [panGestureRecognizer setTranslation:translation inView:view];
     }
+    int scrubbingTimeInt = MAX(1,_mediaplayer.media.length.intValue*scrubbingFraction);
+    VLCTime *scrubbingTime = [VLCTime timeWithInt:scrubbingTimeInt];
+    VLCTime *remainingTime = [VLCTime timeWithInt:-(int)(_mediaplayer.media.length.intValue-scrubbingTime.intValue)];
+    
     [UIView animateWithDuration:0.3
                           delay:0.0
                         options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
+                         [self saveScreenshotOnTime: scrubbingTime.value withRemainingTime:remainingTime.value completion:^(UIImage * _Nullable image) {
+                             
+                             dispatch_sync(dispatch_get_main_queue(), ^{
+                                 bar.screenshot = image;
+                             });
+                             
+                         }];
                          bar.scrubbingFraction = scrubbingFraction;
                      }
                      completion:nil];
+    
     [self updateTimeLabelsForScrubbingFraction:scrubbingFraction];
     
 }
@@ -767,12 +779,6 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     bar.markerTimeLabel.text = [scrubbingTime stringValue];
     VLCTime *remainingTime = [VLCTime timeWithInt:-(int)(_mediaplayer.media.length.intValue-scrubbingTime.intValue)];
     bar.remainingTimeLabel.text = [remainingTime stringValue];
-    [self saveScreenshotOnTime: scrubbingTime.value withRemainingTime:remainingTime.value completion:^(UIImage * _Nullable image) {
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            bar.screenshot = image;
-        });
-        
-    }];
 }
 
 -(void)saveScreenshotOnTime:(NSNumber*)time withRemainingTime:(NSNumber*)remainingTime completion:(void(^)(UIImage* _Nullable image))completionBlock{
@@ -780,15 +786,17 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     imageGen.appliesPreferredTrackTransform = true;
     imageGen.requestedTimeToleranceAfter= kCMTimeZero;
     imageGen.requestedTimeToleranceBefore = kCMTimeZero;
-    [imageGen cancelAllCGImageGeneration];
+    //[imageGen cancelAllCGImageGeneration];
     [imageGen generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:CMTimeMakeWithSeconds(time.floatValue/1000.0,1000000)]] completionHandler:^(CMTime requestedTime, CGImageRef  _Nullable image, CMTime actualTime, AVAssetImageGeneratorResult result, NSError * _Nullable error) {
         if(error==nil){
             UIImage *uiImage = [UIImage imageWithCGImage:image];
             if (completionBlock != nil) completionBlock(uiImage);
             uiImage=nil;
+            return;
         }else{
             NSLog(@"could not retrieve screenshot, error:%@",error.description);
             completionBlock(nil);
+            return;
         }
     }];
 

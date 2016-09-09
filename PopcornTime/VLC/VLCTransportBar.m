@@ -41,7 +41,6 @@ static inline void sharedSetup(VLCTransportBar *self) {
     [self addSubview:bar];
 
     // Marker:
-    self.screenshotImageView = [[UIImageView alloc] init];
     UIView *scrubbingMarker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, VLCTransportBarMarkerWidth, CGRectGetHeight(bounds))];
     [self addSubview:scrubbingMarker];
     scrubbingMarker.backgroundColor = [UIColor clearColor];
@@ -63,7 +62,11 @@ static inline void sharedSetup(VLCTransportBar *self) {
     remainingLabel.textColor = textColor;
     [self addSubview:remainingLabel];
     self->_remainingTimeLabel = remainingLabel;
-
+    
+    // Snapshot placeholder:
+    self.screenshotImageView = [[UIImageView alloc] init];
+    self.screenshotImageView.frame = CGRectMake(self.scrubbingPostionMarker.frame.origin.x-240, self.scrubbingPostionMarker.frame.origin.y-300, 480, 270);
+    [self.scrubbingPostionMarker addSubview:self.screenshotImageView];
 
     CGFloat iconLength = 32.0;
     CGRect imageRect = CGRectMake(0, 0, iconLength, iconLength);
@@ -125,7 +128,8 @@ static inline void sharedSetup(VLCTransportBar *self) {
 -(void)setScreenshot:(UIImage*)screenshot{
     [self.screenshotImageView setImage:screenshot];
     _screenshot = screenshot;
-    [self setNeedsLayout];
+    [self.screenshotImageView setNeedsLayout];
+    
 }
 
 - (UIImage *)imageForHint:(VLCTransportBarHint)hint
@@ -187,18 +191,7 @@ static inline void sharedSetup(VLCTransportBar *self) {
                                                                                   self.scrubbingFraction,
                                                                                   withThumbnail);
     self.scrubbingPostionMarker.frame = scrubberFrame;
-    if (_screenshot != nil && _scrubbing){
-        float leftBorder;
-        if(self.scrubbingPostionMarker.frame.origin.x+240 <= self.bounds.size.width){
-            leftBorder = self.scrubbingPostionMarker.frame.origin.x-240 >=0 ?self.scrubbingPostionMarker.frame.origin.x-240:0;
-        }else{
-            leftBorder = self.scrubbingPostionMarker.frame.origin.x+240 <= self.bounds.size.width ?self.scrubbingPostionMarker.frame.origin.x-240:self.bounds.origin.x+self.bounds.size.width-240;
-        }
-        self.screenshotImageView.frame=CGRectMake(leftBorder, self.scrubbingPostionMarker.frame.origin.y-300, 480, 270);
-        [self addSubview:self.screenshotImageView];
-    }else{
-        self.screenshotImageView.image = nil;
-    }
+    
 
     UILabel *remainingLabel = self.remainingTimeLabel;
     [remainingLabel sizeToFit];
@@ -226,6 +219,21 @@ static inline void sharedSetup(VLCTransportBar *self) {
 
     CGFloat remainingAlfa = CGRectIntersectsRect(markerLabel.frame, remainingLabelFrame) ? 0.0 : 1.0;
     remainingLabel.alpha = remainingAlfa;
+    
+//    if (_scrubbing){
+//            [self.screenshotImageView.layer removeAllAnimations];
+//            CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position.x"];
+//            anim.fromValue    = @(self.screenshotImageView.center.x);
+//            anim.toValue  = @(self.scrubbingPostionMarker.frame.origin.x);
+//            anim.duration   = 0.2f;
+//            anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+//            
+//            // First we update the model layer's property.
+//            self.screenshotImageView.layer.position = CGPointMake(self.scrubbingPostionMarker.frame.origin.x, self.scrubbingPostionMarker.frame.origin.y-150);
+//            
+//            // Now we attach the animation.
+//            [self.screenshotImageView.layer  addAnimation:anim forKey:@"position.x"];
+//    }
 }
 
 

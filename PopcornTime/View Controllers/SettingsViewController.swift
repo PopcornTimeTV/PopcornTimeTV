@@ -323,13 +323,12 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             if indexPath.row == 2 {
                 UpdateManager.sharedManager().checkForUpdates(forVersion: version) { (updateAvailable, name, releaseNotes, error) in
                     if updateAvailable {
-                        let alertController = UIAlertController(title: "Update Available", message: "A new version of PopcornTime is available.\n\(name!)\n\n\(releaseNotes!)\n\nVisit https://github.com/PopcornTimeTV/PopcornTimeTV to update.", preferredStyle: .Alert)
+                        let alertController = UIAlertController(title: "Update Available", message: "A new version of PopcornTime is available.\n\(name!)\n\n\(releaseNotes!)\n\nVisit https://github.com/PopcornTimeTV/PopcornTimeTV to update.", preferredStyle: .Alert, withTextView: true)
                         self.presentViewController(alertController, animated: true, completion: nil)
-                        alertController.addAction(UIAlertAction(title: nil, style: .Cancel, handler: nil))
                     } else {
                         let alertController = UIAlertController(title: "No Updates Available", message: "You are using the latest version, \(self.version), however, if you are a developer, there might be a minor update avaible as a commit, you are using commit \(self.build), check https://github.com/PopcornTimeTV/PopcornTimeTV to see if new commits are available.", preferredStyle: .Alert)
-                        self.presentViewController(alertController, animated: true, completion: nil)
                         alertController.addAction(UIAlertAction(title: nil, style: .Cancel, handler: nil))
+                        self.presentViewController(alertController, animated: true, completion: nil)
                     }
                 }
             }
