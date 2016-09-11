@@ -1,4 +1,5 @@
 <descriptiveAlertTemplate>
     <title>{{TITLE}}</title>
-    <description>{{DESCRIPTION}}</description>
+    <description allowsZooming="true">{{DESCRIPTION}}</description>
+    {{BUTTONS}}
 </descriptiveAlertTemplate>

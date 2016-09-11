@@ -423,7 +423,7 @@ static NSString *const kText = @"kText";
     CGPoint translation = [panGestureRecognizer translationInView:view];
     
     if (!bar.scrubbing) {
-        if (ABS(translation.x) > 150.0 && selectActivated) {
+        if (ABS(translation.x) > 150.0 && (selectActivated || !_mediaplayer.isPlaying)) {
             if (self.isSeekable) {
                 [self startScrubbing];
                 selectActivated=NO;
@@ -472,11 +472,12 @@ static NSString *const kText = @"kText";
                           delay:0.0
                         options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
+                         //this function is called in here in order not to hinder the appearance of the scrubbing marker making it look laggy!
                          [self saveScreenshotOnTime: scrubbingTime.value withRemainingTime:remainingTime.value completion:^(UIImage * _Nullable image) {
-                             
-                             dispatch_sync(dispatch_get_main_queue(), ^{
+                             //we do this cause we want to show the image immediately after we have it!
+                             //dispatch_sync(dispatch_get_main_queue(), ^{
                                  bar.screenshot = image;
-                             });
+                             //});
                              
                          }];
                          bar.scrubbingFraction = scrubbingFraction;
@@ -786,7 +787,7 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     imageGen.appliesPreferredTrackTransform = true;
     imageGen.requestedTimeToleranceAfter= kCMTimeZero;
     imageGen.requestedTimeToleranceBefore = kCMTimeZero;
-    //[imageGen cancelAllCGImageGeneration];
+    [imageGen cancelAllCGImageGeneration];
     [imageGen generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:CMTimeMakeWithSeconds(time.floatValue/1000.0,1000000)]] completionHandler:^(CMTime requestedTime, CGImageRef  _Nullable image, CMTime actualTime, AVAssetImageGeneratorResult result, NSError * _Nullable error) {
         if(error==nil){
             UIImage *uiImage = [UIImage imageWithCGImage:image];

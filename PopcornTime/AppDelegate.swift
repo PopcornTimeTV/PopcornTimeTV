@@ -96,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let currentVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String {
             UpdateManager.sharedManager().checkForUpdates(forVersion: currentVersion) { (updateAvailable, name, releaseNotes, error) in
                 if updateAvailable {
-                    Kitchen.serve(recipe: AlertRecipe(title: "Update Available", description: "A new version of PopcornTime is available.\n\(name!)\n\n\(releaseNotes!)\n\nVisit https://github.com/PopcornTimeTV/PopcornTimeTV to update.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .Modal))
+                    Kitchen.serve(recipe: DescriptionRecipe(title: "Update Available", message: "A new version of PopcornTime is available.\n\(name!)\n\n\(releaseNotes!)\n\nVisit https://github.com/PopcornTimeTV/PopcornTimeTV to update.", buttons: [DescriptionButton(title: "Close", actionID: "closeAlert")], presentationType: .Modal))
                 }
             }
         }

@@ -65,7 +65,9 @@ static inline void sharedSetup(VLCTransportBar *self) {
     
     // Snapshot placeholder:
     self.screenshotImageView = [[UIImageView alloc] init];
+    //center view to the scrubbing marker
     self.screenshotImageView.frame = CGRectMake(self.scrubbingPostionMarker.frame.origin.x-240, self.scrubbingPostionMarker.frame.origin.y-300, 480, 270);
+    //add screenshot to the scrubbing marker so that they move as one unit, looks cleaner to the user
     [self.scrubbingPostionMarker addSubview:self.screenshotImageView];
 
     CGFloat iconLength = 32.0;
@@ -129,7 +131,6 @@ static inline void sharedSetup(VLCTransportBar *self) {
     [self.screenshotImageView setImage:screenshot];
     _screenshot = screenshot;
     [self.screenshotImageView setNeedsLayout];
-    
 }
 
 - (UIImage *)imageForHint:(VLCTransportBarHint)hint
@@ -219,22 +220,7 @@ static inline void sharedSetup(VLCTransportBar *self) {
 
     CGFloat remainingAlfa = CGRectIntersectsRect(markerLabel.frame, remainingLabelFrame) ? 0.0 : 1.0;
     remainingLabel.alpha = remainingAlfa;
-    
-//    if (_scrubbing){
-//            [self.screenshotImageView.layer removeAllAnimations];
-//            CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position.x"];
-//            anim.fromValue    = @(self.screenshotImageView.center.x);
-//            anim.toValue  = @(self.scrubbingPostionMarker.frame.origin.x);
-//            anim.duration   = 0.2f;
-//            anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-//            
-//            // First we update the model layer's property.
-//            self.screenshotImageView.layer.position = CGPointMake(self.scrubbingPostionMarker.frame.origin.x, self.scrubbingPostionMarker.frame.origin.y-150);
-//            
-//            // Now we attach the animation.
-//            [self.screenshotImageView.layer  addAnimation:anim forKey:@"position.x"];
-//    }
-}
+ }
 
 
 static CGRect scrubbingMarkerFrameForBounds_fraction_withThumb(CGRect bounds, CGFloat fraction, BOOL withThumbnail) {
