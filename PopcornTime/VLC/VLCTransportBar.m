@@ -122,15 +122,16 @@ static inline void sharedSetup(VLCTransportBar *self) {
     _scrubbing = scrubbing;
     if(scrubbing)
         self.scrubbingPostionMarker.backgroundColor = [UIColor whiteColor];
-    else
+    else{
         self.scrubbingPostionMarker.backgroundColor = [UIColor clearColor];
+        self.screenshotImageView.image = nil;
+    }
     [self setNeedsLayout];
 }
 
 -(void)setScreenshot:(UIImage*)screenshot{
     [self.screenshotImageView setImage:screenshot];
     _screenshot = screenshot;
-    [self.screenshotImageView setNeedsLayout];
 }
 
 - (UIImage *)imageForHint:(VLCTransportBarHint)hint

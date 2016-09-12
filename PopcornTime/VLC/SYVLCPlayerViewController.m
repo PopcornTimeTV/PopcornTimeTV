@@ -201,7 +201,7 @@ static NSString *const kText = @"kText";
 }
 
 - (void)stopStreamingTorrent {
-    [[PTTorrentStreamer sharedStreamer] cancelStreaming];
+    [[PTTorrentStreamer sharedStreamer] cancelStreamingAndDeleteData:YES];
 }
 
 - (void)viewDidLoad
@@ -474,11 +474,7 @@ static NSString *const kText = @"kText";
                      animations:^{
                          //this function is called in here in order not to hinder the appearance of the scrubbing marker making it look laggy!
                          [self saveScreenshotOnTime: scrubbingTime.value withRemainingTime:remainingTime.value completion:^(UIImage * _Nullable image) {
-                             //we do this cause we want to show the image immediately after we have it!
-                             //dispatch_sync(dispatch_get_main_queue(), ^{
-                                 bar.screenshot = image;
-                             //});
-                             
+                                 bar.screenshot = image;                             
                          }];
                          bar.scrubbingFraction = scrubbingFraction;
                      }
