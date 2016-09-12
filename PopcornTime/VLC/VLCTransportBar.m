@@ -14,11 +14,11 @@
 
 @interface VLCTransportBar ()
 @property (nonatomic) VLCBufferingBar *bufferingBar;
-@property (nonatomic) UIView *playbackPositionMarker;
 @property (nonatomic) UIView *scrubbingPostionMarker;
 
 @property (nonatomic) UIImageView *leftHintImageView;
 @property (nonatomic) UIImageView *rightHintImageView;
+@property (nonatomic) UIImageView *screenshotImageView;
 @end
 
 @implementation VLCTransportBar
@@ -27,12 +27,13 @@ static const CGFloat VLCTransportBarMarkerWidth = 2.0;
 
 static inline void sharedSetup(VLCTransportBar *self) {
     CGRect bounds = self.bounds;
-
+    
     // Bar:
     VLCBufferingBar *bar = [[VLCBufferingBar alloc] initWithFrame:bounds];
-    UIColor *barColor =  [UIColor lightGrayColor];
-    bar.bufferColor = barColor;
-    bar.borderColor = barColor;
+
+    bar.bufferColor = [UIColor lightGrayColor];
+    bar.borderColor = [UIColor grayColor];
+    bar.playingColor = [UIColor colorWithRed:0.18 green:0.84 blue:0.40 alpha:1.0];
     bar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     bar.bufferStartFraction = self.bufferStartFraction;
     bar.bufferEndFraction = self.bufferEndFraction;
@@ -40,16 +41,9 @@ static inline void sharedSetup(VLCTransportBar *self) {
     [self addSubview:bar];
 
     // Marker:
-    UIColor *markerColor = [UIColor whiteColor];
-    UIView *playbackMarker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, VLCTransportBarMarkerWidth, CGRectGetHeight(bounds))];
-    playbackMarker.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    playbackMarker.backgroundColor = markerColor;
-    [self addSubview:playbackMarker];
-    self.playbackPositionMarker = playbackMarker;
-
     UIView *scrubbingMarker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, VLCTransportBarMarkerWidth, CGRectGetHeight(bounds))];
     [self addSubview:scrubbingMarker];
-    scrubbingMarker.backgroundColor = markerColor;
+    scrubbingMarker.backgroundColor = [UIColor clearColor];
     self.scrubbingPostionMarker = scrubbingMarker;
 
     // Labels:
@@ -68,7 +62,13 @@ static inline void sharedSetup(VLCTransportBar *self) {
     remainingLabel.textColor = textColor;
     [self addSubview:remainingLabel];
     self->_remainingTimeLabel = remainingLabel;
-
+    
+    // Snapshot placeholder:
+    self.screenshotImageView = [[UIImageView alloc] init];
+    //center view to the scrubbing marker
+    self.screenshotImageView.frame = CGRectMake(self.scrubbingPostionMarker.frame.origin.x-240, self.scrubbingPostionMarker.frame.origin.y-300, 480, 270);
+    //add screenshot to the scrubbing marker so that they move as one unit, looks cleaner to the user
+    [self.scrubbingPostionMarker addSubview:self.screenshotImageView];
 
     CGFloat iconLength = 32.0;
     CGRect imageRect = CGRectMake(0, 0, iconLength, iconLength);
@@ -105,9 +105,10 @@ static inline void sharedSetup(VLCTransportBar *self) {
     _bufferEndFraction = fraction;
     self.bufferingBar.bufferEndFraction = fraction;
 }
-- (void)setPlaybackFraction:(CGFloat)playbackFraction {
-    CGFloat fraction = MAX(0.0, MIN(playbackFraction, 1.0));
-    _playbackFraction = fraction;
+- (void)setPlaybackEndFraction:(CGFloat)playbackEndFraction {   
+    CGFloat fraction = MAX(0.0, MIN(playbackEndFraction, 1.0));
+    _playbackEndFraction = fraction;
+    self.bufferingBar.playerEndFraction = fraction;
     if (!self.scrubbing) {
         [self setScrubbingFraction:fraction];
     }
@@ -119,7 +120,18 @@ static inline void sharedSetup(VLCTransportBar *self) {
 }
 - (void)setScrubbing:(BOOL)scrubbing {
     _scrubbing = scrubbing;
+    if(scrubbing)
+        self.scrubbingPostionMarker.backgroundColor = [UIColor whiteColor];
+    else{
+        self.scrubbingPostionMarker.backgroundColor = [UIColor clearColor];
+        self.screenshotImageView.image = nil;
+    }
     [self setNeedsLayout];
+}
+
+-(void)setScreenshot:(UIImage*)screenshot{
+    [self.screenshotImageView setImage:screenshot];
+    _screenshot = screenshot;
 }
 
 - (UIImage *)imageForHint:(VLCTransportBarHint)hint
@@ -172,8 +184,8 @@ static inline void sharedSetup(VLCTransportBar *self) {
     const CGRect bounds = self.bounds;
     const CGFloat width = CGRectGetWidth(bounds)-VLCTransportBarMarkerWidth;
 
-    self.playbackPositionMarker.center = CGPointMake(width*self.playbackFraction+VLCTransportBarMarkerWidth/2.0,
-                                                     CGRectGetMidY(bounds));
+    //self.playbackPositionMarker.center = CGPointMake(width*self.playbackFraction+VLCTransportBarMarkerWidth/2.0,
+                                                     //CGRectGetMidY(bounds));
 
 
     const BOOL withThumbnail = NO;
@@ -181,7 +193,7 @@ static inline void sharedSetup(VLCTransportBar *self) {
                                                                                   self.scrubbingFraction,
                                                                                   withThumbnail);
     self.scrubbingPostionMarker.frame = scrubberFrame;
-
+    
 
     UILabel *remainingLabel = self.remainingTimeLabel;
     [remainingLabel sizeToFit];
@@ -209,7 +221,7 @@ static inline void sharedSetup(VLCTransportBar *self) {
 
     CGFloat remainingAlfa = CGRectIntersectsRect(markerLabel.frame, remainingLabelFrame) ? 0.0 : 1.0;
     remainingLabel.alpha = remainingAlfa;
-}
+ }
 
 
 static CGRect scrubbingMarkerFrameForBounds_fraction_withThumb(CGRect bounds, CGFloat fraction, BOOL withThumbnail) {

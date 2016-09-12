@@ -264,7 +264,6 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     let titles = labels!["Titles"] as? NSArray
                     let values = labels!["Values"] as? NSArray
                     for title in titles! {
-                        print("Values of title ",values![(titles?.indexOfObject(title))!] as? String)
                         alertController.addAction(UIAlertAction(title: title as? String ,style: .Default, encoding:values![(titles?.indexOfObject(title))!] as? String, handler: { action in
                             settings.encoding = action.encodingArg
                             settings.writeToDisk()

@@ -58,7 +58,6 @@
 		926A48781CDFAB7000D02962 /* SQTabMenuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 926A48751CDFAB7000D02962 /* SQTabMenuCollectionViewCell.m */; };
 		926A48791CDFAB7000D02962 /* SQTabMenuCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 926A48761CDFAB7000D02962 /* SQTabMenuCollectionViewCell.xib */; };
 		92925B2F1C9CA4E80086D362 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92925B2D1C9CA4E80086D362 /* Main.storyboard */; };
-		92925B341C9CAB360086D362 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92925B331C9CAB360086D362 /* PlayerViewController.swift */; };
 		92CF49341CE6591A00D666A8 /* SubtitleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CF49331CE6591A00D666A8 /* SubtitleManager.swift */; };
 		92CF49361CE666EC00D666A8 /* String+PathComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CF49351CE666EC00D666A8 /* String+PathComponents.swift */; };
 		92CF49F81CE6692100D666A8 /* NSData+ZKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CF49D31CE6692100D666A8 /* NSData+ZKAdditions.m */; };
@@ -195,7 +194,6 @@
 		926A48751CDFAB7000D02962 /* SQTabMenuCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQTabMenuCollectionViewCell.m; sourceTree = "<group>"; };
 		926A48761CDFAB7000D02962 /* SQTabMenuCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SQTabMenuCollectionViewCell.xib; sourceTree = "<group>"; };
 		92925B2E1C9CA4E80086D362 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		92925B331C9CAB360086D362 /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = "View Controllers/PlayerViewController.swift"; sourceTree = "<group>"; };
 		92CF49331CE6591A00D666A8 /* SubtitleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleManager.swift; sourceTree = "<group>"; };
 		92CF49351CE666EC00D666A8 /* String+PathComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+PathComponents.swift"; path = "Extensions/String+PathComponents.swift"; sourceTree = "<group>"; };
 		92CF49D21CE6692100D666A8 /* NSData+ZKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ZKAdditions.h"; sourceTree = "<group>"; };
@@ -534,7 +532,6 @@
 		92925B321C9CA5BE0086D362 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				92925B331C9CAB360086D362 /* PlayerViewController.swift */,
 				921E44F31CE78F930012FEAD /* SettingsViewController.swift */,
 			);
 			name = "View Controllers";
@@ -672,9 +669,11 @@
 				TargetAttributes = {
 					0026820F1CD0B76200F51D31 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = LSMKHW6LLV;
 					};
 					287B85331C9873A200EEF5C8 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = LSMKHW6LLV;
 					};
 				};
 			};
@@ -911,7 +910,6 @@
 				925F8DEE1CA9E44C007100EB /* YIFYSearchRecipe.swift in Sources */,
 				920C33D91CFE77C7003278EE /* UIImageView+Network.m in Sources */,
 				921572391CE422C000A26088 /* AudioManager.swift in Sources */,
-				92925B341C9CAB360086D362 /* PlayerViewController.swift in Sources */,
 				92CF4A001CE6692100D666A8 /* ZKCDHeader.m in Sources */,
 				92CF4A061CE6692100D666A8 /* ZKFileArchive.m in Sources */,
 				925F8DF11CA9E44C007100EB /* WelcomeRecipe.swift in Sources */,
@@ -964,9 +962,14 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/tvOS/appletvos",
+					"$(PROJECT_DIR)/tvOS/appletvsimulator",
+				);
 				INFOPLIST_FILE = TopShelf/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntime.PopcornTime.TopShelf;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aggelos81.PopcornTime.TopShelf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -981,9 +984,14 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/tvOS/appletvos",
+					"$(PROJECT_DIR)/tvOS/appletvsimulator",
+				);
 				INFOPLIST_FILE = TopShelf/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntime.PopcornTime.TopShelf;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aggelos81.PopcornTime.TopShelf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -1016,10 +1024,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1087,18 +1092,22 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/tvOS/appletvsimulator",
+					"$(PROJECT_DIR)/tvOS/appletvos",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = "COCOAPODS=1";
 				INFOPLIST_FILE = PopcornTime/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PopcornTime/Objective-C/TOSMBClient/libdsm",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntime.PopcornTime;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aggelos81.PopcornTime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PopcornTime/PopcornTime-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
 		};
@@ -1116,6 +1125,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/tvOS/appletvsimulator",
+					"$(PROJECT_DIR)/tvOS/appletvos",
 				);
 				INFOPLIST_FILE = PopcornTime/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1123,10 +1134,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/PopcornTime/Objective-C/TOSMBClient/libdsm",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntime.PopcornTime;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aggelos81.PopcornTime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PopcornTime/PopcornTime-Bridging-Header.h";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};

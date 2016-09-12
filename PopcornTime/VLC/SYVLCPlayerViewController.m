@@ -66,6 +66,8 @@ static NSString *const kText = @"kText";
     NSURL* _filePath;
     
     BOOL _videoLoaded;
+    
+    NSTimeInterval onceToken;
 }
 @property (nonatomic) NSTimer *hidePlaybackControlsViewAfterDeleayTimer;
 @property (nonatomic) VLCPlayerScanState scanState;
@@ -98,6 +100,7 @@ static NSString *const kText = @"kText";
         _magnet = _videoInfo[@"magnet"];
         _videoLoaded = NO;
         _filePath=[[NSURL alloc]initWithString:@""];
+        onceToken = [[NSDate date] timeIntervalSince1970];
         
         [self beginStreamingTorrent];
     }
@@ -119,7 +122,7 @@ static NSString *const kText = @"kText";
         _tryAccount = 0;
         _sizeFloat = 68.0;
         _filePath=[[NSURL alloc]initWithString:@""];
-        
+        onceToken = [[NSDate date] timeIntervalSince1970];
         // Settings object
         subSetting = [SQSubSetting loadFromDisk];
     }
@@ -198,7 +201,7 @@ static NSString *const kText = @"kText";
 }
 
 - (void)stopStreamingTorrent {
-    [[PTTorrentStreamer sharedStreamer] cancelStreaming];
+    [[PTTorrentStreamer sharedStreamer] cancelStreamingAndDeleteData:YES];
 }
 
 - (void)viewDidLoad
@@ -248,11 +251,10 @@ static NSString *const kText = @"kText";
     
     self.transportBar.bufferStartFraction = 0.0;
     self.transportBar.bufferEndFraction = 1.0;
-    self.transportBar.playbackFraction = 0.0;
+    self.transportBar.playbackEndFraction = 0.0;
     self.transportBar.scrubbingFraction = 0.0;
     self.indicatorView.hidden=YES;
     
-    self.dimmingView.alpha = 0.0;
     self.osdView.alpha = 0.0;
     
     NSMutableSet<UIGestureRecognizer *> *simultaneousGestureRecognizers = [NSMutableSet set];
@@ -320,6 +322,8 @@ static NSString *const kText = @"kText";
     // Media player
     _mediaplayer.media = [VLCMedia mediaWithURL:_url];
     [[_mediaplayer media]synchronousParse];
+    
+    _videoTitle.text = _videoInfo[@"movieName"];
     
     [[_mediaplayer media] addOptions:@{kVLCSettingTextEncoding : subSetting.encoding}];
     [_mediaplayer performSelector:@selector(setTextRendererFontSize:) withObject:[NSNumber numberWithFloat:subSetting.sizeFloat]];
@@ -419,7 +423,7 @@ static NSString *const kText = @"kText";
     CGPoint translation = [panGestureRecognizer translationInView:view];
     
     if (!bar.scrubbing) {
-        if (ABS(translation.x) > 150.0 && selectActivated) {
+        if (ABS(translation.x) > 150.0 && (selectActivated || !_mediaplayer.isPlaying)) {
             if (self.isSeekable) {
                 [self startScrubbing];
                 selectActivated=NO;
@@ -454,21 +458,30 @@ static NSString *const kText = @"kText";
     CGFloat scrubbingFraction = MAX(0.0, MIN(bar.scrubbingFraction + fractionInView,1.0));
     
     
-    if (ABS(scrubbingFraction - bar.playbackFraction)<0.005) {
-        scrubbingFraction = bar.playbackFraction;
+    if (ABS(scrubbingFraction - bar.playbackEndFraction)<0.005) {
+        scrubbingFraction = bar.playbackEndFraction;
     } else {
         translation.x = 0.0;
         [panGestureRecognizer setTranslation:translation inView:view];
     }
+    int scrubbingTimeInt = MAX(1,_mediaplayer.media.length.intValue*scrubbingFraction);
+    VLCTime *scrubbingTime = [VLCTime timeWithInt:scrubbingTimeInt];
+    VLCTime *remainingTime = [VLCTime timeWithInt:-(int)(_mediaplayer.media.length.intValue-scrubbingTime.intValue)];
     
     [UIView animateWithDuration:0.3
                           delay:0.0
                         options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
+                         //this function is called in here in order not to hinder the appearance of the scrubbing marker making it look laggy!
+                         [self saveScreenshotOnTime: scrubbingTime.value withRemainingTime:remainingTime.value completion:^(UIImage * _Nullable image) {
+                                 bar.screenshot = image;                             
+                         }];
                          bar.scrubbingFraction = scrubbingFraction;
                      }
                      completion:nil];
+    
     [self updateTimeLabelsForScrubbingFraction:scrubbingFraction];
+    
 }
 
 - (void)selectButtonPressed
@@ -478,7 +491,7 @@ static NSString *const kText = @"kText";
     
     VLCTransportBar *bar = self.transportBar;
     if (bar.scrubbing) {
-        bar.playbackFraction = bar.scrubbingFraction;
+        bar.playbackEndFraction = bar.scrubbingFraction;
         [self stopScrubbing];
         [_mediaplayer setPosition:bar.scrubbingFraction];
     } else if(_mediaplayer.playing && ![self isTopMenuOnScreen]) {
@@ -494,10 +507,10 @@ static NSString *const kText = @"kText";
     VLCTransportBar *bar = self.transportBar;
     if (bar.scrubbing) {
         [UIView animateWithDuration:0.3 animations:^{
-            bar.scrubbingFraction = bar.playbackFraction;
+            bar.scrubbingFraction = bar.playbackEndFraction;
             [bar layoutIfNeeded];
         }];
-        [self updateTimeLabelsForScrubbingFraction:bar.playbackFraction];
+        [self updateTimeLabelsForScrubbingFraction:bar.playbackEndFraction];
         [self stopScrubbing];
         [self hidePlaybackControlsIfNeededAfterDelay];
     }else if([self isTopMenuOnScreen]){
@@ -754,7 +767,6 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 }
 
 #pragma mark -
-
 - (void)updateTimeLabelsForScrubbingFraction:(CGFloat)scrubbingFraction
 {
     VLCTransportBar *bar = self.transportBar;
@@ -766,13 +778,32 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     bar.remainingTimeLabel.text = [remainingTime stringValue];
 }
 
+-(void)saveScreenshotOnTime:(NSNumber*)time withRemainingTime:(NSNumber*)remainingTime completion:(void(^)(UIImage* _Nullable image))completionBlock{
+    AVAssetImageGenerator* imageGen = [AVAssetImageGenerator assetImageGeneratorWithAsset:[[AVURLAsset alloc ]initWithURL:_url options:nil]];
+    imageGen.appliesPreferredTrackTransform = true;
+    imageGen.requestedTimeToleranceAfter= kCMTimeZero;
+    imageGen.requestedTimeToleranceBefore = kCMTimeZero;
+    [imageGen cancelAllCGImageGeneration];
+    [imageGen generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:CMTimeMakeWithSeconds(time.floatValue/1000.0,1000000)]] completionHandler:^(CMTime requestedTime, CGImageRef  _Nullable image, CMTime actualTime, AVAssetImageGeneratorResult result, NSError * _Nullable error) {
+        if(error==nil){
+            UIImage *uiImage = [UIImage imageWithCGImage:image];
+            if (completionBlock != nil) completionBlock(uiImage);
+            uiImage=nil;
+            return;
+        }else{
+            NSLog(@"could not retrieve screenshot, error:%@",error.description);
+            completionBlock(nil);
+            return;
+        }
+    }];
+
+}
 
 - (void)startScrubbing
 {
     NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
     
     self.transportBar.scrubbing = YES;
-    [self updateDimmingView];
     if (_mediaplayer.isPlaying) {
         [self playandPause:nil];
     }
@@ -780,19 +811,7 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 - (void)stopScrubbing
 {
     self.transportBar.scrubbing = NO;
-    [self updateDimmingView];
     [_mediaplayer play];
-}
-
-- (void)updateDimmingView
-{
-    BOOL shouldBeVisible = self.transportBar.scrubbing;
-    BOOL isVisible = self.dimmingView.alpha == 1.0;
-    if (shouldBeVisible != isVisible) {
-        [UIView animateWithDuration:0.3 animations:^{
-            self.dimmingView.alpha = shouldBeVisible ? 1.0 : 0.0;
-        }];
-    }
 }
 
 - (void)updateActivityIndicatorForState:(VLCMediaPlayerState)state {
@@ -843,7 +862,7 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     VLCTransportBar *transportBar = self.transportBar;
     transportBar.remainingTimeLabel.text = [[mediaPlayer remainingTime] stringValue];
     transportBar.markerTimeLabel.text = [[mediaPlayer time] stringValue];
-    transportBar.playbackFraction = mediaPlayer.position;
+    transportBar.playbackEndFraction = mediaPlayer.position;
 }
 
 #pragma mark - PlaybackControls
@@ -995,7 +1014,6 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     } else if (context.nextFocusedView.tag == 1001) {
         if ([context.previouslyFocusedView isKindOfClass:[SQTabMenuCollectionViewCell class]]) {
             [self deactiveCollectionViews];
-            //            self.middleButton.hidden = YES;
             [self setNeedsFocusUpdate];
         } else {
             [self closeTopMenu];
@@ -1025,8 +1043,7 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 
 - (void) openTopMenu
 {
-    [self hideSwipeMessage];
-    
+    [self hideOSD];
     self.subsButton.enabled      = NO;
     self.subsDelayButton.enabled = NO;
     self.audioButton.enabled     = NO;
@@ -1055,7 +1072,6 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
         _topButton.hidden            = YES;
         [self setNeedsFocusUpdate];
         [self performSelector:@selector(hideOSD) withObject:nil afterDelay:4.0];
-        [self showSwipeMessage];
     }];
 }
 
@@ -1250,15 +1266,11 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     
     if (!_videoDidOpened) {
         
-        self.swipeTopConstraint.constant = 30.0;
         self.osdView.alpha = .0;
-        self.swipeMesaggeContainerView.alpha = .0;
         
         self.osdView.hidden = NO;
-        self.swipeMesaggeContainerView.hidden = NO;
         
         [self showOSD];
-        [self showSwipeMessage];
         
         if (_initialRatio != 0) {
             [_mediaplayer setPosition:_initialRatio];
@@ -1270,7 +1282,6 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
         
         [UIView animateWithDuration:0.3 animations:^{
             self.loadingLogo.alpha = .0;
-            //            self.progressView.alpha = .0;
             if(self.indicatorView.isAnimating)[self.indicatorView stopAnimating];
             self.indicatorView.hidden = NO;
         }];
@@ -1287,39 +1298,6 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 
 #pragma mark - OSD
 
-- (void) showSwipeMessage
-{
-    
-    if (self.swipeTopConstraint.constant == 26) {
-        return;
-    }
-    
-    self.swipeTopConstraint.constant = 26;
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        self.swipeMesaggeContainerView.alpha = 1.0;
-        [self.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
-    }];
-}
-
-
-- (void) hideSwipeMessage
-{
-    if (self.swipeTopConstraint.constant == 36) {
-        return;
-    }
-    
-    self.swipeTopConstraint.constant = 36;
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        self.swipeMesaggeContainerView.alpha = .0;
-        [self.view layoutIfNeeded];
-    }completion:^(BOOL finished) {
-    }];
-}
-
-
 - (void) showOSD
 {
     
@@ -1332,8 +1310,6 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 
 - (void) hideOSD
 {
-    
-    [self hideSwipeMessage];
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideOSD) object:nil];
     [UIView animateWithDuration:0.4 animations:^{

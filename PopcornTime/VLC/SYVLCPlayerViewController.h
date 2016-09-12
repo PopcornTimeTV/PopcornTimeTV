@@ -18,11 +18,10 @@
 @property (nonatomic, weak) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet VLCTransportBar *transportBar;
 @property (weak, nonatomic) IBOutlet VLCFrostedGlasView *osdView;
-@property (weak, nonatomic) IBOutlet UIView *dimmingView;
 
 @property (nonatomic, weak) IBOutlet UIView *topButtonContainerView;
 
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *swipeTopConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *videoTitle;
 @property (nonatomic, weak) IBOutlet UIView *swipeMesaggeContainerView;
 @property (nonatomic, weak) IBOutlet UILabel *swipeMesaggeLabel;
 

@@ -1,5 +1,5 @@
 
-source 'https://github.com/Hackormahn/Specs'
+#source 'https://github.com/Hackormahn/Specs'
 source 'https://github.com/CocoaPods/Specs'
 
 platform :tvos
