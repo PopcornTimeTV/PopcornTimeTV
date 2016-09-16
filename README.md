@@ -1,6 +1,7 @@
 #PopcornTime TV
+**PSA: We have our full focus on porting all of our repos to Swift 3. Please be patient with us. For now download and resign the iPA available HERE**
 
-**You must build the project with Xcode 7. Swift 3 and Xcode 8 support will be available when tvOS 10 launched in the fall.**
+**You must build the project with Xcode 7. Swift 3 and Xcode 8 support will be available asap!**
 
 An Apple TV 4 application to torrent movies and tv shows for streaming. A simple and easy to use application based on TVML to bring the native desktop PopcornTime experience to Apple TV.
 
