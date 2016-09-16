@@ -1,5 +1,5 @@
 #PopcornTime TV
-**PSA: We have our full focus on porting all of our repos to Swift 3. Please be patient with us. For now download and resign the iPA available HERE**
+**PSA: We have our full focus on porting all of our repos to Swift 3. Please be patient with us. For now download and resign the iPA available [HERE](https://appd.be/kronos/PopcornTimeTV-v1.0.5.ipa)!**
 
 **You must build the project with Xcode 7. Swift 3 and Xcode 8 support will be available asap!**
 
