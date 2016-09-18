@@ -6,7 +6,7 @@ platform :tvos
 use_frameworks!
 
 target 'PopcornTime' do
-  pod 'YoutubeSourceParserKit'
+  pod 'YoutubeSourceParserKit', :git => 'https://github.com/lennet/YoutubeSourceParserKit.git'
   pod 'TVMLKitchen', :git => 'https://github.com/toshi0383/TVMLKitchen.git', :branch => 'swift3.0'
   pod 'PopcornKit', :git => 'https://github.com/PopcornTimeTV/PopcornKit.git'
   pod 'AlamofireXMLRPC', :git => 'https://github.com/PopcornTimeTV/AlamofireXMLRPC.git'
