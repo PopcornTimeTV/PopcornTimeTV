@@ -1,4 +1,5 @@
 source 'https://github.com/CocoaPods/Specs'
+source 'https://github.com/angryDuck2/CocoaSpecs'
 
 platform :tvos
 use_frameworks!
