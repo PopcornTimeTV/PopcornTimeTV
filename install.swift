@@ -2,48 +2,47 @@
 
 import Foundation
 
-public extension NSURLSession {
+public extension URLSession {
     
     /// Return data from synchronous URL request
-    public static func requestSynchronousData(request: NSURLRequest) -> NSData? {
-        var data: NSData? = nil
-        let semaphore: dispatch_semaphore_t = dispatch_semaphore_create(0)
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {
-            taskData, _, error -> () in
+    public static func requestSynchronousData(_ request: URLRequest) -> Data? {
+        var data: Data? = nil
+        let semaphore = DispatchSemaphore(value: 0)
+        let task = URLSession.shared.dataTask(with: request) { (taskData, _, error) in
             data = taskData
             if data == nil, let error = error {print(error)}
-            dispatch_semaphore_signal(semaphore);
-        })
+            semaphore.signal()
+        }
         task.resume()
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+        semaphore.wait()
         return data
     }
     
     /// Return data synchronous from specified endpoint
-    public static func requestSynchronousDataWithURLString(requestString: String) -> NSData? {
-        guard let url = NSURL(string:requestString) else {return nil}
-        let request = NSURLRequest(URL: url)
-        return NSURLSession.requestSynchronousData(request)
+    public static func requestSynchronousDataWithURLString(_ requestString: String) -> Data? {
+        guard let url = URL(string:requestString) else {return nil}
+        let request = URLRequest(url: url)
+        return URLSession.requestSynchronousData(request)
     }
     
     /// Return JSON synchronous from URL request
-    public static func requestSynchronousJSON(request: NSURLRequest) -> AnyObject? {
-        guard let data = NSURLSession.requestSynchronousData(request) else {return nil}
-        return try? NSJSONSerialization.JSONObjectWithData(data, options: [])
+    public static func requestSynchronousJSON(_ request: URLRequest) -> Any? {
+        guard let data = URLSession.requestSynchronousData(request) else {return nil}
+        return try? JSONSerialization.jsonObject(with: data, options: [])
     }
     
     /// Return JSON synchronous from specified endpoint
-    public static func requestSynchronousJSONWithURLString(requestString: String) -> AnyObject? {
-        guard let url = NSURL(string: requestString) else {return nil}
-        let request = NSMutableURLRequest(URL:url)
-        request.HTTPMethod = "GET"
+    public static func requestSynchronousJSONWithURLString(_ requestString: String) -> Any? {
+        guard let url = URL(string: requestString) else {return nil}
+        var request = URLRequest(url:url)
+        request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        return NSURLSession.requestSynchronousJSON(request)
+        return URLSession.requestSynchronousJSON(request)
     }
 }
 
-func run(args: String...) -> Int32 {
-    let task = NSTask()
+func run(_ args: String...) -> Int32 {
+    let task = Process()
     task.launchPath = "/bin/bash"
     task.arguments = args
     print(args)
@@ -52,12 +51,12 @@ func run(args: String...) -> Int32 {
     return task.terminationStatus
 }
 
-func input(input: String) -> String {
+func input(_ input: String) -> String {
     print(input)
-    let keyboard = NSFileHandle.fileHandleWithStandardInput()
+    let keyboard = FileHandle.standardInput
     let inputData = keyboard.availableData
-    let string = NSString(data: inputData, encoding:NSUTF8StringEncoding) as! String
-    return string.stringByReplacingOccurrencesOfString("\n", withString: "")
+    let string = String(data: inputData, encoding: .utf8)!
+    return string.replacingOccurrences(of: "\n", with: "")
 }
 
 // Fetch the latest version
@@ -69,7 +68,7 @@ run("-c", "git stash", "git fetch", "git rebase")
 print("\n# Fetching the latest verion info...")
 
 var versions = [String]()
-if let jsonData = NSURLSession.requestSynchronousJSONWithURLString("https://api.github.com/repos/PopcornTimeTV/PopcornTimeTV/releases") as? [[String : AnyObject]] {
+if let jsonData = URLSession.requestSynchronousJSONWithURLString("https://api.github.com/repos/PopcornTimeTV/PopcornTimeTV/releases") as? [[String : AnyObject]] {
     
     for info in jsonData {
         if let string = info["tag_name"] as? String {
@@ -77,7 +76,7 @@ if let jsonData = NSURLSession.requestSynchronousJSONWithURLString("https://api.
         }
     }
     
-    for i in 0...versions.count-1 {
+    for i in 0..<versions.count {
         print(versions[i])
     }
 }
@@ -87,7 +86,7 @@ let version = input("Enter the version number: ")
 
 
 // Make sure the tag exsists in versions
-if version.lowercaseString != "master" {
+if version.lowercased() != "master" {
     if !versions.contains(version) {
         print("You entered an incorrect version number. Please rerun this script and try again.")
         exit(0)
@@ -99,8 +98,8 @@ print("\n# Checking out tag \(version)...")
 run("-c", "git checkout \(version)", "git pop")
 
 // Check if cocoapods is installed
-let podsInstalled = input("Do you have cocoapods installed? (Enter Yes or No): ").lowercaseString
-if podsInstalled.rangeOfString("no") != nil {
+let podsInstalled = input("Do you have cocoapods installed? (Enter Yes or No): ").lowercased()
+if podsInstalled.range(of: "no") != nil {
     print("Installing cocoapod gem...")
     run("-c", "sudo gem install cocoapods")
 }
