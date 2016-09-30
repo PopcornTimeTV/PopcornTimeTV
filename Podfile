@@ -10,7 +10,7 @@ target 'PopcornTime' do
   pod 'PopcornKit', :git => 'https://github.com/PopcornTimeTV/PopcornKit.git', :branch => 'new-apis'
   pod 'AlamofireXMLRPC'
   pod 'PopcornTorrent', :git => 'https://github.com/PopcornTimeTV/PopcornTorrent.git'
-  pod 'TVVLCKit-unstable', '3.0.0a21'
+  pod 'TVVLCKit-unstable', '3.0.0a23'
   pod 'GCDWebServer', :git => 'https://github.com/swisspol/GCDWebServer.git'
   pod 'ObjectMapper', :git => 'https://github.com/Hearst-DD/ObjectMapper.git'
   
