@@ -62,7 +62,7 @@ func input(_ input: String) -> String {
 
 // Fetch the latest version
 print("# Fetching the latest changes from github...")
-_ = run("-c", "git stash", "git fetch", "git rebase")
+run("-c", "git stash", "git fetch", "git rebase")
 
 
 // Fetch the releases
