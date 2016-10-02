@@ -7,18 +7,11 @@ public struct GenreRecipe: RecipeType {
 
     public let theme = DefaultTheme()
     public let presentationType = PresentationType.Tab
-    var fetchType: FetchType! = .Movies
-    let movieGenres = ["Action", "Adventure", "Animation", "Biography",
-                       "Comedy", "Crime", "Documentary", "Drama", "Family",
-                       "Fantasy", "History", "Horror", "Music",
-                       "Musical", "Mystery", "Romance", "Sport", "Thriller",
-                       "War", "Western"]
-    let tvGenres = [ "Action", "Adventure", "Animation", "Children", "Comedy",
-                     "Crime", "Documentary", "Drama", "Family", "Fantasy",
-                     "History", "Horror", "Mystery", "News", "Reality", "Romance"]
+    var type: Trakt.MediaType = .movies
+    var currentPage = 0
 
-    init(fetchType: FetchType = .Movies) {
-        self.fetchType = fetchType
+    init(type: Trakt.MediaType = .movies) {
+        self.type = type
     }
 
     public var xmlString: String {
@@ -30,9 +23,9 @@ public struct GenreRecipe: RecipeType {
     }
 
     public var listItems: String {
-        switch fetchType! {
-        case .Movies:
-            let mappedListItem: [String] = movieGenres.map {
+        switch type {
+        case .movies:
+            let mappedListItem = MovieManager.Genres.array.map {
                 let listItem = "<listItemLockup actionID=\"showGenre»\($0)»movie\" sectionID=\"\($0)\"> \n" +
                              "<title>\($0)</title> \n" +
                              "<relatedContent> \n" +
@@ -41,9 +34,9 @@ public struct GenreRecipe: RecipeType {
                              "</listItemLockup>"
                 return listItem
             }
-            return mappedListItem.joinWithSeparator("\n")
-        case .Shows:
-            let mappedListItem: [String] = tvGenres.map {
+            return mappedListItem.joined(separator: "\n")
+        case .shows:
+            let mappedListItem = ShowManager.Genres.array.map {
                 let listItem = "<listItemLockup actionID=\"showGenre»\($0)»show\" sectionID=\"\($0)\"> \n" +
                     "<title>\($0)</title> \n" +
                     "<relatedContent> \n" +
@@ -52,57 +45,39 @@ public struct GenreRecipe: RecipeType {
                 "</listItemLockup>"
                 return listItem
             }
-            return mappedListItem.joinWithSeparator("\n")
+            return mappedListItem.joined(separator: "\n")
         }
     }
 
     public var template: String {
         var xml = ""
-        if let file = NSBundle.mainBundle().URLForResource("GenreRecipe", withExtension: "xml") {
+        if let file = Bundle.main.url(forResource: "GenreRecipe", withExtension: "xml") {
             do {
-                xml = try String(contentsOfURL: file)
-                xml = xml.stringByReplacingOccurrencesOfString("{{LIST_ITEMS}}", withString: listItems)
+                xml = try String(contentsOf: file)
+                xml = xml.replacingOccurrences(of: "{{LIST_ITEMS}}", with: listItems)
             } catch {
                 print("Could not open Catalog template")
             }
         }
         return xml
     }
-
-    public func highlightSection(text: String, callback: (String -> Void)) {
-        var data = ""
-        let semaphore = dispatch_semaphore_create(0)
-        switch self.fetchType! {
-            case .Movies:
-            NetworkManager.sharedManager().fetchMovies(limit: 50, page: 1, quality: "720p", minimumRating: 0, queryTerm: nil, genre: text, sortBy: "download_count", orderBy: "desc") { movies, error in
-                if let movies = movies {
-                    let mapped: [String] = movies.map { movie in
-                        movie.lockUpGenre
-                    }
-                    data = mapped.joinWithSeparator("\n")
-                    dispatch_semaphore_signal(semaphore)
-                }
+    
+    public func section(didHighlightWithGenre genre: String, completion: (String) -> Void) {
+        switch type {
+        case .movies:
+            guard let genre = MovieManager.Genres(rawValue: genre) else { return }
+            PopcornKit.loadMovies(currentPage, genre: genre) { (movies, error) in
+                guard let movies = movies else { return }
+                let mapped = movies.map { $0.lockUpGenre }
+                completion(mapped.joinWithSeparator("\n"))
             }
-            case .Shows:
-            let manager = NetworkManager.sharedManager()
-            manager.fetchShowPageNumbers { pageNumbers, error in
-                if let pageNumbers = pageNumbers {
-                    manager.fetchShows(pageNumbers, searchTerm: nil, genre: text, sort: "trending", order: "1") { shows, error in
-                        if let shows = shows {
-                            let mapped: [String] = shows.map { show in
-                                show.lockUpGenre
-                            }
-                            data = mapped.joinWithSeparator("\n")
-                            dispatch_semaphore_signal(semaphore)
-                        }
-                    }
-                }
-            }
-
+        case .shows:
+            guard let genre = Show.Genres(rawValue: genre) else { return }
+            PopcornKit.loadShows(currentPage, genre: genre, completion: { (shows, error) in
+                guard let shows = shows else { return }
+                let mapped = shows.map { $0.lockUpGenre }
+                completion(mapped.joinWithSeparator("\n"))
+            })
         }
-
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
-        callback(data)
     }
-
 }

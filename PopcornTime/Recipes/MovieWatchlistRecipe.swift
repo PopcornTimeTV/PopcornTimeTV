@@ -9,9 +9,9 @@ public struct MovieWatchlistRecipe: RecipeType {
     public let presentationType = PresentationType.Tab
 
     let title: String
-    let items: [WatchItem]
+    let items: [Movie]
 
-    init(title: String, movies: [WatchItem]) {
+    init(title: String, movies: [Movie]) {
         self.title = title
         self.items = movies
     }
@@ -33,16 +33,16 @@ public struct MovieWatchlistRecipe: RecipeType {
             string += "</lockup>"
             return string
         }
-        return mapped.joinWithSeparator("")
+        return mapped.joined(separator: "")
     }
 
     public var template: String {
         var xml = ""
-        if let file = NSBundle.mainBundle().URLForResource("CatalogRecipe", withExtension: "xml") {
+        if let file = Bundle.main.url(forResource: "CatalogRecipe", withExtension: "xml") {
             do {
-                xml = try String(contentsOfURL: file)
-                xml = xml.stringByReplacingOccurrencesOfString("{{TITLE}}", withString: title)
-                xml = xml.stringByReplacingOccurrencesOfString("{{POSTERS}}", withString: movieString)
+                xml = try String(contentsOf: file)
+                xml = xml.replacingOccurrences(of: "{{TITLE}}", with: title)
+                xml = xml.replacingOccurrences(of: "{{POSTERS}}", with: movieString)
             } catch {
                 print("Could not open Catalog template")
             }

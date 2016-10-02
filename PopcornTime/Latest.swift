@@ -6,18 +6,18 @@ import PopcornKit
 struct Latest: TabItem {
 
     let title = "Recently Released"
-    var fetchType: FetchType! = .Movies
+    var fetchType: FetchType! = .movies
 
     func handler() {
         switch self.fetchType! {
-        case .Movies:
+        case .movies:
             NetworkManager.sharedManager().fetchMovies(limit: 50, page: 1, quality: "1080p", minimumRating: 0, queryTerm: nil, genre: nil, sortBy: "year", orderBy: "desc") { movies, error in
                 if let movies = movies {
                     let recipe = CatalogRecipe(title: "Recently Released", movies: movies)
                     self.serveRecipe(recipe)
                 }
             }
-        case .Shows:
+        case .shows:
             let manager = NetworkManager.sharedManager()
             manager.fetchShowPageNumbers { pageNumbers, error in
                 if let _ = pageNumbers {
@@ -40,7 +40,7 @@ struct Latest: TabItem {
         }
     }
 
-    func serveRecipe(recipe: CatalogRecipe) {
+    func serveRecipe(_ recipe: CatalogRecipe) {
         Kitchen.appController.evaluateInJavaScriptContext({jsContext in
             let highlightLockup: @convention(block) (Int, JSValue) -> () = {(nextPage, callback) in
                 recipe.highlightLockup(nextPage) { string in

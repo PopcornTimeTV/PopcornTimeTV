@@ -18,24 +18,3 @@ extension Movie {
     }
 
 }
-
-extension KATResult {
-
-
-
-    var torrents: String {
-        let filteredTorrents: [String] = self.torrents.map { torrent in
-            return "quality=\(torrent.quality)&hash=\(torrent.hash)"
-        }
-        return filteredTorrents.joinWithSeparator("•")
-    }
-
-    var lockUp: String {
-        var string = "<listItemLockup style=\"tv-align:left; width:100%;\" actionID=\"playMovie»{{IMAGE}}»{{BACKGROUND_IMAGE}}»\(title.cleaned)»{{SHORT_DESCRIPTION}}»\(torrents.cleaned)»{{IMDBID}}\">"
-        //string += "<img src=\"\(mediumCoverImage)\" width=\"250\" height=\"375\" />"
-        string += "<title>\(title.cleaned)</title>"
-        string += "</listItemLockup>"
-        return string
-    }
-
-}

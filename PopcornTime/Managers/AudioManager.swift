@@ -20,7 +20,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         super.init()
     }
 
-    func playTheme(id: Int) {
+    func playTheme(_ id: Int) {
         if let _ = self.currentPlayingThemeId {
             if self.currentPlayingThemeId == id {
                 return
@@ -28,19 +28,19 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         }
 
         if let _ = self.player {
-            if self.player.playing {
+            if self.player.isPlaying {
                 self.player.stop()
             }
         }
 
-        NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "http://tvthemes.plexapp.com/\(id).mp3")!) { (data, response, error) in
+        URLSession.shared.dataTask(with: URL(string: "http://tvthemes.plexapp.com/\(id).mp3")!, completionHandler: { (data, response, error) in
             do {
                 if let data = data {
                     try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
                     try AVAudioSession.sharedInstance().setActive(true)
 
                     self.player = try AVAudioPlayer(data: data)
-                    self.player.volume = NSUserDefaults.standardUserDefaults().floatForKey("TVShowVolume") ?? 0.75
+                    self.player.volume = UserDefaults.standard.float(forKey: "TVShowVolume") ?? 0.75
                     self.player.delegate = self
                     self.player.prepareToPlay()
                     self.player.play()
@@ -48,7 +48,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
             } catch let error {
                 print(error)
             }
-        }.resume()
+        }) .resume()
     }
 
     func stopTheme() {
@@ -57,7 +57,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         }
     }
 
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         self.currentPlayingThemeId = nil
     }
 

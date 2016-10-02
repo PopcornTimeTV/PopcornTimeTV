@@ -9,7 +9,7 @@ class YIFYSearchRecipe: SearchRecipe {
         super.init(type: type)
     }
 
-    override func filterSearchText(text: String, callback: (String -> Void)) {
+    override func filterSearchText(_ text: String, callback: @escaping ((String) -> Void)) {
         NetworkManager.sharedManager().fetchMovies(limit: 50, page: 1, quality: "720p", minimumRating: 0, queryTerm: text, genre: nil, sortBy: "download_count", orderBy: "desc") { movies, error in
             if let movies = movies {
                 let mapped: [String] = movies.map { movie in
@@ -36,15 +36,15 @@ class YIFYSearchRecipe: SearchRecipe {
 }
 
 class KATSearchRecipe: SearchRecipe {
-    private var currentSearchText=""
-    private var category = "movies"
+    fileprivate var currentSearchText=""
+    fileprivate var category = "movies"
 
     init(type: PresentationType = .Search, category: String) {
         super.init(type: type)
         self.category = category
     }
 
-    override func filterSearchText(text: String, callback: (String -> Void)) {
+    override func filterSearchText(_ text: String, callback: @escaping ((String) -> Void)) {
         currentSearchText=text
         NetworkManager.sharedManager().fetchKATResults(page: 1, queryTerm: text, genre: nil, category: self.category, sortBy: "seeders", orderBy: "desc") { movies, error in
             if let movies = movies {
@@ -74,9 +74,9 @@ class KATSearchRecipe: SearchRecipe {
 class EZTVSearchRecipe: SearchRecipe {
 
     var recipe: String? {
-        if let file = NSBundle.mainBundle().URLForResource("SearchRecipe", withExtension: "xml") {
+        if let file = Bundle.main.url(forResource: "SearchRecipe", withExtension: "xml") {
             do {
-                return try String(contentsOfURL: file)
+                return try String(contentsOf: file)
             } catch {
                 print("Could not open Catalog template")
             }
@@ -88,8 +88,8 @@ class EZTVSearchRecipe: SearchRecipe {
         super.init(type: type)
     }
 
-    override func filterSearchText(text: String, callback: (String -> Void)) {
-        if let pageNumbers = NSUserDefaults.standardUserDefaults().objectForKey("EZTVPageCount") as? [Int] {
+    override func filterSearchText(_ text: String, callback: @escaping ((String) -> Void)) {
+        if let pageNumbers = UserDefaults.standard.object(forKey: "EZTVPageCount") as? [Int] {
             NetworkManager.sharedManager().fetchShows(pageNumbers, searchTerm: text, genre: nil, sort: "trending") { shows, error in
                 if let shows = shows {
                     let mapped: [String] = shows.map { show in

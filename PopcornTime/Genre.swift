@@ -7,12 +7,12 @@ struct Genre: TabItem {
 
     var title = "Genre"
 
-    var fetchType: FetchType! = .Movies {
+    var fetchType: FetchType! = .movies {
         didSet {
             if let _ = self.fetchType {
                 switch self.fetchType! {
-                case .Movies: title = "Genre"
-                case .Shows: title = "Genre"
+                case .movies: title = "Genre"
+                case .shows: title = "Genre"
 
                 }
             }
@@ -21,14 +21,14 @@ struct Genre: TabItem {
 
     func handler() {
         switch self.fetchType! {
-        case .Movies:
+        case .movies:
             NetworkManager.sharedManager().fetchMovies(limit: 50, page: 1, quality: "1080p", minimumRating: 3, queryTerm: nil, genre: nil, sortBy: "seeds", orderBy: "desc") { movies, error in
                 if movies != nil {
                     let recipe = GenreRecipe(fetchType: self.fetchType)
                     self.serveRecipe(recipe)
                 }
             }
-        case .Shows:
+        case .shows:
             let manager = NetworkManager.sharedManager()
             manager.fetchShowPageNumbers { pageNumbers, error in
                 if let _ = pageNumbers {
@@ -45,7 +45,7 @@ struct Genre: TabItem {
     }
 
 
-    func serveRecipe(recipe: GenreRecipe) {
+    func serveRecipe(_ recipe: GenreRecipe) {
         Kitchen.appController.evaluateInJavaScriptContext({jsContext in
             let highlightSection: @convention(block) (String, JSValue) -> () = {(text, callback) in
                 recipe.highlightSection(text) { string in

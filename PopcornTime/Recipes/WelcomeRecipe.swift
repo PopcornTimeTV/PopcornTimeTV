@@ -42,21 +42,21 @@ public struct WelcomeRecipe: RecipeType {
         let mapped: [String] = movies.map {
             return $0.lockUp
         }
-        return mapped.joinWithSeparator("\n")
+        return mapped.joined(separator: "\n")
     }
     
     public var popularShows: String {
         let mapped: [String] = shows.map {
             return $0.lockUp
         }
-        return mapped.joinWithSeparator("\n")
+        return mapped.joined(separator: "\n")
     }
     
     public var carousel: String {
         let mapped: [String] = shows.map {
             return $0.carousel
         }
-        return mapped.joinWithSeparator("\n")
+        return mapped.joined(separator: "\n")
     }
     
     public var moviesWatchList: String {
@@ -67,7 +67,7 @@ public struct WelcomeRecipe: RecipeType {
             string += "</lockup>"
             return string
         }
-        return mapped.joinWithSeparator("\n")
+        return mapped.joined(separator: "\n")
     }
     
     public var showsWatchList: String {
@@ -78,7 +78,7 @@ public struct WelcomeRecipe: RecipeType {
             string += "</lockup>"
             return string
         }
-        return mapped.joinWithSeparator("\n")
+        return mapped.joined(separator: "\n")
     }
     
     public var randomMovieFanart: String {
@@ -91,8 +91,8 @@ public struct WelcomeRecipe: RecipeType {
     
     public var katSearch: String {
         var content = ""
-        if let katSearch = NSUserDefaults.standardUserDefaults().objectForKey("KATSearch") as? Bool {
-            if katSearch.boolValue {
+        if let katSearch = UserDefaults.standard.object(forKey: "KATSearch") as? Bool {
+            if katSearch {
                 content = "<lockup actionID=\"chooseKickassCategory\">"
                 content += "<img class=\"round\" src=\"http://i.cubeupload.com/0LUcIF.png\" width=\"548\" height=\"250\"></img>"
                 content += "<overlay><title>Kickass Search</title></overlay></lockup>"
@@ -122,7 +122,7 @@ public struct WelcomeRecipe: RecipeType {
         
     }
     
-    func buildShelf(title: String, content: String) -> String {
+    func buildShelf(_ title: String, content: String) -> String {
         var shelf = "<shelf><header><title>"
         shelf += title
         shelf += "</title></header><section>"
@@ -134,14 +134,14 @@ public struct WelcomeRecipe: RecipeType {
     public var template: String {
         var xml = ""
         var shelfs = ""
-        if let file = NSBundle.mainBundle().URLForResource("WelcomeRecipe", withExtension: "xml") {
+        if let file = Bundle.main.url(forResource: "WelcomeRecipe", withExtension: "xml") {
             do {
-                xml = try String(contentsOfURL: file)
-                xml = xml.stringByReplacingOccurrencesOfString("{{MOVIES_BACKGROUND}}", withString: randomMovieFanart)
-                xml = xml.stringByReplacingOccurrencesOfString("{{CAROUSEL}}", withString: carousel)
-                xml = xml.stringByReplacingOccurrencesOfString("{{TVSHOWS_BACKGROUND}}", withString: randomTVShowFanart)
-                xml = xml.stringByReplacingOccurrencesOfString("{{WATCHLIST_BACKGROUND}}", withString: randomWatchlistArt)
-                xml = xml.stringByReplacingOccurrencesOfString("{{KAT_SEARCH}}", withString: katSearch)
+                xml = try String(contentsOf: file)
+                xml = xml.replacingOccurrences(of: "{{MOVIES_BACKGROUND}}", with: randomMovieFanart)
+                xml = xml.replacingOccurrences(of: "{{CAROUSEL}}", with: carousel)
+                xml = xml.replacingOccurrences(of: "{{TVSHOWS_BACKGROUND}}", with: randomTVShowFanart)
+                xml = xml.replacingOccurrences(of: "{{WATCHLIST_BACKGROUND}}", with: randomWatchlistArt)
+                xml = xml.replacingOccurrences(of: "{{KAT_SEARCH}}", with: katSearch)
                 
                 if popularMovies.characters.count > 10 {
                     shelfs += self.buildShelf("Popular Movies", content: popularMovies)
@@ -155,7 +155,7 @@ public struct WelcomeRecipe: RecipeType {
                 if showsWatchList.characters.count > 10 {
                     shelfs += self.buildShelf("TV Shows Watchlist", content: showsWatchList)
                 }
-                xml = xml.stringByReplacingOccurrencesOfString("{{SHELFS}}", withString: shelfs)
+                xml = xml.replacingOccurrences(of: "{{SHELFS}}", with: shelfs)
             } catch {
                 print("Could not open Catalog template")
             }

@@ -5,8 +5,6 @@ import TVServices
 import PopcornKit
 
 class ServiceProvider: NSObject, TVTopShelfProvider {
-
-    let manager = NetworkManager.sharedManager()
     
     var items = [TVContentItem]()
     
@@ -18,13 +16,13 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
 
     var topShelfStyle: TVTopShelfContentStyle {
         // Return desired Top Shelf style.
-        return .Sectioned
+        return .sectioned
     }
 
     var topShelfItems: [TVContentItem] {
         self.items.removeAll()
         
-        let semaphore = dispatch_semaphore_create(0)
+        let semaphore = DispatchSemaphore(value: 0)
         
         manager.fetchServers { servers, error in
             if let servers = servers {
@@ -85,16 +83,16 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
             }
         }
         
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+        semaphore.wait(timeout: DispatchTime.distantFuture)
         return self.items
     }
     
-    func buildShelfItem(title: String, image: String, action: String) -> TVContentItem {
+    func buildShelfItem(_ title: String, image: String, action: String) -> TVContentItem {
         let item = TVContentItem(contentIdentifier: TVContentIdentifier(identifier: title, container: nil)!)
-        item!.imageURL = NSURL(string: image)
-        item!.imageShape = .Poster
-        item!.displayURL = NSURL(string: "PopcornTimeTV://\(action)")
-        item!.playURL = NSURL(string: "PopcornTimeTV://\(action)")
+        item!.imageURL = URL(string: image)
+        item!.imageShape = .poster
+        item!.displayURL = URL(string: "PopcornTimeTV://\(action)")
+        item!.playURL = URL(string: "PopcornTimeTV://\(action)")
         item!.title = title
         return item!
     }

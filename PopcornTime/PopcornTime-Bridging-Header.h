@@ -7,10 +7,6 @@
 #import "SYVLCPlayerViewController.h"
 
 #import "SQSubSetting.h"
-#import "ZipKit.h"
-
-#import <GCDWebServer/GCDWebServer.h>
-#import <GCDWebServer/GCDWebServerDataResponse.h>
 
 #include <ifaddrs.h>
 

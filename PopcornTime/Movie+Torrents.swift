@@ -8,6 +8,6 @@ extension Movie {
         let filteredTorrents: [String] = torrents.map { torrent in
             return "quality=\(torrent.quality)&hash=\(torrent.hash)"
         }
-        return filteredTorrents.joinWithSeparator("•")
+        return filteredTorrents.joined(separator: "•")
     }
 }

@@ -3,15 +3,15 @@
 import TVMLKitchen
 import PopcornKit
 
-public class CatalogRecipe: RecipeType {
-    private var currentPage = 1
-    public var minimumRating = 0
-    public var sortBy = "date_added"
-    public var genre = ""
+open class CatalogRecipe: RecipeType {
+    fileprivate var currentPage = 1
+    open var minimumRating = 0
+    open var sortBy = "date_added"
+    open var genre = ""
 
-    public let theme = DefaultTheme()
-    public var presentationType = PresentationType.Default
-    var fetchType: FetchType! = .Movies
+    open let theme = DefaultTheme()
+    open var presentationType = PresentationType.Default
+    var fetchType: FetchType! = .movies
 
     let title: String
     let movies: [Movie]!
@@ -23,7 +23,7 @@ public class CatalogRecipe: RecipeType {
         self.shows = shows
     }
 
-    public var xmlString: String {
+    open var xmlString: String {
         var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"
         xml += "<document>"
         xml += template
@@ -31,7 +31,7 @@ public class CatalogRecipe: RecipeType {
         return xml
     }
 
-    public var creditsString: String {
+    open var creditsString: String {
             var mapped = [[String]]()
 
             if movies != nil {
@@ -45,7 +45,7 @@ public class CatalogRecipe: RecipeType {
                 }
             }
 
-            mapped.sortInPlace {
+            mapped.sort {
                 return $0[1] > $1[1]
             }
 
@@ -53,16 +53,16 @@ public class CatalogRecipe: RecipeType {
                 $0[0]
             }
 
-            return mappedItems.joinWithSeparator("")
+            return mappedItems.joined(separator: "")
     }
 
-    public var template: String {
+    open var template: String {
         var xml = ""
-        if let file = NSBundle.mainBundle().URLForResource("CatalogRecipe", withExtension: "xml") {
+        if let file = Bundle.main.url(forResource: "CatalogRecipe", withExtension: "xml") {
             do {
-                xml = try String(contentsOfURL: file)
-                xml = xml.stringByReplacingOccurrencesOfString("{{TITLE}}", withString: title)
-                xml = xml.stringByReplacingOccurrencesOfString("{{POSTERS}}", withString: creditsString)
+                xml = try String(contentsOf: file)
+                xml = xml.replacingOccurrences(of: "{{TITLE}}", with: title)
+                xml = xml.replacingOccurrences(of: "{{POSTERS}}", with: creditsString)
             } catch {
                 print("Could not open Catalog template")
             }
@@ -70,12 +70,12 @@ public class CatalogRecipe: RecipeType {
         return xml
     }
 
-    public func highlightLockup(page: Int, callback: (String -> Void)) {
+    open func highlightLockup(_ page: Int, callback: ((String) -> Void)) {
         var data = ""
-        let semaphore = dispatch_semaphore_create(0)
+        let semaphore = DispatchSemaphore(value: 0)
         if self.currentPage != page {
             switch self.fetchType! {
-            case .Movies:
+            case .movies:
                 NetworkManager.sharedManager().fetchMovies(limit: 50, page: page, quality: "1080p", minimumRating: self.minimumRating, queryTerm: nil, genre: self.genre, sortBy: self.sortBy, orderBy: "desc") { movies, error in
                     if let movies = movies {
                         let mapped: [String] = movies.map { movie in
@@ -85,7 +85,7 @@ public class CatalogRecipe: RecipeType {
                         dispatch_semaphore_signal(semaphore)
                     }
                 }
-            case .Shows:
+            case .shows:
                 let manager = NetworkManager.sharedManager()
                 manager.fetchShowPageNumbers { pageNumbers, error in
                     if let _ = pageNumbers {
@@ -105,7 +105,7 @@ public class CatalogRecipe: RecipeType {
             self.currentPage = page
         }
 
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+        semaphore.wait(timeout: DispatchTime.distantFuture)
         callback(data)
     }
 

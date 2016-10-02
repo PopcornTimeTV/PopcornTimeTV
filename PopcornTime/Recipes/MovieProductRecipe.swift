@@ -42,7 +42,7 @@ public struct MovieProductRecipe: RecipeType {
         }
     }
 
-    func secondsToHoursMinutesSeconds(seconds: Int) -> (Int, Int, Int) {
+    func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int, Int) {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
 
@@ -59,7 +59,7 @@ public struct MovieProductRecipe: RecipeType {
             string += "</lockup>" + "\n"
             return string
         }
-        return mapped.joinWithSeparator("\n")
+        return mapped.joined(separator: "\n")
     }
 
     var castString: String {
@@ -90,7 +90,7 @@ public struct MovieProductRecipe: RecipeType {
             return string
         }
         let mapped = actors + directors
-        return mapped.joinWithSeparator("\n")
+        return mapped.joined(separator: "\n")
     }
 
     var watchlistButton: String {
@@ -120,28 +120,28 @@ public struct MovieProductRecipe: RecipeType {
         let filteredTorrents: [String] = movie.torrents.map { torrent in
             return "quality=\(torrent.quality)&hash=\(torrent.hash)"
         }
-        return filteredTorrents.joinWithSeparator("•")
+        return filteredTorrents.joined(separator: "•")
     }
 
     public var template: String {
         var xml = ""
-        if let file = NSBundle.mainBundle().URLForResource("MovieProductRecipe", withExtension: "xml") {
+        if let file = Bundle.main.url(forResource: "MovieProductRecipe", withExtension: "xml") {
             do {
-                xml = try String(contentsOfURL: file)
-                xml = xml.stringByReplacingOccurrencesOfString("{{DIRECTORS}}", withString: directorsString)
-                xml = xml.stringByReplacingOccurrencesOfString("{{ACTORS}}", withString: actorsString)
+                xml = try String(contentsOf: file)
+                xml = xml.replacingOccurrences(of: "{{DIRECTORS}}", with: directorsString)
+                xml = xml.replacingOccurrences(of: "{{ACTORS}}", with: actorsString)
                 var tomato = movie.tomatoesCriticsRating.lowercaseString
                 if tomato == "none" {
-                    xml = xml.stringByReplacingOccurrencesOfString("<text><badge src=\"resource://tomato-{{TOMATO_CRITIC_RATING}}\"/> {{TOMATO_CRITIC_SCORE}}%</text>", withString: "")
+                    xml = xml.replacingOccurrences(of: "<text><badge src=\"resource://tomato-{{TOMATO_CRITIC_RATING}}\"/> {{TOMATO_CRITIC_SCORE}}%</text>", with: "")
                 } else if tomato == "rotten" {
                     tomato = "splat"
                 }
                 xml = xml.stringByReplacingOccurrencesOfString("{{TOMATO_CRITIC_RATING}}", withString: tomato)
                 xml = xml.stringByReplacingOccurrencesOfString("{{TOMATO_CRITIC_SCORE}}", withString: String(movie.tomatoesCriticsScore))
 
-                xml = xml.stringByReplacingOccurrencesOfString("{{RUNTIME}}", withString: runtime)
+                xml = xml.replacingOccurrences(of: "{{RUNTIME}}", with: runtime)
                 xml = xml.stringByReplacingOccurrencesOfString("{{TITLE}}", withString: movie.title.cleaned)
-                xml = xml.stringByReplacingOccurrencesOfString("{{GENRES}}", withString: genresString)
+                xml = xml.replacingOccurrences(of: "{{GENRES}}", with: genresString)
                 xml = xml.stringByReplacingOccurrencesOfString("{{DESCRIPTION}}", withString: movie.descriptionFull.cleaned)
                 xml = xml.stringByReplacingOccurrencesOfString("{{SHORT_DESCRIPTION}}", withString: movie.summary.cleaned)
                 xml = xml.stringByReplacingOccurrencesOfString("{{IMAGE}}", withString: movie.largeCoverImage)
@@ -149,26 +149,26 @@ public struct MovieProductRecipe: RecipeType {
                 xml = xml.stringByReplacingOccurrencesOfString("{{YEAR}}", withString: String(movie.year))
                 xml = xml.stringByReplacingOccurrencesOfString("{{RATING}}", withString: movie.mpaRating.stringByReplacingOccurrencesOfString("-", withString: "").lowercaseString)
                 xml = xml.stringByReplacingOccurrencesOfString("{{STAR_RATING}}", withString: String(movie.rating))
-                xml = xml.stringByReplacingOccurrencesOfString("{{AIR_DATE_TIME}}", withString: "")
+                xml = xml.replacingOccurrences(of: "{{AIR_DATE_TIME}}", with: "")
 
                 xml = xml.stringByReplacingOccurrencesOfString("{{YOUTUBE_PREVIEW_URL}}", withString: movie.youtubeTrailerURL)
 
-                xml = xml.stringByReplacingOccurrencesOfString("{{SUGGESTIONS_TITLE}}", withString: "Similar Movies")
-                xml = xml.stringByReplacingOccurrencesOfString("{{SUGGESTIONS}}", withString: suggestionsString)
+                xml = xml.replacingOccurrences(of: "{{SUGGESTIONS_TITLE}}", with: "Similar Movies")
+                xml = xml.replacingOccurrences(of: "{{SUGGESTIONS}}", with: suggestionsString)
 
-                xml = xml.stringByReplacingOccurrencesOfString("{{CAST}}", withString: castString)
+                xml = xml.replacingOccurrences(of: "{{CAST}}", with: castString)
 
-                xml = xml.stringByReplacingOccurrencesOfString("{{WATCH_LIST_BUTTON}}", withString: watchlistButton)
+                xml = xml.replacingOccurrences(of: "{{WATCH_LIST_BUTTON}}", with: watchlistButton)
                 if existsInWatchList {
-                    xml = xml.stringByReplacingOccurrencesOfString("{{WATCHLIST_ACTION}}", withString: "rated")
+                    xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "rated")
                 } else {
-                    xml = xml.stringByReplacingOccurrencesOfString("{{WATCHLIST_ACTION}}", withString: "rate")
+                    xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "rate")
                 }
                 xml = xml.stringByReplacingOccurrencesOfString("{{MOVIE_ID}}", withString: String(movie.id))
-                xml = xml.stringByReplacingOccurrencesOfString("{{TYPE}}", withString: "movie")
+                xml = xml.replacingOccurrences(of: "{{TYPE}}", with: "movie")
 
                 xml = xml.stringByReplacingOccurrencesOfString("{{IMDBID}}", withString: movie.imdbId)
-                xml = xml.stringByReplacingOccurrencesOfString("{{TORRENTS}}", withString: torrents.cleaned)
+                xml = xml.replacingOccurrences(of: "{{TORRENTS}}", with: torrents.cleaned)
             } catch {
                 print("Could not open Catalog template")
             }

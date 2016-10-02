@@ -3,30 +3,33 @@
 import TVMLKitchen
 import PopcornKit
 
-enum FetchType {
-    case Movies
-    case Shows
-}
-
 struct Popular: TabItem {
 
     var title = "Top Movies"
+    
+    var currentPage = 0
 
-    var fetchType: FetchType! = .Movies {
+    var fetchType: Trakt.MediaType = .movies {
         didSet {
-            if let _ = self.fetchType {
-                switch self.fetchType! {
-                case .Movies: title = "Top Movies"
-                case .Shows: title = "Top Shows"
-
+                switch fetchType {
+                case .movies: title = "Top Movies"
+                case .shows: title = "Top Shows"
                 }
             }
         }
     }
 
     func handler() {
-        switch self.fetchType! {
-        case .Movies:
+        PopcornKit.loadMovies(currentPage) { (movies, error) in
+            if let movies = movies {
+                let recipe = CatalogRecipe(title: "Top Movies", movies: movies)
+                recipe.minimumRating = 3
+                recipe.sortBy = "seeds"
+                self.serveRecipe(recipe)
+            }
+        }
+        switch fetchType {
+        case .movies:
             NetworkManager.sharedManager().fetchMovies(limit: 50, page: 1, quality: "1080p", minimumRating: 3, queryTerm: nil, genre: nil, sortBy: "seeds", orderBy: "desc") { movies, error in
                 if let movies = movies {
                     let recipe = CatalogRecipe(title: "Top Movies", movies: movies)
@@ -36,7 +39,7 @@ struct Popular: TabItem {
                 }
             }
 
-        case .Shows:
+        case .shows:
             let manager = NetworkManager.sharedManager()
             manager.fetchShowPageNumbers { pageNumbers, error in
                 if let _ = pageNumbers {
@@ -59,7 +62,7 @@ struct Popular: TabItem {
         }
     }
 
-    func serveRecipe(recipe: CatalogRecipe) {
+    func serveRecipe(_ recipe: CatalogRecipe) {
         Kitchen.appController.evaluateInJavaScriptContext({jsContext in
             let highlightLockup: @convention(block) (Int, JSValue) -> () = {(nextPage, callback) in
                 recipe.highlightLockup(nextPage) { string in

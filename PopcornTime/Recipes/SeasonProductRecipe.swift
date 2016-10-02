@@ -149,7 +149,7 @@ public struct SeasonProductRecipe: RecipeType {
 
         let mapped = actors+directors
         
-        return mapped.joinWithSeparator("\n")
+        return mapped.joined(separator: "\n")
     }
 
     var watchlistButton: String {
@@ -169,7 +169,7 @@ public struct SeasonProductRecipe: RecipeType {
         return ""
     }
 
-    func secondsToHoursMinutesSeconds(seconds: Int) -> (Int, Int, Int) {
+    func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int, Int) {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
 
@@ -185,7 +185,7 @@ public struct SeasonProductRecipe: RecipeType {
         return string
     }
 
-    func magnetForEpisode(episode: Episode) -> String {
+    func magnetForEpisode(_ episode: Episode) -> String {
         let filteredTorrents = episode.torrents.filter {
             $0.quality == "720p"
         }
@@ -231,10 +231,10 @@ public struct SeasonProductRecipe: RecipeType {
             string += "</lockup>" + "\n"
             return string
         }
-        return mapped.joinWithSeparator("\n")
+        return mapped.joined(separator: "\n")
     }
 
-    func torrents(episode: Episode) -> String {
+    func torrents(_ episode: Episode) -> String {
         let torrents: [Torrent] = episode.torrents.filter({ $0.quality != "0" })
         let filteredTorrents: [String] = torrents.map { torrent in
             return "quality=\(torrent.quality)&hash=\(torrent.hash)"
@@ -244,36 +244,36 @@ public struct SeasonProductRecipe: RecipeType {
 
     public var template: String {
         var xml = ""
-        if let file = NSBundle.mainBundle().URLForResource("SeasonProductRecipe", withExtension: "xml") {
+        if let file = Bundle.main.url(forResource: "SeasonProductRecipe", withExtension: "xml") {
             do {
-                xml = try String(contentsOfURL: file)
+                xml = try String(contentsOf: file)
 
                 xml = xml.stringByReplacingOccurrencesOfString("{{TITLE}}", withString: show.title.cleaned)
-                xml = xml.stringByReplacingOccurrencesOfString("{{SEASON}}", withString: seasonString)
+                xml = xml.replacingOccurrences(of: "{{SEASON}}", with: seasonString)
 
-                xml = xml.stringByReplacingOccurrencesOfString("{{RUNTIME}}", withString: runtime)
-                xml = xml.stringByReplacingOccurrencesOfString("{{GENRES}}", withString: genresString)
+                xml = xml.replacingOccurrences(of: "{{RUNTIME}}", with: runtime)
+                xml = xml.replacingOccurrences(of: "{{GENRES}}", with: genresString)
                 xml = xml.stringByReplacingOccurrencesOfString("{{DESCRIPTION}}", withString: show.synopsis!.cleaned)
                 xml = xml.stringByReplacingOccurrencesOfString("{{SHORT_DESCRIPTION}}", withString: show.synopsis!.cleaned)
                 xml = xml.stringByReplacingOccurrencesOfString("{{IMAGE}}", withString: show.posterImage)
                 xml = xml.stringByReplacingOccurrencesOfString("{{FANART_IMAGE}}", withString: show.fanartImage)
-                xml = xml.stringByReplacingOccurrencesOfString("{{YEAR}}", withString: "")
-                xml = xml.stringByReplacingOccurrencesOfString("mpaa-{{RATING}}", withString: showInfo.contentRating.lowercaseString)
-                xml = xml.stringByReplacingOccurrencesOfString("{{AIR_DATE_TIME}}", withString: "<text>\(showInfo.airDay)'s \(showInfo.airTime)</text>")
+                xml = xml.replacingOccurrences(of: "{{YEAR}}", with: "")
+                xml = xml.replacingOccurrences(of: "mpaa-{{RATING}}", with: showInfo.contentRating.lowercased())
+                xml = xml.replacingOccurrences(of: "{{AIR_DATE_TIME}}", with: "<text>\(showInfo.airDay)'s \(showInfo.airTime)</text>")
 
-                xml = xml.stringByReplacingOccurrencesOfString("{{WATCH_LIST_BUTTON}}", withString: watchlistButton)
+                xml = xml.replacingOccurrences(of: "{{WATCH_LIST_BUTTON}}", with: watchlistButton)
                 if existsInWatchList {
-                    xml = xml.stringByReplacingOccurrencesOfString("{{WATCHLIST_ACTION}}", withString: "rated")
+                    xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "rated")
                 } else {
-                    xml = xml.stringByReplacingOccurrencesOfString("{{WATCHLIST_ACTION}}", withString: "rate")
+                    xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "rate")
                 }
 
-                xml = xml.stringByReplacingOccurrencesOfString("{{EPISODE_COUNT}}", withString: episodeCount)
-                xml = xml.stringByReplacingOccurrencesOfString("{{EPISODES}}", withString: episodesString)
+                xml = xml.replacingOccurrences(of: "{{EPISODE_COUNT}}", with: episodeCount)
+                xml = xml.replacingOccurrences(of: "{{EPISODES}}", with: episodesString)
 
-                xml = xml.stringByReplacingOccurrencesOfString("{{CAST}}", withString: castString)
+                xml = xml.replacingOccurrences(of: "{{CAST}}", with: castString)
 
-                xml = xml.stringByReplacingOccurrencesOfString("{{SEASONS_BUTTON}}", withString: seasonsButton)
+                xml = xml.replacingOccurrences(of: "{{SEASONS_BUTTON}}", with: seasonsButton)
             } catch {
                 print("Could not open Catalog template")
             }

@@ -43,16 +43,16 @@ public struct SeasonPickerRecipe: RecipeType {
             string += "</lockup>" + "\n"
             return string
         }
-        return mapped.joinWithSeparator("\n")
+        return mapped.joined(separator: "\n")
     }
 
     public var template: String {
         var xml = ""
-        if let file = NSBundle.mainBundle().URLForResource("SeasonPickerRecipe", withExtension: "xml") {
+        if let file = Bundle.main.url(forResource: "SeasonPickerRecipe", withExtension: "xml") {
             do {
-                xml = try String(contentsOfURL: file)
+                xml = try String(contentsOf: file)
                 xml = xml.stringByReplacingOccurrencesOfString("{{TITLE}}", withString: show.title.cleaned)
-                xml = xml.stringByReplacingOccurrencesOfString("{{SEASONS}}", withString: seasonsString)
+                xml = xml.replacingOccurrences(of: "{{SEASONS}}", with: seasonsString)
                 xml = xml.stringByReplacingOccurrencesOfString("{{IMAGE}}", withString: show.posterImage)
             } catch {
                 print("Could not open Catalog template")
