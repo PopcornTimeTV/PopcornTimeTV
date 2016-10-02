@@ -6,7 +6,7 @@ import PopcornKit
 public struct MovieWatchlistRecipe: RecipeType {
 
     public let theme = DefaultTheme()
-    public let presentationType = PresentationType.Tab
+    public let presentationType = PresentationType.tab
 
     let title: String
     let items: [Movie]
@@ -26,10 +26,9 @@ public struct MovieWatchlistRecipe: RecipeType {
 
     public var movieString: String {
         let mapped: [String] = items.map {
-
             var string = "<lockup actionID=\"showMovie»\($0.id)\">"
-            string += "<img src=\"\($0.coverImage)\" width=\"250\" height=\"375\" />"
-            string += "<title class=\"hover\">\($0.name.cleaned)</title>"
+            string += "<img src=\"\($0.mediumCoverImage ?? "")\" width=\"250\" height=\"375\" />"
+            string += "<title class=\"hover\">\($0.title.cleaned)</title>"
             string += "</lockup>"
             return string
         }

@@ -4,7 +4,6 @@ import Foundation
 import AVFoundation
 
 class AudioManager: NSObject, AVAudioPlayerDelegate {
-
     var player: AVAudioPlayer!
     var currentPlayingThemeId: Int!
 
@@ -12,7 +11,6 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         struct Struct {
             static let Instance = AudioManager()
         }
-
         return Struct.Instance
     }
 
@@ -39,8 +37,10 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
                     try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
                     try AVAudioSession.sharedInstance().setActive(true)
 
+                    let volume = (UserDefaults.standard.object(forKey: "TVShowVolume") as? NSNumber) ?? NSNumber(value: 0.75)
+                    
                     self.player = try AVAudioPlayer(data: data)
-                    self.player.volume = UserDefaults.standard.float(forKey: "TVShowVolume") ?? 0.75
+                    self.player.volume = volume.floatValue
                     self.player.delegate = self
                     self.player.prepareToPlay()
                     self.player.play()
@@ -60,5 +60,4 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         self.currentPlayingThemeId = nil
     }
-
 }

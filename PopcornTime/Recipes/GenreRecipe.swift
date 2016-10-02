@@ -4,13 +4,12 @@ import TVMLKitchen
 import PopcornKit
 
 public struct GenreRecipe: RecipeType {
-
     public let theme = DefaultTheme()
-    public let presentationType = PresentationType.Tab
-    var type: Trakt.MediaType = .movies
-    var currentPage = 0
+    public let presentationType = PresentationType.tab
+    var type: FetchType = .movies
+    var currentPage = 1
 
-    init(type: Trakt.MediaType = .movies) {
+    init(type: FetchType = .movies) {
         self.type = type
     }
 
@@ -25,7 +24,7 @@ public struct GenreRecipe: RecipeType {
     public var listItems: String {
         switch type {
         case .movies:
-            let mappedListItem = MovieManager.Genres.array.map {
+            let mappedListItem: [String] = MovieManager.Genres.array.map {
                 let listItem = "<listItemLockup actionID=\"showGenre»\($0)»movie\" sectionID=\"\($0)\"> \n" +
                              "<title>\($0)</title> \n" +
                              "<relatedContent> \n" +
@@ -36,7 +35,7 @@ public struct GenreRecipe: RecipeType {
             }
             return mappedListItem.joined(separator: "\n")
         case .shows:
-            let mappedListItem = ShowManager.Genres.array.map {
+            let mappedListItem: [String] = ShowManager.Genres.array.map {
                 let listItem = "<listItemLockup actionID=\"showGenre»\($0)»show\" sectionID=\"\($0)\"> \n" +
                     "<title>\($0)</title> \n" +
                     "<relatedContent> \n" +
@@ -62,21 +61,21 @@ public struct GenreRecipe: RecipeType {
         return xml
     }
     
-    public func section(didHighlightWithGenre genre: String, completion: (String) -> Void) {
+    public func section(didHighlightWithGenre genre: String, completion: @escaping (String) -> Void) {
         switch type {
         case .movies:
             guard let genre = MovieManager.Genres(rawValue: genre) else { return }
             PopcornKit.loadMovies(currentPage, genre: genre) { (movies, error) in
                 guard let movies = movies else { return }
                 let mapped = movies.map { $0.lockUpGenre }
-                completion(mapped.joinWithSeparator("\n"))
+                completion(mapped.joined(separator: "\n"))
             }
         case .shows:
-            guard let genre = Show.Genres(rawValue: genre) else { return }
+            guard let genre = ShowManager.Genres(rawValue: genre) else { return }
             PopcornKit.loadShows(currentPage, genre: genre, completion: { (shows, error) in
                 guard let shows = shows else { return }
                 let mapped = shows.map { $0.lockUpGenre }
-                completion(mapped.joinWithSeparator("\n"))
+                completion(mapped.joined(separator: "\n"))
             })
         }
     }

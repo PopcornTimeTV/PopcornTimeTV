@@ -5,13 +5,12 @@ import PopcornKit
 
 open class CatalogRecipe: RecipeType {
     fileprivate var currentPage = 1
-    open var minimumRating = 0
-    open var sortBy = "date_added"
-    open var genre = ""
+    open var sortBy = ShowManager.Filters.date
+    open var genre = ShowManager.Genres.all
 
     open let theme = DefaultTheme()
-    open var presentationType = PresentationType.Default
-    var fetchType: FetchType! = .movies
+    open var presentationType = PresentationType.default
+    var fetchType: FetchType = .movies
 
     let title: String
     let movies: [Movie]!
@@ -70,43 +69,28 @@ open class CatalogRecipe: RecipeType {
         return xml
     }
 
-    open func highlightLockup(_ page: Int, callback: ((String) -> Void)) {
-        var data = ""
-        let semaphore = DispatchSemaphore(value: 0)
-        if self.currentPage != page {
-            switch self.fetchType! {
+    open func lockup(didHighlightWithPage page: Int, completion: @escaping (String) -> Void) {
+        if currentPage != page {
+            switch fetchType {
             case .movies:
-                NetworkManager.sharedManager().fetchMovies(limit: 50, page: page, quality: "1080p", minimumRating: self.minimumRating, queryTerm: nil, genre: self.genre, sortBy: self.sortBy, orderBy: "desc") { movies, error in
+                PopcornKit.loadMovies(currentPage) { movies, error in
                     if let movies = movies {
-                        let mapped: [String] = movies.map { movie in
-                            movie.lockUp
-                        }
-                        data = mapped.joinWithSeparator("")
-                        dispatch_semaphore_signal(semaphore)
+                        let mapped = movies.map { $0.lockUp }
+                        let data = mapped.joined(separator: "")
+                        completion(data)
                     }
                 }
             case .shows:
-                let manager = NetworkManager.sharedManager()
-                manager.fetchShowPageNumbers { pageNumbers, error in
-                    if let _ = pageNumbers {
-                        // this is temporary limit until solve pagination
-                        manager.fetchShows([page], sort: self.sortBy, genre: self.genre) { shows, error in
-                            if let shows = shows {
-                                let mapped: [String] = shows.map { show in
-                                    show.lockUp
-                                }
-                                data = mapped.joinWithSeparator("\n")
-                                dispatch_semaphore_signal(semaphore)
-                            }
-                        }
+                PopcornKit.loadShows(currentPage, filterBy: sortBy, genre: genre, searchTerm: nil, orderBy: .descending) { shows, error in
+                    if let shows = shows {
+                        let mapped = shows.map { $0.lockUp }
+                        let data = mapped.joined(separator: "\n")
+                        completion(data)
                     }
                 }
             }
-            self.currentPage = page
+            currentPage = page
         }
-
-        semaphore.wait(timeout: DispatchTime.distantFuture)
-        callback(data)
     }
 
 }

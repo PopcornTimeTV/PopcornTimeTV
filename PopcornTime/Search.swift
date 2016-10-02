@@ -11,10 +11,10 @@ struct Search: TabItem {
     func handler() {
         switch self.fetchType! {
         case .movies:
-            Kitchen.serve(recipe: YIFYSearchRecipe(type: .TabSearch))
+            Kitchen.serve(recipe: YIFYSearchRecipe(type: .tabSearch))
 
         case .shows:
-            Kitchen.serve(recipe: EZTVSearchRecipe(type: .TabSearch))
+            Kitchen.serve(recipe: EZTVSearchRecipe(type: .tabSearch))
         }
     }
 

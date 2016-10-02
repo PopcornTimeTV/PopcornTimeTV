@@ -3,81 +3,61 @@
 import TVMLKitchen
 import PopcornKit
 
+enum FetchType {
+    case movies
+    case shows
+}
+
 struct Popular: TabItem {
-
     var title = "Top Movies"
-    
-    var currentPage = 0
 
-    var fetchType: Trakt.MediaType = .movies {
+    var fetchType: FetchType = .movies {
         didSet {
-                switch fetchType {
-                case .movies: title = "Top Movies"
-                case .shows: title = "Top Shows"
-                }
+            switch fetchType {
+            case .movies: title = "Top Movies"
+            case .shows: title = "Top Shows"
             }
         }
     }
 
     func handler() {
-        PopcornKit.loadMovies(currentPage) { (movies, error) in
-            if let movies = movies {
-                let recipe = CatalogRecipe(title: "Top Movies", movies: movies)
-                recipe.minimumRating = 3
-                recipe.sortBy = "seeds"
-                self.serveRecipe(recipe)
-            }
-        }
         switch fetchType {
         case .movies:
-            NetworkManager.sharedManager().fetchMovies(limit: 50, page: 1, quality: "1080p", minimumRating: 3, queryTerm: nil, genre: nil, sortBy: "seeds", orderBy: "desc") { movies, error in
+            PopcornKit.loadMovies(1) { movies, error in
                 if let movies = movies {
                     let recipe = CatalogRecipe(title: "Top Movies", movies: movies)
-                    recipe.minimumRating = 3
-                    recipe.sortBy = "seeds"
                     self.serveRecipe(recipe)
                 }
             }
 
         case .shows:
-            let manager = NetworkManager.sharedManager()
-            manager.fetchShowPageNumbers { pageNumbers, error in
-                if let _ = pageNumbers {
-                    // this is temporary limit until solve pagination
-                    manager.fetchShows([1], sort: "trending") { shows, error in
-                        if let shows = shows {
-                            let recipe = CatalogRecipe(title: "Top Shows", shows: shows.sort({ show1, show2 -> Bool in
-                                if let date1 = show1.lastUpdated, let date2 = show2.lastUpdated {
-                                    return date1 < date2
-                                }
-                                return true
-                            }))
-                            recipe.fetchType = .Shows
-                            recipe.sortBy = "trending"
-                            self.serveRecipe(recipe)
-                        }
-                    }
+            PopcornKit.loadShows(1, filterBy: .trending, genre: .all, searchTerm: nil, orderBy: .descending) { shows, error in
+                if let shows = shows {
+                    let recipe = CatalogRecipe(title: "Top Shows", shows: shows)
+                    recipe.fetchType = .shows
+                    recipe.sortBy = .trending
+                    self.serveRecipe(recipe)
                 }
             }
         }
     }
 
     func serveRecipe(_ recipe: CatalogRecipe) {
-        Kitchen.appController.evaluateInJavaScriptContext({jsContext in
+        Kitchen.appController.evaluate(inJavaScriptContext: {jsContext in
             let highlightLockup: @convention(block) (Int, JSValue) -> () = {(nextPage, callback) in
-                recipe.highlightLockup(nextPage) { string in
+                recipe.lockup(didHighlightWithPage: nextPage) { string in
                     if callback.isObject {
-                        callback.callWithArguments([string])
+                        callback.call(withArguments: [string])
                     }
                 }
             }
 
-            jsContext.setObject(unsafeBitCast(highlightLockup, AnyObject.self), forKeyedSubscript: "highlightLockup")
+            jsContext.setObject(unsafeBitCast(highlightLockup, to: AnyObject.self), forKeyedSubscript: "highlightLockup" as NSString)
 
-            if let file = NSBundle.mainBundle().URLForResource("Pagination", withExtension: "js") {
+            if let file = Bundle.main.url(forResource: "Pagination", withExtension: "js") {
                 do {
-                    var js = try String(contentsOfURL: file)
-                    js = js.stringByReplacingOccurrencesOfString("{{RECIPE}}", withString: recipe.xmlString)
+                    var js = try String(contentsOf: file)
+                    js = js.replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
                     jsContext.evaluateScript(js)
                 } catch {
                     print("Could not open Pagination.js")

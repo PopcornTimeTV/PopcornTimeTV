@@ -10,7 +10,7 @@ public struct MovieProductRecipe: RecipeType {
     let existsInWatchList: Bool
 
     public let theme = DefaultTheme()
-    public let presentationType = PresentationType.Default
+    public let presentationType = PresentationType.default
 
     public init(movie: Movie, suggestions: [Movie], existsInWatchList: Bool) {
         self.movie = movie
@@ -27,11 +27,12 @@ public struct MovieProductRecipe: RecipeType {
     }
 
     var directorsString: String {
-        return movie.directors!.map { "<text>\($0.name.cleaned)</text>" }.joinWithSeparator("")
+        let directors = movie.crew.filter({ $0.roleType == .Director })
+        return directors.map { "<text>\($0.name.cleaned)</text>" }.joined(separator: "")
     }
 
     var actorsString: String {
-        return movie.actors.map { "<text>\($0.name.cleaned)</text>" }.joinWithSeparator("")
+        return movie.actors.map { "<text>\($0.name.cleaned)</text>" }.joined(separator: "")
     }
 
     var genresString: String {
@@ -47,14 +48,14 @@ public struct MovieProductRecipe: RecipeType {
     }
 
     var runtime: String {
-        let (hours, minutes, _) = self.secondsToHoursMinutesSeconds(movie.runtime * 60)
+        let (hours, minutes, _) = self.secondsToHoursMinutesSeconds(Int(movie.runtime)! * 60)
         return "\(hours) h \(minutes) min"
     }
 
     var suggestionsString: String {
         let mapped: [String] = suggestions.map {
             var string = "<lockup actionID=\"showMovie»\($0.id)\">" + "\n"
-            string += "<img src=\"\($0.mediumCoverImage)\" width=\"150\" height=\"226\" />" + "\n"
+            string += "<img src=\"\($0.mediumCoverImage ?? "")\" width=\"150\" height=\"226\" />" + "\n"
             string += "<title class=\"hover\">\($0.title.cleaned)</title>" + "\n"
             string += "</lockup>" + "\n"
             return string
@@ -68,7 +69,7 @@ public struct MovieProductRecipe: RecipeType {
             if $0.mediumImage != "http://62.210.81.37/assets/images/actors/default_avatar.jpg" {
                 headshot = " src=\"\($0.mediumImage)\""
             }
-            let name = $0.name.componentsSeparatedByString(" ")
+            let name = $0.name.components(separatedBy: " ")
             var string = "<monogramLockup actionID=\"showActor»\($0.name)\">" + "\n"
             string += "<monogram firstName=\"\(name.first!)\" lastName=\"\(name.last!)\"\(headshot)/>"
             string += "<title>\($0.name.cleaned)</title>" + "\n"
@@ -76,12 +77,12 @@ public struct MovieProductRecipe: RecipeType {
             string += "</monogramLockup>" + "\n"
             return string
         }
-        let directors: [String] = movie.directors!.map {
+        let directors: [String] = movie.crew.filter({ $0.roleType == .Director }).map {
             var headshot = ""
             if $0.mediumImage != "http://62.210.81.37/assets/images/directors/default_avatar.jpg" {
                 headshot = " src=\"\($0.mediumImage)\""
             }
-            let name = $0.name.componentsSeparatedByString(" ")
+            let name = $0.name.components(separatedBy: " ")
             var string = "<monogramLockup actionID=\"showDirector»\($0.name)\">" + "\n"
             string += "<monogram firstName=\"\(name.first!)\" lastName=\"\(name.last!)\"\(headshot)/>"
             string += "<title>\($0.name.cleaned)</title>" + "\n"
@@ -94,7 +95,7 @@ public struct MovieProductRecipe: RecipeType {
     }
 
     var watchlistButton: String {
-        var string = "<buttonLockup id =\"favoriteButton\" actionID=\"addWatchlist»\(String(movie.id))»\(movie.title.cleaned)»movie»\(movie.largeCoverImage)»\(movie.backgroundImage)»\(movie.imdbId)»»\(movie.slug)\">\n"
+        var string = "<buttonLockup id =\"favoriteButton\" actionID=\"addWatchlist»\(movie.id)»\(movie.title.cleaned)»movie»\(movie.largeCoverImage)»\(movie.largeBackgroundImage)»\(movie.id)»»\(movie.slug)\">\n"
         string += "<badge id =\"favoriteButtonBadge\" src=\"resource://button-{{WATCHLIST_ACTION}}\" />\n"
         string += "<title>Favourites</title>\n"
         string += "</buttonLockup>"
@@ -130,28 +131,23 @@ public struct MovieProductRecipe: RecipeType {
                 xml = try String(contentsOf: file)
                 xml = xml.replacingOccurrences(of: "{{DIRECTORS}}", with: directorsString)
                 xml = xml.replacingOccurrences(of: "{{ACTORS}}", with: actorsString)
-                var tomato = movie.tomatoesCriticsRating.lowercaseString
-                if tomato == "none" {
-                    xml = xml.replacingOccurrences(of: "<text><badge src=\"resource://tomato-{{TOMATO_CRITIC_RATING}}\"/> {{TOMATO_CRITIC_SCORE}}%</text>", with: "")
-                } else if tomato == "rotten" {
-                    tomato = "splat"
-                }
-                xml = xml.stringByReplacingOccurrencesOfString("{{TOMATO_CRITIC_RATING}}", withString: tomato)
-                xml = xml.stringByReplacingOccurrencesOfString("{{TOMATO_CRITIC_SCORE}}", withString: String(movie.tomatoesCriticsScore))
+                
+                xml = xml.replacingOccurrences(of: "{{TOMATO_CRITIC_RATING}}", with: movie.rating <= 59 ? "splat" : "fresh")
+                xml = xml.replacingOccurrences(of: "{{TOMATO_CRITIC_SCORE}}", with: "\(movie.rating)")
 
                 xml = xml.replacingOccurrences(of: "{{RUNTIME}}", with: runtime)
-                xml = xml.stringByReplacingOccurrencesOfString("{{TITLE}}", withString: movie.title.cleaned)
+                xml = xml.replacingOccurrences(of: "{{TITLE}}", with: movie.title.cleaned)
                 xml = xml.replacingOccurrences(of: "{{GENRES}}", with: genresString)
-                xml = xml.stringByReplacingOccurrencesOfString("{{DESCRIPTION}}", withString: movie.descriptionFull.cleaned)
-                xml = xml.stringByReplacingOccurrencesOfString("{{SHORT_DESCRIPTION}}", withString: movie.summary.cleaned)
-                xml = xml.stringByReplacingOccurrencesOfString("{{IMAGE}}", withString: movie.largeCoverImage)
-                xml = xml.stringByReplacingOccurrencesOfString("{{BACKGROUND_IMAGE}}", withString: movie.backgroundImage)
-                xml = xml.stringByReplacingOccurrencesOfString("{{YEAR}}", withString: String(movie.year))
-                xml = xml.stringByReplacingOccurrencesOfString("{{RATING}}", withString: movie.mpaRating.stringByReplacingOccurrencesOfString("-", withString: "").lowercaseString)
-                xml = xml.stringByReplacingOccurrencesOfString("{{STAR_RATING}}", withString: String(movie.rating))
+                xml = xml.replacingOccurrences(of: "{{DESCRIPTION}}", with: movie.summary?.cleaned ?? "")
+                xml = xml.replacingOccurrences(of: "{{SHORT_DESCRIPTION}}", with: movie.summary?.cleaned ?? "")
+                xml = xml.replacingOccurrences(of: "{{IMAGE}}", with: movie.largeCoverImage ?? "")
+                xml = xml.replacingOccurrences(of: "{{BACKGROUND_IMAGE}}", with: movie.largeBackgroundImage ?? "")
+                xml = xml.replacingOccurrences(of: "{{YEAR}}", with: String(movie.year))
+                xml = xml.replacingOccurrences(of: "{{RATING}}", with: movie.certification.replacingOccurrences(of: "-", with: ""))
+                xml = xml.replacingOccurrences(of: "{{STAR_RATING}}", with: String(movie.rating))
                 xml = xml.replacingOccurrences(of: "{{AIR_DATE_TIME}}", with: "")
 
-                xml = xml.stringByReplacingOccurrencesOfString("{{YOUTUBE_PREVIEW_URL}}", withString: movie.youtubeTrailerURL)
+                xml = xml.replacingOccurrences(of: "{{YOUTUBE_PREVIEW_URL}}", with: movie.trailer ?? "")
 
                 xml = xml.replacingOccurrences(of: "{{SUGGESTIONS_TITLE}}", with: "Similar Movies")
                 xml = xml.replacingOccurrences(of: "{{SUGGESTIONS}}", with: suggestionsString)
@@ -164,10 +160,10 @@ public struct MovieProductRecipe: RecipeType {
                 } else {
                     xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "rate")
                 }
-                xml = xml.stringByReplacingOccurrencesOfString("{{MOVIE_ID}}", withString: String(movie.id))
+                xml = xml.replacingOccurrences(of: "{{MOVIE_ID}}", with: movie.id)
                 xml = xml.replacingOccurrences(of: "{{TYPE}}", with: "movie")
 
-                xml = xml.stringByReplacingOccurrencesOfString("{{IMDBID}}", withString: movie.imdbId)
+                xml = xml.replacingOccurrences(of: "{{IMDBID}}", with: movie.id)
                 xml = xml.replacingOccurrences(of: "{{TORRENTS}}", with: torrents.cleaned)
             } catch {
                 print("Could not open Catalog template")

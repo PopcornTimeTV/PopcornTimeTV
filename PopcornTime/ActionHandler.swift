@@ -3,7 +3,6 @@
 import TVMLKitchen
 import PopcornKit
 import PopcornTorrent
-import YoutubeSourceParserKit
 import AVKit
 
 struct ActionHandler { // swiftlint:disable:this type_body_length

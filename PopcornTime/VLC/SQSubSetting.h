@@ -17,8 +17,8 @@ typedef NS_ENUM(NSInteger, SQSubSettingBackground) {
 @property (nonatomic, assign) SQSubSettingBackground backgroundType;
 @property (nonatomic, strong) NSString* encoding;
 
-+ (id) loadFromDisk;
-- (void) writeToDisk;
-- (NSDictionary *) attributes;
++ (instancetype)loadFromDisk;
+- (void)writeToDisk;
+- (NSDictionary *)attributes;
 
 @end

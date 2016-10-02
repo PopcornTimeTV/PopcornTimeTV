@@ -12,8 +12,8 @@ public struct DescriptionRecipe: RecipeType {
     public let buttons: [(title: String, actionID: String?)]
     
     public init(title: String, message: String,
-                buttons: [(title: String, actionID: String?)] = [(title: "", actionID: nil)](),
-                presentationType: PresentationType = .Modal) {
+                buttons: [(title: String, actionID: String?)] = [(title: "", actionID: nil)],
+                presentationType: PresentationType = .modal) {
         self.title = title
         self.description = message
         self.buttons = buttons
@@ -29,7 +29,7 @@ public struct DescriptionRecipe: RecipeType {
     }
     
     fileprivate var buttonString: String {
-        let mapped = buttons.map {
+        let mapped: [String] = buttons.map {
             var string = ($0.actionID != nil) ? "<button actionID=\"\($0.actionID!)\">" : "<button>"
             string += "<text>\($0.title)</text>"
             string += "</button>"

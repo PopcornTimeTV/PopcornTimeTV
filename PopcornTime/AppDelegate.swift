@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let urlString = url.absoluteString
             let queryArray = urlString.components(separatedBy: "/")
             let action = queryArray[queryArray.indices.suffix(from: 2)].joined(separator: "»")
-            ActionHandler.primary(action)
+            ActionHandler.primary(id: action)
         }
         return true
     }

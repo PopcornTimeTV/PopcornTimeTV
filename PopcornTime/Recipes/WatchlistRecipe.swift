@@ -6,7 +6,7 @@ import PopcornKit
 public struct WatchlistRecipe: RecipeType {
 
     public let theme = DefaultTheme()
-    public let presentationType = PresentationType.Default
+    public let presentationType = PresentationType.default
     
     let title: String
     let watchListMovies: [Movie]
@@ -27,10 +27,10 @@ public struct WatchlistRecipe: RecipeType {
     }
 
     public var moviesWatchList: String {
-        let mapped = watchListMovies.map {
-            var string = "<lockup actionID=\"showMovie»\($0.id)\" playActionID=\"playMovieById»\($0.id)\" >"
-            string += "<img src=\"\($0.coverImage)\" width=\"250\" height=\"375\" />"
-            string += "<title class=\"hover\">\($0.name.cleaned)</title>"
+        let mapped = watchListMovies.map { movie -> String in
+            var string = "<lockup actionID=\"showMovie»\(movie.id)\" playActionID=\"playMovieById»\(movie.id)\" >"
+            string += "<img src=\"\(movie.mediumCoverImage ?? "")\" width=\"250\" height=\"375\" />"
+            string += "<title class=\"hover\">\(movie.title.cleaned)</title>"
             string += "</lockup>"
             return string
         }
@@ -38,10 +38,10 @@ public struct WatchlistRecipe: RecipeType {
     }
 
     public var showsWatchList: String {
-        let mapped = watchListShows.map {
-            var string = "<lockup actionID=\"showShow»\($0.id)»\($0.slugged)»\($0.tvdbId)\" playActionID=\"showShow»\($0.id)»\($0.slugged)»\($0.tvdbId)\">"
-            string += "<img src=\"\($0.coverImage)\" width=\"250\" height=\"375\" />"
-            string += "<title class=\"hover\">\($0.name.cleaned)</title>"
+        let mapped = watchListShows.map { show -> String in
+            var string = "<lockup actionID=\"showShow»\(show.id)»\(show.slug)»\(show.tvdbId)\" playActionID=\"showShow»\(show.id)»\(show.slug)»\(show.tvdbId)\">"
+            string += "<img src=\"\(show.mediumCoverImage ?? "")\" width=\"250\" height=\"375\" />"
+            string += "<title class=\"hover\">\(show.title.cleaned)</title>"
             string += "</lockup>"
             return string
         }

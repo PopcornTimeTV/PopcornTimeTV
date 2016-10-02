@@ -5,10 +5,12 @@ import PopcornKit
 import TVMLKitchen
 
 class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TraktManagerDelegate {
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var settingsIcon: UIImageView!
 
+    let version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+    let build: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,16 +56,17 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         case 0:
             if indexPath.row == 0 {
                 cell.textLabel?.text = "Theme Song Volume"
-                if let volume = UserDefaults.standard.float(forKey: "TVShowVolume") {
-                    cell.detailTextLabel?.text = "\(Int(volume * 100))%"
-                } else {
-                    cell.detailTextLabel?.text = "75%"
-                }
+                
+                let volume = (UserDefaults.standard.object(forKey: "TVShowVolume") as? NSNumber) ?? NSNumber(value: 0.75)
+                cell.detailTextLabel?.text = "\(Int(volume.doubleValue * 100))%"
                 cell.accessoryType = .none
             }
 
         case 1:
-            let settings = SQSubSetting.loadFromDisk()
+            guard let settings = SQSubSetting.loadFromDisk() else {
+                break
+            }
+            
             if indexPath.row == 0 {
                 cell.textLabel?.text = "Font Size"
                 if settings.sizeFloat == 20.0 {
@@ -78,13 +81,11 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 cell.accessoryType = .none
             }else if indexPath.row == 1 {
                 cell.textLabel?.text = "Subtitle Background"
-                if let backgroundType = settings.backgroundType {
-                    switch backgroundType {
-                    case .blur: cell.detailTextLabel?.text = "Blur"
-                    case .black: cell.detailTextLabel?.text = "Black"
-                    case .white: cell.detailTextLabel?.text = "White"
-                    case .none: cell.detailTextLabel?.text = "None"
-                    }
+                switch settings.backgroundType {
+                case .blur: cell.detailTextLabel?.text = "Blur"
+                case .black: cell.detailTextLabel?.text = "Black"
+                case .white: cell.detailTextLabel?.text = "White"
+                case .none: cell.detailTextLabel?.text = "None"
                 }
                 cell.accessoryType = .none
             } else if indexPath.row == 2 {
@@ -92,7 +93,6 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 cell.detailTextLabel?.text = settings.encoding
                 cell.accessoryType = .none
             }
-
 
         case 2:
             if indexPath.row == 0 {
@@ -112,13 +112,13 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 cell.detailTextLabel?.text = "\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")!) (\(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion")!))"
                 cell.accessoryType = .none
             }
+    
         case 3:
             if indexPath.row == 0 {
                 cell.textLabel?.text = "Sign into Trakt"
                 cell.detailTextLabel?.text = ""
-                if TraktTVAPI.sharedManager().userLoaded() {
+                if TraktManager.shared.isSignedIn() {
                     cell.textLabel?.text = "Signout from Trakt"
-                    cell.detailTextLabel?.text = TraktTVAPI.sharedManager().user
                 }
                 cell.accessoryType = .none
             }
@@ -166,8 +166,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             }
 
         case 1:
-            if let settings = SQSubSetting.loadFromDisk() as? SQSubSetting {
-                if (indexPath as NSIndexPath).row == 0 {
+            if let settings = SQSubSetting.loadFromDisk() {
+                if indexPath.row == 0 {
                     let alertController = UIAlertController(title: "Subtitle Font Size", message: "Choose a font size for subtitles.", preferredStyle: .alert)
                     alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
                     alertController.addAction(UIAlertAction(title: "Small (46pts)", style: .default, handler: { action in
@@ -197,7 +197,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.present(alertController, animated: true, completion: nil)
                 }
 
-                if (indexPath as NSIndexPath).row == 1 {
+                if indexPath.row == 1 {
                     let alertController = UIAlertController(title: "Subtitle Background", message: "Choose a background for the subtitles.", preferredStyle: .alert)
                     alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
                     alertController.addAction(UIAlertAction(title: "Blur", style: .default, handler: { action in
@@ -228,16 +228,17 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.present(alertController, animated: true, completion: nil)
                 }
                 
-                if (indexPath as NSIndexPath).row == 2 {
+                if indexPath.row == 2 {
                     let alertController = UIAlertController(title: "Subtitle Encoding", message: "Choose an encoding for the subtitles.", preferredStyle: .alert)
                     alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
                     let path = Bundle.main.path(forResource: "encodingTypes", ofType: "plist")
                     let labels = NSDictionary.init(contentsOfFile: path!)
-                    let titles = labels!["Titles"] as? NSArray
-                    let values = labels!["Values"] as? NSArray
-                    for title in titles! {
-                        alertController.addAction(UIAlertAction(title: title as? String ,style: .default, encoding:values![(titles?.index(of: title))!] as? String, handler: { action in
-                            settings.encoding = action.encodingArg
+                    let titles = labels!["Titles"] as! [String]
+                    let values = labels!["Values"] as! [String]
+                    for (i, title) in titles.enumerated() {
+                        alertController.addAction(UIAlertAction(title: title, style: .default, handler: { action in
+                            let encoding = values[i]
+                            settings.encoding = encoding
                             settings.writeToDisk()
                             tableView.reloadData()
                         }))
@@ -263,7 +264,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 let alertController = UIAlertController(title: "Start Web Sever", message: "Starts a web server that allows you to browse to PopcornTimeTV from any browser http://\(ip!):8181 and view the downloaded media.", preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
                     UserDefaults.standard.set(true, forKey: "StartWebServer")
-                    WebServerManager.sharedManager().startServer(8181)
+                    WebServerManager.sharedManager().startServer(port: 8181)
                     tableView.reloadData()
                 }))
                 alertController.addAction(UIAlertAction(title: "No", style: .default, handler: { action in
@@ -275,28 +276,24 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             }
 
             if indexPath.row == 2 {
-                UpdateManager.sharedManager().checkForUpdates(forVersion: version) { (updateAvailable, name, releaseNotes, error) in
-                    if updateAvailable {
-                        let alertRecipe = DescriptionRecipe(title: "Update Available", message: "A new version of PopcornTime is available.\n\(name!)\n\n\(releaseNotes!)\n\nVisit https://github.com/PopcornTimeTV/PopcornTimeTV to update.", buttons: [DescriptionButton.init(title: "Close", actionID: "closeAlert")], presentationType: .Modal) //we use this in order to prevent concateneted text on the alert! [FIX-IT] should be replaced with a swift way!
-                        Kitchen.serve(recipe: alertRecipe)
-                    } else {
-                        let alertController = UIAlertController(title: "No Updates Available", message: "You are using the latest version, \(self.version), however, if you are a developer, there might be a minor update avaible as a commit, you are using commit \(self.build), check https://github.com/PopcornTimeTV/PopcornTimeTV to see if new commits are available.", preferredStyle: .Alert)
-                        alertController.addAction(UIAlertAction(title: "Close", style: .Cancel, handler: nil))
-                        self.presentViewController(alertController, animated: true, completion: nil)
-                        
+                UpdateManager.shared.checkVersion(.immediately) { updateAvailable in
+                    // If an update was available the UpdateManager would have alread prompted
+                    if !updateAvailable {
+                        let alertController = UIAlertController(title: "No Updates Available", message: "You are using the latest version, \(self.version), however, if you are a developer, there might be a minor update avaible as a commit, you are using commit \(self.build), check https://github.com/PopcornTimeTV/PopcornTimeTV to see if new commits are available.", preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+                        self.present(alertController, animated: true, completion: nil)
                     }
                 }
             }
         case 3:
             if indexPath.row == 0{
-                if TraktTVAPI.sharedManager().userLoaded(){
-                    
-                    TraktTVAPI.sharedManager().clearToken()
+                if TraktManager.shared.isSignedIn() {
+                    TraktManager.shared.logout()
                     self.tableView.reloadData()
                 } else{
-                    if let vc: UIViewController = TraktTVAPI.sharedManager().authenticateUser(self){
-                        self.present(vc, animated:true, completion:nil)
-                    }
+                    TraktManager.shared.delegate = self
+                    let vc = TraktManager.shared.loginViewController()
+                    present(vc, animated:true, completion:nil)
                 }
                 
             }
@@ -315,14 +312,12 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     func clearCache() {
         let paths = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
-        if let cachcesDirectory = paths.first {
-            do {
-                let subs = try FileManager.default.contentsOfDirectory(atPath: cachcesDirectory)
-                for item in subs {
-                    try FileManager.default.removeItem(atPath: cachcesDirectory.stringByAppendingPathComponent(item))
-                }
-            } catch {
-
+        if let cachesDirectory = paths.first {
+            guard let subs = try? FileManager.default.contentsOfDirectory(atPath: cachesDirectory) else {
+                return
+            }
+            for item in subs {
+                _ = try? FileManager.default.removeItem(atPath: (cachesDirectory as NSString).appendingPathComponent(item))
             }
         }
     }
@@ -331,11 +326,5 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func authenticationDidSucceed() {
         tableView.reloadData()
-        dismiss(animated: true, completion: nil)
     }
-    
-    
-    
 }
-
-

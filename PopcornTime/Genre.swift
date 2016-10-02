@@ -4,41 +4,32 @@ import TVMLKitchen
 import PopcornKit
 
 struct Genre: TabItem {
-
     var title = "Genre"
 
-    var fetchType: FetchType! = .movies {
+    var fetchType: FetchType = .movies {
         didSet {
-            if let _ = self.fetchType {
-                switch self.fetchType! {
-                case .movies: title = "Genre"
-                case .shows: title = "Genre"
-
-                }
+            switch self.fetchType {
+            case .movies: title = "Genre"
+            case .shows: title = "Genre"
             }
         }
     }
 
     func handler() {
-        switch self.fetchType! {
+        switch fetchType {
         case .movies:
-            NetworkManager.sharedManager().fetchMovies(limit: 50, page: 1, quality: "1080p", minimumRating: 3, queryTerm: nil, genre: nil, sortBy: "seeds", orderBy: "desc") { movies, error in
+            PopcornKit.loadMovies(1) { movies, error in
                 if movies != nil {
-                    let recipe = GenreRecipe(fetchType: self.fetchType)
+                    let recipe = GenreRecipe(type: self.fetchType)
                     self.serveRecipe(recipe)
                 }
             }
+            
         case .shows:
-            let manager = NetworkManager.sharedManager()
-            manager.fetchShowPageNumbers { pageNumbers, error in
-                if let _ = pageNumbers {
-                    // this is temporary limit until solve pagination
-                    manager.fetchShows([1], sort: "trending") { shows, error in
-                        if shows != nil {
-                            let recipe = GenreRecipe(fetchType: self.fetchType)
-                            self.serveRecipe(recipe)
-                        }
-                    }
+            PopcornKit.loadShows(1, filterBy: .trending, genre: .all, searchTerm: nil, orderBy: .descending) { shows, error in
+                if shows != nil {
+                    let recipe = GenreRecipe(type: self.fetchType)
+                    self.serveRecipe(recipe)
                 }
             }
         }
@@ -46,21 +37,21 @@ struct Genre: TabItem {
 
 
     func serveRecipe(_ recipe: GenreRecipe) {
-        Kitchen.appController.evaluateInJavaScriptContext({jsContext in
+        Kitchen.appController.evaluate(inJavaScriptContext: {jsContext in
             let highlightSection: @convention(block) (String, JSValue) -> () = {(text, callback) in
-                recipe.highlightSection(text) { string in
+                recipe.section(didHighlightWithGenre: text) { string in
                     if callback.isObject {
-                        callback.callWithArguments([string])
+                        callback.call(withArguments: [string])
                     }
                 }
             }
 
-            jsContext.setObject(unsafeBitCast(highlightSection, AnyObject.self), forKeyedSubscript: "highlightSection")
+            jsContext.setObject(unsafeBitCast(highlightSection, to: AnyObject.self), forKeyedSubscript: "highlightSection" as NSString)
 
-            if let file = NSBundle.mainBundle().URLForResource("Genre", withExtension: "js") {
+            if let file = Bundle.main.url(forResource: "Genre", withExtension: "js") {
                 do {
-                    var js = try String(contentsOfURL: file)
-                    js = js.stringByReplacingOccurrencesOfString("{{RECIPE}}", withString: recipe.xmlString)
+                    var js = try String(contentsOf: file)
+                    js = js.replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
                     jsContext.evaluateScript(js)
                 } catch {
                     print("Could not open Genre.js")

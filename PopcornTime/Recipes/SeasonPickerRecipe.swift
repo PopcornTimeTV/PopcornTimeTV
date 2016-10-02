@@ -20,11 +20,11 @@ public struct SeasonPickerRecipe: RecipeType {
 
     let show: Show
     let seasons: [Season]
-    public let presentationType = PresentationType.Modal
+    public let presentationType = PresentationType.modal
 
     public init(show: Show, seasons: [Season]) {
         self.show = show
-        self.seasons = seasons.sort({ $0.seasonNumber < $1.seasonNumber })
+        self.seasons = seasons.sorted(by: { $0.seasonNumber < $1.seasonNumber })
     }
 
     public var xmlString: String {
@@ -37,7 +37,7 @@ public struct SeasonPickerRecipe: RecipeType {
 
     var seasonsString: String {
         let mapped: [String] = seasons.map {
-            var string = "<lockup actionID=\"showSeason»\(show.id)»\(show.title.slugged)»\(show.tvdbId)»\($0.seasonNumber)\">" + "\n"
+            var string = "<lockup actionID=\"showSeason»\(show.id)»\(show.slug)»\(show.tvdbId)»\($0.seasonNumber)\">" + "\n"
             string += "<img src=\"\($0.seasonMediumCoverImage)\" width=\"300\" height=\"452\" />" + "\n"
             string += "<title class=\"white-color\">Season \($0.seasonNumber)</title>" + "\n"
             string += "</lockup>" + "\n"
@@ -51,9 +51,9 @@ public struct SeasonPickerRecipe: RecipeType {
         if let file = Bundle.main.url(forResource: "SeasonPickerRecipe", withExtension: "xml") {
             do {
                 xml = try String(contentsOf: file)
-                xml = xml.stringByReplacingOccurrencesOfString("{{TITLE}}", withString: show.title.cleaned)
+                xml = xml.replacingOccurrences(of: "{{TITLE}}", with: show.title.cleaned)
                 xml = xml.replacingOccurrences(of: "{{SEASONS}}", with: seasonsString)
-                xml = xml.stringByReplacingOccurrencesOfString("{{IMAGE}}", withString: show.posterImage)
+                xml = xml.replacingOccurrences(of: "{{IMAGE}}", with: show.largeBackgroundImage ?? "")
             } catch {
                 print("Could not open Catalog template")
             }

@@ -2,7 +2,6 @@
 
 import TVMLKitchen
 import PopcornKit
-import SWXMLHash
 
 public struct SeasonInfo {
     public var last: Int!
@@ -66,7 +65,7 @@ public struct SeasonProductRecipe: RecipeType {
     let existsInWatchList: Bool
 
     public let theme = DefaultTheme()
-    public let presentationType = PresentationType.Default
+    public let presentationType = PresentationType.default
 
     public init(show: Show, showInfo: ShowInfo, episodes: [Episode], detailedEpisodes: [DetailedEpisode], seasonInfo: SeasonInfo, existsInWatchlist: Bool) {
         self.show = show
@@ -92,7 +91,7 @@ public struct SeasonProductRecipe: RecipeType {
     }
 
     var actorsString: String {
-        return show.actors.map { "<text>\($0.name.cleaned)</text>" }.joinWithSeparator("")
+        return show.actors.map { "<text>\($0.name.cleaned)</text>" }.joined(separator: "")
     }
 
     var genresString: String {
@@ -117,12 +116,11 @@ public struct SeasonProductRecipe: RecipeType {
     var castString: String {
 
         let actors: [String] = show.actors.map {
-
             var headshot = ""
             if $0.mediumImage != "http://62.210.81.37/assets/images/actors/default_avatar.jpg" {
                 headshot = " src=\"\($0.mediumImage)\""
             }
-            let name = $0.name.componentsSeparatedByString(" ")
+            let name = $0.name.components(separatedBy: " ")
             var string = "<monogramLockup actionID=\"showActor»\($0.name)\">" + "\n"
             string += "<monogram firstName=\"\(name.first!)\" lastName=\"\(name.last!)\"\(headshot)/>"
             string += "<title>\($0.name.cleaned)</title>" + "\n"
@@ -130,21 +128,19 @@ public struct SeasonProductRecipe: RecipeType {
             string += "</monogramLockup>" + "\n"
             return string
         }
-        var directors: [String] = [""]
-        if show.directors != nil {
-            directors = show.directors.map {
+        
+        let directors: [String] = show.crew.filter({ $0.roleType == .Director }).map {
             var headshot = ""
             if $0.mediumImage != "http://62.210.81.37/assets/images/directors/default_avatar.jpg" {
                 headshot = " src=\"\($0.mediumImage)\""
             }
-            let name = $0.name.componentsSeparatedByString(" ")
+            let name = $0.name.components(separatedBy: " ")
             var string = "<monogramLockup actionID=\"showDirector»\($0.name)\">" + "\n"
             string += "<monogram firstName=\"\(name.first!)\" lastName=\"\(name.last!)\"\(headshot)/>"
             string += "<title>\($0.name.cleaned)</title>" + "\n"
             string += "<subtitle>Director</subtitle>" + "\n"
             string += "</monogramLockup>" + "\n"
             return string
-            }
         }
 
         let mapped = actors+directors
@@ -153,7 +149,7 @@ public struct SeasonProductRecipe: RecipeType {
     }
 
     var watchlistButton: String {
-        var string = "<buttonLockup id =\"favoriteButton\" actionID=\"addWatchlist»\(show.id)»\(show.title)»show»\(show.posterImage)»\(show.fanartImage)»\(show.id)»\(show.tvdbId)»\(show.title.slugged)\">\n"
+        var string = "<buttonLockup id =\"favoriteButton\" actionID=\"addWatchlist»\(show.id)»\(show.title)»show»\(show.largeCoverImage ?? "")»\(show.largeBackgroundImage ?? "")»\(show.id)»\(show.tvdbId)»\(show.slug)\">\n"
         string += "<badge id =\"favoriteButtonBadge\" src=\"resource://button-{{WATCHLIST_ACTION}}\" />\n"
         string += "<title>Favourites</title>\n"
         string += "</buttonLockup>"
@@ -178,7 +174,7 @@ public struct SeasonProductRecipe: RecipeType {
     }
 
     var seasonsButton: String {
-        var string = "<buttonLockup actionID=\"showSeasons»\(show.id)»\(show.title.slugged)»\(show.tvdbId)\">"
+        var string = "<buttonLockup actionID=\"showSeasons»\(show.id)»\(show.slug)»\(show.tvdbId)\">"
         string += "\(seasonsButtonTitle)"
         string += "<title>Series</title>"
         string += "</buttonLockup>"
@@ -200,15 +196,12 @@ public struct SeasonProductRecipe: RecipeType {
 
     var episodesString: String {
         let mapped: [String] = detailedEpisodes.map {
-            var overview = ""
-            if let synopsis = $0.episode.overview {
-                overview = synopsis.cleaned
-            }
+            let overview = $0.episode.summary?.cleaned ?? ""
             let fullscreen = $0.fullScreenshot ?? ""
             let mediumscreen = $0.mediumScreenshot ?? ""
             let episodetitle = $0.episodeTitle?.cleaned ?? ""
             let title = show.title?.cleaned ?? ""
-            var string = "<lockup actionID=\"playMovie»\(fullscreen)»\(show.fanartImage)»\(episodetitle)»\(overview)»\(torrents($0.episode).cleaned ?? "")»\($0.episode.tvdbId)»\(title)»\($0.episode.episode)»\($0.episode.season)\">" + "\n"
+            var string = "<lockup actionID=\"playMovie»\(fullscreen)»\(show.largeBackgroundImage ?? "")»\(episodetitle)»\(overview)»\(torrents($0.episode).cleaned)»\($0.episode.id)»\(title)»\($0.episode.episode)»\($0.episode.season)\">" + "\n"
             string += "<img src=\"\(mediumscreen)\" width=\"310\" height=\"175\" />" + "\n"
             string += "<title>\($0.episode.episode). \(episodetitle)</title>" + "\n"
             string += "<overlay class=\"overlayPosition\">" + "\n"
@@ -239,7 +232,7 @@ public struct SeasonProductRecipe: RecipeType {
         let filteredTorrents: [String] = torrents.map { torrent in
             return "quality=\(torrent.quality)&hash=\(torrent.hash)"
         }
-        return filteredTorrents.joinWithSeparator("•")
+        return filteredTorrents.joined(separator: "•")
     }
 
     public var template: String {
@@ -248,16 +241,16 @@ public struct SeasonProductRecipe: RecipeType {
             do {
                 xml = try String(contentsOf: file)
 
-                xml = xml.stringByReplacingOccurrencesOfString("{{TITLE}}", withString: show.title.cleaned)
+                xml = xml.replacingOccurrences(of: "{{TITLE}}", with: show.title.cleaned)
                 xml = xml.replacingOccurrences(of: "{{SEASON}}", with: seasonString)
 
                 xml = xml.replacingOccurrences(of: "{{RUNTIME}}", with: runtime)
                 xml = xml.replacingOccurrences(of: "{{GENRES}}", with: genresString)
-                xml = xml.stringByReplacingOccurrencesOfString("{{DESCRIPTION}}", withString: show.synopsis!.cleaned)
-                xml = xml.stringByReplacingOccurrencesOfString("{{SHORT_DESCRIPTION}}", withString: show.synopsis!.cleaned)
-                xml = xml.stringByReplacingOccurrencesOfString("{{IMAGE}}", withString: show.posterImage)
-                xml = xml.stringByReplacingOccurrencesOfString("{{FANART_IMAGE}}", withString: show.fanartImage)
-                xml = xml.replacingOccurrences(of: "{{YEAR}}", with: "")
+                xml = xml.replacingOccurrences(of: "{{DESCRIPTION}}", with: show.summary?.cleaned ?? "")
+                xml = xml.replacingOccurrences(of: "{{SHORT_DESCRIPTION}}", with: show.summary?.cleaned ?? "")
+                xml = xml.replacingOccurrences(of: "{{IMAGE}}", with: show.largeCoverImage ?? "")
+                xml = xml.replacingOccurrences(of: "{{FANART_IMAGE}}", with: show.largeCoverImage ?? "")
+                xml = xml.replacingOccurrences(of: "{{YEAR}}", with: show.year.cleaned)
                 xml = xml.replacingOccurrences(of: "mpaa-{{RATING}}", with: showInfo.contentRating.lowercased())
                 xml = xml.replacingOccurrences(of: "{{AIR_DATE_TIME}}", with: "<text>\(showInfo.airDay)'s \(showInfo.airTime)</text>")
 
