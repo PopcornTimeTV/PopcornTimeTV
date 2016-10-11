@@ -1,0 +1,20 @@
+<head>
+    <style>
+        .img {
+        tv-placeholder:movie;
+        }
+    </style>
+</head>
+<paradeTemplate>
+    <background>
+        <img src="resource://background"></img>
+    </background>
+    <list>
+        <header>
+            <title>Genres</title>
+        </header>
+        <section>
+            {{LIST_ITEMS}}
+        </section>
+    </list>
+</paradeTemplate>

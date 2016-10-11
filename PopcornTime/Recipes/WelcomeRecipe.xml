@@ -1,0 +1,21 @@
+<mainTemplate>
+    <background>
+        <img src="{{TVSHOWS_BACKGROUND}}" />
+    </background>
+    <menuBar>
+        <section>
+            <menuItem actionID="showMovies">
+                <title>Movies</title>
+            </menuItem>
+            <menuItem actionID="showTVShows">
+                <title>Shows</title>
+            </menuItem>
+            <menuItem actionID="showGlobalWatchlist">
+                <title>Favourites</title>
+            </menuItem>
+            <menuItem actionID="showSettings">
+                <title>Settings</title>
+            </menuItem>
+        </section>
+    </menuBar>
+</mainTemplate>

@@ -1,0 +1,72 @@
+<head>
+    <style>
+        .badge {
+        tv-tint-color: rgb(255,255,255);
+        }
+        .hover {
+        tv-text-highlight-style: marquee-and-show-on-highlight;
+        }
+        .whiteButton {
+        tv-tint-color: rgb(255, 255, 255);
+        }
+        .overlayPosition {
+        tv-position: bottom-left;
+        margin: 15 15 15 15;
+        }
+        .imgGradient {
+        tv-img-treatment: blurOverlay;
+        tv-img-treatment:uber;
+        }
+        .text {
+        text-shadow: 2px 5px 10px #000000;
+        }
+        .img {
+        tv-placeholder:movie;
+        }
+    </style>
+</head>
+<productBundleTemplate>
+    <background>
+        <img class="imgGradient" src="{{FANART_IMAGE}}" style="tv-tint-color: linear-gradient(top, 0.33, transparent, 0.66, rgba(000,000,000,0.7), rgba(000,000,000,1.0));" />
+    </background>
+    <banner>
+        <stack>
+            <title>{{TITLE}}</title>
+            <subtitle>{{SEASON}}</subtitle>
+            <row>
+                <text>{{RUNTIME}}</text>
+                <text>{{GENRES}}</text>
+                <text>{{YEAR}}</text>
+                <badge src="resource://cc" class="badge" />
+                {{AIR_DATE_TIME}}
+            </row>
+            <description class="text" allowsZooming="true" moreLabel="more" actionID="showDescription»{{TITLE}}»{{DESCRIPTION}}">{{DESCRIPTION}}</description>
+            <row>
+                {{SEASONS_BUTTON}}
+                {{WATCH_LIST_BUTTON}}
+            </row>
+        </stack>
+        
+    </banner>
+    
+    <!-- Episodes -->
+    <shelf>
+        <header>
+            <title>{{EPISODE_COUNT}}</title>
+        </header>
+        <section>
+            {{EPISODES}}
+        </section>
+    </shelf>
+    
+    <!-- Cast -->
+    <shelf>
+        <header>
+            <title>Cast and Crew</title>
+        </header>
+        <section>
+            {{CAST}}
+        </section>
+    </shelf>
+    <shelf></shelf>
+</productBundleTemplate>

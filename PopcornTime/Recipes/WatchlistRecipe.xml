@@ -1,0 +1,22 @@
+<head>
+    <style>
+        .hover {
+            tv-text-highlight-style: marquee-and-show-on-highlight;
+        }
+        .img {
+        tv-placeholder:movie;
+        }
+    </style>
+</head>
+
+<stackTemplate>
+    <background>
+        <img src="resource://background"></img>
+    </background>
+    <banner>
+        <title>{{TITLE}}</title>
+    </banner>
+    <collectionList>
+        {{SHELFS}}
+    </collectionList>
+</stackTemplate>
