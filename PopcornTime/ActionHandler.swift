@@ -350,6 +350,7 @@ class ActionHandler: NSObject {
         }
         
         group.notify(queue: .main, execute: {
+            episodes.sort(by: { $0.episode < $1.episode })
             completion(episodes)
         })
     }
