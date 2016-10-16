@@ -7,18 +7,16 @@
         tv-text-highlight-style: marquee-and-show-on-highlight;
     }
     .img {
-    tv-placeholder:movie;
+        tv-placeholder:movie;
     }
 </style>
 </head>
 <productTemplate>
+    <background>
+        <img class="imgGradient" src="{{FANART_IMAGE}}" style="tv-tint-color: linear-gradient(top, 0.33, transparent, 0.66, rgba(000,000,000,0.7), rgba(000,000,000,1.0));" />
+    </background>
     <banner>
         <infoList>
-            <info>
-                <ratingCard style="tv-align: right;">
-                    <ratingBadge style="tv-rating-style: star-hollow-l;" value="0.{{STAR_RATING}}"></ratingBadge>
-                </ratingCard>
-            </info>
             <info>
                 <header>
                     <title>Genre</title>
@@ -47,6 +45,7 @@
                 <badge src="resource://mpaa-{{RATING}}" class="badge" />
                 <badge src="resource://hd" class="badge" />
                 <badge src="resource://cc" class="badge" />
+                <ratingBadge style="tv-rating-style: star-hollow-l;" value="0.{{STAR_RATING}}"></ratingBadge>
             </row>
             <description allowsZooming="true" moreLabel="more" actionID="showDescription»{{TITLE}}»{{DESCRIPTION}}">{{DESCRIPTION}}</description>
             <row>
@@ -64,7 +63,6 @@
             </row>
         </stack>
         
-        <heroImg src="{{IMAGE}}" />
     </banner>
     
     <!-- Suggestions -->

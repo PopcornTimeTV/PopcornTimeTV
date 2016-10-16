@@ -109,6 +109,7 @@ public struct MovieProductRecipe: RecipeType {
                 xml = xml.replacingOccurrences(of: "{{GENRES}}", with: genresString)
                 xml = xml.replacingOccurrences(of: "{{DESCRIPTION}}", with: movie.summary.cleaned)
                 xml = xml.replacingOccurrences(of: "{{IMAGE}}", with: movie.largeCoverImage ?? "")
+                xml = xml.replacingOccurrences(of: "{{FANART_IMAGE}}", with: movie.largeBackgroundImage ?? "")
                 xml = xml.replacingOccurrences(of: "{{YEAR}}", with: String(movie.year))
                 xml = xml.replacingOccurrences(of: "{{RATING}}", with: movie.certification.replacingOccurrences(of: "-", with: ""))
                 xml = xml.replacingOccurrences(of: "{{STAR_RATING}}", with: String(movie.rating))
