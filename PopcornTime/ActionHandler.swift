@@ -76,7 +76,7 @@ class ActionHandler: NSObject {
     // MARK: - Movies
     
     func showMovies() {
-        Kitchen.serve(recipe: KitchenTabBar(items: [Popular(.movies), Latest(.movies), Genre(.movies), Watchlist(.movies), Search(.movies)]))
+        Kitchen.serve(recipe: KitchenTabBar(items: [Trending(.movies), Popular(.movies), Latest(.movies), Genre(.movies), Watchlist(.movies), Search(.movies)]))
     }
     
     func showMovie(_ title: String, _ id: String) {
@@ -125,7 +125,7 @@ class ActionHandler: NSObject {
     // MARK: - Shows
     
     func showTVShows() {
-        Kitchen.serve(recipe: KitchenTabBar(items: [Popular(.shows), Latest(.shows), Genre(.shows), Watchlist(.shows), Search(.shows)]))
+        Kitchen.serve(recipe: KitchenTabBar(items: [Trending(.shows), Popular(.shows), Latest(.shows), Genre(.shows), Watchlist(.shows), Search(.shows)]))
     }
     
     func showGlobalWatchlist() {
