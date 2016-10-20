@@ -123,9 +123,9 @@ public struct MovieProductRecipe: RecipeType {
 
                 xml = xml.replacingOccurrences(of: "{{WATCH_LIST_BUTTON}}", with: watchlistButton)
                 if WatchlistManager<Movie>.movie.isAdded(movie) {
-                    xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "rated")
+                    xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "remove")
                 } else {
-                    xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "rate")
+                    xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "add")
                 }
                 xml = xml.replacingOccurrences(of: "{{MOVIE}}", with: Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")
                 xml = xml.replacingOccurrences(of: "{{TORRENTS}}", with: Mapper<Torrent>().toJSONString(movie.torrents)?.cleaned ?? "")

@@ -42,7 +42,7 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
                 )
             }
             
-            let latestMediaSectionTitle = "Top \(type)s"
+            let latestMediaSectionTitle = "Trending \(type)s"
             let latestMediaSectionItem = TVContentItem(contentIdentifier: TVContentIdentifier(identifier: latestMediaSectionTitle, container: nil)!)!
             latestMediaSectionItem.title = latestMediaSectionTitle
             latestMediaSectionItem.topShelfItems = mediaItems
@@ -50,11 +50,11 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
             group.leave()
         }
         group.enter()
-        PopcornKit.loadMovies(filterBy: .popularity) { (movies, error) in
+        PopcornKit.loadMovies(filterBy: .trending) { (movies, error) in
             completion(movies, error)
         }
         group.enter()
-        PopcornKit.loadShows(filterBy: .popularity) { (shows, error) in
+        PopcornKit.loadShows(filterBy: .trending) { (shows, error) in
             completion(shows, error)
         }
         

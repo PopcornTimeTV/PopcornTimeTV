@@ -160,9 +160,9 @@ public struct SeasonProductRecipe: RecipeType {
 
                 xml = xml.replacingOccurrences(of: "{{WATCH_LIST_BUTTON}}", with: watchlistButton)
                 if WatchlistManager<Show>.show.isAdded(show) {
-                    xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "rated")
+                    xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "remove")
                 } else {
-                    xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "rate")
+                    xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "add")
                 }
 
                 xml = xml.replacingOccurrences(of: "{{EPISODE_COUNT}}", with: episodeCount)
