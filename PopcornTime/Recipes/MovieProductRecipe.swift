@@ -34,7 +34,7 @@ public struct MovieProductRecipe: RecipeType {
     }
 
     var genresString: String {
-        return "<text> \(movie.genres.joined(separator: " • ").capitalized)</text>"
+        return movie.genres.map { "<text>\($0.capitalized)</text>" }.joined(separator: "")
     }
 
     func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int, Int) {
