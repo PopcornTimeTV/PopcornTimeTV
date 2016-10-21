@@ -82,7 +82,13 @@ class ActionHandler: NSObject {
         Kitchen.serve(recipe: LoadingRecipe(message: title))
         
         PopcornKit.getMovieInfo(id) { (movie, error) in
-            guard var movie = movie else { return }
+            guard var movie = movie else {
+                var viewcontrollers = Kitchen.navigationController.viewControllers
+                viewcontrollers.removeLast()
+                Kitchen.navigationController.setViewControllers(viewcontrollers, animated: true)
+                Kitchen.serve(recipe: AlertRecipe(title: "Failed to load movie.", description: error?.code == 4 ? "No torrents available for selected movie." : error!.localizedDescription, buttons: [AlertButton(title: "Okay", actionID: "closeAlert")]))
+                return
+            }
             
             let group = DispatchGroup()
             
@@ -112,13 +118,17 @@ class ActionHandler: NSObject {
                         }
                     }
                     }, completion: nil)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-                    var viewcontrollers = Kitchen.navigationController.viewControllers
-                    viewcontrollers.remove(at: viewcontrollers.count-2)
-                    Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
-                })
+                self.dismissLoading()
             })
         }
+    }
+    
+    func dismissLoading() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            var viewcontrollers = Kitchen.navigationController.viewControllers
+            viewcontrollers.remove(at: viewcontrollers.count-2)
+            Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
+        })
     }
     
     // MARK: - Shows
@@ -140,11 +150,7 @@ class ActionHandler: NSObject {
             recipe.watchListShows = shows
         }
         Kitchen.serve(recipe: recipe)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-            var viewcontrollers = Kitchen.navigationController.viewControllers
-            viewcontrollers.remove(at: viewcontrollers.count-2)
-            Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
-        })
+        dismissLoading()
     }
 
     func showSettings() {
@@ -191,11 +197,7 @@ class ActionHandler: NSObject {
                 guard let movies = movies else { return }
                 completion(movies.map({$0.lockUp}).joined(separator: ""))
                 self.serveCatalogRecipe(recipe, topBarHidden: true)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-                    var viewcontrollers = Kitchen.navigationController.viewControllers
-                    viewcontrollers.remove(at: viewcontrollers.count-2)
-                    Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
-                })
+                self.dismissLoading()
             })
         })
     }
@@ -210,11 +212,7 @@ class ActionHandler: NSObject {
                 guard let shows = shows else {  return }
                 completion(shows.map({$0.lockUp}).joined(separator: ""))
                 self.serveCatalogRecipe(recipe, topBarHidden: true)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-                    var viewcontrollers = Kitchen.navigationController.viewControllers
-                    viewcontrollers.remove(at: viewcontrollers.count-2)
-                    Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
-                })
+                self.dismissLoading()
             })
         })
     }
@@ -228,11 +226,7 @@ class ActionHandler: NSObject {
                 guard !movies.isEmpty else { return }
                 completion(movies.map({$0.lockUp}).joined(separator: ""))
                 self.serveCatalogRecipe(recipe, topBarHidden: true)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-                    var viewcontrollers = Kitchen.navigationController.viewControllers
-                    viewcontrollers.remove(at: viewcontrollers.count-2)
-                    Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
-                })
+                self.dismissLoading()
             }
         })
     }
@@ -246,11 +240,7 @@ class ActionHandler: NSObject {
                 guard !shows.isEmpty else { return }
                 completion(shows.map({$0.lockUp}).joined(separator: ""))
                 self.serveCatalogRecipe(recipe, topBarHidden: true)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-                    var viewcontrollers = Kitchen.navigationController.viewControllers
-                    viewcontrollers.remove(at: viewcontrollers.count-2)
-                    Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
-                })
+                self.dismissLoading()
             }
         })
     }
@@ -309,11 +299,7 @@ class ActionHandler: NSObject {
                         }
                     }
                     }, completion: nil)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-                    var viewcontrollers = Kitchen.navigationController.viewControllers
-                    viewcontrollers.remove(at: viewcontrollers.count-2)
-                    Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
-                })
+                self.dismissLoading()
             })
         }
     }
@@ -376,7 +362,7 @@ class ActionHandler: NSObject {
         present(loadingViewController, true)
         
         let error: (String) -> Void = { (errorMessage) in
-            Kitchen.serve(recipe: AlertRecipe(title: "Error", description: errorMessage, buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .modal))
+            Kitchen.serve(recipe: AlertRecipe(title: "Error", description: errorMessage, buttons: [AlertButton(title: "Okay", actionID: "closeAlert")]))
         }
         
         let finishedLoading: (LoadingViewController, UIViewController) -> Void = { (loadingVc, playerVc) in
@@ -413,11 +399,11 @@ class ActionHandler: NSObject {
     
     func playMedia(_ torrentString: String, _ mediaString: String) {
         guard let torrents = Mapper<Torrent>().mapArray(JSONString: torrentString) else {
-            Kitchen.serve(recipe: AlertRecipe(title: "No torrents found", description: "Torrents could not be found for the specified movie.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .modal))
+            Kitchen.serve(recipe: AlertRecipe(title: "No torrents found", description: "Torrents could not be found for the specified movie.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")]))
             return
         }
         let buttons = torrents.map({ AlertButton(title: $0.quality, actionID: "streamTorrent»\(Mapper<Torrent>().toJSONString($0)?.cleaned ?? "")»\(mediaString.cleaned)") })
         
-        Kitchen.serve(recipe: AlertRecipe(title: "Choose Quality", description: "Choose a quality to stream.", buttons: buttons, presentationType: .modal))
+        Kitchen.serve(recipe: AlertRecipe(title: "Choose Quality", description: "Choose a quality to stream.", buttons: buttons))
     }
 }
