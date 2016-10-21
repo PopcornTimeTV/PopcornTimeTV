@@ -34,7 +34,6 @@
 		4D70B1021DA8F40800CDAF48 /* TabMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D70B1011DA8F40800CDAF48 /* TabMenuCollectionViewCell.swift */; };
 		4D70B1041DA90C3800CDAF48 /* PCTPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D70B1031DA90C3800CDAF48 /* PCTPlayerViewController.swift */; };
 		4DF74D001DABEF2100D40331 /* button-season.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DF74CFF1DABEF2100D40331 /* button-season.png */; };
-		4DF74D021DABF04C00D40331 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DF74D011DABF04C00D40331 /* background.png */; };
 		4DF74D041DAC061D00D40331 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF74D031DAC061D00D40331 /* LoadingViewController.swift */; };
 		921572391CE422C000A26088 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921572381CE422C000A26088 /* AudioManager.swift */; };
 		921E44F41CE78F930012FEAD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921E44F31CE78F930012FEAD /* SettingsViewController.swift */; };
@@ -138,7 +137,6 @@
 		4D70B1031DA90C3800CDAF48 /* PCTPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCTPlayerViewController.swift; sourceTree = "<group>"; };
 		4DC870B51D9EDE58005455B0 /* PopcornTime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopcornTime.entitlements; sourceTree = "<group>"; };
 		4DF74CFF1DABEF2100D40331 /* button-season.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-season.png"; sourceTree = "<group>"; };
-		4DF74D011DABF04C00D40331 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		4DF74D031DAC061D00D40331 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingViewController.swift; path = "View Controllers/LoadingViewController.swift"; sourceTree = "<group>"; };
 		59BE8A67A9D4954F63D16C0E /* Pods-PopcornTime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.debug.xcconfig"; sourceTree = "<group>"; };
 		796C61914EF57FAF09B30DFE /* Pods-PopcornTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.release.xcconfig"; sourceTree = "<group>"; };
@@ -282,7 +280,6 @@
 		287B85491C988AD600EEF5C8 /* Supporting FIles */ = {
 			isa = PBXGroup;
 			children = (
-				4DF74D011DABF04C00D40331 /* background.png */,
 				4DF74CFF1DABEF2100D40331 /* button-season.png */,
 				D99067F31D6A0775006DFDEB /* EncodingTypes.plist */,
 				9211E3F11CDC0ADD00BEEB9D /* PopcornTime-Bridging-Header.h */,
@@ -560,7 +557,6 @@
 				926A48791CDFAB7000D02962 /* TabMenuCollectionViewCell.xib in Resources */,
 				925F8DF21CA9E44C007100EB /* WelcomeRecipe.xml in Resources */,
 				925F8DEB1CA9E44C007100EB /* SearchRecipe.xml in Resources */,
-				4DF74D021DABF04C00D40331 /* background.png in Resources */,
 				002A55A41CEDF2FA00252C3F /* SeasonProductRecipe.js in Resources */,
 				925F8DE51CA9E44C007100EB /* CatalogRecipe.xml in Resources */,
 				D99067F41D6A0775006DFDEB /* EncodingTypes.plist in Resources */,
@@ -590,7 +586,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		717DA540B4BA027F6C60314A /* [CP] Copy Pods Resources */ = {
@@ -635,7 +631,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		DDD65985D085B39F00A9C08E /* [CP] Copy Pods Resources */ = {

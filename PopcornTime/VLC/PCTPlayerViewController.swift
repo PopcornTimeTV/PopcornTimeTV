@@ -234,12 +234,10 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
 //                } else {
 //                    self.upNextView.nextEpisodeThumbImageView.image = UIImage(named: "Placeholder")
 //                }
-//                SubtitlesManager.shared.login({
 //                    SubtitlesManager.shared.search(imdbId: imdb, completion: { (subtitles, error) in
 //                        guard error == nil else { return }
 //                        self.nextMedia?.subtitles = subtitles
 //                    })
-//                })
 //            })
 //        }
         resetIdleTimer()

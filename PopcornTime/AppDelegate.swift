@@ -67,4 +67,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UpdateManager.shared.checkVersion(.daily)
     }
     
+    func applicationWillTerminate(_ application: UIApplication) {
+        SubtitlesManager.shared.logout()
+    }
+    
 }

@@ -38,7 +38,6 @@ class ActionHandler: NSObject {
     func primary(_ id: String) {
         var pieces = id.components(separatedBy: "»")
         performSelector(named: pieces.removeFirst(), parameters: pieces)
-
     }
     
     /**
