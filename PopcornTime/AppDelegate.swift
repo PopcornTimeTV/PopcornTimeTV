@@ -30,11 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         }
         
-        PopcornKit.loadMovies { (movies, error) in
-            guard let movies = movies else { return }
-            let art = movies.map({$0.largeBackgroundImage ?? ""}).filter({$0 != ""})
-            Kitchen.serve(recipe: WelcomeRecipe(title: "PopcornTime", randomArt: art))
-        }
+        loadWelcomeRecipe()
         
         return true
     }
@@ -43,7 +39,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let action = url.absoluteString.components(separatedBy: "?").last?.components(separatedBy: "=").last?.replacingOccurrences(of: "/", with: "»").replacingOccurrences(of: "%20", with: " ") else {
                 return false
             }
-            ActionHandler.shared.primary(action)
+            if Kitchen.appController.navigationController.viewControllers.first != nil // Don't present WelcomeRecipe if it is already there.
+            {
+                ActionHandler.shared.primary(action)
+            } else {
+                loadWelcomeRecipe() {
+                    ActionHandler.shared.primary(action)
+                }
+            }
         }
         return true
     }
@@ -71,4 +74,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SubtitlesManager.shared.logout()
     }
     
+    func loadWelcomeRecipe(completion: ((() -> Void))? = nil) {
+        PopcornKit.loadMovies { (movies, error) in
+            guard let movies = movies else { return }
+            let art = movies.map({$0.largeBackgroundImage ?? ""}).filter({$0 != ""})
+            Kitchen.serve(recipe: WelcomeRecipe(title: "PopcornTime", randomArt: art))
+            completion?()
+        }
+    }
 }
