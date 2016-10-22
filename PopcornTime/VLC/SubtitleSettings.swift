@@ -13,7 +13,7 @@ enum BackgroundType: String {
 class SubtitleSettings: NSObject, NSCoding {
     
     var fontSize: Float = 16.0
-    var fontColor: UIColor = UIColor.white
+    var fontColor: UIColor = .white
     var fontName: String = "system"
     var backgroundType: BackgroundType = .none
     var encoding: String = "Windows-1252"
@@ -29,15 +29,17 @@ class SubtitleSettings: NSObject, NSCoding {
     
     func save() {
         UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: self), forKey: "subtitleSettings")
+        UserDefaults.standard.synchronize()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        guard let size = aDecoder.decodeObject(forKey: "fontSize") as? Float,
-            let color = aDecoder.decodeObject(forKey: "fontColor") as? UIColor,
-            let name = aDecoder.decodeObject(forKey: "fontName") as? String,
-            let background = aDecoder.decodeObject(forKey: "backgroundType") as? BackgroundType,
-            let encoding = aDecoder.decodeObject(forKey: "encoding") as? String else { return nil }
-        self.fontSize = size
+        guard let color = aDecoder.decodeObject(of: UIColor.self, forKey: "fontColor"),
+            let name = aDecoder.decodeObject(of: NSString.self, forKey: "fontName") as? String,
+            let rawValue = aDecoder.decodeObject(of: NSString.self, forKey: "backgroundType") as? String,
+            let background = BackgroundType(rawValue: rawValue),
+            let size = aDecoder.decodeObject(forKey: "fontSize") as? CGFloat,
+            let encoding = aDecoder.decodeObject(of: NSString.self, forKey: "encoding") as? String else { return nil }
+        self.fontSize = Float(size)
         self.fontColor = color
         self.fontName = name
         self.backgroundType = background
@@ -45,10 +47,10 @@ class SubtitleSettings: NSObject, NSCoding {
     }
     
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(fontSize, forKey: "fontSize")
+        aCoder.encode(CGFloat(fontSize), forKey: "fontSize")
         aCoder.encode(fontColor, forKey: "fontColor")
         aCoder.encode(fontName, forKey: "fontName")
-        aCoder.encode(backgroundType, forKey: "backgroundType")
+        aCoder.encode(backgroundType.rawValue, forKey: "backgroundType")
         aCoder.encode(encoding, forKey: "encoding")
     }
     

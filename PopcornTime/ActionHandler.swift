@@ -391,7 +391,10 @@ class ActionHandler: NSObject {
                     break forLoop
                 }
             }
-            guard let url = videoUrl else { return }
+            guard let url = videoUrl else {
+                Kitchen.appController.navigationController.popViewController(animated: true)
+                Kitchen.serve(recipe: AlertRecipe(title: "Oops!", description: "Error fetching valid trailer URL from Youtube.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")]))
+                return }
             playerController.player = AVPlayer(url: url)
             playerController.player!.play()
         }
