@@ -7,9 +7,6 @@ import TVMLKitchen
 class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TraktManagerDelegate {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var settingsIcon: UIImageView!
-
-    let version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-    let build: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,16 +85,16 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 cell.detailTextLabel?.text = ""
                 cell.accessoryType = .none
             } else if indexPath.row == 1 {
-                cell.textLabel?.text = "Start web server"
-                if let startWebServer = UserDefaults.standard.object(forKey: "StartWebServer") as? Bool {
-                    cell.detailTextLabel?.text = startWebServer ? "Yes" : "No"
-                } else {
-                    cell.detailTextLabel?.text = "No"
+                cell.textLabel?.text = "Check for updates"
+                var date = "Never."
+                if let lastChecked = UserDefaults.standard.object(forKey: "lastVersionCheckPerformedOnDate") as? Date {
+                    date = DateFormatter.localizedString(from: lastChecked, dateStyle: .short, timeStyle: .short)
                 }
+                cell.detailTextLabel?.text = "Last checked: \(date)"
                 cell.accessoryType = .none
             } else if indexPath.row == 2 {
                 cell.textLabel?.text = "Version"
-                cell.detailTextLabel?.text = "\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")!) (\(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion")!))"
+                cell.detailTextLabel?.text = "\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")!).\(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion")!)"
                 cell.accessoryType = .none
             }
     
@@ -223,40 +220,60 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
         case 2:
             if indexPath.row == 0 {
-                let alertController = UIAlertController(title: "Clear Cache", message: "Clearing the cache will delete any unused images, incomplete torrent downloads and subtitles.", preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "Clear Cache", style: .destructive, handler: { action in
-                    self.clearCache()
-                    alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
-                }))
-                alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
-                self.present(alertController, animated: true, completion: nil)
-            } else if indexPath.row == 1 {
-                var ip = WebServerManager.sharedManager().getWiFiAddress()
-                if ip == nil {
-                    ip = WebServerManager.sharedManager().getLANAddress()
-                }
-                let alertController = UIAlertController(title: "Start Web Sever", message: "Starts a web server that allows you to browse to PopcornTimeTV from any browser http://\(ip!):8181 and view the downloaded media.", preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-                    UserDefaults.standard.set(true, forKey: "StartWebServer")
-                    WebServerManager.sharedManager().startServer(port: 8181)
-                    tableView.reloadData()
-                }))
-                alertController.addAction(UIAlertAction(title: "No", style: .default, handler: { action in
-                    UserDefaults.standard.set(false, forKey: "StartWebServer")
-                    WebServerManager.sharedManager().stopServer()
-                    tableView.reloadData()
-                }))
-                self.present(alertController, animated: true, completion: nil)
-            }
-
-            if indexPath.row == 2 {
-                UpdateManager.shared.checkVersion(.immediately) { updateAvailable in
-                    // If an update was available the UpdateManager would have alread prompted
-                    if !updateAvailable {
-                        let alertController = UIAlertController(title: "No Updates Available", message: "You are using the latest version, \(self.version), however, if you are a developer, there might be a minor update avaible as a commit, you are using commit \(self.build), check https://github.com/PopcornTimeTV/PopcornTimeTV to see if new commits are available.", preferredStyle: .alert)
-                        alertController.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
-                        self.present(alertController, animated: true, completion: nil)
+                let controller = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+                controller.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                do {
+                    let size = FileManager.default.folderSize(atPath: NSTemporaryDirectory())
+                    for path in try FileManager.default.contentsOfDirectory(atPath: NSTemporaryDirectory()) {
+                        try FileManager.default.removeItem(atPath: NSTemporaryDirectory() + "/\(path)")
                     }
+                    controller.title = "Success"
+                    if size == 0 {
+                        controller.message = "Cache was already empty, no disk space was reclamed."
+                    } else {
+                        controller.message = "Cleaned \(size) bytes."
+                    }
+                } catch {
+                    controller.title = "Failed"
+                    controller.message = "Error cleaning cache."
+                    print("Error: \(error)")
+                }
+                present(controller, animated: true, completion: nil)
+            } else if indexPath.row == 1 {
+                let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+                let loadingView: UIViewController = {
+                    let viewController = UIViewController()
+                    viewController.view.translatesAutoresizingMaskIntoConstraints = false
+                    let label = UILabel(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 200, height: 20)))
+                    label.translatesAutoresizingMaskIntoConstraints = false
+                    label.text = "Checking for updates..."
+                    label.font = UIFont.systemFont(ofSize: 37)
+                    label.sizeToFit()
+                    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+                    activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+                    activityIndicator.startAnimating()
+                    viewController.view.addSubview(activityIndicator)
+                    viewController.view.addSubview(label)
+                    viewController.view.centerXAnchor.constraint(equalTo: label.centerXAnchor, constant: -10).isActive = true
+                    viewController.view.centerYAnchor.constraint(equalTo: label.centerYAnchor).isActive = true
+                    label.leadingAnchor.constraint(equalTo: activityIndicator.trailingAnchor, constant: 10).isActive = true
+                    viewController.view.centerYAnchor.constraint(equalTo: activityIndicator.centerYAnchor).isActive = true
+                    return viewController
+                }()
+                alert.setValue(loadingView, forKey: "contentViewController")
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                present(alert, animated: true, completion: nil)
+                UpdateManager.shared.checkVersion(.immediately) { [weak self] success in
+                    alert.dismiss(animated: true, completion: nil)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                        if !success {
+                            let alert = UIAlertController(title: "No Updates Available", message: "There are no updates available for Popcorn Time at this time.", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                            self?.present(alert, animated: true, completion: nil)
+                        }
+                        self?.tableView.reloadData()
+                    })
+                    
                 }
             }
         case 3:
@@ -277,11 +294,6 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     func indexPathForPreferredFocusedView(in tableView: UITableView) -> IndexPath? {
         return IndexPath(row: 0, section: 0)
-    }
-
-    func tableView(_ tableView: UITableView, canFocusRowAt indexPath: IndexPath) -> Bool {
-        settingsIcon.image = UIImage(named: "settings.png")
-        return true
     }
 
     func clearCache() {
