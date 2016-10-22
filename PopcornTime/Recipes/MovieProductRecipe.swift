@@ -89,9 +89,9 @@ public struct MovieProductRecipe: RecipeType {
     }
 
     var watchlistButton: String {
-        var string = "<buttonLockup id =\"favoriteButton\" actionID=\"addMovieToWatchlist»\(Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")\">\n"
-        string += "<badge id =\"favoriteButtonBadge\" src=\"resource://button-{{WATCHLIST_ACTION}}\" />\n"
-        string += "<title>Favourites</title>\n"
+        var string = "<buttonLockup id =\"watchlistButton\" actionID=\"addMovieToWatchlist»\(Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")\">\n"
+        string += "<badge id =\"watchlistButtonBadge\" src=\"resource://button-{{WATCHLIST_ACTION}}\" />\n"
+        string += "<title>Watchlist</title>\n"
         string += "</buttonLockup>"
         return string
     }

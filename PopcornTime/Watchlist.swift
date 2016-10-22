@@ -5,7 +5,7 @@ import PopcornKit
 
 struct Watchlist: TabItem {
 
-    let title = "Favourites"
+    let title = "Watchlist"
     let fetchType: Trakt.MediaType
     
     init(_ type: Trakt.MediaType) {

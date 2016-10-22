@@ -7,12 +7,23 @@ import AVKit
 import XCDYouTubeKit
 import ObjectMapper
 
+/**
+ Handles all the navigation throughout the app. A string containing a method name and two optional parameters are passed into the `primary:` method. This in turn, generates the method from the string and executes it. Every method in this file has no public parameter names. This is for ease of use when calculating their names using perform selector.
+ */
 class ActionHandler: NSObject {
     
+    /// Creates new instance of ActionHandler class
     static let shared = ActionHandler()
     
-    
-    func performSelector(named methodSignature: String, parameters: [String]) {
+    /**
+     Generate a method from a function signature and parameters.
+     
+     - Parameter named:         The valid name of a method inside the `ActionHandler` class.
+     - Parameter parameters:    If the method has parameters, pass them in. 
+     
+     - Important: No more than 2 parameters may be passed in or application will crash.
+     */
+    private func performSelector(named methodSignature: String, parameters: [String]) {
         assert(parameters.count <= 2, "performSelector will not work with more than two function arguments.")
         
         switch parameters.count {
@@ -33,7 +44,7 @@ class ActionHandler: NSObject {
     /**
      The action handler for when the primary (select) button is pressed
 
-     - parameter id: The actionID of the element pressed
+     - Parameter id: The actionID of the element pressed
      */
     func primary(_ id: String) {
         var pieces = id.components(separatedBy: "»")
@@ -42,12 +53,20 @@ class ActionHandler: NSObject {
     
     /**
      The action handler for when the play button is pressed
-     - parameter id: The actionID of the element pressed
+     
+     - Parameter id: The actionID of the element pressed
      */
     func play(_ id: String) {
         
     }
     
+    // MARK: - Watchlist
+    
+    /**
+     Adds movie to the users watchlist and optionally syncs with trakt. UI is updated here.
+     
+     - Parameter movieString: A JSON representation of the movie object to be added to the watchlist. Use `Mapper` to achieve this.
+     */
     func addMovieToWatchlist(_ movieString: String) {
         guard let movie = Mapper<Movie>().map(JSONString: movieString) else { return }
         WatchlistManager<Movie>.movie.add(movie)
@@ -56,6 +75,11 @@ class ActionHandler: NSObject {
             }, completion: nil)
     }
     
+    /**
+     Adds show to the users watchlist and optionally syncs with trakt. UI is updated here.
+     
+     - Parameter showString: A JSON representation of the show object to be added to the watchlist. Use `Mapper` to achieve this.
+     */
     func addShowToWatchlist(_ showString: String) {
         guard let show = Mapper<Show>().map(JSONString: showString) else { return }
         WatchlistManager<Show>.show.add(show)
@@ -64,20 +88,35 @@ class ActionHandler: NSObject {
             }, completion: nil)
     }
     
+    /**
+     If the description exceeds 6 lines, it becomes selectable and calls this upon selection. 
+     
+     - Parameter title:     The title of the media the user is viewing.
+     - Parameter message:   The full description.
+     */
     func showDescription(_ title: String, _ message: String) {
         Kitchen.serve(recipe: DescriptionRecipe(title: title, message: message))
     }
     
+    /// Dismisses the top modally presented view controller.
     func closeAlert() {
         Kitchen.dismissModal()
     }
     
     // MARK: - Movies
     
+    
+    /// Initialises and presents tabBarController with tabs: **Trending**, **Popular**, **Latest**, **Genre**, **Watchlist** and **Search** of type movies.
     func showMovies() {
         Kitchen.serve(recipe: KitchenTabBar(items: [Trending(.movies), Popular(.movies), Latest(.movies), Genre(.movies), Watchlist(.movies), Search(.movies)]))
     }
     
+    /**
+     Presents detail movie view. Called when a user taps on a movie.
+     
+     - Parameter title: The title of the movie.
+     - Parameter id:    The imdbId of the movie.
+     */
     func showMovie(_ title: String, _ id: String) {
         Kitchen.serve(recipe: LoadingRecipe(message: title))
         
@@ -123,6 +162,7 @@ class ActionHandler: NSObject {
         }
     }
     
+    /// Pops the second last view controller from the navigation stack 1 second after the method is called. This can be used to dismiss the loading view controller that is presented when showing movie detail or show detail.
     func dismissLoading() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
             var viewcontrollers = Kitchen.navigationController.viewControllers
@@ -133,118 +173,17 @@ class ActionHandler: NSObject {
     
     // MARK: - Shows
     
-    func showTVShows() {
+    /// Initialises and presents tabBarController with tabs: **Trending**, **Popular**, **Latest**, **Genre**, **Watchlist** and **Search** of type shows.
+    func showShows() {
         Kitchen.serve(recipe: KitchenTabBar(items: [Trending(.shows), Popular(.shows), Latest(.shows), Genre(.shows), Watchlist(.shows), Search(.shows)]))
     }
     
-    func showGlobalWatchlist() {
-        Kitchen.serve(recipe: LoadingRecipe(message:"Loading..."))
-        
-        var recipe = WatchlistRecipe(title: "Favourites")
-        
-        recipe.watchListMovies = WatchlistManager<Movie>.movie.getWatchlist { (movies) in
-            recipe.watchListMovies = movies
-        }
-        
-        recipe.watchListShows = WatchlistManager<Show>.show.getWatchlist { (shows) in
-            recipe.watchListShows = shows
-        }
-        Kitchen.serve(recipe: recipe)
-        dismissLoading()
-    }
-
-    func showSettings() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let viewController = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController {
-            OperationQueue.main.addOperation({ 
-                Kitchen.appController.navigationController.pushViewController(viewController, animated: true)
-            })
-        }
-    }
-
-    func serveCatalogRecipe(_ recipe: CatalogRecipe, topBarHidden hidden: Bool = false) {
-        Kitchen.appController.evaluate(inJavaScriptContext: { jsContext in
-            let highlightLockup: @convention(block) (Int, JSValue) -> () = {(nextPage, callback) in
-                if callback.isObject {
-                    recipe.lockup(didChangePage: nextPage, completion: { (lockUp) in
-                        callback.call(withArguments: [lockUp])
-                    })
-                }
-            }
-            jsContext.setObject(unsafeBitCast(highlightLockup, to: AnyObject.self), forKeyedSubscript: "highlightLockup" as (NSCopying & NSObjectProtocol)!)
-
-            if let file = Bundle.main.url(forResource: "Pagination", withExtension: "js") {
-                do {
-                    var js = try String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
-                    if hidden { js = js.replacingOccurrences(of: "{{TYPE}}", with: "catalog") }
-                    jsContext.evaluateScript(js)
-                } catch {
-                    print("Could not open Pagination.js")
-                }
-            }
-
-            }, completion: nil)
-    }
-    
-
-    func showMovieGenre(_ genre: String) {
-        guard let genre = MovieManager.Genres(rawValue: genre) else { return }
-        Kitchen.serve(recipe: LoadingRecipe(message: genre.rawValue))
-        
-        var recipe: CatalogRecipe!
-        recipe = CatalogRecipe(title: genre.rawValue, fetchBlock: { (page, completion) in
-            PopcornKit.loadMovies(page, genre: genre, completion: { (movies, error) in
-                guard let movies = movies else { return }
-                completion(movies.map({$0.lockUp}).joined(separator: ""))
-                self.serveCatalogRecipe(recipe, topBarHidden: true)
-                self.dismissLoading()
-            })
-        })
-    }
-    
-    func showShowGenre(_ genre: String) {
-        guard let genre = ShowManager.Genres(rawValue: genre) else { return }
-        Kitchen.serve(recipe: LoadingRecipe(message: genre.rawValue))
-        
-        var recipe: CatalogRecipe!
-        recipe = CatalogRecipe(title: genre.rawValue, fetchBlock: { (page, completion) in
-            PopcornKit.loadShows(page, genre: genre, completion: { (shows, error) in
-                guard let shows = shows else {  return }
-                completion(shows.map({$0.lockUp}).joined(separator: ""))
-                self.serveCatalogRecipe(recipe, topBarHidden: true)
-                self.dismissLoading()
-            })
-        })
-    }
-
-    func showMovieCredits(_ name: String, _ id: String) {
-        Kitchen.serve(recipe: LoadingRecipe(message: name))
-        
-        var recipe: CatalogRecipe!
-        recipe = CatalogRecipe(title: name, fetchBlock: { (page, completion) in
-            TraktManager.shared.getMediaCredits(forPersonWithId: id, mediaType: Movie.self) { (movies, error) in
-                guard !movies.isEmpty else { return }
-                completion(movies.map({$0.lockUp}).joined(separator: ""))
-                self.serveCatalogRecipe(recipe, topBarHidden: true)
-                self.dismissLoading()
-            }
-        })
-    }
-    
-    func showShowCredits(_ name: String, _ id: String) {
-        Kitchen.serve(recipe: LoadingRecipe(message: name))
-        
-        var recipe: CatalogRecipe!
-        recipe = CatalogRecipe(title: name, fetchBlock: { (page, completion) in
-            TraktManager.shared.getMediaCredits(forPersonWithId: id, mediaType: Show.self) { (shows, error) in
-                guard !shows.isEmpty else { return }
-                completion(shows.map({$0.lockUp}).joined(separator: ""))
-                self.serveCatalogRecipe(recipe, topBarHidden: true)
-                self.dismissLoading()
-            }
-        })
-    }
-
+    /**
+     Presents detail show view. Called when a user taps on a show.
+     
+     - Parameter title: The title of the show.
+     - Parameter id:    The imdbId of the show.
+     */
     func showShow(_ title: String, _ id: String) {
         Kitchen.serve(recipe: LoadingRecipe(message: title))
         
@@ -304,6 +243,12 @@ class ActionHandler: NSObject {
         }
     }
     
+    /**
+     Presents UI for user to choose a season to watch.
+     
+     Parameter showString: A JSON representation of the show object to be updated. Use `Mapper` to achieve this.
+     Parameter episodesString: A JSON representation of the episode objects that metadata is to be fetched about. Use `Mapper` to achieve this.
+     */
     func showSeasons(_ showString: String, _ episodesString: String) {
         guard var show = Mapper<Show>().map(JSONString: showString), let episodes = Mapper<Episode>().mapArray(JSONString: episodesString) else { return }
         show.episodes = episodes
@@ -314,12 +259,23 @@ class ActionHandler: NSObject {
         }
     }
     
+    /**
+     Updates show detail UI with selected season information.
+     
+     Parameter number: String representation of the season to load.
+     */
     func showSeason(_ number: String) {
         Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
             context.objectForKeyedSubscript("changeSeason").call(withArguments: [Int(number)!])
             }, completion: nil)
     }
     
+    /**
+     Load episode images from trakt.
+     
+     - Parameter forShow:       The show that episode metadata is to be requested.
+     - Parameter completion:    Completion handler containing the updated episodes.
+     */
     func loadEpisodeMetadata(forShow show: Show, completion: @escaping ([Episode]) -> Void) {
         let group = DispatchGroup()
         
@@ -339,7 +295,158 @@ class ActionHandler: NSObject {
             completion(episodes)
         })
     }
+    
+    
+    /// Presents the users watchlist for movies and shows.
+    func showGlobalWatchlist() {
+        Kitchen.serve(recipe: LoadingRecipe(message:"Loading..."))
+        
+        var recipe = WatchlistRecipe(title: "Watchlist")
+        
+        recipe.watchListMovies = WatchlistManager<Movie>.movie.getWatchlist { (movies) in
+            recipe.watchListMovies = movies
+        }
+        
+        recipe.watchListShows = WatchlistManager<Show>.show.getWatchlist { (shows) in
+            recipe.watchListShows = shows
+        }
+        Kitchen.serve(recipe: recipe)
+        dismissLoading()
+    }
 
+    /// Presents the settings view controller.
+    func showSettings() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let viewController = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController {
+            OperationQueue.main.addOperation({ 
+                Kitchen.appController.navigationController.pushViewController(viewController, animated: true)
+            })
+        }
+    }
+
+    /**
+     Presents a recipe with pages of information (catalog).
+     
+     - Parameter recipe:        The recipe to be presented.
+     - Parameter topBarHidden:  Boolean value indicating if the tab bar controller is to be hidden when the view controller is pushed to the navigation stack. This must be set to true when presenting detail view controllers.
+     */
+    func serveCatalogRecipe(_ recipe: CatalogRecipe, topBarHidden hidden: Bool = false) {
+        Kitchen.appController.evaluate(inJavaScriptContext: { jsContext in
+            let highlightLockup: @convention(block) (Int, JSValue) -> () = {(nextPage, callback) in
+                if callback.isObject {
+                    recipe.lockup(didChangePage: nextPage, completion: { (lockUp) in
+                        callback.call(withArguments: [lockUp])
+                    })
+                }
+            }
+            jsContext.setObject(unsafeBitCast(highlightLockup, to: AnyObject.self), forKeyedSubscript: "highlightLockup" as (NSCopying & NSObjectProtocol)!)
+
+            if let file = Bundle.main.url(forResource: "Pagination", withExtension: "js") {
+                do {
+                    var js = try String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
+                    if hidden { js = js.replacingOccurrences(of: "{{TYPE}}", with: "catalog") }
+                    jsContext.evaluateScript(js)
+                } catch {
+                    print("Could not open Pagination.js")
+                }
+            }
+
+            }, completion: nil)
+    }
+    
+    // MARK: - Genres
+    
+    /**
+     Present a catalog of movies matching the passed in genre.
+     
+     - Parameter genre: The genre of the movies to be displayed.
+     */
+    func showMovieGenre(_ genre: String) {
+        guard let genre = MovieManager.Genres(rawValue: genre) else { return }
+        Kitchen.serve(recipe: LoadingRecipe(message: genre.rawValue))
+        
+        var recipe: CatalogRecipe!
+        recipe = CatalogRecipe(title: genre.rawValue, fetchBlock: { (page, completion) in
+            PopcornKit.loadMovies(page, genre: genre, completion: { (movies, error) in
+                guard let movies = movies else { return }
+                completion(movies.map({$0.lockUp}).joined(separator: ""))
+                self.serveCatalogRecipe(recipe, topBarHidden: true)
+                self.dismissLoading()
+            })
+        })
+    }
+    
+    /**
+     Present a catalog of shows matching the passed in genre.
+     
+     - Parameter genre: The genre of the shows to be displayed.
+     */
+    func showShowGenre(_ genre: String) {
+        guard let genre = ShowManager.Genres(rawValue: genre) else { return }
+        Kitchen.serve(recipe: LoadingRecipe(message: genre.rawValue))
+        
+        var recipe: CatalogRecipe!
+        recipe = CatalogRecipe(title: genre.rawValue, fetchBlock: { (page, completion) in
+            PopcornKit.loadShows(page, genre: genre, completion: { (shows, error) in
+                guard let shows = shows else {  return }
+                completion(shows.map({$0.lockUp}).joined(separator: ""))
+                self.serveCatalogRecipe(recipe, topBarHidden: true)
+                self.dismissLoading()
+            })
+        })
+    }
+
+    
+    // MARK: - Credits
+    
+    /**
+     Present a catalog of movies that an actor starred in or was working in.
+     
+     - Parameter name:  Name of person.
+     - Parameter id:    ImdbId of person.
+     */
+    func showMovieCredits(_ name: String, _ id: String) {
+        Kitchen.serve(recipe: LoadingRecipe(message: name))
+        
+        var recipe: CatalogRecipe!
+        recipe = CatalogRecipe(title: name, fetchBlock: { (page, completion) in
+            TraktManager.shared.getMediaCredits(forPersonWithId: id, mediaType: Movie.self) { (movies, error) in
+                guard !movies.isEmpty else { return }
+                completion(movies.map({$0.lockUp}).joined(separator: ""))
+                self.serveCatalogRecipe(recipe, topBarHidden: true)
+                self.dismissLoading()
+            }
+        })
+    }
+    
+    /**
+     Present a catalog of shows that an actor starred in or was working in.
+     
+     - Parameter name:  Name of person.
+     - Parameter id:    ImdbId of person.
+     */
+    func showShowCredits(_ name: String, _ id: String) {
+        Kitchen.serve(recipe: LoadingRecipe(message: name))
+        
+        var recipe: CatalogRecipe!
+        recipe = CatalogRecipe(title: name, fetchBlock: { (page, completion) in
+            TraktManager.shared.getMediaCredits(forPersonWithId: id, mediaType: Show.self) { (shows, error) in
+                guard !shows.isEmpty else { return }
+                completion(shows.map({$0.lockUp}).joined(separator: ""))
+                self.serveCatalogRecipe(recipe, topBarHidden: true)
+                self.dismissLoading()
+            }
+        })
+    }
+    
+    // MARK: - Media
+    
+    /**
+     Begin streaming a movie. This method will handle presenting the loading view controller as well as the playing view controller.
+     
+     - Parameter torrentString: A JSON representation of the torrent object to be streamed. Use `Mapper` to achieve this.
+     - Parameter mediaString:   A JSON representation of the movie or show object to be streamed. Use `Mapper` to achieve this.
+     */
     func streamTorrent(_ torrentString: String, _ mediaString: String) {
         guard let media: Media = Mapper<Movie>().map(JSONString: mediaString) ?? Mapper<Show>().map(JSONString: mediaString),
                 let torrent = Mapper<Torrent>().map(JSONString: torrentString) else { return }
@@ -378,6 +485,11 @@ class ActionHandler: NSObject {
 
     }
 
+    /**
+     Watch a movies trailer. Handles presenting play view controller and error handling.
+     
+     - Parameter code: The 11 digit YouTube identifier of the trailer.
+     */
     func playTrailer(_ code: String) {
         let playerController = AVPlayerViewController()
         Kitchen.appController.navigationController.pushViewController(playerController, animated: true)
@@ -400,8 +512,14 @@ class ActionHandler: NSObject {
         }
     }
     
-    func playMedia(_ torrentString: String, _ mediaString: String) {
-        guard let torrents = Mapper<Torrent>().mapArray(JSONString: torrentString) else {
+    /**
+     Presents UI for picking torrent quality.
+     
+     - Parameter torrentsString: A JSON representation of the torrent objects. Use `Mapper` to achieve this.
+     - Parameter mediaString: A JSON representation of the movie or show object. Use `Mapper` to achieve this.
+     */
+    func chooseQuality(_ torrentsString: String, _ mediaString: String) {
+        guard let torrents = Mapper<Torrent>().mapArray(JSONString: torrentsString) else {
             Kitchen.serve(recipe: AlertRecipe(title: "No torrents found", description: "Torrents could not be found for the specified movie.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")]))
             return
         }

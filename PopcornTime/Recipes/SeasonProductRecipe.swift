@@ -82,9 +82,9 @@ public struct SeasonProductRecipe: RecipeType {
     }
 
     var watchlistButton: String {
-        var string = "<buttonLockup id =\"favoriteButton\" actionID=\"addShowToWatchlist»\(Mapper<Show>().toJSONString(show)?.cleaned ?? "")\">\n"
-        string += "<badge id =\"favoriteButtonBadge\" src=\"resource://button-{{WATCHLIST_ACTION}}\" />\n"
-        string += "<title>Favourites</title>\n"
+        var string = "<buttonLockup id =\"watchlistButton\" actionID=\"addShowToWatchlist»\(Mapper<Show>().toJSONString(show)?.cleaned ?? "")\">\n"
+        string += "<badge id =\"watchlistButtonBadge\" src=\"resource://button-{{WATCHLIST_ACTION}}\" />\n"
+        string += "<title>Watchlist</title>\n"
         string += "</buttonLockup>"
         return string
     }
@@ -112,7 +112,7 @@ public struct SeasonProductRecipe: RecipeType {
 
     var episodesString: String {
         let mapped: [String] = show.episodes.filter({$0.season == season}).map {
-            var string = "<lockup actionID=\"playMedia»\(Mapper<Torrent>().toJSONString($0.torrents)?.cleaned ?? "")»\(Mapper<Show>().toJSONString(show)?.cleaned ?? "")\">" + "\n"
+            var string = "<lockup actionID=\"chooseQuality»\(Mapper<Torrent>().toJSONString($0.torrents)?.cleaned ?? "")»\(Mapper<Show>().toJSONString(show)?.cleaned ?? "")\">" + "\n"
             string += "<img class=\"placeholder\" src=\"\($0.mediumBackgroundImage ?? "")\" width=\"310\" height=\"175\" />" + "\n"
             string += "<title>\($0.episode). \($0.title.cleaned)</title>" + "\n"
             string += "<overlay class=\"overlayPosition\">" + "\n"
