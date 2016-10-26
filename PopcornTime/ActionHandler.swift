@@ -448,7 +448,7 @@ class ActionHandler: NSObject {
      - Parameter mediaString:   A JSON representation of the movie or show object to be streamed. Use `Mapper` to achieve this.
      */
     func streamTorrent(_ torrentString: String, _ mediaString: String) {
-        guard let media: Media = Mapper<Movie>().map(JSONString: mediaString) ?? Mapper<Show>().map(JSONString: mediaString),
+        guard var media: Media = Mapper<Movie>().map(JSONString: mediaString) ?? Mapper<Show>().map(JSONString: mediaString),
                 let torrent = Mapper<Torrent>().map(JSONString: torrentString) else { return }
         
         Kitchen.dismissModal()
@@ -464,7 +464,7 @@ class ActionHandler: NSObject {
         let currentProgress = WatchedlistManager.movie.currentProgress(media.id)
         
         let loadingViewController = storyboard.instantiateViewController(withIdentifier: "LoadingViewController") as! LoadingViewController
-        loadingViewController.backgroundImageString = media is Movie ? media.largeCoverImage : media.largeBackgroundImage
+        loadingViewController.backgroundImageString = media.largeBackgroundImage
         loadingViewController.mediaTitle = media.title
         present(loadingViewController, true)
         
@@ -481,12 +481,15 @@ class ActionHandler: NSObject {
         
         let playViewController = storyboard.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
         
-        media.play(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
-
+        SubtitlesManager.shared.search(imdbId: media.id) { (subtitles, _) in
+            media.subtitles = subtitles
+            
+            media.play(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
+        }
     }
 
     /**
-     Watch a movies trailer. Handles presenting play view controller and error handling.
+     Watch a movies trailer. Handles presenting play view controller and errors thrown by XCDYouTubeKit.
      
      - Parameter code: The 11 digit YouTube identifier of the trailer.
      */
@@ -515,8 +518,8 @@ class ActionHandler: NSObject {
     /**
      Presents UI for picking torrent quality.
      
-     - Parameter torrentsString: A JSON representation of the torrent objects. Use `Mapper` to achieve this.
-     - Parameter mediaString: A JSON representation of the movie or show object. Use `Mapper` to achieve this.
+     - Parameter torrentsString:    A JSON representation of the torrent objects. Use `Mapper` to achieve this.
+     - Parameter mediaString:       A JSON representation of the movie or show object. Use `Mapper` to achieve this.
      */
     func chooseQuality(_ torrentsString: String, _ mediaString: String) {
         guard let torrents = Mapper<Torrent>().mapArray(JSONString: torrentsString) else {

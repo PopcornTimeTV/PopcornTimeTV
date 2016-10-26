@@ -20,7 +20,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
     @IBOutlet var movieView: UIView!
     @IBOutlet var progressBar: VLCTransportBar!
     @IBOutlet var bottomToolbar: VLCFrostedGlasView!
-    @IBOutlet var simultaneousGestureRecognizers: [UIGestureRecognizer]!
     @IBOutlet var loadingActivityIndicatorView: UIActivityIndicatorView!
     
     // MARK: - Slider actions
@@ -41,6 +40,13 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
     }
     
     @IBAction func handlePositionSliderGesture(_ sender: UIPanGestureRecognizer) {
+        let velocity = sender.velocity(in: view)
+        if fabs(velocity.y) > fabs(velocity.x) || presentedViewController is OptionsViewController {
+            presentOptionsViewController()
+            handleOptionsGesture(sender)
+            return
+        }
+        
         let translation = sender.translation(in: view)
         let offset = translation.x - lastTranslation
         
@@ -60,6 +66,21 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
             return
         }
     }
+    
+    func presentOptionsViewController() {
+        if presentedViewController is OptionsViewController  {
+            return
+        }
+        let destinationController = storyboard?.instantiateViewController(withIdentifier: "OptionsViewController") as! OptionsViewController
+        destinationController.subtitles = subtitles
+        destinationController.currentSubtitle = currentSubtitle
+        destinationController.transitioningDelegate = self
+        destinationController.modalPresentationStyle = .custom
+        destinationController.interactor = interactor
+        destinationController.delegate = self
+        present(destinationController, animated: true, completion: nil)
+    }
+
     
     func handleSiriRemoteGesture(_ sender: VLCSiriRemoteGestureRecognizer) {
         
@@ -138,6 +159,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
     private var shouldHideStatusBar = true
     private let NSNotFound: Int32 = -1
     private var lastTranslation: CGFloat = 0.0
+    internal let interactor = OptionsPercentDrivenInteractiveTransition()
     
     // MARK: - Player functions
     
@@ -162,6 +184,10 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
                 self.mediaplayer.addPlaybackSlave(subtitlePath, type: .subtitle, enforce: true)
             })
         }
+    }
+    
+    func didSelectSubtitle(_ subtitle: Subtitle?) {
+        currentSubtitle = subtitle
     }
     
     private func screenshotAtTime(_ time: NSNumber, completion: @escaping (_ image: UIImage) -> Void) {
@@ -208,7 +234,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
         super.viewDidLoad()
         let settings = SubtitleSettings()
         (mediaplayer as VLCFontAppearance).setTextRendererFont!(settings.fontName as NSString)
-//        (mediaplayer as VLCFontAppearance).setTextRendererFontForceBold!(NSNumber(value: (style == "Bold") as Bool))
+        //(mediaplayer as VLCFontAppearance).setTextRendererFontForceBold!(NSNumber(value: (style == "Bold") as Bool))
         (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.fontSize))
         (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.fontColor.hexInt()))
         mediaplayer.delegate = self
@@ -220,7 +246,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
         let siriArrowRecognizer = VLCSiriRemoteGestureRecognizer.init(target: self, action: #selector(handleSiriRemoteGesture(_:)))
         siriArrowRecognizer.delegate = self
         view.addGestureRecognizer(siriArrowRecognizer)
-        simultaneousGestureRecognizers.append(siriArrowRecognizer)
 //        if let nextMedia = nextMedia {
 //            upNextView.delegate = self
 //            upNextView.nextEpisodeInfoLabel.text = "Season \(nextMedia.season) Episode \(nextMedia.episode)"
@@ -334,7 +359,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return simultaneousGestureRecognizers.contains(where: {$0 == gestureRecognizer || $0 == otherGestureRecognizer })
+        return true
     }
 }
 /**

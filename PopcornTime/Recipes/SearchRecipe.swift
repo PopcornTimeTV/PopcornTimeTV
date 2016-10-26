@@ -52,7 +52,8 @@ class SearchRecipe: TVMLKitchen.SearchRecipe {
             }
         default: return
         }
-        semaphore.wait()
-        callback(searchXML)
+        if semaphore.wait(timeout: .now() + 30) == .success {
+            callback(searchXML)
+        }
     }
 }

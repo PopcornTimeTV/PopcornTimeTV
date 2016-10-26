@@ -10,7 +10,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.tableView.contentInset = UIEdgeInsets(top: 100, left: -50, bottom: 0, right: 0)
         self.settingsIcon.image = UIImage(named: "settings.png")
     }
