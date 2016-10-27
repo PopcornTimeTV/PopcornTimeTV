@@ -29,7 +29,7 @@ public struct WatchlistRecipe: RecipeType {
     public var moviesWatchList: String {
         let mapped = watchListMovies.map { movie -> String in
             var string = "<lockup actionID=\"showMovie»\(movie.title.cleaned)»\(movie.id)\" playActionID=\"playMovieById»\(movie.id)\" >"
-            string += "<img src=\"\(movie.mediumCoverImage ?? "")\" width=\"250\" height=\"375\" />"
+            string += "<img class=\"img\" src=\"\(movie.mediumCoverImage ?? "")\" width=\"250\" height=\"375\" />"
             string += "<title class=\"hover\">\(movie.title.cleaned)</title>"
             string += "</lockup>"
             return string
