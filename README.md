@@ -4,7 +4,7 @@
 
 ## Popcorn Time for tvOS
 
-**PSA: We have our full focus on porting all of our repos to Swift 3. Please be patient with us. For now download and resign the iPA available [HERE](https://appd.be/kronos/PopcornTimeTV-v1.0.3.1.ipa), or use [AppDB Pro](https://appdb.cc)! Please note we are NOT affiliated with appdb and it is not our responsibility if there are bugs in their versions of the app**
+**PSA: We are NOT affiliated with AppDB or any other organization - free or otherwise - that provides resigned IPA files and it is not our responsibility if there are bugs in their versions of the app.**
 
 [![Platform](http://img.shields.io/badge/platform-iOS%20%7C%20tvOS-lightgrey.svg?style=flat)](https://github.com/PopcornTimeTV)
 [![Twitter](https://img.shields.io/badge/twitter-@Popcorn%20Time-3299EC.svg?style=flat)](https://twitter.com/popcorntimetv)

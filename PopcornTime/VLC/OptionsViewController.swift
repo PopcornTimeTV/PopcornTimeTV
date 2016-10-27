@@ -58,11 +58,6 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
             tableView?.clipsToBounds = true
         }
         tabBar.selectedItem = tabBar.items?.first
-        if let subtitle = currentSubtitle {
-           firstTableView.selectRow(at: IndexPath(row: subtitles.index(of: subtitle)!, section: 0), animated: true, scrollPosition: .top)
-        }
-        secondTableView.selectRow(at: IndexPath(row: Array(sizes.values).index(of: currentSize)!, section: 0), animated: true, scrollPosition: .top)
-        thirdTableView.selectRow(at: IndexPath(row: Array(encodings.values).index(of: currentEncoding)!, section: 0), animated: true, scrollPosition: .top)
     }
     
     @IBAction func handleOptionsGesture(_ sender: UIPanGestureRecognizer) {
@@ -98,19 +93,19 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
         switch tableView {
         case firstTableView:
             cell = tableView.dequeueReusableCell(withIdentifier: "firstTableViewCell", for: indexPath)
-            if tabBar.selectedItem == tabBar.items?.first {
+            if tabBar.selectedItem == tabBar.items?[1] {
                 cell.textLabel?.text = subtitles[indexPath.row].language
                 cell.accessoryType = currentSubtitle == subtitles[indexPath.row] ? .checkmark : .none
             }
         case secondTableView:
             cell = tableView.dequeueReusableCell(withIdentifier: "secondTableViewCell", for: indexPath)
-            if tabBar.selectedItem == tabBar.items?.first {
+            if tabBar.selectedItem == tabBar.items?[1] {
                 cell.textLabel?.text = Array(sizes.keys)[indexPath.row]
                 cell.accessoryType = currentSize == Array(sizes.values)[indexPath.row] ? .checkmark : .none
             }
         case thirdTableView:
             cell = tableView.dequeueReusableCell(withIdentifier: "thirdTableViewCell", for: indexPath)
-            if tabBar.selectedItem == tabBar.items?.first {
+            if tabBar.selectedItem == tabBar.items?[1] {
                 cell.textLabel?.text = Array(encodings.keys)[indexPath.row]
                 cell.accessoryType = currentEncoding == Array(encodings.values)[indexPath.row] ? .checkmark : .none
             }
@@ -124,11 +119,11 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch tableView {
         case firstTableView:
-            return tabBar.selectedItem == tabBar.items?.first ? "Language" : nil
+            return tabBar.selectedItem == tabBar.items?[1] ? "Language" : nil
         case secondTableView:
-            return tabBar.selectedItem == tabBar.items?.first ? "Size" : nil
+            return tabBar.selectedItem == tabBar.items?[1] ? "Size" : nil
         case thirdTableView:
-            return tabBar.selectedItem == tabBar.items?.first ? "Encoding" : nil
+            return tabBar.selectedItem == tabBar.items?[1] ? "Encoding" : nil
         default:
             return nil
         }
@@ -143,11 +138,11 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case firstTableView:
-            return tabBar.selectedItem == tabBar.items?.first ? subtitles.count : 0
+            return tabBar.selectedItem == tabBar.items?[1] ? subtitles.count : 0
         case secondTableView:
-            return tabBar.selectedItem == tabBar.items?.first ? sizes.count : 0
+            return tabBar.selectedItem == tabBar.items?[1] ? sizes.count : 0
         case thirdTableView:
-            return tabBar.selectedItem == tabBar.items?.first ? encodings.count : 0
+            return tabBar.selectedItem == tabBar.items?[1] ? encodings.count : 0
         default:
             return 0
         }
@@ -176,7 +171,7 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch tableView {
         case firstTableView:
-            if tabBar.selectedItem == tabBar.items?.first {
+            if tabBar.selectedItem == tabBar.items?[1] {
                 if currentSubtitle == subtitles[indexPath.row] { // If row was already selected, user wants to remove the selection.
                     currentSubtitle = nil
                 } else {
@@ -185,11 +180,11 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
                 delegate?.didSelectSubtitle(currentSubtitle)
             }
         case secondTableView:
-            if tabBar.selectedItem == tabBar.items?.first {
+            if tabBar.selectedItem == tabBar.items?[1] {
                 currentSize = Array(sizes.values)[indexPath.row]
             }
         case thirdTableView:
-            if tabBar.selectedItem == tabBar.items?.first {
+            if tabBar.selectedItem == tabBar.items?[1] {
                 currentEncoding = Array(encodings.values)[indexPath.row]
             }
         default:
@@ -210,11 +205,5 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
         firstTableView.reloadData()
         secondTableView.reloadData()
         thirdTableView.reloadData()
-    }
-}
-
-extension UITableViewCell {
-    var parentTableView: UITableView? {
-        return self.superview as? UITableView ?? self.superview?.superview as? UITableView
     }
 }

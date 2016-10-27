@@ -33,7 +33,7 @@ static inline void sharedSetup(VLCTransportBar *self) {
 
     bar.bufferColor = [UIColor lightGrayColor];
     bar.borderColor = [UIColor grayColor];
-    bar.elapsedColor = [UIColor colorWithRed:0.18 green:0.84 blue:0.40 alpha:1.0];
+    bar.elapsedColor = [UIColor whiteColor];
     bar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     bar.bufferProgress = self.bufferProgress;
     self.bufferingBar = bar;

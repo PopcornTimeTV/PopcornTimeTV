@@ -34,7 +34,6 @@
 		4D2543B51DACFBFE00149533 /* TopShelf.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4D2543AD1DACFBFE00149533 /* TopShelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4D2543B91DACFCF700149533 /* String+Cleaned.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB626B1CA3364300985F78 /* String+Cleaned.swift */; };
 		4D70B0FD1DA8E74200CDAF48 /* SubtitleSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D70B0FC1DA8E74200CDAF48 /* SubtitleSettings.swift */; };
-		4D70B1021DA8F40800CDAF48 /* TabMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D70B1011DA8F40800CDAF48 /* TabMenuCollectionViewCell.swift */; };
 		4D70B1041DA90C3800CDAF48 /* PCTPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D70B1031DA90C3800CDAF48 /* PCTPlayerViewController.swift */; };
 		4DF74D001DABEF2100D40331 /* button-season.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DF74CFF1DABEF2100D40331 /* button-season.png */; };
 		4DF74D041DAC061D00D40331 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF74D031DAC061D00D40331 /* LoadingViewController.swift */; };
@@ -54,7 +53,6 @@
 		925F8DF11CA9E44C007100EB /* WelcomeRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925F8DE21CA9E44C007100EB /* WelcomeRecipe.swift */; };
 		925F8DF21CA9E44C007100EB /* WelcomeRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 925F8DE31CA9E44C007100EB /* WelcomeRecipe.xml */; };
 		925F8DF81CA9E477007100EB /* Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925F8DF61CA9E477007100EB /* Watchlist.swift */; };
-		926A48791CDFAB7000D02962 /* TabMenuCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 926A48761CDFAB7000D02962 /* TabMenuCollectionViewCell.xib */; };
 		92925B2F1C9CA4E80086D362 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92925B2D1C9CA4E80086D362 /* Main.storyboard */; };
 		92CF4A0A1CE6692900D666A8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CF4A091CE6692900D666A8 /* libz.tbd */; };
 		92D0A7DA1CE28EE900B3279B /* WatchlistRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92D0A7D91CE28EE900B3279B /* WatchlistRecipe.xml */; };
@@ -139,7 +137,6 @@
 		4D2543B01DACFBFE00149533 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		4D2543B21DACFBFE00149533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D70B0FC1DA8E74200CDAF48 /* SubtitleSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleSettings.swift; sourceTree = "<group>"; };
-		4D70B1011DA8F40800CDAF48 /* TabMenuCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		4D70B1031DA90C3800CDAF48 /* PCTPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCTPlayerViewController.swift; sourceTree = "<group>"; };
 		4DC870B51D9EDE58005455B0 /* PopcornTime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopcornTime.entitlements; sourceTree = "<group>"; };
 		4DF74CFF1DABEF2100D40331 /* button-season.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-season.png"; sourceTree = "<group>"; };
@@ -163,7 +160,6 @@
 		925F8DE21CA9E44C007100EB /* WelcomeRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeRecipe.swift; sourceTree = "<group>"; };
 		925F8DE31CA9E44C007100EB /* WelcomeRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = WelcomeRecipe.xml; sourceTree = "<group>"; };
 		925F8DF61CA9E477007100EB /* Watchlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Watchlist.swift; sourceTree = "<group>"; };
-		926A48761CDFAB7000D02962 /* TabMenuCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabMenuCollectionViewCell.xib; sourceTree = "<group>"; };
 		92925B2E1C9CA4E80086D362 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		92CF4A091CE6692900D666A8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		92D0A7D91CE28EE900B3279B /* WatchlistRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = WatchlistRecipe.xml; sourceTree = "<group>"; };
@@ -330,8 +326,6 @@
 				D9C3D21F1D4196340054BD9A /* VLCTransportBar.h */,
 				D9C3D2201D4196340054BD9A /* VLCTransportBar.m */,
 				4D70B0FC1DA8E74200CDAF48 /* SubtitleSettings.swift */,
-				4D70B1011DA8F40800CDAF48 /* TabMenuCollectionViewCell.swift */,
-				926A48761CDFAB7000D02962 /* TabMenuCollectionViewCell.xib */,
 				4D70B1031DA90C3800CDAF48 /* PCTPlayerViewController.swift */,
 				4D1589391DBFC5A30000B8EF /* PCTPlayerViewController+tvOS.swift */,
 				4D15893B1DBFC6330000B8EF /* OptionsViewControllerPresentationDelegate.swift */,
@@ -563,7 +557,6 @@
 				925F8DE71CA9E44C007100EB /* DescriptionRecipe.xml in Resources */,
 				00F75A971D1BE27C004C9E44 /* Pagination.js in Resources */,
 				E6295F2D1CACF9C100CD45E3 /* SeasonPickerRecipe.xml in Resources */,
-				926A48791CDFAB7000D02962 /* TabMenuCollectionViewCell.xib in Resources */,
 				925F8DF21CA9E44C007100EB /* WelcomeRecipe.xml in Resources */,
 				925F8DEB1CA9E44C007100EB /* SearchRecipe.xml in Resources */,
 				002A55A41CEDF2FA00252C3F /* SeasonProductRecipe.js in Resources */,
@@ -702,7 +695,6 @@
 				00987D441CDB6CD2005AFB22 /* Movie+Lockup.swift in Sources */,
 				925F8DEA1CA9E44C007100EB /* MovieProductRecipe.swift in Sources */,
 				D9C3D2221D4196340054BD9A /* VLCFrostedGlasView.m in Sources */,
-				4D70B1021DA8F40800CDAF48 /* TabMenuCollectionViewCell.swift in Sources */,
 				00FD28BC1CE0CB5600D29EA8 /* GenreRecipe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

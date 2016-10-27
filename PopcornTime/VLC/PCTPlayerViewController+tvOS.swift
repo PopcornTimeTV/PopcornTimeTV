@@ -23,7 +23,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     }
     
     func handleOptionsGesture(_ sender: UIPanGestureRecognizer) {
-        let percentThreshold: CGFloat = 0.8
+        let percentThreshold: CGFloat = 0.4
         let superview = sender.view!.superview!
         let translation = sender.translation(in: superview)
         let progress = translation.y/superview.bounds.height
@@ -43,6 +43,53 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         default:
             break
         }
+    }
+    
+    @IBAction func handlePositionSliderGesture(_ sender: UIPanGestureRecognizer) {
+        let velocity = sender.velocity(in: view)
+        if fabs(velocity.y) > fabs(velocity.x) || presentedViewController is OptionsViewController {
+            presentOptionsViewController()
+            handleOptionsGesture(sender)
+            return
+        }
+        
+        let translation = sender.translation(in: view)
+        let offset = progressBar.progress + (translation.x - lastTranslation)/progressBar.bounds.width/8.0
+        
+        switch sender.state {
+        case .cancelled:
+            fallthrough
+        case .ended:
+            positionSliderAction()
+            mediaplayer.play()
+            lastTranslation = 0.0
+            progressBar.isScrubbing = false
+        case .began:
+            mediaplayer.pause()
+            progressBar.isHidden ? toggleControlsVisible() : ()
+            fallthrough
+        case .changed:
+            progressBar.isScrubbing = true
+            progressBar.progress = offset
+            positionSliderDidDrag()
+            lastTranslation = translation.x
+        default:
+            return
+        }
+    }
+    
+    func presentOptionsViewController() {
+        if presentedViewController is OptionsViewController  {
+            return
+        }
+        let destinationController = storyboard?.instantiateViewController(withIdentifier: "OptionsViewController") as! OptionsViewController
+        destinationController.subtitles = subtitles
+        destinationController.currentSubtitle = currentSubtitle
+        destinationController.transitioningDelegate = self
+        destinationController.modalPresentationStyle = .custom
+        destinationController.interactor = interactor
+        destinationController.delegate = self
+        present(destinationController, animated: true, completion: nil)
     }
 }
 

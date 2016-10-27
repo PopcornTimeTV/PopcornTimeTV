@@ -10,77 +10,32 @@ protocol PCTPlayerViewControllerDelegate: class {
     func playNext(_ episode: Episode)
 }
 
-class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenuCollectionViewCellDelegate, UIGestureRecognizerDelegate {
-    
-    func cellDidBecomeSelected(_ cell: TabMenuCollectionViewCell) {
-        
-    }
+class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestureRecognizerDelegate {
     
     // MARK: - IBOutlets
     @IBOutlet var movieView: UIView!
     @IBOutlet var progressBar: VLCTransportBar!
-    @IBOutlet var bottomToolbar: VLCFrostedGlasView!
     @IBOutlet var loadingActivityIndicatorView: UIActivityIndicatorView!
     
     // MARK: - Slider actions
 
     func positionSliderDidDrag() {
         resetIdleTimer()
+        progressBar.hint = .scanForward
         let streamDuration = CGFloat((fabsf(mediaplayer.remainingTime.value.floatValue) + mediaplayer.time.value.floatValue))
         let time = NSNumber(value: Float(progressBar.progress * streamDuration))
         let remainingTime = NSNumber(value: time.floatValue - Float(streamDuration))
         progressBar.remainingTimeLabel.text = VLCTime(number: remainingTime).stringValue
         progressBar.elapsedTimeLabel.text = VLCTime(number: time).stringValue
         screenshotAtTime(time) { [weak self] (image) in
-            self?.progressBar.screenshot = image
+            guard let strongSelf = self, strongSelf.progressBar.isScrubbing else { return }
+            strongSelf.progressBar.screenshot = image
         }
     }
     func positionSliderAction() {
         mediaplayer.position = Float(progressBar.progress)
+        progressBar.hint = .none
     }
-    
-    @IBAction func handlePositionSliderGesture(_ sender: UIPanGestureRecognizer) {
-        let velocity = sender.velocity(in: view)
-        if fabs(velocity.y) > fabs(velocity.x) || presentedViewController is OptionsViewController {
-            presentOptionsViewController()
-            handleOptionsGesture(sender)
-            return
-        }
-        
-        let translation = sender.translation(in: view)
-        let offset = translation.x - lastTranslation
-        
-        switch sender.state {
-        case .cancelled:
-            fallthrough
-        case .ended:
-            positionSliderAction()
-            lastTranslation = 0.0
-        case .began:
-            fallthrough
-        case .changed:
-            progressBar.progress = offset
-            positionSliderDidDrag()
-            lastTranslation = translation.x
-        default:
-            return
-        }
-    }
-    
-    func presentOptionsViewController() {
-        if presentedViewController is OptionsViewController  {
-            return
-        }
-        let destinationController = storyboard?.instantiateViewController(withIdentifier: "OptionsViewController") as! OptionsViewController
-        destinationController.subtitles = subtitles
-        destinationController.currentSubtitle = currentSubtitle
-        destinationController.transitioningDelegate = self
-        destinationController.modalPresentationStyle = .custom
-        destinationController.interactor = interactor
-        destinationController.delegate = self
-        present(destinationController, animated: true, completion: nil)
-    }
-
     
     func handleSiriRemoteGesture(_ sender: VLCSiriRemoteGestureRecognizer) {
         
@@ -89,40 +44,13 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
     // MARK: - Button actions
     
     @IBAction func playandPause() {
-        if mediaplayer.isPlaying {
-            mediaplayer.pause()
-        } else {
-            mediaplayer.play()
-        }
+        mediaplayer.isPlaying ? mediaplayer.pause() : mediaplayer.play()
     }
     @IBAction func fastForward() {
         mediaplayer.longJumpForward()
     }
     @IBAction func rewind() {
         mediaplayer.longJumpBackward()
-    }
-    @IBAction func fastForwardHeld(_ sender: UILongPressGestureRecognizer) {
-        resetIdleTimer()
-        switch sender.state {
-        case .began:
-            fallthrough
-        case .changed:
-            mediaplayer.mediumJumpForward()
-        default:
-            break
-        }
-        
-    }
-    @IBAction func rewindHeld(_ sender: UILongPressGestureRecognizer) {
-        resetIdleTimer()
-        switch sender.state {
-        case .began:
-            fallthrough
-        case .changed:
-            mediaplayer.mediumJumpBackward()
-        default:
-            break
-        }
     }
     
     @IBAction func didFinishPlaying() {
@@ -139,8 +67,15 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
     var subtitles = [Subtitle]()
     var currentSubtitle: Subtitle? {
         didSet {
-            if let subtitle = currentSubtitle {
-                mediaplayer.numberOfChapters(forTitle: Int32(subtitles.index(of: subtitle)!)) != NSNotFound ? mediaplayer.currentChapterIndex = Int32(subtitles.index(of: subtitle)!) : openSubtitles(URL(string: subtitle.link)!)
+            if let subtitle = currentSubtitle,
+                let index = subtitles.index(of: subtitle) {
+                
+                if mediaplayer.numberOfChapters(forTitle: Int32(index)) != NSNotFound // If the subtitle has already been downloaded, just switch to it rather than re-downloading it.
+                {
+                    mediaplayer.currentChapterIndex = Int32(index)
+                } else {
+                   openSubtitles(URL(string: subtitle.link)!)
+                }
             } else {
                 mediaplayer.currentChapterIndex = NSNotFound // Remove all subtitles
             }
@@ -158,7 +93,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
     private var idleTimer: Timer!
     private var shouldHideStatusBar = true
     private let NSNotFound: Int32 = -1
-    private var lastTranslation: CGFloat = 0.0
+    internal var lastTranslation: CGFloat = 0.0
     internal let interactor = OptionsPercentDrivenInteractiveTransition()
     
     // MARK: - Player functions
@@ -180,7 +115,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
             mediaplayer.addPlaybackSlave(filePath, type: .subtitle, enforce: true)
         } else {
             PopcornKit.downloadSubtitleFile(filePath.relativeString, downloadDirectory: directory, completion: { (subtitlePath, error) in
-                guard let subtitlePath = subtitlePath else {return}
+                guard let subtitlePath = subtitlePath else { return }
                 self.mediaplayer.addPlaybackSlave(subtitlePath, type: .subtitle, enforce: true)
             })
         }
@@ -188,6 +123,10 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
     
     func didSelectSubtitle(_ subtitle: Subtitle?) {
         currentSubtitle = subtitle
+        let settings = SubtitleSettings()
+        (mediaplayer as VLCFontAppearance).setTextRendererFont!(settings.fontName as NSString)
+        (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.fontSize))
+        (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.fontColor.hexInt()))
     }
     
     private func screenshotAtTime(_ time: NSNumber, completion: @escaping (_ image: UIImage) -> Void) {
@@ -196,7 +135,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
         imageGen.requestedTimeToleranceAfter = kCMTimeZero
         imageGen.requestedTimeToleranceBefore = kCMTimeZero
         imageGen.cancelAllCGImageGeneration()
-        imageGen.generateCGImagesAsynchronously(forTimes: [NSValue(time: CMTimeMakeWithSeconds(time.doubleValue,1000000000))]) { (_, image, _, _, error) in
+        imageGen.generateCGImagesAsynchronously(forTimes: [NSValue(time: CMTimeMakeWithSeconds(time.doubleValue/1000.0, 1000))]) { (_, image, _, _, error) in
             if let image = image , error == nil {
                 completion(UIImage(cgImage: image))
             }
@@ -228,13 +167,13 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
         } else {
             mediaplayer.play()
         }
+        resetIdleTimer()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let settings = SubtitleSettings()
         (mediaplayer as VLCFontAppearance).setTextRendererFont!(settings.fontName as NSString)
-        //(mediaplayer as VLCFontAppearance).setTextRendererFontForceBold!(NSNumber(value: (style == "Bold") as Bool))
         (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.fontSize))
         (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.fontColor.hexInt()))
         mediaplayer.delegate = self
@@ -265,7 +204,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
 //                    })
 //            })
 //        }
-        resetIdleTimer()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -293,6 +231,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
             didFinishPlaying()
         case .paused:
             TraktManager.shared.scrobble(media.id, progress: Float(progressBar.progress), type: type, status: .paused)
+            toggleControlsVisible()
         case .playing:
             TraktManager.shared.scrobble(media.id, progress: Float(progressBar.progress), type: type, status: .watching)
         default:
@@ -303,8 +242,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
     func mediaPlayerTimeChanged() {
         if loadingActivityIndicatorView.isHidden == false {
             loadingActivityIndicatorView.isHidden = true
+            toggleControlsVisible()
         }
-        progressBar.bufferProgress = CGFloat(PTTorrentStreamer.shared().torrentStatus.bufferingProgress)
+        progressBar.bufferProgress = CGFloat(PTTorrentStreamer.shared().torrentStatus.totalProgreess)
         progressBar.remainingTimeLabel.text = mediaplayer.remainingTime.stringValue
         progressBar.elapsedTimeLabel.text = mediaplayer.time.stringValue
         progressBar.progress = CGFloat(mediaplayer.position)
@@ -316,22 +256,18 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, TabMenu
     }
     
     @IBAction func toggleControlsVisible() {
-//        UIView.animate(withDuration: 0.25, animations: {
-//            if self.toolBarView.isHidden {
-//                self.toolBarView.alpha = 1.0
-//                self.navigationView.alpha = 1.0
-//                self.toolBarView.isHidden = false
-//                self.navigationView.isHidden = false
-//            } else {
-//                self.toolBarView.alpha = 0.0
-//                self.navigationView.alpha = 0.0
-//            }
-//            }, completion: { finished in
-//                if self.toolBarView.alpha == 0.0 {
-//                    self.toolBarView.isHidden = true
-//                    self.navigationView.isHidden = true
-//                }
-//        }) 
+        UIView.animate(withDuration: 0.25, animations: {
+            if self.progressBar.isHidden {
+                self.progressBar.alpha = 1.0
+                self.progressBar.isHidden = false
+            } else {
+                self.progressBar.alpha = 0.0
+            }
+         }, completion: { finished in
+            if self.progressBar.alpha == 0.0 {
+                self.progressBar.isHidden = true
+            }
+        }) 
     }
     
     // MARK: - Timers
