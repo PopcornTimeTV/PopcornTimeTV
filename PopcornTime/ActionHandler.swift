@@ -152,6 +152,13 @@ class ActionHandler: NSObject {
                         ThemeSongManager.shared.stopTheme()
                     }
                     
+                    let enableThemeSong: @convention(block) (String) -> Void = { message in
+                        ThemeSongManager.shared.playMovieTheme(movie.title)
+                    }
+                    
+                    context.setObject(unsafeBitCast(enableThemeSong, to: AnyObject.self),
+                                      forKeyedSubscript: "enableThemeSong" as (NSCopying & NSObjectProtocol)!)
+                    
                     context.setObject(unsafeBitCast(disableThemeSong, to: AnyObject.self),
                                       forKeyedSubscript: "disableThemeSong" as (NSCopying & NSObjectProtocol)!)
                     
@@ -225,10 +232,19 @@ class ActionHandler: NSObject {
                         ThemeSongManager.shared.stopTheme()
                     }
                     
+                    let enableThemeSong: @convention(block) (String) -> Void = { message in
+                        if let id = show.tvdbId {
+                            ThemeSongManager.shared.playShowTheme(Int(id)!)
+                        }
+                    }
+                    
                     let updateSeason: @convention(block) (Int, JSValue) -> Void = { (number, callback) in
                         recipe.season = number
                         callback.call(withArguments: [recipe.template])
                     }
+                    
+                    context.setObject(unsafeBitCast(enableThemeSong, to: AnyObject.self),
+                                      forKeyedSubscript: "enableThemeSong" as (NSCopying & NSObjectProtocol)!)
                     
                     context.setObject(unsafeBitCast(updateSeason, to: AnyObject.self),
                                       forKeyedSubscript: "updateSeason" as (NSCopying & NSObjectProtocol)!)
@@ -459,6 +475,8 @@ class ActionHandler: NSObject {
                 let torrent = Mapper<Torrent>().map(JSONString: torrentString) else { return }
         
         Kitchen.dismissModal()
+        
+        ThemeSongManager.shared.stopTheme()
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         

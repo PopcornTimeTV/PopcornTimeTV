@@ -15,9 +15,6 @@ public struct SeasonProductRecipe: RecipeType {
     public init(show: Show, currentSeason: Int? = nil) {
         self.show = show
         self.season = currentSeason ?? show.seasonNumbers.first!
-        if let id = show.tvdbId {
-            ThemeSongManager.shared.playShowTheme(Int(id)!)
-        }
     }
 
     public var xmlString: String {
