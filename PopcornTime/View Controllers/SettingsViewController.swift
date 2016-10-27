@@ -264,16 +264,15 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 present(alert, animated: true, completion: nil)
                 UpdateManager.shared.checkVersion(.immediately) { [weak self] success in
-                    alert.dismiss(animated: true, completion: nil)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                    alert.dismiss(animated: true) {
                         if !success {
                             let alert = UIAlertController(title: "No Updates Available", message: "There are no updates available for Popcorn Time at this time.", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                             self?.present(alert, animated: true, completion: nil)
                         }
                         self?.tableView.reloadData()
-                    })
-                    
+
+                    }
                 }
             }
         case 3:
