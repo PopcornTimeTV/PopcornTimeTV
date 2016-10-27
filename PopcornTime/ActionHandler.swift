@@ -148,6 +148,13 @@ class ActionHandler: NSObject {
                 let recipe =  MovieProductRecipe(movie: movie)
                 Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
                     
+                    let disableThemeSong: @convention(block) (String) -> Void = { message in
+                        ThemeSongManager.shared.stopTheme()
+                    }
+                    
+                    context.setObject(unsafeBitCast(disableThemeSong, to: AnyObject.self),
+                                      forKeyedSubscript: "disableThemeSong" as (NSCopying & NSObjectProtocol)!)
+                    
                     if let file = Bundle.main.url(forResource: "MovieProductRecipe", withExtension: "js") {
                         do {
                             let js = try String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
@@ -215,7 +222,7 @@ class ActionHandler: NSObject {
                 var recipe = SeasonProductRecipe(show: show)
                 Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
                     let disableThemeSong: @convention(block) (String) -> Void = { message in
-                        AudioManager.shared.stopTheme()
+                        ThemeSongManager.shared.stopTheme()
                     }
                     
                     let updateSeason: @convention(block) (Int, JSValue) -> Void = { (number, callback) in

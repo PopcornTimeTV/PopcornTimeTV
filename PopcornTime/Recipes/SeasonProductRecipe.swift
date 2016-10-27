@@ -16,7 +16,7 @@ public struct SeasonProductRecipe: RecipeType {
         self.show = show
         self.season = currentSeason ?? show.seasonNumbers.first!
         if let id = show.tvdbId {
-            AudioManager.shared.playTheme(Int(id)!)
+            ThemeSongManager.shared.playShowTheme(Int(id)!)
         }
     }
 

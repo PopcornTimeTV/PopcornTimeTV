@@ -37,7 +37,6 @@
 		4D70B1041DA90C3800CDAF48 /* PCTPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D70B1031DA90C3800CDAF48 /* PCTPlayerViewController.swift */; };
 		4DF74D001DABEF2100D40331 /* button-season.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DF74CFF1DABEF2100D40331 /* button-season.png */; };
 		4DF74D041DAC061D00D40331 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF74D031DAC061D00D40331 /* LoadingViewController.swift */; };
-		921572391CE422C000A26088 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921572381CE422C000A26088 /* AudioManager.swift */; };
 		921E44F41CE78F930012FEAD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921E44F31CE78F930012FEAD /* SettingsViewController.swift */; };
 		923860571CA0E40500A21F3B /* Latest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923860561CA0E40500A21F3B /* Latest.swift */; };
 		925F8DE41CA9E44C007100EB /* CatalogRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925F8DD51CA9E44C007100EB /* CatalogRecipe.swift */; };
@@ -58,7 +57,6 @@
 		92D0A7DA1CE28EE900B3279B /* WatchlistRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92D0A7D91CE28EE900B3279B /* WatchlistRecipe.xml */; };
 		92D0A7DC1CE28EF300B3279B /* WatchlistRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0A7DB1CE28EF300B3279B /* WatchlistRecipe.swift */; };
 		9D791981BEDEC8982B768977 /* Pods_TopShelf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */; };
-		AF8C881E1DA15910006A6715 /* WebServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8C881D1DA15910006A6715 /* WebServerManager.swift */; };
 		D99067F41D6A0775006DFDEB /* EncodingTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = D99067F31D6A0775006DFDEB /* EncodingTypes.plist */; };
 		D9B274611D6B15C9004BF98D /* MovieProductRecipe.js in Resources */ = {isa = PBXBuildFile; fileRef = D9B274601D6B15C9004BF98D /* MovieProductRecipe.js */; };
 		D9C3D2211D4196340054BD9A /* VLCBufferingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C3D2181D4196340054BD9A /* VLCBufferingBar.m */; };
@@ -144,7 +142,6 @@
 		59BE8A67A9D4954F63D16C0E /* Pods-PopcornTime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.debug.xcconfig"; sourceTree = "<group>"; };
 		796C61914EF57FAF09B30DFE /* Pods-PopcornTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.release.xcconfig"; sourceTree = "<group>"; };
 		9211E3F11CDC0ADD00BEEB9D /* PopcornTime-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PopcornTime-Bridging-Header.h"; sourceTree = "<group>"; };
-		921572381CE422C000A26088 /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		921E44F31CE78F930012FEAD /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = "View Controllers/SettingsViewController.swift"; sourceTree = "<group>"; };
 		923860561CA0E40500A21F3B /* Latest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Latest.swift; sourceTree = "<group>"; };
 		925F8DD51CA9E44C007100EB /* CatalogRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogRecipe.swift; sourceTree = "<group>"; };
@@ -164,7 +161,6 @@
 		92CF4A091CE6692900D666A8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		92D0A7D91CE28EE900B3279B /* WatchlistRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = WatchlistRecipe.xml; sourceTree = "<group>"; };
 		92D0A7DB1CE28EF300B3279B /* WatchlistRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchlistRecipe.swift; sourceTree = "<group>"; };
-		AF8C881D1DA15910006A6715 /* WebServerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServerManager.swift; sourceTree = "<group>"; };
 		B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TopShelf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7DC191EE356BC3B5A5E8F16 /* Pods_PopcornTime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopcornTime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99067F31D6A0775006DFDEB /* EncodingTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EncodingTypes.plist; sourceTree = "<group>"; };
@@ -273,7 +269,6 @@
 				280910361C99E6B200C8EC1C /* Templates */,
 				280910301C99DFA200C8EC1C /* Tabs */,
 				925F8DD41CA9E44C007100EB /* Recipes */,
-				925F8DF31CA9E464007100EB /* Managers */,
 				287B85491C988AD600EEF5C8 /* Supporting FIles */,
 			);
 			path = PopcornTime;
@@ -408,15 +403,6 @@
 				00FD28B81CE0CB4200D29EA8 /* Genre */,
 			);
 			path = Recipes;
-			sourceTree = "<group>";
-		};
-		925F8DF31CA9E464007100EB /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				AF8C881D1DA15910006A6715 /* WebServerManager.swift */,
-				921572381CE422C000A26088 /* AudioManager.swift */,
-			);
-			path = Managers;
 			sourceTree = "<group>";
 		};
 		92925B321C9CA5BE0086D362 /* View Controllers */ = {
@@ -668,7 +654,6 @@
 				4DF74D041DAC061D00D40331 /* LoadingViewController.swift in Sources */,
 				923860571CA0E40500A21F3B /* Latest.swift in Sources */,
 				00FD28B71CE0CB3A00D29EA8 /* Genre.swift in Sources */,
-				AF8C881E1DA15910006A6715 /* WebServerManager.swift in Sources */,
 				D9C3D2241D4196340054BD9A /* VLCSiriRemoteGestureRecognizer.m in Sources */,
 				D9C3D2231D4196340054BD9A /* VLCIRTVTapGestureRecognizer.m in Sources */,
 				4D70B0FD1DA8E74200CDAF48 /* SubtitleSettings.swift in Sources */,
@@ -684,7 +669,6 @@
 				287B85381C9873A200EEF5C8 /* AppDelegate.swift in Sources */,
 				00C949601D1E634700F98803 /* Media+Extension.swift in Sources */,
 				925F8DEE1CA9E44C007100EB /* SearchRecipe.swift in Sources */,
-				921572391CE422C000A26088 /* AudioManager.swift in Sources */,
 				40BAE80E1DB904E200A523A4 /* Popular.swift in Sources */,
 				925F8DF11CA9E44C007100EB /* WelcomeRecipe.swift in Sources */,
 				4D15893A1DBFC5A30000B8EF /* PCTPlayerViewController+tvOS.swift in Sources */,

@@ -33,7 +33,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0: return "TV Shows"
+        case 0: return "Theme Music"
         case 1: return "Player"
         case 2: return "Other"
         case 3: return "Trakt"
@@ -49,7 +49,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             if indexPath.row == 0 {
                 cell.textLabel?.text = "Theme Song Volume"
                 
-                let volume = (UserDefaults.standard.object(forKey: "TVShowVolume") as? NSNumber) ?? NSNumber(value: 0.75)
+                let volume = (UserDefaults.standard.object(forKey: "ThemeSongVolume") as? NSNumber) ?? NSNumber(value: 0.75)
                 cell.detailTextLabel?.text = "\(Int(volume.doubleValue * 100))%"
                 cell.accessoryType = .none
             }
@@ -119,7 +119,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         case 0:
             if indexPath.row == 0 {
                 // Log Out
-                let alertController = UIAlertController(title: "TV Show Theme Song Volume", message: "Choose a volume for the TV Show theme songs", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Theme Song Volume", message: "Choose a volume for the TV Show and Movie theme songs", preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 alertController.addAction(UIAlertAction(title: "Off", style: .default, handler: { action in
                     UserDefaults.standard.set(0.0, forKey: "TVShowVolume")
@@ -127,22 +127,22 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 }))
 
                 alertController.addAction(UIAlertAction(title: "25%", style: .default, handler: { action in
-                    UserDefaults.standard.set(0.25, forKey: "TVShowVolume")
+                    UserDefaults.standard.set(0.25, forKey: "ThemeSongVolume")
                     tableView.reloadData()
                 }))
 
                 alertController.addAction(UIAlertAction(title: "50%", style: .default, handler: { action in
-                    UserDefaults.standard.set(0.5, forKey: "TVShowVolume")
+                    UserDefaults.standard.set(0.5, forKey: "ThemeSongVolume")
                     tableView.reloadData()
                 }))
 
                 alertController.addAction(UIAlertAction(title: "75%", style: .default, handler: { action in
-                    UserDefaults.standard.set(0.75, forKey: "TVShowVolume")
+                    UserDefaults.standard.set(0.75, forKey: "ThemeSongVolume")
                     tableView.reloadData()
                 }))
 
                 alertController.addAction(UIAlertAction(title: "100%", style: .default, handler: { action in
-                    UserDefaults.standard.set(1.0, forKey: "TVShowVolume")
+                    UserDefaults.standard.set(1.0, forKey: "ThemeSongVolume")
                     tableView.reloadData()
                 }))
 

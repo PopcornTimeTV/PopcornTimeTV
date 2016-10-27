@@ -13,6 +13,7 @@ public struct MovieProductRecipe: RecipeType {
 
     public init(movie: Movie) {
         self.movie = movie
+        ThemeSongManager.shared.playMovieTheme(movie.title)
     }
 
 
