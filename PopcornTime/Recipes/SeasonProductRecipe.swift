@@ -42,7 +42,7 @@ public struct SeasonProductRecipe: RecipeType {
     }
 
     var runtime: String {
-        return "\(show.runtime ?? "0")m"
+        return "\(show.runtime ?? "0") min"
     }
 
     var castString: String {

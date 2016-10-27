@@ -83,13 +83,14 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
             return
         }
         let destinationController = storyboard?.instantiateViewController(withIdentifier: "OptionsViewController") as! OptionsViewController
-        destinationController.subtitles = subtitles
-        destinationController.currentSubtitle = currentSubtitle
         destinationController.transitioningDelegate = self
         destinationController.modalPresentationStyle = .custom
         destinationController.interactor = interactor
-        destinationController.delegate = self
         present(destinationController, animated: true, completion: nil)
+        destinationController.subtitlesViewController?.subtitles = subtitles
+        destinationController.subtitlesViewController?.currentSubtitle = currentSubtitle
+        destinationController.subtitlesViewController?.delegate = self
+        destinationController.infoViewController?.media = media
     }
 }
 
