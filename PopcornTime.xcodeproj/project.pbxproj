@@ -14,6 +14,7 @@
 		4D2543B11DACFBFE00149533 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2543B01DACFBFE00149533 /* ServiceProvider.swift */; };
 		4D2543B51DACFBFE00149533 /* TopShelf.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4D2543AD1DACFBFE00149533 /* TopShelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4D2543B91DACFCF700149533 /* String+Cleaned.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB626B1CA3364300985F78 /* String+Cleaned.swift */; };
+		4D69B75F1DC550F500A88A37 /* Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D69B75E1DC550F500A88A37 /* Watchlist.swift */; };
 		4D990E201DC4EFA2005CDE34 /* PCTPlayerViewController+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E1A1DC4EFA2005CDE34 /* PCTPlayerViewController+tvOS.swift */; };
 		4D990E211DC4EFA2005CDE34 /* UIViewController+TVJS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E1B1DC4EFA2005CDE34 /* UIViewController+TVJS.swift */; };
 		4D990E221DC4EFA2005CDE34 /* Movie+Lockup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E1C1DC4EFA2005CDE34 /* Movie+Lockup.swift */; };
@@ -54,11 +55,8 @@
 		4D990E961DC4F2DA005CDE34 /* GenreRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E931DC4F2DA005CDE34 /* GenreRecipe.xml */; };
 		4D990E971DC4F2DA005CDE34 /* Genre.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E941DC4F2DA005CDE34 /* Genre.js */; };
 		4D990E981DC4F2DA005CDE34 /* GenreRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E951DC4F2DA005CDE34 /* GenreRecipe.swift */; };
-		4D990E9E1DC4F2F5005CDE34 /* Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E991DC4F2F5005CDE34 /* Watchlist.swift */; };
 		4D990E9F1DC4F2F5005CDE34 /* WatchlistRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E9A1DC4F2F5005CDE34 /* WatchlistRecipe.xml */; };
 		4D990EA01DC4F2F5005CDE34 /* WatchlistRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E9B1DC4F2F5005CDE34 /* WatchlistRecipe.swift */; };
-		4D990EA11DC4F2F5005CDE34 /* MovieWatchlistRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E9C1DC4F2F5005CDE34 /* MovieWatchlistRecipe.swift */; };
-		4D990EA21DC4F2F5005CDE34 /* ShowWatchlistRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E9D1DC4F2F5005CDE34 /* ShowWatchlistRecipe.swift */; };
 		4D990EA61DC4F303005CDE34 /* CatalogRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D990EA41DC4F303005CDE34 /* CatalogRecipe.xml */; };
 		4D990EA71DC4F303005CDE34 /* CatalogRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990EA51DC4F303005CDE34 /* CatalogRecipe.swift */; };
 		4D990EAA1DC4F311005CDE34 /* WelcomeRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D990EA81DC4F311005CDE34 /* WelcomeRecipe.xml */; };
@@ -117,6 +115,7 @@
 		4D2543AD1DACFBFE00149533 /* TopShelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TopShelf.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2543B01DACFBFE00149533 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		4D2543B21DACFBFE00149533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D69B75E1DC550F500A88A37 /* Watchlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Watchlist.swift; path = UI/Recipes/Tabs/Watchlist.swift; sourceTree = "<group>"; };
 		4D990E1A1DC4EFA2005CDE34 /* PCTPlayerViewController+tvOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PCTPlayerViewController+tvOS.swift"; path = "Extensions/PCTPlayerViewController+tvOS.swift"; sourceTree = "<group>"; };
 		4D990E1B1DC4EFA2005CDE34 /* UIViewController+TVJS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+TVJS.swift"; path = "Extensions/UIViewController+TVJS.swift"; sourceTree = "<group>"; };
 		4D990E1C1DC4EFA2005CDE34 /* Movie+Lockup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Movie+Lockup.swift"; path = "Extensions/Movie+Lockup.swift"; sourceTree = "<group>"; };
@@ -158,11 +157,8 @@
 		4D990E931DC4F2DA005CDE34 /* GenreRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = GenreRecipe.xml; path = UI/Recipes/Genre/GenreRecipe.xml; sourceTree = "<group>"; };
 		4D990E941DC4F2DA005CDE34 /* Genre.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = Genre.js; path = UI/Recipes/Genre/Genre.js; sourceTree = "<group>"; };
 		4D990E951DC4F2DA005CDE34 /* GenreRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenreRecipe.swift; path = UI/Recipes/Genre/GenreRecipe.swift; sourceTree = "<group>"; };
-		4D990E991DC4F2F5005CDE34 /* Watchlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Watchlist.swift; path = UI/Recipes/Watchlist/Watchlist.swift; sourceTree = "<group>"; };
 		4D990E9A1DC4F2F5005CDE34 /* WatchlistRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = WatchlistRecipe.xml; path = UI/Recipes/Watchlist/WatchlistRecipe.xml; sourceTree = "<group>"; };
 		4D990E9B1DC4F2F5005CDE34 /* WatchlistRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WatchlistRecipe.swift; path = UI/Recipes/Watchlist/WatchlistRecipe.swift; sourceTree = "<group>"; };
-		4D990E9C1DC4F2F5005CDE34 /* MovieWatchlistRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovieWatchlistRecipe.swift; path = UI/Recipes/Watchlist/MovieWatchlistRecipe.swift; sourceTree = "<group>"; };
-		4D990E9D1DC4F2F5005CDE34 /* ShowWatchlistRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShowWatchlistRecipe.swift; path = UI/Recipes/Watchlist/ShowWatchlistRecipe.swift; sourceTree = "<group>"; };
 		4D990EA41DC4F303005CDE34 /* CatalogRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = CatalogRecipe.xml; path = UI/Recipes/Catalog/CatalogRecipe.xml; sourceTree = "<group>"; };
 		4D990EA51DC4F303005CDE34 /* CatalogRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CatalogRecipe.swift; path = UI/Recipes/Catalog/CatalogRecipe.swift; sourceTree = "<group>"; };
 		4D990EA81DC4F311005CDE34 /* WelcomeRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = WelcomeRecipe.xml; path = UI/Recipes/Welcome/WelcomeRecipe.xml; sourceTree = "<group>"; };
@@ -337,6 +333,7 @@
 		4D990E561DC4F123005CDE34 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
+				4D69B75E1DC550F500A88A37 /* Watchlist.swift */,
 				4D990E6D1DC4F1BC005CDE34 /* Popular.swift */,
 				4D990E6F1DC4F1BC005CDE34 /* Trending.swift */,
 				4D990E711DC4F1BC005CDE34 /* Latest.swift */,
@@ -382,11 +379,8 @@
 		4D990E8C1DC4F21B005CDE34 /* Watchlist */ = {
 			isa = PBXGroup;
 			children = (
-				4D990E991DC4F2F5005CDE34 /* Watchlist.swift */,
 				4D990E9A1DC4F2F5005CDE34 /* WatchlistRecipe.xml */,
 				4D990E9B1DC4F2F5005CDE34 /* WatchlistRecipe.swift */,
-				4D990E9C1DC4F2F5005CDE34 /* MovieWatchlistRecipe.swift */,
-				4D990E9D1DC4F2F5005CDE34 /* ShowWatchlistRecipe.swift */,
 			);
 			name = Watchlist;
 			sourceTree = "<group>";
@@ -505,7 +499,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = PopcornTime;
 				TargetAttributes = {
 					287B85331C9873A200EEF5C8 = {
@@ -678,14 +672,13 @@
 				4D990EA01DC4F2F5005CDE34 /* WatchlistRecipe.swift in Sources */,
 				4D0183A91DC3ACB500AB75B3 /* Locale+Langs.swift in Sources */,
 				4D990EAB1DC4F311005CDE34 /* WelcomeRecipe.swift in Sources */,
-				4D990EA21DC4F2F5005CDE34 /* ShowWatchlistRecipe.swift in Sources */,
+				4D69B75F1DC550F500A88A37 /* Watchlist.swift in Sources */,
 				D9C3D2251D4196340054BD9A /* VLCTransportBar.m in Sources */,
 				4D990EAE1DC4F31D005CDE34 /* SearchRecipe.swift in Sources */,
 				4D990E621DC4F137005CDE34 /* MovieProductRecipe.swift in Sources */,
 				4D990E7E1DC4F1BC005CDE34 /* Popular.swift in Sources */,
 				4D990E5F1DC4F137005CDE34 /* SeasonProductRecipe.swift in Sources */,
 				4D990E821DC4F1BC005CDE34 /* Latest.swift in Sources */,
-				4D990EA11DC4F2F5005CDE34 /* MovieWatchlistRecipe.swift in Sources */,
 				4D990E981DC4F2DA005CDE34 /* GenreRecipe.swift in Sources */,
 				4D990E4F1DC4F102005CDE34 /* InfoViewController.swift in Sources */,
 				4D990E421DC4F0BD005CDE34 /* OptionsViewControllerPresentationDelegate.swift in Sources */,
@@ -696,7 +689,6 @@
 				4D990E221DC4EFA2005CDE34 /* Movie+Lockup.swift in Sources */,
 				4D990E911DC4F2CD005CDE34 /* DescriptionRecipe.swift in Sources */,
 				4D990E461DC4F0F1005CDE34 /* ActionHandler.swift in Sources */,
-				4D990E9E1DC4F2F5005CDE34 /* Watchlist.swift in Sources */,
 				4D990E211DC4EFA2005CDE34 /* UIViewController+TVJS.swift in Sources */,
 				4D990E3C1DC4F069005CDE34 /* LoadingViewController.swift in Sources */,
 			);

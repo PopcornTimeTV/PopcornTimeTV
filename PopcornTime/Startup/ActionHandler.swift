@@ -63,26 +63,26 @@ class ActionHandler: NSObject {
     // MARK: - Watchlist
     
     /**
-     Adds movie to the users watchlist and optionally syncs with trakt. UI is updated here.
+     Adds movie to the users watchlist if it's not added, removes if it is and optionally syncs with trakt. UI is updated here.
      
      - Parameter movieString: A JSON representation of the movie object to be added to the watchlist. Use `Mapper` to achieve this.
      */
-    func addMovieToWatchlist(_ movieString: String) {
+    func toggleMovieWatchlist(_ movieString: String) {
         guard let movie = Mapper<Movie>().map(JSONString: movieString) else { return }
-        WatchlistManager<Movie>.movie.add(movie)
+        WatchlistManager<Movie>.movie.isAdded(movie) ? WatchlistManager<Movie>.movie.remove(movie) : WatchlistManager<Movie>.movie.add(movie)
         Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
             context.objectForKeyedSubscript("updateWatchlistButton").call(withArguments: [])
             }, completion: nil)
     }
     
     /**
-     Adds show to the users watchlist and optionally syncs with trakt. UI is updated here.
+     Adds show to the users watchlist if it's not added, removes if it is and optionally syncs with trakt. UI is updated here.
      
      - Parameter showString: A JSON representation of the show object to be added to the watchlist. Use `Mapper` to achieve this.
      */
-    func addShowToWatchlist(_ showString: String) {
+    func toggleShowWatchlist(_ showString: String) {
         guard let show = Mapper<Show>().map(JSONString: showString) else { return }
-        WatchlistManager<Show>.show.add(show)
+        WatchlistManager<Show>.show.isAdded(show) ? WatchlistManager<Show>.show.remove(show) : WatchlistManager<Show>.show.add(show)
         Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
             context.objectForKeyedSubscript("updateWatchlistButton").call(withArguments: [])
             }, completion: nil)
@@ -326,12 +326,12 @@ class ActionHandler: NSObject {
         
         var recipe = WatchlistRecipe(title: "Watchlist")
         
-        recipe.watchListMovies = WatchlistManager<Movie>.movie.getWatchlist { (movies) in
-            recipe.watchListMovies = movies
+        recipe.movies = WatchlistManager<Movie>.movie.getWatchlist { (movies) in
+            recipe.movies = movies
         }
         
-        recipe.watchListShows = WatchlistManager<Show>.show.getWatchlist { (shows) in
-            recipe.watchListShows = shows
+        recipe.shows = WatchlistManager<Show>.show.getWatchlist { (shows) in
+            recipe.shows = shows
         }
         Kitchen.serve(recipe: recipe)
         dismissLoading()

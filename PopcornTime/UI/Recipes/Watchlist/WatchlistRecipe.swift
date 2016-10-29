@@ -8,14 +8,14 @@ public struct WatchlistRecipe: RecipeType {
     public let theme = DefaultTheme()
     public let presentationType = PresentationType.default
     
-    let title: String
-    var watchListMovies: [Movie]
-    var watchListShows: [Show]
+    public let title: String
+    public var movies: [Movie]
+    public var shows: [Show]
 
-    init(title: String, watchListMovies: [Movie] = [Movie](), watchListShows: [Show] = [Show]()) {
+    public init(title: String, movies: [Movie] = [Movie](), shows: [Show] = [Show]()) {
         self.title = title
-        self.watchListMovies = watchListMovies
-        self.watchListShows = watchListShows
+        self.movies = movies
+        self.shows = shows
     }
 
     public var xmlString: String {
@@ -26,26 +26,15 @@ public struct WatchlistRecipe: RecipeType {
         return xml
     }
 
-    public var moviesWatchList: String {
-        let mapped = watchListMovies.map { movie -> String in
-            var string = "<lockup actionID=\"showMovie»\(movie.title.cleaned)»\(movie.id)\" playActionID=\"playMovieById»\(movie.id)\" >"
-            string += "<img src=\"\(movie.mediumCoverImage ?? "")\" width=\"250\" height=\"375\" />"
-            string += "<title class=\"hover\">\(movie.title.cleaned)</title>"
+    public func mediaString(_ media: [Media]) -> String {
+        let mapped: [String] = media.map {
+            var string = "<lockup actionID=\"showShow»\($0.id)»\($0.slug)\">"
+            string += "<img src=\"\($0.mediumCoverImage ?? "")\" width=\"250\" height=\"375\" />"
+            string += "<title class=\"hover\">\($0.title.cleaned)</title>"
             string += "</lockup>"
             return string
         }
-        return mapped.joined(separator: "\n")
-    }
-
-    public var showsWatchList: String {
-        let mapped = watchListShows.map { show -> String in
-            var string = "<lockup actionID=\"showShow»\(show.id)»\(show.slug)»\(show.tvdbId)\" playActionID=\"showShow»\(show.id)»\(show.slug)»\(show.tvdbId)\">"
-            string += "<img src=\"\(show.mediumCoverImage ?? "")\" width=\"250\" height=\"375\" />"
-            string += "<title class=\"hover\">\(show.title.cleaned)</title>"
-            string += "</lockup>"
-            return string
-        }
-        return mapped.joined(separator: "\n")
+        return mapped.joined(separator: "")
     }
 
     func buildShelf(_ title: String, content: String) -> String {
@@ -58,16 +47,25 @@ public struct WatchlistRecipe: RecipeType {
     }
 
     public var template: String {
-        var shelfs = ""
-        shelfs += self.buildShelf("Movies", content: moviesWatchList)
-        shelfs += self.buildShelf("Shows", content: showsWatchList)
+        let isShelf = !movies.isEmpty && !shows.isEmpty
+        
+        let string: String
+        
+        if isShelf {
+            string = buildShelf("Movies", content: mediaString(movies)) + buildShelf("Shows", content: mediaString(shows))
+        } else if !movies.isEmpty {
+            string = mediaString(movies)
+        } else {
+            string = mediaString(shows)
+        }
+        
 
         var xml = ""
-        if let file = Bundle.main.url(forResource: "WatchlistRecipe", withExtension: "xml") {
+        if let file = Bundle.main.url(forResource: isShelf ? "WatchlistRecipe" : "CatalogRecipe", withExtension: "xml") {
             do {
                 xml = try String(contentsOf: file)
                 xml = xml.replacingOccurrences(of: "{{TITLE}}", with: title)
-                xml = xml.replacingOccurrences(of: "{{SHELFS}}", with: shelfs)
+                xml = xml.replacingOccurrences(of: "{{POSTERS}}", with: string)
             } catch {
                 print("Could not open Catalog template")
             }

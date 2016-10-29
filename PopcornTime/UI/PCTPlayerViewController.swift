@@ -157,11 +157,11 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         progressBar.progress = 0
         mediaplayer.audio.volume = 200
         
-//        let settings = SubtitleSettings()
-//        currentSubtitle = subtitles.filter({ $0.language == settings.language }).first
-//        (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.fontSize))
-//        (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.fontColor.hexInt()))
-//        mediaplayer.media.addOptions([kVLCSettingTextEncoding : settings.encoding])
+        let settings = SubtitleSettings()
+        currentSubtitle = subtitles.filter({ $0.language == settings.language }).first
+        (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.fontSize))
+        (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.fontColor.hexInt()))
+        mediaplayer.media.addOptions([kVLCSettingTextEncoding : settings.encoding])
 
 //        if let nextMedia = nextMedia {
 //            upNextView.delegate = self

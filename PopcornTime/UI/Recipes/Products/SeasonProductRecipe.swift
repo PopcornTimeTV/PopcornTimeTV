@@ -79,7 +79,7 @@ public struct SeasonProductRecipe: RecipeType {
     }
 
     var watchlistButton: String {
-        var string = "<buttonLockup id =\"watchlistButton\" actionID=\"addShowToWatchlist»\(Mapper<Show>().toJSONString(show)?.cleaned ?? "")\">\n"
+        var string = "<buttonLockup id =\"watchlistButton\" actionID=\"toggleShowWatchlist»\(Mapper<Show>().toJSONString(show)?.cleaned ?? "")\">\n"
         string += "<badge id =\"watchlistButtonBadge\" src=\"resource://button-{{WATCHLIST_ACTION}}\" />\n"
         string += "<title>Watchlist</title>\n"
         string += "</buttonLockup>"
