@@ -65,10 +65,10 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
             lastTranslation = 0.0
             progressBar.isScrubbing = false
         case .began:
-            mediaplayer.pause()
-            progressBar.isHidden ? toggleControlsVisible() : ()
+            mediaplayer.isPlaying ? mediaplayer.pause() : ()
             fallthrough
         case .changed:
+            progressBar.isHidden = false
             progressBar.isScrubbing = true
             progressBar.progress = offset
             positionSliderDidDrag()
@@ -87,10 +87,12 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         destinationController.modalPresentationStyle = .custom
         destinationController.interactor = interactor
         present(destinationController, animated: true, completion: nil)
-        destinationController.subtitlesViewController?.subtitles = subtitles
-        destinationController.subtitlesViewController?.currentSubtitle = currentSubtitle
-        destinationController.subtitlesViewController?.delegate = self
-        destinationController.infoViewController?.media = media
+        destinationController.subtitlesViewController.subtitles = subtitles
+        destinationController.subtitlesViewController.currentSubtitle = currentSubtitle
+        destinationController.subtitlesViewController.delegate = self
+        destinationController.infoViewController.media = media
+        destinationController.audioViewController.languages = mediaplayer.audioTrackNames as? [String] ?? [String]()
+        destinationController.audioViewController.currentLanguage = destinationController.audioViewController.languages[Int(mediaplayer.currentAudioTrackIndex)]
     }
 }
 

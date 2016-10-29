@@ -476,8 +476,6 @@ class ActionHandler: NSObject {
         
         Kitchen.dismissModal()
         
-        ThemeSongManager.shared.stopTheme()
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let present: (UIViewController, Bool) -> Void = { (viewController, animated) in
@@ -536,6 +534,9 @@ class ActionHandler: NSObject {
                 Kitchen.serve(recipe: AlertRecipe(title: "Oops!", description: "Error fetching valid trailer URL from Youtube.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")]))
                 return
             }
+            
+            ThemeSongManager.shared.stopTheme()
+            
             playerController.player = AVPlayer(url: url)
             playerController.player!.play()
         }

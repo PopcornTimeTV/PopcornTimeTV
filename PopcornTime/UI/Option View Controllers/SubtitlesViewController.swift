@@ -49,12 +49,70 @@ class SubtitlesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         for tableView in [firstTableView, secondTableView, thirdTableView] {
             tableView?.mask = nil
             tableView?.clipsToBounds = true
         }
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let lastRightGuide = UIFocusGuide()
+        thirdTableView.addLayoutGuide(lastRightGuide)
+        
+        lastRightGuide.leftAnchor.constraint(equalTo: thirdTableView.rightAnchor).isActive = true
+        lastRightGuide.topAnchor.constraint(equalTo: thirdTableView.topAnchor).isActive = true
+        lastRightGuide.heightAnchor.constraint(equalToConstant: thirdTableView.contentSize.height).isActive = true
+        lastRightGuide.widthAnchor.constraint(equalTo: thirdTableView.widthAnchor).isActive = true
+        lastRightGuide.preferredFocusedView = firstTableView
+        
+        let lastLeftGuide = UIFocusGuide()
+        firstTableView.addLayoutGuide(lastLeftGuide)
+        
+        lastLeftGuide.rightAnchor.constraint(equalTo: firstTableView.leftAnchor).isActive = true
+        lastLeftGuide.topAnchor.constraint(equalTo: firstTableView.topAnchor).isActive = true
+        lastLeftGuide.heightAnchor.constraint(equalToConstant: firstTableView.contentSize.height).isActive = true
+        lastLeftGuide.widthAnchor.constraint(equalTo: firstTableView.widthAnchor).isActive = true
+        lastLeftGuide.preferredFocusedView = thirdTableView
+        
+        let betweenFirstAndSecondGuide = UIFocusGuide()
+        firstTableView.addLayoutGuide(betweenFirstAndSecondGuide)
+        
+        betweenFirstAndSecondGuide.leftAnchor.constraint(equalTo: firstTableView.rightAnchor).isActive = true
+        betweenFirstAndSecondGuide.topAnchor.constraint(equalTo: firstTableView.topAnchor).isActive = true
+        betweenFirstAndSecondGuide.heightAnchor.constraint(equalToConstant: firstTableView.contentSize.height).isActive = true
+        betweenFirstAndSecondGuide.rightAnchor.constraint(equalTo: secondTableView.leftAnchor).isActive = true
+        betweenFirstAndSecondGuide.preferredFocusedView = secondTableView
+        
+        let betweenSecondAndFirstGuide = UIFocusGuide()
+        secondTableView.addLayoutGuide(betweenSecondAndFirstGuide)
+        
+        betweenSecondAndFirstGuide.rightAnchor.constraint(equalTo: secondTableView.leftAnchor).isActive = true
+        betweenSecondAndFirstGuide.topAnchor.constraint(equalTo: secondTableView.topAnchor).isActive = true
+        betweenSecondAndFirstGuide.heightAnchor.constraint(equalToConstant: secondTableView.contentSize.height).isActive = true
+        betweenSecondAndFirstGuide.leftAnchor.constraint(equalTo: firstTableView.rightAnchor).isActive = true
+        betweenSecondAndFirstGuide.preferredFocusedView = firstTableView
+        
+        let betweenThirdAndSecondGuide = UIFocusGuide()
+        thirdTableView.addLayoutGuide(betweenThirdAndSecondGuide)
+        
+        betweenThirdAndSecondGuide.rightAnchor.constraint(equalTo: thirdTableView.leftAnchor).isActive = true
+        betweenThirdAndSecondGuide.topAnchor.constraint(equalTo: thirdTableView.topAnchor).isActive = true
+        betweenThirdAndSecondGuide.heightAnchor.constraint(equalToConstant: thirdTableView.contentSize.height).isActive = true
+        betweenThirdAndSecondGuide.leftAnchor.constraint(equalTo: secondTableView.rightAnchor).isActive = true
+        betweenThirdAndSecondGuide.preferredFocusedView = secondTableView
+        
+        let betweenSecondAndThirdGuide = UIFocusGuide()
+        secondTableView.addLayoutGuide(betweenSecondAndThirdGuide)
+        
+        betweenSecondAndThirdGuide.leftAnchor.constraint(equalTo: secondTableView.rightAnchor).isActive = true
+        betweenSecondAndThirdGuide.topAnchor.constraint(equalTo: secondTableView.topAnchor).isActive = true
+        betweenSecondAndThirdGuide.heightAnchor.constraint(equalToConstant: secondTableView.contentSize.height).isActive = true
+        betweenSecondAndThirdGuide.rightAnchor.constraint(equalTo: thirdTableView.leftAnchor).isActive = true
+        betweenSecondAndThirdGuide.preferredFocusedView = thirdTableView
+    }
 
     // MARK: Table view data source
     
@@ -121,10 +179,6 @@ class SubtitlesViewController: UIViewController, UITableViewDelegate, UITableVie
             cell.textLabel?.textColor = UIColor.lightGray
         }
     }
-//    
-//    override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-//        return !(context.nextFocusedView is UITabBar) // Stops focus sticking to UITabbar
-//    }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else { return }

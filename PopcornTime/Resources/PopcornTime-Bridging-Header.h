@@ -11,4 +11,3 @@
 #include <ifaddrs.h>
 
 #define kVLCSettingTextEncoding @"subsdec-encoding"
-#define kVLCSettingTextSize @"quartztext-rel-fontsize"

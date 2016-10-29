@@ -33,6 +33,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         }
     }
     func positionSliderAction() {
+        resetIdleTimer()
         mediaplayer.position = Float(progressBar.progress)
         progressBar.hint = .none
     }
@@ -123,10 +124,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     func didSelectSubtitle(_ subtitle: Subtitle?) {
         currentSubtitle = subtitle
-        let settings = SubtitleSettings()
-        (mediaplayer as VLCFontAppearance).setTextRendererFont!(settings.fontName as NSString)
-        (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.fontSize))
-        (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.fontColor.hexInt()))
     }
     
     private func screenshotAtTime(_ time: NSNumber, completion: @escaping (_ image: UIImage) -> Void) {
@@ -167,20 +164,25 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         } else {
             mediaplayer.play()
         }
+        ThemeSongManager.shared.stopTheme() // Make sure theme song isn't playing.
         resetIdleTimer()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let settings = SubtitleSettings()
-        (mediaplayer as VLCFontAppearance).setTextRendererFont!(settings.fontName as NSString)
-        (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.fontSize))
-        (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.fontColor.hexInt()))
+        
         mediaplayer.delegate = self
         mediaplayer.drawable = movieView
         mediaplayer.media = VLCMedia(url: url)
         progressBar.progress = 0
         mediaplayer.audio.volume = 200
+        
+        let settings = SubtitleSettings()
+        currentSubtitle = subtitles.filter({ $0.language == settings.language }).first
+        (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.fontSize))
+        (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.fontColor.hexInt()))
+        mediaplayer.media.addOptions([kVLCSettingTextEncoding : settings.encoding])
+
         
         let siriArrowRecognizer = VLCSiriRemoteGestureRecognizer.init(target: self, action: #selector(handleSiriRemoteGesture(_:)))
         siriArrowRecognizer.delegate = self
@@ -243,6 +245,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         if loadingActivityIndicatorView.isHidden == false {
             loadingActivityIndicatorView.isHidden = true
             toggleControlsVisible()
+            resetIdleTimer()
         }
         progressBar.bufferProgress = CGFloat(PTTorrentStreamer.shared().torrentStatus.totalProgreess)
         progressBar.remainingTimeLabel.text = mediaplayer.remainingTime.stringValue
