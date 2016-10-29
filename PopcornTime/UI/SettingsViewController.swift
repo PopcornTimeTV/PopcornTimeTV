@@ -129,7 +129,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
                 let alertController = UIAlertController(title: "Theme Song Volume", message: "Choose a volume for the TV Show and Movie theme songs", preferredStyle: .alert)
                 
-                alertController.addAction(UIAlertAction(title: "Off", style: .default, handler: { action in
+                alertController.addAction(UIAlertAction(title: "Off", style: .cancel, handler: { action in
                     UserDefaults.standard.set(0.0, forKey: "ThemeSongVolume")
                     tableView.reloadData()
                 }))
@@ -206,7 +206,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     tableView.reloadData()
                 }
                 
-                alertController.addAction(UIAlertAction(title: "None", style: .cancel, handler: handler))
+                alertController.addAction(UIAlertAction(title: "None", style: .default, handler: handler))
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 
                 for language in Locale.commonLanguages {
                     alertController.addAction(UIAlertAction(title: language, style: .default, handler: handler))

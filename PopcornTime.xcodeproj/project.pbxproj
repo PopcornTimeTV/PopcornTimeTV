@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		098B2026095198FE56AF33E0 /* Pods_PopcornTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DC191EE356BC3B5A5E8F16 /* Pods_PopcornTime.framework */; };
 		28EB626C1CA3364300985F78 /* String+Cleaned.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB626B1CA3364300985F78 /* String+Cleaned.swift */; };
-		4D0183A91DC3ACB500AB75B3 /* Locale+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0183A81DC3ACB400AB75B3 /* Locale+Extension.swift */; };
+		4D0183A91DC3ACB500AB75B3 /* Locale+Langs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */; };
 		4D2543AE1DACFBFE00149533 /* TVServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 002682111CD0B76200F51D31 /* TVServices.framework */; };
 		4D2543B11DACFBFE00149533 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2543B01DACFBFE00149533 /* ServiceProvider.swift */; };
 		4D2543B51DACFBFE00149533 /* TopShelf.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4D2543AD1DACFBFE00149533 /* TopShelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -65,12 +65,10 @@
 		4D990EAB1DC4F311005CDE34 /* WelcomeRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990EA91DC4F311005CDE34 /* WelcomeRecipe.swift */; };
 		4D990EAE1DC4F31D005CDE34 /* SearchRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990EAC1DC4F31D005CDE34 /* SearchRecipe.swift */; };
 		4D990EAF1DC4F31D005CDE34 /* SearchRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D990EAD1DC4F31D005CDE34 /* SearchRecipe.xml */; };
+		4DCCBA5B1DC50D780046C755 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Hex.swift */; };
 		92CF4A0A1CE6692900D666A8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CF4A091CE6692900D666A8 /* libz.tbd */; };
 		9D791981BEDEC8982B768977 /* Pods_TopShelf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */; };
 		D9C3D2211D4196340054BD9A /* VLCBufferingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C3D2181D4196340054BD9A /* VLCBufferingBar.m */; };
-		D9C3D2221D4196340054BD9A /* VLCFrostedGlasView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C3D21A1D4196340054BD9A /* VLCFrostedGlasView.m */; };
-		D9C3D2231D4196340054BD9A /* VLCIRTVTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C3D21C1D4196340054BD9A /* VLCIRTVTapGestureRecognizer.m */; };
-		D9C3D2241D4196340054BD9A /* VLCSiriRemoteGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C3D21E1D4196340054BD9A /* VLCSiriRemoteGestureRecognizer.m */; };
 		D9C3D2251D4196340054BD9A /* VLCTransportBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C3D2201D4196340054BD9A /* VLCTransportBar.m */; };
 /* End PBXBuildFile section */
 
@@ -115,7 +113,7 @@
 		287B85401C9873A200EEF5C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		28EB626B1CA3364300985F78 /* String+Cleaned.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Cleaned.swift"; path = "Extensions/String+Cleaned.swift"; sourceTree = "<group>"; };
 		3E2A1684A64499B8ED0B31B3 /* Pods-TopShelf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TopShelf.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TopShelf/Pods-TopShelf.debug.xcconfig"; sourceTree = "<group>"; };
-		4D0183A81DC3ACB400AB75B3 /* Locale+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Locale+Extension.swift"; path = "Extensions/Locale+Extension.swift"; sourceTree = "<group>"; };
+		4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Locale+Langs.swift"; path = "Extensions/Locale+Langs.swift"; sourceTree = "<group>"; };
 		4D2543AD1DACFBFE00149533 /* TopShelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TopShelf.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2543B01DACFBFE00149533 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		4D2543B21DACFBFE00149533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -172,6 +170,7 @@
 		4D990EAC1DC4F31D005CDE34 /* SearchRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchRecipe.swift; path = UI/Recipes/Search/SearchRecipe.swift; sourceTree = "<group>"; };
 		4D990EAD1DC4F31D005CDE34 /* SearchRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = SearchRecipe.xml; path = UI/Recipes/Search/SearchRecipe.xml; sourceTree = "<group>"; };
 		4DC870B51D9EDE58005455B0 /* PopcornTime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopcornTime.entitlements; sourceTree = "<group>"; };
+		4DCCBA5A1DC50D780046C755 /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+Hex.swift"; path = "Extensions/UIColor+Hex.swift"; sourceTree = "<group>"; };
 		59BE8A67A9D4954F63D16C0E /* Pods-PopcornTime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.debug.xcconfig"; sourceTree = "<group>"; };
 		796C61914EF57FAF09B30DFE /* Pods-PopcornTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.release.xcconfig"; sourceTree = "<group>"; };
 		92CF4A091CE6692900D666A8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -179,12 +178,6 @@
 		D7DC191EE356BC3B5A5E8F16 /* Pods_PopcornTime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopcornTime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9C3D2171D4196340054BD9A /* VLCBufferingBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCBufferingBar.h; sourceTree = "<group>"; };
 		D9C3D2181D4196340054BD9A /* VLCBufferingBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCBufferingBar.m; sourceTree = "<group>"; };
-		D9C3D2191D4196340054BD9A /* VLCFrostedGlasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCFrostedGlasView.h; sourceTree = "<group>"; };
-		D9C3D21A1D4196340054BD9A /* VLCFrostedGlasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCFrostedGlasView.m; sourceTree = "<group>"; };
-		D9C3D21B1D4196340054BD9A /* VLCIRTVTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCIRTVTapGestureRecognizer.h; sourceTree = "<group>"; };
-		D9C3D21C1D4196340054BD9A /* VLCIRTVTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCIRTVTapGestureRecognizer.m; sourceTree = "<group>"; };
-		D9C3D21D1D4196340054BD9A /* VLCSiriRemoteGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCSiriRemoteGestureRecognizer.h; sourceTree = "<group>"; };
-		D9C3D21E1D4196340054BD9A /* VLCSiriRemoteGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCSiriRemoteGestureRecognizer.m; sourceTree = "<group>"; };
 		D9C3D21F1D4196340054BD9A /* VLCTransportBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCTransportBar.h; sourceTree = "<group>"; };
 		D9C3D2201D4196340054BD9A /* VLCTransportBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCTransportBar.m; sourceTree = "<group>"; };
 		DD53E3861D01F5E400147716 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
@@ -263,7 +256,8 @@
 				4D990E1D1DC4EFA2005CDE34 /* Media+Extension.swift */,
 				4D990E1E1DC4EFA2005CDE34 /* Show+Lockup.swift */,
 				28EB626B1CA3364300985F78 /* String+Cleaned.swift */,
-				4D0183A81DC3ACB400AB75B3 /* Locale+Extension.swift */,
+				4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */,
+				4DCCBA5A1DC50D780046C755 /* UIColor+Hex.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -430,12 +424,6 @@
 			children = (
 				D9C3D2171D4196340054BD9A /* VLCBufferingBar.h */,
 				D9C3D2181D4196340054BD9A /* VLCBufferingBar.m */,
-				D9C3D2191D4196340054BD9A /* VLCFrostedGlasView.h */,
-				D9C3D21A1D4196340054BD9A /* VLCFrostedGlasView.m */,
-				D9C3D21B1D4196340054BD9A /* VLCIRTVTapGestureRecognizer.h */,
-				D9C3D21C1D4196340054BD9A /* VLCIRTVTapGestureRecognizer.m */,
-				D9C3D21D1D4196340054BD9A /* VLCSiriRemoteGestureRecognizer.h */,
-				D9C3D21E1D4196340054BD9A /* VLCSiriRemoteGestureRecognizer.m */,
 				D9C3D21F1D4196340054BD9A /* VLCTransportBar.h */,
 				D9C3D2201D4196340054BD9A /* VLCTransportBar.m */,
 			);
@@ -674,6 +662,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D990E471DC4F0F1005CDE34 /* AppDelegate.swift in Sources */,
+				4DCCBA5B1DC50D780046C755 /* UIColor+Hex.swift in Sources */,
 				4D990E201DC4EFA2005CDE34 /* PCTPlayerViewController+tvOS.swift in Sources */,
 				4D990E3A1DC4F069005CDE34 /* PCTPlayerViewController.swift in Sources */,
 				28EB626C1CA3364300985F78 /* String+Cleaned.swift in Sources */,
@@ -681,15 +670,13 @@
 				4D990E2D1DC4F00F005CDE34 /* SubtitleSettings.swift in Sources */,
 				4D990E641DC4F138005CDE34 /* SeasonPickerRecipe.swift in Sources */,
 				4D990EA71DC4F303005CDE34 /* CatalogRecipe.swift in Sources */,
-				D9C3D2241D4196340054BD9A /* VLCSiriRemoteGestureRecognizer.m in Sources */,
 				4D990E831DC4F1BC005CDE34 /* Search.swift in Sources */,
 				4D990E801DC4F1BC005CDE34 /* Trending.swift in Sources */,
-				D9C3D2231D4196340054BD9A /* VLCIRTVTapGestureRecognizer.m in Sources */,
 				4D990E811DC4F1BC005CDE34 /* Genre.swift in Sources */,
 				D9C3D2211D4196340054BD9A /* VLCBufferingBar.m in Sources */,
 				4D990E4E1DC4F102005CDE34 /* AudioViewController.swift in Sources */,
 				4D990EA01DC4F2F5005CDE34 /* WatchlistRecipe.swift in Sources */,
-				4D0183A91DC3ACB500AB75B3 /* Locale+Extension.swift in Sources */,
+				4D0183A91DC3ACB500AB75B3 /* Locale+Langs.swift in Sources */,
 				4D990EAB1DC4F311005CDE34 /* WelcomeRecipe.swift in Sources */,
 				4D990EA21DC4F2F5005CDE34 /* ShowWatchlistRecipe.swift in Sources */,
 				D9C3D2251D4196340054BD9A /* VLCTransportBar.m in Sources */,
@@ -710,7 +697,6 @@
 				4D990E911DC4F2CD005CDE34 /* DescriptionRecipe.swift in Sources */,
 				4D990E461DC4F0F1005CDE34 /* ActionHandler.swift in Sources */,
 				4D990E9E1DC4F2F5005CDE34 /* Watchlist.swift in Sources */,
-				D9C3D2221D4196340054BD9A /* VLCFrostedGlasView.m in Sources */,
 				4D990E211DC4EFA2005CDE34 /* UIViewController+TVJS.swift in Sources */,
 				4D990E3C1DC4F069005CDE34 /* LoadingViewController.swift in Sources */,
 			);

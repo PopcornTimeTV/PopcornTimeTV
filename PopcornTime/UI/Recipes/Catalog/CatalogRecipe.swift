@@ -10,12 +10,13 @@ class CatalogRecipe: RecipeType {
 
     let title: String
     var currentPage = 0
+    var isLoading: Bool = false
     let fetchBlock: (Int, @escaping (String) -> Void) -> Void
 
     init(title: String, fetchBlock: @escaping (Int, @escaping (String) -> Void) -> Void) {
         self.title = title
         self.fetchBlock = fetchBlock
-        lockup(didChangePage: 1) { (lockUp) in
+        lockup() { (lockUp) in
             self.lockUpString = lockUp
         }
     }
@@ -44,9 +45,13 @@ class CatalogRecipe: RecipeType {
         return xml
     }
 
-    open func lockup(didChangePage page: Int, completion: @escaping (String) -> Void) {
-        guard currentPage != page else { return }
-        currentPage = page
-        fetchBlock(currentPage, completion)
+    open func lockup(didChangePage completion: @escaping (String) -> Void) {
+        guard !isLoading else { return }
+        isLoading = true
+        currentPage += 1
+        fetchBlock(currentPage, {
+            self.isLoading = false
+            completion($0)
+        })
     }
 }

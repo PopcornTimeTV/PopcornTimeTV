@@ -20,8 +20,7 @@ var highlightSectionEvent = function(event) {
     var diff = lockupList.length - index;
     var parentNode = ele.parentNode
     if (diff <= 8) {
-        var nextPage = (lockupList.length / 50) + 1;
-        highlightLockup(nextPage, function(data) {
+        highlightLockup(function(data) {
           parentNode.innerHTML += data
           addEventListenersLockupElements(parentNode.childNodes)
         });

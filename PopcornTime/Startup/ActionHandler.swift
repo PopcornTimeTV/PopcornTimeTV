@@ -355,9 +355,9 @@ class ActionHandler: NSObject {
      */
     func serveCatalogRecipe(_ recipe: CatalogRecipe, topBarHidden hidden: Bool = false) {
         Kitchen.appController.evaluate(inJavaScriptContext: { jsContext in
-            let highlightLockup: @convention(block) (Int, JSValue) -> () = {(nextPage, callback) in
+            let highlightLockup: @convention(block) (JSValue) -> () = {(callback) in
                 if callback.isObject {
-                    recipe.lockup(didChangePage: nextPage, completion: { (lockUp) in
+                    recipe.lockup(didChangePage: { (lockUp) in
                         callback.call(withArguments: [lockUp])
                     })
                 }
