@@ -24,6 +24,8 @@ class SearchRecipe: TVMLKitchen.SearchRecipe {
     }
     
     override func filterSearchText(_ text: String, callback: ((String) -> Void)) {
+        guard !text.isEmpty else { callback(noData); return }
+        
         var searchXML = ""
         let semaphore = DispatchSemaphore(value: 0)
         
@@ -33,16 +35,8 @@ class SearchRecipe: TVMLKitchen.SearchRecipe {
                 guard let movies = movies, var xml = self.recipe else { semaphore.signal(); return }
                 let mapped = movies.map({ $0.lockUp })
                 
-                xml = xml.replacingOccurrences(of: "{{TITLE}}", with: "Found \(movies.count) \(movies.count == 1 ? "movie" : "movies") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: "\n"))
-
-
-
-                // TEMPORARY DEBUG LOGS (ROUND CORNERS)
-                print("⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️ DEBUG ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️")
-                print()
-                print(xml)
-                print()
-                print("⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️ DEBUG ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️")
+               xml = xml.replacingOccurrences(of: "{{TITLE}}", with: "Found \(movies.count) \(movies.count == 1 ? "movie" : "movies") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: ""))
+                
                 searchXML = xml
                 
                 semaphore.signal()
@@ -52,7 +46,7 @@ class SearchRecipe: TVMLKitchen.SearchRecipe {
                 guard let shows = shows, var xml = self.recipe else { semaphore.signal(); return }
                 let mapped = shows.map({ $0.lockUp })
                 
-                xml = xml.replacingOccurrences(of: "{{TITLE}}", with: "Found \(shows.count) \(shows.count == 1 ? "show" : "shows") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: "\n"))
+                xml = xml.replacingOccurrences(of: "{{TITLE}}", with: "Found \(shows.count) \(shows.count == 1 ? "show" : "shows") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: ""))
                 
                 searchXML = xml
                 
@@ -60,8 +54,10 @@ class SearchRecipe: TVMLKitchen.SearchRecipe {
             }
         default: return
         }
-        if semaphore.wait(timeout: .now() + 30) == .success {
+        if semaphore.wait(timeout: .now() + 10) == .success {
             callback(searchXML)
+        } else {
+            callback(noData)
         }
     }
 }

@@ -1,15 +1,9 @@
 <head>
     <style>
         .img {
-            tv-placeholder:movie;
+            tv-placeholder: movie;
             border-radius: small;
         }
-
-    img {
-        tv-placeholder:movie;
-        border-radius: small;
-    }
-
     </style>
 </head>
 
@@ -19,7 +13,6 @@
     </header>
 
     <section>
-<!--    <section id="Results">-->
         {{RESULTS}}
     </section>
 </grid>

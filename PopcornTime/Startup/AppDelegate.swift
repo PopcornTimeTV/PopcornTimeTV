@@ -26,7 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         WatchedlistManager.movie.syncTraktProgress()
+        WatchedlistManager.movie.getWatched()
+        WatchlistManager<Movie>.movie.getWatchlist()
         WatchedlistManager.episode.syncTraktProgress()
+        WatchedlistManager.episode.getWatched()
+        WatchlistManager<Episode>.episode.getWatchlist()
+        
         
         if let url = launchOptions?[.url] as? URL {
             self.application(.shared, open: url)
