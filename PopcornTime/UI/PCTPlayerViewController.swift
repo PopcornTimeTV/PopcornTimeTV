@@ -128,17 +128,16 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if startPosition > 0.0 {
-            let continueWatchingAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            continueWatchingAlert.addAction(UIAlertAction(title: "Continue Watching", style: .default, handler:{ action in
+            let continueWatchingAlert = UIAlertController(title: "Continue watching?", message: "Looks like you've already started watching this, would you like to start from the start or continue where you left off.", preferredStyle: .actionSheet)
+            continueWatchingAlert.addAction(UIAlertAction(title: "Yes, continue from where I left off", style: .default, handler:{ action in
                 self.mediaplayer.play()
                 self.mediaplayer.position = self.startPosition
                 self.progressBar.progress = CGFloat(self.startPosition)
             }))
-            continueWatchingAlert.addAction(UIAlertAction(title: "Start from beginning", style: .default, handler: { action in
+            continueWatchingAlert.addAction(UIAlertAction(title: "Nope, play from the begining", style: .default, handler: { action in
                 self.mediaplayer.play()
             }))
-            self.present(continueWatchingAlert, animated: true, completion: nil)
-            
+            present(continueWatchingAlert, animated: true, completion: nil)
         } else {
             mediaplayer.play()
         }
@@ -195,18 +194,20 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     func mediaPlayerStateChanged() {
         resetIdleTimer()
-        let type: Trakt.MediaType = media is Movie ? .movies : .episodes
+        let manager: WatchedlistManager = media is Movie ? .movie : .episode
         switch mediaplayer.state {
         case .error:
             fallthrough
         case .ended:
-            TraktManager.shared.scrobble(media.id, progress: Float(progressBar.progress), type: type, status: .finished)
             didFinishPlaying()
+            fallthrough
+        case .stopped:
+            manager.setCurrentProgress(Float(progressBar.progress), forId: media.id, withStatus: .finished)
         case .paused:
-            TraktManager.shared.scrobble(media.id, progress: Float(progressBar.progress), type: type, status: .paused)
+            manager.setCurrentProgress(Float(progressBar.progress), forId: media.id, withStatus: .paused)
             progressBar.isHidden ? toggleControlsVisible() : ()
         case .playing:
-            TraktManager.shared.scrobble(media.id, progress: Float(progressBar.progress), type: type, status: .watching)
+            manager.setCurrentProgress(Float(progressBar.progress), forId: media.id, withStatus: .watching)
         default:
             break
         }

@@ -55,7 +55,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     
     @IBAction func handlePositionSliderGesture(_ sender: UIPanGestureRecognizer) {
         let velocity = sender.velocity(in: view)
-        if fabs(velocity.y) > fabs(velocity.x) || presentedViewController is OptionsViewController {
+        if fabs(velocity.y) > fabs(velocity.x) && !progressBar.isScrubbing {
             presentOptionsViewController()
             handleOptionsGesture(sender)
             return

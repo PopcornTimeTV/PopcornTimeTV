@@ -10,6 +10,7 @@ doc.addEventListener("disappear", function(e) {
 });
 
 doc.addEventListener("appear", function(e) {
+  updateWatchlistButton();
   enableThemeSong();
 });
 
