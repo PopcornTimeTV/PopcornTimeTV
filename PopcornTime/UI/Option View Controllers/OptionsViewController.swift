@@ -17,7 +17,6 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
 
     var infoViewController: InfoViewController!
     var subtitlesViewController: SubtitlesViewController!
-    var audioViewController: AudioViewController!
 
     @IBAction func handleOptionsGesture(_ sender: UIPanGestureRecognizer) {
         let percentThreshold: CGFloat = 0.4
@@ -82,8 +81,6 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
             infoViewController = vc
         } else if let vc = segue.destination as? SubtitlesViewController {
             subtitlesViewController = vc
-        } else if let vc = segue.destination as? AudioViewController {
-            audioViewController = vc
         }
     }
 }

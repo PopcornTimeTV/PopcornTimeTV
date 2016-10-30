@@ -36,7 +36,6 @@
 		4D990E471DC4F0F1005CDE34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E451DC4F0F1005CDE34 /* AppDelegate.swift */; };
 		4D990E4C1DC4F102005CDE34 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E481DC4F102005CDE34 /* OptionsViewController.swift */; };
 		4D990E4D1DC4F102005CDE34 /* SubtitlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E491DC4F102005CDE34 /* SubtitlesViewController.swift */; };
-		4D990E4E1DC4F102005CDE34 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E4A1DC4F102005CDE34 /* AudioViewController.swift */; };
 		4D990E4F1DC4F102005CDE34 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E4B1DC4F102005CDE34 /* InfoViewController.swift */; };
 		4D990E5F1DC4F137005CDE34 /* SeasonProductRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E581DC4F137005CDE34 /* SeasonProductRecipe.swift */; };
 		4D990E601DC4F137005CDE34 /* ProductRecipe.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E591DC4F137005CDE34 /* ProductRecipe.js */; };
@@ -138,7 +137,6 @@
 		4D990E451DC4F0F1005CDE34 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Startup/AppDelegate.swift; sourceTree = "<group>"; };
 		4D990E481DC4F102005CDE34 /* OptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsViewController.swift; path = "UI/Option View Controllers/OptionsViewController.swift"; sourceTree = "<group>"; };
 		4D990E491DC4F102005CDE34 /* SubtitlesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubtitlesViewController.swift; path = "UI/Option View Controllers/SubtitlesViewController.swift"; sourceTree = "<group>"; };
-		4D990E4A1DC4F102005CDE34 /* AudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioViewController.swift; path = "UI/Option View Controllers/AudioViewController.swift"; sourceTree = "<group>"; };
 		4D990E4B1DC4F102005CDE34 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoViewController.swift; path = "UI/Option View Controllers/InfoViewController.swift"; sourceTree = "<group>"; };
 		4D990E581DC4F137005CDE34 /* SeasonProductRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SeasonProductRecipe.swift; path = UI/Recipes/Products/SeasonProductRecipe.swift; sourceTree = "<group>"; };
 		4D990E591DC4F137005CDE34 /* ProductRecipe.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = ProductRecipe.js; path = UI/Recipes/Products/ProductRecipe.js; sourceTree = "<group>"; };
@@ -301,7 +299,6 @@
 			children = (
 				4D990E481DC4F102005CDE34 /* OptionsViewController.swift */,
 				4D990E491DC4F102005CDE34 /* SubtitlesViewController.swift */,
-				4D990E4A1DC4F102005CDE34 /* AudioViewController.swift */,
 				4D990E4B1DC4F102005CDE34 /* InfoViewController.swift */,
 			);
 			name = "Option View Controllers";
@@ -668,7 +665,6 @@
 				4D990E801DC4F1BC005CDE34 /* Trending.swift in Sources */,
 				4D990E811DC4F1BC005CDE34 /* Genre.swift in Sources */,
 				D9C3D2211D4196340054BD9A /* VLCBufferingBar.m in Sources */,
-				4D990E4E1DC4F102005CDE34 /* AudioViewController.swift in Sources */,
 				4D990EA01DC4F2F5005CDE34 /* WatchlistRecipe.swift in Sources */,
 				4D0183A91DC3ACB500AB75B3 /* Locale+Langs.swift in Sources */,
 				4D990EAB1DC4F311005CDE34 /* WelcomeRecipe.swift in Sources */,

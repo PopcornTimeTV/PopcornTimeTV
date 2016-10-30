@@ -109,7 +109,7 @@ public struct SeasonProductRecipe: RecipeType {
 
     var episodesString: String {
         let mapped: [String] = show.episodes.filter({$0.season == season}).map {
-            var string = "<lockup actionID=\"chooseQuality»\(Mapper<Torrent>().toJSONString($0.torrents)?.cleaned ?? "")»\(Mapper<Show>().toJSONString(show)?.cleaned ?? "")\">" + "\n"
+            var string = "<lockup actionID=\"chooseQuality»\(Mapper<Torrent>().toJSONString($0.torrents)?.cleaned ?? "")»\(Mapper<Episode>().toJSONString($0)?.cleaned ?? "")\">" + "\n"
             string += "<img class=\"placeholder\" src=\"\($0.mediumBackgroundImage ?? "")\" width=\"310\" height=\"175\" />" + "\n"
             string += "<title>\($0.episode). \($0.title.cleaned)</title>" + "\n"
             string += "<overlay class=\"overlayPosition\">" + "\n"

@@ -104,19 +104,6 @@ class ActionHandler: NSObject {
     }
     
     /**
-     Marks a show as watched and adds to the users watchedlist if it's not added, removes if it is and optionally syncs with trakt. UI is updated here.
-     
-     - Parameter showString: A JSON representation of the show object to be added to the watchedlist. Use `Mapper` to achieve this.
-     */
-    func toggleShowWatchedlist(_ showString: String) {
-        guard let show = Mapper<Show>().map(JSONString: showString) else { return }
-        WatchedlistManager.show.isAdded(show.id) ? WatchedlistManager.show.remove(show.id) : WatchedlistManager.show.add(show.id)
-        Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
-            context.objectForKeyedSubscript("updateWatchedlistButton").call(withArguments: [])
-        }, completion: nil)
-    }
-    
-    /**
      If the description exceeds 6 lines, it becomes selectable and calls this upon selection. 
      
      - Parameter title:     The title of the media the user is viewing.
@@ -499,7 +486,7 @@ class ActionHandler: NSObject {
      - Parameter mediaString:   A JSON representation of the movie or show object to be streamed. Use `Mapper` to achieve this.
      */
     func streamTorrent(_ torrentString: String, _ mediaString: String) {
-        guard var media: Media = Mapper<Movie>().map(JSONString: mediaString) ?? Mapper<Show>().map(JSONString: mediaString),
+        guard var media: Media = Mapper<Movie>().map(JSONString: mediaString) ?? Mapper<Episode>().map(JSONString: mediaString),
                 let torrent = Mapper<Torrent>().map(JSONString: torrentString) else { return }
         
         Kitchen.dismissModal()
@@ -512,7 +499,7 @@ class ActionHandler: NSObject {
             })
         }
         
-        let currentProgress = WatchedlistManager.movie.currentProgress(media.id)
+        let currentProgress = media is Movie ? WatchedlistManager.movie.currentProgress(media.id) : WatchedlistManager.episode.currentProgress(media.id)
         
         let loadingViewController = storyboard.instantiateViewController(withIdentifier: "LoadingViewController") as! LoadingViewController
         loadingViewController.backgroundImageString = media.largeBackgroundImage
@@ -534,7 +521,6 @@ class ActionHandler: NSObject {
         
         SubtitlesManager.shared.search(imdbId: media.id) { (subtitles, _) in
             media.subtitles = subtitles
-            
             media.play(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
         }
     }

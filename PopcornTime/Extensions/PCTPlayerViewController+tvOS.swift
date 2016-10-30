@@ -5,6 +5,14 @@ import Foundation
 // MARK: Transitioning Delegate
 extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, OptionsViewControllerDelegate {
     
+    func didSelectSize(_ size: Float) {
+        (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: size))
+    }
+    
+    func didSelectEncoding(_ encoding: String) {
+        mediaplayer.media.addOptions([kVLCSettingTextEncoding: encoding])
+    }
+    
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return presented is OptionsViewController ? OptionsAnimatedTransitioning(isPresenting: true) : nil
         
@@ -47,7 +55,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     
     @IBAction func handlePositionSliderGesture(_ sender: UIPanGestureRecognizer) {
         let velocity = sender.velocity(in: view)
-        if fabs(velocity.y) > fabs(velocity.x) || presentedViewController is OptionsViewController {
+        if fabs(velocity.y) > fabs(velocity.x) && !progressBar.isScrubbing {
             presentOptionsViewController()
             handleOptionsGesture(sender)
             return
@@ -65,11 +73,13 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
             lastTranslation = 0.0
             progressBar.isScrubbing = false
         case .began:
+            progressBar.isHidden ? toggleControlsVisible() : ()
+            progressBar.hint = .scanForward
             mediaplayer.isPlaying ? mediaplayer.pause() : ()
+            progressBar.isScrubbing = true
+            resetIdleTimer()
             fallthrough
         case .changed:
-            progressBar.isHidden = false
-            progressBar.isScrubbing = true
             progressBar.progress = offset
             positionSliderDidDrag()
             lastTranslation = translation.x
@@ -91,9 +101,6 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         destinationController.subtitlesViewController.currentSubtitle = currentSubtitle
         destinationController.subtitlesViewController.delegate = self
         destinationController.infoViewController.media = media
-        destinationController.audioViewController.languages = mediaplayer.audioTrackNames as? [String] ?? [String]()
-        destinationController.audioViewController.currentLanguage = destinationController.audioViewController.languages[Int(mediaplayer.currentAudioTrackIndex)]
     }
 }
-
 

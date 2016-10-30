@@ -2,23 +2,14 @@ var doc = makeDocument(`{{RECIPE}}`);
 doc.addEventListener("select", load.bind(this));
 doc.addEventListener("play", play.bind(this));
 
-var disappearEvent = new CustomEvent("disappear");
-var appearEvent = new CustomEvent("appear");
-
-doc.addEventListener("disappear", function(e) {
-  disableThemeSong();
-});
-
-doc.addEventListener("appear", function(e) {
-  enableThemeSong();
-});
-
 function viewDidDisappear() {
-    doc.getElementById("watchlistButton").dispatchEvent(disappearEvent); // Get random element to dispatch event off.
+    disableThemeSong();
 }
 
 function viewDidAppear() {
-    doc.getElementById("watchlistButton").dispatchEvent(appearEvent); // Get random element to dispatch event off.
+    // If element is not nil it means the view has definately appeared.
+    if (doc.getElementById("watchlistButton") == -1) { return; }
+    enableThemeSong();
 }
 
 function updateWatchlistButton() {
