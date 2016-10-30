@@ -34,7 +34,15 @@ class SearchRecipe: TVMLKitchen.SearchRecipe {
                 let mapped = movies.map({ $0.lockUp })
                 
                 xml = xml.replacingOccurrences(of: "{{TITLE}}", with: "Found \(movies.count) \(movies.count == 1 ? "movie" : "movies") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: "\n"))
-                
+
+
+
+                // TEMPORARY DEBUG LOGS (ROUND CORNERS)
+                print("⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️ DEBUG ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️")
+                print()
+                print(xml)
+                print()
+                print("⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️ DEBUG ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️")
                 searchXML = xml
                 
                 semaphore.signal()

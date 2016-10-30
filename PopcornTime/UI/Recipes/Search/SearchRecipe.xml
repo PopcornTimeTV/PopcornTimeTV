@@ -2,7 +2,14 @@
     <style>
         .img {
             tv-placeholder:movie;
+            border-radius: small;
         }
+
+    img {
+        tv-placeholder:movie;
+        border-radius: small;
+    }
+
     </style>
 </head>
 
@@ -10,8 +17,9 @@
     <header>
         <title>{{TITLE}}</title>
     </header>
-    
-    <section id="Results">
+
+    <section>
+<!--    <section id="Results">-->
         {{RESULTS}}
     </section>
 </grid>

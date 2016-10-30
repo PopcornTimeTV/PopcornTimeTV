@@ -30,7 +30,7 @@ public struct WatchlistRecipe: RecipeType {
         let mapped: [String] = media.map {
             let type = $0 is Movie ? "Movie" : "Show"
             var string = "<lockup actionID=\"show\(type)»\($0.title)»\($0.id)\">"
-            string += "<img src=\"\($0.mediumCoverImage ?? "")\" width=\"250\" height=\"375\" />"
+            string += "<img class=\"img\" src=\"\($0.mediumCoverImage ?? "")\" width=\"250\" height=\"375\" />"
             string += "<title class=\"hover\">\($0.title.cleaned)</title>"
             string += "</lockup>"
             return string
