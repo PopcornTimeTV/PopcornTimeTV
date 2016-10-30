@@ -534,7 +534,6 @@ class ActionHandler: NSObject {
         
         SubtitlesManager.shared.search(imdbId: media.id) { (subtitles, _) in
             media.subtitles = subtitles
-            
             media.play(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
         }
     }

@@ -20,8 +20,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     // MARK: - Slider actions
 
     func positionSliderDidDrag() {
-        resetIdleTimer()
-        progressBar.hint = .scanForward
         let streamDuration = CGFloat((fabsf(mediaplayer.remainingTime.value.floatValue) + mediaplayer.time.value.floatValue))
         let time = NSNumber(value: Float(progressBar.progress * streamDuration))
         let remainingTime = NSNumber(value: time.floatValue - Float(streamDuration))
@@ -145,7 +143,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             mediaplayer.play()
         }
         ThemeSongManager.shared.stopTheme() // Make sure theme song isn't playing.
-        resetIdleTimer()
     }
     
     override func viewDidLoad() {
@@ -161,7 +158,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         currentSubtitle = subtitles.filter({ $0.language == settings.language }).first
         (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.fontSize))
         (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.fontColor.hexInt()))
-        mediaplayer.media.addOptions([kVLCSettingTextEncoding : settings.encoding])
+        mediaplayer.media.addOptions([kVLCSettingTextEncoding: settings.encoding])
 
 //        if let nextMedia = nextMedia {
 //            upNextView.delegate = self
@@ -203,13 +200,11 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         case .error:
             fallthrough
         case .ended:
-            fallthrough
-        case .stopped:
             TraktManager.shared.scrobble(media.id, progress: Float(progressBar.progress), type: type, status: .finished)
             didFinishPlaying()
         case .paused:
             TraktManager.shared.scrobble(media.id, progress: Float(progressBar.progress), type: type, status: .paused)
-            toggleControlsVisible()
+            progressBar.isHidden ? toggleControlsVisible() : ()
         case .playing:
             TraktManager.shared.scrobble(media.id, progress: Float(progressBar.progress), type: type, status: .watching)
         default:
@@ -254,7 +249,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     func resetIdleTimer() {
         if idleTimer == nil {
             idleTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(idleTimerExceeded), userInfo: nil, repeats: false)
-            if !mediaplayer.isPlaying || loadingActivityIndicatorView.isHidden == false // If paused or loading, cancel timer so UI doesn't disappear
+            if !mediaplayer.isPlaying || loadingActivityIndicatorView.isHidden == false || progressBar.isScrubbing // If paused, scrubbing or loading, cancel timer so UI doesn't disappear
             {
                 idleTimer.invalidate()
                 idleTimer = nil
