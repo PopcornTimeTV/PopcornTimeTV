@@ -90,8 +90,18 @@ public struct MovieProductRecipe: RecipeType {
 
     var watchlistButton: String {
         var string = "<buttonLockup id =\"watchlistButton\" actionID=\"toggleMovieWatchlist»\(Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")\">\n"
-        string += "<badge id =\"watchlistButtonBadge\" src=\"resource://button-{{WATCHLIST_ACTION}}\" />\n"
+        let action = WatchlistManager<Movie>.movie.isAdded(movie) ? "remove" : "add"
+        string += "<badge id =\"watchlistButtonBadge\" src=\"resource://button-\(action)\" />\n"
         string += "<title>Watchlist</title>\n"
+        string += "</buttonLockup>"
+        return string
+    }
+    
+    var watchedlistButton: String {
+        var string = "<buttonLockup id =\"watchedlistButton\" actionID=\"toggleMovieWatchedlist»\(Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")\">\n"
+        let action = WatchedlistManager.movie.isAdded(movie.id) ? "watched" : "unwatched"
+        string += "<badge id =\"watchedlistButtonBadge\" src=\"resource://button-\(action)\" />\n"
+        string += "<title>Watched</title>\n"
         string += "</buttonLockup>"
         return string
     }
@@ -122,11 +132,8 @@ public struct MovieProductRecipe: RecipeType {
                 xml = xml.replacingOccurrences(of: "{{CAST}}", with: castString)
 
                 xml = xml.replacingOccurrences(of: "{{WATCH_LIST_BUTTON}}", with: watchlistButton)
-                if WatchlistManager<Movie>.movie.isAdded(movie) {
-                    xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "remove")
-                } else {
-                    xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "add")
-                }
+                xml = xml.replacingOccurrences(of: "{{WATCHED_LIST_BUTTON}}", with: watchedlistButton)
+                
                 xml = xml.replacingOccurrences(of: "{{MOVIE}}", with: Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")
                 xml = xml.replacingOccurrences(of: "{{TORRENTS}}", with: Mapper<Torrent>().toJSONString(movie.torrents)?.cleaned ?? "")
                 

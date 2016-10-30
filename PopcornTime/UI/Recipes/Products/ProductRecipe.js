@@ -21,8 +21,6 @@ function viewDidAppear() {
     doc.getElementById("watchlistButton").dispatchEvent(appearEvent); // Get random element to dispatch event off.
 }
 
-
-defaultPresenter(doc);
 function updateWatchlistButton() {
     var watchlistButton = doc.getElementById("watchlistButton");
     if (watchlistButton.innerHTML.indexOf("button-remove") == -1) {
@@ -38,3 +36,14 @@ function changeSeason(number) {
         navigationDocument.dismissModal();
     });
 }
+
+function updateWatchedlistButton() {
+    var watchedlistButton = doc.getElementById("watchedlistButton");
+    if (watchedlistButton.innerHTML.indexOf("button-watched") == -1) {
+        watchedlistButton.innerHTML = watchedlistButton.innerHTML.replace("button-unwatched","button-watched");
+    } else {
+        watchedlistButton.innerHTML = watchedlistButton.innerHTML.replace("button-watched","button-unwatched");
+    }
+}
+
+defaultPresenter(doc);

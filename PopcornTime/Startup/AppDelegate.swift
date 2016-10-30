@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         if !UserDefaults.standard.bool(forKey: "isntFirstLaunch") {
-            UserDefaults.standard.set(0.75, forKey: "ThemeSongVolume")
+            UserDefaults.standard.set(0.75, forKey: "themeSongVolume")
             UserDefaults.standard.set(true, forKey: "isntFirstLaunch")
         }
         

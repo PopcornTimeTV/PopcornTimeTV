@@ -88,6 +88,34 @@ class ActionHandler: NSObject {
             }, completion: nil)
     }
     
+    // MARK: - Watchedlist
+    
+    /**
+     Marks a movie as watched and adds to the users watchedlist if it's not added, removes if it is and optionally syncs with trakt. UI is updated here.
+     
+     - Parameter movieString: A JSON representation of the movie object to be added to the watchedlist. Use `Mapper` to achieve this.
+     */
+    func toggleMovieWatchedlist(_ movieString: String) {
+        guard let movie = Mapper<Movie>().map(JSONString: movieString) else { return }
+        WatchedlistManager.movie.isAdded(movie.id) ? WatchedlistManager.movie.remove(movie.id) : WatchedlistManager.movie.add(movie.id)
+        Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
+            context.objectForKeyedSubscript("updateWatchedlistButton").call(withArguments: [])
+        }, completion: nil)
+    }
+    
+    /**
+     Marks a show as watched and adds to the users watchedlist if it's not added, removes if it is and optionally syncs with trakt. UI is updated here.
+     
+     - Parameter showString: A JSON representation of the show object to be added to the watchedlist. Use `Mapper` to achieve this.
+     */
+    func toggleShowWatchedlist(_ showString: String) {
+        guard let show = Mapper<Show>().map(JSONString: showString) else { return }
+        WatchedlistManager.show.isAdded(show.id) ? WatchedlistManager.show.remove(show.id) : WatchedlistManager.show.add(show.id)
+        Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
+            context.objectForKeyedSubscript("updateWatchedlistButton").call(withArguments: [])
+        }, completion: nil)
+    }
+    
     /**
      If the description exceeds 6 lines, it becomes selectable and calls this upon selection. 
      
@@ -162,12 +190,12 @@ class ActionHandler: NSObject {
                     context.setObject(unsafeBitCast(disableThemeSong, to: AnyObject.self),
                                       forKeyedSubscript: "disableThemeSong" as (NSCopying & NSObjectProtocol)!)
                     
-                    if let file = Bundle.main.url(forResource: "MovieProductRecipe", withExtension: "js") {
+                    if let file = Bundle.main.url(forResource: "ProductRecipe", withExtension: "js") {
                         do {
                             let js = try String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
                             context.evaluateScript(js)
                         } catch {
-                            print("Could not open MovieProductRecipe.js")
+                            print("Could not open ProductRecipe.js")
                         }
                     }
                     }, completion: nil)
@@ -252,12 +280,12 @@ class ActionHandler: NSObject {
                     context.setObject(unsafeBitCast(disableThemeSong, to: AnyObject.self),
                                       forKeyedSubscript: "disableThemeSong" as (NSCopying & NSObjectProtocol)!)
                     
-                    if let file = Bundle.main.url(forResource: "SeasonProductRecipe", withExtension: "js") {
+                    if let file = Bundle.main.url(forResource: "ProductRecipe", withExtension: "js") {
                         do {
                             let js = try String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
                             context.evaluateScript(js)
                         } catch {
-                            print("Could not open SeasonProductRecipe.js")
+                            print("Could not open ProductRecipe.js")
                         }
                     }
                     }, completion: nil)

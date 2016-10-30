@@ -96,7 +96,7 @@ public struct SeasonProductRecipe: RecipeType {
     }
 
     var seasonsButtonTitle: String {
-        return "<badge src=\"resource://button-season\" width=\"50px\" height=\"37px\"></badge>"
+        return "<badge src=\"resource://seasons_mask\" width=\"50px\" height=\"37px\"></badge>"
     }
 
     var seasonsButton: String {
