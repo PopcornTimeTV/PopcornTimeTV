@@ -4,205 +4,140 @@ import UIKit
 import PopcornKit
 import TVMLKitchen
 
-class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TraktManagerDelegate {
+class SettingsViewController: UIViewController, TraktManagerDelegate { }
+
+class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
     
+    // MARK: TraktManagerDelegate
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var settingsIcon: UIImageView!
+    func authenticationDidSucceed() {
+        dismiss(animated: true, completion: nil)
+        tableView.reloadData()
+    }
+    
+    func authenticationDidFail(withError error: NSError) {
+        dismiss(animated: true, completion: nil)
+        Kitchen.serve(recipe: AlertRecipe(title: "Failed to authenticate with Trakt", description: error.localizedDescription, buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .modal))
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.contentInset.top = 100
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
-        self.tableView.contentInset = UIEdgeInsets(top: 100, left: -50, bottom: 0, right: 0)
-        self.settingsIcon.image = UIImage(named: "settings.png")
-    }
-
-    // MARK: Table View
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0: return 1
-        case 1: return 3
-        case 2: return 3
-        case 3: return 1
-        default: return 0
-        }
-    }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0: return "Theme Music"
-        case 1: return "Player"
-        case 2: return "Other"
-        case 3: return "Trakt"
-        default: return nil
-        }
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-
         switch indexPath.section {
         case 0:
             if indexPath.row == 0 {
-                cell.textLabel?.text = "Theme Song Volume"
-                
-                let volume = (UserDefaults.standard.object(forKey: "ThemeSongVolume") as? NSNumber) ?? NSNumber(value: 0.75)
-                cell.detailTextLabel?.text = "\(Int(volume.doubleValue * 100))%"
-                cell.accessoryType = .none
+                cell.detailTextLabel?.text = "\(Int(UserDefaults.standard.float(forKey: "themeSongVolume") * 100))%"
+            } else if indexPath.row == 1 {
+                cell.detailTextLabel?.text = UserDefaults.standard.string(forKey: "preferredQuality") ?? "1080p"
+            } else if indexPath.row == 2 {
+                cell.detailTextLabel?.text = UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit") ? "On" : "Off"
             }
-
         case 1:
-            let settings = SubtitleSettings()
+            let subtitleSettings = SubtitleSettings()
             
             if indexPath.row == 0 {
-                cell.textLabel?.text = "Subtitle Font Size"
-                if settings.fontSize == 20.0 {
-                    cell.detailTextLabel?.text = "Small"
-                } else if settings.fontSize == 16.0 {
-                    cell.detailTextLabel?.text = "Medium"
-                } else if settings.fontSize == 12.0 {
-                    cell.detailTextLabel?.text = "Medium Large"
-                } else if settings.fontSize == 6.0 {
-                    cell.detailTextLabel?.text = "Large"
-                }
-                cell.accessoryType = .none
+                cell.detailTextLabel?.text = subtitleSettings.language ?? "None"
             } else if indexPath.row == 1 {
-                cell.textLabel?.text = "Subtitle Encoding"
-                cell.detailTextLabel?.text = settings.encoding
-                cell.accessoryType = .none
+                switch subtitleSettings.fontSize {
+                case 20.0 : cell.detailTextLabel?.text = "Small"
+                case 16.0 : cell.detailTextLabel?.text = "Medium"
+                case 12.0 : cell.detailTextLabel?.text = "Medium Large"
+                case 6.0  : cell.detailTextLabel?.text = "Large"
+                default: break
+                }
             } else if indexPath.row == 2 {
-                cell.textLabel?.text = "Subtitle Language"
-                cell.detailTextLabel?.text = settings.language ?? "None"
-                cell.accessoryType = .none
+                let index = UIColor.systemColors.index(of: subtitleSettings.fontColor)!
+                cell.detailTextLabel?.text = UIColor.systemColorStrings[index]
+            } else if indexPath.row == 3 {
+                cell.detailTextLabel?.text = subtitleSettings.encoding
             }
-
         case 2:
             if indexPath.row == 0 {
-                cell.textLabel?.text = "Clear All Cache"
-                cell.detailTextLabel?.text = ""
-                cell.accessoryType = .none
+                cell.detailTextLabel?.text = TraktManager.shared.isSignedIn() ? "Sign Out" : "Sign In"
             } else if indexPath.row == 1 {
-                cell.textLabel?.text = "Check for updates"
+                cell.detailTextLabel?.text = UserDefaults.standard.bool(forKey: "authorizedOpenSubs") ? "Sign Out" : "Sign In"
+            }
+        case 3:
+            if indexPath.row == 1 {
                 var date = "Never."
                 if let lastChecked = UserDefaults.standard.object(forKey: "lastVersionCheckPerformedOnDate") as? Date {
                     date = DateFormatter.localizedString(from: lastChecked, dateStyle: .short, timeStyle: .short)
                 }
                 cell.detailTextLabel?.text = "Last checked: \(date)"
-                cell.accessoryType = .none
             } else if indexPath.row == 2 {
-                cell.textLabel?.text = "Version"
                 cell.detailTextLabel?.text = "\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")!).\(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion")!)"
-                cell.accessoryType = .none
             }
-    
-        case 3:
-            if indexPath.row == 0 {
-                cell.textLabel?.text = "Sign into Trakt"
-                cell.detailTextLabel?.text = ""
-                if TraktManager.shared.isSignedIn() {
-                    cell.textLabel?.text = "Sign out from Trakt"
-                }
-                cell.accessoryType = .none
-            }
-        default: break
+        default:
+            break
         }
+        
         return cell
     }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath, animated: true)
-
+        
         switch indexPath.section {
         case 0:
             if indexPath.row == 0 {
-                
                 let handler: (UIAlertAction) -> Void = { action in
                     guard let title = action.title?.replacingOccurrences(of: "%", with: ""),
                         let value = Double(title) else { return }
-                    UserDefaults.standard.set(value/100.0, forKey: "ThemeSongVolume")
+                    UserDefaults.standard.set(value/100.0, forKey: "themeSongVolume")
                     tableView.reloadData()
                 }
                 let alertController = UIAlertController(title: "Theme Song Volume", message: "Choose a volume for the TV Show and Movie theme songs", preferredStyle: .alert)
                 
-                alertController.addAction(UIAlertAction(title: "Off", style: .cancel, handler: { action in
-                    UserDefaults.standard.set(0.0, forKey: "ThemeSongVolume")
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                alertController.addAction(UIAlertAction(title: "Off", style: .default, handler: { action in
+                    UserDefaults.standard.set(0.0, forKey: "themeSongVolume")
                     tableView.reloadData()
                 }))
-
+                
                 alertController.addAction(UIAlertAction(title: "25%", style: .default, handler: handler))
                 alertController.addAction(UIAlertAction(title: "50%", style: .default, handler: handler))
                 alertController.addAction(UIAlertAction(title: "75%", style: .default, handler: handler))
                 alertController.addAction(UIAlertAction(title: "100%", style: .default, handler: handler))
                 
-                alertController.preferredAction = alertController.actions.first(where: { $0.title == String((UserDefaults.standard.float(forKey: "ThemeSongVolume") * 100.0)).appending("%") })
-
+                alertController.preferredAction = alertController.actions.first(where: { $0.title == String(Int((UserDefaults.standard.float(forKey: "themeSongVolume") * 100.0))).appending("%") })
+                
                 self.present(alertController, animated: true, completion: nil)
-            }
-
-        case 1:
-            let settings = SubtitleSettings()
-            if indexPath.row == 0 {
-                let alertController = UIAlertController(title: "Subtitle Font Size", message: "Choose a font size for the player subtitles.", preferredStyle: .alert)
-                
-                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                
-                alertController.addAction(UIAlertAction(title: "Small (46pts)", style: .default, handler: { action in
-                    settings.fontSize = 20.0
-                    settings.save()
-                    tableView.reloadData()
-                }))
-                
-                alertController.addAction(UIAlertAction(title: "Medium (56pts)", style: .default, handler: { action in
-                    settings.fontSize = 16.0
-                    settings.save()
-                    tableView.reloadData()
-                }))
-                
-                alertController.addAction(UIAlertAction(title: "Medium Large (66pts)", style: .default, handler: { action in
-                    settings.fontSize = 12.0
-                    settings.save()
-                    tableView.reloadData()
-                }))
-                
-                alertController.addAction(UIAlertAction(title: "Large (96pts)", style: .default, handler: { action in
-                    settings.fontSize = 6.0
-                    settings.save()
-                    tableView.reloadData()
-                }))
-                self.present(alertController, animated: true, completion: nil)
-            } else if indexPath.row == 1,
-                let path = Bundle.main.path(forResource: "EncodingTypes", ofType: "plist"),
-                let labels = NSDictionary(contentsOfFile: path) as? [String: [String]],
-                let titles = labels["Titles"],
-                let values = labels["Values"]  {
-                
-                let alertController = UIAlertController(title: "Subtitle Encoding", message: "Choose encoding for the player subtitles.", preferredStyle: .alert)
+            } else if indexPath.row == 1 {
                 let handler: (UIAlertAction) -> Void = { action in
-                    settings.encoding = values[titles.index(of: action.title!)!]
-                    settings.save()
+                    UserDefaults.standard.setValue(action.title!, forKey: "preferredQuality")
                     tableView.reloadData()
                 }
+                let alertController = UIAlertController(title: "Preferred Quality", message: "Choose your preferred quality for torrents and they will be automatically selected whenever available.", preferredStyle: .alert)
                 
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 
-                for title in titles {
-                    alertController.addAction(UIAlertAction(title: title, style: .default, handler: handler))
-                }
+                alertController.addAction(UIAlertAction(title: "1080p", style: .default, handler: handler))
+                alertController.addAction(UIAlertAction(title: "720p", style: .default, handler: handler))
+                alertController.addAction(UIAlertAction(title: "480p", style: .default, handler: handler))
                 
-                alertController.preferredAction = alertController.actions.first(where: { $0.title == titles[values.index(of: settings.encoding)!] })
+                alertController.preferredAction = alertController.actions.first(where: { $0.title == UserDefaults.standard.string(forKey: "preferredQuality") ?? "1080p" })
                 
                 self.present(alertController, animated: true, completion: nil)
             } else if indexPath.row == 2 {
+                let value = UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit")
+                UserDefaults.standard.set(!value, forKey: "removeCacheOnPlayerExit")
+                tableView.reloadData()
+            }
+        case 1:
+            let subtitleSettings = SubtitleSettings()
+            if indexPath.row == 0 {
+                
                 let alertController = UIAlertController(title: "Subtitle Language", message: "Choose a default language for the player subtitles.", preferredStyle: .alert)
                 
                 let handler: (UIAlertAction) -> Void = { action in
-                    settings.language = action.title == "None" ? nil : action.title!
-                    settings.save()
+                    subtitleSettings.language = action.title == "None" ? nil : action.title!
+                    subtitleSettings.save()
                     tableView.reloadData()
                 }
                 
@@ -213,11 +148,131 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     alertController.addAction(UIAlertAction(title: language, style: .default, handler: handler))
                 }
                 
-                alertController.preferredAction = alertController.actions.first(where: { $0.title == settings.language })
+                alertController.preferredAction = alertController.actions.first(where: { $0.title == subtitleSettings.language })
+                
+                self.present(alertController, animated: true, completion: nil)
+            } else if indexPath.row == 1 {
+                let alertController = UIAlertController(title: "Subtitle Font Size", message: "Choose a font size for the player subtitles.", preferredStyle: .alert)
+                
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                
+                alertController.addAction(UIAlertAction(title: "Small (46pts)", style: .default, handler: { action in
+                    subtitleSettings.fontSize = 20.0
+                    subtitleSettings.save()
+                    tableView.reloadData()
+                }))
+                
+                alertController.addAction(UIAlertAction(title: "Medium (56pts)", style: .default, handler: { action in
+                    subtitleSettings.fontSize = 16.0
+                    subtitleSettings.save()
+                    tableView.reloadData()
+                }))
+                
+                alertController.addAction(UIAlertAction(title: "Medium Large (66pts)", style: .default, handler: { action in
+                    subtitleSettings.fontSize = 12.0
+                    subtitleSettings.save()
+                    tableView.reloadData()
+                }))
+                
+                alertController.addAction(UIAlertAction(title: "Large (96pts)", style: .default, handler: { action in
+                    subtitleSettings.fontSize = 6.0
+                    subtitleSettings.save()
+                    tableView.reloadData()
+                }))
+                self.present(alertController, animated: true, completion: nil)
+            } else if indexPath.row == 2 {
+                let alertController = UIAlertController(title: "Subtitle Color", message: "Choose text color for the player subtitles.", preferredStyle: .alert)
+                
+                let handler: (UIAlertAction) -> Void = { action in
+                    subtitleSettings.fontColor = UIColor.systemColors[UIColor.systemColorStrings.index(of: action.title!)!]
+                    subtitleSettings.save()
+                    tableView.reloadData()
+                }
+                
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                
+                for title in UIColor.systemColorStrings {
+                    alertController.addAction(UIAlertAction(title: title, style: .default, handler: handler))
+                }
+                
+                alertController.preferredAction = alertController.actions.first(where: { $0.title == UIColor.systemColorStrings[UIColor.systemColors.index(of: subtitleSettings.fontColor)!] })
+                
+                self.present(alertController, animated: true, completion: nil)
+            } else if indexPath.row == 3,
+                let path = Bundle.main.path(forResource: "EncodingTypes", ofType: "plist"),
+                let labels = NSDictionary(contentsOfFile: path) as? [String: [String]],
+                let titles = labels["Titles"],
+                let values = labels["Values"]  {
+                
+                let alertController = UIAlertController(title: "Subtitle Encoding", message: "Choose encoding for the player subtitles.", preferredStyle: .alert)
+                
+                let handler: (UIAlertAction) -> Void = { action in
+                    subtitleSettings.encoding = values[titles.index(of: action.title!)!]
+                    subtitleSettings.save()
+                    tableView.reloadData()
+                }
+                
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                
+                for title in titles {
+                    alertController.addAction(UIAlertAction(title: title, style: .default, handler: handler))
+                }
+                
+                alertController.preferredAction = alertController.actions.first(where: { $0.title == titles[values.index(of: subtitleSettings.encoding)!] })
                 
                 self.present(alertController, animated: true, completion: nil)
             }
         case 2:
+            if indexPath.row == 0 {
+                if TraktManager.shared.isSignedIn() {
+                    TraktManager.shared.logout()
+                    tableView.reloadData()
+                } else {
+                    TraktManager.shared.delegate = parent as! SettingsViewController
+                    let vc = TraktManager.shared.loginViewController()
+                    present(vc, animated:true, completion:nil)
+                }
+            } else if indexPath.row == 1 {
+                if UserDefaults.standard.bool(forKey: "authorizedOpenSubs") {
+                    let alert = UIAlertController(title: "Sign Out", message: "Are you sure you want to Sign Out?", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { action in
+                        
+                        let credential = URLCredentialStorage.shared.credentials(for: SubtitlesManager.shared.protectionSpace)!.values.first!
+                        URLCredentialStorage.shared.remove(credential, for: SubtitlesManager.shared.protectionSpace)
+                        UserDefaults.standard.set(false, forKey: "authorizedOpenSubs")
+                        tableView.reloadData()
+                    }))
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                    present(alert, animated: true, completion: nil)
+                } else {
+                    var alert = UIAlertController(title: "Sign In", message: "VIP account required.", preferredStyle: .alert)
+                    alert.addTextField(configurationHandler: { (textField) in
+                        textField.placeholder = "Username"
+                    })
+                    alert.addTextField(configurationHandler: { (textField) in
+                        textField.placeholder = "Password"
+                        textField.isSecureTextEntry = true
+                    })
+                    alert.addAction(UIAlertAction(title: "Sign In", style: .default, handler: { (action) in
+                        let credential = URLCredential(user: alert.textFields![0].text!, password: alert.textFields![1].text!, persistence: .permanent)
+                        URLCredentialStorage.shared.set(credential, for: SubtitlesManager.shared.protectionSpace)
+                        SubtitlesManager.shared.login() { error in
+                            if let error = error {
+                                URLCredentialStorage.shared.remove(credential, for: SubtitlesManager.shared.protectionSpace)
+                                alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                                self.present(alert, animated: true, completion: nil)
+                            } else {
+                                UserDefaults.standard.set(true, forKey: "authorizedOpenSubs")
+                                tableView.reloadData()
+                            }
+                        }
+                    }))
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                    present(alert, animated: true, completion: nil)
+                }
+            }
+        case 3:
             if indexPath.row == 0 {
                 let controller = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
                 controller.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -269,52 +324,12 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                             self?.present(alert, animated: true, completion: nil)
                         }
-                        self?.tableView.reloadData()
-
+                        tableView.reloadData() 
                     }
                 }
             }
-        case 3:
-            if indexPath.row == 0 {
-                if TraktManager.shared.isSignedIn() {
-                    TraktManager.shared.logout()
-                    self.tableView.reloadData()
-                } else{
-                    TraktManager.shared.delegate = self
-                    let vc = TraktManager.shared.loginViewController()
-                    present(vc, animated:true, completion:nil)
-                }
-                
-            }
-        default: break
+        default:
+            break
         }
-    }
-
-    func indexPathForPreferredFocusedView(in tableView: UITableView) -> IndexPath? {
-        return IndexPath(row: 0, section: 0)
-    }
-
-    func clearCache() {
-        let paths = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
-        if let cachesDirectory = paths.first {
-            guard let subs = try? FileManager.default.contentsOfDirectory(atPath: cachesDirectory) else {
-                return
-            }
-            for item in subs {
-                _ = try? FileManager.default.removeItem(atPath: (cachesDirectory as NSString).appendingPathComponent(item))
-            }
-        }
-    }
-
-    // MARK: TraktManagerDelegate
-    
-    func authenticationDidSucceed() {
-        dismiss(animated: true, completion: nil)
-        tableView.reloadData()
-    }
-    
-    func authenticationDidFail(withError error: NSError) {
-        dismiss(animated: true, completion: nil)
-        Kitchen.serve(recipe: AlertRecipe(title: "Failed to authenticate with Trakt", description: error.localizedDescription, buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .modal))
     }
 }

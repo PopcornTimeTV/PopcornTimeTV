@@ -63,7 +63,7 @@
 		4D990EAB1DC4F311005CDE34 /* WelcomeRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990EA91DC4F311005CDE34 /* WelcomeRecipe.swift */; };
 		4D990EAE1DC4F31D005CDE34 /* SearchRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990EAC1DC4F31D005CDE34 /* SearchRecipe.swift */; };
 		4D990EAF1DC4F31D005CDE34 /* SearchRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D990EAD1DC4F31D005CDE34 /* SearchRecipe.xml */; };
-		4DCCBA5B1DC50D780046C755 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Hex.swift */; };
+		4DCCBA5B1DC50D780046C755 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
 		92CF4A0A1CE6692900D666A8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CF4A091CE6692900D666A8 /* libz.tbd */; };
 		9D791981BEDEC8982B768977 /* Pods_TopShelf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */; };
 		D9C3D2211D4196340054BD9A /* VLCBufferingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C3D2181D4196340054BD9A /* VLCBufferingBar.m */; };
@@ -166,7 +166,7 @@
 		4D990EAC1DC4F31D005CDE34 /* SearchRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchRecipe.swift; path = UI/Recipes/Search/SearchRecipe.swift; sourceTree = "<group>"; };
 		4D990EAD1DC4F31D005CDE34 /* SearchRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = SearchRecipe.xml; path = UI/Recipes/Search/SearchRecipe.xml; sourceTree = "<group>"; };
 		4DC870B51D9EDE58005455B0 /* PopcornTime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopcornTime.entitlements; sourceTree = "<group>"; };
-		4DCCBA5A1DC50D780046C755 /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+Hex.swift"; path = "Extensions/UIColor+Hex.swift"; sourceTree = "<group>"; };
+		4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+Extension.swift"; path = "Extensions/UIColor+Extension.swift"; sourceTree = "<group>"; };
 		59BE8A67A9D4954F63D16C0E /* Pods-PopcornTime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.debug.xcconfig"; sourceTree = "<group>"; };
 		796C61914EF57FAF09B30DFE /* Pods-PopcornTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.release.xcconfig"; sourceTree = "<group>"; };
 		92CF4A091CE6692900D666A8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -253,7 +253,7 @@
 				4D990E1E1DC4EFA2005CDE34 /* Show+Lockup.swift */,
 				28EB626B1CA3364300985F78 /* String+Cleaned.swift */,
 				4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */,
-				4DCCBA5A1DC50D780046C755 /* UIColor+Hex.swift */,
+				4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -656,7 +656,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D990E471DC4F0F1005CDE34 /* AppDelegate.swift in Sources */,
-				4DCCBA5B1DC50D780046C755 /* UIColor+Hex.swift in Sources */,
+				4DCCBA5B1DC50D780046C755 /* UIColor+Extension.swift in Sources */,
 				4D990E201DC4EFA2005CDE34 /* PCTPlayerViewController+tvOS.swift in Sources */,
 				4D990E3A1DC4F069005CDE34 /* PCTPlayerViewController.swift in Sources */,
 				28EB626C1CA3364300985F78 /* String+Cleaned.swift in Sources */,
