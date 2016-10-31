@@ -25,12 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.standard.set(true, forKey: "isntFirstLaunch")
         }
         
-        WatchedlistManager.movie.syncTraktProgress()
-        WatchedlistManager.movie.getWatched()
-        WatchlistManager<Movie>.movie.getWatchlist()
-        WatchedlistManager.episode.syncTraktProgress()
-        WatchedlistManager.episode.getWatched()
-        WatchlistManager<Episode>.episode.getWatchlist()
+        TraktManager.shared.syncUserData()
         
         
         if let url = launchOptions?[.url] as? URL {

@@ -4,15 +4,18 @@ import UIKit
 import PopcornKit
 import TVMLKitchen
 
-class SettingsViewController: UIViewController, TraktManagerDelegate { }
+class SettingsViewController: UIViewController { }
 
 class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
     
     // MARK: TraktManagerDelegate
     
     func authenticationDidSucceed() {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true) {
+            Kitchen.serve(recipe: AlertRecipe(title: "Success!", description: "Successfully authenticated with Trakt", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .modal))
+        }
         tableView.reloadData()
+        TraktManager.shared.syncUserData()
     }
     
     func authenticationDidFail(withError error: NSError) {
@@ -225,10 +228,16 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
         case 2:
             if indexPath.row == 0 {
                 if TraktManager.shared.isSignedIn() {
-                    TraktManager.shared.logout()
-                    tableView.reloadData()
+                    let alert = UIAlertController(title: "Sign Out", message: "Are you sure you want to Sign Out?", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { action in
+                        do { try TraktManager.shared.logout() } catch { }
+                        tableView.reloadData()
+                    }))
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                    present(alert, animated: true, completion: nil)
                 } else {
-                    TraktManager.shared.delegate = parent as! SettingsViewController
+                    TraktManager.shared.delegate = self
                     let vc = TraktManager.shared.loginViewController()
                     present(vc, animated:true, completion:nil)
                 }
