@@ -534,12 +534,13 @@ class ActionHandler: NSObject {
         let playerController = AVPlayerViewController()
         Kitchen.appController.navigationController.pushViewController(playerController, animated: true)
         XCDYouTubeClient.default().getVideoWithIdentifier(code) { (video, error) in
-            guard let streamUrls = video?.streamURLs else { return }
-            let preferredVideoQualities = [XCDYouTubeVideoQuality.HD720, XCDYouTubeVideoQuality.medium360, XCDYouTubeVideoQuality.small240]
+            guard let streamUrls = video?.streamURLs,
+            let qualities = Array(streamUrls.keys) as? [UInt] else { return }
+            let preferredVideoQualities = [XCDYouTubeVideoQuality.HD720.rawValue, XCDYouTubeVideoQuality.medium360.rawValue, XCDYouTubeVideoQuality.small240.rawValue]
             var videoUrl: URL?
             forLoop: for quality in preferredVideoQualities {
-                if let url = streamUrls[quality] {
-                    videoUrl = url
+                if let index = qualities.index(of: quality) {
+                    videoUrl = Array(streamUrls.values)[index]
                     break forLoop
                 }
             }
