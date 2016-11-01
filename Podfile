@@ -8,7 +8,7 @@ target 'PopcornTime' do
   pod 'PopcornTorrent', :git => 'https://github.com/PopcornTimeTV/PopcornTorrent.git'
   pod 'PopcornKit', :git => 'https://github.com/PopcornTimeTV/PopcornKit.git'
   pod 'XCDYouTubeKit', '~> 2.5.3'
-  pod 'TVMLKitchen', :git => 'https://github.com/toshi0383/TVMLKitchen.git', :branch => 'swift3.0'
+  pod 'TVMLKitchen', :git => 'https://github.com/toshi0383/TVMLKitchen.git'
   pod 'AlamofireXMLRPC'
   pod 'TVVLCKit-unstable', '3.0.0a10'
   pod 'AlamofireImage', '~> 3.0'

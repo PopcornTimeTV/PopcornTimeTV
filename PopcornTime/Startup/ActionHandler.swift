@@ -135,7 +135,7 @@ class ActionHandler: NSObject {
     func showMovie(_ title: String, _ id: String) {
         Kitchen.serve(recipe: LoadingRecipe(message: title))
         
-        PopcornKit.getMovieInfo(id) { (movie, error) in
+        PopcornKit.getMovieInfo(id, tmdbId: nil) { (movie, error) in
             guard var movie = movie else {
                 var viewcontrollers = Kitchen.navigationController.viewControllers
                 viewcontrollers.removeLast()
@@ -216,7 +216,7 @@ class ActionHandler: NSObject {
     func showShow(_ title: String, _ id: String) {
         Kitchen.serve(recipe: LoadingRecipe(message: title))
         
-        PopcornKit.getShowInfo(id) { (show, error) in
+        PopcornKit.getShowInfo(id, tmdbId: nil) { (show, error) in
             guard var show = show else { return }
             
             let group = DispatchGroup()
@@ -290,11 +290,22 @@ class ActionHandler: NSObject {
     func showSeasons(_ showString: String, _ episodesString: String) {
         guard var show = Mapper<Show>().map(JSONString: showString), let episodes = Mapper<Episode>().mapArray(JSONString: episodesString) else { return }
         show.episodes = episodes
-        TraktManager.shared.getSeasonMetadata(forShowId: show.id, seasons: show.seasonNumbers) { (images, error) in
-            guard !images.isEmpty && error == nil else { return }
+        
+        let group = DispatchGroup()
+        var images = [String]()
+        for season in show.seasonNumbers {
+            group.enter()
+            TMDBManager.shared.getSeasonPoster(ofShowWithImdbId: show.id, orTMDBId: show.tmdbId, season: season, completion: { (tmdb, image, error) in
+                if let tmdb = tmdb { show.tmdbId = tmdb }
+                images.append(image ?? show.largeCoverImage ?? "")
+                group.leave()
+            })
+        }
+        
+        group.notify(queue: .main, execute: {
             let recipe = SeasonPickerRecipe(show: show, seasonImages: images)
             Kitchen.serve(recipe: recipe)
-        }
+        })
     }
     
     /**
@@ -321,7 +332,7 @@ class ActionHandler: NSObject {
         
         for var episode in show.episodes {
             group.enter()
-            TraktManager.shared.getEpisodeMetadata(show.id, episodeNumber: episode.episode, seasonNumber: episode.season, completion: { (image, _, _, error) in
+            TMDBManager.shared.getEpisodeScreenshots(forShowWithImdbId: show.id, orTMDBId: show.tmdbId, season: episode.season, episode: episode.episode, completion: { (tmdbId, image, error) in
                 if let image = image { episode.largeBackgroundImage = image }
                 episodes.append(episode)
                 group.leave()
