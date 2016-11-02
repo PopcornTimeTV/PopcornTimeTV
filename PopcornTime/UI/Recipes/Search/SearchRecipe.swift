@@ -23,41 +23,31 @@ class SearchRecipe: TVMLKitchen.SearchRecipe {
         return nil
     }
     
-    override func filterSearchText(_ text: String, callback: ((String) -> Void)) {
+    override func filterSearchText(_ text: String, callback: @escaping ((String) -> Void)) {
         guard !text.isEmpty else { callback(noData); return }
-        
-        var searchXML = ""
-        let semaphore = DispatchSemaphore(value: 0)
         
         switch fetchType {
         case .movies:
             PopcornKit.loadMovies(searchTerm: text) { movies, error in
-                guard let movies = movies, var xml = self.recipe else { semaphore.signal(); return }
+                guard let movies = movies, var xml = self.recipe else { callback(self.noData); return }
                 let mapped = movies.map({ $0.lockUp })
                 
-               xml = xml.replacingOccurrences(of: "{{TITLE}}", with: "Found \(movies.count) \(movies.count == 1 ? "movie" : "movies") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: ""))
+                xml = xml.replacingOccurrences(of: "{{TITLE}}", with: "Found \(movies.count) \(movies.count == 1 ? "movie" : "movies") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: ""))
                 
-                searchXML = xml
-                
-                semaphore.signal()
+                callback(xml)
             }
         case .shows:
             PopcornKit.loadShows(searchTerm: text) { shows, error in
-                guard let shows = shows, var xml = self.recipe else { semaphore.signal(); return }
+                guard let shows = shows, var xml = self.recipe else { callback(self.noData); return }
                 let mapped = shows.map({ $0.lockUp })
                 
                 xml = xml.replacingOccurrences(of: "{{TITLE}}", with: "Found \(shows.count) \(shows.count == 1 ? "show" : "shows") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: ""))
                 
-                searchXML = xml
+                callback(xml)
                 
-                semaphore.signal()
             }
-        default: return
-        }
-        if semaphore.wait(timeout: .now() + 10) == .success {
-            callback(searchXML)
-        } else {
-            callback(noData)
+        default:
+            return
         }
     }
 }
