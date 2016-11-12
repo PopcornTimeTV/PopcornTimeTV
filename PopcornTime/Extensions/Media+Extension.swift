@@ -9,8 +9,10 @@ extension Media {
     /**
      Start playing movie or episode locally.
      
+     - Parameter url:                   The url pointing to a .torrent file, a web adress pointing to a .torrent file to be downloaded or a magnet link.
      - Parameter loadingViewController: The view controller that will be presented while the torrent is processing to display updates to the user.
      - Parameter playViewController:    View controller to be presented to start playing the movie when loading is complete.
+     - Parameter progress:              The users playback progress for the current media.
      - Parameter loadingBlock:          Block that handels updating loadingViewController UI. Defaults to updaing the progress of buffering, download speed and number of seeds.
      - Parameter playBlock:             Block that handels setting up playViewController. If playViewController is a subclass of PCTPlayerViewController, default behaviour is to call `play:fromURL:progress:directory` on playViewController.
      - Parameter errorBlock:            Block thats called when the request fails or torrent fails processing/downloading with error message parameter.
@@ -34,6 +36,8 @@ extension Media {
         errorBlock: @escaping (String) -> Void,
         finishedLoadingBlock: @escaping (LoadingViewController, UIViewController) -> Void)
     {
+        PTTorrentStreamer.shared().cancelStreamingAndDeleteData(false) // Make sure we're not already streaming
+        
         if url.hasPrefix("magnet") || (url.hasSuffix(".torrent") && !url.hasPrefix("http")) {
             PTTorrentStreamer.shared().startStreaming(fromFileOrMagnetLink: url, progress: { (status) in
                 loadingBlock(status, loadingViewController)

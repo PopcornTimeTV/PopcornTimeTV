@@ -54,8 +54,8 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     }
     
     @IBAction func handlePositionSliderGesture(_ sender: UIPanGestureRecognizer) {
-        let velocity = sender.velocity(in: view)
-        if fabs(velocity.y) > fabs(velocity.x) && !progressBar.isScrubbing {
+        
+        if sender.direction == .down {
             presentOptionsViewController()
             handleOptionsGesture(sender)
             return
@@ -89,9 +89,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     }
     
     func presentOptionsViewController() {
-        if presentedViewController is OptionsViewController  {
-            return
-        }
+        if presentedViewController is OptionsViewController { return }
         let destinationController = storyboard?.instantiateViewController(withIdentifier: "OptionsViewController") as! OptionsViewController
         destinationController.transitioningDelegate = self
         destinationController.modalPresentationStyle = .custom

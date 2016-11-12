@@ -530,9 +530,32 @@ class ActionHandler: NSObject {
         
         let playViewController = storyboard.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
         
-        SubtitlesManager.shared.search(imdbId: media.id) { (subtitles, _) in
+        
+        getSubtitles(forMedia: media, id: media.id) { subtitles in
             media.subtitles = subtitles
             media.play(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
+        }
+    }
+    
+    /**
+     Retrieves subtitles from OpenSubtitles
+     
+     - Parameter media: The media to fetch subtitles for.
+     - Parameter id:    The imdbId of the movie. If the media is an episode, an imdbId will be fetched automatically.
+     
+     - Parameter completion: The completion handler for the request containing an array of subtitles
+     */
+    func getSubtitles(forMedia media: Media, id: String, completion: @escaping ([Subtitle]) -> Void) {
+        if let episode = media as? Episode, !id.hasPrefix("tt") {
+            TraktManager.shared.getEpisodeMetadata(episode.show.id, episodeNumber: episode.episode, seasonNumber: episode.season, completion: { [weak self] (tvdb, imdb, error) in
+                if let imdb = imdb { self?.getSubtitles(forMedia: media, id: imdb, completion: completion) } else {
+                    completion([Subtitle]())
+                }
+            })
+        } else {
+            SubtitlesManager.shared.search(imdbId: id) { (subtitles, _) in
+                completion(subtitles)
+            }
         }
     }
 

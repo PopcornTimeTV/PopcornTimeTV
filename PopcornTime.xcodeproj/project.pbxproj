@@ -62,8 +62,10 @@
 		4D990EAB1DC4F311005CDE34 /* WelcomeRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990EA91DC4F311005CDE34 /* WelcomeRecipe.swift */; };
 		4D990EAE1DC4F31D005CDE34 /* SearchRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990EAC1DC4F31D005CDE34 /* SearchRecipe.swift */; };
 		4D990EAF1DC4F31D005CDE34 /* SearchRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D990EAD1DC4F31D005CDE34 /* SearchRecipe.xml */; };
+		4D9CED371DD278BD005ABC0A /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9CED361DD278BD005ABC0A /* libc++.tbd */; };
+		4D9CED391DD278F1005ABC0A /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9CED381DD278F1005ABC0A /* libiconv.tbd */; };
+		4D9CED3B1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9CED3A1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift */; };
 		4DCCBA5B1DC50D780046C755 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
-		92CF4A0A1CE6692900D666A8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CF4A091CE6692900D666A8 /* libz.tbd */; };
 		9D791981BEDEC8982B768977 /* Pods_TopShelf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */; };
 		D9C3D2211D4196340054BD9A /* VLCBufferingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C3D2181D4196340054BD9A /* VLCBufferingBar.m */; };
 		D9C3D2251D4196340054BD9A /* VLCTransportBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C3D2201D4196340054BD9A /* VLCTransportBar.m */; };
@@ -164,18 +166,19 @@
 		4D990EA91DC4F311005CDE34 /* WelcomeRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WelcomeRecipe.swift; path = UI/Recipes/Welcome/WelcomeRecipe.swift; sourceTree = "<group>"; };
 		4D990EAC1DC4F31D005CDE34 /* SearchRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchRecipe.swift; path = UI/Recipes/Search/SearchRecipe.swift; sourceTree = "<group>"; };
 		4D990EAD1DC4F31D005CDE34 /* SearchRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = SearchRecipe.xml; path = UI/Recipes/Search/SearchRecipe.xml; sourceTree = "<group>"; };
+		4D9CED361DD278BD005ABC0A /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		4D9CED381DD278F1005ABC0A /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		4D9CED3A1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIPanGestureRecogniser+Direction.swift"; path = "Extensions/UIPanGestureRecogniser+Direction.swift"; sourceTree = "<group>"; };
 		4DC870B51D9EDE58005455B0 /* PopcornTime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopcornTime.entitlements; sourceTree = "<group>"; };
 		4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+Extension.swift"; path = "Extensions/UIColor+Extension.swift"; sourceTree = "<group>"; };
 		59BE8A67A9D4954F63D16C0E /* Pods-PopcornTime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.debug.xcconfig"; sourceTree = "<group>"; };
 		796C61914EF57FAF09B30DFE /* Pods-PopcornTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.release.xcconfig"; sourceTree = "<group>"; };
-		92CF4A091CE6692900D666A8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TopShelf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7DC191EE356BC3B5A5E8F16 /* Pods_PopcornTime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopcornTime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9C3D2171D4196340054BD9A /* VLCBufferingBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCBufferingBar.h; sourceTree = "<group>"; };
 		D9C3D2181D4196340054BD9A /* VLCBufferingBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCBufferingBar.m; sourceTree = "<group>"; };
 		D9C3D21F1D4196340054BD9A /* VLCTransportBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCTransportBar.h; sourceTree = "<group>"; };
 		D9C3D2201D4196340054BD9A /* VLCTransportBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCTransportBar.m; sourceTree = "<group>"; };
-		DD53E3861D01F5E400147716 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,7 +186,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92CF4A0A1CE6692900D666A8 /* libz.tbd in Frameworks */,
+				4D9CED391DD278F1005ABC0A /* libiconv.tbd in Frameworks */,
+				4D9CED371DD278BD005ABC0A /* libc++.tbd in Frameworks */,
 				098B2026095198FE56AF33E0 /* Pods_PopcornTime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,6 +257,7 @@
 				28EB626B1CA3364300985F78 /* String+Cleaned.swift */,
 				4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */,
 				4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */,
+				4D9CED3A1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -437,8 +442,8 @@
 		F1EDDAB5F2E1772C41C22B7A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DD53E3861D01F5E400147716 /* libiconv.tbd */,
-				92CF4A091CE6692900D666A8 /* libz.tbd */,
+				4D9CED381DD278F1005ABC0A /* libiconv.tbd */,
+				4D9CED361DD278BD005ABC0A /* libc++.tbd */,
 				002682111CD0B76200F51D31 /* TVServices.framework */,
 				D7DC191EE356BC3B5A5E8F16 /* Pods_PopcornTime.framework */,
 				B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */,
@@ -666,6 +671,7 @@
 				4D990E3A1DC4F069005CDE34 /* PCTPlayerViewController.swift in Sources */,
 				28EB626C1CA3364300985F78 /* String+Cleaned.swift in Sources */,
 				4D990E4D1DC4F102005CDE34 /* SubtitlesViewController.swift in Sources */,
+				4D9CED3B1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift in Sources */,
 				4D990E2D1DC4F00F005CDE34 /* SubtitleSettings.swift in Sources */,
 				4D990E641DC4F138005CDE34 /* SeasonPickerRecipe.swift in Sources */,
 				4D990EA71DC4F303005CDE34 /* CatalogRecipe.swift in Sources */,
@@ -723,7 +729,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -765,7 +770,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -806,10 +810,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = PopcornTime/PopcornTime.entitlements;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = BQBJ6NTPEG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PopcornTime/VLC",
+				);
 				INFOPLIST_FILE = "${SRCROOT}/PopcornTime/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.tvos;
@@ -827,9 +834,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = PopcornTime/PopcornTime.entitlements;
 				DEVELOPMENT_TEAM = BQBJ6NTPEG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PopcornTime/VLC",
+				);
 				INFOPLIST_FILE = "${SRCROOT}/PopcornTime/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.tvos;
@@ -849,6 +859,10 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = TopShelf/TopShelf.entitlements;
 				DEVELOPMENT_TEAM = BQBJ6NTPEG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PopcornTime/VLC",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -873,6 +887,10 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = TopShelf/TopShelf.entitlements;
 				DEVELOPMENT_TEAM = BQBJ6NTPEG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PopcornTime/VLC",
+				);
 				INFOPLIST_FILE = TopShelf/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.tvos.TopShelf;

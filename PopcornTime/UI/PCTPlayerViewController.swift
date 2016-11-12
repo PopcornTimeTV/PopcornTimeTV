@@ -65,7 +65,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             if let subtitle = currentSubtitle {
                 PopcornKit.downloadSubtitleFile(subtitle.link, downloadDirectory: directory, completion: { (subtitlePath, error) in
                     guard let subtitlePath = subtitlePath else { return }
-                    self.mediaplayer.addPlaybackSlave(subtitlePath, type: .subtitle, enforce: true)
+                    self.mediaplayer.openVideoSubTitles(fromFile: subtitlePath.relativePath)
                 })
             } else {
                 mediaplayer.currentVideoSubTitleIndex = NSNotFound // Remove all subtitles
@@ -199,10 +199,10 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         case .error:
             fallthrough
         case .ended:
-            didFinishPlaying()
             fallthrough
         case .stopped:
             manager.setCurrentProgress(Float(progressBar.progress), forId: media.id, withStatus: .finished)
+            didFinishPlaying()
         case .paused:
             manager.setCurrentProgress(Float(progressBar.progress), forId: media.id, withStatus: .paused)
             progressBar.isHidden ? toggleControlsVisible() : ()

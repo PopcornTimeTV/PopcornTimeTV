@@ -3,19 +3,20 @@ use_frameworks!
 
 source 'https://github.com/CocoaPods/Specs'
 source 'https://github.com/angryDuck2/CocoaSpecs'
+source 'https://github.com/PopcornTimeTV/Specs'
 
 target 'PopcornTime' do
-  pod 'PopcornTorrent', :git => 'https://github.com/PopcornTimeTV/PopcornTorrent.git'
-  pod 'PopcornKit', :git => 'https://github.com/PopcornTimeTV/PopcornKit.git'
+  pod 'PopcornTorrent', '~> 1.1.1.8'
+  pod 'PopcornKit', '~> 3.1.0'
+  pod 'TVVLCKit', '~> 2.0.7'
   pod 'XCDYouTubeKit', '~> 2.5.3'
   pod 'TVMLKitchen', :git => 'https://github.com/toshi0383/TVMLKitchen.git'
   pod 'AlamofireXMLRPC'
-  pod 'TVVLCKit-unstable', '3.0.0a10'
   pod 'AlamofireImage', '~> 3.0'
 end
 
 target 'TopShelf' do
-    pod 'PopcornKit', :git => 'https://github.com/PopcornTimeTV/PopcornKit.git'
+    pod 'PopcornKit', '~> 3.1.0'
 end
 
 post_install do |installer|

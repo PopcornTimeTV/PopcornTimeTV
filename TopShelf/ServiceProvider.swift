@@ -62,7 +62,7 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
             semaphore.signal()
         }
         
-        semaphore.wait(timeout: .now() + 15.0)
+        let _ = semaphore.wait(timeout: .now() + 15.0)
         return items
     }
     
