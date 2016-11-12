@@ -813,10 +813,6 @@
 				CODE_SIGN_ENTITLEMENTS = PopcornTime/PopcornTime.entitlements;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = BQBJ6NTPEG;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/PopcornTime/VLC",
-				);
 				INFOPLIST_FILE = "${SRCROOT}/PopcornTime/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.tvos;
@@ -836,10 +832,6 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = PopcornTime/PopcornTime.entitlements;
 				DEVELOPMENT_TEAM = BQBJ6NTPEG;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/PopcornTime/VLC",
-				);
 				INFOPLIST_FILE = "${SRCROOT}/PopcornTime/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.tvos;
