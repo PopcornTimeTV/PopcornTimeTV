@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, VLCTransportBarHint) {
     VLCTransportBarHintNone,
+    VLCTransportBarHintPaused,
     VLCTransportBarHintScanForward,
     VLCTransportBarHintJumpForward10,
     VLCTransportBarHintJumpBackward10,

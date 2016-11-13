@@ -75,10 +75,12 @@ static inline void sharedSetup(VLCTransportBar *self) {
     UIImageView *leftHintImageView = [[UIImageView alloc] initWithFrame:imageRect];
     [self addSubview:leftHintImageView];
     self.leftHintImageView = leftHintImageView;
+    self.leftHintImageView.tintColor = [UIColor whiteColor];
 
     UIImageView *rightHintImageView = [[UIImageView alloc] initWithFrame:imageRect];
     [self addSubview:rightHintImageView];
     self.rightHintImageView = rightHintImageView;
+    self.rightHintImageView.tintColor = [UIColor whiteColor];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -136,21 +138,22 @@ static inline void sharedSetup(VLCTransportBar *self) {
     NSString *imageName = nil;
     switch (hint) {
         case VLCTransportBarHintScanForward:
-            imageName = @"NowPlayingFastForward.png";
+            imageName = @"FastForward";
             break;
         case VLCTransportBarHintJumpForward10:
-            imageName = @"NowPlayingSkip10Forward.png";
+            imageName = @"SkipForward";
             break;
         case VLCTransportBarHintJumpBackward10:
-            imageName = @"NowPlayingSkip10Backward.png";
+            imageName = @"SkipBack";
+            break;
+        case VLCTransportBarHintPaused:
+            imageName = @"Pause";
             break;
         default:
-			break;
+            break;
 	}
     if (imageName) {
-        // FIXME: TODO: don't use the images from AVKit
-        NSBundle *bundle = [NSBundle bundleWithPath:@"/System/Library/Frameworks/AVKit.framework"];
-        return [UIImage imageNamed:imageName inBundle:bundle compatibleWithTraitCollection:nil];
+        return [[UIImage imageNamed: imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
     return nil;
 }
@@ -165,6 +168,9 @@ static inline void sharedSetup(VLCTransportBar *self) {
             rightImage = [self imageForHint:hint];
 			break;
         case VLCTransportBarHintJumpBackward10:
+            leftImage = [self imageForHint:hint];
+            break;
+        case VLCTransportBarHintPaused:
             leftImage = [self imageForHint:hint];
             break;
         default:

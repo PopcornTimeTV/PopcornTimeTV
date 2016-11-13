@@ -2,17 +2,16 @@
 
 import UIKit
 import PopcornKit
-import TVMLKitchen
 
 class SettingsViewController: UIViewController { }
 
 class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
     
-    // MARK: TraktManagerDelegate
-    
     func authenticationDidSucceed() {
         dismiss(animated: true) {
-            Kitchen.serve(recipe: AlertRecipe(title: "Success!", description: "Successfully authenticated with Trakt", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .modal))
+            let alert = UIAlertController(title: "Success!", message: "Successfully authenticated with Trakt", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
         tableView.reloadData()
         TraktManager.shared.syncUserData()
@@ -20,7 +19,9 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
     
     func authenticationDidFail(withError error: NSError) {
         dismiss(animated: true, completion: nil)
-        Kitchen.serve(recipe: AlertRecipe(title: "Failed to authenticate with Trakt", description: error.localizedDescription, buttons: [AlertButton(title: "Okay", actionID: "closeAlert")], presentationType: .modal))
+        let alert = UIAlertController(title: "Failed to authenticate with Trakt", message: error.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {

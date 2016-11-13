@@ -10,7 +10,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     }
     
     func didSelectEncoding(_ encoding: String) {
-        mediaplayer.media.addOptions([kVLCSettingTextEncoding: encoding])
+        mediaplayer.media.addOptions([vlcSettingTextEncoding: encoding])
     }
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {

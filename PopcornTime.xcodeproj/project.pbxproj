@@ -7,13 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		098B2026095198FE56AF33E0 /* Pods_PopcornTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DC191EE356BC3B5A5E8F16 /* Pods_PopcornTime.framework */; };
 		28EB626C1CA3364300985F78 /* String+Cleaned.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB626B1CA3364300985F78 /* String+Cleaned.swift */; };
 		4D0183A91DC3ACB500AB75B3 /* Locale+Langs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */; };
 		4D2543AE1DACFBFE00149533 /* TVServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 002682111CD0B76200F51D31 /* TVServices.framework */; };
 		4D2543B11DACFBFE00149533 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2543B01DACFBFE00149533 /* ServiceProvider.swift */; };
 		4D2543B51DACFBFE00149533 /* TopShelf.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4D2543AD1DACFBFE00149533 /* TopShelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4D2543B91DACFCF700149533 /* String+Cleaned.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB626B1CA3364300985F78 /* String+Cleaned.swift */; };
+		4D6110F31DD8F57D004DCEB7 /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6110F21DD8F57D004DCEB7 /* BorderButton.swift */; };
+		4D6110F51DD8F5BF004DCEB7 /* WhiteHighlightButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6110F41DD8F5BF004DCEB7 /* WhiteHighlightButton.swift */; };
+		4D689A291DD88EE9001D1318 /* EncodingTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E2B1DC4F00F005CDE34 /* EncodingTypes.plist */; };
+		4D689A2A1DD88EFC001D1318 /* SubtitleSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */; };
+		4D689A2C1DD88F0A001D1318 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
+		4D689A2D1DD88F0F001D1318 /* UIPanGestureRecogniser+Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9CED3A1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift */; };
+		4D689A2E1DD88F12001D1318 /* Locale+Langs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */; };
+		4D689A2F1DD88F15001D1318 /* String+Cleaned.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB626B1CA3364300985F78 /* String+Cleaned.swift */; };
+		4D689A301DD88F1A001D1318 /* Media+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E1D1DC4EFA2005CDE34 /* Media+Extension.swift */; };
+		4D689A311DD88F26001D1318 /* PCTPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E361DC4F069005CDE34 /* PCTPlayerViewController.swift */; };
+		4D689A321DD88F26001D1318 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E381DC4F069005CDE34 /* LoadingViewController.swift */; };
+		4D689A331DD88F26001D1318 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E3F1DC4F09C005CDE34 /* SettingsViewController.swift */; };
+		4D689A361DD8906F001D1318 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E321DC4F028005CDE34 /* Images.xcassets */; };
+		4D689A371DD89076001D1318 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E321DC4F028005CDE34 /* Images.xcassets */; };
+		4D689A681DD89511001D1318 /* TermsOfServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D689A651DD89511001D1318 /* TermsOfServiceViewController.swift */; };
+		4D689A691DD89567001D1318 /* TermsOfServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D689A651DD89511001D1318 /* TermsOfServiceViewController.swift */; };
+		4D689A6A1DD89569001D1318 /* CastPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D689A631DD89511001D1318 /* CastPlayerViewController.swift */; };
+		4D689A6E1DD8ADFD001D1318 /* CastIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D689A6C1DD8ADFA001D1318 /* CastIconButton.swift */; };
+		4D689A6F1DD8AF12001D1318 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E451DC4F0F1005CDE34 /* AppDelegate.swift */; };
+		4D689A721DD8B331001D1318 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D689A701DD8B321001D1318 /* Main.storyboard */; };
+		4D689A751DD8B375001D1318 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D689A731DD8B370001D1318 /* Launch Screen.storyboard */; };
+		4D689A7F1DD8BC7D001D1318 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D689A781DD8BC41001D1318 /* MainViewController.swift */; };
+		4D689A811DD8BC82001D1318 /* ShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D689A771DD8BC41001D1318 /* ShowsViewController.swift */; };
+		4D689A821DD8BC82001D1318 /* AnimeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D689A791DD8BC41001D1318 /* AnimeCollectionViewController.swift */; };
+		4D689A831DD8BC82001D1318 /* MoviesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D689A7A1DD8BC41001D1318 /* MoviesCollectionViewController.swift */; };
 		4D69B75F1DC550F500A88A37 /* Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D69B75E1DC550F500A88A37 /* Watchlist.swift */; };
 		4D69B7621DC6396D00A88A37 /* button-unwatched.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D69B7601DC6396D00A88A37 /* button-unwatched.png */; };
 		4D69B7631DC6396D00A88A37 /* button-watched.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D69B7611DC6396D00A88A37 /* button-watched.png */; };
@@ -26,7 +50,6 @@
 		4D990E2F1DC4F00F005CDE34 /* Pagination.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E2A1DC4F00F005CDE34 /* Pagination.js */; };
 		4D990E301DC4F00F005CDE34 /* EncodingTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E2B1DC4F00F005CDE34 /* EncodingTypes.plist */; };
 		4D990E311DC4F00F005CDE34 /* Loading.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E2C1DC4F00F005CDE34 /* Loading.xml */; };
-		4D990E331DC4F028005CDE34 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E321DC4F028005CDE34 /* Images.xcassets */; };
 		4D990E391DC4F069005CDE34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E351DC4F069005CDE34 /* Main.storyboard */; };
 		4D990E3A1DC4F069005CDE34 /* PCTPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E361DC4F069005CDE34 /* PCTPlayerViewController.swift */; };
 		4D990E3C1DC4F069005CDE34 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E381DC4F069005CDE34 /* LoadingViewController.swift */; };
@@ -65,10 +88,27 @@
 		4D9CED371DD278BD005ABC0A /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9CED361DD278BD005ABC0A /* libc++.tbd */; };
 		4D9CED391DD278F1005ABC0A /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9CED381DD278F1005ABC0A /* libiconv.tbd */; };
 		4D9CED3B1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9CED3A1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift */; };
+		4DA42DC61DD8D68500933A10 /* WelcomeRecipe.js in Resources */ = {isa = PBXBuildFile; fileRef = 4DA42DC51DD8D68500933A10 /* WelcomeRecipe.js */; };
+		4DA42DCA1DD8E3CD00933A10 /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DC91DD8E3CD00933A10 /* DispatchQueue+Extension.swift */; };
+		4DA42DCC1DD8E57C00933A10 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DCB1DD8E57C00933A10 /* ProgressBar.swift */; };
+		4DA42DCE1DD8E69A00933A10 /* ProgressSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DCD1DD8E69A00933A10 /* ProgressSlider.swift */; };
+		4DA42DD01DD8EE7300933A10 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DCF1DD8EE7300933A10 /* UIImage+Color.swift */; };
+		4DA42DD21DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */; };
+		4DA42DD31DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */; };
+		4DA42DD71DD8EFD100933A10 /* CoverCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DD51DD8EFD100933A10 /* CoverCollectionViewCell.swift */; };
+		4DA42DDA1DD8F08300933A10 /* BarSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DD91DD8F08300933A10 /* BarSlider.swift */; };
+		4DA42DDD1DD8F09F00933A10 /* TableBackgroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DA42DDB1DD8F09F00933A10 /* TableBackgroundView.xib */; };
+		4DA42DDE1DD8F09F00933A10 /* TableBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DDC1DD8F09F00933A10 /* TableBackgroundView.swift */; };
+		4DA42DE11DD8F15C00933A10 /* FilterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DE01DD8F15C00933A10 /* FilterCollectionReusableView.swift */; };
+		4DA42DE41DD8F1AF00933A10 /* BlurButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DE31DD8F1AF00933A10 /* BlurButton.swift */; };
+		4DA42DE81DD8F24300933A10 /* GenresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DE71DD8F24300933A10 /* GenresTableViewController.swift */; };
+		4DA42DEA1DD8F34400933A10 /* CGSize+Min.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DE91DD8F34400933A10 /* CGSize+Min.swift */; };
 		4DCCBA5B1DC50D780046C755 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
 		9D791981BEDEC8982B768977 /* Pods_TopShelf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */; };
+		C13AAE5F5C0B7B2A2EADE6D7 /* Pods_PopcornTimetvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0F58921BC4D7FCD5EA29325 /* Pods_PopcornTimetvOS.framework */; };
 		D9C3D2211D4196340054BD9A /* VLCBufferingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C3D2181D4196340054BD9A /* VLCBufferingBar.m */; };
 		D9C3D2251D4196340054BD9A /* VLCTransportBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C3D2201D4196340054BD9A /* VLCTransportBar.m */; };
+		FBC7CC598DEFD1909064625E /* Pods_PopcornTimeiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C39DBC9A881608E11694A746 /* Pods_PopcornTimeiOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +157,18 @@
 		4D2543AD1DACFBFE00149533 /* TopShelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TopShelf.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2543B01DACFBFE00149533 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		4D2543B21DACFBFE00149533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D6110F21DD8F57D004DCEB7 /* BorderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BorderButton.swift; path = UI/BorderButton.swift; sourceTree = "<group>"; };
+		4D6110F41DD8F5BF004DCEB7 /* WhiteHighlightButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WhiteHighlightButton.swift; path = UI/WhiteHighlightButton.swift; sourceTree = "<group>"; };
+		4D689A171DD88E17001D1318 /* PopcornTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopcornTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D689A631DD89511001D1318 /* CastPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CastPlayerViewController.swift; path = UI/CastPlayerViewController.swift; sourceTree = "<group>"; };
+		4D689A651DD89511001D1318 /* TermsOfServiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TermsOfServiceViewController.swift; path = UI/TermsOfServiceViewController.swift; sourceTree = "<group>"; };
+		4D689A6C1DD8ADFA001D1318 /* CastIconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CastIconButton.swift; path = Resources/CastIconButton.swift; sourceTree = "<group>"; };
+		4D689A701DD8B321001D1318 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		4D689A731DD8B370001D1318 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "UI/Launch Screen.storyboard"; sourceTree = "<group>"; };
+		4D689A771DD8BC41001D1318 /* ShowsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShowsViewController.swift; path = UI/ShowsViewController.swift; sourceTree = "<group>"; };
+		4D689A781DD8BC41001D1318 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = UI/MainViewController.swift; sourceTree = "<group>"; };
+		4D689A791DD8BC41001D1318 /* AnimeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimeCollectionViewController.swift; path = UI/AnimeCollectionViewController.swift; sourceTree = "<group>"; };
+		4D689A7A1DD8BC41001D1318 /* MoviesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoviesCollectionViewController.swift; path = UI/MoviesCollectionViewController.swift; sourceTree = "<group>"; };
 		4D69B75E1DC550F500A88A37 /* Watchlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Watchlist.swift; path = UI/Recipes/Tabs/Watchlist.swift; sourceTree = "<group>"; };
 		4D69B7601DC6396D00A88A37 /* button-unwatched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-unwatched.png"; path = "Resources/button-unwatched.png"; sourceTree = "<group>"; };
 		4D69B7611DC6396D00A88A37 /* button-watched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-watched.png"; path = "Resources/button-watched.png"; sourceTree = "<group>"; };
@@ -126,7 +178,7 @@
 		4D990E1D1DC4EFA2005CDE34 /* Media+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Media+Extension.swift"; path = "Extensions/Media+Extension.swift"; sourceTree = "<group>"; };
 		4D990E1E1DC4EFA2005CDE34 /* Show+Lockup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Show+Lockup.swift"; path = "Extensions/Show+Lockup.swift"; sourceTree = "<group>"; };
 		4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubtitleSettings.swift; path = Resources/SubtitleSettings.swift; sourceTree = "<group>"; };
-		4D990E281DC4F00F005CDE34 /* PopcornTime-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PopcornTime-Bridging-Header.h"; path = "Resources/PopcornTime-Bridging-Header.h"; sourceTree = "<group>"; };
+		4D990E281DC4F00F005CDE34 /* PopcornTimetvOS-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PopcornTimetvOS-Bridging-Header.h"; path = "Resources/PopcornTimetvOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		4D990E2A1DC4F00F005CDE34 /* Pagination.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = Pagination.js; path = Resources/Pagination.js; sourceTree = "<group>"; };
 		4D990E2B1DC4F00F005CDE34 /* EncodingTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = EncodingTypes.plist; path = Resources/EncodingTypes.plist; sourceTree = "<group>"; };
 		4D990E2C1DC4F00F005CDE34 /* Loading.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Loading.xml; path = Resources/Loading.xml; sourceTree = "<group>"; };
@@ -169,16 +221,36 @@
 		4D9CED361DD278BD005ABC0A /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		4D9CED381DD278F1005ABC0A /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		4D9CED3A1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIPanGestureRecogniser+Direction.swift"; path = "Extensions/UIPanGestureRecogniser+Direction.swift"; sourceTree = "<group>"; };
+		4DA42DC41DD8C6D900933A10 /* PopcornTimeiOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PopcornTimeiOS-Bridging-Header.h"; path = "Resources/PopcornTimeiOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		4DA42DC51DD8D68500933A10 /* WelcomeRecipe.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = WelcomeRecipe.js; path = UI/Recipes/Welcome/WelcomeRecipe.js; sourceTree = "<group>"; };
+		4DA42DC91DD8E3CD00933A10 /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "DispatchQueue+Extension.swift"; path = "Extensions/DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
+		4DA42DCB1DD8E57C00933A10 /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProgressBar.swift; path = UI/ProgressBar.swift; sourceTree = "<group>"; };
+		4DA42DCD1DD8E69A00933A10 /* ProgressSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProgressSlider.swift; path = UI/ProgressSlider.swift; sourceTree = "<group>"; };
+		4DA42DCF1DD8EE7300933A10 /* UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Color.swift"; path = "Extensions/UIImage+Color.swift"; sourceTree = "<group>"; };
+		4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Dictionary+Extension.swift"; path = "Extensions/Dictionary+Extension.swift"; sourceTree = "<group>"; };
+		4DA42DD51DD8EFD100933A10 /* CoverCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoverCollectionViewCell.swift; path = UI/CoverCollectionViewCell.swift; sourceTree = "<group>"; };
+		4DA42DD91DD8F08300933A10 /* BarSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarSlider.swift; path = UI/BarSlider.swift; sourceTree = "<group>"; };
+		4DA42DDB1DD8F09F00933A10 /* TableBackgroundView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TableBackgroundView.xib; path = UI/TableBackgroundView.xib; sourceTree = "<group>"; };
+		4DA42DDC1DD8F09F00933A10 /* TableBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableBackgroundView.swift; path = UI/TableBackgroundView.swift; sourceTree = "<group>"; };
+		4DA42DE01DD8F15C00933A10 /* FilterCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterCollectionReusableView.swift; path = UI/FilterCollectionReusableView.swift; sourceTree = "<group>"; };
+		4DA42DE31DD8F1AF00933A10 /* BlurButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlurButton.swift; path = UI/BlurButton.swift; sourceTree = "<group>"; };
+		4DA42DE71DD8F24300933A10 /* GenresTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenresTableViewController.swift; path = UI/GenresTableViewController.swift; sourceTree = "<group>"; };
+		4DA42DE91DD8F34400933A10 /* CGSize+Min.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGSize+Min.swift"; path = "Extensions/CGSize+Min.swift"; sourceTree = "<group>"; };
 		4DC870B51D9EDE58005455B0 /* PopcornTime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopcornTime.entitlements; sourceTree = "<group>"; };
 		4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+Extension.swift"; path = "Extensions/UIColor+Extension.swift"; sourceTree = "<group>"; };
+		4F3B56E351FCF49BA32DCB20 /* Pods-PopcornTimeiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTimeiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		59BE8A67A9D4954F63D16C0E /* Pods-PopcornTime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.debug.xcconfig"; sourceTree = "<group>"; };
+		5AFC393C8DD38442036DFF31 /* Pods-PopcornTimetvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTimetvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTimetvOS/Pods-PopcornTimetvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		796C61914EF57FAF09B30DFE /* Pods-PopcornTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.release.xcconfig"; sourceTree = "<group>"; };
+		7AAF4FD5928500951D3D388A /* Pods-PopcornTimetvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTimetvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTimetvOS/Pods-PopcornTimetvOS.release.xcconfig"; sourceTree = "<group>"; };
+		89909111EA7D0BC787417121 /* Pods-PopcornTimeiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTimeiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS.release.xcconfig"; sourceTree = "<group>"; };
 		B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TopShelf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D7DC191EE356BC3B5A5E8F16 /* Pods_PopcornTime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopcornTime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C39DBC9A881608E11694A746 /* Pods_PopcornTimeiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopcornTimeiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9C3D2171D4196340054BD9A /* VLCBufferingBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCBufferingBar.h; sourceTree = "<group>"; };
 		D9C3D2181D4196340054BD9A /* VLCBufferingBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCBufferingBar.m; sourceTree = "<group>"; };
 		D9C3D21F1D4196340054BD9A /* VLCTransportBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCTransportBar.h; sourceTree = "<group>"; };
 		D9C3D2201D4196340054BD9A /* VLCTransportBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCTransportBar.m; sourceTree = "<group>"; };
+		E0F58921BC4D7FCD5EA29325 /* Pods_PopcornTimetvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopcornTimetvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,7 +260,7 @@
 			files = (
 				4D9CED391DD278F1005ABC0A /* libiconv.tbd in Frameworks */,
 				4D9CED371DD278BD005ABC0A /* libc++.tbd in Frameworks */,
-				098B2026095198FE56AF33E0 /* Pods_PopcornTime.framework in Frameworks */,
+				C13AAE5F5C0B7B2A2EADE6D7 /* Pods_PopcornTimetvOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +270,14 @@
 			files = (
 				4D2543AE1DACFBFE00149533 /* TVServices.framework in Frameworks */,
 				9D791981BEDEC8982B768977 /* Pods_TopShelf.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D689A141DD88E17001D1318 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBC7CC598DEFD1909064625E /* Pods_PopcornTimeiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +300,7 @@
 			children = (
 				287B85341C9873A200EEF5C8 /* PopcornTime.app */,
 				4D2543AD1DACFBFE00149533 /* TopShelf.appex */,
+				4D689A171DD88E17001D1318 /* PopcornTime.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -230,7 +311,6 @@
 				4D990E431DC4F0E6005CDE34 /* Startup */,
 				4D990E341DC4F05B005CDE34 /* UI */,
 				28EB626A1CA3362B00985F78 /* Extensions */,
-				9211E3EB1CDC0A8C00BEEB9D /* VLC */,
 				4D990E261DC4EFF2005CDE34 /* Resources */,
 				287B85491C988AD600EEF5C8 /* Supporting FIles */,
 			);
@@ -240,6 +320,8 @@
 		287B85491C988AD600EEF5C8 /* Supporting FIles */ = {
 			isa = PBXGroup;
 			children = (
+				4D990E281DC4F00F005CDE34 /* PopcornTimetvOS-Bridging-Header.h */,
+				4DA42DC41DD8C6D900933A10 /* PopcornTimeiOS-Bridging-Header.h */,
 				4DC870B51D9EDE58005455B0 /* PopcornTime.entitlements */,
 				287B85401C9873A200EEF5C8 /* Info.plist */,
 			);
@@ -258,6 +340,10 @@
 				4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */,
 				4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */,
 				4D9CED3A1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift */,
+				4DA42DC91DD8E3CD00933A10 /* DispatchQueue+Extension.swift */,
+				4DA42DCF1DD8EE7300933A10 /* UIImage+Color.swift */,
+				4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */,
+				4DA42DE91DD8F34400933A10 /* CGSize+Min.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -272,10 +358,69 @@
 			path = TopShelf;
 			sourceTree = "<group>";
 		};
+		4D689A101DD88D1D001D1318 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				4D990E351DC4F069005CDE34 /* Main.storyboard */,
+				9211E3EB1CDC0A8C00BEEB9D /* VLC */,
+				4D990E501DC4F10D005CDE34 /* Recipes */,
+				4D990E3E1DC4F092005CDE34 /* Option View Controllers */,
+			);
+			name = tvOS;
+			sourceTree = "<group>";
+		};
+		4D689A111DD88D24001D1318 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				4D990E361DC4F069005CDE34 /* PCTPlayerViewController.swift */,
+				4D990E381DC4F069005CDE34 /* LoadingViewController.swift */,
+				4D990E3F1DC4F09C005CDE34 /* SettingsViewController.swift */,
+				4D689A651DD89511001D1318 /* TermsOfServiceViewController.swift */,
+			);
+			name = Shared;
+			sourceTree = "<group>";
+		};
+		4D689A121DD88D2B001D1318 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				4D689A701DD8B321001D1318 /* Main.storyboard */,
+				4DA42DE61DD8F23200933A10 /* Table View Controllers */,
+				4DA42DD41DD8EFA500933A10 /* Collection View Cells */,
+				4D689A761DD8BC2E001D1318 /* Main View Controllers */,
+				4D689A621DD894EF001D1318 /* View Controllers */,
+				4DA42DD81DD8F04D00933A10 /* Views */,
+				4DA42DE51DD8F1BD00933A10 /* Buttons */,
+				4DA42DE21DD8F16700933A10 /* Sliders */,
+				4DA42DCB1DD8E57C00933A10 /* ProgressBar.swift */,
+				4DA42DE01DD8F15C00933A10 /* FilterCollectionReusableView.swift */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		4D689A621DD894EF001D1318 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4D689A631DD89511001D1318 /* CastPlayerViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		4D689A761DD8BC2E001D1318 /* Main View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4D689A771DD8BC41001D1318 /* ShowsViewController.swift */,
+				4D689A781DD8BC41001D1318 /* MainViewController.swift */,
+				4D689A791DD8BC41001D1318 /* AnimeCollectionViewController.swift */,
+				4D689A7A1DD8BC41001D1318 /* MoviesCollectionViewController.swift */,
+			);
+			name = "Main View Controllers";
+			sourceTree = "<group>";
+		};
 		4D990E261DC4EFF2005CDE34 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				4D990E321DC4F028005CDE34 /* Images.xcassets */,
+				4D689A6C1DD8ADFA001D1318 /* CastIconButton.swift */,
 				4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */,
 				4D990E411DC4F0BD005CDE34 /* OptionsViewControllerPresentationDelegate.swift */,
 				4D69B7601DC6396D00A88A37 /* button-unwatched.png */,
@@ -283,7 +428,6 @@
 				4D990E2A1DC4F00F005CDE34 /* Pagination.js */,
 				4D990E2B1DC4F00F005CDE34 /* EncodingTypes.plist */,
 				4D990E2C1DC4F00F005CDE34 /* Loading.xml */,
-				4D990E281DC4F00F005CDE34 /* PopcornTime-Bridging-Header.h */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -291,12 +435,9 @@
 		4D990E341DC4F05B005CDE34 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				4D990E351DC4F069005CDE34 /* Main.storyboard */,
-				4D990E361DC4F069005CDE34 /* PCTPlayerViewController.swift */,
-				4D990E381DC4F069005CDE34 /* LoadingViewController.swift */,
-				4D990E3F1DC4F09C005CDE34 /* SettingsViewController.swift */,
-				4D990E501DC4F10D005CDE34 /* Recipes */,
-				4D990E3E1DC4F092005CDE34 /* Option View Controllers */,
+				4D689A111DD88D24001D1318 /* Shared */,
+				4D689A121DD88D2B001D1318 /* iOS */,
+				4D689A101DD88D1D001D1318 /* tvOS */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -314,6 +455,7 @@
 		4D990E431DC4F0E6005CDE34 /* Startup */ = {
 			isa = PBXGroup;
 			children = (
+				4D689A731DD8B370001D1318 /* Launch Screen.storyboard */,
 				4D990E441DC4F0F1005CDE34 /* ActionHandler.swift */,
 				4D990E451DC4F0F1005CDE34 /* AppDelegate.swift */,
 			);
@@ -376,6 +518,7 @@
 			children = (
 				4D990EA81DC4F311005CDE34 /* WelcomeRecipe.xml */,
 				4D990EA91DC4F311005CDE34 /* WelcomeRecipe.swift */,
+				4DA42DC51DD8D68500933A10 /* WelcomeRecipe.js */,
 			);
 			name = Welcome;
 			sourceTree = "<group>";
@@ -417,6 +560,50 @@
 			name = Catalog;
 			sourceTree = "<group>";
 		};
+		4DA42DD41DD8EFA500933A10 /* Collection View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				4DA42DD51DD8EFD100933A10 /* CoverCollectionViewCell.swift */,
+			);
+			name = "Collection View Cells";
+			sourceTree = "<group>";
+		};
+		4DA42DD81DD8F04D00933A10 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4DA42DDB1DD8F09F00933A10 /* TableBackgroundView.xib */,
+				4DA42DDC1DD8F09F00933A10 /* TableBackgroundView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		4DA42DE21DD8F16700933A10 /* Sliders */ = {
+			isa = PBXGroup;
+			children = (
+				4DA42DCD1DD8E69A00933A10 /* ProgressSlider.swift */,
+				4DA42DD91DD8F08300933A10 /* BarSlider.swift */,
+			);
+			name = Sliders;
+			sourceTree = "<group>";
+		};
+		4DA42DE51DD8F1BD00933A10 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				4DA42DE31DD8F1AF00933A10 /* BlurButton.swift */,
+				4D6110F21DD8F57D004DCEB7 /* BorderButton.swift */,
+				4D6110F41DD8F5BF004DCEB7 /* WhiteHighlightButton.swift */,
+			);
+			name = Buttons;
+			sourceTree = "<group>";
+		};
+		4DA42DE61DD8F23200933A10 /* Table View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4DA42DE71DD8F24300933A10 /* GenresTableViewController.swift */,
+			);
+			name = "Table View Controllers";
+			sourceTree = "<group>";
+		};
 		9211E3EB1CDC0A8C00BEEB9D /* VLC */ = {
 			isa = PBXGroup;
 			children = (
@@ -435,6 +622,10 @@
 				796C61914EF57FAF09B30DFE /* Pods-PopcornTime.release.xcconfig */,
 				3E2A1684A64499B8ED0B31B3 /* Pods-TopShelf.debug.xcconfig */,
 				249A54E2A9C7529A3CC82622 /* Pods-TopShelf.release.xcconfig */,
+				4F3B56E351FCF49BA32DCB20 /* Pods-PopcornTimeiOS.debug.xcconfig */,
+				89909111EA7D0BC787417121 /* Pods-PopcornTimeiOS.release.xcconfig */,
+				5AFC393C8DD38442036DFF31 /* Pods-PopcornTimetvOS.debug.xcconfig */,
+				7AAF4FD5928500951D3D388A /* Pods-PopcornTimetvOS.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -445,8 +636,9 @@
 				4D9CED381DD278F1005ABC0A /* libiconv.tbd */,
 				4D9CED361DD278BD005ABC0A /* libc++.tbd */,
 				002682111CD0B76200F51D31 /* TVServices.framework */,
-				D7DC191EE356BC3B5A5E8F16 /* Pods_PopcornTime.framework */,
 				B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */,
+				C39DBC9A881608E11694A746 /* Pods_PopcornTimeiOS.framework */,
+				E0F58921BC4D7FCD5EA29325 /* Pods_PopcornTimetvOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -454,9 +646,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		287B85331C9873A200EEF5C8 /* PopcornTime */ = {
+		287B85331C9873A200EEF5C8 /* PopcornTimetvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 287B85431C9873A200EEF5C8 /* Build configuration list for PBXNativeTarget "PopcornTime" */;
+			buildConfigurationList = 287B85431C9873A200EEF5C8 /* Build configuration list for PBXNativeTarget "PopcornTimetvOS" */;
 			buildPhases = (
 				C7CA1C1E09B24733AAA8DA16 /* [CP] Check Pods Manifest.lock */,
 				287B85301C9873A200EEF5C8 /* Sources */,
@@ -472,7 +664,7 @@
 			dependencies = (
 				4D2543B41DACFBFE00149533 /* PBXTargetDependency */,
 			);
-			name = PopcornTime;
+			name = PopcornTimetvOS;
 			productName = PopcornTime;
 			productReference = 287B85341C9873A200EEF5C8 /* PopcornTime.app */;
 			productType = "com.apple.product-type.application";
@@ -496,13 +688,33 @@
 			productReference = 4D2543AD1DACFBFE00149533 /* TopShelf.appex */;
 			productType = "com.apple.product-type.tv-app-extension";
 		};
+		4D689A161DD88E17001D1318 /* PopcornTimeiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D689A261DD88E17001D1318 /* Build configuration list for PBXNativeTarget "PopcornTimeiOS" */;
+			buildPhases = (
+				78703264BB69168C3C1D11DE /* [CP] Check Pods Manifest.lock */,
+				4D689A131DD88E17001D1318 /* Sources */,
+				4D689A141DD88E17001D1318 /* Frameworks */,
+				4D689A151DD88E17001D1318 /* Resources */,
+				1317662623C949A5C0CCBD54 /* [CP] Embed Pods Frameworks */,
+				545AD9933E28CBCC225BE41E /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PopcornTimeiOS;
+			productName = PopcornTimeiOS;
+			productReference = 4D689A171DD88E17001D1318 /* PopcornTime.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		287B852C1C9873A200EEF5C8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0800;
+				LastSwiftUpdateCheck = 0810;
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = PopcornTime;
 				TargetAttributes = {
@@ -526,6 +738,10 @@
 							};
 						};
 					};
+					4D689A161DD88E17001D1318 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 287B852F1C9873A200EEF5C8 /* Build configuration list for PBXProject "PopcornTime" */;
@@ -541,7 +757,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				287B85331C9873A200EEF5C8 /* PopcornTime */,
+				287B85331C9873A200EEF5C8 /* PopcornTimetvOS */,
+				4D689A161DD88E17001D1318 /* PopcornTimeiOS */,
 				4D2543AC1DACFBFE00149533 /* TopShelf */,
 			);
 		};
@@ -558,10 +775,11 @@
 				4D990E601DC4F137005CDE34 /* ProductRecipe.js in Resources */,
 				4D990E961DC4F2DA005CDE34 /* GenreRecipe.xml in Resources */,
 				4D990E2F1DC4F00F005CDE34 /* Pagination.js in Resources */,
+				4DA42DC61DD8D68500933A10 /* WelcomeRecipe.js in Resources */,
 				4D990E301DC4F00F005CDE34 /* EncodingTypes.plist in Resources */,
-				4D990E331DC4F028005CDE34 /* Images.xcassets in Resources */,
 				4D990E971DC4F2DA005CDE34 /* Genre.js in Resources */,
 				4D990E651DC4F138005CDE34 /* SeasonPickerRecipe.xml in Resources */,
+				4D689A371DD89076001D1318 /* Images.xcassets in Resources */,
 				4D990E671DC4F1A3005CDE34 /* MovieProductRecipe.xml in Resources */,
 				4D990EA61DC4F303005CDE34 /* CatalogRecipe.xml in Resources */,
 				4D990EAA1DC4F311005CDE34 /* WelcomeRecipe.xml in Resources */,
@@ -577,6 +795,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D689A151DD88E17001D1318 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D689A721DD8B331001D1318 /* Main.storyboard in Resources */,
+				4D689A291DD88EE9001D1318 /* EncodingTypes.plist in Resources */,
+				4D689A751DD8B375001D1318 /* Launch Screen.storyboard in Resources */,
+				4D689A361DD8906F001D1318 /* Images.xcassets in Resources */,
+				4DA42DDD1DD8F09F00933A10 /* TableBackgroundView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,6 +828,36 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		1317662623C949A5C0CCBD54 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		545AD9933E28CBCC225BE41E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		717DA540B4BA027F6C60314A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -613,6 +873,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TopShelf/Pods-TopShelf-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		78703264BB69168C3C1D11DE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		B113A76872C8F98DEF264039 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -625,7 +900,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimetvOS/Pods-PopcornTimetvOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C7CA1C1E09B24733AAA8DA16 /* [CP] Check Pods Manifest.lock */ = {
@@ -655,7 +930,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimetvOS/Pods-PopcornTimetvOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -678,11 +953,13 @@
 				4D990E831DC4F1BC005CDE34 /* Search.swift in Sources */,
 				4D990E801DC4F1BC005CDE34 /* Trending.swift in Sources */,
 				4D990E811DC4F1BC005CDE34 /* Genre.swift in Sources */,
+				4D689A681DD89511001D1318 /* TermsOfServiceViewController.swift in Sources */,
 				D9C3D2211D4196340054BD9A /* VLCBufferingBar.m in Sources */,
 				4D990EA01DC4F2F5005CDE34 /* WatchlistRecipe.swift in Sources */,
 				4D0183A91DC3ACB500AB75B3 /* Locale+Langs.swift in Sources */,
 				4D990EAB1DC4F311005CDE34 /* WelcomeRecipe.swift in Sources */,
 				4D69B75F1DC550F500A88A37 /* Watchlist.swift in Sources */,
+				4DA42DD21DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */,
 				D9C3D2251D4196340054BD9A /* VLCTransportBar.m in Sources */,
 				4D990EAE1DC4F31D005CDE34 /* SearchRecipe.swift in Sources */,
 				4D990E621DC4F137005CDE34 /* MovieProductRecipe.swift in Sources */,
@@ -710,6 +987,44 @@
 			files = (
 				4D2543B11DACFBFE00149533 /* ServiceProvider.swift in Sources */,
 				4D2543B91DACFCF700149533 /* String+Cleaned.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D689A131DD88E17001D1318 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DA42DEA1DD8F34400933A10 /* CGSize+Min.swift in Sources */,
+				4D689A311DD88F26001D1318 /* PCTPlayerViewController.swift in Sources */,
+				4D6110F51DD8F5BF004DCEB7 /* WhiteHighlightButton.swift in Sources */,
+				4DA42DCC1DD8E57C00933A10 /* ProgressBar.swift in Sources */,
+				4D689A2D1DD88F0F001D1318 /* UIPanGestureRecogniser+Direction.swift in Sources */,
+				4D689A2E1DD88F12001D1318 /* Locale+Langs.swift in Sources */,
+				4D689A321DD88F26001D1318 /* LoadingViewController.swift in Sources */,
+				4DA42DE81DD8F24300933A10 /* GenresTableViewController.swift in Sources */,
+				4DA42DD31DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */,
+				4D689A301DD88F1A001D1318 /* Media+Extension.swift in Sources */,
+				4DA42DDE1DD8F09F00933A10 /* TableBackgroundView.swift in Sources */,
+				4D689A2F1DD88F15001D1318 /* String+Cleaned.swift in Sources */,
+				4D689A811DD8BC82001D1318 /* ShowsViewController.swift in Sources */,
+				4D689A2A1DD88EFC001D1318 /* SubtitleSettings.swift in Sources */,
+				4DA42DE11DD8F15C00933A10 /* FilterCollectionReusableView.swift in Sources */,
+				4D689A7F1DD8BC7D001D1318 /* MainViewController.swift in Sources */,
+				4DA42DE41DD8F1AF00933A10 /* BlurButton.swift in Sources */,
+				4DA42DCE1DD8E69A00933A10 /* ProgressSlider.swift in Sources */,
+				4D689A6E1DD8ADFD001D1318 /* CastIconButton.swift in Sources */,
+				4D689A831DD8BC82001D1318 /* MoviesCollectionViewController.swift in Sources */,
+				4D689A6F1DD8AF12001D1318 /* AppDelegate.swift in Sources */,
+				4D689A821DD8BC82001D1318 /* AnimeCollectionViewController.swift in Sources */,
+				4DA42DD01DD8EE7300933A10 /* UIImage+Color.swift in Sources */,
+				4DA42DCA1DD8E3CD00933A10 /* DispatchQueue+Extension.swift in Sources */,
+				4D6110F31DD8F57D004DCEB7 /* BorderButton.swift in Sources */,
+				4DA42DD71DD8EFD100933A10 /* CoverCollectionViewCell.swift in Sources */,
+				4DA42DDA1DD8F08300933A10 /* BarSlider.swift in Sources */,
+				4D689A2C1DD88F0A001D1318 /* UIColor+Extension.swift in Sources */,
+				4D689A331DD88F26001D1318 /* SettingsViewController.swift in Sources */,
+				4D689A691DD89567001D1318 /* TermsOfServiceViewController.swift in Sources */,
+				4D689A6A1DD89569001D1318 /* CastPlayerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -742,12 +1057,10 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -759,9 +1072,10 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = appletvos;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.1;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
 		};
@@ -783,7 +1097,6 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -797,16 +1110,16 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = appletvos;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.1;
-				VALIDATE_PRODUCT = YES;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};
 		287B85441C9873A200EEF5C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 59BE8A67A9D4954F63D16C0E /* Pods-PopcornTime.debug.xcconfig */;
+			baseConfigurationReference = 5AFC393C8DD38442036DFF31 /* Pods-PopcornTimetvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -816,8 +1129,8 @@
 				INFOPLIST_FILE = "${SRCROOT}/PopcornTime/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.tvos;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Resources/PopcornTime-Bridging-Header.h";
+				PRODUCT_NAME = PopcornTime;
+				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Resources/PopcornTimetvOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -826,7 +1139,7 @@
 		};
 		287B85451C9873A200EEF5C8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 796C61914EF57FAF09B30DFE /* Pods-PopcornTime.release.xcconfig */;
+			baseConfigurationReference = 7AAF4FD5928500951D3D388A /* Pods-PopcornTimetvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -835,8 +1148,8 @@
 				INFOPLIST_FILE = "${SRCROOT}/PopcornTime/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.tvos;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Resources/PopcornTime-Bridging-Header.h";
+				PRODUCT_NAME = PopcornTime;
+				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Resources/PopcornTimetvOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -893,6 +1206,59 @@
 			};
 			name = Release;
 		};
+		4D689A271DD88E17001D1318 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F3B56E351FCF49BA32DCB20 /* Pods-PopcornTimeiOS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = PopcornTime/PopcornTime.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "${SRCROOT}/PopcornTime/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.ios;
+				PRODUCT_NAME = PopcornTime;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Resources/PopcornTimeiOS-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4D689A281DD88E17001D1318 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89909111EA7D0BC787417121 /* Pods-PopcornTimeiOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = PopcornTime/PopcornTime.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = "${SRCROOT}/PopcornTime/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.ios;
+				PRODUCT_NAME = PopcornTime;
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Resources/PopcornTimeiOS-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -905,7 +1271,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		287B85431C9873A200EEF5C8 /* Build configuration list for PBXNativeTarget "PopcornTime" */ = {
+		287B85431C9873A200EEF5C8 /* Build configuration list for PBXNativeTarget "PopcornTimetvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				287B85441C9873A200EEF5C8 /* Debug */,
@@ -919,6 +1285,15 @@
 			buildConfigurations = (
 				4D2543B71DACFBFE00149533 /* Debug */,
 				4D2543B81DACFBFE00149533 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D689A261DD88E17001D1318 /* Build configuration list for PBXNativeTarget "PopcornTimeiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D689A271DD88E17001D1318 /* Debug */,
+				4D689A281DD88E17001D1318 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

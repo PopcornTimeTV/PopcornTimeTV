@@ -60,6 +60,33 @@ class ActionHandler: NSObject {
         
     }
     
+    /**
+     Loads welcome view controller (App's first view controller).
+     
+     - Parameter completion: Optional completion handler called when view controller has loaded with a boolean value indicating success.
+     */
+    func showWelcome(completion: (((Bool) -> Void))? = nil) {
+        let recipe = WelcomeRecipe(title: "PopcornTime")
+        Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
+            
+            let updateImage: @convention(block) (String, JSValue) -> Void = { (url, callback) in
+                callback.call(withArguments: ["<img src=\"\(url)\" />"])
+            }
+            
+            context.setObject(unsafeBitCast(updateImage, to: AnyObject.self),
+                              forKeyedSubscript: "updateImage" as (NSCopying & NSObjectProtocol)!)
+            
+            if let file = Bundle.main.url(forResource: "WelcomeRecipe", withExtension: "js") {
+                do {
+                    let js = try String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
+                    context.evaluateScript(js)
+                } catch {
+                    print("Could not open ProductRecipe.js")
+                }
+            }
+        }, completion: completion)
+    }
+    
     // MARK: - Watchlist
     
     /**
@@ -275,7 +302,7 @@ class ActionHandler: NSObject {
                             print("Could not open ProductRecipe.js")
                         }
                     }
-                    }, completion: nil)
+                }, completion: nil)
                 self.dismissLoading()
             })
         }
@@ -588,6 +615,16 @@ class ActionHandler: NSObject {
             
             playerController.player = AVPlayer(url: url)
             playerController.player!.play()
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: nil)
+        }
+    }
+    
+    /// Called when AVPlayerViewController stops playing
+    func playerDidFinishPlaying() {
+        NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: nil)
+        OperationQueue.main.addOperation {
+            Kitchen.appController.navigationController.popViewController(animated: true)
         }
     }
     

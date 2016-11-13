@@ -2,55 +2,101 @@
 
 import UIKit
 import PopcornKit
-import TVMLKitchen
+
+#if os(tvOS)
+    import TVMLKitchen
+#elseif os(iOS)
+    import Reachability
+    import AlamofireNetworkActivityIndicator
+    import GoogleCast
+#endif
+
+public let animationLength = 0.33
+public let vlcSettingTextEncoding = "subsdec-encoding"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
-        let cookbook = Cookbook(launchOptions: launchOptions)
-        cookbook.actionIDHandler = ActionHandler.shared.primary
-        cookbook.playActionIDHandler = ActionHandler.shared.play
-        Kitchen.prepare(cookbook)
+    #if os(iOS)
+        var reachability = Reachability.forInternetConnection()
+    #elseif os(tvOS)
+        func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+            let cookbook = Cookbook(launchOptions: launchOptions)
+            cookbook.actionIDHandler = ActionHandler.shared.primary
+            cookbook.playActionIDHandler = ActionHandler.shared.play
+            Kitchen.prepare(cookbook)
         
-        return true
-    }
+            return true
+        }
+    #endif
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        if !UserDefaults.standard.bool(forKey: "isntFirstLaunch") {
-            UserDefaults.standard.set(0.75, forKey: "themeSongVolume")
-            UserDefaults.standard.set(true, forKey: "isntFirstLaunch")
-        }
-        
+        #if os(tvOS)
+            if !UserDefaults.standard.bool(forKey: "isntFirstLaunch") {
+                UserDefaults.standard.set(0.75, forKey: "themeSongVolume")
+                UserDefaults.standard.set(true, forKey: "isntFirstLaunch")
+            }
+            
+            if let url = launchOptions?[.url] as? URL {
+                self.application(.shared, open: url)
+                return true
+            }
+            
+            ActionHandler.shared.showWelcome() { _ in
+                if !UserDefaults.standard.bool(forKey: "tosAccepted") {
+                    let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsOfServiceViewController")
+                    OperationQueue.main.addOperation {
+                        Kitchen.appController.navigationController.pushViewController(vc, animated: true)
+                    }
+                }
+            }
+        #elseif os(iOS)
+            NetworkActivityIndicatorManager.shared.isEnabled = true
+            reachability?.startNotifier()
+            GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID))
+            window?.tintColor = UIColor.app
+            
+            if !UserDefaults.standard.bool(forKey: "tosAccepted") {
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsOfServiceNavigationController")
+                window?.makeKeyAndVisible()
+                window?.rootViewController?.present(vc, animated: false, completion: nil)
+            }
+        #endif
+            
         TraktManager.shared.syncUserData()
-        
-        
-        if let url = launchOptions?[.url] as? URL {
-            self.application(.shared, open: url)
-            return true
-        }
-        
-        loadWelcomeRecipe()
         
         return true
     }
+    
     @discardableResult func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        if url.scheme == "PopcornTime" {
-            guard let action = url.absoluteString.components(separatedBy: "?").last?.components(separatedBy: "=").last?.replacingOccurrences(of: "/", with: "»").replacingOccurrences(of: "%20", with: " ") else {
-                return false
-            }
-            if Kitchen.appController.navigationController.viewControllers.first != nil // Don't present WelcomeRecipe if it is already there.
-            {
-                ActionHandler.shared.primary(action)
-            } else {
-                loadWelcomeRecipe() {
+        #if os(tvOS)
+            if url.scheme == "PopcornTime" {
+                guard let action = url.absoluteString.components(separatedBy: "?").last?.components(separatedBy: "=").last?.replacingOccurrences(of: "/", with: "»").replacingOccurrences(of: "%20", with: " ") else {
+                    return false
+                }
+                if Kitchen.appController.navigationController.viewControllers.first != nil // Don't present WelcomeRecipe if it is already there.
+                {
                     ActionHandler.shared.primary(action)
+                } else {
+                    ActionHandler.shared.showWelcome() { _ in
+                        ActionHandler.shared.primary(action)
+                    }
                 }
             }
+        #elseif os(iOS)
+            if let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, (sourceApplication == "com.apple.SafariViewService" || sourceApplication == "com.apple.mobilesafari") && url.scheme == "popcorntime" {
+                TraktManager.shared.authenticate(url)
+                return true
+            }
+        #endif
+        
+        if url.scheme == "magnet" {
+            // TODO: Manget links
         }
+        
         return true
     }
     
@@ -75,14 +121,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillTerminate(_ application: UIApplication) {
         SubtitlesManager.shared.logout()
-    }
-    
-    func loadWelcomeRecipe(completion: ((() -> Void))? = nil) {
-        PopcornKit.loadMovies { (movies, error) in
-            guard let movies = movies else { return }
-            let art = movies.map({$0.largeBackgroundImage ?? ""}).filter({$0 != ""})
-            Kitchen.serve(recipe: WelcomeRecipe(title: "PopcornTime", randomArt: art))
-            completion?()
-        }
     }
 }

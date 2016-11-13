@@ -32,11 +32,13 @@ extension UIColor {
         return rgb
     }
     
-    static var systemColors: [UIColor] {
+    @nonobjc static var systemColors: [UIColor] {
         return [UIColor.black, UIColor.darkGray, UIColor.lightGray, UIColor.white, UIColor.gray, UIColor.red, UIColor.green, UIColor.blue, UIColor.cyan, UIColor.yellow, UIColor.magenta, UIColor.orange, UIColor.purple, UIColor.brown]
     }
     
-    static var systemColorStrings: [String] {
+    @nonobjc static var systemColorStrings: [String] {
         return ["Black", "Dark Gray", "Light Gray", "White", "Gray", "Red", "Green", "Blue", "Cyan", "Yellow", "Magenta", "Orange", "Purple", "Brown"]
     }
+    
+    @nonobjc static var app = UIColor(red:0.37, green:0.41, blue:0.91, alpha:1.0)
 }

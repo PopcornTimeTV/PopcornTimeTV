@@ -4,7 +4,10 @@ import UIKit
 import MediaPlayer
 import PopcornTorrent
 import PopcornKit
-import TVMLKitchen
+
+#if os(tvOS)
+    import TVMLKitchen
+#endif
 
 protocol PCTPlayerViewControllerDelegate: class {
     func playNext(_ episode: Episode)
@@ -14,8 +17,19 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     // MARK: - IBOutlets
     @IBOutlet var movieView: UIView!
-    @IBOutlet var progressBar: VLCTransportBar!
     @IBOutlet var loadingActivityIndicatorView: UIActivityIndicatorView!
+    
+    #if os(tvOS)
+        @IBOutlet var progressBar: VLCTransportBar!
+    
+        var lastTranslation: CGFloat = 0.0
+        let interactor = OptionsPercentDrivenInteractiveTransition()
+    #elseif os(iOS)
+        @IBOutlet var progressBar: ProgressBar!
+        @IBOutlet var screenshotImageView: UIImageView!
+    #endif
+    
+    
     
     // MARK: - Slider actions
 
@@ -26,14 +40,17 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         progressBar.remainingTimeLabel.text = VLCTime(number: remainingTime).stringValue
         progressBar.elapsedTimeLabel.text = VLCTime(number: time).stringValue
         screenshotAtTime(time) { [weak self] (image) in
-            guard let strongSelf = self, strongSelf.progressBar.isScrubbing else { return }
-            strongSelf.progressBar.screenshot = image
+            guard let `self` = self, self.progressBar.isScrubbing else { return }
+            #if os(tvOS)
+                self.progressBar.screenshot = image
+            #elseif os(iOS)
+                self.screenshotImageView.image = image
+            #endif
         }
     }
     func positionSliderAction() {
         resetIdleTimer()
         mediaplayer.position = Float(progressBar.progress)
-        progressBar.hint = .none
     }
     
     // MARK: - Button actions
@@ -51,9 +68,13 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     @IBAction func didFinishPlaying() {
         mediaplayer.stop()
         PTTorrentStreamer.shared().cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
-        OperationQueue.main.addOperation {
-            Kitchen.appController.navigationController.popViewController(animated: true)
-        }
+        #if os(tvOS)
+            OperationQueue.main.addOperation {
+                Kitchen.appController.navigationController.popViewController(animated: true)
+            }
+        #elseif os(iOS)
+            dismiss(animated: true, completion: nil)
+        #endif
     }
     
     // MARK: - Public vars
@@ -84,8 +105,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     private var idleTimer: Timer!
     private var shouldHideStatusBar = true
     private let NSNotFound: Int32 = -1
-    internal var lastTranslation: CGFloat = 0.0
-    internal let interactor = OptionsPercentDrivenInteractiveTransition()
     
     // MARK: - Player functions
     
@@ -157,7 +176,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         currentSubtitle = subtitles.filter({ $0.language == settings.language }).first
         (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.fontSize))
         (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.fontColor.hexInt()))
-        mediaplayer.media.addOptions([kVLCSettingTextEncoding: settings.encoding])
+        mediaplayer.media.addOptions([vlcSettingTextEncoding: settings.encoding])
 
 //        if let nextMedia = nextMedia {
 //            upNextView.delegate = self
