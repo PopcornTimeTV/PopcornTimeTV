@@ -48,13 +48,13 @@ class MoviesCollectionViewController: MainCollectionViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showDetail",
-//            let destination = segue.destination as? MovieDetailViewController,
-//            let cell = sender as? CoverCollectionViewCell,
-//            let index = collectionView?.indexPath(for: cell)?.row,
-//            let movie = media[index] as? Movie {
-//            destination.currentItem = movie
-//        }
+        if segue.identifier == "showDetail",
+            let destination = segue.destination as? MovieDetailViewController,
+            let cell = sender as? CoverCollectionViewCell,
+            let index = collectionView?.indexPath(for: cell)?.row,
+            let movie = media[index] as? Movie {
+            destination.currentItem = movie
+        }
     }
     
     // MARK: - GenresDelegate

@@ -576,7 +576,9 @@ class ActionHandler: NSObject {
         if let episode = media as? Episode, !id.hasPrefix("tt") {
             TraktManager.shared.getEpisodeMetadata(episode.show.id, episodeNumber: episode.episode, seasonNumber: episode.season, completion: { [weak self] (tvdb, imdb, error) in
                 if let imdb = imdb { self?.getSubtitles(forMedia: media, id: imdb, completion: completion) } else {
-                    completion([Subtitle]())
+                    SubtitlesManager.shared.search(episode) { (subtitles, _) in
+                        completion(subtitles)
+                    }
                 }
             })
         } else {

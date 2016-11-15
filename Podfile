@@ -12,13 +12,6 @@ def pods
     pod 'AlamofireImage', '~> 3.0'
 end
 
-target 'PopcornTimetvOS' do
-    platform :tvos, '9.0'
-    pods
-    pod 'TVVLCKit', '~> 2.0.7'
-    pod 'TVMLKitchen', :git => 'https://github.com/toshi0383/TVMLKitchen.git'
-end
-
 target 'PopcornTimeiOS' do
     platform :ios, '9.0'
     pods
@@ -32,6 +25,13 @@ target 'PopcornTimeiOS' do
     pod 'MobileVLCKit-prod', '~> 2.7.9'
     pod 'SwiftyTimer', '~> 2.0.0'
     pod 'FloatRatingView', '~> 2.0'
+end
+
+target 'PopcornTimetvOS' do
+    platform :tvos, '9.0'
+    pods
+    pod 'TVVLCKit', '~> 2.0.7'
+    pod 'TVMLKitchen', :git => 'https://github.com/toshi0383/TVMLKitchen.git'
 end
 
 target 'TopShelf' do

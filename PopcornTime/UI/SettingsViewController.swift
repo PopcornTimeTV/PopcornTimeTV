@@ -24,18 +24,17 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
         present(alert, animated: true, completion: nil)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.contentInset.top = 100
-    }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         switch indexPath.section {
         case 0:
             if indexPath.row == 0 {
-                cell.detailTextLabel?.text = "\(Int(UserDefaults.standard.float(forKey: "themeSongVolume") * 100))%"
+                #if os(tvOS)
+                    cell.detailTextLabel?.text = "\(Int(UserDefaults.standard.float(forKey: "themeSongVolume") * 100))%"
+                #elseif os(iOS)
+                    cell.detailTextLabel?.text = UserDefaults.standard.bool(forKey: "streamOnCellular") ? "On" : "Off"
+                #endif
             } else if indexPath.row == 1 {
                 cell.detailTextLabel?.text = UserDefaults.standard.string(forKey: "preferredQuality") ?? "1080p"
             } else if indexPath.row == 2 {
@@ -47,7 +46,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
             if indexPath.row == 0 {
                 cell.detailTextLabel?.text = subtitleSettings.language ?? "None"
             } else if indexPath.row == 1 {
-                switch subtitleSettings.fontSize {
+                switch subtitleSettings.size {
                 case 20.0 : cell.detailTextLabel?.text = "Small"
                 case 16.0 : cell.detailTextLabel?.text = "Medium"
                 case 12.0 : cell.detailTextLabel?.text = "Medium Large"
@@ -55,9 +54,13 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 default: break
                 }
             } else if indexPath.row == 2 {
-                let index = UIColor.systemColors.index(of: subtitleSettings.fontColor)!
+                let index = UIColor.systemColors.index(of: subtitleSettings.color)!
                 cell.detailTextLabel?.text = UIColor.systemColorStrings[index]
             } else if indexPath.row == 3 {
+                cell.detailTextLabel?.text = subtitleSettings.font.familyName
+            } else if indexPath.row == 4 {
+                cell.detailTextLabel?.text = subtitleSettings.style.rawValue
+            } else if indexPath.row == 5 {
                 cell.detailTextLabel?.text = subtitleSettings.encoding
             }
         case 2:
@@ -72,7 +75,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 if let lastChecked = UserDefaults.standard.object(forKey: "lastVersionCheckPerformedOnDate") as? Date {
                     date = DateFormatter.localizedString(from: lastChecked, dateStyle: .short, timeStyle: .short)
                 }
-                cell.detailTextLabel?.text = "Last checked: \(date)"
+                cell.detailTextLabel?.text = date
             } else if indexPath.row == 2 {
                 cell.detailTextLabel?.text = "\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")!).\(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion")!)"
             }
@@ -90,34 +93,41 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
         switch indexPath.section {
         case 0:
             if indexPath.row == 0 {
-                let handler: (UIAlertAction) -> Void = { action in
-                    guard let title = action.title?.replacingOccurrences(of: "%", with: ""),
-                        let value = Double(title) else { return }
-                    UserDefaults.standard.set(value/100.0, forKey: "themeSongVolume")
+                #if os(tvOS)
+                    let handler: (UIAlertAction) -> Void = { action in
+                        guard let title = action.title?.replacingOccurrences(of: "%", with: ""),
+                            let value = Double(title) else { return }
+                        UserDefaults.standard.set(value/100.0, forKey: "themeSongVolume")
+                        tableView.reloadData()
+                    }
+                    
+                    let alertController = UIAlertController(title: "Theme Song Volume", message: "Choose a volume for the TV Show and Movie theme songs", preferredStyle: .actionSheet)
+                    
+                    alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                    alertController.addAction(UIAlertAction(title: "Off", style: .default, handler: { action in
+                        UserDefaults.standard.set(0.0, forKey: "themeSongVolume")
+                        tableView.reloadData()
+                    }))
+                    
+                    alertController.addAction(UIAlertAction(title: "25%", style: .default, handler: handler))
+                    alertController.addAction(UIAlertAction(title: "50%", style: .default, handler: handler))
+                    alertController.addAction(UIAlertAction(title: "75%", style: .default, handler: handler))
+                    alertController.addAction(UIAlertAction(title: "100%", style: .default, handler: handler))
+                    
+                    alertController.preferredAction = alertController.actions.first(where: { $0.title == String(Int((UserDefaults.standard.float(forKey: "themeSongVolume") * 100.0))).appending("%") })
+                    
+                    present(alertController, animated: true, completion: nil)
+                #elseif os(iOS)
+                    let value = UserDefaults.standard.bool(forKey: "streamOnCellular")
+                    UserDefaults.standard.set(!value, forKey: "streamOnCellular")
                     tableView.reloadData()
-                }
-                let alertController = UIAlertController(title: "Theme Song Volume", message: "Choose a volume for the TV Show and Movie theme songs", preferredStyle: .alert)
-                
-                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                alertController.addAction(UIAlertAction(title: "Off", style: .default, handler: { action in
-                    UserDefaults.standard.set(0.0, forKey: "themeSongVolume")
-                    tableView.reloadData()
-                }))
-                
-                alertController.addAction(UIAlertAction(title: "25%", style: .default, handler: handler))
-                alertController.addAction(UIAlertAction(title: "50%", style: .default, handler: handler))
-                alertController.addAction(UIAlertAction(title: "75%", style: .default, handler: handler))
-                alertController.addAction(UIAlertAction(title: "100%", style: .default, handler: handler))
-                
-                alertController.preferredAction = alertController.actions.first(where: { $0.title == String(Int((UserDefaults.standard.float(forKey: "themeSongVolume") * 100.0))).appending("%") })
-                
-                self.present(alertController, animated: true, completion: nil)
+                #endif
             } else if indexPath.row == 1 {
                 let handler: (UIAlertAction) -> Void = { action in
                     UserDefaults.standard.setValue(action.title!, forKey: "preferredQuality")
                     tableView.reloadData()
                 }
-                let alertController = UIAlertController(title: "Preferred Quality", message: "Choose your preferred quality for torrents and they will be automatically selected whenever available.", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Preferred Quality", message: "Choose your preferred quality for torrents and they will be automatically selected whenever available.", preferredStyle: .actionSheet)
                 
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 
@@ -127,7 +137,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 
                 alertController.preferredAction = alertController.actions.first(where: { $0.title == UserDefaults.standard.string(forKey: "preferredQuality") ?? "1080p" })
                 
-                self.present(alertController, animated: true, completion: nil)
+                present(alertController, animated: true, completion: nil)
             } else if indexPath.row == 2 {
                 let value = UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit")
                 UserDefaults.standard.set(!value, forKey: "removeCacheOnPlayerExit")
@@ -136,8 +146,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
         case 1:
             let subtitleSettings = SubtitleSettings()
             if indexPath.row == 0 {
-                
-                let alertController = UIAlertController(title: "Subtitle Language", message: "Choose a default language for the player subtitles.", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Subtitle Language", message: "Choose a default language for the player subtitles.", preferredStyle: .actionSheet)
                 
                 let handler: (UIAlertAction) -> Void = { action in
                     subtitleSettings.language = action.title == "None" ? nil : action.title!
@@ -154,41 +163,42 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 
                 alertController.preferredAction = alertController.actions.first(where: { $0.title == subtitleSettings.language })
                 
-                self.present(alertController, animated: true, completion: nil)
+                present(alertController, animated: true, completion: nil)
             } else if indexPath.row == 1 {
-                let alertController = UIAlertController(title: "Subtitle Font Size", message: "Choose a font size for the player subtitles.", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Subtitle Font Size", message: "Choose a font size for the player subtitles.", preferredStyle: .actionSheet)
                 
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 
                 alertController.addAction(UIAlertAction(title: "Small (46pts)", style: .default, handler: { action in
-                    subtitleSettings.fontSize = 20.0
+                    subtitleSettings.size = 20.0
                     subtitleSettings.save()
                     tableView.reloadData()
                 }))
                 
                 alertController.addAction(UIAlertAction(title: "Medium (56pts)", style: .default, handler: { action in
-                    subtitleSettings.fontSize = 16.0
+                    subtitleSettings.size = 16.0
                     subtitleSettings.save()
                     tableView.reloadData()
                 }))
                 
                 alertController.addAction(UIAlertAction(title: "Medium Large (66pts)", style: .default, handler: { action in
-                    subtitleSettings.fontSize = 12.0
+                    subtitleSettings.size = 12.0
                     subtitleSettings.save()
                     tableView.reloadData()
                 }))
                 
                 alertController.addAction(UIAlertAction(title: "Large (96pts)", style: .default, handler: { action in
-                    subtitleSettings.fontSize = 6.0
+                    subtitleSettings.size = 6.0
                     subtitleSettings.save()
                     tableView.reloadData()
                 }))
-                self.present(alertController, animated: true, completion: nil)
+                
+                present(alertController, animated: true, completion: nil)
             } else if indexPath.row == 2 {
-                let alertController = UIAlertController(title: "Subtitle Color", message: "Choose text color for the player subtitles.", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Subtitle Color", message: "Choose text color for the player subtitles.", preferredStyle: .actionSheet)
                 
                 let handler: (UIAlertAction) -> Void = { action in
-                    subtitleSettings.fontColor = UIColor.systemColors[UIColor.systemColorStrings.index(of: action.title!)!]
+                    subtitleSettings.color = UIColor.systemColors[UIColor.systemColorStrings.index(of: action.title!)!]
                     subtitleSettings.save()
                     tableView.reloadData()
                 }
@@ -199,16 +209,56 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                     alertController.addAction(UIAlertAction(title: title, style: .default, handler: handler))
                 }
                 
-                alertController.preferredAction = alertController.actions.first(where: { $0.title == UIColor.systemColorStrings[UIColor.systemColors.index(of: subtitleSettings.fontColor)!] })
+                alertController.preferredAction = alertController.actions.first(where: { $0.title == UIColor.systemColorStrings[UIColor.systemColors.index(of: subtitleSettings.color)!] })
                 
-                self.present(alertController, animated: true, completion: nil)
-            } else if indexPath.row == 3,
+                present(alertController, animated: true, completion: nil)
+            } else if indexPath.row == 3 {
+                let alertController = UIAlertController(title: "Subtitle Font", message: "Choose a default font for the player subtitles.", preferredStyle: .actionSheet)
+                
+                let handler: (UIAlertAction) -> Void = { action in
+                    guard let familyName = action.title,
+                        let fontName = UIFont.fontNames(forFamilyName: familyName).first,
+                        let font = UIFont(name: fontName, size: 0) else { return }
+                    subtitleSettings.font = font
+                    subtitleSettings.save()
+                    tableView.reloadData()
+                }
+                
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                
+                for language in UIFont.familyNames {
+                    alertController.addAction(UIAlertAction(title: language, style: .default, handler: handler))
+                }
+                
+                alertController.preferredAction = alertController.actions.first(where: { $0.title == subtitleSettings.font.familyName })
+                
+                present(alertController, animated: true, completion: nil)
+            } else if indexPath.row == 4 {
+                
+                let alertController = UIAlertController(title: "Subtitle Font Style", message: "Choose a default font style for the player subtitles.", preferredStyle: .actionSheet)
+                
+                let handler: (UIAlertAction) -> Void = { action in
+                    subtitleSettings.style = UIFont.FontStyle(rawValue: action.title!)!
+                    subtitleSettings.save()
+                    tableView.reloadData()
+                }
+                
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                
+                for style in UIFont.FontStyle.arrayValue.map({$0.rawValue}) {
+                    alertController.addAction(UIAlertAction(title: style, style: .default, handler: handler))
+                }
+                
+                alertController.preferredAction = alertController.actions.first(where: { $0.title == subtitleSettings.style.rawValue })
+                
+                present(alertController, animated: true, completion: nil)
+            } else if indexPath.row == 5,
                 let path = Bundle.main.path(forResource: "EncodingTypes", ofType: "plist"),
                 let labels = NSDictionary(contentsOfFile: path) as? [String: [String]],
                 let titles = labels["Titles"],
                 let values = labels["Values"]  {
                 
-                let alertController = UIAlertController(title: "Subtitle Encoding", message: "Choose encoding for the player subtitles.", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Subtitle Encoding", message: "Choose encoding for the player subtitles.", preferredStyle: .actionSheet)
                 
                 let handler: (UIAlertAction) -> Void = { action in
                     subtitleSettings.encoding = values[titles.index(of: action.title!)!]
@@ -224,7 +274,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 
                 alertController.preferredAction = alertController.actions.first(where: { $0.title == titles[values.index(of: subtitleSettings.encoding)!] })
                 
-                self.present(alertController, animated: true, completion: nil)
+                present(alertController, animated: true, completion: nil)
             }
         case 2:
             if indexPath.row == 0 {
@@ -240,7 +290,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 } else {
                     TraktManager.shared.delegate = self
                     let vc = TraktManager.shared.loginViewController()
-                    present(vc, animated:true, completion:nil)
+                    present(vc, animated: true, completion: nil)
                 }
             } else if indexPath.row == 1 {
                 if UserDefaults.standard.bool(forKey: "authorizedOpenSubs") {
@@ -311,9 +361,14 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                     let label = UILabel(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 200, height: 20)))
                     label.translatesAutoresizingMaskIntoConstraints = false
                     label.text = "Checking for updates..."
-                    label.font = UIFont.systemFont(ofSize: 37)
+                    label.font = UIDevice.current.userInterfaceIdiom == .tv ? UIFont.systemFont(ofSize: 37) : UIFont.systemFont(ofSize: 16, weight: UIFontWeightBold)
                     label.sizeToFit()
-                    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+                    #if os(tvOS)
+                        let style = UIActivityIndicatorViewStyle.white
+                    #elseif os(iOS)
+                        let style = UIActivityIndicatorViewStyle.gray
+                    #endif
+                    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: style)
                     activityIndicator.translatesAutoresizingMaskIntoConstraints = false
                     activityIndicator.startAnimating()
                     viewController.view.addSubview(activityIndicator)

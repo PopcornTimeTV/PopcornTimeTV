@@ -40,10 +40,10 @@ class SubtitlesViewController: UIViewController, UITableViewDelegate, UITableVie
             subtitle.save()
         }
     }
-    var currentSize = SubtitleSettings().fontSize {
+    var currentSize = SubtitleSettings().size {
         didSet {
             let subtitle = SubtitleSettings()
-            subtitle.fontSize = currentSize
+            subtitle.size = currentSize
             subtitle.save()
         }
     }
