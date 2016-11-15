@@ -9,7 +9,7 @@ class SubtitleSettings: NSObject, NSCoding {
     var color: UIColor = .white
     var encoding: String = "Windows-1252"
     var language: String? = nil
-    var font: UIFont = UIFont.systemFont(ofSize: 0)
+    var font: UIFont = UIFont.systemFont(ofSize: 16)
     var style: UIFont.FontStyle = .normal
     
     override init() {
@@ -31,15 +31,14 @@ class SubtitleSettings: NSObject, NSCoding {
         guard let color = aDecoder.decodeObject(of: UIColor.self, forKey: "color"),
             let size = aDecoder.decodeObject(forKey: "size") as? CGFloat,
             let encoding = aDecoder.decodeObject(of: NSString.self, forKey: "encoding") as? String,
-            let language = aDecoder.decodeObject(of: NSString.self, forKey: "language") as? String,
             let descriptor = aDecoder.decodeObject(of: UIFontDescriptor.self, forKey: "font"),
             let rawValue = aDecoder.decodeObject(of: NSString.self, forKey: "style") as? String,
             let style = UIFont.FontStyle(rawValue: rawValue) else { return nil }
         self.size = Float(size)
         self.color = color
         self.encoding = encoding
-        self.language = language
-        self.font = UIFont(descriptor: descriptor, size: 0)
+        self.language = aDecoder.decodeObject(of: NSString.self, forKey: "language") as? String
+        self.font = UIFont(descriptor: descriptor, size: 16)
         self.style = style
     }
     

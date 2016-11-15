@@ -218,7 +218,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 let handler: (UIAlertAction) -> Void = { action in
                     guard let familyName = action.title,
                         let fontName = UIFont.fontNames(forFamilyName: familyName).first,
-                        let font = UIFont(name: fontName, size: 0) else { return }
+                        let font = UIFont(name: fontName, size: 16) else { return }
                     subtitleSettings.font = font
                     subtitleSettings.save()
                     tableView.reloadData()
