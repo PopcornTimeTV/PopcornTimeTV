@@ -2,7 +2,7 @@
   <img src="http://i.imgur.com/76RElTT.png" alt="Popcorn Time" title="Popcorn Time">
 </p>
 
-## Popcorn Time for tvOS
+## Popcorn Time for tvOS and iOS
 
 **PSA: We are NOT affiliated with AppDB or any other organization - free or otherwise - that provides resigned IPA files and it is not our responsibility if there are bugs in their versions of the app.**
 
@@ -13,7 +13,7 @@
 [![Freenode](https://img.shields.io/badge/IRC-freenode-orange.svg?style=flat)](http://webchat.freenode.net/?channels=popcorntime)
 [![License](https://img.shields.io/cocoapods/l/AFNetworking.svg)](https://github.com/PopcornTimeTV/PopcornTimeTV/blob/master/LICENSE.md)
 
-An Apple TV 4 application to torrent movies and tv shows for streaming. A simple and easy to use application based on TVML to bring the native desktop PopcornTime experience to Apple TV.
+An ATV, iPhone and iPad application to torrent movies and tv shows for streaming.
 
 ## Getting Involved
 
