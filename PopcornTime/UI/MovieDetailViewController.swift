@@ -133,7 +133,8 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
     
     func updateTorrentButton() {
         qualityButton.isUserInteractionEnabled = currentItem.torrents.count > 1
-        currentItem.currentTorrent = currentItem.torrents.filter({$0.quality == UserDefaults.standard.string(forKey: "preferredQuality")}).first ?? currentItem.torrents.first
+        
+        currentItem.currentTorrent = currentItem.torrents.first(where: {$0.quality == UserDefaults.standard.string(forKey: "preferredQuality")}) ?? currentItem.torrents.first
         if let torrent = currentItem.currentTorrent, let quality = torrent.quality {
             qualityButton.setTitle("\(quality + (currentItem.torrents.count > 1 ? " ▾" : ""))", for: .normal)
         } else {
@@ -166,16 +167,27 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
             guard let index = subtitles.index(where: {$0.language == action.title }),
                 let currentSubtitle = subtitles.first(where: {$0 == subtitles[index]}) else { return }
             self.currentItem.currentSubtitle = currentSubtitle
+            self.subtitlesButton.setTitle(currentSubtitle.language + " ▾", for: .normal)
         }
+        controller.addAction(UIAlertAction(title: "None", style: .default, handler: { (action) in
+            self.currentItem.currentSubtitle = nil
+            self.subtitlesButton.setTitle("None ▾", for: .normal)
+        }))
         
         for subtitle in subtitles.flatMap({$0.language}) {
             controller.addAction(UIAlertAction(title: subtitle, style: .default, handler: handler))
         }
         
         controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
         let preferredLanguage = SubtitleSettings().language
         controller.preferredAction = controller.actions.first(where: {$0.title == preferredLanguage})
         controller.popoverPresentationController?.sourceView = sender
         present(controller, animated: true, completion: nil)
+    }
+    
+    @IBAction func playTrailer() {
+//        let vc = XCDYouTubeVideoPlayerViewController(videoIdentifier: currentItem.trailerCode)
+//        present(vc, animated: true, completion: nil)
     }
 }

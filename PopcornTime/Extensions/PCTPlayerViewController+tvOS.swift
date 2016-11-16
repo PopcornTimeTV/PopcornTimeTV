@@ -30,6 +30,10 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         return animator is OptionsAnimatedTransitioning && interactor.hasStarted ? interactor : nil
     }
     
+    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return animator is OptionsAnimatedTransitioning && interactor.hasStarted ? interactor : nil
+    }
+    
     func handleOptionsGesture(_ sender: UIPanGestureRecognizer) {
         let percentThreshold: CGFloat = 0.4
         let superview = sender.view!.superview!

@@ -60,13 +60,14 @@ import Foundation
     
     
     var totalNumberOfLines: Int {
+        let font = self.font ?? UIFont.systemFont(ofSize: 17)
         let maxSize = CGSize(width: frame.size.width, height: CGFloat.greatestFiniteMagnitude)
-        let attributedText = NSAttributedString(string: text, attributes: [NSFontAttributeName: font ?? UIFont.systemFont(ofSize: 17)])
-        return Int(round((attributedText.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, context: nil).size.height - textContainerInset.top - textContainerInset.bottom) / (font ?? UIFont.systemFont(ofSize: 17)).lineHeight))
+        let attributedText = NSAttributedString(string: text, attributes: [NSFontAttributeName: font])
+        return Int(round(attributedText.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, context: nil).size.height / font.lineHeight))
     }
     
     var visibleNumberOfLines: Int {
-        return Int(round(contentSize.height - textContainerInset.top - textContainerInset.bottom) / (font ?? UIFont.systemFont(ofSize: 17)).lineHeight)
+        return Int(round(contentSize.height) / (font ?? UIFont.systemFont(ofSize: 17)).lineHeight)
     }
     
     

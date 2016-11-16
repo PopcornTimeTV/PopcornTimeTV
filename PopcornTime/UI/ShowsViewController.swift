@@ -71,14 +71,15 @@ class TVShowContainerViewController: UIViewController {
     var currentType: Trakt.MediaType = .shows
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showDetail" {
-//            let vc = (segue.destination as! UISplitViewController).viewControllers.first as! TVShowDetailViewController
-//            vc.currentItem = currentItem
-//            vc.currentType = currentType
-//            vc.parentTabBarController = tabBarController
-//            vc.parentNavigationController = navigationController
-//            navigationItem.rightBarButtonItems = vc.navigationItem.rightBarButtonItems
-//            vc.parentNavigationItem = navigationItem
-//        }
+        if segue.identifier == "showDetail",
+            let vc = (segue.destination as? UISplitViewController)?.viewControllers.first as? ShowDetailViewController
+            {
+            vc.currentItem = currentItem
+            vc.currentType = currentType
+            vc.parentTabBarController = tabBarController
+            vc.parentNavigationController = navigationController
+            navigationItem.rightBarButtonItems = vc.navigationItem.rightBarButtonItems
+            vc.parentNavigationItem = navigationItem
+        }
     }
 }

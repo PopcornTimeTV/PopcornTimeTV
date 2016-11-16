@@ -35,10 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         #if os(tvOS)
-            if !UserDefaults.standard.bool(forKey: "isntFirstLaunch") {
-                UserDefaults.standard.set(0.75, forKey: "themeSongVolume")
-                UserDefaults.standard.set(true, forKey: "isntFirstLaunch")
-            }
             
             if let url = launchOptions?[.url] as? URL {
                 self.application(.shared, open: url)
@@ -51,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     OperationQueue.main.addOperation {
                         Kitchen.appController.navigationController.pushViewController(vc, animated: true)
                     }
+                    UserDefaults.standard.set(0.75, forKey: "themeSongVolume")
                 }
             }
         #elseif os(iOS)
@@ -63,6 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsOfServiceNavigationController")
                 window?.makeKeyAndVisible()
                 window?.rootViewController?.present(vc, animated: false, completion: nil)
+                UserDefaults.standard.set("720p", forKey: "preferredQuality")
             }
         #endif
             
