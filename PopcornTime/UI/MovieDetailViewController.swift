@@ -95,13 +95,13 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
         TraktManager.shared.getRelated(currentItem) { [weak self] (movies, _) in
             guard let `self` = self else { return }
             self.currentItem.related = movies
-            //self.collectionView.reloadData()
+            self.collectionView.reloadData()
         }
         TraktManager.shared.getPeople(forMediaOfType: .movies, id: currentItem.id) { [weak self] (actors, crew, _) in
             guard let `self` = self else { return }
             self.currentItem.crew = crew
             self.currentItem.actors = actors
-            //self.collectionView.reloadData()
+            self.collectionView.reloadData()
         }
     }
     
@@ -123,7 +123,7 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
         }
         UIView.animate(withDuration: animationLength, animations: {
             self.view.layoutIfNeeded()
-            //self.collectionView.collectionViewLayout.invalidateLayout()
+            self.collectionView.collectionViewLayout.invalidateLayout()
         })
     }
     

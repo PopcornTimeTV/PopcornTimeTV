@@ -214,7 +214,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     // MARK: - Player changes notifications
     
     func mediaPlayerStateChanged() {
-        resetIdleTimer()
         let manager: WatchedlistManager = media is Movie ? .movie : .episode
         switch mediaplayer.state {
         case .error:
@@ -271,7 +270,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     func resetIdleTimer() {
         if idleTimer == nil {
             idleTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(idleTimerExceeded), userInfo: nil, repeats: false)
-            if !mediaplayer.isPlaying || loadingActivityIndicatorView.isHidden == false || progressBar.isScrubbing // If paused, scrubbing or loading, cancel timer so UI doesn't disappear
+            if !mediaplayer.isPlaying || !loadingActivityIndicatorView.isHidden || progressBar.isScrubbing // If paused, scrubbing or loading, cancel timer so UI doesn't disappear
             {
                 idleTimer.invalidate()
                 idleTimer = nil

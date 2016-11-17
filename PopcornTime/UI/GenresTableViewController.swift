@@ -54,6 +54,10 @@ class GenresTableViewController: UITableViewController, NSDiscardableContent {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func dismiss() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     // MARK: - NSDiscardableContent
     
     func beginContentAccess() -> Bool {

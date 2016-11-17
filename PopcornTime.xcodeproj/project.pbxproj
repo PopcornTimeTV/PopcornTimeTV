@@ -44,6 +44,8 @@
 		4D859B071DDCEE53000E2AA1 /* ShowDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B061DDCEE53000E2AA1 /* ShowDetailViewController.swift */; };
 		4D859B0A1DDCEF56000E2AA1 /* ShowDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B091DDCEF56000E2AA1 /* ShowDetailTableViewCell.swift */; };
 		4D859B0C1DDCF0C5000E2AA1 /* EpisodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B0B1DDCF0C5000E2AA1 /* EpisodeDetailViewController.swift */; };
+		4D859B0F1DDE23A3000E2AA1 /* EpisodeDetailPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationController.swift */; };
+		4D859B111DDE259C000E2AA1 /* UIView+Parent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B101DDE259C000E2AA1 /* UIView+Parent.swift */; };
 		4D91ECB21DDB7177001B798A /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91ECB11DDB7177001B798A /* MovieDetailViewController.swift */; };
 		4D91ECB51DDB729C001B798A /* CircularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91ECB31DDB729C001B798A /* CircularView.swift */; };
 		4D91ECB61DDB729C001B798A /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91ECB41DDB729C001B798A /* GradientView.swift */; };
@@ -185,6 +187,8 @@
 		4D859B061DDCEE53000E2AA1 /* ShowDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShowDetailViewController.swift; path = UI/ShowDetailViewController.swift; sourceTree = "<group>"; };
 		4D859B091DDCEF56000E2AA1 /* ShowDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShowDetailTableViewCell.swift; path = UI/ShowDetailTableViewCell.swift; sourceTree = "<group>"; };
 		4D859B0B1DDCF0C5000E2AA1 /* EpisodeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodeDetailViewController.swift; path = UI/EpisodeDetailViewController.swift; sourceTree = "<group>"; };
+		4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodeDetailPresentationController.swift; path = Resources/EpisodeDetailPresentationController.swift; sourceTree = "<group>"; };
+		4D859B101DDE259C000E2AA1 /* UIView+Parent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Parent.swift"; path = "Extensions/UIView+Parent.swift"; sourceTree = "<group>"; };
 		4D91ECB11DDB7177001B798A /* MovieDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovieDetailViewController.swift; path = UI/MovieDetailViewController.swift; sourceTree = "<group>"; };
 		4D91ECB31DDB729C001B798A /* CircularView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircularView.swift; path = UI/CircularView.swift; sourceTree = "<group>"; };
 		4D91ECB41DDB729C001B798A /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientView.swift; path = UI/GradientView.swift; sourceTree = "<group>"; };
@@ -365,6 +369,7 @@
 				4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */,
 				4DA42DE91DD8F34400933A10 /* CGSize+Min.swift */,
 				4D91ECBB1DDBA842001B798A /* UIFont+Traits.swift */,
+				4D859B101DDE259C000E2AA1 /* UIView+Parent.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -465,6 +470,7 @@
 				4D689A6C1DD8ADFA001D1318 /* CastIconButton.swift */,
 				4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */,
 				4D990E411DC4F0BD005CDE34 /* OptionsViewControllerPresentationDelegate.swift */,
+				4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationController.swift */,
 				4D69B7601DC6396D00A88A37 /* button-unwatched.png */,
 				4D69B7611DC6396D00A88A37 /* button-watched.png */,
 				4D990E2A1DC4F00F005CDE34 /* Pagination.js */,
@@ -1039,6 +1045,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D859B111DDE259C000E2AA1 /* UIView+Parent.swift in Sources */,
 				4D859B0A1DDCEF56000E2AA1 /* ShowDetailTableViewCell.swift in Sources */,
 				4D859B071DDCEE53000E2AA1 /* ShowDetailViewController.swift in Sources */,
 				4DA42DEA1DD8F34400933A10 /* CGSize+Min.swift in Sources */,
@@ -1061,6 +1068,7 @@
 				4D91ECBD1DDBA842001B798A /* UIFont+Traits.swift in Sources */,
 				4DA42DE11DD8F15C00933A10 /* FilterCollectionReusableView.swift in Sources */,
 				4D689A7F1DD8BC7D001D1318 /* MainViewController.swift in Sources */,
+				4D859B0F1DDE23A3000E2AA1 /* EpisodeDetailPresentationController.swift in Sources */,
 				4DA42DE41DD8F1AF00933A10 /* BlurButton.swift in Sources */,
 				4D91ECB51DDB729C001B798A /* CircularView.swift in Sources */,
 				4DA42DCE1DD8E69A00933A10 /* ProgressSlider.swift in Sources */,

@@ -39,7 +39,7 @@ class AnimeCollectionViewController: MainCollectionViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail",
-            let destination = segue.destination as? TVShowContainerViewController,
+            let destination = segue.destination as? ShowContainerViewController,
             let cell = sender as? CoverCollectionViewCell,
             let index = collectionView?.indexPath(for: cell)?.row,
             let anime = media[index] as? Show {
@@ -54,7 +54,7 @@ class AnimeCollectionViewController: MainCollectionViewController {
     
     // MARK: - GenresDelegate
     
-    func finished(_ genreArrayIndex: Int) {
+    override func finished(_ genreArrayIndex: Int) {
         navigationItem.title = AnimeManager.Genres.array[genreArrayIndex].rawValue
         if AnimeManager.Genres.array[genreArrayIndex] == .all {
             navigationItem.title = "Anime"
@@ -62,7 +62,7 @@ class AnimeCollectionViewController: MainCollectionViewController {
         currentGenre = AnimeManager.Genres.array[genreArrayIndex]
     }
     
-    func populateDataSourceArray(_ array: inout [String]) {
+    override func populateDataSourceArray(_ array: inout [String]) {
         array = AnimeManager.Genres.array.map({$0.rawValue})
     }
 }

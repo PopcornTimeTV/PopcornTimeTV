@@ -59,7 +59,7 @@ class MoviesCollectionViewController: MainCollectionViewController {
     
     // MARK: - GenresDelegate
     
-    func finished(_ genreArrayIndex: Int) {
+    override func finished(_ genreArrayIndex: Int) {
         navigationItem.title = MovieManager.Genres.array[genreArrayIndex].rawValue
         if MovieManager.Genres.array[genreArrayIndex] == .all {
             navigationItem.title = "Movies"
@@ -67,7 +67,7 @@ class MoviesCollectionViewController: MainCollectionViewController {
         currentGenre = MovieManager.Genres.array[genreArrayIndex]
     }
     
-    func populateDataSourceArray(_ array: inout [String]) {
+    override func populateDataSourceArray(_ array: inout [String]) {
         array = MovieManager.Genres.array.map({$0.rawValue})
     }
 }

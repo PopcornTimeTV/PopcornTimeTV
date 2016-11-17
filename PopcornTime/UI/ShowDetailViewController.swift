@@ -24,11 +24,14 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet var castButton: CastIconBarButtonItem!
     
+    let interactor = EpisodeDetailPercentDrivenInteractiveTransition()
+    
     var currentType: Trakt.MediaType = .shows
     var currentItem: Show!
     var episodesLeftInShow = [Episode]()
     
-    /* Because UISplitViewControllers are not meant to be pushed to the navigation heirarchy, we are tricking it into thinking it is a root view controller when in fact it is just a childViewController of TVShowContainerViewController. Because of the fact that child view controllers should not be aware of their container view controllers, this variable had to be created to access the navigationController and the tabBarController of the viewController. In order to further trick the view controller, navigationController, navigationItem and tabBarController properties have been overridden to point to their corrisponding parent properties.
+    
+    /* Because UISplitViewControllers are not meant to be pushed to the navigation heirarchy, we are tricking it into thinking it is a root view controller when in fact it is just a childViewController of ShowContainerViewController. Because of the fact that child view controllers should not be aware of their container view controllers, this variable had to be created to access the navigationController and the tabBarController of the viewController. In order to further trick the view controller, navigationController, navigationItem and tabBarController properties have been overridden to point to their corrisponding parent properties.
      */
     var parentTabBarController: UITabBarController?
     var parentNavigationController: UINavigationController?
@@ -173,74 +176,75 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
     
     // MARK: - Navigation
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        super.prepare(for: segue, sender: sender)
-//        if segue.identifier == "showDetail" {
-//            let indexPath = tableView.indexPath(for: sender as! TVShowDetailTableViewCell)
-//            let destinationController = segue.destination as! EpisodeDetailViewController
-//            destinationController.currentItem = currentSeasonArray[indexPath!.row]
-//            var allEpisodes = [Episode]()
-//            for index in segmentedControl.selectedSegmentIndex..<segmentedControl.numberOfSegments {
-//                let season = currentItem.seasonNumbers[index - 1]
-//                allEpisodes += getGroupedEpisodesBySeason(season)
-//                if season == currentSeason // Remove episodes up to the next episode eg. If row 2 is selected, row 0-2 will be deleted.
-//                {
-//                    allEpisodes.removeFirst(indexPath!.row + 1)
-//                }
-//            }
-//            episodesLeftInShow = allEpisodes
-//            destinationController.delegate = self
-//            destinationController.transitioningDelegate = self
-//            destinationController.modalPresentationStyle = .custom
-//            destinationController.interactor = interactor
-//        }
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier == "showDetail",
+            let cell = sender as? ShowDetailTableViewCell,
+            let indexPath = tableView.indexPath(for: cell),
+            let vc = segue.destination as? EpisodeDetailViewController{
+            vc.currentItem = currentSeasonArray[indexPath.row]
+            var allEpisodes = [Episode]()
+            for index in segmentedControl.selectedSegmentIndex..<segmentedControl.numberOfSegments {
+                let season = currentItem.seasonNumbers[index - 1]
+                allEpisodes += getGroupedEpisodesBySeason(season)
+                if season == currentSeason // Remove episodes up to the next episode eg. If row 2 is selected, row 0-2 will be deleted.
+                {
+                    allEpisodes.removeFirst(indexPath.row + 1)
+                }
+            }
+            episodesLeftInShow = allEpisodes
+            vc.delegate = self
+            vc.transitioningDelegate = self
+            vc.modalPresentationStyle = .custom
+            vc.interactor = interactor
+        }
+    }
     
     
     // MARK: - Presentation
     
-//    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        if presented is LoadingViewController {
-//            return PCTLoadingViewAnimatedTransitioning(isPresenting: true, sourceController: source)
-//        } else if presented is EpisodeDetailViewController {
-//            return PCTEpisodeDetailAnimatedTransitioning(isPresenting: true)
-//        }
-//        return nil
-//        
-//    }
-//    
-//    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        if dismissed is LoadingViewController {
-//            return PCTLoadingViewAnimatedTransitioning(isPresenting: false, sourceController: self)
-//        } else if dismissed is EpisodeDetailViewController {
-//            return PCTEpisodeDetailAnimatedTransitioning(isPresenting: false)
-//        }
-//        return nil
-//    }
-//    
-//    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-//        return presented is EpisodeDetailViewController ? PCTEpisodeDetailPresentationController(presentedViewController: presented, presenting: presenting) : nil
-//    }
-//    
-//    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-//        if animator is PCTEpisodeDetailAnimatedTransitioning && interactor.hasStarted && splitViewController!.isCollapsed  {
-//            return interactor
-//        }
-//        return nil
-//    }
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if presented is LoadingViewController {
+            //return PCTLoadingViewAnimatedTransitioning(isPresenting: true, sourceController: source)
+        } else if presented is EpisodeDetailViewController {
+            return EpisodeDetailAnimatedTransitioning(isPresenting: true)
+        }
+        return nil
+        
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if dismissed is LoadingViewController {
+            //return PCTLoadingViewAnimatedTransitioning(isPresenting: false, sourceController: self)
+        } else if dismissed is EpisodeDetailViewController {
+            return EpisodeDetailAnimatedTransitioning(isPresenting: false)
+        }
+        return nil
+    }
+    
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return presented is EpisodeDetailViewController ? EpisodeDetailPresentationController(presentedViewController: presented, presenting: presenting) : nil
+    }
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        if animator is EpisodeDetailAnimatedTransitioning && interactor.hasStarted && splitViewController!.isCollapsed  {
+            return interactor
+        }
+        return nil
+    }
 }
 
 extension ShowDetailViewController: UISplitViewControllerDelegate {
-//    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-//        guard let secondaryViewController = secondaryViewController as? EpisodeDetailViewController , secondaryViewController.currentItem != nil else { return false }
-//        primaryViewController.present(secondaryViewController, animated: true, completion: nil)
-//        return true
-//    }
-//    
-//    func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
-//        if primaryViewController.presentedViewController is EpisodeDetailViewController {
-//            return primaryViewController.presentedViewController
-//        }
-//        return nil
-//    }
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        guard let secondaryViewController = secondaryViewController as? EpisodeDetailViewController , secondaryViewController.currentItem != nil else { return false }
+        primaryViewController.present(secondaryViewController, animated: true, completion: nil)
+        return true
+    }
+    
+    func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
+        if primaryViewController.presentedViewController is EpisodeDetailViewController {
+            return primaryViewController.presentedViewController
+        }
+        return nil
+    }
 }

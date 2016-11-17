@@ -7,6 +7,10 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
     
     func loadNextPage(_ page: Int, searchTerm: String? = nil, removeCurrentData: Bool = false) { fatalError("Must be overridden") }
     
+    func populateDataSourceArray(_ array: inout [String]) { fatalError("Must be overridden") }
+    
+    func finished(_ genreArrayIndex: Int) { fatalError("Must be overridden") }
+    
     let searchBlockDelay: TimeInterval = 0.25
     var searchBlock: DispatchCancelableBlock?
     
@@ -73,18 +77,18 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
         filterDidChange(atIndex: segmentedControl.selectedSegmentIndex)
     }
     
-    @IBAction func searchButtonPressed() {
+    @IBAction func presentSearch() {
         present(searchController, animated: true, completion: nil)
     }
     
-    @IBAction func filterButtonPressed() {
+    @IBAction func showFilter() {
         collectionView?.performBatchUpdates({
             guard let header = self.header else { return }
             header.isHidden = !header.isHidden
         }, completion: nil)
     }
     
-    @IBAction func genresButtonPressed(_ sender: UIBarButtonItem) {
+    @IBAction func showGenres(_ sender: UIBarButtonItem) {
         let vc = cache.object(forKey: self) ?? {
             let vc = storyboard?.instantiateViewController(withIdentifier: "GenresNavigationController") as! UINavigationController
             cache.setObject(vc, forKey: self)
@@ -92,7 +96,7 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
             vc.modalPresentationStyle = .popover
             vc.popoverPresentationController?.backgroundColor = UIColor(red: 30.0/255.0, green: 30.0/255.0, blue: 30.0/255.0, alpha: 1.0)
             return vc
-            }()
+        }()
         vc.popoverPresentationController?.barButtonItem = sender
         present(vc, animated: true, completion: nil)
     }

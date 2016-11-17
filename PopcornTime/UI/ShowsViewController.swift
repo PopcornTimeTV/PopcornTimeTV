@@ -42,7 +42,7 @@ class ShowsCollectionViewController: MainCollectionViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail",
-            let destination = segue.destination as? TVShowContainerViewController,
+            let destination = segue.destination as? ShowContainerViewController,
             let cell = sender as? CoverCollectionViewCell,
             let index = collectionView?.indexPath(for: cell)?.row,
             let show = media[index] as? Show {
@@ -52,7 +52,7 @@ class ShowsCollectionViewController: MainCollectionViewController {
     
     // MARK: - GenresDelegate
     
-    func finished(_ genreArrayIndex: Int) {
+    override func finished(_ genreArrayIndex: Int) {
         navigationItem.title = ShowManager.Genres.array[genreArrayIndex].rawValue
         if ShowManager.Genres.array[genreArrayIndex] == .all {
             navigationItem.title = "Shows"
@@ -60,20 +60,18 @@ class ShowsCollectionViewController: MainCollectionViewController {
         currentGenre = ShowManager.Genres.array[genreArrayIndex]
     }
     
-    func populateDataSourceArray(_ array: inout [String]) {
+    override func populateDataSourceArray(_ array: inout [String]) {
         array = ShowManager.Genres.array.map({$0.rawValue})
     }
 }
 
-class TVShowContainerViewController: UIViewController {
+class ShowContainerViewController: UIViewController {
     
     var currentItem: Show!
     var currentType: Trakt.MediaType = .shows
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail",
-            let vc = (segue.destination as? UISplitViewController)?.viewControllers.first as? ShowDetailViewController
-            {
+        if segue.identifier == "showDetail", let vc = (segue.destination as? UISplitViewController)?.viewControllers.first as? ShowDetailViewController {
             vc.currentItem = currentItem
             vc.currentType = currentType
             vc.parentTabBarController = tabBarController

@@ -29,7 +29,7 @@ class EpisodeDetailViewController: UIViewController, UIGestureRecognizerDelegate
     var currentItem: Episode?
     
     weak var delegate: EpisodeDetailViewControllerDelegate?
-    //var interactor: PCTEpisodeDetailPercentDrivenInteractiveTransition?
+    var interactor: EpisodeDetailPercentDrivenInteractiveTransition?
     
     override var navigationController: UINavigationController? {
         return splitViewController?.viewControllers.first?.navigationController
@@ -64,7 +64,7 @@ class EpisodeDetailViewController: UIViewController, UIGestureRecognizerDelegate
             preferredContentSize = scrollView.contentSize
         }
         
-        guard var currentItem = currentItem else {
+        guard let currentItem = currentItem else {
             let background = Bundle.main.loadNibNamed("TableBackgroundView", owner: self, options: nil)?.first as! TableBackgroundView
             background.frame = view.bounds
             background.autoresizingMask = [.flexibleHeight, .flexibleWidth]
@@ -89,39 +89,41 @@ class EpisodeDetailViewController: UIViewController, UIGestureRecognizerDelegate
         }
         
         qualityButton.isUserInteractionEnabled = currentItem.torrents.count > 1
-        currentItem.currentTorrent = currentItem.torrents.first(where: {$0.quality == UserDefaults.standard.string(forKey: "preferredQuality")}) ?? currentItem.torrents.first
-        if let torrent = currentItem.currentTorrent {
+        self.currentItem!.currentTorrent = currentItem.torrents.first(where: {$0.quality == UserDefaults.standard.string(forKey: "preferredQuality")}) ?? currentItem.torrents.first
+        if let torrent = self.currentItem!.currentTorrent {
             qualityButton.setTitle("\(torrent.quality! + (currentItem.torrents.count > 1 ? " ▾" : ""))", for: .normal)
         } else {
             qualityButton.setTitle("Error loading torrents.", for: .normal)
         }
         
-        playNowButton.isEnabled = currentItem.currentTorrent?.url != nil
-        torrentHealth.backgroundColor = currentItem.currentTorrent?.health.color
+        playNowButton.isEnabled = self.currentItem!.currentTorrent?.url != nil
+        torrentHealth.backgroundColor = self.currentItem!.currentTorrent?.health.color
         
         getSubtitles(forMedia: currentItem, id: currentItem.id) { [weak self] (subtitles, error) in
-            guard let `self` = self, var currentItem = self.currentItem else { return }
+            guard let `self` = self else { return }
             guard error == nil else { self.subtitlesButton.setTitle("Error loading subtitles", for: .normal); return }
-            currentItem.subtitles = subtitles
+            self.currentItem?.subtitles = subtitles
             guard !subtitles.isEmpty else { self.subtitlesButton.setTitle("No Subtitles Available", for: .normal); return }
+            
+            
             
             self.subtitlesButton.setTitle("None ▾", for: .normal)
             self.subtitlesButton.isUserInteractionEnabled = true
             
             if let preferredSubtitle = SubtitleSettings().language {
                 let languages = subtitles.flatMap({$0.language})
-                let index = languages.index{$0 == languages.first(where: {$0 == preferredSubtitle})}
-                let subtitle = currentItem.subtitles![index!]
-                currentItem.currentSubtitle = subtitle
+                guard let index = languages.index(where: {$0 == languages.first(where: {$0 == preferredSubtitle})}) else { return }
+                let subtitle = self.currentItem!.subtitles![index]
+                self.currentItem!.currentSubtitle = subtitle
                 self.subtitlesButton.setTitle(subtitle.language + " ▾", for: .normal)
             }
         }
         
         TMDBManager.shared.getEpisodeScreenshots(forShowWithImdbId: currentItem.show.id, orTMDBId: currentItem.show.tmdbId, season: currentItem.season, episode: currentItem.episode, completion: { (tmdb, image, error) in
-            if let tmdb = tmdb { currentItem.show.tmdbId = tmdb }
+            if let tmdb = tmdb { self.currentItem!.show.tmdbId = tmdb }
             if let image = image,
                 let url = URL(string: image) {
-                currentItem.largeBackgroundImage = image
+                self.currentItem!.largeBackgroundImage = image
                 self.backgroundImageView!.af_setImage(withURL: url, placeholderImage: UIImage(named: "Placeholder"), imageTransition: .crossDissolve(animationLength))
             }
         })
@@ -160,7 +162,7 @@ class EpisodeDetailViewController: UIViewController, UIGestureRecognizerDelegate
     
     @IBAction func changeSubtitle(_ sender: UIButton) {
         let controller = UIAlertController(title: "Select Subtitle", message: nil, preferredStyle: .actionSheet)
-        guard var currentItem = currentItem, let subtitles = currentItem.subtitles else { return }
+        guard var currentItem = currentItem, let subtitles = currentItem.subtitles, !subtitles.isEmpty else { return }
         
         let handler: (UIAlertAction) -> Void = { (action) in
             guard let index = subtitles.index(where: {$0.language == action.title }),
@@ -186,32 +188,32 @@ class EpisodeDetailViewController: UIViewController, UIGestureRecognizerDelegate
     }
     
     @IBAction func handleGesture(_ sender: UIPanGestureRecognizer) {
-//        let percentThreshold: CGFloat = 0.12
-//        let superview = sender.view!.superview!
-//        let translation = sender.translation(in: superview)
-//        let progress = translation.y/superview.bounds.height/3.0
-//        
-//        guard let interactor = interactor else { return }
-//        
-//        switch sender.state {
-//        case .began:
-//            interactor.hasStarted = true
-//            dismiss(animated: true, completion: nil)
-//            scrollView.bounces = false
-//        case .changed:
-//            interactor.shouldFinish = progress > percentThreshold
-//            interactor.update(progress)
-//        case .cancelled:
-//            interactor.hasStarted = false
-//            interactor.cancel()
-//            scrollView.bounces = true
-//        case .ended:
-//            interactor.hasStarted = false
-//            interactor.shouldFinish ? interactor.finish() : interactor.cancel()
-//            scrollView.bounces = true
-//        default:
-//            break
-//        }
+        let percentThreshold: CGFloat = 0.12
+        let superview = sender.view!.superview!
+        let translation = sender.translation(in: superview)
+        let progress = translation.y/superview.bounds.height/3.0
+        
+        guard let interactor = interactor else { return }
+        
+        switch sender.state {
+        case .began:
+            interactor.hasStarted = true
+            dismiss(animated: true, completion: nil)
+            scrollView.bounces = false
+        case .changed:
+            interactor.shouldFinish = progress > percentThreshold
+            interactor.update(progress)
+        case .cancelled:
+            interactor.hasStarted = false
+            interactor.cancel()
+            scrollView.bounces = true
+        case .ended:
+            interactor.hasStarted = false
+            interactor.shouldFinish ? interactor.finish() : interactor.cancel()
+            scrollView.bounces = true
+        default:
+            break
+        }
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
