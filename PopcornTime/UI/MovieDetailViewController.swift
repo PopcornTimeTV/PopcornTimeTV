@@ -2,7 +2,7 @@
 
 import Foundation
 import UIKit
-//import XCDYouTubeKit
+import XCDYouTubeKit
 import AlamofireImage
 import ColorArt
 import FloatRatingView
@@ -187,7 +187,7 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
     }
     
     @IBAction func playTrailer() {
-//        let vc = XCDYouTubeVideoPlayerViewController(videoIdentifier: currentItem.trailerCode)
-//        present(vc, animated: true, completion: nil)
+        let vc = XCDYouTubeVideoPlayerViewController(videoIdentifier: currentItem.trailerCode)
+        present(vc, animated: true, completion: nil)
     }
 }
