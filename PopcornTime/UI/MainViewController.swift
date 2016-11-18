@@ -169,14 +169,24 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
         header = header ?? {
             let reuseableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "filter", for: indexPath) as! FilterCollectionReusableView
             reuseableView.segmentedControl?.removeAllSegments()
-            for (index, filterValue) in ShowManager.Filters.array.enumerated() {
-                reuseableView.segmentedControl?.insertSegment(withTitle: filterValue.string, at: index, animated: false)
+            let array: [String]
+            
+            if type(of: self) == MoviesCollectionViewController.self {
+                array = MovieManager.Filters.array.map({$0.string})
+            } else if type(of: self) == ShowsCollectionViewController.self {
+                array = ShowManager.Filters.array.map({$0.string})
+            } else if type(of: self) == AnimeCollectionViewController.self {
+                array = AnimeManager.Filters.array.map({$0.string})
+            } else { array = [String]() }
+            
+            for (index, filterValue) in array.enumerated() {
+                reuseableView.segmentedControl?.insertSegment(withTitle: filterValue, at: index, animated: false)
             }
             reuseableView.isHidden = true
             reuseableView.segmentedControl?.addTarget(self, action: #selector(segmentedControlDidChangeSegment(_:)), for: .valueChanged)
             reuseableView.segmentedControl?.selectedSegmentIndex = 0
             return reuseableView
-            }()
+        }()
         return header!
     }
     

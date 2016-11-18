@@ -11,13 +11,20 @@ import PopcornKit
 
 protocol PCTPlayerViewControllerDelegate: class {
     func playNext(_ episode: Episode)
+    
+    #if os(iOS)
+        func presentCastPlayer(_ media: Media, videoFilePath: URL, startPosition: TimeInterval)
+    #endif
 }
 
 class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestureRecognizerDelegate {
     
     // MARK: - IBOutlets
     @IBOutlet var movieView: UIView!
-    @IBOutlet var loadingActivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet var loadingActivityIndicatorView: UIView!
+    @IBOutlet var upNextView: UpNextView!
+    
+    @IBOutlet var overlayViews: [UIView]!
     
     #if os(tvOS)
         @IBOutlet var progressBar: VLCTransportBar!
@@ -27,6 +34,33 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     #elseif os(iOS)
         @IBOutlet var progressBar: ProgressBar!
         @IBOutlet var screenshotImageView: UIImageView!
+    
+        @IBOutlet var volumeSlider: BarSlider! {
+            didSet {
+                volumeSlider.setValue(AVAudioSession.sharedInstance().outputVolume, animated: false)
+            }
+        }
+    
+        internal var volumeView: MPVolumeView = {
+            let view = MPVolumeView(frame: CGRect(x: -1000, y: -1000, width: 100, height: 100))
+            view.sizeToFit()
+            return view
+        }()
+    
+        @IBOutlet var playPauseButton: UIButton!
+        @IBOutlet var subtitleSwitcherButton: UIButton!
+        @IBOutlet var videoDimensionsButton: UIButton!
+    
+        @IBOutlet var tapOnVideoRecognizer: UITapGestureRecognizer!
+        @IBOutlet var doubleTapToZoomOnVideoRecognizer: UITapGestureRecognizer!
+    
+        @IBOutlet var regularConstraints: [NSLayoutConstraint]!
+        @IBOutlet var compactConstraints: [NSLayoutConstraint]!
+        @IBOutlet var duringScrubbingConstraints: NSLayoutConstraint!
+        @IBOutlet var finishedScrubbingConstraints: NSLayoutConstraint!
+        @IBOutlet var subtitleSwitcherButtonWidthConstraint: NSLayoutConstraint!
+    
+        @IBOutlet var scrubbingSpeedLabel: UILabel!
     #endif
     
     
@@ -103,8 +137,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     internal var nextMedia: Episode?
     private var startPosition: Float = 0.0
     private var idleTimer: Timer!
-    private var shouldHideStatusBar = true
+    internal var shouldHideStatusBar = true
     private let NSNotFound: Int32 = -1
+    internal var stateBeforeScrubbing: VLCMediaPlayerState!
     
     // MARK: - Player functions
     
@@ -147,7 +182,8 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if startPosition > 0.0 {
-            let continueWatchingAlert = UIAlertController(title: "Continue watching?", message: "Looks like you've already started watching this, would you like to start from the start or continue where you left off.", preferredStyle: .actionSheet)
+            let style: UIAlertControllerStyle = (traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular) ? .alert : .actionSheet
+            let continueWatchingAlert = UIAlertController(title: "Continue watching?", message: "Looks like you've already started watching this, would you like to start from the start or continue where you left off.", preferredStyle: style)
             continueWatchingAlert.addAction(UIAlertAction(title: "Yes, continue from where I left off", style: .default, handler:{ action in
                 self.mediaplayer.play()
                 self.mediaplayer.position = self.startPosition
@@ -156,6 +192,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             continueWatchingAlert.addAction(UIAlertAction(title: "Nope, play from the begining", style: .default, handler: { action in
                 self.mediaplayer.play()
             }))
+            continueWatchingAlert.popoverPresentationController?.sourceView = progressBar
             present(continueWatchingAlert, animated: true, completion: nil)
         } else {
             mediaplayer.play()
@@ -173,7 +210,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         mediaplayer.audio.volume = 200
         
         let settings = SubtitleSettings()
-        currentSubtitle = subtitles.filter({ $0.language == settings.language }).first
+        currentSubtitle = currentSubtitle ?? subtitles.filter({ $0.language == settings.language }).first
         (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.size))
         (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.color.hexInt()))
         (mediaplayer as VLCFontAppearance).setTextRendererFont!(settings.font.familyName as NSString)
@@ -199,6 +236,19 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
 //                    })
 //            })
 //        }
+        
+        #if os(iOS)
+            view.addSubview(volumeView)
+            for subview in volumeView.subviews {
+                if let slider = subview as? UISlider {
+                    slider.addTarget(self, action: #selector(volumeChanged), for: .valueChanged)
+                }
+            }
+            tapOnVideoRecognizer.require(toFail: doubleTapToZoomOnVideoRecognizer)
+            
+            subtitleSwitcherButton.isHidden = subtitles.count == 0
+            subtitleSwitcherButtonWidthConstraint.constant = subtitleSwitcherButton.isHidden == true ? 0 : 24
+        #endif
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -225,8 +275,15 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             didFinishPlaying()
         case .paused:
             manager.setCurrentProgress(Float(progressBar.progress), forId: media.id, withStatus: .paused)
-            progressBar.isHidden ? toggleControlsVisible() : ()
+            #if os(iOS)
+                playPauseButton.setImage(UIImage(named: "Play"), for: .normal)
+            #elseif os(tvOS)
+                progressBar.isHidden ? toggleControlsVisible() : ()
+            #endif
         case .playing:
+            #if os(iOS)
+                playPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
+            #endif
             manager.setCurrentProgress(Float(progressBar.progress), forId: media.id, withStatus: .watching)
         default:
             break
@@ -235,6 +292,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     func mediaPlayerTimeChanged() {
         if loadingActivityIndicatorView.isHidden == false {
+            #if os(iOS)
+                progressBar.subviews.first(where: {!$0.subviews.isEmpty})?.subviews.forEach({ $0.isHidden = false })
+            #endif
             loadingActivityIndicatorView.isHidden = true
             toggleControlsVisible()
             resetIdleTimer()
@@ -251,16 +311,23 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     }
     
     @IBAction func toggleControlsVisible() {
+        shouldHideStatusBar = overlayViews.first!.isHidden
         UIView.animate(withDuration: 0.25, animations: {
-            if self.progressBar.isHidden {
-                self.progressBar.alpha = 1.0
-                self.progressBar.isHidden = false
+            if self.overlayViews.first!.isHidden {
+                self.overlayViews.forEach({
+                    $0.alpha = 1.0
+                    $0.isHidden = false
+                })
             } else {
-                self.progressBar.alpha = 0.0
+                self.overlayViews.forEach({
+                    $0.alpha = 0.0
+                })
             }
          }, completion: { finished in
-            if self.progressBar.alpha == 0.0 {
-                self.progressBar.isHidden = true
+            if self.overlayViews.first!.alpha == 0.0 {
+                self.overlayViews.forEach({
+                    $0.isHidden = true
+                })
             }
         }) 
     }
@@ -303,11 +370,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     /**
      Change color of subtitle font.
      
-     [All colors available here]: http://www.nameacolor.com/Color%20numbers.htm
+     [All colors available here](http://www.nameacolor.com/Color%20numbers.htm)
      
      - Parameter fontColor: An `NSNumber` wrapped hexInt(`UInt32`) indicating the color. Eg. Black: 0, White: 16777215, etc.
-     
-     - SeeAlso: [All colors available here]
      */
     @objc optional func setTextRendererFontColor(_ fontColor: NSNumber)
     /**

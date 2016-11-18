@@ -10,6 +10,7 @@ def pods
     pod 'XCDYouTubeKit', '~> 2.5.3'
     pod 'Alamofire', '~> 4.0'
     pod 'AlamofireImage', '~> 3.0'
+    pod 'SwiftyTimer', '~> 2.0.0'
 end
 
 target 'PopcornTimeiOS' do
@@ -23,7 +24,6 @@ target 'PopcornTimeiOS' do
     pod 'ColorArt', '~> 0.1.1'
     pod '1PasswordExtension', '~> 1.8.4'
     pod 'MobileVLCKit-prod', '~> 2.7.9'
-    pod 'SwiftyTimer', '~> 2.0.0'
     pod 'FloatRatingView', '~> 2.0'
 end
 

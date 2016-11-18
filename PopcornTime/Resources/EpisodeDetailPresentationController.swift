@@ -50,6 +50,7 @@ class EpisodeDetailPresentationController: UIPresentationController {
         }
         return CGRect(origin: CGPoint.zero, size: screenSize)
     }
+    
     override func containerViewDidLayoutSubviews() {
         super.containerViewDidLayoutSubviews()
         if let bounds = containerView?.bounds {

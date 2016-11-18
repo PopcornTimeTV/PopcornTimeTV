@@ -4,7 +4,6 @@ import Foundation
 import UIKit
 import XCDYouTubeKit
 import AlamofireImage
-import ColorArt
 import FloatRatingView
 import PopcornTorrent
 import PopcornKit
@@ -37,15 +36,19 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
     
     var currentItem: Movie!
     
+    var classContext = 0
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isBackgroundHidden = true
+        view.addObserver(self, forKeyPath: "frame", options: .new, context: &classContext)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isBackgroundHidden = false
+        view.removeObserver(self, forKeyPath: "frame")
     }
     
     override func viewDidLoad() {
@@ -61,7 +64,6 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
         summaryView.text = currentItem.summary
         ratingView.rating = Float(currentItem.rating)
         infoLabel.text = "\(currentItem.year) ● \(currentItem.runtime) min ● \(currentItem.genres.first!.capitalized)"
-        playButton.borderColor = SLColorArt(image: backgroundImageView.image).secondaryColor
         trailerButton.isEnabled = currentItem.trailer != nil
         
         if currentItem.torrents.isEmpty {
@@ -103,28 +105,6 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
             self.currentItem.actors = actors
             self.collectionView.reloadData()
         }
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        if let coverImageAsString = currentItem.mediumCoverImage,
-            let backgroundImageAsString = currentItem.largeBackgroundImage {
-            backgroundImageView.af_setImage(withURLRequest: URLRequest(url: URL(string: traitCollection.horizontalSizeClass == .compact ? coverImageAsString : backgroundImageAsString)!), placeholderImage: UIImage(named: "Placeholder"), imageTransition: .crossDissolve(animationLength), completion: {
-                if let value = $0.result.value {
-                    self.playButton.borderColor = SLColorArt(image: value).secondaryColor
-                }
-            })
-        }
-        
-        for constraint in compactConstraints {
-            constraint.priority = traitCollection.horizontalSizeClass == .compact ? 999 : 240
-        }
-        for constraint in regularConstraints {
-            constraint.priority = traitCollection.horizontalSizeClass == .compact ? 240 : 999
-        }
-        UIView.animate(withDuration: animationLength, animations: {
-            self.view.layoutIfNeeded()
-            self.collectionView.collectionViewLayout.invalidateLayout()
-        })
     }
     
     var watchedButtonImage: UIImage {
@@ -189,5 +169,59 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
     @IBAction func playTrailer() {
         let vc = XCDYouTubeVideoPlayerViewController(videoIdentifier: currentItem.trailerCode)
         present(vc, animated: true, completion: nil)
+    }
+    
+    @IBAction func playMovie() {
+        if UserDefaults.standard.bool(forKey: "streamOnCellular") || (UIApplication.shared.delegate! as! AppDelegate).reachability!.isReachableViaWiFi() {
+            
+            let currentProgress = WatchedlistManager.movie.currentProgress(currentItem.id)
+            
+            let loadingViewController = storyboard?.instantiateViewController(withIdentifier: "LoadingViewController") as! LoadingViewController
+            loadingViewController.transitioningDelegate = self
+            loadingViewController.backgroundImage = backgroundImageView.image
+            present(loadingViewController, animated: true, completion: nil)
+            
+            let error: (String) -> Void = { [weak self] (errorMessage) in
+                let alertVc = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+                alertVc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self?.present(alertVc, animated: true, completion: nil)
+            }
+            
+            let finishedLoading: (LoadingViewController, UIViewController) -> Void = { [weak self] (loadingVc, playerVc) in
+                loadingVc.dismiss(animated: false, completion: nil)
+                self?.present(playerVc, animated: true, completion: nil)
+            }
+            
+            if GCKCastContext.sharedInstance().castState == .connected {
+                let playViewController = self.storyboard?.instantiateViewController(withIdentifier: "CastPlayerViewController") as! CastPlayerViewController
+                currentItem.playOnChromecast(fromFileOrMagnetLink: currentItem.currentTorrent!.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
+            } else {
+                let playViewController = self.storyboard?.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
+                //playViewController.delegate = self
+                currentItem.play(fromFileOrMagnetLink: currentItem.currentTorrent!.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
+            }
+        } else {
+            let errorAlert = UIAlertController(title: "Cellular Data is turned off for streaming", message: nil, preferredStyle: .alert)
+            errorAlert.addAction(UIAlertAction(title: "Turn On", style: .default, handler: { [weak self] _ in
+                UserDefaults.standard.set(true, forKey: "streamOnCellular")
+                self?.playMovie()
+            }))
+            errorAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(errorAlert, animated: true, completion: nil)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showRelated",
+            let vc = segue.destination as? MovieDetailViewController,
+            let cell = sender as? CoverCollectionViewCell,
+            let index = collectionView.indexPath(for: cell)?.row {
+            vc.currentItem = currentItem.related[index]
+        } else if segue.identifier == "showActor",
+            let vc = segue.destination as? ActorDetailCollectionViewController,
+            let cell = sender as? UICollectionViewCell,
+            let index = collectionView.indexPath(for: cell)?.row {
+            vc.currentItem = currentItem.actors[index]
+        }
     }
 }

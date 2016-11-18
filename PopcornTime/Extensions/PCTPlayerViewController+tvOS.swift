@@ -2,7 +2,6 @@
 
 import Foundation
 
-// MARK: Transitioning Delegate
 extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, OptionsViewControllerDelegate {
     
     func didSelectSize(_ size: Float) {

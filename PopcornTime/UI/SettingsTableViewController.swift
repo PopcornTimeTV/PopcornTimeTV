@@ -137,6 +137,8 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 
                 alertController.preferredAction = alertController.actions.first(where: { $0.title == UserDefaults.standard.string(forKey: "preferredQuality") ?? "1080p" })
                 
+                alertController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+                
                 present(alertController, animated: true, completion: nil)
             } else if indexPath.row == 2 {
                 let value = UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit")
@@ -162,6 +164,8 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 }
                 
                 alertController.preferredAction = alertController.actions.first(where: { $0.title == subtitleSettings.language })
+                
+                alertController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
                 
                 present(alertController, animated: true, completion: nil)
             } else if indexPath.row == 1 {
@@ -193,6 +197,8 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                     tableView.reloadData()
                 }))
                 
+                alertController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+                
                 present(alertController, animated: true, completion: nil)
             } else if indexPath.row == 2 {
                 let alertController = UIAlertController(title: "Subtitle Color", message: "Choose text color for the player subtitles.", preferredStyle: .actionSheet)
@@ -210,6 +216,8 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 }
                 
                 alertController.preferredAction = alertController.actions.first(where: { $0.title == UIColor.systemColorStrings[UIColor.systemColors.index(of: subtitleSettings.color)!] })
+                
+                alertController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
                 
                 present(alertController, animated: true, completion: nil)
             } else if indexPath.row == 3 {
@@ -232,6 +240,8 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 
                 alertController.preferredAction = alertController.actions.first(where: { $0.title == subtitleSettings.font.familyName })
                 
+                alertController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+                
                 present(alertController, animated: true, completion: nil)
             } else if indexPath.row == 4 {
                 
@@ -250,6 +260,8 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 }
                 
                 alertController.preferredAction = alertController.actions.first(where: { $0.title == subtitleSettings.style.rawValue })
+                
+                alertController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
                 
                 present(alertController, animated: true, completion: nil)
             } else if indexPath.row == 5,
@@ -273,6 +285,8 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 }
                 
                 alertController.preferredAction = alertController.actions.first(where: { $0.title == titles[values.index(of: subtitleSettings.encoding)!] })
+                
+                alertController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
                 
                 present(alertController, animated: true, completion: nil)
             }

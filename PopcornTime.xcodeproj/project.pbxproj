@@ -46,6 +46,14 @@
 		4D859B0C1DDCF0C5000E2AA1 /* EpisodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B0B1DDCF0C5000E2AA1 /* EpisodeDetailViewController.swift */; };
 		4D859B0F1DDE23A3000E2AA1 /* EpisodeDetailPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationController.swift */; };
 		4D859B111DDE259C000E2AA1 /* UIView+Parent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B101DDE259C000E2AA1 /* UIView+Parent.swift */; };
+		4D859B131DDF68A7000E2AA1 /* MovieDetailViewController+UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B121DDF68A7000E2AA1 /* MovieDetailViewController+UICollectionViewDelegate.swift */; };
+		4D859B171DDF6F74000E2AA1 /* ActorDetailCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B161DDF6F74000E2AA1 /* ActorDetailCollectionViewController.swift */; };
+		4D859B1A1DDF8278000E2AA1 /* PCTPlayerViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B191DDF8278000E2AA1 /* PCTPlayerViewController+iOS.swift */; };
+		4D859B1C1DDF86BE000E2AA1 /* SubtitlesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B1B1DDF86BE000E2AA1 /* SubtitlesTableViewController.swift */; };
+		4D859B1E1DDF870B000E2AA1 /* StreamToDevicesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B1D1DDF870B000E2AA1 /* StreamToDevicesTableViewController.swift */; };
+		4D859B201DDF8776000E2AA1 /* AirPlayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B1F1DDF8776000E2AA1 /* AirPlayTableViewCell.swift */; };
+		4D859B221DDF8E0C000E2AA1 /* UpNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B211DDF8E0C000E2AA1 /* UpNextView.swift */; };
+		4D859B231DDF8E17000E2AA1 /* UpNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B211DDF8E0C000E2AA1 /* UpNextView.swift */; };
 		4D91ECB21DDB7177001B798A /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91ECB11DDB7177001B798A /* MovieDetailViewController.swift */; };
 		4D91ECB51DDB729C001B798A /* CircularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91ECB31DDB729C001B798A /* CircularView.swift */; };
 		4D91ECB61DDB729C001B798A /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91ECB41DDB729C001B798A /* GradientView.swift */; };
@@ -189,6 +197,13 @@
 		4D859B0B1DDCF0C5000E2AA1 /* EpisodeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodeDetailViewController.swift; path = UI/EpisodeDetailViewController.swift; sourceTree = "<group>"; };
 		4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodeDetailPresentationController.swift; path = Resources/EpisodeDetailPresentationController.swift; sourceTree = "<group>"; };
 		4D859B101DDE259C000E2AA1 /* UIView+Parent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Parent.swift"; path = "Extensions/UIView+Parent.swift"; sourceTree = "<group>"; };
+		4D859B121DDF68A7000E2AA1 /* MovieDetailViewController+UICollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MovieDetailViewController+UICollectionViewDelegate.swift"; path = "Extensions/MovieDetailViewController+UICollectionViewDelegate.swift"; sourceTree = "<group>"; };
+		4D859B161DDF6F74000E2AA1 /* ActorDetailCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActorDetailCollectionViewController.swift; path = UI/ActorDetailCollectionViewController.swift; sourceTree = "<group>"; };
+		4D859B191DDF8278000E2AA1 /* PCTPlayerViewController+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PCTPlayerViewController+iOS.swift"; path = "Extensions/PCTPlayerViewController+iOS.swift"; sourceTree = "<group>"; };
+		4D859B1B1DDF86BE000E2AA1 /* SubtitlesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubtitlesTableViewController.swift; path = UI/SubtitlesTableViewController.swift; sourceTree = "<group>"; };
+		4D859B1D1DDF870B000E2AA1 /* StreamToDevicesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamToDevicesTableViewController.swift; path = UI/StreamToDevicesTableViewController.swift; sourceTree = "<group>"; };
+		4D859B1F1DDF8776000E2AA1 /* AirPlayTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AirPlayTableViewCell.swift; path = UI/AirPlayTableViewCell.swift; sourceTree = "<group>"; };
+		4D859B211DDF8E0C000E2AA1 /* UpNextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpNextView.swift; path = UI/UpNextView.swift; sourceTree = "<group>"; };
 		4D91ECB11DDB7177001B798A /* MovieDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovieDetailViewController.swift; path = UI/MovieDetailViewController.swift; sourceTree = "<group>"; };
 		4D91ECB31DDB729C001B798A /* CircularView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircularView.swift; path = UI/CircularView.swift; sourceTree = "<group>"; };
 		4D91ECB41DDB729C001B798A /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientView.swift; path = UI/GradientView.swift; sourceTree = "<group>"; };
@@ -354,22 +369,13 @@
 		28EB626A1CA3362B00985F78 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				4D990E1A1DC4EFA2005CDE34 /* PCTPlayerViewController+tvOS.swift */,
-				4D990E1B1DC4EFA2005CDE34 /* UIViewController+TVJS.swift */,
-				4D990E1C1DC4EFA2005CDE34 /* Movie+Lockup.swift */,
-				4D91ECB91DDB84C7001B798A /* UINavigationBar+Extension.swift */,
 				4D990E1D1DC4EFA2005CDE34 /* Media+Extension.swift */,
-				4D990E1E1DC4EFA2005CDE34 /* Show+Lockup.swift */,
 				28EB626B1CA3364300985F78 /* String+Cleaned.swift */,
 				4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */,
 				4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */,
 				4D9CED3A1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift */,
-				4DA42DC91DD8E3CD00933A10 /* DispatchQueue+Extension.swift */,
-				4DA42DCF1DD8EE7300933A10 /* UIImage+Color.swift */,
 				4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */,
-				4DA42DE91DD8F34400933A10 /* CGSize+Min.swift */,
 				4D91ECBB1DDBA842001B798A /* UIFont+Traits.swift */,
-				4D859B101DDE259C000E2AA1 /* UIView+Parent.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -391,6 +397,7 @@
 				9211E3EB1CDC0A8C00BEEB9D /* VLC */,
 				4D990E501DC4F10D005CDE34 /* Recipes */,
 				4D990E3E1DC4F092005CDE34 /* Option View Controllers */,
+				4D859B241DDF9A12000E2AA1 /* Extensions */,
 			);
 			name = tvOS;
 			sourceTree = "<group>";
@@ -402,6 +409,7 @@
 				4D990E381DC4F069005CDE34 /* LoadingViewController.swift */,
 				4D990E3F1DC4F09C005CDE34 /* SettingsTableViewController.swift */,
 				4D689A651DD89511001D1318 /* TermsOfServiceViewController.swift */,
+				4D859B211DDF8E0C000E2AA1 /* UpNextView.swift */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -419,9 +427,7 @@
 				4DA42DD81DD8F04D00933A10 /* Views */,
 				4DA42DE51DD8F1BD00933A10 /* Buttons */,
 				4DA42DE21DD8F16700933A10 /* Sliders */,
-				4DA42DCB1DD8E57C00933A10 /* ProgressBar.swift */,
-				4D91ECB71DDB7305001B798A /* ExpandableTextView.swift */,
-				4DA42DE01DD8F15C00933A10 /* FilterCollectionReusableView.swift */,
+				4D859B181DDF7373000E2AA1 /* Extensions */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -448,15 +454,42 @@
 		4D859B081DDCEF3E000E2AA1 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
+				4D859B1F1DDF8776000E2AA1 /* AirPlayTableViewCell.swift */,
 				4D859B091DDCEF56000E2AA1 /* ShowDetailTableViewCell.swift */,
 			);
 			name = "Table View Cells";
+			sourceTree = "<group>";
+		};
+		4D859B181DDF7373000E2AA1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4DA42DE91DD8F34400933A10 /* CGSize+Min.swift */,
+				4D859B191DDF8278000E2AA1 /* PCTPlayerViewController+iOS.swift */,
+				4DA42DCF1DD8EE7300933A10 /* UIImage+Color.swift */,
+				4D859B101DDE259C000E2AA1 /* UIView+Parent.swift */,
+				4DA42DC91DD8E3CD00933A10 /* DispatchQueue+Extension.swift */,
+				4D91ECB91DDB84C7001B798A /* UINavigationBar+Extension.swift */,
+				4D859B121DDF68A7000E2AA1 /* MovieDetailViewController+UICollectionViewDelegate.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		4D859B241DDF9A12000E2AA1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4D990E1A1DC4EFA2005CDE34 /* PCTPlayerViewController+tvOS.swift */,
+				4D990E1B1DC4EFA2005CDE34 /* UIViewController+TVJS.swift */,
+				4D990E1C1DC4EFA2005CDE34 /* Movie+Lockup.swift */,
+				4D990E1E1DC4EFA2005CDE34 /* Show+Lockup.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		4D91ECB01DDB7110001B798A /* Detail View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				4D91ECB11DDB7177001B798A /* MovieDetailViewController.swift */,
+				4D859B161DDF6F74000E2AA1 /* ActorDetailCollectionViewController.swift */,
 				4D859B061DDCEE53000E2AA1 /* ShowDetailViewController.swift */,
 				4D859B0B1DDCF0C5000E2AA1 /* EpisodeDetailViewController.swift */,
 			);
@@ -619,6 +652,9 @@
 		4DA42DD81DD8F04D00933A10 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4DA42DCB1DD8E57C00933A10 /* ProgressBar.swift */,
+				4D91ECB71DDB7305001B798A /* ExpandableTextView.swift */,
+				4DA42DE01DD8F15C00933A10 /* FilterCollectionReusableView.swift */,
 				4D91ECB31DDB729C001B798A /* CircularView.swift */,
 				4D91ECB41DDB729C001B798A /* GradientView.swift */,
 				4DA42DDB1DD8F09F00933A10 /* TableBackgroundView.xib */,
@@ -649,6 +685,8 @@
 		4DA42DE61DD8F23200933A10 /* Table View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4D859B1D1DDF870B000E2AA1 /* StreamToDevicesTableViewController.swift */,
+				4D859B1B1DDF86BE000E2AA1 /* SubtitlesTableViewController.swift */,
 				4DA42DE71DD8F24300933A10 /* GenresTableViewController.swift */,
 			);
 			name = "Table View Controllers";
@@ -1006,6 +1044,7 @@
 				4D990EA01DC4F2F5005CDE34 /* WatchlistRecipe.swift in Sources */,
 				4D0183A91DC3ACB500AB75B3 /* Locale+Langs.swift in Sources */,
 				4D990EAB1DC4F311005CDE34 /* WelcomeRecipe.swift in Sources */,
+				4D859B231DDF8E17000E2AA1 /* UpNextView.swift in Sources */,
 				4D69B75F1DC550F500A88A37 /* Watchlist.swift in Sources */,
 				4DA42DD21DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */,
 				D9C3D2251D4196340054BD9A /* VLCTransportBar.m in Sources */,
@@ -1045,9 +1084,11 @@
 			files = (
 				4D859B111DDE259C000E2AA1 /* UIView+Parent.swift in Sources */,
 				4D859B0A1DDCEF56000E2AA1 /* ShowDetailTableViewCell.swift in Sources */,
+				4D859B1E1DDF870B000E2AA1 /* StreamToDevicesTableViewController.swift in Sources */,
 				4D859B071DDCEE53000E2AA1 /* ShowDetailViewController.swift in Sources */,
 				4DA42DEA1DD8F34400933A10 /* CGSize+Min.swift in Sources */,
 				4D689A311DD88F26001D1318 /* PCTPlayerViewController.swift in Sources */,
+				4D859B221DDF8E0C000E2AA1 /* UpNextView.swift in Sources */,
 				4D6110F51DD8F5BF004DCEB7 /* WhiteHighlightButton.swift in Sources */,
 				4D859B0C1DDCF0C5000E2AA1 /* EpisodeDetailViewController.swift in Sources */,
 				4DA42DCC1DD8E57C00933A10 /* ProgressBar.swift in Sources */,
@@ -1069,10 +1110,13 @@
 				4D859B0F1DDE23A3000E2AA1 /* EpisodeDetailPresentationController.swift in Sources */,
 				4DA42DE41DD8F1AF00933A10 /* BlurButton.swift in Sources */,
 				4D91ECB51DDB729C001B798A /* CircularView.swift in Sources */,
+				4D859B1A1DDF8278000E2AA1 /* PCTPlayerViewController+iOS.swift in Sources */,
 				4DA42DCE1DD8E69A00933A10 /* ProgressSlider.swift in Sources */,
 				4D689A6E1DD8ADFD001D1318 /* CastIconButton.swift in Sources */,
 				4D91ECB81DDB7305001B798A /* ExpandableTextView.swift in Sources */,
 				4D689A831DD8BC82001D1318 /* MoviesCollectionViewController.swift in Sources */,
+				4D859B1C1DDF86BE000E2AA1 /* SubtitlesTableViewController.swift in Sources */,
+				4D859B131DDF68A7000E2AA1 /* MovieDetailViewController+UICollectionViewDelegate.swift in Sources */,
 				4D91ECB61DDB729C001B798A /* GradientView.swift in Sources */,
 				4D689A6F1DD8AF12001D1318 /* AppDelegate.swift in Sources */,
 				4D689A821DD8BC82001D1318 /* AnimeCollectionViewController.swift in Sources */,
@@ -1081,6 +1125,8 @@
 				4D6110F31DD8F57D004DCEB7 /* BorderButton.swift in Sources */,
 				4DA42DD71DD8EFD100933A10 /* CoverCollectionViewCell.swift in Sources */,
 				4DA42DDA1DD8F08300933A10 /* BarSlider.swift in Sources */,
+				4D859B201DDF8776000E2AA1 /* AirPlayTableViewCell.swift in Sources */,
+				4D859B171DDF6F74000E2AA1 /* ActorDetailCollectionViewController.swift in Sources */,
 				4D689A2C1DD88F0A001D1318 /* UIColor+Extension.swift in Sources */,
 				4D689A331DD88F26001D1318 /* SettingsTableViewController.swift in Sources */,
 				4D689A691DD89567001D1318 /* TermsOfServiceViewController.swift in Sources */,

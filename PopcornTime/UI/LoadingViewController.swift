@@ -14,25 +14,34 @@ class LoadingViewController: UIViewController {
     @IBOutlet private var speedLabel: UILabel!
     @IBOutlet private var seedsLabel: UILabel!
     @IBOutlet private var backgroundImageView: UIImageView!
-    @IBOutlet private var mediaTitleLabel: UILabel!
-    @IBOutlet private var streamingStatusLabel: UILabel!
+    
+    // tvOS exclusive
+    @IBOutlet private var mediaTitleLabel: UILabel?
+    @IBOutlet private var streamingStatusLabel: UILabel?
+    
+    // iOS exclusive 
+    
+    @IBOutlet private var processingView: UIView?
     
     
     var progress: Float = 0.0 {
         didSet {
             progressView.isHidden = false
+            processingView?.isHidden = true
             progressLabel.isHidden = false
             progressView.progress = progress
-            streamingStatusLabel.text = "Downloading..."
+            streamingStatusLabel?.text = "Downloading..."
             progressLabel.text = String(format: "%.0f%%", progress*100)
         }
     }
+    
     var speed: Int = 0 {
         didSet {
             speedLabel.isHidden = false
             speedLabel.text = ByteCountFormatter.string(fromByteCount: Int64(speed), countStyle: .binary) + "/s"
         }
     }
+    
     var seeds: Int = 0 {
         didSet {
             seedsLabel.isHidden = false
@@ -41,15 +50,18 @@ class LoadingViewController: UIViewController {
     }
     
     var backgroundImageString: String?
-    var mediaTitle: String!
+    var backgroundImage: UIImage?
+    var mediaTitle: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.isIdleTimerDisabled = true
         if let image = backgroundImageString, let url = URL(string: image) {
             backgroundImageView.af_setImage(withURL: url)
+        } else if let image = backgroundImage {
+            backgroundImageView.image = image
         }
-        mediaTitleLabel.text = mediaTitle
+        mediaTitleLabel?.text = mediaTitle
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -67,5 +79,11 @@ class LoadingViewController: UIViewController {
             dismiss(animated: true, completion: nil)
         #endif
     }
+    
+    #if os(iOS)
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    #endif
     
 }

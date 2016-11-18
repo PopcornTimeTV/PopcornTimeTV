@@ -3,7 +3,7 @@
 import Foundation
 import UIKit
 
-class ProgressBar: UIView {
+class ProgressBar: UIVisualEffectView {
     
     @IBOutlet var remainingTimeLabel: UILabel!
     @IBOutlet var elapsedTimeLabel: UILabel!
