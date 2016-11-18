@@ -323,6 +323,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
                     $0.alpha = 0.0
                 })
             }
+            #if os(iOS)
+            self.setNeedsStatusBarAppearanceUpdate()
+            #endif
          }, completion: { finished in
             if self.overlayViews.first!.alpha == 0.0 {
                 self.overlayViews.forEach({
