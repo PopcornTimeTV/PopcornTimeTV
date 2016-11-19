@@ -8,7 +8,7 @@ import FloatRatingView
 import PopcornTorrent
 import PopcornKit
 
-class MovieDetailViewController: UIViewController, UIViewControllerTransitioningDelegate, UIPopoverPresentationControllerDelegate {
+class MovieDetailViewController: UIViewController, UIViewControllerTransitioningDelegate, UIPopoverPresentationControllerDelegate, PCTPlayerViewControllerDelegate {
 
     @IBOutlet var qualityButton: UIButton!
     @IBOutlet var subtitlesButton: UIButton!
@@ -43,12 +43,41 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isBackgroundHidden = true
         view.addObserver(self, forKeyPath: "frame", options: .new, context: &classContext)
+        
+        if transitionCoordinator?.viewController(forKey: .from) is LoadingViewController {
+            transitionCoordinator?.animate(alongsideTransition: { (context) in
+                guard let tabBarFrame = self.tabBarController?.tabBar.frame else { return }
+                
+                let tabBarOffsetY = -tabBarFrame.size.height
+                self.tabBarController?.tabBar.frame = tabBarFrame.offsetBy(dx: 0, dy: tabBarOffsetY)
+                
+                self.gradientView.alpha = 1.0
+                
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isBackgroundHidden = false
         view.removeObserver(self, forKeyPath: "frame")
+        
+        if transitionCoordinator?.viewController(forKey: .to) is LoadingViewController {
+            transitionCoordinator?.animate(alongsideTransition: { (context) in
+                guard let tabBarFrame = self.tabBarController?.tabBar.frame, let navigationBarFrame = self.navigationController?.navigationBar.frame else { return }
+                
+                let tabBarOffsetY = tabBarFrame.size.height
+                let navigationOffsetY = -(navigationBarFrame.size.height + self.statusBarHeight)
+                
+                self.tabBarController?.tabBar.frame = tabBarFrame.offsetBy(dx: 0, dy: tabBarOffsetY)
+                self.navigationController?.navigationBar.frame = navigationBarFrame.offsetBy(dx: 0, dy: navigationOffsetY)
+                
+                self.gradientView.alpha = 0.0
+                
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
     }
     
     override func viewDidLoad() {
@@ -239,7 +268,7 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
                 currentItem.playOnChromecast(fromFileOrMagnetLink: currentItem.currentTorrent!.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
             } else {
                 let playViewController = self.storyboard?.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
-                //playViewController.delegate = self
+                playViewController.delegate = self
                 currentItem.play(fromFileOrMagnetLink: currentItem.currentTorrent!.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
             }
         } else {
@@ -251,5 +280,26 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
             errorAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(errorAlert, animated: true, completion: nil)
         }
+    }
+    
+    func presentCastPlayer(_ media: Media, videoFilePath: URL, startPosition: TimeInterval) {
+        // TODO: Implement
+    }
+    
+    // MARK: - Presentation
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if presented is LoadingViewController {
+            return LoadingViewAnimatedTransitioning(isPresenting: true)
+        }
+        return nil
+        
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if dismissed is LoadingViewController {
+            return LoadingViewAnimatedTransitioning(isPresenting: false)
+        }
+        return nil
     }
 }

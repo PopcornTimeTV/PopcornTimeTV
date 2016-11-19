@@ -107,10 +107,15 @@ extension PCTPlayerViewController: SubtitlesTableViewControllerDelegate, UIPopov
     }
     
     @IBAction func scrubbingBegan() {
+        
+        screenshotImageView.image = nil
+        screenshotImageView.isHidden = false
+        
         stateBeforeScrubbing = mediaplayer.state
         if mediaplayer.isPlaying {
             mediaplayer.pause()
         }
+        
         UIView.animate(withDuration: animationLength, animations: {
             self.finishedScrubbingConstraints.isActive = false
             self.duringScrubbingConstraints.isActive = true
@@ -132,6 +137,10 @@ extension PCTPlayerViewController: SubtitlesTableViewControllerDelegate, UIPopov
             mediaplayer.play()
             playPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
         }
+        
+        screenshotImageView.image = nil
+        screenshotImageView.isHidden = true
+        
         positionSliderAction()
         view.layoutIfNeeded()
         UIView.animate(withDuration: animationLength, animations: {

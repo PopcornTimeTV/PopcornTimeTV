@@ -6,7 +6,7 @@ import PopcornKit
 import PopcornTorrent
 import FloatRatingView
 
-class ShowDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate {
+class ShowDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, UIPopoverPresentationControllerDelegate {
     
     @IBOutlet var segmentedControl: UISegmentedControl!
     @IBOutlet var tableHeaderView: UIView!
@@ -60,9 +60,25 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isBackgroundHidden = true
         navigationController?.navigationBar.frame.size.width = splitViewController?.primaryColumnWidth ?? view.bounds.width
+        
         WatchedlistManager.episode.syncTraktProgress()
         WatchedlistManager.show.getWatched() {
             self.tableView.reloadData()
+        }
+        
+        if transitionCoordinator?.viewController(forKey: .from) is LoadingViewController {
+            transitionCoordinator?.animate(alongsideTransition: { (context) in
+                guard let tabBarFrame = self.tabBarController?.tabBar.frame else { return }
+                
+                let tabBarOffsetY = -tabBarFrame.size.height
+                self.tabBarController?.tabBar.frame = tabBarFrame.offsetBy(dx: 0, dy: tabBarOffsetY)
+                
+                self.gradientViews.forEach({ $0.alpha = 1.0 })
+                self.segmentedControl.alpha = 1.0
+                
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            splitViewController?.preferredDisplayMode = .allVisible
         }
     }
     
@@ -70,6 +86,24 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isBackgroundHidden = false
         navigationController?.navigationBar.frame.size.width = UIScreen.main.bounds.width
+        
+        if transitionCoordinator?.viewController(forKey: .to) is LoadingViewController {
+            transitionCoordinator?.animate(alongsideTransition: { (context) in
+                guard let tabBarFrame = self.tabBarController?.tabBar.frame, let navigationBarFrame = self.navigationController?.navigationBar.frame else { return }
+                
+                let tabBarOffsetY = tabBarFrame.size.height
+                let navigationOffsetY = -(navigationBarFrame.size.height + self.statusBarHeight)
+                
+                self.tabBarController?.tabBar.frame = tabBarFrame.offsetBy(dx: 0, dy: tabBarOffsetY)
+                self.navigationController?.navigationBar.frame = navigationBarFrame.offsetBy(dx: 0, dy: navigationOffsetY)
+                
+                self.gradientViews.forEach({ $0.alpha = 0.0 })
+                self.segmentedControl.alpha = 0.0
+                
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            splitViewController?.preferredDisplayMode = .primaryHidden
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -77,6 +111,7 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
         navigationController?.navigationBar.frame.size.width = splitViewController?.primaryColumnWidth ?? view.bounds.width
         splitViewController?.minimumPrimaryColumnWidth = UIScreen.main.bounds.width/1.7
         splitViewController?.maximumPrimaryColumnWidth = UIScreen.main.bounds.width/1.7
+        tableView.sizeHeaderThatFits(CGSize(width: tableHeaderView.frame.width, height: 115.0 + summaryView.bounds.height))
     }
     
     override func viewDidLoad() {
@@ -84,6 +119,7 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
         splitViewController?.delegate = self
         splitViewController?.preferredDisplayMode = .allVisible
         navigationItem.title = currentItem.title
+        (castButton.customView as! CastIconButton).addTarget(self, action: #selector(castButtonTapped), for: .touchUpInside)
         
         let inset = tabBarController?.tabBar.frame.height ?? 0.0
         tableView.contentInset.bottom = inset
@@ -177,8 +213,10 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        if segue.identifier == "showDetail",
+        if segue.identifier == "showCasts", let vc = (segue.destination as? UINavigationController)?.viewControllers.first as? StreamToDevicesTableViewController {
+            segue.destination.popoverPresentationController?.delegate = self
+            vc.onlyShowCastDevices = true
+        } else if segue.identifier == "showDetail",
             let cell = sender as? ShowDetailTableViewCell,
             let indexPath = tableView.indexPath(for: cell),
             let vc = segue.destination as? EpisodeDetailViewController {
@@ -200,12 +238,30 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
+    func castButtonTapped() {
+        performSegue(withIdentifier: "showCasts", sender: castButton)
+    }
+    
+    func updateCastStatus() {
+        (castButton.customView as! CastIconButton).status = GCKCastContext.sharedInstance().castState
+    }
+    
+    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+        (controller.presentedViewController as! UINavigationController).topViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonPressed))
+        return controller.presentedViewController
+        
+    }
+    
+    func cancelButtonPressed() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     
     // MARK: - Presentation
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if presented is LoadingViewController {
-            //return PCTLoadingViewAnimatedTransitioning(isPresenting: true, sourceController: source)
+            return LoadingViewAnimatedTransitioning(isPresenting: true)
         } else if presented is EpisodeDetailViewController {
             return EpisodeDetailAnimatedTransitioning(isPresenting: true)
         }
@@ -215,7 +271,7 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if dismissed is LoadingViewController {
-            //return PCTLoadingViewAnimatedTransitioning(isPresenting: false, sourceController: self)
+            return LoadingViewAnimatedTransitioning(isPresenting: false)
         } else if dismissed is EpisodeDetailViewController {
             return EpisodeDetailAnimatedTransitioning(isPresenting: false)
         }
@@ -237,7 +293,7 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
 extension ShowDetailViewController: UISplitViewControllerDelegate {
     
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-        guard let secondaryViewController = secondaryViewController as? EpisodeDetailViewController, secondaryViewController.currentItem != nil else { return false }
+        guard let secondaryViewController = secondaryViewController as? EpisodeDetailViewController, secondaryViewController.currentItem != nil else { return true }
         primaryViewController.present(secondaryViewController, animated: true, completion: nil)
         secondaryViewController.view.setNeedsLayout()
         secondaryViewController.view.layoutIfNeeded()
@@ -247,7 +303,7 @@ extension ShowDetailViewController: UISplitViewControllerDelegate {
     }
     
     func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
-        let vc = primaryViewController.presentedViewController
+        guard let vc = primaryViewController.presentedViewController as? EpisodeDetailViewController else { return nil }
         primaryViewController.dismiss(animated: false, completion: nil)
         return vc
     }

@@ -26,7 +26,7 @@
 		4D689A6F1DD8AF12001D1318 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E451DC4F0F1005CDE34 /* AppDelegate.swift */; };
 		4D69B7621DC6396D00A88A37 /* button-unwatched.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D69B7601DC6396D00A88A37 /* button-unwatched.png */; };
 		4D69B7631DC6396D00A88A37 /* button-watched.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D69B7611DC6396D00A88A37 /* button-watched.png */; };
-		4D859B0F1DDE23A3000E2AA1 /* EpisodeDetailPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationController.swift */; };
+		4D859B0F1DDE23A3000E2AA1 /* EpisodeDetailPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationDelegate.swift */; };
 		4D859B2A1DDFA079000E2AA1 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B251DDFA079000E2AA1 /* LoadingViewController.swift */; };
 		4D859B2B1DDFA079000E2AA1 /* PCTPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B261DDFA079000E2AA1 /* PCTPlayerViewController.swift */; };
 		4D859B2C1DDFA079000E2AA1 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B271DDFA079000E2AA1 /* SettingsTableViewController.swift */; };
@@ -111,6 +111,9 @@
 		4D859BED1DDFA246000E2AA1 /* SeasonPickerRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BE61DDFA246000E2AA1 /* SeasonPickerRecipe.swift */; };
 		4D859BEE1DDFA246000E2AA1 /* SeasonPickerRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D859BE71DDFA246000E2AA1 /* SeasonPickerRecipe.xml */; };
 		4D8A57411DE096B700CCDF8A /* ShowDetailViewController+EpisodeDetailViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A57401DE096B700CCDF8A /* ShowDetailViewController+EpisodeDetailViewControllerDelegate.swift */; };
+		4D8A57431DE0F39A00CCDF8A /* UITableView+Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A57421DE0F39A00CCDF8A /* UITableView+Header.swift */; };
+		4D8A57451DE109B700CCDF8A /* LoadingViewControllerPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A57441DE109B700CCDF8A /* LoadingViewControllerPresentationDelegate.swift */; };
+		4D8A57471DE10DFE00CCDF8A /* UIViewController+StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A57461DE10DFD00CCDF8A /* UIViewController+StatusBar.swift */; };
 		4D91ECBC1DDBA842001B798A /* UIFont+Traits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91ECBB1DDBA842001B798A /* UIFont+Traits.swift */; };
 		4D91ECBD1DDBA842001B798A /* UIFont+Traits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91ECBB1DDBA842001B798A /* UIFont+Traits.swift */; };
 		4D990E231DC4EFA2005CDE34 /* Media+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E1D1DC4EFA2005CDE34 /* Media+Extension.swift */; };
@@ -182,7 +185,7 @@
 		4D689A6C1DD8ADFA001D1318 /* CastIconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CastIconButton.swift; path = Resources/CastIconButton.swift; sourceTree = "<group>"; };
 		4D69B7601DC6396D00A88A37 /* button-unwatched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-unwatched.png"; path = "Resources/button-unwatched.png"; sourceTree = "<group>"; };
 		4D69B7611DC6396D00A88A37 /* button-watched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-watched.png"; path = "Resources/button-watched.png"; sourceTree = "<group>"; };
-		4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodeDetailPresentationController.swift; path = Resources/EpisodeDetailPresentationController.swift; sourceTree = "<group>"; };
+		4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodeDetailPresentationDelegate.swift; path = Resources/EpisodeDetailPresentationDelegate.swift; sourceTree = "<group>"; };
 		4D859B251DDFA079000E2AA1 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingViewController.swift; path = UI/Shared/LoadingViewController.swift; sourceTree = "<group>"; };
 		4D859B261DDFA079000E2AA1 /* PCTPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PCTPlayerViewController.swift; path = UI/Shared/PCTPlayerViewController.swift; sourceTree = "<group>"; };
 		4D859B271DDFA079000E2AA1 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsTableViewController.swift; path = UI/Shared/SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -264,6 +267,9 @@
 		4D859BE61DDFA246000E2AA1 /* SeasonPickerRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SeasonPickerRecipe.swift; path = UI/tvOS/Recipes/Products/SeasonPickerRecipe.swift; sourceTree = "<group>"; };
 		4D859BE71DDFA246000E2AA1 /* SeasonPickerRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = SeasonPickerRecipe.xml; path = UI/tvOS/Recipes/Products/SeasonPickerRecipe.xml; sourceTree = "<group>"; };
 		4D8A57401DE096B700CCDF8A /* ShowDetailViewController+EpisodeDetailViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ShowDetailViewController+EpisodeDetailViewControllerDelegate.swift"; path = "UI/iOS/Extensions/ShowDetailViewController+EpisodeDetailViewControllerDelegate.swift"; sourceTree = "<group>"; };
+		4D8A57421DE0F39A00CCDF8A /* UITableView+Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UITableView+Header.swift"; path = "UI/iOS/Extensions/UITableView+Header.swift"; sourceTree = "<group>"; };
+		4D8A57441DE109B700CCDF8A /* LoadingViewControllerPresentationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingViewControllerPresentationDelegate.swift; path = Resources/LoadingViewControllerPresentationDelegate.swift; sourceTree = "<group>"; };
+		4D8A57461DE10DFD00CCDF8A /* UIViewController+StatusBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+StatusBar.swift"; path = "UI/iOS/Extensions/UIViewController+StatusBar.swift"; sourceTree = "<group>"; };
 		4D91ECBB1DDBA842001B798A /* UIFont+Traits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIFont+Traits.swift"; path = "Extensions/UIFont+Traits.swift"; sourceTree = "<group>"; };
 		4D990E1D1DC4EFA2005CDE34 /* Media+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Media+Extension.swift"; path = "Extensions/Media+Extension.swift"; sourceTree = "<group>"; };
 		4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubtitleSettings.swift; path = Resources/SubtitleSettings.swift; sourceTree = "<group>"; };
@@ -471,8 +477,10 @@
 				4D859B901DDFA162000E2AA1 /* UIView+Parent.swift */,
 				4D859B911DDFA162000E2AA1 /* UINavigationBar+Extension.swift */,
 				4D859B921DDFA162000E2AA1 /* CGSize+Min.swift */,
+				4D8A57421DE0F39A00CCDF8A /* UITableView+Header.swift */,
 				4D859B931DDFA162000E2AA1 /* UIImage+Color.swift */,
 				4D859B941DDFA162000E2AA1 /* DispatchQueue+Extension.swift */,
+				4D8A57461DE10DFD00CCDF8A /* UIViewController+StatusBar.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -506,7 +514,8 @@
 				4D689A6C1DD8ADFA001D1318 /* CastIconButton.swift */,
 				4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */,
 				4D990E411DC4F0BD005CDE34 /* OptionsViewControllerPresentationDelegate.swift */,
-				4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationController.swift */,
+				4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationDelegate.swift */,
+				4D8A57441DE109B700CCDF8A /* LoadingViewControllerPresentationDelegate.swift */,
 				4D69B7601DC6396D00A88A37 /* button-unwatched.png */,
 				4D69B7611DC6396D00A88A37 /* button-watched.png */,
 				4D990E2A1DC4F00F005CDE34 /* Pagination.js */,
@@ -1096,6 +1105,7 @@
 				4D859B3F1DDFA0C3000E2AA1 /* ShowDetailTableViewCell.swift in Sources */,
 				4D859B541DDFA0F8000E2AA1 /* ShowsCollectionViewController.swift in Sources */,
 				4D689A2E1DD88F12001D1318 /* Locale+Langs.swift in Sources */,
+				4D8A57451DE109B700CCDF8A /* LoadingViewControllerPresentationDelegate.swift in Sources */,
 				4DA42DD31DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */,
 				4D689A301DD88F1A001D1318 /* Media+Extension.swift in Sources */,
 				4D859BA01DDFA164000E2AA1 /* CGSize+Min.swift in Sources */,
@@ -1109,7 +1119,7 @@
 				4D859B861DDFA13D000E2AA1 /* BorderButton.swift in Sources */,
 				4D859B611DDFA10C000E2AA1 /* MovieDetailViewController.swift in Sources */,
 				4D91ECBD1DDBA842001B798A /* UIFont+Traits.swift in Sources */,
-				4D859B0F1DDE23A3000E2AA1 /* EpisodeDetailPresentationController.swift in Sources */,
+				4D859B0F1DDE23A3000E2AA1 /* EpisodeDetailPresentationDelegate.swift in Sources */,
 				4D859B321DDFA07C000E2AA1 /* UpNextView.swift in Sources */,
 				4D859B631DDFA10C000E2AA1 /* EpisodeDetailViewController.swift in Sources */,
 				4D859B4B1DDFA0E6000E2AA1 /* CoverCollectionViewCell.swift in Sources */,
@@ -1117,6 +1127,8 @@
 				4D689A6E1DD8ADFD001D1318 /* CastIconButton.swift in Sources */,
 				4D859B761DDFA12C000E2AA1 /* ExpandableTextView.swift in Sources */,
 				4D859B9C1DDFA164000E2AA1 /* MovieDetailViewController+UICollectionViewDelegate.swift in Sources */,
+				4D8A57431DE0F39A00CCDF8A /* UITableView+Header.swift in Sources */,
+				4D8A57471DE10DFE00CCDF8A /* UIViewController+StatusBar.swift in Sources */,
 				4D859B8C1DDFA151000E2AA1 /* BarSlider.swift in Sources */,
 				4D859B8D1DDFA151000E2AA1 /* ProgressSlider.swift in Sources */,
 				4D859B2F1DDFA07C000E2AA1 /* LoadingViewController.swift in Sources */,
