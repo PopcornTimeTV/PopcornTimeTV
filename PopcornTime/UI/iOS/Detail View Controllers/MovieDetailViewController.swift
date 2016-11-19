@@ -8,7 +8,7 @@ import FloatRatingView
 import PopcornTorrent
 import PopcornKit
 
-class MovieDetailViewController: UIViewController, UIViewControllerTransitioningDelegate {
+class MovieDetailViewController: UIViewController, UIViewControllerTransitioningDelegate, UIPopoverPresentationControllerDelegate {
 
     @IBOutlet var qualityButton: UIButton!
     @IBOutlet var subtitlesButton: UIButton!
@@ -55,10 +55,12 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
         super.viewDidLoad()
         navigationItem.title = currentItem.title
         watchedButton.image = watchedButtonImage
+        (castButton.customView as! CastIconButton).addTarget(self, action: #selector(castButtonTapped), for: .touchUpInside)
         
         let inset = tabBarController?.tabBar.frame.height ?? 0.0
         scrollView.contentInset.bottom = inset
         scrollView.scrollIndicatorInsets.bottom = inset
+        
         
         titleLabel.text = currentItem.title
         summaryView.text = currentItem.summary
@@ -109,6 +111,11 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
     
     var watchedButtonImage: UIImage {
         return WatchedlistManager.movie.isAdded(currentItem.id) ? UIImage(named: "WatchedOn")! : UIImage(named: "WatchedOff")!
+    }
+    
+    @IBAction func toggleWatched() {
+        WatchedlistManager.movie.toggle(currentItem.id)
+        watchedButton.image = watchedButtonImage
     }
     
     func updateTorrentButton() {
@@ -166,6 +173,41 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
         present(controller, animated: true, completion: nil)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showCasts", let vc = (segue.destination as? UINavigationController)?.viewControllers.first as? StreamToDevicesTableViewController {
+            segue.destination.popoverPresentationController?.delegate = self
+            vc.onlyShowCastDevices = true
+        } else if segue.identifier == "showRelated",
+            let vc = segue.destination as? MovieDetailViewController,
+            let cell = sender as? CoverCollectionViewCell,
+            let index = collectionView.indexPath(for: cell)?.row {
+            vc.currentItem = currentItem.related[index]
+        } else if segue.identifier == "showActor",
+            let vc = segue.destination as? ActorDetailCollectionViewController,
+            let cell = sender as? UICollectionViewCell,
+            let index = collectionView.indexPath(for: cell)?.row {
+            vc.currentItem = currentItem.actors[index]
+        }
+    }
+    
+    func castButtonTapped() {
+        performSegue(withIdentifier: "showCasts", sender: castButton)
+    }
+    
+    func updateCastStatus() {
+        (castButton.customView as! CastIconButton).status = GCKCastContext.sharedInstance().castState
+    }
+    
+    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+        (controller.presentedViewController as! UINavigationController).topViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonPressed))
+        return controller.presentedViewController
+        
+    }
+    
+    func cancelButtonPressed() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func playTrailer() {
         let vc = XCDYouTubeVideoPlayerViewController(videoIdentifier: currentItem.trailerCode)
         present(vc, animated: true, completion: nil)
@@ -208,20 +250,6 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
             }))
             errorAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(errorAlert, animated: true, completion: nil)
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showRelated",
-            let vc = segue.destination as? MovieDetailViewController,
-            let cell = sender as? CoverCollectionViewCell,
-            let index = collectionView.indexPath(for: cell)?.row {
-            vc.currentItem = currentItem.related[index]
-        } else if segue.identifier == "showActor",
-            let vc = segue.destination as? ActorDetailCollectionViewController,
-            let cell = sender as? UICollectionViewCell,
-            let index = collectionView.indexPath(for: cell)?.row {
-            vc.currentItem = currentItem.actors[index]
         }
     }
 }

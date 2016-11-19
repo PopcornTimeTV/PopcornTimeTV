@@ -6,7 +6,7 @@ import PopcornKit
 
 protocol EpisodeDetailViewControllerDelegate: class {
     func didDismissViewController(_ vc: EpisodeDetailViewController)
-    func loadMovieTorrent(_ media: Episode, animated: Bool, onChromecast: Bool)
+    func playEpisode(_ episode: Episode)
 }
 
 class EpisodeDetailViewController: UIViewController, UIGestureRecognizerDelegate {
@@ -50,6 +50,7 @@ class EpisodeDetailViewController: UIViewController, UIGestureRecognizerDelegate
         super.viewDidLayoutSubviews()
         let adjustForTabbarInsets = tabBarController?.tabBar.frame.height ?? 0
         scrollView.contentInset.bottom = adjustForTabbarInsets
+        scrollView.contentInset.top = 0.0
         scrollView.scrollIndicatorInsets.bottom = adjustForTabbarInsets
         heightConstraint.constant = UIScreen.main.bounds.height * 0.35
         preferredContentSize = scrollView.contentSize
@@ -187,6 +188,11 @@ class EpisodeDetailViewController: UIViewController, UIGestureRecognizerDelegate
         present(controller, animated: true, completion: nil)
     }
     
+    @IBAction func playEpisode() {
+        dismiss(animated: false, completion: nil)
+        delegate?.playEpisode(currentItem!)
+    }
+    
     @IBAction func handleGesture(_ sender: UIPanGestureRecognizer) {
         let percentThreshold: CGFloat = 0.12
         let superview = sender.view!.superview!
@@ -226,13 +232,5 @@ class EpisodeDetailViewController: UIViewController, UIGestureRecognizerDelegate
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .lightContent
-    }
-}
-
-extension ShowDetailViewController: EpisodeDetailViewControllerDelegate {
-    func didDismissViewController(_ vc: EpisodeDetailViewController) {
-        if let indexPath = self.tableView!.indexPathForSelectedRow , splitViewController!.isCollapsed {
-            self.tableView!.deselectRow(at: indexPath, animated: false)
-        }
     }
 }

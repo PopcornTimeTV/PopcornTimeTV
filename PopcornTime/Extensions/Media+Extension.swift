@@ -9,7 +9,8 @@ extension Media {
     /**
      Start playing movie or episode locally.
      
-     - Parameter url:                   The url pointing to a .torrent file, a web adress pointing to a .torrent file to be downloaded or a magnet link.
+     - Parameter fromFileOrMagnetLink:  The url pointing to a .torrent file, a web adress pointing to a .torrent file to be downloaded or a magnet link.
+     - Parameter nextEpisodeInSeries:   If media is an episode, pass in the next episode of the series, if applicable, for a better UX for the user.
      - Parameter loadingViewController: The view controller that will be presented while the torrent is processing to display updates to the user.
      - Parameter playViewController:    View controller to be presented to start playing the movie when loading is complete.
      - Parameter progress:              The users playback progress for the current media.
@@ -20,6 +21,7 @@ extension Media {
      */
     func play(
         fromFileOrMagnetLink url: String,
+        nextEpisodeInSeries nextEpisode: Episode? = nil,
         loadingViewController: LoadingViewController,
         playViewController: UIViewController,
         progress: Float,
@@ -28,9 +30,9 @@ extension Media {
         viewController.speed = Int(status.downloadSpeed)
         viewController.seeds = Int(status.seeds)
         },
-        playBlock: @escaping (URL, URL, Media, Float, UIViewController) -> Void = { (videoFileURL, videoFilePath, media, progress, viewController) in
+        playBlock: @escaping (URL, URL, Media, Episode?, Float, UIViewController) -> Void = { (videoFileURL, videoFilePath, media, nextEpisode, progress, viewController) in
         if let viewController = viewController as? PCTPlayerViewController {
-            viewController.play(media, fromURL: videoFileURL, progress: progress, directory: videoFilePath.deletingLastPathComponent())
+            viewController.play(media, fromURL: videoFileURL, progress: progress, nextEpisode: nextEpisode, directory: videoFilePath.deletingLastPathComponent())
         }
         },
         errorBlock: @escaping (String) -> Void,
@@ -42,7 +44,7 @@ extension Media {
             PTTorrentStreamer.shared().startStreaming(fromFileOrMagnetLink: url, progress: { (status) in
                 loadingBlock(status, loadingViewController)
                 }, readyToPlay: { (videoFileURL, videoFilePath) in
-                    playBlock(videoFileURL, videoFilePath, self, progress, playViewController)
+                    playBlock(videoFileURL, videoFilePath, self, nextEpisode, progress, playViewController)
                     finishedLoadingBlock(loadingViewController, playViewController)
                 }, failure: { _ in
                     errorBlock("Error processing torrent.")
@@ -50,7 +52,7 @@ extension Media {
         } else {
             PopcornKit.downloadTorrentFile(url, completion: { (url, error) in
                 guard let url = url, error == nil else { errorBlock(error!.localizedDescription); return }
-                self.play(fromFileOrMagnetLink: url, loadingViewController: loadingViewController, playViewController: playViewController, progress: progress, loadingBlock: loadingBlock, playBlock: playBlock, errorBlock: errorBlock, finishedLoadingBlock: finishedLoadingBlock)
+                self.play(fromFileOrMagnetLink: url, nextEpisodeInSeries: nextEpisode, loadingViewController: loadingViewController, playViewController: playViewController, progress: progress, loadingBlock: loadingBlock, playBlock: playBlock, errorBlock: errorBlock, finishedLoadingBlock: finishedLoadingBlock)
             })
         }
     }
@@ -60,7 +62,7 @@ extension Media {
     /**
      Start playing movie or episode on chromecast.
      
-     - Parameter url:                   The url pointing to a .torrent file, a web adress pointing to a .torrent file to be downloaded or a magnet link.
+     - Parameter fromFileOrMagnetLink:  The url pointing to a .torrent file, a web adress pointing to a .torrent file to be downloaded or a magnet link.
      - Parameter loadingViewController: The view controller that will be presented while the torrent is processing to display updates to the user.
      - Parameter playViewController:    View controller to be presented to handle controlling cast UI.
      - Parameter progress:              The users playback progress for the current media.
@@ -79,7 +81,7 @@ extension Media {
         viewController.speed = Int(status.downloadSpeed)
         viewController.seeds = Int(status.seeds)
         },
-        playBlock: @escaping (URL, URL, Media, Float, UIViewController) -> Void = { (videoFileURL, videoFilePath, media, progress, viewController) in
+        playBlock: @escaping (URL, URL, Media, Episode?, Float, UIViewController) -> Void = { (videoFileURL, videoFilePath, media, _, progress, viewController) in
         guard let viewController = viewController as? CastPlayerViewController else { return }
         let castMetadata: CastMetaData = (title: media.title, image: media.smallCoverImage != nil ? URL(string: media.smallCoverImage!) : nil, contentType: (media is Episode) ? "video/x-matroska" : "video/mp4", subtitles: media.subtitles, url: videoFileURL.relativeString, mediaAssetsPath: videoFilePath.deletingLastPathComponent())
         GoogleCastManager(castMetadata: castMetadata).sessionManager(GCKCastContext.sharedInstance().sessionManager, didStart: GCKCastContext.sharedInstance().sessionManager.currentSession!)

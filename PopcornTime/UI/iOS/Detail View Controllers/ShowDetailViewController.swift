@@ -181,7 +181,7 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
         if segue.identifier == "showDetail",
             let cell = sender as? ShowDetailTableViewCell,
             let indexPath = tableView.indexPath(for: cell),
-            let vc = segue.destination as? EpisodeDetailViewController{
+            let vc = segue.destination as? EpisodeDetailViewController {
             vc.currentItem = currentSeasonArray[indexPath.row]
             var allEpisodes = [Episode]()
             for index in segmentedControl.selectedSegmentIndex..<segmentedControl.numberOfSegments {
@@ -235,16 +235,20 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
 }
 
 extension ShowDetailViewController: UISplitViewControllerDelegate {
+    
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-        guard let secondaryViewController = secondaryViewController as? EpisodeDetailViewController , secondaryViewController.currentItem != nil else { return false }
+        guard let secondaryViewController = secondaryViewController as? EpisodeDetailViewController, secondaryViewController.currentItem != nil else { return false }
         primaryViewController.present(secondaryViewController, animated: true, completion: nil)
+        secondaryViewController.view.setNeedsLayout()
+        secondaryViewController.view.layoutIfNeeded()
+        secondaryViewController.scrollView.setNeedsLayout()
+        secondaryViewController.scrollView.layoutIfNeeded()
         return true
     }
     
     func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
-        if primaryViewController.presentedViewController is EpisodeDetailViewController {
-            return primaryViewController.presentedViewController
-        }
-        return nil
+        let vc = primaryViewController.presentedViewController
+        primaryViewController.dismiss(animated: false, completion: nil)
+        return vc
     }
 }

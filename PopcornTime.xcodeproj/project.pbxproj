@@ -110,6 +110,7 @@
 		4D859BEC1DDFA246000E2AA1 /* SeasonProductRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D859BE51DDFA246000E2AA1 /* SeasonProductRecipe.xml */; };
 		4D859BED1DDFA246000E2AA1 /* SeasonPickerRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BE61DDFA246000E2AA1 /* SeasonPickerRecipe.swift */; };
 		4D859BEE1DDFA246000E2AA1 /* SeasonPickerRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D859BE71DDFA246000E2AA1 /* SeasonPickerRecipe.xml */; };
+		4D8A57411DE096B700CCDF8A /* ShowDetailViewController+EpisodeDetailViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A57401DE096B700CCDF8A /* ShowDetailViewController+EpisodeDetailViewControllerDelegate.swift */; };
 		4D91ECBC1DDBA842001B798A /* UIFont+Traits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91ECBB1DDBA842001B798A /* UIFont+Traits.swift */; };
 		4D91ECBD1DDBA842001B798A /* UIFont+Traits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91ECBB1DDBA842001B798A /* UIFont+Traits.swift */; };
 		4D990E231DC4EFA2005CDE34 /* Media+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E1D1DC4EFA2005CDE34 /* Media+Extension.swift */; };
@@ -262,6 +263,7 @@
 		4D859BE51DDFA246000E2AA1 /* SeasonProductRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = SeasonProductRecipe.xml; path = UI/tvOS/Recipes/Products/SeasonProductRecipe.xml; sourceTree = "<group>"; };
 		4D859BE61DDFA246000E2AA1 /* SeasonPickerRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SeasonPickerRecipe.swift; path = UI/tvOS/Recipes/Products/SeasonPickerRecipe.swift; sourceTree = "<group>"; };
 		4D859BE71DDFA246000E2AA1 /* SeasonPickerRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = SeasonPickerRecipe.xml; path = UI/tvOS/Recipes/Products/SeasonPickerRecipe.xml; sourceTree = "<group>"; };
+		4D8A57401DE096B700CCDF8A /* ShowDetailViewController+EpisodeDetailViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ShowDetailViewController+EpisodeDetailViewControllerDelegate.swift"; path = "UI/iOS/Extensions/ShowDetailViewController+EpisodeDetailViewControllerDelegate.swift"; sourceTree = "<group>"; };
 		4D91ECBB1DDBA842001B798A /* UIFont+Traits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIFont+Traits.swift"; path = "Extensions/UIFont+Traits.swift"; sourceTree = "<group>"; };
 		4D990E1D1DC4EFA2005CDE34 /* Media+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Media+Extension.swift"; path = "Extensions/Media+Extension.swift"; sourceTree = "<group>"; };
 		4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubtitleSettings.swift; path = Resources/SubtitleSettings.swift; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 			isa = PBXGroup;
 			children = (
 				4D859B8E1DDFA162000E2AA1 /* MovieDetailViewController+UICollectionViewDelegate.swift */,
+				4D8A57401DE096B700CCDF8A /* ShowDetailViewController+EpisodeDetailViewControllerDelegate.swift */,
 				4D859B8F1DDFA162000E2AA1 /* PCTPlayerViewController+iOS.swift */,
 				4D859B901DDFA162000E2AA1 /* UIView+Parent.swift */,
 				4D859B911DDFA162000E2AA1 /* UINavigationBar+Extension.swift */,
@@ -1125,6 +1128,7 @@
 				4D859B7A1DDFA12C000E2AA1 /* GradientView.swift in Sources */,
 				4D859B331DDFA07C000E2AA1 /* TermsOfServiceViewController.swift in Sources */,
 				4D859BA11DDFA164000E2AA1 /* UIImage+Color.swift in Sources */,
+				4D8A57411DE096B700CCDF8A /* ShowDetailViewController+EpisodeDetailViewControllerDelegate.swift in Sources */,
 				4D859B3E1DDFA0C3000E2AA1 /* AirPlayTableViewCell.swift in Sources */,
 				4D859B7B1DDFA12C000E2AA1 /* FilterCollectionReusableView.swift in Sources */,
 				4D859B661DDFA11B000E2AA1 /* CastPlayerViewController.swift in Sources */,

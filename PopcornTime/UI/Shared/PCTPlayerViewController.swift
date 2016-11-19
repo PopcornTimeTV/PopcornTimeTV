@@ -17,6 +17,11 @@ protocol PCTPlayerViewControllerDelegate: class {
     #endif
 }
 
+/// Optional functions:
+extension PCTPlayerViewControllerDelegate {
+    func playNext(_ episode: Episode) {}
+}
+
 class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestureRecognizerDelegate {
     
     // MARK: - IBOutlets
@@ -134,7 +139,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     private (set) var url: URL!
     private (set) var directory: URL!
     private (set) var media: Media!
-    internal var nextMedia: Episode?
+    internal var nextEpisode: Episode?
     private var startPosition: Float = 0.0
     private var idleTimer: Timer!
     internal var shouldHideStatusBar = true
@@ -147,7 +152,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         self.url = url
         self.media = media
         self.startPosition = fromPosition
-        self.nextMedia = nextEpisode
+        self.nextEpisode = nextEpisode
         self.directory = directory
         if let subtitles = media.subtitles {
             self.subtitles = subtitles

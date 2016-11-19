@@ -84,6 +84,6 @@ extension PCTPlayerViewController {
     
     func timerFinished() {
         didFinishPlaying()
-        delegate?.playNext(nextMedia!)
+        delegate?.playNext(nextEpisode!)
     }
 }
