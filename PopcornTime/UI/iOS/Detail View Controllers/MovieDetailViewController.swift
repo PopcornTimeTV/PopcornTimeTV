@@ -97,15 +97,16 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
         infoLabel.text = "\(currentItem.year) ● \(currentItem.runtime) min ● \(currentItem.genres.first!.capitalized)"
         trailerButton.isEnabled = currentItem.trailer != nil
         
-        if currentItem.torrents.isEmpty {
-            PopcornKit.getMovieInfo(currentItem.id, tmdbId: currentItem.tmdbId) { [weak self] (movie, error) in
-                guard let movie = movie else { self?.qualityButton?.setTitle("Error loading torrents.", for: .normal); return}
-                self?.currentItem = movie
-                self?.updateTorrentButton()
-            }
+        qualityButton.isUserInteractionEnabled = currentItem.torrents.count > 1
+        
+        currentItem.currentTorrent = currentItem.torrents.first(where: {$0.quality == UserDefaults.standard.string(forKey: "preferredQuality")}) ?? currentItem.torrents.first
+        if let torrent = currentItem.currentTorrent, let quality = torrent.quality {
+            qualityButton.setTitle("\(quality + (currentItem.torrents.count > 1 ? " ▾" : ""))", for: .normal)
         } else {
-            updateTorrentButton()
+            qualityButton.setTitle("No torrents available.", for: .normal)
         }
+        torrentHealthView.backgroundColor = currentItem.currentTorrent?.health.color
+        playButton.isEnabled = currentItem.currentTorrent?.url != nil
         
         SubtitlesManager.shared.search(imdbId: currentItem.id, completion: { [weak self] (subtitles, error) in
             guard let `self` = self else { return }
@@ -145,19 +146,6 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
     @IBAction func toggleWatched() {
         WatchedlistManager.movie.toggle(currentItem.id)
         watchedButton.image = watchedButtonImage
-    }
-    
-    func updateTorrentButton() {
-        qualityButton.isUserInteractionEnabled = currentItem.torrents.count > 1
-        
-        currentItem.currentTorrent = currentItem.torrents.first(where: {$0.quality == UserDefaults.standard.string(forKey: "preferredQuality")}) ?? currentItem.torrents.first
-        if let torrent = currentItem.currentTorrent, let quality = torrent.quality {
-            qualityButton.setTitle("\(quality + (currentItem.torrents.count > 1 ? " ▾" : ""))", for: .normal)
-        } else {
-            qualityButton.setTitle("No torrents available.", for: .normal)
-        }
-        torrentHealthView.backgroundColor = currentItem.currentTorrent?.health.color
-        playButton.isEnabled = currentItem.currentTorrent?.url != nil
     }
     
     @IBAction func changeQuality(_ sender: UIButton) {

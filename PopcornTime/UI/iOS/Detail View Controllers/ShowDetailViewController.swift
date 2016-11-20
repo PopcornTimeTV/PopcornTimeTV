@@ -151,7 +151,7 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
         if currentType == .animes {
             PopcornKit.getAnimeInfo(currentItem.id, completion: completion)
         } else {
-            PopcornKit.getShowInfo(currentItem.id, tmdbId: currentItem.tmdbId, completion: completion)
+            PopcornKit.getShowInfo(currentItem.id, completion: completion)
         }
     }
     

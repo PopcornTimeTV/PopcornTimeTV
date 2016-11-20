@@ -162,7 +162,7 @@ class ActionHandler: NSObject {
     func showMovie(_ title: String, _ id: String) {
         Kitchen.serve(recipe: LoadingRecipe(message: title))
         
-        PopcornKit.getMovieInfo(id, tmdbId: nil) { (movie, error) in
+        PopcornKit.getMovieInfo(id) { (movie, error) in
             guard var movie = movie else {
                 var viewcontrollers = Kitchen.navigationController.viewControllers
                 viewcontrollers.removeLast()
@@ -243,7 +243,7 @@ class ActionHandler: NSObject {
     func showShow(_ title: String, _ id: String) {
         Kitchen.serve(recipe: LoadingRecipe(message: title))
         
-        PopcornKit.getShowInfo(id, tmdbId: nil) { (show, error) in
+        PopcornKit.getShowInfo(id) { (show, error) in
             guard var show = show else { return }
             
             let group = DispatchGroup()

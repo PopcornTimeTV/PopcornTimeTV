@@ -21,6 +21,9 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
         let group = DispatchGroup()
         
         let completion: ([Media]?, NSError?) -> Void = { (media, error) in
+            
+            defer { group.leave() }
+            
             guard let media = media else { return }
             let type: String
             switch media.first! {
@@ -47,7 +50,6 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
             latestMediaSectionItem.title = latestMediaSectionTitle
             latestMediaSectionItem.topShelfItems = mediaItems
             items.append(latestMediaSectionItem)
-            group.leave()
         }
         group.enter()
         PopcornKit.loadMovies(filterBy: .trending) { (movies, error) in
