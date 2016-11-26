@@ -30,6 +30,12 @@ class ProgressBar: UIVisualEffectView {
         return progressSlider.isHighlighted
     }
     
+    var isBuffering: Bool = false {
+        didSet {
+            // TODO: Show/Hide buffering UI
+        }
+    }
+    
     var progress: CGFloat {
         get {
             return CGFloat(progressSlider.value)

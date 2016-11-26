@@ -101,14 +101,15 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     
     func touchLocationDidChange(_ gesture: VLCSiriRemoteGestureRecognizer) {
         progressBar.hint = .none
-        guard !progressBar.isScrubbing && mediaplayer.isPlaying && !progressBar.isHidden else { return }
+        resetIdleTimer()
+        guard !progressBar.isScrubbing && mediaplayer.isPlaying && !progressBar.isHidden && !progressBar.isBuffering else { return }
         switch gesture.touchLocation {
         case .left:
             progressBar.hint = .jumpBackward10
-            if gesture.isClick { rewind() }
+            if gesture.isClick { rewind(); progressBar.hint = .none }
         case .right:
             progressBar.hint = .jumpForward10
-            if gesture.isClick { fastForward() }
+            if gesture.isClick { fastForward(); progressBar.hint = .none }
         default: return
         }
     }
@@ -121,7 +122,13 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         
         guard !progressBar.isScrubbing else {
             endScrubbing()
-            mediaplayer.position = Float(progressBar.scrubbingProgress)
+            if mediaplayer.isSeekable {
+                let time = NSNumber(value: Float(progressBar.scrubbingProgress * streamDuration))
+                mediaplayer.time = VLCTime(number: time)
+                // Force a progress change rather than waiting for VLCKit's delegate call to.
+                progressBar.progress = progressBar.scrubbingProgress
+                progressBar.elapsedTimeLabel.text = progressBar.scrubbingTimeLabel.text
+            }
             return
         }
         
@@ -130,7 +137,6 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         dimmerView.isHidden = false
         progressBar.isScrubbing = true
         
-        let streamDuration = CGFloat((fabsf(mediaplayer.remainingTime.value.floatValue) + mediaplayer.time.value.floatValue))
         let currentTime = NSNumber(value: Float(progressBar.progress * streamDuration))
         if let image = screenshotAtTime(currentTime) {
             progressBar.screenshot = image
@@ -142,7 +148,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     }
     
     func endScrubbing() {
-        mediaplayer.play()
+        mediaplayer.willPlay ? mediaplayer.play() : ()
         !progressBar.isHidden ? toggleControlsVisible() : ()
         progressBar.isScrubbing = false
         dimmerView.isHidden = true

@@ -18,6 +18,7 @@ IB_DESIGNABLE @interface VLCTransportBar : UIView
 @property (nonatomic) IBInspectable CGFloat bufferProgress;
 @property (nonatomic) IBInspectable UIImage *screenshot;
 @property (nonatomic, getter=isScrubbing) IBInspectable BOOL scrubbing;
+@property (nonatomic, getter=isBuffering) IBInspectable BOOL buffering;
 
 @property (nonatomic, readonly) UILabel *elapsedTimeLabel;
 @property (nonatomic, readonly) UILabel *remainingTimeLabel;

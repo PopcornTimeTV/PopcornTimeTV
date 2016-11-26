@@ -7,6 +7,7 @@
 @property (nonatomic) VLCBufferingBar *bufferingBar;
 @property (nonatomic) UIView *playbackPositionMarker;
 @property (nonatomic) UIView *scrubbingPositionMarker;
+@property (nonatomic) UIActivityIndicatorView *bufferingMarker;
 
 @property (nonatomic) UIImageView *leftHintImageView;
 @property (nonatomic) UIImageView *rightHintImageView;
@@ -16,6 +17,7 @@
 @implementation VLCTransportBar
 
 static const CGFloat VLCTransportBarMarkerWidth = 2.0;
+static const CGFloat animationLength = 0.15;
 
 static inline void sharedSetup(VLCTransportBar *self) {
     CGRect bounds = self.bounds;
@@ -30,18 +32,7 @@ static inline void sharedSetup(VLCTransportBar *self) {
     bar.bufferProgress = self.bufferProgress;
     self.bufferingBar = bar;
     [self addSubview:bar];
-
-    // Markers:
-    UIView *scrubbingMarker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, VLCTransportBarMarkerWidth, bounds.size.height)];
-    [self addSubview:scrubbingMarker];
-    scrubbingMarker.backgroundColor = [UIColor whiteColor];
-    scrubbingMarker.hidden = YES;
-    self.scrubbingPositionMarker = scrubbingMarker;
     
-    UIView *positionMarker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, VLCTransportBarMarkerWidth, bounds.size.height)];
-    [self addSubview:positionMarker];
-    positionMarker.backgroundColor = [UIColor whiteColor];
-    self.playbackPositionMarker = positionMarker;
     
     // Snapshot placeholder:
     self.screenshotImageView = [[UIImageView alloc] init];
@@ -75,9 +66,28 @@ static inline void sharedSetup(VLCTransportBar *self) {
     scrubLabel.textColor = textColor;
     [self.screenshotImageView addSubview:scrubLabel];
     self->_scrubbingTimeLabel = scrubLabel;
-
+    
+    // Markers:
+    UIView *scrubbingMarker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, VLCTransportBarMarkerWidth, bounds.size.height)];
+    [self addSubview:scrubbingMarker];
+    scrubbingMarker.backgroundColor = [UIColor whiteColor];
+    scrubbingMarker.hidden = YES;
+    self.scrubbingPositionMarker = scrubbingMarker;
+    
+    UIView *positionMarker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, VLCTransportBarMarkerWidth, bounds.size.height)];
+    [self addSubview:positionMarker];
+    positionMarker.backgroundColor = [UIColor whiteColor];
+    self.playbackPositionMarker = positionMarker;
+    
     CGFloat iconLength = 40.0;
     CGRect imageRect = CGRectMake(0, 0, iconLength, iconLength);
+    
+    UIActivityIndicatorView *bufferMarker = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    [bufferMarker startAnimating];
+    [self addSubview:bufferMarker];
+    bufferMarker.frame = imageRect;
+    self.bufferingMarker = bufferMarker;
+
 
     UIImageView *leftHintImageView = [[UIImageView alloc] initWithFrame:imageRect];
     [self addSubview:leftHintImageView];
@@ -90,6 +100,7 @@ static inline void sharedSetup(VLCTransportBar *self) {
     self.rightHintImageView.tintColor = [UIColor whiteColor];
     
     self.scrubbing = NO;
+    self.buffering = NO;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -139,17 +150,33 @@ static inline void sharedSetup(VLCTransportBar *self) {
 - (void)setScrubbing:(BOOL)scrubbing {
     _scrubbing = scrubbing;
     if (scrubbing) {
+        self.scrubbingProgress = self.progress;
         self.screenshotImageView.hidden = NO;
         self.scrubbingPositionMarker.hidden = NO;
         self.elapsedTimeLabel.textColor = [UIColor lightGrayColor];
+        self.remainingTimeLabel.textColor = [UIColor lightGrayColor];
         self.playbackPositionMarker.alpha = 0.6;
     } else {
-        self.scrubbingProgress = self.progress;
         self.playbackPositionMarker.alpha = 1.0;
         self.screenshotImageView.image = nil;
         self.screenshotImageView.hidden = YES;
         self.scrubbingPositionMarker.hidden = YES;
         self.elapsedTimeLabel.textColor = [UIColor whiteColor];
+        self.remainingTimeLabel.textColor = [UIColor whiteColor];
+    }
+    [self setNeedsLayout];
+}
+
+- (void)setBuffering:(BOOL)buffering {
+    _buffering = buffering;
+    if (buffering) {
+        self.bufferingMarker.hidden = NO;
+        self.rightHintImageView.hidden = YES;
+        self.leftHintImageView.hidden = YES;
+    } else {
+        self.bufferingMarker.hidden = YES;
+        self.rightHintImageView.hidden = NO;
+        self.leftHintImageView.hidden = NO;
     }
     [self setNeedsLayout];
 }
@@ -203,7 +230,6 @@ static inline void sharedSetup(VLCTransportBar *self) {
 			break;
 	}
 
-    // TODO: add animations
     self.leftHintImageView.image = leftImage;
     self.rightHintImageView.image = rightImage;
 }
@@ -231,7 +257,6 @@ static inline void sharedSetup(VLCTransportBar *self) {
     
     self.screenshotImageView.frame = screenshotFrame;
     
-    
 
     UILabel *remainingLabel = self.remainingTimeLabel;
     [remainingLabel sizeToFit];
@@ -253,6 +278,10 @@ static inline void sharedSetup(VLCTransportBar *self) {
     markerLabel.center = timeLabelCenter;
 
     CGRect markerLabelFrame = markerLabel.frame;
+    
+    UIActivityIndicatorView *bufferMarker = self.bufferingMarker;
+    CGFloat markerSize = CGRectGetWidth(bufferMarker.bounds);
+    bufferMarker.center = CGPointMake(CGRectGetMaxX(markerLabelFrame)+markerSize, timeLabelCenter.y);
 
     UIImageView *leftHint = self.leftHintImageView;
     CGFloat leftImageSize = CGRectGetWidth(leftHint.bounds);
@@ -262,8 +291,13 @@ static inline void sharedSetup(VLCTransportBar *self) {
     CGFloat rightImageSize = CGRectGetWidth(rightHint.bounds);
     rightHint.center = CGPointMake(CGRectGetMaxX(markerLabelFrame)+rightImageSize, timeLabelCenter.y);
 
-    CGFloat remainingAlpha = CGRectIntersectsRect(markerLabel.frame, remainingLabelFrame) ? 0.0 : 1.0;
-    remainingLabel.alpha = remainingAlpha;
+    BOOL shouldHideRemainingTime = CGRectIntersectsRect(markerLabel.frame, remainingLabelFrame) || (CGRectIntersectsRect(rightHint.frame, remainingLabelFrame) && rightHint.image != nil) || (CGRectIntersectsRect(bufferMarker.frame, remainingLabelFrame) && bufferMarker.hidden == FALSE);
+    CGFloat remainingAlpha = shouldHideRemainingTime ? 0.0 : 1.0;
+    
+    [UIView animateWithDuration:animationLength animations:^{
+        remainingLabel.alpha = remainingAlpha;
+    }];
+    
  }
 
 
