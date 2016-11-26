@@ -37,7 +37,6 @@ extension PCTPlayerViewController: SubtitlesTableViewControllerDelegate, UIPopov
     func volumeChanged() {
         if overlayViews.first!.isHidden {
             toggleControlsVisible()
-            resetIdleTimer()
         }
         for subview in volumeView.subviews {
             if let slider = subview as? UISlider {
@@ -107,11 +106,9 @@ extension PCTPlayerViewController: SubtitlesTableViewControllerDelegate, UIPopov
     }
     
     @IBAction func scrubbingBegan() {
-        
         screenshotImageView.image = nil
         screenshotImageView.isHidden = false
         
-        stateBeforeScrubbing = mediaplayer.state
         if mediaplayer.isPlaying {
             mediaplayer.pause()
         }
@@ -133,15 +130,12 @@ extension PCTPlayerViewController: SubtitlesTableViewControllerDelegate, UIPopov
     }
     
     @IBAction func scrubbingEnded() {
-        if stateBeforeScrubbing != .paused {
-            mediaplayer.play()
-            playPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
-        }
+        positionSliderAction()
         
         screenshotImageView.image = nil
         screenshotImageView.isHidden = true
         
-        positionSliderAction()
+        
         view.layoutIfNeeded()
         UIView.animate(withDuration: animationLength, animations: {
             self.duringScrubbingConstraints.isActive = false

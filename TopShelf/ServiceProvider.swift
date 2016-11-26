@@ -21,10 +21,9 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
         let group = DispatchGroup()
         
         let completion: ([Media]?, NSError?) -> Void = { (media, error) in
-            
             defer { group.leave() }
-            
             guard let media = media else { return }
+            
             let type: String
             switch media.first! {
             case is Movie:

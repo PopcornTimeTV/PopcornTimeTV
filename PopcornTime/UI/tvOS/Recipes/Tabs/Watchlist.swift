@@ -19,14 +19,15 @@ struct Watchlist: TabItem {
             recipe.movies = WatchlistManager<Movie>.movie.getWatchlist({ (movies) in
                 recipe.movies = movies
             })
+            recipe.presentationType = .tab
             Kitchen.serve(recipe: recipe)
         case .shows:
             var recipe = WatchlistRecipe(title: title, shows: [Show]())
             recipe.shows = WatchlistManager<Show>.show.getWatchlist({ (shows) in
                 recipe.shows = shows
             })
+            recipe.presentationType = .tab
             Kitchen.serve(recipe: recipe)
-            
         default:
             break
         }

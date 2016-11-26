@@ -11,8 +11,8 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
     
     func finished(_ genreArrayIndex: Int) { fatalError("Must be overridden") }
     
-    let searchBlockDelay: TimeInterval = 0.25
-    var searchBlock: DispatchCancelableBlock?
+    let searchDelay: TimeInterval = 0.25
+    var workItem: DispatchWorkItem?
     
     let cache = NSCache<AnyObject, UINavigationController>()
     
@@ -238,10 +238,13 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
     }()
     
     func updateSearchResults(for searchController: UISearchController) {
-        searchBlock = DispatchQueue.main.asyncAfter(delay: searchBlockDelay) {
+        workItem?.cancel()
+        
+        workItem = DispatchWorkItem {
             self.refreshData()
         }
-        searchBlock?(true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + searchDelay, execute: workItem!)
     }
 }
 

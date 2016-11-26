@@ -18,10 +18,17 @@ class ProgressBar: UIVisualEffectView {
         }
     }
     
+    var scrubbingTimeLabel: UILabel {
+        get {
+          return elapsedTimeLabel
+        } set (label) {
+            elapsedTimeLabel = label
+        }
+    }
+    
     var isScrubbing: Bool {
         return progressSlider.isHighlighted
     }
-    
     
     var progress: CGFloat {
         get {
@@ -36,6 +43,14 @@ class ProgressBar: UIVisualEffectView {
             return CGFloat(bufferProgressView.progress)
         } set (progress) {
             bufferProgressView.progress = Float(progress)
+        }
+    }
+    
+    var scrubbingProgress: CGFloat {
+        get {
+            return progress
+        } set (value) {
+            progress = value
         }
     }
 }

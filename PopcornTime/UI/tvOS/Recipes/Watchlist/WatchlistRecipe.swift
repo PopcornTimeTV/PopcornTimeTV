@@ -6,7 +6,7 @@ import PopcornKit
 public struct WatchlistRecipe: RecipeType {
 
     public let theme = DefaultTheme()
-    public let presentationType = PresentationType.default
+    public var presentationType = PresentationType.default
     
     public let title: String
     public var movies: [Movie]

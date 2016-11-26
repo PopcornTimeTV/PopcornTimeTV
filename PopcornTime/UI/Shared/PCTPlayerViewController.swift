@@ -33,6 +33,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     #if os(tvOS)
         @IBOutlet var progressBar: VLCTransportBar!
+        @IBOutlet var dimmerView: UIView!
     
         var lastTranslation: CGFloat = 0.0
         let interactor = OptionsPercentDrivenInteractiveTransition()
@@ -74,34 +75,46 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
 
     func positionSliderDidDrag() {
         let streamDuration = CGFloat((fabsf(mediaplayer.remainingTime.value.floatValue) + mediaplayer.time.value.floatValue))
-        let time = NSNumber(value: Float(progressBar.progress * streamDuration))
+        let time = NSNumber(value: Float(progressBar.scrubbingProgress * streamDuration))
         let remainingTime = NSNumber(value: time.floatValue - Float(streamDuration))
         progressBar.remainingTimeLabel.text = VLCTime(number: remainingTime).stringValue
-        progressBar.elapsedTimeLabel.text = VLCTime(number: time).stringValue
-        screenshotAtTime(time) { [weak self] (image) in
-            guard let `self` = self, self.progressBar.isScrubbing else { return }
-            #if os(tvOS)
-                self.progressBar.screenshot = image
-            #elseif os(iOS)
-                self.screenshotImageView.image = image
-            #endif
+        progressBar.scrubbingTimeLabel.text = VLCTime(number: time).stringValue
+        workItem?.cancel()
+        workItem = DispatchWorkItem { [weak self] in
+            if let image = self?.screenshotAtTime(time) {
+                #if os(tvOS)
+                    self?.progressBar.screenshot = image
+                #elseif os(iOS)
+                    self?.screenshotImageView.image = image
+                #endif
+            }
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: workItem!)
     }
+    
     func positionSliderAction() {
         resetIdleTimer()
-        mediaplayer.position = Float(progressBar.progress)
+        mediaplayer.play()
+        mediaplayer.position = Float(progressBar.scrubbingProgress)
     }
     
     // MARK: - Button actions
     
     @IBAction func playandPause() {
-        mediaplayer.isPlaying ? mediaplayer.pause() : mediaplayer.play()
+        #if os(tvOS)
+            // Make fake gesture to trick clickGesture: into recognising the touch.
+            let gesture = VLCSiriRemoteGestureRecognizer(target: nil, action: nil)
+            gesture.isClick = true
+            clickGesture(gesture)
+        #elseif os(iOS)
+            mediaplayer.isPlaying ? mediaplayer.pause() : mediaplayer.play()
+        #endif
     }
     @IBAction func fastForward() {
-        mediaplayer.longJumpForward()
+        mediaplayer.jumpForward(30)
     }
     @IBAction func rewind() {
-        mediaplayer.longJumpBackward()
+        mediaplayer.jumpBackward(30)
     }
     
     @IBAction func didFinishPlaying() {
@@ -138,18 +151,21 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     private (set) var mediaplayer = VLCMediaPlayer()
     private (set) var url: URL!
     private (set) var directory: URL!
+    private (set) var localPathToMedia: URL!
     private (set) var media: Media!
     internal var nextEpisode: Episode?
     private var startPosition: Float = 0.0
     private var idleTimer: Timer!
     internal var shouldHideStatusBar = true
     private let NSNotFound: Int32 = -1
-    internal var stateBeforeScrubbing: VLCMediaPlayerState!
+    private var imageGenerator: AVAssetImageGenerator!
+    private var workItem: DispatchWorkItem?
     
     // MARK: - Player functions
     
-    func play(_ media: Media, fromURL url: URL, progress fromPosition: Float, nextEpisode: Episode? = nil, directory: URL) {
+    func play(_ media: Media, fromURL url: URL, localURL local: URL, progress fromPosition: Float, nextEpisode: Episode? = nil, directory: URL) {
         self.url = url
+        self.localPathToMedia = local
         self.media = media
         self.startPosition = fromPosition
         self.nextEpisode = nextEpisode
@@ -157,23 +173,16 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         if let subtitles = media.subtitles {
             self.subtitles = subtitles
         }
+        self.imageGenerator = AVAssetImageGenerator(asset: AVAsset(url: local))
     }
     
     func didSelectSubtitle(_ subtitle: Subtitle?) {
         currentSubtitle = subtitle
     }
     
-    private func screenshotAtTime(_ time: NSNumber, completion: @escaping (_ image: UIImage) -> Void) {
-        let imageGen = AVAssetImageGenerator(asset: AVAsset(url: url))
-        imageGen.appliesPreferredTrackTransform = true
-        imageGen.requestedTimeToleranceAfter = kCMTimeZero
-        imageGen.requestedTimeToleranceBefore = kCMTimeZero
-        imageGen.cancelAllCGImageGeneration()
-        imageGen.generateCGImagesAsynchronously(forTimes: [NSValue(time: CMTimeMakeWithSeconds(time.doubleValue/1000.0, 1000))]) { (_, image, _, _, error) in
-            if let image = image , error == nil {
-                completion(UIImage(cgImage: image))
-            }
-        }
+    func screenshotAtTime(_ time: NSNumber) -> UIImage? {
+        guard let image = try? imageGenerator.copyCGImage(at: CMTimeMakeWithSeconds(time.doubleValue/1000.0, 1000), actualTime: nil) else { return nil }
+        return UIImage(cgImage: image)
     }
     
     // MARK: - View Methods
@@ -242,18 +251,23 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
 //                    })
 //            })
 //        }
-        
         #if os(iOS)
             view.addSubview(volumeView)
-            for subview in volumeView.subviews {
-                if let slider = subview as? UISlider {
-                    slider.addTarget(self, action: #selector(volumeChanged), for: .valueChanged)
-                }
+            if let slider = volumeView.subviews.flatMap({$0 as? UISlider}).first {
+                slider.addTarget(self, action: #selector(volumeChanged), for: .valueChanged)
             }
             tapOnVideoRecognizer.require(toFail: doubleTapToZoomOnVideoRecognizer)
             
             subtitleSwitcherButton.isHidden = subtitles.count == 0
             subtitleSwitcherButtonWidthConstraint.constant = subtitleSwitcherButton.isHidden == true ? 0 : 24
+        #elseif os(tvOS)
+            let gesture = VLCSiriRemoteGestureRecognizer(target: self, action: #selector(touchLocationDidChange(_:)))
+            gesture.delegate = self
+            view.addGestureRecognizer(gesture)
+            
+            let clickGesture = VLCSiriRemoteGestureRecognizer(target: self, action: #selector(clickGesture(_:)))
+            clickGesture.delegate = self
+            view.addGestureRecognizer(clickGesture)
         #endif
     }
 
@@ -270,6 +284,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     // MARK: - Player changes notifications
     
     func mediaPlayerStateChanged() {
+        resetIdleTimer()
         let manager: WatchedlistManager = media is Movie ? .movie : .episode
         switch mediaplayer.state {
         case .error:
@@ -283,8 +298,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             manager.setCurrentProgress(Float(progressBar.progress), forId: media.id, withStatus: .paused)
             #if os(iOS)
                 playPauseButton.setImage(UIImage(named: "Play"), for: .normal)
-            #elseif os(tvOS)
-                progressBar.isHidden ? toggleControlsVisible() : ()
             #endif
         case .playing:
             #if os(iOS)
@@ -302,8 +315,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
                 progressBar.subviews.first(where: {!$0.subviews.isEmpty})?.subviews.forEach({ $0.isHidden = false })
             #endif
             loadingActivityIndicatorView.isHidden = true
-            toggleControlsVisible()
-            resetIdleTimer()
         }
         progressBar.bufferProgress = CGFloat(PTTorrentStreamer.shared().torrentStatus.totalProgreess)
         progressBar.remainingTimeLabel.text = mediaplayer.remainingTime.stringValue
@@ -316,6 +327,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
 //        }
     }
     
+    
     @IBAction func toggleControlsVisible() {
         shouldHideStatusBar = overlayViews.first!.isHidden
         UIView.animate(withDuration: 0.25, animations: {
@@ -325,19 +337,16 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
                     $0.isHidden = false
                 })
             } else {
-                self.overlayViews.forEach({
-                    $0.alpha = 0.0
-                })
+                self.overlayViews.forEach({ $0.alpha = 0.0 })
             }
             #if os(iOS)
             self.setNeedsStatusBarAppearanceUpdate()
             #endif
          }, completion: { finished in
             if self.overlayViews.first!.alpha == 0.0 {
-                self.overlayViews.forEach({
-                    $0.isHidden = true
-                })
+                self.overlayViews.forEach({ $0.isHidden = true })
             }
+            self.resetIdleTimer()
         }) 
     }
     

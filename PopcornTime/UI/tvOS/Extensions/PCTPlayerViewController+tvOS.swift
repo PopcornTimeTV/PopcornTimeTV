@@ -57,33 +57,28 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     }
     
     @IBAction func handlePositionSliderGesture(_ sender: UIPanGestureRecognizer) {
+        guard !progressBar.isHidden && !mediaplayer.isPlaying else { return }
         
-        if sender.direction == .down {
+        let translation = sender.translation(in: view)
+        
+        if translation.y > 200.0 && !progressBar.isScrubbing {
             presentOptionsViewController()
             handleOptionsGesture(sender)
             return
         }
         
-        let translation = sender.translation(in: view)
-        let offset = progressBar.progress + (translation.x - lastTranslation)/progressBar.bounds.width/8.0
+        let offset = progressBar.scrubbingProgress + (translation.x - lastTranslation)/progressBar.bounds.width/8.0
         
         switch sender.state {
         case .cancelled:
             fallthrough
         case .ended:
-            positionSliderAction()
-            mediaplayer.play()
             lastTranslation = 0.0
-            progressBar.isScrubbing = false
         case .began:
-            progressBar.isHidden ? toggleControlsVisible() : ()
-            progressBar.hint = .scanForward
-            mediaplayer.isPlaying ? mediaplayer.pause() : ()
             progressBar.isScrubbing = true
-            resetIdleTimer()
             fallthrough
         case .changed:
-            progressBar.progress = offset
+            progressBar.scrubbingProgress = offset
             positionSliderDidDrag()
             lastTranslation = translation.x
         default:
@@ -102,6 +97,55 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         destinationController.subtitlesViewController.currentSubtitle = currentSubtitle
         destinationController.subtitlesViewController.delegate = self
         destinationController.infoViewController.media = media
+    }
+    
+    func touchLocationDidChange(_ gesture: VLCSiriRemoteGestureRecognizer) {
+        progressBar.hint = .none
+        guard !progressBar.isScrubbing && mediaplayer.isPlaying && !progressBar.isHidden else { return }
+        switch gesture.touchLocation {
+        case .left:
+            progressBar.hint = .jumpBackward10
+            if gesture.isClick { rewind() }
+        case .right:
+            progressBar.hint = .jumpForward10
+            if gesture.isClick { fastForward() }
+        default: return
+        }
+    }
+    
+    func clickGesture(_ gesture: VLCSiriRemoteGestureRecognizer) {
+        guard gesture.isClick, progressBar.hint == .none else {
+            progressBar.isHidden ? toggleControlsVisible() : ()
+            return
+        }
+        
+        guard !progressBar.isScrubbing else {
+            endScrubbing()
+            mediaplayer.position = Float(progressBar.scrubbingProgress)
+            return
+        }
+        
+        mediaplayer.canPause ? mediaplayer.pause() : ()
+        progressBar.isHidden ? toggleControlsVisible() : ()
+        dimmerView.isHidden = false
+        progressBar.isScrubbing = true
+        
+        let streamDuration = CGFloat((fabsf(mediaplayer.remainingTime.value.floatValue) + mediaplayer.time.value.floatValue))
+        let currentTime = NSNumber(value: Float(progressBar.progress * streamDuration))
+        if let image = screenshotAtTime(currentTime) {
+            progressBar.screenshot = image
+        }
+    }
+    
+    @IBAction func menuPressed() {
+        progressBar.isScrubbing ? endScrubbing() : didFinishPlaying()
+    }
+    
+    func endScrubbing() {
+        mediaplayer.play()
+        !progressBar.isHidden ? toggleControlsVisible() : ()
+        progressBar.isScrubbing = false
+        dimmerView.isHidden = true
     }
 }
 

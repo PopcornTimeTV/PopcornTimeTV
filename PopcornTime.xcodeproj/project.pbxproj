@@ -13,6 +13,9 @@
 		4D2543B11DACFBFE00149533 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2543B01DACFBFE00149533 /* ServiceProvider.swift */; };
 		4D2543B51DACFBFE00149533 /* TopShelf.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4D2543AD1DACFBFE00149533 /* TopShelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4D2543B91DACFCF700149533 /* String+Cleaned.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB626B1CA3364300985F78 /* String+Cleaned.swift */; };
+		4D52E0471DE4BD4A00486F31 /* VLCIRTVTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D52E0461DE4BD4A00486F31 /* VLCIRTVTapGestureRecognizer.m */; };
+		4D52E04A1DE4C1A100486F31 /* VLCSiriRemoteGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D52E0491DE4C1A100486F31 /* VLCSiriRemoteGestureRecognizer.m */; };
+		4D52E04B1DE4C69900486F31 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B6C1DDFA12A000E2AA1 /* GradientView.swift */; };
 		4D689A291DD88EE9001D1318 /* EncodingTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E2B1DC4F00F005CDE34 /* EncodingTypes.plist */; };
 		4D689A2A1DD88EFC001D1318 /* SubtitleSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */; };
 		4D689A2C1DD88F0A001D1318 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
@@ -72,7 +75,6 @@
 		4D859B9F1DDFA164000E2AA1 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B911DDFA162000E2AA1 /* UINavigationBar+Extension.swift */; };
 		4D859BA01DDFA164000E2AA1 /* CGSize+Min.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B921DDFA162000E2AA1 /* CGSize+Min.swift */; };
 		4D859BA11DDFA164000E2AA1 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B931DDFA162000E2AA1 /* UIImage+Color.swift */; };
-		4D859BA21DDFA164000E2AA1 /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B941DDFA162000E2AA1 /* DispatchQueue+Extension.swift */; };
 		4D859BA41DDFA17C000E2AA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D859BA31DDFA17C000E2AA1 /* Main.storyboard */; };
 		4D859BA91DDFA192000E2AA1 /* VLCTransportBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BA51DDFA192000E2AA1 /* VLCTransportBar.m */; };
 		4D859BAA1DDFA192000E2AA1 /* VLCBufferingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BA81DDFA192000E2AA1 /* VLCBufferingBar.m */; };
@@ -181,6 +183,10 @@
 		4D2543AD1DACFBFE00149533 /* TopShelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TopShelf.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2543B01DACFBFE00149533 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		4D2543B21DACFBFE00149533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D52E0451DE4BD4A00486F31 /* VLCIRTVTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCIRTVTapGestureRecognizer.h; path = PopcornTime/UI/tvOS/VLC/VLCIRTVTapGestureRecognizer.h; sourceTree = SOURCE_ROOT; };
+		4D52E0461DE4BD4A00486F31 /* VLCIRTVTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCIRTVTapGestureRecognizer.m; path = PopcornTime/UI/tvOS/VLC/VLCIRTVTapGestureRecognizer.m; sourceTree = SOURCE_ROOT; };
+		4D52E0481DE4C1A100486F31 /* VLCSiriRemoteGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSiriRemoteGestureRecognizer.h; path = PopcornTime/UI/tvOS/VLC/VLCSiriRemoteGestureRecognizer.h; sourceTree = SOURCE_ROOT; };
+		4D52E0491DE4C1A100486F31 /* VLCSiriRemoteGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSiriRemoteGestureRecognizer.m; path = PopcornTime/UI/tvOS/VLC/VLCSiriRemoteGestureRecognizer.m; sourceTree = SOURCE_ROOT; };
 		4D689A171DD88E17001D1318 /* PopcornTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopcornTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D689A6C1DD8ADFA001D1318 /* CastIconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CastIconButton.swift; path = Resources/CastIconButton.swift; sourceTree = "<group>"; };
 		4D69B7601DC6396D00A88A37 /* button-unwatched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-unwatched.png"; path = "Resources/button-unwatched.png"; sourceTree = "<group>"; };
@@ -226,7 +232,6 @@
 		4D859B911DDFA162000E2AA1 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UINavigationBar+Extension.swift"; path = "UI/iOS/Extensions/UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
 		4D859B921DDFA162000E2AA1 /* CGSize+Min.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGSize+Min.swift"; path = "UI/iOS/Extensions/CGSize+Min.swift"; sourceTree = "<group>"; };
 		4D859B931DDFA162000E2AA1 /* UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Color.swift"; path = "UI/iOS/Extensions/UIImage+Color.swift"; sourceTree = "<group>"; };
-		4D859B941DDFA162000E2AA1 /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "DispatchQueue+Extension.swift"; path = "UI/iOS/Extensions/DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
 		4D859BA31DDFA17C000E2AA1 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = UI/tvOS/Main.storyboard; sourceTree = "<group>"; };
 		4D859BA51DDFA192000E2AA1 /* VLCTransportBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTransportBar.m; path = PopcornTime/UI/tvOS/VLC/VLCTransportBar.m; sourceTree = SOURCE_ROOT; };
 		4D859BA61DDFA192000E2AA1 /* VLCTransportBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCTransportBar.h; path = PopcornTime/UI/tvOS/VLC/VLCTransportBar.h; sourceTree = SOURCE_ROOT; };
@@ -479,7 +484,6 @@
 				4D859B921DDFA162000E2AA1 /* CGSize+Min.swift */,
 				4D8A57421DE0F39A00CCDF8A /* UITableView+Header.swift */,
 				4D859B931DDFA162000E2AA1 /* UIImage+Color.swift */,
-				4D859B941DDFA162000E2AA1 /* DispatchQueue+Extension.swift */,
 				4D8A57461DE10DFD00CCDF8A /* UIViewController+StatusBar.swift */,
 			);
 			name = Extensions;
@@ -707,6 +711,10 @@
 		9211E3EB1CDC0A8C00BEEB9D /* VLC */ = {
 			isa = PBXGroup;
 			children = (
+				4D52E0481DE4C1A100486F31 /* VLCSiriRemoteGestureRecognizer.h */,
+				4D52E0491DE4C1A100486F31 /* VLCSiriRemoteGestureRecognizer.m */,
+				4D52E0451DE4BD4A00486F31 /* VLCIRTVTapGestureRecognizer.h */,
+				4D52E0461DE4BD4A00486F31 /* VLCIRTVTapGestureRecognizer.m */,
 				4D859BA61DDFA192000E2AA1 /* VLCTransportBar.h */,
 				4D859BA51DDFA192000E2AA1 /* VLCTransportBar.m */,
 				4D859BA71DDFA192000E2AA1 /* VLCBufferingBar.h */,
@@ -1071,12 +1079,15 @@
 				4D859BE91DDFA246000E2AA1 /* SeasonProductRecipe.swift in Sources */,
 				4D859BDC1DDFA237000E2AA1 /* Genre.swift in Sources */,
 				4D990E421DC4F0BD005CDE34 /* OptionsViewControllerPresentationDelegate.swift in Sources */,
+				4D52E0471DE4BD4A00486F31 /* VLCIRTVTapGestureRecognizer.m in Sources */,
 				4D859BA91DDFA192000E2AA1 /* VLCTransportBar.m in Sources */,
 				4D859B2D1DDFA079000E2AA1 /* UpNextView.swift in Sources */,
+				4D52E04A1DE4C1A100486F31 /* VLCSiriRemoteGestureRecognizer.m in Sources */,
 				4D990E231DC4EFA2005CDE34 /* Media+Extension.swift in Sources */,
 				4D990E461DC4F0F1005CDE34 /* ActionHandler.swift in Sources */,
 				4D859BC51DDFA1FC000E2AA1 /* GenreRecipe.swift in Sources */,
 				4D91ECBC1DDBA842001B798A /* UIFont+Traits.swift in Sources */,
+				4D52E04B1DE4C69900486F31 /* GradientView.swift in Sources */,
 				4D859BAA1DDFA192000E2AA1 /* VLCBufferingBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1133,7 +1144,6 @@
 				4D859B8D1DDFA151000E2AA1 /* ProgressSlider.swift in Sources */,
 				4D859B2F1DDFA07C000E2AA1 /* LoadingViewController.swift in Sources */,
 				4D689A6F1DD8AF12001D1318 /* AppDelegate.swift in Sources */,
-				4D859BA21DDFA164000E2AA1 /* DispatchQueue+Extension.swift in Sources */,
 				4D859B751DDFA12C000E2AA1 /* ProgressBar.swift in Sources */,
 				4D859B9E1DDFA164000E2AA1 /* UIView+Parent.swift in Sources */,
 				4D859B9F1DDFA164000E2AA1 /* UINavigationBar+Extension.swift in Sources */,

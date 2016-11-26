@@ -1,13 +1,4 @@
-/*****************************************************************************
- * VLC for iOS
- *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
- * $Id$
- *
- * Authors: Tobias Conradi <videolan # tobias-conradi.de>
- *
- * Refer to the COPYING file of the official project for license.
- *****************************************************************************/
+
 
 #import "VLCBufferingBar.h"
 @interface VLCBufferingBar()
@@ -92,7 +83,7 @@
     CGRect bounds = self.bounds;
     CGFloat inset = self.borderLayer.lineWidth/2.0;
     CGRect borderRect = CGRectInset(bounds, inset, inset);
-    UIBezierPath *path = [UIBezierPath bezierPathWithRect:borderRect];// cornerRadius:cornerRadius];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:borderRect cornerRadius:bounds.size.height/2.0];
     self.borderLayer.path = path.CGPath;
     self.borderMaskLayer.frame=bounds;
     self.borderMaskLayer.path=path.CGPath;

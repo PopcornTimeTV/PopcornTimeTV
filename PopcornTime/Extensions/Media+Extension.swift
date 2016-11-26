@@ -32,7 +32,7 @@ extension Media {
         },
         playBlock: @escaping (URL, URL, Media, Episode?, Float, UIViewController) -> Void = { (videoFileURL, videoFilePath, media, nextEpisode, progress, viewController) in
         if let viewController = viewController as? PCTPlayerViewController {
-            viewController.play(media, fromURL: videoFileURL, progress: progress, nextEpisode: nextEpisode, directory: videoFilePath.deletingLastPathComponent())
+            viewController.play(media, fromURL: videoFileURL, localURL: videoFilePath, progress: progress, nextEpisode: nextEpisode, directory: videoFilePath.deletingLastPathComponent())
         }
         },
         errorBlock: @escaping (String) -> Void,

@@ -6,6 +6,8 @@
 #import <TVVLCKit/TVVLCKit.h>
 #import "VLCBufferingBar.h"
 #import "VLCTransportBar.h"
+#import "VLCIRTVTapGestureRecognizer.h"
+#import "VLCSiriRemoteGestureRecognizer.h"
 
 #endif
 
