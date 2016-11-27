@@ -2,7 +2,12 @@
     <style>
         .img {
             tv-placeholder: movie;
-            border-radius: small;
+        }
+        @media tv-template and (tv-theme:light) {
+        tv-highlight-color:rgb(255, 255, 255);}
+        }
+        @media tv-template and (tv-theme:dark) {
+        tv-highlight-color:rgb(0,0,0);}
         }
     </style>
 </head>

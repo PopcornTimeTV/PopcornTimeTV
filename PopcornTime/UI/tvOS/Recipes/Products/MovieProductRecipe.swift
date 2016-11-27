@@ -121,7 +121,7 @@ public struct MovieProductRecipe: RecipeType {
                 xml = xml.replacingOccurrences(of: "{{IMAGE}}", with: movie.largeCoverImage ?? "")
                 xml = xml.replacingOccurrences(of: "{{FANART_IMAGE}}", with: movie.largeBackgroundImage ?? "")
                 xml = xml.replacingOccurrences(of: "{{YEAR}}", with: movie.year)
-                xml = xml.replacingOccurrences(of: "{{RATING}}", with: movie.certification.replacingOccurrences(of: "-", with: ""))
+                xml = xml.replacingOccurrences(of: "{{RATING}}", with: movie.certification.replacingOccurrences(of: "-", with: "").lowercased())
                 xml = xml.replacingOccurrences(of: "{{STAR_RATING}}", with: String(movie.rating))
 
                 xml = xml.replacingOccurrences(of: "{{YOUTUBE_PREVIEW_CODE}}", with: movie.trailerCode ?? "")
