@@ -57,15 +57,20 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     }
     
     @IBAction func handlePositionSliderGesture(_ sender: UIPanGestureRecognizer) {
-        guard !progressBar.isHidden && !mediaplayer.isPlaying else { return }
         
         let translation = sender.translation(in: view)
+        let velocity = sender.velocity(in: view)
         
-        if translation.y > 200.0 && !progressBar.isScrubbing {
+        if presentedViewController is OptionsViewController || // If we are already mid way through presenting the optionsViewController, don't start scrubbing no matter what the user is doing
+            translation.y > 0 && fabsf(Float(translation.x)) < 30 &&
+            velocity.y > 1000 && !progressBar.isScrubbing // If the pan gesture is going down, not going off to the left or right too much, is above a certain speed, and if we are not already scrubbing, present optionsViewController
+        {
             presentOptionsViewController()
             handleOptionsGesture(sender)
             return
         }
+        
+        guard !progressBar.isHidden && !mediaplayer.isPlaying else { return }
         
         let offset = progressBar.scrubbingProgress + (translation.x - lastTranslation)/progressBar.bounds.width/8.0
         
@@ -100,6 +105,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     }
     
     func touchLocationDidChange(_ gesture: VLCSiriRemoteGestureRecognizer) {
+        if gesture.state == .ended { hideInfoLabel() } else if gesture.isLongTap { showInfoLabel() }
         progressBar.hint = .none
         resetIdleTimer()
         guard !progressBar.isScrubbing && mediaplayer.isPlaying && !progressBar.isHidden && !progressBar.isBuffering else { return }
@@ -144,7 +150,8 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     }
     
     @IBAction func menuPressed() {
-        progressBar.isScrubbing ? endScrubbing() : didFinishPlaying()
+        //progressBar.isScrubbing ? endScrubbing() : didFinishPlaying()
+        didFinishPlaying()
     }
     
     func endScrubbing() {
@@ -152,6 +159,20 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         !progressBar.isHidden ? toggleControlsVisible() : ()
         progressBar.isScrubbing = false
         dimmerView.isHidden = true
+    }
+    
+    func hideInfoLabel() {
+        guard infoHelperView.alpha == 1 else { return }
+        UIView.animate(withDuration: 0.3) {
+            self.infoHelperView.alpha = 0.0
+        }
+    }
+    
+    func showInfoLabel() {
+        guard infoHelperView.alpha == 0 else { return }
+        UIView.animate(withDuration: 0.3) {
+            self.infoHelperView.alpha = 1.0
+        }
     }
 }
 

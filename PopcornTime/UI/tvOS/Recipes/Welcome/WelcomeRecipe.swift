@@ -14,7 +14,7 @@ public struct WelcomeRecipe: RecipeType {
         self.title = title
         PopcornKit.loadMovies { (movies, error) in
             guard let movies = movies else { return }
-            let art = movies.map({$0.largeBackgroundImage ?? ""}).filter({$0 != ""})
+            let art = movies.flatMap({$0.largeBackgroundImage}).filter({!$0.isAmazonUrl})
             Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
                 context.objectForKeyedSubscript("changeImage").call(withArguments: [art[Int(arc4random_uniform(UInt32(art.count)))]])
             }, completion: nil)

@@ -602,6 +602,28 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="bUg-kd-uQh">
                                 <rect key="frame" x="928" y="508" width="64" height="64"/>
                             </activityIndicatorView>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k35-ef-k3P">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="125"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe Down for Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Y5-Fz-byx">
+                                        <rect key="frame" x="854" y="60" width="213" height="29"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Now Playing Arrow" translatesAutoresizingMaskIntoConstraints="NO" id="2T2-lB-K0d">
+                                        <rect key="frame" x="918" y="79" width="85" height="46"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="125" id="7UX-fj-CpZ"/>
+                                    <constraint firstItem="2T2-lB-K0d" firstAttribute="centerX" secondItem="k35-ef-k3P" secondAttribute="centerX" id="OI1-X7-vlg"/>
+                                    <constraint firstItem="8Y5-Fz-byx" firstAttribute="centerX" secondItem="k35-ef-k3P" secondAttribute="centerX" id="U0S-Dc-RE5"/>
+                                    <constraint firstAttribute="bottom" secondItem="2T2-lB-K0d" secondAttribute="bottom" id="l5c-jE-Fdo"/>
+                                    <constraint firstItem="2T2-lB-K0d" firstAttribute="top" secondItem="8Y5-Fz-byx" secondAttribute="bottom" constant="-10" id="uSb-7C-KSm"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -614,13 +636,16 @@
                             <constraint firstItem="bUg-kd-uQh" firstAttribute="centerX" secondItem="LkF-xE-nSc" secondAttribute="centerX" id="MuV-wn-MmN"/>
                             <constraint firstAttribute="bottom" secondItem="kJu-2E-Je1" secondAttribute="bottom" id="MxA-mF-Rgf"/>
                             <constraint firstAttribute="bottomMargin" secondItem="XBD-uM-GmB" secondAttribute="bottom" id="TyJ-Hx-ikD"/>
+                            <constraint firstAttribute="top" secondItem="k35-ef-k3P" secondAttribute="top" id="VSL-Ik-Brt"/>
                             <constraint firstAttribute="bottomMargin" secondItem="GOk-NB-ZjF" secondAttribute="bottom" constant="90" id="e0O-QR-xnZ"/>
                             <constraint firstItem="XBD-uM-GmB" firstAttribute="width" secondItem="LkF-xE-nSc" secondAttribute="width" id="jHP-Xb-v3o"/>
+                            <constraint firstItem="k35-ef-k3P" firstAttribute="width" secondItem="LkF-xE-nSc" secondAttribute="width" id="jNw-6Y-J5F"/>
                             <constraint firstAttribute="bottom" secondItem="suM-rg-3BK" secondAttribute="bottom" id="kbZ-EY-0Ad"/>
                             <constraint firstItem="XBD-uM-GmB" firstAttribute="centerX" secondItem="LkF-xE-nSc" secondAttribute="centerX" id="lYb-gv-5gu"/>
                             <constraint firstItem="GOk-NB-ZjF" firstAttribute="centerX" secondItem="LkF-xE-nSc" secondAttribute="centerX" id="nRa-7w-j2H"/>
                             <constraint firstAttribute="trailing" secondItem="suM-rg-3BK" secondAttribute="trailing" id="re2-of-EwQ"/>
                             <constraint firstItem="suM-rg-3BK" firstAttribute="leading" secondItem="LkF-xE-nSc" secondAttribute="leading" id="wWa-Ne-ul0"/>
+                            <constraint firstItem="k35-ef-k3P" firstAttribute="centerX" secondItem="LkF-xE-nSc" secondAttribute="centerX" id="yd9-MT-NQs"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="qtg-HJ-sha" appends="YES" id="s1E-tR-zPH"/>
@@ -632,6 +657,7 @@
                     </view>
                     <connections>
                         <outlet property="dimmerView" destination="suM-rg-3BK" id="d3x-qe-PzT"/>
+                        <outlet property="infoHelperView" destination="k35-ef-k3P" id="Fp2-le-38w"/>
                         <outlet property="loadingActivityIndicatorView" destination="bUg-kd-uQh" id="hab-0d-CpB"/>
                         <outlet property="movieView" destination="kJu-2E-Je1" id="nRY-mz-Dvi"/>
                         <outlet property="progressBar" destination="GOk-NB-ZjF" id="Y6t-gS-cd4"/>
@@ -943,8 +969,16 @@
                                     <outlet property="delegate" destination="HyU-6m-m2b" id="S2a-XP-yQq"/>
                                 </connections>
                             </tabBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s10-hE-6SZ">
+                                <rect key="frame" x="0.0" y="139" width="1920" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="0.050000000000000003" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="SjC-dj-hxP"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="s10-hE-6SZ" firstAttribute="bottom" secondItem="VR9-RO-ryD" secondAttribute="bottom" id="4kd-Tp-fXW"/>
                             <constraint firstItem="UZA-7D-dR1" firstAttribute="top" secondItem="VR9-RO-ryD" secondAttribute="bottom" constant="20" id="6kn-3F-MuM"/>
                             <constraint firstItem="UZA-7D-dR1" firstAttribute="width" secondItem="j6l-o7-1n4" secondAttribute="width" multiplier="0.8" id="9YC-ua-hwg"/>
                             <constraint firstAttribute="bottomMargin" secondItem="Ejw-R3-Oci" secondAttribute="bottom" id="DcK-g6-18c"/>
@@ -955,6 +989,8 @@
                             <constraint firstItem="bX4-2V-xqW" firstAttribute="centerX" secondItem="j6l-o7-1n4" secondAttribute="centerX" id="TKu-D0-tdH"/>
                             <constraint firstItem="JZc-y3-9iE" firstAttribute="width" secondItem="j6l-o7-1n4" secondAttribute="width" multiplier="0.8" id="TaI-SR-uPy"/>
                             <constraint firstAttribute="topMargin" secondItem="VR9-RO-ryD" secondAttribute="top" id="Wek-Aw-A08"/>
+                            <constraint firstItem="s10-hE-6SZ" firstAttribute="width" secondItem="j6l-o7-1n4" secondAttribute="width" id="cBf-Cm-qfm"/>
+                            <constraint firstItem="s10-hE-6SZ" firstAttribute="centerX" secondItem="j6l-o7-1n4" secondAttribute="centerX" id="ddN-N0-NUi"/>
                             <constraint firstItem="bX4-2V-xqW" firstAttribute="top" secondItem="VR9-RO-ryD" secondAttribute="bottom" constant="20" id="eX1-fi-RUE"/>
                             <constraint firstItem="mxK-vp-adm" firstAttribute="top" secondItem="bX4-2V-xqW" secondAttribute="bottom" constant="20" id="gLK-Wj-mPL"/>
                             <constraint firstAttribute="trailing" secondItem="Ejw-R3-Oci" secondAttribute="trailing" id="gur-Bi-3xm"/>
@@ -1078,6 +1114,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
     </scenes>
     <resources>
         <image name="Icon" width="600" height="600"/>
+        <image name="Now Playing Arrow" width="85" height="46"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <nil key="statusBar"/>

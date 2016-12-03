@@ -34,6 +34,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     #if os(tvOS)
         @IBOutlet var progressBar: VLCTransportBar!
         @IBOutlet var dimmerView: UIView!
+        @IBOutlet var infoHelperView: UIView!
     
         var lastTranslation: CGFloat = 0.0
         let interactor = OptionsPercentDrivenInteractiveTransition()
@@ -399,7 +400,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
      
      [All colors available here](http://www.nameacolor.com/Color%20numbers.htm)
      
-     - Parameter fontColor: An `NSNumber` wrapped hexInt(`UInt32`) indicating the color. Eg. Black: 0, White: 16777215, etc.
+     - Parameter fontColor: An `NSNumber` wrapped hexInt (`UInt32`) indicating the color. Eg. Black: 0, White: 16777215, etc.
      */
     @objc optional func setTextRendererFontColor(_ fontColor: NSNumber)
     /**

@@ -14,7 +14,7 @@ public struct SeasonProductRecipe: RecipeType {
 
     public init(show: Show, currentSeason: Int? = nil) {
         self.show = show
-        self.season = currentSeason ?? show.seasonNumbers.first!
+        self.season = currentSeason ?? show.seasonNumbers.last!
     }
 
     public var xmlString: String {

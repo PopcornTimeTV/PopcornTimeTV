@@ -8,7 +8,7 @@ import FloatRatingView
 import PopcornTorrent
 import PopcornKit
 
-class MovieDetailViewController: UIViewController, UIViewControllerTransitioningDelegate, UIPopoverPresentationControllerDelegate, PCTPlayerViewControllerDelegate {
+class MovieDetailViewController: UIViewController, UIViewControllerTransitioningDelegate, UIPopoverPresentationControllerDelegate, PCTPlayerViewControllerDelegate, UIGestureRecognizerDelegate {
 
     @IBOutlet var qualityButton: UIButton!
     @IBOutlet var subtitlesButton: UIButton!
@@ -35,7 +35,6 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
     @IBOutlet var compactConstraints: [NSLayoutConstraint]!
     
     var currentItem: Movie!
-    
     var classContext = 0
     
     
@@ -289,5 +288,9 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
             return LoadingViewAnimatedTransitioning(isPresenting: false)
         }
         return nil
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
