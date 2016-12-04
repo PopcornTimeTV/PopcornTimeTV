@@ -364,7 +364,8 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     func resetIdleTimer() {
         if idleTimer == nil {
-            idleTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(idleTimerExceeded), userInfo: nil, repeats: false)
+            let delay: TimeInterval = UIDevice.current.userInterfaceIdiom == .tv ? 3 : 5
+            idleTimer = Timer.scheduledTimer(timeInterval: delay, target: self, selector: #selector(idleTimerExceeded), userInfo: nil, repeats: false)
             if !mediaplayer.isPlaying || !loadingActivityIndicatorView.isHidden || progressBar.isScrubbing || progressBar.isBuffering // If paused, scrubbing or loading, cancel timer so UI doesn't disappear
             {
                 idleTimer.invalidate()
@@ -385,8 +386,10 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        let menuType = NSNumber(value: UIPressType.menu.rawValue)
+        return !(gestureRecognizer.allowedPressTypes.contains(menuType) && otherGestureRecognizer.allowedPressTypes.contains(menuType)) // If both gestures are menu, return false as the default behaviour of the menu button is to be overidden and returning true will allow the default behaviour
     }
+    
 }
 /**
  Protocol wrapper for private subtitle appearance API in MobileVLCKit. Can be toll free bridged from VLCMediaPlayer. Example for changing font:

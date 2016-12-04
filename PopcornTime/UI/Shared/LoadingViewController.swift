@@ -20,7 +20,6 @@ class LoadingViewController: UIViewController {
     @IBOutlet private var streamingStatusLabel: UILabel?
     
     // iOS exclusive 
-    
     @IBOutlet private var processingView: UIView?
     
     

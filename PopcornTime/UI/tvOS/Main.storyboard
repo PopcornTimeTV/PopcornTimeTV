@@ -650,9 +650,10 @@
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="qtg-HJ-sha" appends="YES" id="s1E-tR-zPH"/>
                             <outletCollection property="gestureRecognizers" destination="HVS-0Q-6dX" appends="YES" id="RGK-jt-Yw6"/>
-                            <outletCollection property="gestureRecognizers" destination="XpP-QH-L3z" appends="YES" id="nFi-0g-vGN"/>
                             <outletCollection property="gestureRecognizers" destination="uQX-sF-C1C" appends="YES" id="ULG-EQ-Pas"/>
                             <outletCollection property="gestureRecognizers" destination="yP9-eQ-VY2" appends="YES" id="fEC-Qv-fQA"/>
+                            <outletCollection property="gestureRecognizers" destination="C1v-f6-vHy" appends="YES" id="Uub-4o-92q"/>
+                            <outletCollection property="gestureRecognizers" destination="ouP-ar-fg3" appends="YES" id="upC-cp-2yM"/>
                         </connections>
                     </view>
                     <connections>
@@ -693,11 +694,17 @@
                         <outlet property="delegate" destination="gny-k5-PMV" id="wiE-5A-BAz"/>
                     </connections>
                 </tapGestureRecognizer>
-                <tapGestureRecognizer id="XpP-QH-L3z" userLabel="Menu Gesture Recognizer">
+                <swipeGestureRecognizer direction="down" id="C1v-f6-vHy">
+                    <connections>
+                        <action selector="presentOptionsViewController" destination="gny-k5-PMV" id="d1T-YT-9Cu"/>
+                        <outlet property="delegate" destination="gny-k5-PMV" id="ugY-B5-RrZ"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <tapGestureRecognizer id="ouP-ar-fg3" userLabel="Menu Gesture Recognizer">
                     <pressTypeMask key="allowedPressTypes" menu="YES"/>
                     <connections>
-                        <action selector="menuPressed" destination="gny-k5-PMV" id="mIn-Kj-8LV"/>
-                        <outlet property="delegate" destination="gny-k5-PMV" id="nYN-M5-rBa"/>
+                        <action selector="menuPressed" destination="gny-k5-PMV" id="tXs-34-kIL"/>
+                        <outlet property="delegate" destination="gny-k5-PMV" id="Ytp-2n-g7V"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

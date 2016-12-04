@@ -29,48 +29,11 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         return animator is OptionsAnimatedTransitioning && interactor.hasStarted ? interactor : nil
     }
     
-    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return animator is OptionsAnimatedTransitioning && interactor.hasStarted ? interactor : nil
-    }
-    
-    func handleOptionsGesture(_ sender: UIPanGestureRecognizer) {
-        let percentThreshold: CGFloat = 0.4
-        let superview = sender.view!.superview!
-        let translation = sender.translation(in: superview)
-        let progress = translation.y/superview.bounds.height
-        
-        switch sender.state {
-        case .began:
-            interactor.hasStarted = true
-        case .changed:
-            interactor.shouldFinish = progress > percentThreshold
-            interactor.update(progress)
-        case .cancelled:
-            interactor.hasStarted = false
-            interactor.cancel()
-        case .ended:
-            interactor.hasStarted = false
-            interactor.shouldFinish ? interactor.finish() : interactor.cancel()
-        default:
-            break
-        }
-    }
-    
     @IBAction func handlePositionSliderGesture(_ sender: UIPanGestureRecognizer) {
         
         let translation = sender.translation(in: view)
-        let velocity = sender.velocity(in: view)
         
-        if presentedViewController is OptionsViewController || // If we are already mid way through presenting the optionsViewController, don't start scrubbing no matter what the user is doing
-            translation.y > 0 && fabsf(Float(translation.x)) < 30 &&
-            velocity.y > 1000 && !progressBar.isScrubbing // If the pan gesture is going down, not going off to the left or right too much, is above a certain speed, and if we are not already scrubbing, present optionsViewController
-        {
-            presentOptionsViewController()
-            handleOptionsGesture(sender)
-            return
-        }
-        
-        guard !progressBar.isHidden && !mediaplayer.isPlaying else { return }
+        guard !(presentedViewController is OptionsViewController), progressBar.isScrubbing, !progressBar.isHidden && !mediaplayer.isPlaying else { return }
         
         let offset = progressBar.scrubbingProgress + (translation.x - lastTranslation)/progressBar.bounds.width/8.0
         
@@ -80,7 +43,6 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         case .ended:
             lastTranslation = 0.0
         case .began:
-            progressBar.isScrubbing = true
             fallthrough
         case .changed:
             progressBar.scrubbingProgress = offset
@@ -91,7 +53,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         }
     }
     
-    func presentOptionsViewController() {
+    @IBAction func presentOptionsViewController() {
         if presentedViewController is OptionsViewController { return }
         let destinationController = storyboard?.instantiateViewController(withIdentifier: "OptionsViewController") as! OptionsViewController
         destinationController.transitioningDelegate = self
@@ -150,8 +112,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     }
     
     @IBAction func menuPressed() {
-        //progressBar.isScrubbing ? endScrubbing() : didFinishPlaying()
-        didFinishPlaying()
+        progressBar.isScrubbing ? endScrubbing() : didFinishPlaying()
     }
     
     func endScrubbing() {

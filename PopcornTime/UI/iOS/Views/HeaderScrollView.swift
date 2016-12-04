@@ -38,9 +38,8 @@ private enum ScrollDirection {
     
     override open var contentOffset: CGPoint {
         didSet {
-            if !programaticScrollEnabled {
-                super.contentOffset = CGPoint.zero
-            }
+            guard !programaticScrollEnabled else { return }
+            super.contentOffset = .zero
         }
     }
     

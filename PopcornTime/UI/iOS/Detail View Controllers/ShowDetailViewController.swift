@@ -25,6 +25,9 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet var castButton: CastIconBarButtonItem!
     
     let interactor = EpisodeDetailPercentDrivenInteractiveTransition()
+
+    /// Set this variable to false if you need to animate the layout of the splitView
+    var shouldLayoutSplit = true
     
     var currentType: Trakt.MediaType = .shows
     var currentItem: Show!
@@ -76,9 +79,14 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
                 self.gradientViews.forEach({ $0.alpha = 1.0 })
                 self.segmentedControl.alpha = 1.0
                 
+                self.splitViewController?.minimumPrimaryColumnWidth = UIScreen.main.bounds.width/1.7
+                self.splitViewController?.maximumPrimaryColumnWidth = UIScreen.main.bounds.width/1.7
+                
                 self.view.layoutIfNeeded()
-            }, completion: nil)
-            splitViewController?.preferredDisplayMode = .allVisible
+            }, completion: { _ in
+                self.shouldLayoutSplit = true
+                self.layoutSplitViewControllerIfNeeded()
+            })
         }
     }
     
@@ -86,6 +94,7 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isBackgroundHidden = false
         navigationController?.navigationBar.frame.size.width = UIScreen.main.bounds.width
+        shouldLayoutSplit = false
         
         if transitionCoordinator?.viewController(forKey: .to) is LoadingViewController {
             transitionCoordinator?.animate(alongsideTransition: { (context) in
@@ -100,18 +109,29 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
                 self.gradientViews.forEach({ $0.alpha = 0.0 })
                 self.segmentedControl.alpha = 0.0
                 
+                self.splitViewController?.minimumPrimaryColumnWidth = UIScreen.main.bounds.width
+                self.splitViewController?.maximumPrimaryColumnWidth = UIScreen.main.bounds.width
+                
                 self.view.layoutIfNeeded()
             }, completion: nil)
-            splitViewController?.preferredDisplayMode = .primaryHidden
         }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        navigationController?.navigationBar.frame.size.width = splitViewController?.primaryColumnWidth ?? view.bounds.width
+        
+        layoutSplitViewControllerIfNeeded()
+        
+        tableView.sizeHeaderThatFits(CGSize(width: tableHeaderView.frame.width, height: 115.0 + summaryView.bounds.height))
+    }
+    
+    func layoutSplitViewControllerIfNeeded() {
+        guard shouldLayoutSplit else { return }
+        
         splitViewController?.minimumPrimaryColumnWidth = UIScreen.main.bounds.width/1.7
         splitViewController?.maximumPrimaryColumnWidth = UIScreen.main.bounds.width/1.7
-        tableView.sizeHeaderThatFits(CGSize(width: tableHeaderView.frame.width, height: 115.0 + summaryView.bounds.height))
+        
+        navigationController?.navigationBar.frame.size.width = splitViewController?.primaryColumnWidth ?? view.bounds.width
     }
     
     override func viewDidLoad() {
