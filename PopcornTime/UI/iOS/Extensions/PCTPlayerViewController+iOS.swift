@@ -57,31 +57,6 @@ extension PCTPlayerViewController: SubtitlesTableViewControllerDelegate, UIPopov
         })
     }
     
-    @IBAction func fastForwardHeld(_ sender: UILongPressGestureRecognizer) {
-        resetIdleTimer()
-        switch sender.state {
-        case .began:
-            fallthrough
-        case .changed:
-            mediaplayer.mediumJumpForward()
-        default:
-            break
-        }
-        
-    }
-    
-    @IBAction func rewindHeld(_ sender: UILongPressGestureRecognizer) {
-        resetIdleTimer()
-        switch sender.state {
-        case .began:
-            fallthrough
-        case .changed:
-            mediaplayer.mediumJumpBackward()
-        default:
-            break
-        }
-    }
-    
     @IBAction func sliderDidDrag() {
         resetIdleTimer()
     }

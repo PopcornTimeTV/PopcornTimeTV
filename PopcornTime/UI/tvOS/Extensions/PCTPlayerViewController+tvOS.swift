@@ -33,7 +33,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         
         let translation = sender.translation(in: view)
         
-        guard !(presentedViewController is OptionsViewController), progressBar.isScrubbing, !progressBar.isHidden && !mediaplayer.isPlaying else { return }
+        guard !(presentedViewController is OptionsViewController) && progressBar.isScrubbing && !progressBar.isHidden && !mediaplayer.isPlaying else { return }
         
         let offset = progressBar.scrubbingProgress + (translation.x - lastTranslation)/progressBar.bounds.width/8.0
         
@@ -68,22 +68,26 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     
     func touchLocationDidChange(_ gesture: VLCSiriRemoteGestureRecognizer) {
         if gesture.state == .ended { hideInfoLabel() } else if gesture.isLongTap { showInfoLabel() }
+        
         progressBar.hint = .none
         resetIdleTimer()
+        
         guard !progressBar.isScrubbing && mediaplayer.isPlaying && !progressBar.isHidden && !progressBar.isBuffering else { return }
+        
         switch gesture.touchLocation {
         case .left:
-            progressBar.hint = .jumpBackward10
-            if gesture.isClick { rewind(); progressBar.hint = .none }
+            if gesture.isClick && gesture.state == .ended { rewind(); progressBar.hint = .none }
+            if gesture.isLongPress { rewindHeld(gesture) } else { progressBar.hint = .jumpBackward30 }
         case .right:
-            progressBar.hint = .jumpForward10
-            if gesture.isClick { fastForward(); progressBar.hint = .none }
+            if gesture.isClick && gesture.state == .ended { fastForward(); progressBar.hint = .none }
+            if gesture.isLongPress { fastForwardHeld(gesture) } else { progressBar.hint = .jumpForward30 }
         default: return
         }
     }
     
     func clickGesture(_ gesture: VLCSiriRemoteGestureRecognizer) {
-        guard gesture.isClick, progressBar.hint == .none else {
+
+        guard gesture.touchLocation == .unknown && gesture.isClick else {
             progressBar.isHidden ? toggleControlsVisible() : ()
             return
         }

@@ -6,10 +6,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, VLCTransportBarHint) {
     VLCTransportBarHintNone,
-    VLCTransportBarHintPaused,
-    VLCTransportBarHintScanForward,
-    VLCTransportBarHintJumpForward10,
-    VLCTransportBarHintJumpBackward10,
+    VLCTransportBarHintFastForward,
+    VLCTransportBarHintRewind,
+    VLCTransportBarHintJumpForward30,
+    VLCTransportBarHintJumpBackward30,
 };
 
 IB_DESIGNABLE @interface VLCTransportBar : UIView

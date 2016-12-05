@@ -650,8 +650,6 @@
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="qtg-HJ-sha" appends="YES" id="s1E-tR-zPH"/>
                             <outletCollection property="gestureRecognizers" destination="HVS-0Q-6dX" appends="YES" id="RGK-jt-Yw6"/>
-                            <outletCollection property="gestureRecognizers" destination="uQX-sF-C1C" appends="YES" id="ULG-EQ-Pas"/>
-                            <outletCollection property="gestureRecognizers" destination="yP9-eQ-VY2" appends="YES" id="fEC-Qv-fQA"/>
                             <outletCollection property="gestureRecognizers" destination="C1v-f6-vHy" appends="YES" id="Uub-4o-92q"/>
                             <outletCollection property="gestureRecognizers" destination="ouP-ar-fg3" appends="YES" id="upC-cp-2yM"/>
                         </connections>
@@ -680,20 +678,6 @@
                         <outlet property="delegate" destination="gny-k5-PMV" id="2qI-ex-09A"/>
                     </connections>
                 </panGestureRecognizer>
-                <tapGestureRecognizer id="yP9-eQ-VY2" userLabel="Fast Forward Gesture" customClass="VLCIRTVTapGestureRecognizer">
-                    <pressTypeMask key="allowedPressTypes" rightArrow="YES"/>
-                    <connections>
-                        <action selector="fastForward" destination="gny-k5-PMV" id="qEq-kU-uHP"/>
-                        <outlet property="delegate" destination="gny-k5-PMV" id="gfu-QD-O5I"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="uQX-sF-C1C" userLabel="Rewind Gesture Recognizer" customClass="VLCIRTVTapGestureRecognizer">
-                    <pressTypeMask key="allowedPressTypes" leftArrow="YES"/>
-                    <connections>
-                        <action selector="rewind" destination="gny-k5-PMV" id="whJ-j2-mxA"/>
-                        <outlet property="delegate" destination="gny-k5-PMV" id="wiE-5A-BAz"/>
-                    </connections>
-                </tapGestureRecognizer>
                 <swipeGestureRecognizer direction="down" id="C1v-f6-vHy">
                     <connections>
                         <action selector="presentOptionsViewController" destination="gny-k5-PMV" id="d1T-YT-9Cu"/>
@@ -704,7 +688,6 @@
                     <pressTypeMask key="allowedPressTypes" menu="YES"/>
                     <connections>
                         <action selector="menuPressed" destination="gny-k5-PMV" id="tXs-34-kIL"/>
-                        <outlet property="delegate" destination="gny-k5-PMV" id="Ytp-2n-g7V"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

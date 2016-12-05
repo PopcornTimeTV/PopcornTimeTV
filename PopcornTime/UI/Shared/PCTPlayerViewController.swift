@@ -113,11 +113,61 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             mediaplayer.isPlaying ? mediaplayer.pause() : mediaplayer.play()
         #endif
     }
+    
     @IBAction func fastForward() {
         mediaplayer.jumpForward(30)
     }
+    
     @IBAction func rewind() {
         mediaplayer.jumpBackward(30)
+    }
+    
+    @IBAction func fastForwardHeld(_ sender: UIGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            fallthrough
+        case .changed:
+            #if os(tvOS)
+            progressBar.hint = .fastForward
+            #endif
+            guard mediaplayer.rate == 1.0 else { break }
+            mediaplayer.fastForward(atRate: 20.0)
+        case .cancelled:
+            fallthrough
+        case .failed:
+            fallthrough
+        case .ended:
+            #if os(tvOS)
+            progressBar.hint = .none
+            #endif
+            mediaplayer.rate = 1.0
+        default:
+            break
+        }
+    }
+    
+    @IBAction func rewindHeld(_ sender: UIGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            fallthrough
+        case .changed:
+            #if os(tvOS)
+            progressBar.hint = .rewind
+            #endif
+            guard mediaplayer.rate == 1.0 else { break }
+            mediaplayer.rewind(atRate: 20.0)
+        case .cancelled:
+            fallthrough
+        case .failed:
+            fallthrough
+        case .ended:
+            #if os(tvOS)
+            progressBar.hint = .none
+            #endif
+            mediaplayer.rate = 1.0
+        default:
+            break
+        }
     }
     
     @IBAction func didFinishPlaying() {
@@ -366,7 +416,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         if idleTimer == nil {
             let delay: TimeInterval = UIDevice.current.userInterfaceIdiom == .tv ? 3 : 5
             idleTimer = Timer.scheduledTimer(timeInterval: delay, target: self, selector: #selector(idleTimerExceeded), userInfo: nil, repeats: false)
-            if !mediaplayer.isPlaying || !loadingActivityIndicatorView.isHidden || progressBar.isScrubbing || progressBar.isBuffering // If paused, scrubbing or loading, cancel timer so UI doesn't disappear
+            if !mediaplayer.isPlaying || !loadingActivityIndicatorView.isHidden || progressBar.isScrubbing || progressBar.isBuffering || mediaplayer.rate != 1.0 // If paused, scrubbing, fast forwarding or loading, cancel timer so UI doesn't disappear
             {
                 idleTimer.invalidate()
                 idleTimer = nil
@@ -385,9 +435,8 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         }
     }
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        let menuType = NSNumber(value: UIPressType.menu.rawValue)
-        return !(gestureRecognizer.allowedPressTypes.contains(menuType) && otherGestureRecognizer.allowedPressTypes.contains(menuType)) // If both gestures are menu, return false as the default behaviour of the menu button is to be overidden and returning true will allow the default behaviour
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {    
+        return true
     }
     
 }

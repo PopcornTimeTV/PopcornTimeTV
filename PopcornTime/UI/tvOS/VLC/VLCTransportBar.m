@@ -90,14 +90,16 @@ static inline void sharedSetup(VLCTransportBar *self) {
 
 
     UIImageView *leftHintImageView = [[UIImageView alloc] initWithFrame:imageRect];
+    leftHintImageView.contentMode = UIViewContentModeCenter;
+    leftHintImageView.tintColor = [UIColor whiteColor];
     [self addSubview:leftHintImageView];
     self.leftHintImageView = leftHintImageView;
-    self.leftHintImageView.tintColor = [UIColor whiteColor];
 
     UIImageView *rightHintImageView = [[UIImageView alloc] initWithFrame:imageRect];
+    rightHintImageView.contentMode = UIViewContentModeCenter;
+    rightHintImageView.tintColor = [UIColor whiteColor];
     [self addSubview:rightHintImageView];
     self.rightHintImageView = rightHintImageView;
-    self.rightHintImageView.tintColor = [UIColor whiteColor];
     
     self.scrubbing = NO;
     self.buffering = NO;
@@ -186,45 +188,23 @@ static inline void sharedSetup(VLCTransportBar *self) {
     _screenshot = screenshot;
 }
 
-- (UIImage *)imageForHint:(VLCTransportBarHint)hint
-{
-    NSString *imageName = nil;
-    switch (hint) {
-        case VLCTransportBarHintScanForward:
-            imageName = @"FastForward";
-            break;
-        case VLCTransportBarHintJumpForward10:
-            imageName = @"SkipForward30";
-            break;
-        case VLCTransportBarHintJumpBackward10:
-            imageName = @"SkipBack30";
-            break;
-        case VLCTransportBarHintPaused:
-            imageName = @"Pause";
-            break;
-        default:
-            break;
-	}
-    if (imageName) {
-        return [[UIImage imageNamed: imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    }
-    return nil;
-}
 - (void)setHint:(VLCTransportBarHint)hint
 {
     _hint = hint;
     UIImage *leftImage = nil;
     UIImage *rightImage = nil;
 	switch (hint) {
-        case VLCTransportBarHintScanForward:
-        case VLCTransportBarHintJumpForward10:
-            rightImage = [self imageForHint:hint];
-			break;
-        case VLCTransportBarHintJumpBackward10:
-            leftImage = [self imageForHint:hint];
+        case VLCTransportBarHintFastForward:
+            rightImage = [[UIImage imageNamed: @"ScanForward"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             break;
-        case VLCTransportBarHintPaused:
-            leftImage = [self imageForHint:hint];
+        case VLCTransportBarHintJumpForward30:
+            rightImage = [[UIImage imageNamed: @"SkipForward30"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+			break;
+        case VLCTransportBarHintJumpBackward30:
+            leftImage = [[UIImage imageNamed: @"SkipBack30"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            break;
+        case VLCTransportBarHintRewind:
+            leftImage = [[UIImage imageNamed: @"ScanBackward"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             break;
         default:
 			break;

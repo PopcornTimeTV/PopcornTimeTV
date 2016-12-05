@@ -7,7 +7,7 @@
 - (CGPoint)vlc_digitizerLocation;
 @end
 
-@interface VLCSiriRemoteGestureRecognizer ()
+@interface VLCSiriRemoteGestureRecognizer()
 {
 	NSTimer *_longPressTimer;
     NSTimer *_longTapTimer;
@@ -32,6 +32,7 @@
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
+    [_longTapTimer invalidate];
     _longTapTimer = [NSTimer scheduledTimerWithTimeInterval:self.minimumLongTapDuration target:self selector:@selector(longTapTimerFired) userInfo:nil repeats:NO];
     
     self.state = UIGestureRecognizerStateBegan;
@@ -91,6 +92,7 @@
 {
 	if (_click && (self.state == UIGestureRecognizerStateBegan || self.state == UIGestureRecognizerStateChanged)) {
 		_longPress = YES;
+        _click = NO;
         self.state = UIGestureRecognizerStateChanged;
     }
 }
@@ -107,6 +109,7 @@
 {
 	if ([self.allowedPressTypes containsObject:@(presses.anyObject.type)]) {
 		_click = YES;
+        [_longPressTimer invalidate];
 		_longPressTimer = [NSTimer scheduledTimerWithTimeInterval:self.minimumLongPressDuration target:self selector:@selector(longPressTimerFired) userInfo:nil repeats:NO];
 		self.state = UIGestureRecognizerStateChanged;
 	}
@@ -121,7 +124,7 @@
 }
 - (void)pressesEnded:(NSSet<UIPress *> *)presses withEvent:(UIPressesEvent *)event
 {
-	if (_click) {
+	if (_click || _longPress) {
 		self.state = UIGestureRecognizerStateEnded;
 	}
 }
