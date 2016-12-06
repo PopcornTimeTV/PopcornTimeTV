@@ -34,7 +34,14 @@ public struct SeasonProductRecipe: RecipeType {
     }
 
     var genresString: String {
-        return "<text> \(show.genres.joined(separator: " • ").capitalized)</text>"
+        if let first = show.genres.first {
+            var genreString = first
+            if show.genres.count > 2 {
+                genreString += " & \(show.genres[1])"
+            }
+            return "\(genreString.capitalized.cleaned)"
+        }
+        return ""
     }
 
     var episodeCount: String {

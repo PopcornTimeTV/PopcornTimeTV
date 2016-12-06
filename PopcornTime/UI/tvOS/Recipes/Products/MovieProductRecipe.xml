@@ -21,11 +21,13 @@
     <background>
         <img class="imgGradient" src="{{FANART_IMAGE}}" style="tv-tint-color: linear-gradient(top, 0.33, transparent, 0.66, rgba(000,000,000,0.7), rgba(000,000,000,1.0));" />
     </background>
+    
     <banner>
+        
         <infoList>
             <info>
                 <header>
-                    <title>Genres</title>
+                    <title>Genre</title>
                 </header>
                 {{GENRES}}
             </info>
@@ -71,6 +73,8 @@
             </row>
         </stack>
         
+        <heroImg src="{{FANART_LOGO}}" />
+        
     </banner>
     
     <!-- Suggestions -->
@@ -92,5 +96,72 @@
             {{CAST}}
         </section>
     </shelf>
+    
+    <!-- Footer -->
+    
+    <productInfo>
+        <infoTable>
+            <header>
+                <title>Information</title>
+            </header>
+            <info>
+                <header>
+                    <title>Genre</title>
+                </header>
+                <text>{{GENRES}}</text>
+            </info>
+            <info>
+                <header>
+                    <title>Released</title>
+                </header>
+                <text>{{YEAR}}</text>
+            </info>
+            <info>
+                <header>
+                    <title>Run Time</title>
+                </header>
+                <text>{{RUNTIME}}</text>
+            </info>
+            <info>
+                <header>
+                    <title>Rating</title>
+                </header>
+                <text>{{RATING-FOOTER}}</text>
+            </info>
+        </infoTable>
+        <!--
+        <infoTable>
+            <header>
+                <title>Languages</title>
+            </header>
+            <info>
+                <header>
+                    <title>Primary</title>
+                </header>
+                <text>Language (Subtitles)</text>
+            </info>
+            <info>
+                <header>
+                    <title>Additional</title>
+                </header>
+                <text>Language (Subtitles)</text>
+                <text>Language (Subtitles)</text>
+                <text>Language (Subtitles)</text>
+            </info>
+        </infoTable>
+        
+        <infoTable style="tv-line-spacing:10;">
+            <header>
+                <title>Accessibility</title>
+            </header>
+            <info>
+                <header>
+                    <textBadge>Something</textBadge>
+                </header>
+                <text>Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original lanuage with the addition of relevant non-dialog information.</text>
+            </info>
+        </infoTable>
+         -->
+    </productInfo>
 
 </productTemplate>

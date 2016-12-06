@@ -159,6 +159,7 @@ class ActionHandler: NSObject {
      - Parameter title: The title of the movie.
      - Parameter id:    The imdbId of the movie.
      */
+
     func showMovie(_ title: String, _ id: String) {
         Kitchen.serve(recipe: LoadingRecipe(message: title))
         
@@ -172,6 +173,13 @@ class ActionHandler: NSObject {
             }
             
             let group = DispatchGroup()
+            var fanartlogoString = ""
+            
+            group.enter()
+            TMDBManager.shared.getLogo(forMediaOfType: .movies, id: movie.id) { (image, error) in
+                if let image = image { fanartlogoString = image }
+                group.leave()
+            }
             
             group.enter()
             TraktManager.shared.getRelated(movie, completion: { (movies, _) in
@@ -187,7 +195,8 @@ class ActionHandler: NSObject {
             })
             
             group.notify(queue: .main, execute: {
-                let recipe =  MovieProductRecipe(movie: movie)
+                var recipe =  MovieProductRecipe(movie: movie)
+                recipe.fanartlogoString = fanartlogoString
                 Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
                     
                     let disableThemeSong: @convention(block) (String) -> Void = { message in
@@ -212,7 +221,7 @@ class ActionHandler: NSObject {
                             print("Could not open ProductRecipe.js")
                         }
                     }
-                    }, completion: nil)
+                }, completion: nil)
                 self.dismissLoading()
             })
         }

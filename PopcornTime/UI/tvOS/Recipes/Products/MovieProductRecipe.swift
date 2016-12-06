@@ -23,6 +23,8 @@ public struct MovieProductRecipe: RecipeType {
         xml += "</document>"
         return xml
     }
+    
+    var fanartlogoString = ""
 
     var directorsString: String {
         let directors = movie.crew.filter({ $0.roleType == .director })
@@ -34,8 +36,16 @@ public struct MovieProductRecipe: RecipeType {
     }
 
     var genresString: String {
-        return movie.genres.map { "<text>\($0.capitalized)</text>" }.joined(separator: "")
+        if let first = movie.genres.first {
+            var genreString = first
+            if movie.genres.count > 2 {
+                genreString += " & \(movie.genres[1])"
+            }
+            return "<text>\(genreString.capitalized.cleaned) </text>"
+        }
+        return ""
     }
+
 
     func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int, Int) {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
@@ -113,6 +123,7 @@ public struct MovieProductRecipe: RecipeType {
                 xml = try String(contentsOf: file)
                 xml = xml.replacingOccurrences(of: "{{DIRECTORS}}", with: directorsString)
                 xml = xml.replacingOccurrences(of: "{{ACTORS}}", with: actorsString)
+                xml = xml.replacingOccurrences(of: "{{FANART_LOGO}}", with: fanartlogoString)
 
                 xml = xml.replacingOccurrences(of: "{{RUNTIME}}", with: runtime)
                 xml = xml.replacingOccurrences(of: "{{TITLE}}", with: movie.title.cleaned)
@@ -122,6 +133,7 @@ public struct MovieProductRecipe: RecipeType {
                 xml = xml.replacingOccurrences(of: "{{FANART_IMAGE}}", with: movie.largeBackgroundImage ?? "")
                 xml = xml.replacingOccurrences(of: "{{YEAR}}", with: movie.year)
                 xml = xml.replacingOccurrences(of: "{{RATING}}", with: movie.certification.replacingOccurrences(of: "-", with: "").lowercased())
+                xml = xml.replacingOccurrences(of: "{{RATING-FOOTER}}", with: movie.certification.replacingOccurrences(of: "-", with: " "))
                 xml = xml.replacingOccurrences(of: "{{STAR_RATING}}", with: String(movie.rating))
 
                 xml = xml.replacingOccurrences(of: "{{YOUTUBE_PREVIEW_CODE}}", with: movie.trailerCode ?? "")
