@@ -173,6 +173,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     @IBAction func didFinishPlaying() {
         mediaplayer.stop()
         PTTorrentStreamer.shared().cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
+        (media is Movie ? WatchedlistManager.movie : WatchedlistManager.episode).setCurrentProgress(Float(progressBar.progress), forId: media.id, withStatus: .finished)
         #if os(tvOS)
             OperationQueue.main.addOperation {
                 Kitchen.appController.navigationController.popViewController(animated: true)
@@ -255,13 +256,13 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         guard !mediaplayer.isPlaying else { return }
         if startPosition > 0.0 {
             let style: UIAlertControllerStyle = (traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular) ? .alert : .actionSheet
-            let continueWatchingAlert = UIAlertController(title: "Continue watching?", message: "Looks like you've already started watching this, would you like to start from the start or continue where you left off.", preferredStyle: style)
-            continueWatchingAlert.addAction(UIAlertAction(title: "Yes, continue from where I left off", style: .default, handler:{ action in
+            let continueWatchingAlert = UIAlertController(title: nil, message: nil, preferredStyle: style)
+            continueWatchingAlert.addAction(UIAlertAction(title: "Resume Playing", style: .default, handler:{ action in
                 self.mediaplayer.play()
                 self.mediaplayer.position = self.startPosition
                 self.progressBar.progress = CGFloat(self.startPosition)
             }))
-            continueWatchingAlert.addAction(UIAlertAction(title: "Nope, play from the begining", style: .default, handler: { action in
+            continueWatchingAlert.addAction(UIAlertAction(title: "Start from Begining", style: .default, handler: { action in
                 self.mediaplayer.play()
             }))
             continueWatchingAlert.popoverPresentationController?.sourceView = progressBar
