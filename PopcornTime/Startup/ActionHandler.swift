@@ -6,6 +6,7 @@ import PopcornTorrent
 import AVKit
 import XCDYouTubeKit
 import ObjectMapper
+import AlamofireImage
 
 /**
  Handles all the navigation throughout the app. A string containing a method name and two optional parameters are passed into the `primary:` method. This in turn, generates the method from the string and executes it. Every method in this file has no public parameter names. This is for ease of use when calculating their names using perform selector.
@@ -204,6 +205,24 @@ class ActionHandler: NSObject {
                     }
                     
                     let enableThemeSong: @convention(block) (String) -> Void = { message in
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+                            let imageView = UIImageView()
+                            imageView.translatesAutoresizingMaskIntoConstraints = false
+                            let viewController = Kitchen.appController.navigationController.viewControllers.last!
+                            let containerView = viewController.view.subviews.first!.subviews[2].subviews.first!.subviews.first!.subviews.first!.subviews[1]
+                            let title = containerView.subviews.first as! UILabel
+                            if let url = URL(string: fanartlogoString) {
+                                imageView.af_setImage(withURL: url)
+                                title.isHidden = true
+                            }
+                            containerView.addSubview(imageView)
+                            imageView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+                            imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+                            imageView.contentMode = .scaleAspectFit
+                            imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+                        })
+                        
                         ThemeSongManager.shared.playMovieTheme(movie.title)
                     }
                     
