@@ -141,6 +141,17 @@ public struct SeasonProductRecipe: RecipeType {
         }
         return mapped.joined(separator: "\n")
     }
+    
+    var suggestionsString: String {
+        let mapped: [String] = show.related.map {
+            var string = "<lockup actionID=\"showMovie»\($0.title.cleaned)»\($0.id)\">" + "\n"
+            string += "<img class=\"placeholder\" src=\"\($0.smallCoverImage ?? "")\" width=\"150\" height=\"226\" />" + "\n"
+            string += "<title class=\"hover\">\($0.title.cleaned)</title>" + "\n"
+            string += "</lockup>" + "\n"
+            return string
+        }
+        return mapped.joined(separator: "\n")
+    }
 
     public var template: String {
         var xml = ""
@@ -161,6 +172,9 @@ public struct SeasonProductRecipe: RecipeType {
                 if let day = show.airDay, let time = show.airTime {
                     xml = xml.replacingOccurrences(of: "{{AIR_DATE_TIME}}", with: "<text>\(day)'s at \(time)</text>")
                 }
+                
+                xml = xml.replacingOccurrences(of: "{{SUGGESTIONS_TITLE}}", with: "Similar Shows")
+                xml = xml.replacingOccurrences(of: "{{SUGGESTIONS}}", with: suggestionsString)
 
                 xml = xml.replacingOccurrences(of: "{{WATCH_LIST_BUTTON}}", with: watchlistButton)
                 if WatchlistManager<Show>.show.isAdded(show) {

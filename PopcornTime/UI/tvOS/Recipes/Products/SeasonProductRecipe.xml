@@ -59,6 +59,16 @@
         </section>
     </shelf>
     
+    <!-- Suggestions -->
+    <shelf>
+        <header>
+            <title>{{SUGGESTIONS_TITLE}}</title>
+        </header>
+        <section>
+            {{SUGGESTIONS}}
+        </section>
+    </shelf>
+    
     <!-- Cast -->
     <shelf>
         <header>
@@ -68,5 +78,66 @@
             {{CAST}}
         </section>
     </shelf>
-    <shelf></shelf>
+    
+    <!-- Footer -->
+    
+    <productInfo>
+        <infoTable>
+            <header>
+                <title>Information</title>
+            </header>
+            <info>
+                <header>
+                    <title>Genre</title>
+                </header>
+                <text>{{GENRES}}</text>
+            </info>
+            <info>
+                <header>
+                    <title>Released</title>
+                </header>
+                <text>{{YEAR}}</text>
+            </info>
+            <info>
+                <header>
+                    <title>Run Time</title>
+                </header>
+                <text>{{RUNTIME}}</text>
+            </info>
+        </infoTable>
+        <!--
+         <infoTable>
+         <header>
+         <title>Languages</title>
+         </header>
+         <info>
+         <header>
+         <title>Primary</title>
+         </header>
+         <text>Language (Subtitles)</text>
+         </info>
+         <info>
+         <header>
+         <title>Additional</title>
+         </header>
+         <text>Language (Subtitles)</text>
+         <text>Language (Subtitles)</text>
+         <text>Language (Subtitles)</text>
+         </info>
+         </infoTable>
+         
+         <infoTable style="tv-line-spacing:10;">
+         <header>
+         <title>Accessibility</title>
+         </header>
+         <info>
+         <header>
+         <textBadge>SDH</textBadge>
+         </header>
+         <text>Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original lanuage with the addition of relevant non-dialog information.</text>
+         </info>
+         </infoTable>
+         -->
+    </productInfo>
+
 </productBundleTemplate>
