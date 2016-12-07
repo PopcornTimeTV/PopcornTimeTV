@@ -4,7 +4,9 @@ import TVMLKitchen
 import PopcornKit
 import ObjectMapper
 
-public struct SeasonProductRecipe: RecipeType {
+public class SeasonProductRecipe: NSObject, RecipeType, UINavigationControllerDelegate {
+    
+    private let logoImageView: UIImageView
 
     let show: Show
     var season: Int
@@ -15,6 +17,18 @@ public struct SeasonProductRecipe: RecipeType {
     public init(show: Show, currentSeason: Int? = nil) {
         self.show = show
         self.season = currentSeason ?? show.seasonNumbers.last!
+        self.logoImageView = UIImageView()
+        self.logoImageView.alpha = 0.0
+        self.logoImageView.contentMode = .scaleAspectFit
+        self.logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        super.init()
+        Kitchen.appController.navigationController.delegate = self
+    }
+    
+    public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            ActionHandler.shared.replaceTitle(self.show.title, withLogoImageView: self.logoImageView, urlString: self.fanartLogoString, belongingToViewController: viewController)
+        }
     }
 
     public var xmlString: String {
@@ -46,10 +60,6 @@ public struct SeasonProductRecipe: RecipeType {
 
     var episodeCount: String {
         return "\(show.episodes.filter({$0.season == season}).count) Episodes"
-    }
-
-    var runtime: String {
-        return "\(show.runtime ?? "0") min"
     }
 
     var castString: String {
@@ -105,11 +115,18 @@ public struct SeasonProductRecipe: RecipeType {
     var seasonsButtonTitle: String {
         return "<badge src=\"resource://seasons_mask\" width=\"50px\" height=\"37px\"></badge>"
     }
+    
+    var networkString: String {
+        if let network = show.network { return "Watch \(show.title) on \(network)" }
+        return ""
+    }
+    
+    var fanartLogoString = ""
 
     var seasonsButton: String {
         var string = "<buttonLockup actionID=\"showSeasons»\(Mapper<Show>().toJSONString(show)?.cleaned ?? "")»\(Mapper<Episode>().toJSONString(show.episodes)?.cleaned ?? "")\">"
         string += "\(seasonsButtonTitle)"
-        string += "<title>Seasons</title>"
+        string += "<title>Series</title>"
         string += "</buttonLockup>"
         return string
     }
@@ -126,13 +143,19 @@ public struct SeasonProductRecipe: RecipeType {
             string += "<infoTable>" + "\n"
             string +=   "<header>" + "\n"
             string +=       "<title>\($0.title.cleaned)</title>" + "\n"
-            string +=       "<description>Episode \($0.episode)</description>" + "\n"
             string +=   "</header>" + "\n"
             string +=   "<info>" + "\n"
             string +=       "<header>" + "\n"
-            string +=           "<title>Description</title>" + "\n"
+            string +=           "<title>" + "\n"
+            if let date = $0.firstAirDate {
+                string +=     "\(DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))" + "\n"
+            }
+            if let genre = $0.show.genres.first {
+                string +=     "\(genre.capitalized)" + "\n"
+            }
+            string +=           "</title>" + "\n"
             string +=       "</header>" + "\n"
-            string +=       "<description allowsZooming=\"true\" moreLabel=\"more\" actionID=\"showDescription»\($0.title.cleaned)»\($0.summary.cleaned)\">\($0.summary.cleaned)</description>" + "\n"
+            string +=   "<description allowsZooming=\"true\" moreLabel=\"more\" actionID=\"showDescription»\($0.title.cleaned)»\($0.summary.cleaned)\">\($0.summary.cleaned)</description>" + "\n"
             string +=   "</info>" + "\n"
             string += "</infoTable>" + "\n"
             string += "</relatedContent>" + "\n"
@@ -144,7 +167,7 @@ public struct SeasonProductRecipe: RecipeType {
     
     var suggestionsString: String {
         let mapped: [String] = show.related.map {
-            var string = "<lockup actionID=\"showMovie»\($0.title.cleaned)»\($0.id)\">" + "\n"
+            var string = "<lockup actionID=\"showShow»\($0.title.cleaned)»\($0.id)\">" + "\n"
             string += "<img class=\"placeholder\" src=\"\($0.smallCoverImage ?? "")\" width=\"150\" height=\"226\" />" + "\n"
             string += "<title class=\"hover\">\($0.title.cleaned)</title>" + "\n"
             string += "</lockup>" + "\n"
@@ -161,21 +184,20 @@ public struct SeasonProductRecipe: RecipeType {
 
                 xml = xml.replacingOccurrences(of: "{{TITLE}}", with: show.title.cleaned)
                 xml = xml.replacingOccurrences(of: "{{SEASON}}", with: seasonString)
-
-                xml = xml.replacingOccurrences(of: "{{RUNTIME}}", with: runtime)
+                
                 xml = xml.replacingOccurrences(of: "{{GENRES}}", with: genresString)
                 xml = xml.replacingOccurrences(of: "{{DESCRIPTION}}", with: show.summary.cleaned)
                 xml = xml.replacingOccurrences(of: "{{SHORT_DESCRIPTION}}", with: show.summary.cleaned)
                 xml = xml.replacingOccurrences(of: "{{IMAGE}}", with: show.largeCoverImage ?? "")
                 xml = xml.replacingOccurrences(of: "{{FANART_IMAGE}}", with: show.largeBackgroundImage ?? "")
                 xml = xml.replacingOccurrences(of: "{{YEAR}}", with: show.year.cleaned)
-                if let day = show.airDay, let time = show.airTime {
-                    xml = xml.replacingOccurrences(of: "{{AIR_DATE_TIME}}", with: "<text>\(day)'s at \(time)</text>")
-                }
+                xml = xml.replacingOccurrences(of: "{{RUNTIME}}", with: (show.runtime ?? "0") + " min")
                 
-                xml = xml.replacingOccurrences(of: "{{SUGGESTIONS_TITLE}}", with: "Similar Shows")
+                xml = xml.replacingOccurrences(of: "{{NETWORK}}", with: networkString)
+                xml = xml.replacingOccurrences(of: "{{NETWORK-FOOTER}}", with: show.network?.cleaned ?? "TV")
+                
                 xml = xml.replacingOccurrences(of: "{{SUGGESTIONS}}", with: suggestionsString)
-
+                
                 xml = xml.replacingOccurrences(of: "{{WATCH_LIST_BUTTON}}", with: watchlistButton)
                 if WatchlistManager<Show>.show.isAdded(show) {
                     xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "remove")

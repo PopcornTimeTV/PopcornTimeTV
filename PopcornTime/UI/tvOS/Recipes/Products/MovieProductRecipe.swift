@@ -4,7 +4,9 @@ import TVMLKitchen
 import PopcornKit
 import ObjectMapper
 
-public struct MovieProductRecipe: RecipeType {
+public class MovieProductRecipe: NSObject, RecipeType, UINavigationControllerDelegate {
+    
+    private let logoImageView: UIImageView
 
     let movie: Movie
 
@@ -13,6 +15,18 @@ public struct MovieProductRecipe: RecipeType {
 
     public init(movie: Movie) {
         self.movie = movie
+        self.logoImageView = UIImageView()
+        self.logoImageView.alpha = 0.0
+        self.logoImageView.contentMode = .scaleAspectFit
+        self.logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        super.init()
+        Kitchen.appController.navigationController.delegate = self
+    }
+    
+    public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            ActionHandler.shared.replaceTitle(self.movie.title, withLogoImageView: self.logoImageView, urlString: self.fanartLogoString, belongingToViewController: viewController)
+        }
     }
 
 
@@ -24,7 +38,7 @@ public struct MovieProductRecipe: RecipeType {
         return xml
     }
     
-    var fanartlogoString = ""
+    var fanartLogoString = ""
 
     var directorsString: String {
         let directors = movie.crew.filter({ $0.roleType == .director })
@@ -33,6 +47,10 @@ public struct MovieProductRecipe: RecipeType {
 
     var actorsString: String {
         return movie.actors.map { "<text>\($0.name.cleaned)</text>" }.joined(separator: "")
+    }
+    
+    var subtitleString: String {
+        return movie.subtitles.enumerated().flatMap { $0.offset < 4 ? "<text>\($0.element.language.cleaned) (Subtitle)</text>" : nil }.joined(separator: "")
     }
 
     var genresString: String {
@@ -123,7 +141,7 @@ public struct MovieProductRecipe: RecipeType {
                 xml = try String(contentsOf: file)
                 xml = xml.replacingOccurrences(of: "{{DIRECTORS}}", with: directorsString)
                 xml = xml.replacingOccurrences(of: "{{ACTORS}}", with: actorsString)
-                xml = xml.replacingOccurrences(of: "{{FANART_LOGO}}", with: fanartlogoString)
+                xml = xml.replacingOccurrences(of: "{{FANART_LOGO}}", with: fanartLogoString)
 
                 xml = xml.replacingOccurrences(of: "{{RUNTIME}}", with: runtime)
                 xml = xml.replacingOccurrences(of: "{{TITLE}}", with: movie.title.cleaned)
@@ -135,6 +153,7 @@ public struct MovieProductRecipe: RecipeType {
                 xml = xml.replacingOccurrences(of: "{{RATING}}", with: movie.certification.replacingOccurrences(of: "-", with: "").lowercased())
                 xml = xml.replacingOccurrences(of: "{{RATING-FOOTER}}", with: movie.certification.replacingOccurrences(of: "-", with: " "))
                 xml = xml.replacingOccurrences(of: "{{STAR_RATING}}", with: String(movie.rating))
+                xml = xml.replacingOccurrences(of: "{{LANGUAGES}}", with: subtitleString)
 
                 xml = xml.replacingOccurrences(of: "{{YOUTUBE_PREVIEW_CODE}}", with: movie.trailerCode ?? "")
 

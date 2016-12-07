@@ -16,6 +16,9 @@ class ActionHandler: NSObject {
     /// Creates new instance of ActionHandler class
     static let shared = ActionHandler()
     
+    /// Create a strong reference to any recipe that needs to stay around in memory longer
+    var activeRecipe: Any?
+    
     /**
      Generate a method from a function signature and parameters.
      
@@ -59,6 +62,39 @@ class ActionHandler: NSObject {
      */
     func play(_ id: String) {
         
+    }
+    
+    /**
+     Replace the movie/shows title with a logo representation of the title.
+     
+     - Parameter title:                     The title of the movie/show.
+     - Parameter withLogoImageView:         The image view to add to the view.
+     - Parameter urlString:                 The url of the logo image.
+     - Parameter height:                    The height of the image view. Defaults to 150.
+     - Parameter belongingToViewController: The view controller to add the imageView to.
+     */
+    func replaceTitle(_ title: String, withLogoImageView imageView: UIImageView, urlString: String, belongingToViewController viewController: UIViewController) {
+        guard let titleLabel = viewController.view.recursiveSubviews.first(where: { (view) -> Bool in
+                guard let label = view as? UILabel, label.text == title else { return false }
+                return true
+            }), let containerView = titleLabel.superview, !containerView.subviews.contains(imageView),
+            let url = URL(string: urlString)  else { return }
+        
+        imageView.af_setImage(withURL: url) { response in
+            guard response.result.isSuccess else { return }
+            UIView.animate(withDuration: 0.3) {
+                titleLabel.alpha = 0.0
+                imageView.alpha = 1.0
+            }
+        }
+        
+        // Once we have added the imageView to the view controller, we do not need/want any more delegate calls
+        Kitchen.appController.navigationController.delegate = nil
+        
+        containerView.addSubview(imageView)
+        imageView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
     }
     
     /**
@@ -174,11 +210,11 @@ class ActionHandler: NSObject {
             }
             
             let group = DispatchGroup()
-            var fanartlogoString = ""
+            var fanartLogoString = ""
             
             group.enter()
             TMDBManager.shared.getLogo(forMediaOfType: .movies, id: movie.id) { (image, error) in
-                if let image = image { fanartlogoString = image }
+                if let image = image { fanartLogoString = image }
                 group.leave()
             }
             
@@ -189,6 +225,16 @@ class ActionHandler: NSObject {
             })
             
             group.enter()
+            SubtitlesManager.shared.search(imdbId: id) { (subtitles, _) in
+                movie.subtitles = subtitles
+                
+                if let perferredLanguage = SubtitleSettings().language {
+                    movie.currentSubtitle = movie.subtitles.first(where: {$0.language == perferredLanguage})
+                }
+                group.leave()
+            }
+            
+            group.enter()
             TraktManager.shared.getPeople(forMediaOfType: .movies, id: id, completion: { (actors, crew, _) in
                 movie.actors = actors
                 movie.crew = crew
@@ -196,8 +242,9 @@ class ActionHandler: NSObject {
             })
             
             group.notify(queue: .main, execute: {
-                var recipe =  MovieProductRecipe(movie: movie)
-                recipe.fanartlogoString = fanartlogoString
+                let recipe = MovieProductRecipe(movie: movie)
+                recipe.fanartLogoString = fanartLogoString
+                self.activeRecipe = recipe
                 Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
                     
                     let disableThemeSong: @convention(block) (String) -> Void = { message in
@@ -205,24 +252,6 @@ class ActionHandler: NSObject {
                     }
                     
                     let enableThemeSong: @convention(block) (String) -> Void = { message in
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
-                            let imageView = UIImageView()
-                            imageView.translatesAutoresizingMaskIntoConstraints = false
-                            let viewController = Kitchen.appController.navigationController.viewControllers.last!
-                            let containerView = viewController.view.subviews.first!.subviews[2].subviews.first!.subviews.first!.subviews.first!.subviews[1]
-                            let title = containerView.subviews.first as! UILabel
-                            if let url = URL(string: fanartlogoString) {
-                                imageView.af_setImage(withURL: url)
-                                title.isHidden = true
-                            }
-                            containerView.addSubview(imageView)
-                            imageView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-                            imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-                            imageView.contentMode = .scaleAspectFit
-                            imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-                        })
-                        
                         ThemeSongManager.shared.playMovieTheme(movie.title)
                     }
                     
@@ -275,6 +304,13 @@ class ActionHandler: NSObject {
             guard var show = show else { return }
             
             let group = DispatchGroup()
+            var fanartLogoString = ""
+            
+            group.enter()
+            TMDBManager.shared.getLogo(forMediaOfType: .shows, id: show.tvdbId ?? "") { (image, error) in
+                if let image = image { fanartLogoString = image }
+                group.leave()
+            }
             
             group.enter()
             TraktManager.shared.getRelated(show, completion: { (shows, _) in
@@ -296,7 +332,9 @@ class ActionHandler: NSObject {
             }
             
             group.notify(queue: .main, execute: {
-                var recipe = SeasonProductRecipe(show: show)
+                let recipe = SeasonProductRecipe(show: show)
+                recipe.fanartLogoString = fanartLogoString
+                self.activeRecipe = recipe
                 Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
                     let disableThemeSong: @convention(block) (String) -> Void = { message in
                         ThemeSongManager.shared.stopTheme()
@@ -585,25 +623,30 @@ class ActionHandler: NSObject {
         
         let playViewController = storyboard.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
         
-        
-        getSubtitles(forMedia: media, id: media.id) { subtitles in
-            media.subtitles = subtitles
+        let completion: () -> Void = {
             media.play(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
         }
+        
+        if let episode = media as? Episode {
+            getEpisodeSubtitles(forEpisode: episode) { media.subtitles = $0; completion() }
+        } else {
+            completion()
+        }
+        
     }
     
     /**
-     Retrieves subtitles from OpenSubtitles
+     Retrieves subtitles for episodes from OpenSubtitles
      
-     - Parameter media: The media to fetch subtitles for.
-     - Parameter id:    The imdbId of the movie. If the media is an episode, an imdbId will be fetched automatically.
+     - Parameter forEpisode:    The episode to fetch subtitles for.
+     - Parameter id:            The imdbId of the episode. An imdbId will be fetched if the field is left blank .
      
      - Parameter completion: The completion handler for the request containing an array of subtitles
      */
-    func getSubtitles(forMedia media: Media, id: String, completion: @escaping ([Subtitle]) -> Void) {
-        if let episode = media as? Episode, !id.hasPrefix("tt") {
+    func getEpisodeSubtitles(forEpisode episode: Episode, id: String = "", completion: @escaping ([Subtitle]) -> Void) {
+        if !id.hasPrefix("tt") {
             TraktManager.shared.getEpisodeMetadata(episode.show.id, episodeNumber: episode.episode, seasonNumber: episode.season, completion: { [weak self] (tvdb, imdb, error) in
-                if let imdb = imdb { self?.getSubtitles(forMedia: media, id: imdb, completion: completion) } else {
+                if let imdb = imdb { self?.getEpisodeSubtitles(forEpisode: episode, id: imdb, completion: completion) } else {
                     SubtitlesManager.shared.search(episode) { (subtitles, _) in
                         completion(subtitles)
                     }

@@ -209,7 +209,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     private (set) var media: Media!
     internal var nextEpisode: Episode?
     private var startPosition: Float = 0.0
-    private var idleTimer: Timer!
+    private var idleWorkItem: DispatchWorkItem?
     internal var shouldHideStatusBar = true
     private let NSNotFound: Int32 = -1
     private var imageGenerator: AVAssetImageGenerator!
@@ -331,18 +331,15 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        mediaplayer.pause()
         NotificationCenter.default.removeObserver(self)
-        if idleTimer != nil {
-            idleTimer.invalidate()
-            idleTimer = nil
-        }
+        idleWorkItem?.cancel()
     }
     
     // MARK: - Player changes notifications
     
     func mediaPlayerStateChanged() {
         resetIdleTimer()
+        progressBar.isBuffering = false
         let manager: WatchedlistManager = media is Movie ? .movie : .episode
         switch mediaplayer.state {
         case .error:
@@ -375,6 +372,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
                 progressBar.subviews.first(where: {!$0.subviews.isEmpty})?.subviews.forEach({ $0.isHidden = false })
             #endif
             loadingActivityIndicatorView.isHidden = true
+            resetIdleTimer()
         }
         progressBar.isBuffering = false
         progressBar.bufferProgress = CGFloat(PTTorrentStreamer.shared().torrentStatus.totalProgreess)
@@ -414,25 +412,17 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     // MARK: - Timers
     
     func resetIdleTimer() {
-        if idleTimer == nil {
-            let delay: TimeInterval = UIDevice.current.userInterfaceIdiom == .tv ? 3 : 5
-            idleTimer = Timer.scheduledTimer(timeInterval: delay, target: self, selector: #selector(idleTimerExceeded), userInfo: nil, repeats: false)
-            if !mediaplayer.isPlaying || !loadingActivityIndicatorView.isHidden || progressBar.isScrubbing || progressBar.isBuffering || mediaplayer.rate != 1.0 // If paused, scrubbing, fast forwarding or loading, cancel timer so UI doesn't disappear
-            {
-                idleTimer.invalidate()
-                idleTimer = nil
-            }
-        } else {
-            idleTimer.invalidate()
-            idleTimer = nil
-            resetIdleTimer()
+        idleWorkItem?.cancel()
+        idleWorkItem = DispatchWorkItem() {
+            if !self.progressBar.isHidden { self.toggleControlsVisible() }
         }
-    }
-    
-    func idleTimerExceeded() {
-        idleTimer = nil
-        if !progressBar.isHidden {
-            toggleControlsVisible()
+        
+        let delay: TimeInterval = UIDevice.current.userInterfaceIdiom == .tv ? 3 : 5
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: idleWorkItem!)
+        
+        if !mediaplayer.isPlaying || !loadingActivityIndicatorView.isHidden || progressBar.isScrubbing || progressBar.isBuffering || mediaplayer.rate != 1.0 // If paused, scrubbing, fast forwarding or loading, cancel work Item so UI doesn't disappear
+        {
+            idleWorkItem?.cancel()
         }
     }
     

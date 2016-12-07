@@ -26,7 +26,7 @@
         // Bar:
         VLCBufferingBar *bar = [[VLCBufferingBar alloc] initWithFrame:bounds];
         
-        bar.bufferColor = [UIColor clearColor];
+        bar.bufferColor = [UIColor grayColor];
         bar.borderColor = [UIColor grayColor];
         bar.elapsedColor = [UIColor clearColor];
         bar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

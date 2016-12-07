@@ -6,7 +6,7 @@ source 'https://github.com/PopcornTimeTV/Specs'
 
 def pods
     pod 'PopcornTorrent', '~> 1.1.1.8'
-    pod 'PopcornKit', '~> 3.1.3'
+    pod 'PopcornKit', '~> 3.1.4'
     pod 'XCDYouTubeKit', '~> 2.5.3'
     pod 'Alamofire', '~> 4.0'
     pod 'AlamofireImage', '~> 3.0'
@@ -35,7 +35,7 @@ target 'PopcornTimetvOS' do
 end
 
 target 'TopShelf' do
-    pod 'PopcornKit', '~> 3.1.3'
+    pod 'PopcornKit', '~> 3.1.4'
 end
 
 post_install do |installer|

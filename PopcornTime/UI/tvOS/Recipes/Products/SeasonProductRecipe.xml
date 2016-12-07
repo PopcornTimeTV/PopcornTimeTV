@@ -23,6 +23,9 @@
         .placeholder {
         tv-placeholder:tv;
         }
+        .textAlpha {
+        color: rgba(255, 255, 255, 0.7);
+        }
     </style>
 </head>
 <productBundleTemplate>
@@ -34,11 +37,13 @@
             <title>{{TITLE}}</title>
             <subtitle>{{SEASON}}</subtitle>
             <row>
-                <text>{{RUNTIME}}</text>
                 <text>{{GENRES}}</text>
                 <text>{{YEAR}}</text>
                 <badge src="resource://cc" class="badge" />
-                {{AIR_DATE_TIME}}
+                <badge src="resource://hd" class="badge" />
+            </row>
+            <row>
+                <text class="textAlpha">{{NETWORK}}</text>
             </row>
             <description class="text" allowsZooming="true" moreLabel="more" actionID="showDescription»{{TITLE}}»{{DESCRIPTION}}">{{DESCRIPTION}}</description>
             <row>
@@ -62,7 +67,7 @@
     <!-- Suggestions -->
     <shelf>
         <header>
-            <title>{{SUGGESTIONS_TITLE}}</title>
+            <title>Similar Shows</title>
         </header>
         <section>
             {{SUGGESTIONS}}
@@ -104,40 +109,24 @@
                 </header>
                 <text>{{RUNTIME}}</text>
             </info>
+            <info>
+                <header>
+                    <title>Network</title>
+                </header>
+                <text>{{NETWORK-FOOTER}}</text>
+            </info>
         </infoTable>
-        <!--
-         <infoTable>
-         <header>
-         <title>Languages</title>
-         </header>
-         <info>
-         <header>
-         <title>Primary</title>
-         </header>
-         <text>Language (Subtitles)</text>
-         </info>
-         <info>
-         <header>
-         <title>Additional</title>
-         </header>
-         <text>Language (Subtitles)</text>
-         <text>Language (Subtitles)</text>
-         <text>Language (Subtitles)</text>
-         </info>
-         </infoTable>
-         
-         <infoTable style="tv-line-spacing:10;">
-         <header>
-         <title>Accessibility</title>
-         </header>
-         <info>
-         <header>
-         <textBadge>SDH</textBadge>
-         </header>
-         <text>Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original lanuage with the addition of relevant non-dialog information.</text>
-         </info>
-         </infoTable>
-         -->
+        <infoTable style="tv-line-spacing:10;">
+            <header>
+                <title>Accessibility</title>
+            </header>
+            <info>
+                <header>
+                    <textBadge>SDH</textBadge>
+                </header>
+                <text>Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original lanuage with the addition of relevant non-dialog information.</text>
+            </info>
+        </infoTable>
     </productInfo>
 
 </productBundleTemplate>

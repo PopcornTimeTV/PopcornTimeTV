@@ -22,10 +22,10 @@
         _bufferColor = [UIColor lightGrayColor];
 
         _borderLayer = [CAShapeLayer layer];
-        _borderLayer.fillColor = _borderColor.CGColor;
+        _borderLayer.borderWidth = 1.0;
+        _borderLayer.borderColor = _borderColor.CGColor;
         
         _borderMaskLayer = [CAShapeLayer layer];
-        _borderMaskLayer.fillColor = _borderColor.CGColor;
         _borderLayer.mask = _borderMaskLayer;
 
         [self.layer addSublayer:_borderLayer];
@@ -64,7 +64,7 @@
 
 - (void)setBorderColor:(UIColor *)borderColor {
     _borderColor = borderColor;
-    self.borderLayer.fillColor = borderColor.CGColor;
+    self.borderLayer.borderColor = borderColor.CGColor;
 }
 
 - (void)setBufferProgress:(CGFloat)bufferProgress {

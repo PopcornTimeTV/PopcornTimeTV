@@ -111,10 +111,8 @@ class EpisodeDetailViewController: UIViewController, UIGestureRecognizerDelegate
             self.subtitlesButton.setTitle("None ▾", for: .normal)
             self.subtitlesButton.isUserInteractionEnabled = true
             
-            if let preferredSubtitle = SubtitleSettings().language {
-                let languages = subtitles.flatMap({$0.language})
-                guard let index = languages.index(where: {$0 == languages.first(where: {$0 == preferredSubtitle})}) else { return }
-                let subtitle = self.currentItem!.subtitles![index]
+            if let perferredLanguage = SubtitleSettings().language,
+                let subtitle = self.currentItem!.subtitles.first(where: {$0.language == perferredLanguage}) {
                 self.currentItem!.currentSubtitle = subtitle
                 self.subtitlesButton.setTitle(subtitle.language + " ▾", for: .normal)
             }
