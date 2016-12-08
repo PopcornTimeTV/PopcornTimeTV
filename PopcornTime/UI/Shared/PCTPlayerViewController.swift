@@ -141,6 +141,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             progressBar.hint = .none
             #endif
             mediaplayer.rate = 1.0
+            resetIdleTimer()
         default:
             break
         }
@@ -165,6 +166,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             progressBar.hint = .none
             #endif
             mediaplayer.rate = 1.0
+            resetIdleTimer()
         default:
             break
         }

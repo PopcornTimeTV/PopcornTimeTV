@@ -5,8 +5,6 @@ import PopcornKit
 import ObjectMapper
 
 public class MovieProductRecipe: NSObject, RecipeType, UINavigationControllerDelegate {
-    
-    private let logoImageView: UIImageView
 
     let movie: Movie
 
@@ -15,17 +13,13 @@ public class MovieProductRecipe: NSObject, RecipeType, UINavigationControllerDel
 
     public init(movie: Movie) {
         self.movie = movie
-        self.logoImageView = UIImageView()
-        self.logoImageView.alpha = 0.0
-        self.logoImageView.contentMode = .scaleAspectFit
-        self.logoImageView.translatesAutoresizingMaskIntoConstraints = false
         super.init()
         Kitchen.appController.navigationController.delegate = self
     }
     
     public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            ActionHandler.shared.replaceTitle(self.movie.title, withLogoImageView: self.logoImageView, urlString: self.fanartLogoString, belongingToViewController: viewController)
+            ActionHandler.shared.replaceTitle(self.movie.title, withUrlString: self.fanartLogoString, belongingToViewController: viewController)
         }
     }
 

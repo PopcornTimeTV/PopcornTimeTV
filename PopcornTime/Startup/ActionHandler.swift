@@ -68,17 +68,23 @@ class ActionHandler: NSObject {
      Replace the movie/shows title with a logo representation of the title.
      
      - Parameter title:                     The title of the movie/show.
-     - Parameter withLogoImageView:         The image view to add to the view.
-     - Parameter urlString:                 The url of the logo image.
+     - Parameter withUrlString:             The url of the logo image.
      - Parameter height:                    The height of the image view. Defaults to 150.
      - Parameter belongingToViewController: The view controller to add the imageView to.
      */
-    func replaceTitle(_ title: String, withLogoImageView imageView: UIImageView, urlString: String, belongingToViewController viewController: UIViewController) {
+    func replaceTitle(_ title: String, withUrlString urlString: String, belongingToViewController viewController: UIViewController) {
         guard let titleLabel = viewController.view.recursiveSubviews.first(where: { (view) -> Bool in
                 guard let label = view as? UILabel, label.text == title else { return false }
                 return true
-            }), let containerView = titleLabel.superview, !containerView.subviews.contains(imageView),
-            let url = URL(string: urlString)  else { return }
+            }), let containerView = titleLabel.superview, let url = URL(string: urlString),
+            let TVProductTemplateController = NSClassFromString("_TVProductTemplateController"),
+            let templateViewController = viewController.value(forKey: "templateViewController"),
+            type(of: templateViewController) == TVProductTemplateController else { return }
+        
+        let imageView = UIImageView()
+        imageView.alpha = 0.0
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         
         imageView.af_setImage(withURL: url) { response in
             guard response.result.isSuccess else { return }
@@ -88,8 +94,9 @@ class ActionHandler: NSObject {
             }
         }
         
-        // Once we have added the imageView to the view controller, we do not need/want any more delegate calls
+        // Once we have added the imageView to the view controller, we do not need/want any more delegate calls so we can allow the recipe to be deallocated and remove the delegate
         Kitchen.appController.navigationController.delegate = nil
+        self.activeRecipe = nil
         
         containerView.addSubview(imageView)
         imageView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true

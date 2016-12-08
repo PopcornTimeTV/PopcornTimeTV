@@ -24,6 +24,7 @@
         _borderLayer = [CAShapeLayer layer];
         _borderLayer.borderWidth = 1.0;
         _borderLayer.borderColor = _borderColor.CGColor;
+        _borderLayer.fillColor = [UIColor clearColor].CGColor;
         
         _borderMaskLayer = [CAShapeLayer layer];
         _borderLayer.mask = _borderMaskLayer;
@@ -34,16 +35,13 @@
         _fillLayer.fillColor = _bufferColor.CGColor;
 
         _fillMaskLayer = [CAShapeLayer layer];
-        _fillMaskLayer.fillColor = [UIColor blackColor].CGColor;
         _fillLayer.mask = _fillMaskLayer;
 
         [self.layer addSublayer:_fillLayer];
         
         _coverLayer = [CAShapeLayer layer];
-        _coverLayer.fillColor = [UIColor blackColor].CGColor;
         
         _coverMaskLayer = [CAShapeLayer layer];
-        _coverMaskLayer.fillColor = [UIColor blackColor].CGColor;
         _coverLayer.mask = _coverMaskLayer;
         
         [self.layer addSublayer:_coverLayer];
