@@ -265,7 +265,7 @@ enum TransportBarHint: String {
         bufferingIndicatorView.center = CGPoint(x: elapsedTimeLabel.frame.maxX + indicatorWidth, y: timeLabelCenter.y)
         
         let leftImageWidth = leftHintImageView.bounds.width
-        leftHintImageView.center = CGPoint(x: elapsedTimeLabel.frame.maxX - leftImageWidth, y: timeLabelCenter.y)
+        leftHintImageView.center = CGPoint(x: elapsedTimeLabel.frame.minX - leftImageWidth, y: timeLabelCenter.y)
         
         let rightImageWidth = rightHintImageView.bounds.width
         rightHintImageView.center = CGPoint(x: elapsedTimeLabel.frame.maxX + rightImageWidth, y: timeLabelCenter.y)
