@@ -36,23 +36,23 @@ class ProgressBar: UIVisualEffectView {
         }
     }
     
-    var progress: CGFloat {
+    var progress: Float {
         get {
-            return CGFloat(progressSlider.value)
+            return progressSlider.value
         } set (value) {
-            progressSlider.value = Float(value)
+            progressSlider.value = value
         }
     }
     
-    var bufferProgress: CGFloat {
+    var bufferProgress: Float {
         get {
-            return CGFloat(bufferProgressView.progress)
+            return bufferProgressView.progress
         } set (progress) {
-            bufferProgressView.progress = Float(progress)
+            bufferProgressView.progress = progress
         }
     }
     
-    var scrubbingProgress: CGFloat {
+    var scrubbingProgress: Float {
         get {
             return progress
         } set (value) {

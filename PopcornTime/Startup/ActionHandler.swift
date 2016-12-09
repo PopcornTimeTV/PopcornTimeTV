@@ -77,6 +77,7 @@ class ActionHandler: NSObject {
                 guard let label = view as? UILabel, label.text == title else { return false }
                 return true
             }), let containerView = titleLabel.superview, let url = URL(string: urlString),
+            viewController.responds(to: Selector(("templateViewController"))),
             let TVProductTemplateController = NSClassFromString("_TVProductTemplateController"),
             let templateViewController = viewController.value(forKey: "templateViewController"),
             type(of: templateViewController) == TVProductTemplateController else { return }
@@ -230,16 +231,6 @@ class ActionHandler: NSObject {
                 movie.related = movies
                 group.leave()
             })
-            
-            group.enter()
-            SubtitlesManager.shared.search(imdbId: id) { (subtitles, _) in
-                movie.subtitles = subtitles
-                
-                if let perferredLanguage = SubtitleSettings().language {
-                    movie.currentSubtitle = movie.subtitles.first(where: {$0.language == perferredLanguage})
-                }
-                group.leave()
-            }
             
             group.enter()
             TraktManager.shared.getPeople(forMediaOfType: .movies, id: id, completion: { (actors, crew, _) in
@@ -630,30 +621,29 @@ class ActionHandler: NSObject {
         
         let playViewController = storyboard.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
         
-        let completion: () -> Void = {
+        getSubtitles(forMedia: media, id: media.id) { subtitles in
+            media.subtitles = subtitles
+            
+            if let perferredLanguage = SubtitleSettings().language {
+                media.currentSubtitle = media.subtitles.first(where: {$0.language == perferredLanguage})
+            }
+            
             media.play(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
         }
-        
-        if let episode = media as? Episode {
-            getEpisodeSubtitles(forEpisode: episode) { media.subtitles = $0; completion() }
-        } else {
-            completion()
-        }
-        
     }
     
     /**
-     Retrieves subtitles for episodes from OpenSubtitles
+     Retrieves subtitles from OpenSubtitles
      
-     - Parameter forEpisode:    The episode to fetch subtitles for.
-     - Parameter id:            The imdbId of the episode. An imdbId will be fetched if the field is left blank .
+     - Parameter media: The media to fetch subtitles for.
+     - Parameter id:    The imdbId of the movie. If the media is an episode, an imdbId will be fetched automatically.
      
      - Parameter completion: The completion handler for the request containing an array of subtitles
      */
-    func getEpisodeSubtitles(forEpisode episode: Episode, id: String = "", completion: @escaping ([Subtitle]) -> Void) {
-        if !id.hasPrefix("tt") {
+    func getSubtitles(forMedia media: Media, id: String, completion: @escaping ([Subtitle]) -> Void) {
+        if let episode = media as? Episode, !id.hasPrefix("tt") {
             TraktManager.shared.getEpisodeMetadata(episode.show.id, episodeNumber: episode.episode, seasonNumber: episode.season, completion: { [weak self] (tvdb, imdb, error) in
-                if let imdb = imdb { self?.getEpisodeSubtitles(forEpisode: episode, id: imdb, completion: completion) } else {
+                if let imdb = imdb { self?.getSubtitles(forMedia: media, id: imdb, completion: completion) } else {
                     SubtitlesManager.shared.search(episode) { (subtitles, _) in
                         completion(subtitles)
                     }

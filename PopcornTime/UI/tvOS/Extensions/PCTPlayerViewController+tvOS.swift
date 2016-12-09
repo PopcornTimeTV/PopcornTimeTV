@@ -35,7 +35,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         
         guard !(presentedViewController is OptionsViewController) && progressBar.isScrubbing && !progressBar.isHidden && !mediaplayer.isPlaying else { return }
         
-        let offset = progressBar.scrubbingProgress + (translation.x - lastTranslation)/progressBar.bounds.width/8.0
+        let offset = progressBar.scrubbingProgress + Float((translation.x - lastTranslation)/progressBar.bounds.width/8.0)
         
         switch sender.state {
         case .cancelled:
@@ -66,7 +66,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         destinationController.infoViewController.media = media
     }
     
-    func touchLocationDidChange(_ gesture: VLCSiriRemoteGestureRecognizer) {
+    func touchLocationDidChange(_ gesture: SiriRemoteGestureRecognizer) {
         if gesture.state == .ended { hideInfoLabel() } else if gesture.isLongTap { showInfoLabel() }
         
         progressBar.hint = .none
@@ -85,7 +85,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         }
     }
     
-    func clickGesture(_ gesture: VLCSiriRemoteGestureRecognizer) {
+    func clickGesture(_ gesture: SiriRemoteGestureRecognizer) {
 
         guard gesture.touchLocation == .unknown && gesture.isClick else {
             progressBar.isHidden ? toggleControlsVisible() : ()

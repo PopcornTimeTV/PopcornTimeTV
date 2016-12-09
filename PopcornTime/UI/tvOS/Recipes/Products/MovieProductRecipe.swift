@@ -42,10 +42,6 @@ public class MovieProductRecipe: NSObject, RecipeType, UINavigationControllerDel
     var actorsString: String {
         return movie.actors.map { "<text>\($0.name.cleaned)</text>" }.joined(separator: "")
     }
-    
-    var subtitleString: String {
-        return movie.subtitles.enumerated().flatMap { $0.offset < 4 ? "<text>\($0.element.language.cleaned) (Subtitle)</text>" : nil }.joined(separator: "")
-    }
 
     var genresString: String {
         if let first = movie.genres.first {
@@ -147,7 +143,6 @@ public class MovieProductRecipe: NSObject, RecipeType, UINavigationControllerDel
                 xml = xml.replacingOccurrences(of: "{{RATING}}", with: movie.certification.replacingOccurrences(of: "-", with: "").lowercased())
                 xml = xml.replacingOccurrences(of: "{{RATING-FOOTER}}", with: movie.certification.replacingOccurrences(of: "-", with: " "))
                 xml = xml.replacingOccurrences(of: "{{STAR_RATING}}", with: String(movie.rating))
-                xml = xml.replacingOccurrences(of: "{{LANGUAGES}}", with: subtitleString)
 
                 xml = xml.replacingOccurrences(of: "{{YOUTUBE_PREVIEW_CODE}}", with: movie.trailerCode ?? "")
 

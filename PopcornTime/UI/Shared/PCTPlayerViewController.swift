@@ -28,18 +28,18 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     @IBOutlet var movieView: UIView!
     @IBOutlet var loadingActivityIndicatorView: UIView!
     @IBOutlet var upNextView: UpNextView!
+    @IBOutlet var progressBar: ProgressBar!
     
     @IBOutlet var overlayViews: [UIView]!
     
     #if os(tvOS)
-        @IBOutlet var progressBar: VLCTransportBar!
+    
         @IBOutlet var dimmerView: UIView!
         @IBOutlet var infoHelperView: UIView!
     
         var lastTranslation: CGFloat = 0.0
         let interactor = OptionsPercentDrivenInteractiveTransition()
     #elseif os(iOS)
-        @IBOutlet var progressBar: ProgressBar!
         @IBOutlet var screenshotImageView: UIImageView!
     
         @IBOutlet var volumeSlider: BarSlider! {
@@ -106,7 +106,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     @IBAction func playandPause() {
         #if os(tvOS)
             // Make fake gesture to trick clickGesture: into recognising the touch.
-            let gesture = VLCSiriRemoteGestureRecognizer(target: nil, action: nil)
+            let gesture = SiriRemoteGestureRecognizer(target: nil, action: nil)
             gesture.isClick = true
             clickGesture(gesture)
         #elseif os(iOS)
@@ -194,7 +194,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             if let subtitle = currentSubtitle {
                 PopcornKit.downloadSubtitleFile(subtitle.link, downloadDirectory: directory, completion: { (subtitlePath, error) in
                     guard let subtitlePath = subtitlePath else { return }
-                    self.mediaplayer.openVideoSubTitles(fromFile: subtitlePath.relativePath)
+                    self.mediaplayer.addPlaybackSlave(subtitlePath, type: .subtitle, enforce: true)
                 })
             } else {
                 mediaplayer.currentVideoSubTitleIndex = NSNotFound // Remove all subtitles
@@ -216,9 +216,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     private let NSNotFound: Int32 = -1
     private var imageGenerator: AVAssetImageGenerator!
     private var workItem: DispatchWorkItem?
-    internal var streamDuration: CGFloat {
+    internal var streamDuration: Float {
         guard let remaining = mediaplayer.remainingTime?.value?.floatValue, let elapsed = mediaplayer.time?.value?.floatValue else { return 0.0 }
-        return CGFloat((fabsf(remaining) + elapsed))
+        return fabsf(remaining) + elapsed
     }
     
     // MARK: - Player functions
@@ -233,6 +233,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         if let subtitles = media.subtitles {
             self.subtitles = subtitles
         }
+        self.currentSubtitle = media.currentSubtitle
         self.imageGenerator = AVAssetImageGenerator(asset: AVAsset(url: local))
     }
     
@@ -247,12 +248,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     // MARK: - View Methods
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(mediaPlayerStateChanged), name: NSNotification.Name(rawValue: VLCMediaPlayerStateChanged), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(mediaPlayerTimeChanged), name: NSNotification.Name(rawValue: VLCMediaPlayerTimeChanged), object: nil)
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guard !mediaplayer.isPlaying else { return }
@@ -261,8 +256,8 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             let continueWatchingAlert = UIAlertController(title: nil, message: nil, preferredStyle: style)
             continueWatchingAlert.addAction(UIAlertAction(title: "Resume Playing", style: .default, handler:{ action in
                 self.mediaplayer.play()
-                self.mediaplayer.position = self.startPosition
-                self.progressBar.progress = CGFloat(self.startPosition)
+                let time = NSNumber(value: Float(self.progressBar.scrubbingProgress * self.streamDuration))
+                self.mediaplayer.time = VLCTime(number: time)
             }))
             continueWatchingAlert.addAction(UIAlertAction(title: "Start from Begining", style: .default, handler: { action in
                 self.mediaplayer.play()
@@ -285,7 +280,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         mediaplayer.audio.volume = 200
         
         let settings = SubtitleSettings()
-        currentSubtitle = currentSubtitle ?? subtitles.filter({ $0.language == settings.language }).first
         (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.size))
         (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.color.hexInt()))
         (mediaplayer as VLCFontAppearance).setTextRendererFont!(settings.font.familyName as NSString)
@@ -321,25 +315,39 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             subtitleSwitcherButton.isHidden = subtitles.count == 0
             subtitleSwitcherButtonWidthConstraint.constant = subtitleSwitcherButton.isHidden == true ? 0 : 24
         #elseif os(tvOS)
-            let gesture = VLCSiriRemoteGestureRecognizer(target: self, action: #selector(touchLocationDidChange(_:)))
+            let gesture = SiriRemoteGestureRecognizer(target: self, action: #selector(touchLocationDidChange(_:)))
             gesture.delegate = self
             view.addGestureRecognizer(gesture)
             
-            let clickGesture = VLCSiriRemoteGestureRecognizer(target: self, action: #selector(clickGesture(_:)))
+            let clickGesture = SiriRemoteGestureRecognizer(target: self, action: #selector(clickGesture(_:)))
             clickGesture.delegate = self
             view.addGestureRecognizer(clickGesture)
         #endif
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
-        idleWorkItem?.cancel()
-    }
     
     // MARK: - Player changes notifications
     
-    func mediaPlayerStateChanged() {
+    func mediaPlayerTimeChanged(_ aNotification: Notification!) {
+        if loadingActivityIndicatorView.isHidden == false {
+            #if os(iOS)
+                progressBar.subviews.first(where: {!$0.subviews.isEmpty})?.subviews.forEach({ $0.isHidden = false })
+            #endif
+            loadingActivityIndicatorView.isHidden = true
+            resetIdleTimer()
+        }
+        progressBar.isBuffering = false
+        progressBar.bufferProgress = PTTorrentStreamer.shared().torrentStatus.totalProgreess
+        progressBar.remainingTimeLabel.text = mediaplayer.remainingTime.stringValue
+        progressBar.elapsedTimeLabel.text = mediaplayer.time.stringValue
+        progressBar.progress = mediaplayer.position
+        //        if nextMedia != nil && (mediaplayer.remainingTime.intValue/1000) == -30 {
+        //            upNextView.show()
+        //        } else if (mediaplayer.remainingTime.intValue/1000) < -30 && !upNextView.isHidden {
+        //            upNextView.hide()
+        //        }
+    }
+    
+    func mediaPlayerStateChanged(_ aNotification: Notification!) {
         resetIdleTimer()
         progressBar.isBuffering = false
         let manager: WatchedlistManager = media is Movie ? .movie : .episode
@@ -366,26 +374,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         default:
             break
         }
-    }
-    
-    func mediaPlayerTimeChanged() {
-        if loadingActivityIndicatorView.isHidden == false {
-            #if os(iOS)
-                progressBar.subviews.first(where: {!$0.subviews.isEmpty})?.subviews.forEach({ $0.isHidden = false })
-            #endif
-            loadingActivityIndicatorView.isHidden = true
-            resetIdleTimer()
-        }
-        progressBar.isBuffering = false
-        progressBar.bufferProgress = CGFloat(PTTorrentStreamer.shared().torrentStatus.totalProgreess)
-        progressBar.remainingTimeLabel.text = mediaplayer.remainingTime.stringValue
-        progressBar.elapsedTimeLabel.text = mediaplayer.time.stringValue
-        progressBar.progress = CGFloat(mediaplayer.position)
-//        if nextMedia != nil && (mediaplayer.remainingTime.intValue/1000) == -30 {
-//            upNextView.show()
-//        } else if (mediaplayer.remainingTime.intValue/1000) < -30 && !upNextView.isHidden {
-//            upNextView.hide()
-//        }
     }
     
     

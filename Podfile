@@ -23,14 +23,14 @@ target 'PopcornTimeiOS' do
     pod 'OBSlider', '~> 1.1.1'
     pod 'ColorArt', '~> 0.1.1'
     pod '1PasswordExtension', '~> 1.8.4'
-    pod 'MobileVLCKit-prod', '~> 2.7.9'
+    pod 'MobileVLCKit-unstable', '~> 3.0.0a24'
     pod 'FloatRatingView', '~> 2.0'
 end
 
 target 'PopcornTimetvOS' do
     platform :tvos, '9.0'
     pods
-    pod 'TVVLCKit', '~> 2.0.7'
+    pod 'TVVLCKit-unstable', '~> 3.0.0a24'
     pod 'TVMLKitchen', :git => 'https://github.com/toshi0383/TVMLKitchen.git'
 end
 
