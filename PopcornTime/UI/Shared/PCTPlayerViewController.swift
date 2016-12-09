@@ -173,9 +173,13 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     }
     
     @IBAction func didFinishPlaying() {
+        mediaplayer.delegate = nil
         mediaplayer.stop()
+        
         PTTorrentStreamer.shared().cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
+        
         (media is Movie ? WatchedlistManager.movie : WatchedlistManager.episode).setCurrentProgress(Float(progressBar.progress), forId: media.id, withStatus: .finished)
+        
         #if os(tvOS)
             OperationQueue.main.addOperation {
                 Kitchen.appController.navigationController.popViewController(animated: true)
