@@ -342,11 +342,15 @@ class ActionHandler: NSObject {
                         if let id = show.tvdbId {
                             ThemeSongManager.shared.playShowTheme(Int(id)!)
                         }
+                        
+                        if let function = context.objectForKeyedSubscript("updateSeason"), !function.isUndefined {
+                            function.call(withArguments: [recipe.season]) // Refresh the current season's episode upon reloading
+                        }
                     }
                     
                     let updateSeason: @convention(block) (Int, JSValue) -> Void = { (number, callback) in
                         recipe.season = number
-                        callback.call(withArguments: [recipe.template])
+                        callback.call(withArguments: [recipe.episodeShelf])
                     }
                     
                     context.setObject(unsafeBitCast(enableThemeSong, to: AnyObject.self),

@@ -33,7 +33,7 @@ function updateWatchlistButton() {
 
 function changeSeason(number) {
     updateSeason(number, function(data) {
-        doc.documentElement.innerHTML = data;
+        doc.getElementById("episodeShelf").innerHTML = data;
         navigationDocument.dismissModal();
     });
 }

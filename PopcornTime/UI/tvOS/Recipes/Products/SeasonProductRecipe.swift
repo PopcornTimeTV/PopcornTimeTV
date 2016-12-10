@@ -14,7 +14,7 @@ public class SeasonProductRecipe: NSObject, RecipeType, UINavigationControllerDe
 
     public init(show: Show, currentSeason: Int? = nil) {
         self.show = show
-        self.season = currentSeason ?? show.seasonNumbers.last!
+        self.season = currentSeason ?? show.seasonNumbers.last ?? -1
         super.init()
         Kitchen.appController.navigationController.delegate = self
     }
@@ -30,6 +30,16 @@ public class SeasonProductRecipe: NSObject, RecipeType, UINavigationControllerDe
         xml += "<document>"
         xml += template
         xml += "</document>"
+        return xml
+    }
+    
+    var episodeShelf: String {
+        var xml = "<header>" + "\n"
+        xml += "<title>\(episodeCount)</title>" + "\n"
+        xml += "</header>" + "\n"
+        xml += "<section>" + "\n"
+        xml +=  episodesString + "\n"
+        xml += "</section>" + "\n"
         return xml
     }
 
@@ -203,8 +213,7 @@ public class SeasonProductRecipe: NSObject, RecipeType, UINavigationControllerDe
                     xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "add")
                 }
 
-                xml = xml.replacingOccurrences(of: "{{EPISODE_COUNT}}", with: episodeCount)
-                xml = xml.replacingOccurrences(of: "{{EPISODES}}", with: episodesString)
+                xml = xml.replacingOccurrences(of: "{{EPISODE_SHELF}}", with: episodeShelf)
 
                 xml = xml.replacingOccurrences(of: "{{CAST}}", with: castString)
 

@@ -54,13 +54,8 @@
     </banner>
     
     <!-- Episodes -->
-    <shelf>
-        <header>
-            <title>{{EPISODE_COUNT}}</title>
-        </header>
-        <section>
-            {{EPISODES}}
-        </section>
+    <shelf id ="episodeShelf">
+        {{EPISODE_SHELF}}
     </shelf>
     
     <!-- Suggestions -->
