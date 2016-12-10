@@ -131,7 +131,11 @@ public class SeasonProductRecipe: NSObject, RecipeType, UINavigationControllerDe
             string += "<img class=\"placeholder\" src=\"\($0.mediumBackgroundImage ?? "")\" width=\"310\" height=\"175\" />" + "\n"
             string += "<title>\($0.episode). \($0.title.cleaned)</title>" + "\n"
             string += "<overlay class=\"overlayPosition\">" + "\n"
-            string += "<badge src=\"resource://button-play\" class=\"whiteButton overlayPosition\"/>" + "\n"
+            if WatchedlistManager.episode.isAdded($0.id) {
+                string += "<badge src=\"resource://overlay-checkmark\" class=\"whiteButton overlayPosition\"/>" + "\n"
+            } else {
+                string += "<progressBar value=\"\(WatchedlistManager.episode.currentProgress($0.id))\" />" + "\n"
+            }
             string += "</overlay>" + "\n"
             string += "<relatedContent>" + "\n"
             string += "<infoTable>" + "\n"

@@ -108,6 +108,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             // Make fake gesture to trick clickGesture: into recognising the touch.
             let gesture = SiriRemoteGestureRecognizer(target: nil, action: nil)
             gesture.isClick = true
+            gesture.state = .ended
             clickGesture(gesture)
         #elseif os(iOS)
             mediaplayer.isPlaying ? mediaplayer.pause() : mediaplayer.play()
@@ -220,6 +221,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     private let NSNotFound: Int32 = -1
     private var imageGenerator: AVAssetImageGenerator!
     private var workItem: DispatchWorkItem?
+    private var resumePlayback = false
     internal var streamDuration: Float {
         guard let remaining = mediaplayer.remainingTime?.value?.floatValue, let elapsed = mediaplayer.time?.value?.floatValue else { return 0.0 }
         return fabsf(remaining) + elapsed
@@ -259,9 +261,8 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             let style: UIAlertControllerStyle = (traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular) ? .alert : .actionSheet
             let continueWatchingAlert = UIAlertController(title: nil, message: nil, preferredStyle: style)
             continueWatchingAlert.addAction(UIAlertAction(title: "Resume Playing", style: .default, handler:{ action in
+                self.resumePlayback = true
                 self.mediaplayer.play()
-                let time = NSNumber(value: Float(self.progressBar.scrubbingProgress * self.streamDuration))
-                self.mediaplayer.time = VLCTime(number: time)
             }))
             continueWatchingAlert.addAction(UIAlertAction(title: "Start from Begining", style: .default, handler: { action in
                 self.mediaplayer.play()
@@ -337,8 +338,16 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
                 progressBar.subviews.first(where: {!$0.subviews.isEmpty})?.subviews.forEach({ $0.isHidden = false })
             #endif
             loadingActivityIndicatorView.isHidden = true
+            
+            if resumePlayback && mediaplayer.isSeekable {
+                resumePlayback = false
+                let time = NSNumber(value: startPosition * streamDuration)
+                mediaplayer.time = VLCTime(number: time)
+            }
+            
             resetIdleTimer()
         }
+        
         progressBar.isBuffering = false
         progressBar.bufferProgress = PTTorrentStreamer.shared().torrentStatus.totalProgreess
         progressBar.remainingTimeLabel.text = mediaplayer.remainingTime.stringValue

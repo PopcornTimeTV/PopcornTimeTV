@@ -33,7 +33,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         
         let translation = sender.translation(in: view)
         
-        guard !(presentedViewController is OptionsViewController) && progressBar.isScrubbing && !progressBar.isHidden && !mediaplayer.isPlaying else { return }
+        guard !(presentedViewController is OptionsViewController) && progressBar.isScrubbing && !progressBar.isHidden else { return }
         
         let offset = progressBar.scrubbingProgress + Float((translation.x - lastTranslation)/progressBar.bounds.width/8.0)
         
@@ -87,7 +87,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     
     func clickGesture(_ gesture: SiriRemoteGestureRecognizer) {
 
-        guard gesture.touchLocation == .unknown && gesture.isClick else {
+        guard gesture.touchLocation == .unknown && gesture.isClick && gesture.state == .ended else {
             progressBar.isHidden ? toggleControlsVisible() : ()
             return
         }
@@ -95,7 +95,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         guard !progressBar.isScrubbing else {
             endScrubbing()
             if mediaplayer.isSeekable {
-                let time = NSNumber(value: Float(progressBar.scrubbingProgress * streamDuration))
+                let time = NSNumber(value: progressBar.scrubbingProgress * streamDuration)
                 mediaplayer.time = VLCTime(number: time)
                 // Force a progress change rather than waiting for VLCKit's delegate call to.
                 progressBar.progress = progressBar.scrubbingProgress
@@ -109,7 +109,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         dimmerView.isHidden = false
         progressBar.isScrubbing = true
         
-        let currentTime = NSNumber(value: Float(progressBar.progress * streamDuration))
+        let currentTime = NSNumber(value: progressBar.progress * streamDuration)
         if let image = screenshotAtTime(currentTime) {
             progressBar.screenshot = image
         }

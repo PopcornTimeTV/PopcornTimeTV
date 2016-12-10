@@ -68,6 +68,7 @@ enum TransportBarHint: String {
                 
                 var frame = screenshotImageView.frame
                 frame.origin.y = scrubbingPositionMarker.frame.origin.y
+                frame.size = .zero
                 screenshotImageView.alpha = 0.0
                 screenshotImageView.isHidden = false
                 
