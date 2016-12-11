@@ -1,0 +1,126 @@
+<head>
+    <style>
+        .badge {
+        tv-tint-color: rgb(255,255,255);
+        }
+        .hover {
+        tv-text-highlight-style: marquee-and-show-on-highlight;
+        }
+        .whiteButton {
+        tv-tint-color: rgb(255, 255, 255);
+        }
+        .overlayPosition {
+        tv-position: bottom-right;
+        }
+        .imgGradient {
+        tv-img-treatment: blurOverlay;
+        tv-img-treatment: uber;
+        }
+        .text {
+        text-shadow: 2px 5px 10px #000000;
+        }
+        .placeholder {
+        tv-placeholder:tv;
+        }
+        .textAlpha {
+        color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<productBundleTemplate>
+    <background>
+        <img class="imgGradient" src="{{FANART_IMAGE}}" style="tv-tint-color: linear-gradient(top, 0.33, transparent, 0.66, rgba(000,000,000,0.7), rgba(000,000,000,1.0));" />
+    </background>
+    <banner>
+        <stack>
+            <title>{{TITLE}}</title>
+            <subtitle>{{SEASON}}</subtitle>
+            <row>
+                <text>{{GENRES}}</text>
+                <text>{{YEAR}}</text>
+                <badge src="resource://cc" class="badge" />
+                <badge src="resource://hd" class="badge" />
+            </row>
+            <row>
+                <text class="textAlpha">{{NETWORK}}</text>
+            </row>
+            <description class="text" allowsZooming="true" moreLabel="more" actionID="showDescription»{{TITLE}}»{{DESCRIPTION}}">{{DESCRIPTION}}</description>
+            <row>
+                {{SEASONS_BUTTON}}
+                {{WATCH_LIST_BUTTON}}
+            </row>
+        </stack>
+        
+    </banner>
+    
+    <!-- Episodes -->
+    <shelf id ="episodeShelf">
+        {{EPISODE_SHELF}}
+    </shelf>
+    
+    <!-- Suggestions -->
+    <shelf>
+        <header>
+            <title>Similar Shows</title>
+        </header>
+        <section>
+            {{SUGGESTIONS}}
+        </section>
+    </shelf>
+    
+    <!-- Cast -->
+    <shelf>
+        <header>
+            <title>Cast and Crew</title>
+        </header>
+        <section>
+            {{CAST}}
+        </section>
+    </shelf>
+    
+    <!-- Footer -->
+    
+    <productInfo>
+        <infoTable>
+            <header>
+                <title>Information</title>
+            </header>
+            <info>
+                <header>
+                    <title>Genre</title>
+                </header>
+                <text>{{GENRES}}</text>
+            </info>
+            <info>
+                <header>
+                    <title>Released</title>
+                </header>
+                <text>{{YEAR}}</text>
+            </info>
+            <info>
+                <header>
+                    <title>Run Time</title>
+                </header>
+                <text>{{RUNTIME}}</text>
+            </info>
+            <info>
+                <header>
+                    <title>Network</title>
+                </header>
+                <text>{{NETWORK-FOOTER}}</text>
+            </info>
+        </infoTable>
+        <infoTable style="tv-line-spacing:10;">
+            <header>
+                <title>Accessibility</title>
+            </header>
+            <info>
+                <header>
+                    <textBadge>SDH</textBadge>
+                </header>
+                <text>Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original lanuage with the addition of relevant non-dialog information.</text>
+            </info>
+        </infoTable>
+    </productInfo>
+
+</productBundleTemplate>
