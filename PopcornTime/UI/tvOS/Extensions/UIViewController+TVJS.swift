@@ -23,9 +23,14 @@ extension UIViewController {
         self.pctViewDidAppear(animated)
     }
     
+    func pctFocusedViewDidChange() {
+        NotificationCenter.default.post(name: .UIViewControllerFocusedViewDidChange, object: self)
+        self.pctFocusedViewDidChange()
+    }
+    
     open override class func initialize() {
         
-        // make sure this isn't a subclass
+        
         if self !== UIViewController.self {
             return
         }
@@ -33,6 +38,7 @@ extension UIViewController {
         DispatchQueue.once {
             exchangeImplementations(originalSelector: #selector(viewDidDisappear(_:)), swizzledSelector: #selector(pctViewDidDisappear(_:)))
             exchangeImplementations(originalSelector: #selector(viewDidAppear(_:)), swizzledSelector: #selector(pctViewDidAppear(_:)))
+            exchangeImplementations(originalSelector: Selector(("focusedViewDidChange")), swizzledSelector: #selector(pctFocusedViewDidChange))
         }
     }
     

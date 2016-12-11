@@ -595,8 +595,12 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="10" id="5Co-sC-AiF"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isBuffering" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isScrubbing" value="NO"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="bUg-kd-uQh">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="bUg-kd-uQh">
                                 <rect key="frame" x="928" y="508" width="64" height="64"/>
                             </activityIndicatorView>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k35-ef-k3P">
@@ -808,9 +812,9 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="Subtitles" id="kvn-LO-hnQ"/>
                     <connections>
+                        <outlet property="delayTableView" destination="9d3-DW-N0d" id="QMW-NF-6x1"/>
                         <outlet property="encodingTableView" destination="6Ca-Cp-n94" id="Nzd-y9-UDk"/>
                         <outlet property="languageTableView" destination="UlS-mm-fbC" id="vTg-TR-QJW"/>
-                        <outlet property="sizeTableView" destination="9d3-DW-N0d" id="JgQ-BS-vNu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G7G-yA-qPe" userLabel="First Responder" sceneMemberID="firstResponder"/>

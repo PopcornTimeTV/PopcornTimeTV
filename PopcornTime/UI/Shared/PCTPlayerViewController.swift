@@ -215,7 +215,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     private (set) var localPathToMedia: URL!
     private (set) var media: Media!
     internal var nextEpisode: Episode?
-    private var startPosition: Float = 0.0
+    internal var startPosition: Float = 0.0
     private var idleWorkItem: DispatchWorkItem?
     internal var shouldHideStatusBar = true
     private let NSNotFound: Int32 = -1
@@ -260,11 +260,19 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         if startPosition > 0.0 {
             let style: UIAlertControllerStyle = (traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular) ? .alert : .actionSheet
             let continueWatchingAlert = UIAlertController(title: nil, message: nil, preferredStyle: style)
+            
+            #if os(tvOS)
+                NotificationCenter.default.addObserver(self, selector: #selector(alertFocusDidChange(_:)), name: .UIViewControllerFocusedViewDidChange, object: continueWatchingAlert)
+            #endif
+            
+            
             continueWatchingAlert.addAction(UIAlertAction(title: "Resume Playing", style: .default, handler:{ action in
                 self.resumePlayback = true
+                self.loadingActivityIndicatorView.isHidden = false
                 self.mediaplayer.play()
             }))
             continueWatchingAlert.addAction(UIAlertAction(title: "Start from Begining", style: .default, handler: { action in
+                self.loadingActivityIndicatorView.isHidden = false
                 self.mediaplayer.play()
             }))
             continueWatchingAlert.popoverPresentationController?.sourceView = progressBar
@@ -353,6 +361,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         progressBar.remainingTimeLabel.text = mediaplayer.remainingTime.stringValue
         progressBar.elapsedTimeLabel.text = mediaplayer.time.stringValue
         progressBar.progress = mediaplayer.position
+        
         //        if nextMedia != nil && (mediaplayer.remainingTime.intValue/1000) == -30 {
         //            upNextView.show()
         //        } else if (mediaplayer.remainingTime.intValue/1000) < -30 && !upNextView.isHidden {
@@ -417,16 +426,14 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     func resetIdleTimer() {
         idleWorkItem?.cancel()
         idleWorkItem = DispatchWorkItem() {
-            if !self.progressBar.isHidden { self.toggleControlsVisible() }
+            if !self.progressBar.isHidden && self.mediaplayer.isPlaying && !self.progressBar.isScrubbing && !self.progressBar.isBuffering && self.mediaplayer.rate == 1.0 // If paused, scrubbing, fast forwarding or loading, cancel work Item so UI doesn't disappear
+            {
+                self.toggleControlsVisible()
+            }
         }
         
         let delay: TimeInterval = UIDevice.current.userInterfaceIdiom == .tv ? 3 : 5
         DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: idleWorkItem!)
-        
-        if !mediaplayer.isPlaying || !loadingActivityIndicatorView.isHidden || progressBar.isScrubbing || progressBar.isBuffering || mediaplayer.rate != 1.0 // If paused, scrubbing, fast forwarding or loading, cancel work Item so UI doesn't disappear
-        {
-            idleWorkItem?.cancel()
-        }
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {    

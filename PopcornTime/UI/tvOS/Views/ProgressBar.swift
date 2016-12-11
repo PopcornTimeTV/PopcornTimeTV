@@ -62,8 +62,8 @@ enum TransportBarHint: String {
             if isScrubbing {
                 scrubbingProgress = progress
                 scrubbingPositionMarker.isHidden = false
-                elapsedTimeLabel.textColor = .lightGray
-                remainingTimeLabel.textColor = .lightGray
+                elapsedTimeLabel.textColor = .darkGray
+                remainingTimeLabel.textColor = .darkGray
                 playbackPositionMarker.alpha = 0.6
                 
                 var frame = screenshotImageView.frame

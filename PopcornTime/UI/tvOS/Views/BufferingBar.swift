@@ -14,17 +14,17 @@ class BufferingBar: UIView {
         }
     }
     
-    var bufferColor: UIColor = .gray {
+    var bufferColor: UIColor = .darkGray {
         didSet {
             fillLayer.fillColor = bufferColor.cgColor
         }
     }
-    var borderColor: UIColor = .gray {
+    var borderColor: UIColor = .darkGray {
         didSet {
             borderLayer.borderColor = borderColor.cgColor
         }
     }
-    var elapsedColor: UIColor = .gray {
+    var elapsedColor: UIColor = .darkGray {
         didSet {
             coverLayer.fillColor = elapsedColor.cgColor
         }
@@ -86,10 +86,10 @@ class BufferingBar: UIView {
         fillMaskLayer.frame = bounds
         
         let playerRect = CGRect(origin: .zero, size: CGSize(width: bounds.width * CGFloat(elapsedProgress), height: bounds.height))
-        let playerPath = UIBezierPath(roundedRect: playerRect, cornerRadius: radius)
+        let playerPath = UIBezierPath(rect: playerRect)
         
         coverLayer.path      = playerPath.cgPath
-        coverMaskLayer.path  = playerPath.cgPath
+        coverMaskLayer.path  = path.cgPath
         coverLayer.frame     = bounds
         coverMaskLayer.frame = bounds
     }

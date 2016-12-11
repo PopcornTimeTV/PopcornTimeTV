@@ -5,7 +5,7 @@ import PopcornKit
 
 protocol OptionsViewControllerDelegate: class {
     func didSelectSubtitle(_ subtitle: Subtitle?)
-    func didSelectSize(_ size: Float)
+    func didSelectDelay(_ delay: Int)
     func didSelectEncoding(_ encoding: String)
 }
 
@@ -14,7 +14,7 @@ class SubtitlesViewController: UIViewController, UITableViewDelegate, UITableVie
     weak var delegate: OptionsViewControllerDelegate?
     
     @IBOutlet var languageTableView: UITableView!
-    @IBOutlet var sizeTableView: UITableView!
+    @IBOutlet var delayTableView: UITableView!
     @IBOutlet var encodingTableView: UITableView!
     
     var subtitles = [Subtitle]()
@@ -30,9 +30,16 @@ class SubtitlesViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         return dict
     }()
-    let sizes: [String: Float] = ["Small (46pts)" : 20.0, "Medium (56pts)" : 16.0, "Medium Large (66pts)" : 12.0, "Large (96pts)" : 6.0]
+    let delays: [Int] = {
+        var delays = [Int]()
+        for delay in -5...5 {
+            delays.append(delay)
+        }
+        return delays
+    }()
     
     var currentSubtitle: Subtitle?
+    var currentDelay = 0
     var currentEncoding = SubtitleSettings().encoding {
         didSet {
             let subtitle = SubtitleSettings()
@@ -40,18 +47,11 @@ class SubtitlesViewController: UIViewController, UITableViewDelegate, UITableVie
             subtitle.save()
         }
     }
-    var currentSize = SubtitleSettings().size {
-        didSet {
-            let subtitle = SubtitleSettings()
-            subtitle.size = currentSize
-            subtitle.save()
-        }
-    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        for tableView in [languageTableView, sizeTableView, encodingTableView] {
+        for tableView in [languageTableView, delayTableView, encodingTableView] {
             tableView?.mask = nil
             tableView?.clipsToBounds = true
         }
@@ -84,15 +84,15 @@ class SubtitlesViewController: UIViewController, UITableViewDelegate, UITableVie
         betweenFirstAndSecondGuide.leftAnchor.constraint(equalTo: languageTableView.rightAnchor).isActive = true
         betweenFirstAndSecondGuide.topAnchor.constraint(equalTo: languageTableView.topAnchor).isActive = true
         betweenFirstAndSecondGuide.heightAnchor.constraint(equalToConstant: languageTableView.contentSize.height).isActive = true
-        betweenFirstAndSecondGuide.rightAnchor.constraint(equalTo: sizeTableView.leftAnchor).isActive = true
-        betweenFirstAndSecondGuide.preferredFocusedView = sizeTableView
+        betweenFirstAndSecondGuide.rightAnchor.constraint(equalTo: delayTableView.leftAnchor).isActive = true
+        betweenFirstAndSecondGuide.preferredFocusedView = delayTableView
         
         let betweenSecondAndFirstGuide = UIFocusGuide()
-        sizeTableView.addLayoutGuide(betweenSecondAndFirstGuide)
+        delayTableView.addLayoutGuide(betweenSecondAndFirstGuide)
         
-        betweenSecondAndFirstGuide.rightAnchor.constraint(equalTo: sizeTableView.leftAnchor).isActive = true
-        betweenSecondAndFirstGuide.topAnchor.constraint(equalTo: sizeTableView.topAnchor).isActive = true
-        betweenSecondAndFirstGuide.heightAnchor.constraint(equalToConstant: sizeTableView.contentSize.height).isActive = true
+        betweenSecondAndFirstGuide.rightAnchor.constraint(equalTo: delayTableView.leftAnchor).isActive = true
+        betweenSecondAndFirstGuide.topAnchor.constraint(equalTo: delayTableView.topAnchor).isActive = true
+        betweenSecondAndFirstGuide.heightAnchor.constraint(equalToConstant: delayTableView.contentSize.height).isActive = true
         betweenSecondAndFirstGuide.leftAnchor.constraint(equalTo: languageTableView.rightAnchor).isActive = true
         betweenSecondAndFirstGuide.preferredFocusedView = languageTableView
         
@@ -102,15 +102,15 @@ class SubtitlesViewController: UIViewController, UITableViewDelegate, UITableVie
         betweenThirdAndSecondGuide.rightAnchor.constraint(equalTo: encodingTableView.leftAnchor).isActive = true
         betweenThirdAndSecondGuide.topAnchor.constraint(equalTo: encodingTableView.topAnchor).isActive = true
         betweenThirdAndSecondGuide.heightAnchor.constraint(equalToConstant: encodingTableView.contentSize.height).isActive = true
-        betweenThirdAndSecondGuide.leftAnchor.constraint(equalTo: sizeTableView.rightAnchor).isActive = true
-        betweenThirdAndSecondGuide.preferredFocusedView = sizeTableView
+        betweenThirdAndSecondGuide.leftAnchor.constraint(equalTo: delayTableView.rightAnchor).isActive = true
+        betweenThirdAndSecondGuide.preferredFocusedView = delayTableView
         
         let betweenSecondAndThirdGuide = UIFocusGuide()
-        sizeTableView.addLayoutGuide(betweenSecondAndThirdGuide)
+        delayTableView.addLayoutGuide(betweenSecondAndThirdGuide)
         
-        betweenSecondAndThirdGuide.leftAnchor.constraint(equalTo: sizeTableView.rightAnchor).isActive = true
-        betweenSecondAndThirdGuide.topAnchor.constraint(equalTo: sizeTableView.topAnchor).isActive = true
-        betweenSecondAndThirdGuide.heightAnchor.constraint(equalToConstant: sizeTableView.contentSize.height).isActive = true
+        betweenSecondAndThirdGuide.leftAnchor.constraint(equalTo: delayTableView.rightAnchor).isActive = true
+        betweenSecondAndThirdGuide.topAnchor.constraint(equalTo: delayTableView.topAnchor).isActive = true
+        betweenSecondAndThirdGuide.heightAnchor.constraint(equalToConstant: delayTableView.contentSize.height).isActive = true
         betweenSecondAndThirdGuide.rightAnchor.constraint(equalTo: encodingTableView.leftAnchor).isActive = true
         betweenSecondAndThirdGuide.preferredFocusedView = encodingTableView
     }
@@ -123,9 +123,10 @@ class SubtitlesViewController: UIViewController, UITableViewDelegate, UITableVie
         case languageTableView:
             cell.textLabel?.text = subtitles[indexPath.row].language
             cell.accessoryType = currentSubtitle == subtitles[indexPath.row] ? .checkmark : .none
-        case sizeTableView:
-            cell.textLabel?.text = Array(sizes.keys)[indexPath.row]
-            cell.accessoryType = currentSize == Array(sizes.values)[indexPath.row] ? .checkmark : .none
+        case delayTableView:
+            let delay = delays[indexPath.row]
+            cell.textLabel?.text = (delay > 0 ? "+" : "") + "\(delay).0"
+            cell.accessoryType = currentDelay == delay ? .checkmark : .none
         case encodingTableView:
             cell.textLabel?.text = Array(encodings.keys)[indexPath.row]
             cell.accessoryType = currentEncoding == Array(encodings.values)[indexPath.row] ? .checkmark : .none
@@ -139,8 +140,8 @@ class SubtitlesViewController: UIViewController, UITableViewDelegate, UITableVie
         switch tableView {
         case languageTableView:
             return "Language"
-        case sizeTableView:
-            return "Size"
+        case delayTableView:
+            return "Delay"
         case encodingTableView:
             return "Encoding"
         default:
@@ -169,8 +170,8 @@ class SubtitlesViewController: UIViewController, UITableViewDelegate, UITableVie
         switch tableView {
         case languageTableView:
             return subtitles.count
-        case sizeTableView:
-            return sizes.count
+        case delayTableView:
+            return delays.count
         case encodingTableView:
             return encodings.count
         default:
@@ -203,9 +204,9 @@ class SubtitlesViewController: UIViewController, UITableViewDelegate, UITableVie
                 currentSubtitle = subtitles[indexPath.row]
             }
             delegate?.didSelectSubtitle(currentSubtitle)
-        case sizeTableView:
-            currentSize = Array(sizes.values)[indexPath.row]
-            delegate?.didSelectSize(currentSize)
+        case delayTableView:
+            currentDelay = delays[indexPath.row]
+            delegate?.didSelectDelay(currentDelay)
         case encodingTableView:
             currentEncoding = Array(encodings.values)[indexPath.row]
             delegate?.didSelectEncoding(currentEncoding)

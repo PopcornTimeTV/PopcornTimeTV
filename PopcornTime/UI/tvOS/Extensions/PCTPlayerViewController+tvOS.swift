@@ -4,8 +4,8 @@ import Foundation
 
 extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, OptionsViewControllerDelegate {
     
-    func didSelectSize(_ size: Float) {
-        (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: size))
+    func didSelectDelay(_ delay: Int) {
+        mediaplayer.currentVideoSubTitleDelay = delay
     }
     
     func didSelectEncoding(_ encoding: String) {
@@ -62,6 +62,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         present(destinationController, animated: true, completion: nil)
         destinationController.subtitlesViewController.subtitles = subtitles
         destinationController.subtitlesViewController.currentSubtitle = currentSubtitle
+        destinationController.subtitlesViewController.currentDelay = mediaplayer.currentVideoSubTitleDelay
         destinationController.subtitlesViewController.delegate = self
         destinationController.infoViewController.media = media
     }
@@ -137,6 +138,29 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         guard infoHelperView.alpha == 0 else { return }
         UIView.animate(withDuration: 0.3) {
             self.infoHelperView.alpha = 1.0
+        }
+    }
+    
+    func alertFocusDidChange(_ notification: Notification) {
+        guard let alertController = notification.object as? UIAlertController,
+            let UIAlertControllerActionView = NSClassFromString("_UIAlertControllerActionView"),
+            let dimmerView = alertController.value(forKey: "_dimmingView") as? UIView else { return }
+        
+        dimmerView.isHidden = true
+        progressBar.isBuffering = false
+        
+        let subviews = alertController.view.recursiveSubviews.filter({type(of: $0) == UIAlertControllerActionView})
+        
+        for view in subviews {
+            guard let title = view.value(forKeyPath: "label.text") as? String,
+                let isHighlighted = view.value(forKey: "isHighlighted") as? Bool,
+                isHighlighted else { continue }
+            
+            if title == "Resume Playing" {
+                progressBar.progress = startPosition
+            } else if title == "Start from Begining" {
+                progressBar.progress = 0
+            }
         }
     }
 }
