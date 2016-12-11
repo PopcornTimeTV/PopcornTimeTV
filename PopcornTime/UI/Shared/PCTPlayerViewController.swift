@@ -75,8 +75,8 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     // MARK: - Slider actions
 
     func positionSliderDidDrag() {
-        let time = NSNumber(value: Float(progressBar.scrubbingProgress * streamDuration))
-        let remainingTime = NSNumber(value: time.floatValue - Float(streamDuration))
+        let time = NSNumber(value: progressBar.scrubbingProgress * streamDuration)
+        let remainingTime = NSNumber(value: time.floatValue - streamDuration)
         progressBar.remainingTimeLabel.text = VLCTime(number: remainingTime).stringValue
         progressBar.scrubbingTimeLabel.text = VLCTime(number: time).stringValue
         workItem?.cancel()
@@ -96,7 +96,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         resetIdleTimer()
         mediaplayer.play()
         if mediaplayer.isSeekable {
-            let time = NSNumber(value: Float(progressBar.scrubbingProgress * streamDuration))
+            let time = NSNumber(value: progressBar.scrubbingProgress * streamDuration)
             mediaplayer.time = VLCTime(number: time)
         }
     }
@@ -179,7 +179,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         
         PTTorrentStreamer.shared().cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
         
-        (media is Movie ? WatchedlistManager.movie : WatchedlistManager.episode).setCurrentProgress(Float(progressBar.progress), forId: media.id, withStatus: .finished)
+        (media is Movie ? WatchedlistManager.movie : WatchedlistManager.episode).setCurrentProgress(progressBar.progress, forId: media.id, withStatus: .finished)
         
         #if os(tvOS)
             OperationQueue.main.addOperation {
@@ -220,10 +220,10 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     internal var shouldHideStatusBar = true
     private let NSNotFound: Int32 = -1
     private var imageGenerator: AVAssetImageGenerator!
-    private var workItem: DispatchWorkItem?
+    internal var workItem: DispatchWorkItem?
     private var resumePlayback = false
     internal var streamDuration: Float {
-        guard let remaining = mediaplayer.remainingTime?.value?.floatValue, let elapsed = mediaplayer.time?.value?.floatValue else { return 0.0 }
+        guard let remaining = mediaplayer.remainingTime?.value?.floatValue, let elapsed = mediaplayer.time?.value?.floatValue else { return Float(CMTimeGetSeconds(imageGenerator.asset.duration) * 1000) }
         return fabsf(remaining) + elapsed
     }
     
@@ -379,10 +379,10 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         case .ended:
             fallthrough
         case .stopped:
-            manager.setCurrentProgress(Float(progressBar.progress), forId: media.id, withStatus: .finished)
+            manager.setCurrentProgress(progressBar.progress, forId: media.id, withStatus: .finished)
             didFinishPlaying()
         case .paused:
-            manager.setCurrentProgress(Float(progressBar.progress), forId: media.id, withStatus: .paused)
+            manager.setCurrentProgress(progressBar.progress, forId: media.id, withStatus: .paused)
             #if os(iOS)
                 playPauseButton.setImage(UIImage(named: "Play"), for: .normal)
             #endif
@@ -390,7 +390,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             #if os(iOS)
                 playPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
             #endif
-            manager.setCurrentProgress(Float(progressBar.progress), forId: media.id, withStatus: .watching)
+            manager.setCurrentProgress(progressBar.progress, forId: media.id, withStatus: .watching)
         case .buffering:
             progressBar.isBuffering = true
         default:

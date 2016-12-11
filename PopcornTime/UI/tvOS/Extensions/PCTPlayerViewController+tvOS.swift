@@ -161,6 +161,14 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
             } else if title == "Start from Begining" {
                 progressBar.progress = 0
             }
+            
+            positionSliderDidDrag()
+            
+            workItem?.cancel() // Cancel item so screenshot is not loaded
+            progressBar.elapsedTimeLabel.text = progressBar.scrubbingTimeLabel.text
+            
+            progressBar.setNeedsLayout()
+            progressBar.layoutIfNeeded()
         }
     }
 }
