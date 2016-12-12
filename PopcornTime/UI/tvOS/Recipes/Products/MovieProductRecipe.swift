@@ -65,14 +65,8 @@ public class MovieProductRecipe: NSObject, RecipeType, UINavigationControllerDel
     }
 
     var suggestionsString: String {
-        let mapped: [String] = movie.related.map {
-            var string = "<lockup actionID=\"showMovie»\($0.title.cleaned)»\($0.id)\">" + "\n"
-            string += "<img class=\"placeholder\" src=\"\($0.smallCoverImage ?? "")\" width=\"150\" height=\"226\" />" + "\n"
-            string += "<title class=\"hover\">\($0.title.cleaned)</title>" + "\n"
-            string += "</lockup>" + "\n"
-            return string
-        }
-        return mapped.joined(separator: "\n")
+        let mapped = movie.related.map {$0.lockUp.replacingOccurrences(of: "width=\"250\"", with: "width=\"150\"").replacingOccurrences(of: "height=\"375\"", with: "height=\"226\"")}
+        return mapped.joined(separator: "")
     }
 
     var castString: String {

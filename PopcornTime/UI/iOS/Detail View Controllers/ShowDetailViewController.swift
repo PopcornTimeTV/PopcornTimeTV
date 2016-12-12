@@ -179,6 +179,10 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
         // TODO: Implement
     }
     
+    func dismiss() {
+        splitViewController?.dismissTopWindow(animated: true)
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         if let coverImageAsString = currentItem.mediumCoverImage,

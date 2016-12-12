@@ -267,8 +267,9 @@ class ActionHandler: NSObject {
                             print("Could not open ProductRecipe.js")
                         }
                     }
-                }, completion: nil)
-                self.dismissLoading()
+                }, completion: { _ in
+                    self.dismissLoading()
+                })
             })
         }
     }
@@ -344,7 +345,7 @@ class ActionHandler: NSObject {
                         }
                         
                         if let function = context.objectForKeyedSubscript("updateSeason"), !function.isUndefined {
-                            function.call(withArguments: [recipe.season]) // Refresh the current season's episode upon reloading
+                            function.call(withArguments: [recipe.season]) // Refresh the current season's episode when the view controller loads
                         }
                     }
                     
@@ -370,8 +371,9 @@ class ActionHandler: NSObject {
                             print("Could not open ProductRecipe.js")
                         }
                     }
-                }, completion: nil)
-                self.dismissLoading()
+                }, completion: { _ in
+                    self.dismissLoading()
+                })
             })
         }
     }

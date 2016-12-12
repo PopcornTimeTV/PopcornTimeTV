@@ -1,16 +1,14 @@
 <head>
     <style>
-        .hover {
-            tv-text-highlight-style: marquee-and-show-on-highlight;
+        .indicator {
+            tv-position: top;
+            tv-align: right;
+            margin: -60 -33 100 100;
         }
-        .img {
-            tv-placeholder: movie;
-        }
-        @media tv-template and (tv-theme:light) {
-        tv-highlight-color:rgb(255, 255, 255);}
-        }
-        @media tv-template and (tv-theme:dark) {
-        tv-highlight-color:rgb(0,0,0);}
+        
+        .bar {
+            tv-position: footer;
+            margin: 70 0 -20 -45;
         }
         .title {
             text-align:left;

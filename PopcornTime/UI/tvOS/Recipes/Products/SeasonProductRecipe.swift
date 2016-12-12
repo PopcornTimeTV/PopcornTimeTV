@@ -142,7 +142,7 @@ public class SeasonProductRecipe: NSObject, RecipeType, UINavigationControllerDe
             string += "<title>\($0.episode). \($0.title.cleaned)</title>" + "\n"
             string += "<overlay class=\"overlayPosition\">" + "\n"
             if WatchedlistManager.episode.isAdded($0.id) {
-                string += "<badge src=\"resource://overlay-checkmark\" class=\"whiteButton overlayPosition\"/>" + "\n"
+                string += "<badge src=\"resource://overlay-checkmark\" class=\"overlayPosition\"/>" + "\n"
             } else if WatchedlistManager.episode.currentProgress($0.id) > 0.0 {
                 string += "<progressBar value=\"\(WatchedlistManager.episode.currentProgress($0.id))\" />" + "\n"
             }
@@ -174,13 +174,7 @@ public class SeasonProductRecipe: NSObject, RecipeType, UINavigationControllerDe
     }
     
     var suggestionsString: String {
-        let mapped: [String] = show.related.map {
-            var string = "<lockup actionID=\"showShow»\($0.title.cleaned)»\($0.id)\">" + "\n"
-            string += "<img class=\"placeholder\" src=\"\($0.smallCoverImage ?? "")\" width=\"150\" height=\"226\" />" + "\n"
-            string += "<title class=\"hover\">\($0.title.cleaned)</title>" + "\n"
-            string += "</lockup>" + "\n"
-            return string
-        }
+        let mapped = show.related.map({ $0.lockUp.replacingOccurrences(of: "width=\"250\"", with: "width=\"150\"").replacingOccurrences(of: "height=\"375\"", with: "height=\"226\"") })
         return mapped.joined(separator: "\n")
     }
 

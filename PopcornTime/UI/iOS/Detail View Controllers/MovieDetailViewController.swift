@@ -273,6 +273,10 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
         // TODO: Implement
     }
     
+    func dismiss() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     // MARK: - Presentation
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {

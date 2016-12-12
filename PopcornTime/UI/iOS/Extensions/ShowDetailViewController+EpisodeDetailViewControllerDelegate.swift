@@ -25,7 +25,7 @@ extension ShowDetailViewController: EpisodeDetailViewControllerDelegate, PCTPlay
             
             let finishedLoading: (LoadingViewController, UIViewController) -> Void = { [weak self] (loadingVc, playerVc) in
                 loadingVc.dismiss(animated: false, completion: nil)
-                self?.present(playerVc, animated: true, completion: nil)
+                self?.splitViewController?.presentOverTop(playerVc, animated: true)
             }
             
             if GCKCastContext.sharedInstance().castState == .connected {
@@ -53,7 +53,7 @@ extension ShowDetailViewController: EpisodeDetailViewControllerDelegate, PCTPlay
     }
     
     func presentCastPlayer(_ media: Media, videoFilePath: URL, startPosition: TimeInterval) {
-        
+        // TODO: Implement
     }
     
     func didDismissViewController(_ vc: EpisodeDetailViewController) {

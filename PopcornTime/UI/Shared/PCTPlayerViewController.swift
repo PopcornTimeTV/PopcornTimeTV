@@ -14,12 +14,14 @@ protocol PCTPlayerViewControllerDelegate: class {
     
     #if os(iOS)
         func presentCastPlayer(_ media: Media, videoFilePath: URL, startPosition: TimeInterval)
+        func dismiss()
     #endif
 }
 
 /// Optional functions:
 extension PCTPlayerViewControllerDelegate {
     func playNext(_ episode: Episode) {}
+    func dismiss() {}
 }
 
 class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestureRecognizerDelegate {
@@ -186,7 +188,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
                 Kitchen.appController.navigationController.popViewController(animated: true)
             }
         #elseif os(iOS)
-            dismiss(animated: true, completion: nil)
+            delegate?.dismiss()
         #endif
     }
     
