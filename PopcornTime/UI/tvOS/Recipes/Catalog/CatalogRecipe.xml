@@ -12,11 +12,17 @@
         @media tv-template and (tv-theme:dark) {
         tv-highlight-color:rgb(0,0,0);}
         }
+        .title {
+            text-align:left;
+            color #e9eaec;
+            font-weight: bold;
+            font-size: 73pt;
+        }
     </style>
 </head>
 <stackTemplate>
     <banner>
-        <title>{{TITLE}}</title>
+        <title class="title">{{TITLE}}</title>
     </banner>
     <collectionList>
         <grid>
