@@ -57,8 +57,8 @@ extension ShowDetailViewController: EpisodeDetailViewControllerDelegate, PCTPlay
     }
     
     func didDismissViewController(_ vc: EpisodeDetailViewController) {
-        if let indexPath = self.tableView!.indexPathForSelectedRow, splitViewController!.isCollapsed {
-            self.tableView!.deselectRow(at: indexPath, animated: false)
+        if let indexPath = tableView?.indexPathForSelectedRow, splitViewController!.isCollapsed {
+            tableView?.deselectRow(at: indexPath, animated: false)
         }
     }
 }

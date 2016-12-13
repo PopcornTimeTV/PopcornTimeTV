@@ -27,26 +27,23 @@ extension UISplitViewController {
      */
     func presentOverTop(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
         
-        window = UIWindow(frame: UIScreen.main.bounds)
+        window = UIWindow(frame: CGRect(origin: CGPoint(x: 0, y: UIScreen.main.bounds.height), size: UIScreen.main.bounds.size))
         window?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         window?.rootViewController = viewControllerToPresent
         
         if flag {
-            window?.alpha = 0.0
-            window?.backgroundColor = .clear
-            
-            UIView.beginAnimations(nil, context: nil)
-            
-            window?.makeKeyAndVisible()
-            window?.alpha = 1.0
-            
-            UIView.commitAnimations()
+            UIView.animate(withDuration: 0.6, delay: 0.0, usingSpringWithDamping: 300.0, initialSpringVelocity: 5.0, options: [.allowUserInteraction, .beginFromCurrentState], animations: { 
+                self.window?.makeKeyAndVisible()
+                self.window?.frame.origin.y = 0
+            }, completion: {_ in
+                completion?()
+            })
         } else {
             window?.makeKeyAndVisible()
+            self.window?.frame.origin.y = 0
+            completion?()
         }
-        
-        completion?()
     }
     
     /**
@@ -57,20 +54,19 @@ extension UISplitViewController {
      */
     func dismissTopWindow(animated flag: Bool, completion: (() -> Void)? = nil) {
         if flag {
-            window?.alpha = 1.0
-            
-            UIView.beginAnimations(nil, context: nil)
-            
-            window?.resignKey()
-            window?.alpha = 0.0
-            
-            UIView.commitAnimations()
+            UIView.animate(withDuration: 0.6, delay: 0.0, usingSpringWithDamping: 300.0, initialSpringVelocity: 5.0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+                self.window?.resignKey()
+                self.window?.frame.origin.y = UIScreen.main.bounds.height
+            }, completion: {_ in
+                self.window = nil
+                
+                completion?()
+            })
         } else {
             window?.resignKey()
+            window = nil
+            
+            completion?()
         }
-        
-        window = nil
-        
-        completion?()
     }
 }
