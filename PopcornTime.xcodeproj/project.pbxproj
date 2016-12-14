@@ -83,7 +83,7 @@
 		4D859BB51DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BB11DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift */; };
 		4D859BB61DDFA1C6000E2AA1 /* Movie+Lockup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BB21DDFA1C6000E2AA1 /* Movie+Lockup.swift */; };
 		4D859BB71DDFA1C6000E2AA1 /* Show+Lockup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BB31DDFA1C6000E2AA1 /* Show+Lockup.swift */; };
-		4D859BB81DDFA1C6000E2AA1 /* UIViewController+TVJS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BB41DDFA1C6000E2AA1 /* UIViewController+TVJS.swift */; };
+		4D859BB81DDFA1C6000E2AA1 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BB41DDFA1C6000E2AA1 /* UIViewController+Extension.swift */; };
 		4D859BBB1DDFA1DA000E2AA1 /* CatalogRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BB91DDFA1DA000E2AA1 /* CatalogRecipe.swift */; };
 		4D859BBC1DDFA1DA000E2AA1 /* CatalogRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D859BBA1DDFA1DA000E2AA1 /* CatalogRecipe.xml */; };
 		4D859BBF1DDFA1EB000E2AA1 /* DescriptionRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BBD1DDFA1EB000E2AA1 /* DescriptionRecipe.swift */; };
@@ -243,7 +243,7 @@
 		4D859BB11DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PCTPlayerViewController+tvOS.swift"; sourceTree = "<group>"; };
 		4D859BB21DDFA1C6000E2AA1 /* Movie+Lockup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Movie+Lockup.swift"; sourceTree = "<group>"; };
 		4D859BB31DDFA1C6000E2AA1 /* Show+Lockup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Show+Lockup.swift"; sourceTree = "<group>"; };
-		4D859BB41DDFA1C6000E2AA1 /* UIViewController+TVJS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+TVJS.swift"; sourceTree = "<group>"; };
+		4D859BB41DDFA1C6000E2AA1 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		4D859BB91DDFA1DA000E2AA1 /* CatalogRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogRecipe.swift; sourceTree = "<group>"; };
 		4D859BBA1DDFA1DA000E2AA1 /* CatalogRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CatalogRecipe.xml; sourceTree = "<group>"; };
 		4D859BBD1DDFA1EB000E2AA1 /* DescriptionRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionRecipe.swift; sourceTree = "<group>"; };
@@ -503,7 +503,7 @@
 				4D7376011DFDC6F500505CA0 /* NSNotification+Name.swift */,
 				4D859BB11DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift */,
 				4D859BB31DDFA1C6000E2AA1 /* Show+Lockup.swift */,
-				4D859BB41DDFA1C6000E2AA1 /* UIViewController+TVJS.swift */,
+				4D859BB41DDFA1C6000E2AA1 /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1092,7 +1092,7 @@
 				4DD6E4D21DFB197E00818A2C /* BufferingBar.swift in Sources */,
 				4DD6E4D71DFB315100818A2C /* SiriRemoteGestureRecogniser.swift in Sources */,
 				4D859BDD1DDFA237000E2AA1 /* Latest.swift in Sources */,
-				4D859BB81DDFA1C6000E2AA1 /* UIViewController+TVJS.swift in Sources */,
+				4D859BB81DDFA1C6000E2AA1 /* UIViewController+Extension.swift in Sources */,
 				4D859BB51DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift in Sources */,
 				4D859BE91DDFA246000E2AA1 /* SeasonProductRecipe.swift in Sources */,
 				4D859BDC1DDFA237000E2AA1 /* Genre.swift in Sources */,

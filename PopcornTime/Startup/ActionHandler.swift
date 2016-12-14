@@ -240,6 +240,9 @@ class ActionHandler: NSObject {
             })
             
             group.notify(queue: .main, execute: {
+                guard let viewController = Kitchen.appController.navigationController.visibleViewController,
+                    viewController.isLoadingViewController else { return }
+                
                 let recipe = MovieProductRecipe(movie: movie)
                 recipe.fanartLogoString = fanartLogoString
                 self.activeRecipe = recipe
@@ -331,6 +334,9 @@ class ActionHandler: NSObject {
             }
             
             group.notify(queue: .main, execute: {
+                guard let viewController = Kitchen.appController.navigationController.visibleViewController,
+                viewController.isLoadingViewController else { return }
+                
                 let recipe = SeasonProductRecipe(show: show)
                 recipe.fanartLogoString = fanartLogoString
                 self.activeRecipe = recipe
@@ -445,7 +451,6 @@ class ActionHandler: NSObject {
     
     /// Presents the users watchlist for movies and shows.
     func showGlobalWatchlist() {
-        Kitchen.serve(recipe: LoadingRecipe(message:"Loading..."))
         
         var recipe = WatchlistRecipe(title: "Watchlist")
         
@@ -457,7 +462,6 @@ class ActionHandler: NSObject {
             recipe.shows = shows
         }
         Kitchen.serve(recipe: recipe)
-        dismissLoading()
     }
 
     /// Presents the settings view controller.

@@ -47,4 +47,10 @@ extension UIViewController {
         let swizzledMethod = class_getInstanceMethod(self, swizzledSelector)
         method_exchangeImplementations(originalMethod, swizzledMethod)
     }
+    
+    @nonobjc var isLoadingViewController: Bool {
+        guard responds(to: Selector(("templateViewController"))),
+            let templateViewController = value(forKey: "templateViewController") else { return false }
+        return type(of: templateViewController) == NSClassFromString("_TVLoadingViewController")
+    }
 }
