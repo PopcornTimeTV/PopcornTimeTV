@@ -104,4 +104,27 @@ extension Media {
             finishedLoadingBlock: finishedLoadingBlock)
     }
     #endif
+    
+    /**
+     Retrieves subtitles from OpenSubtitles
+     
+     - Parameter id:    The imdbId of the movie. If the media is an episode, an imdbId will be fetched automatically.
+     
+     - Parameter completion: The completion handler for the request containing an array of subtitles
+     */
+    func getSubtitles(forId id: String, completion: @escaping ([Subtitle]) -> Void) {
+        if let `self` = self as? Episode, !id.hasPrefix("tt") {
+            TraktManager.shared.getEpisodeMetadata(self.show.id, episodeNumber: self.episode, seasonNumber: self.season, completion: { (tvdb, imdb, error) in
+                if let imdb = imdb { self.getSubtitles(forId: imdb, completion: completion) } else {
+                    SubtitlesManager.shared.search(self) { (subtitles, _) in
+                        completion(subtitles)
+                    }
+                }
+            })
+        } else {
+            SubtitlesManager.shared.search(imdbId: id) { (subtitles, _) in
+                completion(subtitles)
+            }
+        }
+    }
 }

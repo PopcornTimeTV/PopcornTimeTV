@@ -25,7 +25,7 @@ class InfoViewController: UIViewController {
             titleLabel.text = media.title
             descriptionLabel.text = media.summary
             if let movie = media as? Movie {
-                if let imageString = movie.mediumCoverImage,
+                if let imageString = movie.smallCoverImage,
                     let imageUrl = URL(string: imageString) {
                     imageView.af_setImage(withURL: imageUrl)
                 }
@@ -35,7 +35,7 @@ class InfoViewController: UIViewController {
                 }
                 infoLabel.text?.append(" • " + movie.year)
             } else if let episode = media as? Episode {
-                if let imageString = episode.show.mediumCoverImage,
+                if let imageString = episode.show.smallCoverImage,
                     let imageUrl = URL(string: imageString) {
                     imageView.af_setImage(withURL: imageUrl)
                 }

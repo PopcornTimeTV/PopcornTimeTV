@@ -2,6 +2,9 @@
 
 import UIKit
 import SwiftyTimer
+#if os(tvOS)
+    import MBCircularProgressBar
+#endif
 
 protocol UpNextViewDelegate: class {
     func constraintsWereUpdated(willHide hide: Bool)
@@ -10,80 +13,85 @@ protocol UpNextViewDelegate: class {
 
 class UpNextView: UIVisualEffectView {
     
-    @IBOutlet var nextEpisodeInfoLabel: UILabel!
-    @IBOutlet var nextEpisodeTitleLabel: UILabel!
-    @IBOutlet var nextShowTitleLabel: UILabel!
-    @IBOutlet var nextEpisodeThumbImageView: UIImageView!
-    @IBOutlet var nextEpisodeCountdownLabel: UILabel!
-    @IBOutlet var leadingConstraint: NSLayoutConstraint!
-    @IBOutlet var trailingConstraint: NSLayoutConstraint!
+    @IBOutlet var subtitleLabel: UILabel!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var infoLabel: UILabel!
+    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var expandedConstraint: NSLayoutConstraint!
+    @IBOutlet var hiddenConstraint: NSLayoutConstraint!
+    @IBOutlet var watchNowButton: UIButton!
     
     weak var delegate: UpNextViewDelegate?
-    fileprivate var timer: Timer!
-    fileprivate var updateTimer: Timer!
+    fileprivate var timer: Timer?
+    fileprivate var updateTimer: Timer?
+    
+    #if os(iOS)
+    @IBOutlet var countdownLabel: UILabel!
+    #elseif os(tvOS)
+    @IBOutlet var countdownView: MBCircularProgressBarView!
+    #endif
+    
+    var viewToFocus: UIView? = nil {
+        didSet {
+            guard viewToFocus != nil else { return }
+            setNeedsFocusUpdate()
+            updateFocusIfNeeded()
+        }
+    }
+    
+    override var preferredFocusedView: UIView? {
+        return viewToFocus != nil ? viewToFocus : super.preferredFocusedView
+    }
     
     func show() {
-        if isHidden {
-            isHidden = false
-            trailingConstraint.isActive = false
-            leadingConstraint.isActive = true
-            delegate?.constraintsWereUpdated(willHide: false)
-            startTimer()
-        }
+        guard isHidden else { return }
+        isHidden = false
+        hiddenConstraint.priority = 250
+        expandedConstraint.priority = 999
+        delegate?.constraintsWereUpdated(willHide: false)
+        startTimer()
+        viewToFocus = watchNowButton
     }
     
     func hide() {
-        if !isHidden {
-            trailingConstraint.isActive = true
-            leadingConstraint.isActive = false
-            delegate?.constraintsWereUpdated(willHide: true)
-        }
+        guard !isHidden else { return }
+        hiddenConstraint.priority = 999
+        expandedConstraint.priority = 250
+        delegate?.constraintsWereUpdated(willHide: true)
     }
     
     func startTimer() {
-        var delay = 10
+        var delay = 30
         updateTimer = Timer.every(1.0) {
             if delay - 1 >= 0 {
                 delay -= 1
-                self.nextEpisodeCountdownLabel.text = String(delay)
+                #if os(iOS)
+                    self.countdownLabel.text = String(delay)
+                #elseif os(tvOS)
+                    self.countdownView.value = CGFloat(delay)
+                #endif
             }
         }
-        timer = Timer.after(10.0, {
-            self.updateTimer.invalidate()
+        timer = Timer.after(30.0, {
+            self.updateTimer?.invalidate()
             self.updateTimer = nil
             self.delegate?.timerFinished()
         })
     }
     
-    @IBAction func closePlayNextView() {
+    @IBAction func cancel() {
         hide()
-        timer.invalidate()
+        timer?.invalidate()
         timer = nil
     }
-    @IBAction func playNextNow() {
+    
+    @IBAction func watchNow() {
         hide()
-        updateTimer.invalidate()
+        updateTimer?.invalidate()
         updateTimer = nil
-        timer.invalidate()
+        timer?.invalidate()
         timer = nil
         delegate?.timerFinished()
     }
 
-}
-
-extension PCTPlayerViewController {
-    func constraintsWereUpdated(willHide hide: Bool) {
-        UIView.animate(withDuration: animationLength, delay: 0, options: UIViewAnimationOptions(), animations: { 
-            self.view.layoutIfNeeded()
-            }, completion: { _ in
-                if hide {
-                   self.upNextView.isHidden = true
-                }
-        })
-    }
-    
-    func timerFinished() {
-        didFinishPlaying()
-        delegate?.playNext(nextEpisode!)
-    }
 }

@@ -42,7 +42,7 @@ extension MovieDetailViewController: UICollectionViewDelegate, UICollectionViewD
                 coverCell.yearLabel.text = movie.year
                 if let image = movie.smallCoverImage,
                     let url = URL(string: image) {
-                    coverCell.coverImage.af_setImage(withURL: url, placeholderImage: UIImage(named: "Placeholder"))
+                    coverCell.coverImage.af_setImage(withURL: url, placeholderImage: UIImage(named: "Movie Placeholder"))
                 }
                 coverCell.watched = WatchedlistManager.movie.isAdded(movie.id)
                 return coverCell
@@ -52,9 +52,9 @@ extension MovieDetailViewController: UICollectionViewDelegate, UICollectionViewD
             let imageView = cell.viewWithTag(1) as! UIImageView
             if let image = currentItem.actors[indexPath.row].smallImage,
                 let url = URL(string: image) {
-                imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "Placeholder"))
+                imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "Movie Placeholder"))
             } else {
-                imageView.image = UIImage(named: "Placeholder")
+                imageView.image = UIImage(named: "Movie Placeholder")
             }
             imageView.layer.cornerRadius = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: indexPath).width/2
             (cell.viewWithTag(2) as! UILabel).text = currentItem.actors[indexPath.row].name
@@ -66,7 +66,7 @@ extension MovieDetailViewController: UICollectionViewDelegate, UICollectionViewD
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         if let coverImageAsString = currentItem.mediumCoverImage,
             let backgroundImageAsString = currentItem.largeBackgroundImage {
-            backgroundImageView.af_setImage(withURLRequest: URLRequest(url: URL(string: traitCollection.horizontalSizeClass == .compact ? coverImageAsString : backgroundImageAsString)!), placeholderImage: UIImage(named: "Placeholder"), imageTransition: .crossDissolve(animationLength), completion: {
+            backgroundImageView.af_setImage(withURLRequest: URLRequest(url: URL(string: traitCollection.horizontalSizeClass == .compact ? coverImageAsString : backgroundImageAsString)!), placeholderImage: UIImage(named: "Movie Placeholder"), imageTransition: .crossDissolve(animationLength), completion: {
                 if let value = $0.result.value {
                     self.playButton.borderColor = SLColorArt(image: value).secondaryColor
                 }

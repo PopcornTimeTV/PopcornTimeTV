@@ -123,7 +123,7 @@ class EpisodeDetailViewController: UIViewController, UIGestureRecognizerDelegate
             if let image = image,
                 let url = URL(string: image) {
                 self.currentItem!.largeBackgroundImage = image
-                self.backgroundImageView!.af_setImage(withURL: url, placeholderImage: UIImage(named: "Placeholder"), imageTransition: .crossDissolve(animationLength))
+                self.backgroundImageView!.af_setImage(withURL: url, placeholderImage: UIImage(named: "Episode Placeholder"), imageTransition: .crossDissolve(animationLength))
             }
         })
     }

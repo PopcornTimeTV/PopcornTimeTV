@@ -4,7 +4,7 @@ import TVMLKitchen
 import PopcornKit
 import ObjectMapper
 
-public class SeasonProductRecipe: NSObject, RecipeType, UINavigationControllerDelegate {
+public class ShowProductRecipe: NSObject, RecipeType, UINavigationControllerDelegate {
 
     let show: Show
     var season: Int
@@ -23,6 +23,14 @@ public class SeasonProductRecipe: NSObject, RecipeType, UINavigationControllerDe
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             ActionHandler.shared.replaceTitle(self.show.title, withUrlString: self.fanartLogoString, belongingToViewController: viewController)
         }
+    }
+    
+    func groupedEpisodes(bySeason season: Int) -> [Episode] {
+        var episodes = [Episode]()
+        for index in show.seasonNumbers where season == index {
+            episodes += show.episodes.filter({$0.season == index})
+        }
+        return episodes
     }
 
     public var xmlString: String {
@@ -180,7 +188,7 @@ public class SeasonProductRecipe: NSObject, RecipeType, UINavigationControllerDe
 
     public var template: String {
         var xml = ""
-        if let file = Bundle.main.url(forResource: "SeasonProductRecipe", withExtension: "xml") {
+        if let file = Bundle.main.url(forResource: "ShowProductRecipe", withExtension: "xml") {
             do {
                 xml = try String(contentsOf: file)
 

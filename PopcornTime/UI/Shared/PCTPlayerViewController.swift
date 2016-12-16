@@ -18,13 +18,13 @@ protocol PCTPlayerViewControllerDelegate: class {
     #endif
 }
 
-/// Optional functions:
+/// Optional functions
 extension PCTPlayerViewControllerDelegate {
     func playNext(_ episode: Episode) {}
     func dismiss() {}
 }
 
-class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestureRecognizerDelegate {
+class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestureRecognizerDelegate, UpNextViewDelegate {
     
     // MARK: - IBOutlets
     @IBOutlet var movieView: UIView!
@@ -301,25 +301,24 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         (mediaplayer as VLCFontAppearance).setTextRendererFontForceBold!(NSNumber(booleanLiteral: settings.style == .bold || settings.style == .boldItalic))
         mediaplayer.media.addOptions([vlcSettingTextEncoding: settings.encoding])
 
-//        if let nextMedia = nextMedia {
-//            upNextView.delegate = self
-//            upNextView.nextEpisodeInfoLabel.text = "Season \(nextMedia.season) Episode \(nextMedia.episode)"
-//            upNextView.nextEpisodeTitleLabel.text = nextMedia.title
-//            upNextView.nextShowTitleLabel.text = nextMedia.show!.title
-//            TraktManager.shared.getEpisodeMetadata(nextMedia.show.id, episodeNumber: nextMedia.episode, seasonNumber: nextMedia.season, completion: { (image, _, imdb, error) in
-//                guard let imdb = imdb else { return }
-//                self.nextMedia?.largeBackgroundImage = image
-//                if let image = image {
-//                   self.upNextView.nextEpisodeThumbImageView.af_setImage(withURL: URL(string: image)!)
-//                } else {
-//                    self.upNextView.nextEpisodeThumbImageView.image = UIImage(named: "Placeholder")
-//                }
-//                    SubtitlesManager.shared.search(imdbId: imdb, completion: { (subtitles, error) in
-//                        guard error == nil else { return }
-//                        self.nextMedia?.subtitles = subtitles
-//                    })
-//            })
-//        }
+        if let nextEpisode = nextEpisode {
+            upNextView.delegate = self
+            upNextView.subtitleLabel.text = "Season \(nextEpisode.season) Episode \(nextEpisode.episode)"
+            upNextView.titleLabel.text = nextEpisode.title
+            upNextView.infoLabel.text = UIDevice.current.userInterfaceIdiom == .tv ? nextEpisode.summary : nextEpisode.show.title
+            TMDBManager.shared.getEpisodeScreenshots(forShowWithImdbId: nextEpisode.show.id, orTMDBId: nextEpisode.show.tmdbId, season: nextEpisode.season, episode: nextEpisode.episode, completion: { (tmdbId, image, error) in
+                self.nextEpisode?.largeBackgroundImage = image
+                
+                if let image = image, let url = URL(string: image) {
+                    self.upNextView.imageView.af_setImage(withURL: url)
+                }
+                
+                nextEpisode.getSubtitles(forId: nextEpisode.id) { (subtitles) in
+                    self.nextEpisode?.subtitles = subtitles
+                }
+            })
+        }
+        
         #if os(iOS)
             view.addSubview(volumeView)
             if let slider = volumeView.subviews.flatMap({$0 as? UISlider}).first {
@@ -364,11 +363,11 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         progressBar.elapsedTimeLabel.text = mediaplayer.time.stringValue
         progressBar.progress = mediaplayer.position
         
-        //        if nextMedia != nil && (mediaplayer.remainingTime.intValue/1000) == -30 {
-        //            upNextView.show()
-        //        } else if (mediaplayer.remainingTime.intValue/1000) < -30 && !upNextView.isHidden {
-        //            upNextView.hide()
-        //        }
+        if nextEpisode != nil && (mediaplayer.remainingTime.intValue/1000) == -31 {
+            upNextView.show()
+        } else if (mediaplayer.remainingTime.intValue/1000) < -31 && !upNextView.isHidden {
+            upNextView.hide()
+        }
     }
     
     func mediaPlayerStateChanged(_ aNotification: Notification!) {
@@ -440,6 +439,21 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {    
         return true
+    }
+    
+    // MARK: Up next view delegate
+    
+    func constraintsWereUpdated(willHide hide: Bool) {
+        UIView.animate(withDuration: animationLength, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: { _ in
+            if hide { self.upNextView.isHidden = true }
+        })
+    }
+    
+    func timerFinished() {
+        didFinishPlaying()
+        delegate?.playNext(nextEpisode!)
     }
     
 }

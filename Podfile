@@ -32,6 +32,7 @@ target 'PopcornTimetvOS' do
     pods
     pod 'TVVLCKit-unstable', '~> 3.0.0a24'
     pod 'TVMLKitchen', :git => 'https://github.com/toshi0383/TVMLKitchen.git'
+    pod 'MBCircularProgressBar', '~> 0.3.5-1'
 end
 
 target 'TopShelf' do

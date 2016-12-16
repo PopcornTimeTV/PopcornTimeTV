@@ -187,7 +187,7 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
         super.traitCollectionDidChange(previousTraitCollection)
         if let coverImageAsString = currentItem.mediumCoverImage,
             let backgroundImageAsString = currentItem.largeBackgroundImage {
-            backgroundImageView.af_setImage(withURLRequest: URLRequest(url: URL(string: splitViewController?.traitCollection.horizontalSizeClass == .compact ? coverImageAsString : backgroundImageAsString)!), placeholderImage: UIImage(named: "Placeholder"), imageTransition: .crossDissolve(animationLength))
+            backgroundImageView.af_setImage(withURLRequest: URLRequest(url: URL(string: splitViewController?.traitCollection.horizontalSizeClass == .compact ? coverImageAsString : backgroundImageAsString)!), placeholderImage: UIImage(named: "Episode Placeholder"), imageTransition: .crossDissolve(animationLength))
         }
     }
     
@@ -205,18 +205,18 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if !currentItem.episodes.isEmpty {
             currentSeasonArray.removeAll()
-            currentSeasonArray = getGroupedEpisodesBySeason(currentSeason)
+            currentSeasonArray = groupedEpisodes(bySeason: currentSeason)
             return currentSeasonArray.count
         }
         return 0
     }
     
-    func getGroupedEpisodesBySeason(_ season: Int) -> [Episode] {
-        var array = [Episode]()
+    func groupedEpisodes(bySeason season: Int) -> [Episode] {
+        var episodes = [Episode]()
         for index in currentItem.seasonNumbers where season == index {
-            array += currentItem.episodes.filter({$0.season == index})
+            episodes += currentItem.episodes.filter({$0.season == index})
         }
-        return array
+        return episodes
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -245,16 +245,16 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
             let indexPath = tableView.indexPath(for: cell),
             let vc = segue.destination as? EpisodeDetailViewController {
             vc.currentItem = currentSeasonArray[indexPath.row]
-            var allEpisodes = [Episode]()
-            for index in segmentedControl.selectedSegmentIndex..<segmentedControl.numberOfSegments {
-                let season = currentItem.seasonNumbers[index - 1]
-                allEpisodes += getGroupedEpisodesBySeason(season)
-                if season == currentSeason // Remove episodes up to the next episode eg. If row 2 is selected, row 0-2 will be deleted.
-                {
-                    allEpisodes.removeFirst(indexPath.row + 1)
-                }
+            var episodesLeftInShow = [Episode]()
+            
+            for season in currentItem.seasonNumbers {
+                episodesLeftInShow += groupedEpisodes(bySeason: season)
             }
-            episodesLeftInShow = allEpisodes
+            
+            let index = episodesLeftInShow.index(of: vc.currentItem!)!
+            episodesLeftInShow.removeFirst(index + 1)
+            
+            self.episodesLeftInShow = episodesLeftInShow
             vc.delegate = self
             vc.transitioningDelegate = self
             vc.modalPresentationStyle = .custom

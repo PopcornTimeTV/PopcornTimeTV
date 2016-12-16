@@ -11,7 +11,7 @@ import AlamofireImage
 /**
  Handles all the navigation throughout the app. A string containing a method name and two optional parameters are passed into the `primary:` method. This in turn, generates the method from the string and executes it. Every method in this file has no public parameter names. This is for ease of use when calculating their names using perform selector.
  */
-class ActionHandler: NSObject {
+class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     
     /// Creates new instance of ActionHandler class
     static let shared = ActionHandler()
@@ -95,9 +95,8 @@ class ActionHandler: NSObject {
             }
         }
         
-        // Once we have added the imageView to the view controller, we do not need/want any more delegate calls so we can allow the recipe to be deallocated and remove the delegate
+        // Once we have added the imageView to the view controller, we do not need/want any more delegate calls so we can remove the delegate
         Kitchen.appController.navigationController.delegate = nil
-        self.activeRecipe = nil
         
         containerView.addSubview(imageView)
         imageView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
@@ -337,7 +336,7 @@ class ActionHandler: NSObject {
                 guard let viewController = Kitchen.appController.navigationController.visibleViewController,
                 viewController.isLoadingViewController else { return }
                 
-                let recipe = SeasonProductRecipe(show: show)
+                let recipe = ShowProductRecipe(show: show)
                 recipe.fanartLogoString = fanartLogoString
                 self.activeRecipe = recipe
                 Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
@@ -437,6 +436,7 @@ class ActionHandler: NSObject {
             group.enter()
             TMDBManager.shared.getEpisodeScreenshots(forShowWithImdbId: show.id, orTMDBId: show.tmdbId, season: episode.season, episode: episode.episode, completion: { (tmdbId, image, error) in
                 if let image = image { episode.largeBackgroundImage = image }
+                if let tmdbId = tmdbId { episode.show.tmdbId = tmdbId }
                 episodes.append(episode)
                 group.leave()
             })
@@ -611,6 +611,21 @@ class ActionHandler: NSObject {
         }
         
         let currentProgress = media is Movie ? WatchedlistManager.movie.currentProgress(media.id) : WatchedlistManager.episode.currentProgress(media.id)
+        var nextEpisode: Episode?
+        
+        if let showRecipe = activeRecipe as? ShowProductRecipe, let episode = media as? Episode {
+            
+            var episodesLeftInShow = [Episode]()
+            
+            for season in showRecipe.show.seasonNumbers {
+                episodesLeftInShow += showRecipe.groupedEpisodes(bySeason: season)
+            }
+            
+            let index = episodesLeftInShow.index(of: episode)!
+            episodesLeftInShow.removeFirst(index + 1)
+            
+            nextEpisode = !episodesLeftInShow.isEmpty ? episodesLeftInShow.removeFirst() : nil
+        }
         
         let loadingViewController = storyboard.instantiateViewController(withIdentifier: "LoadingViewController") as! LoadingViewController
         loadingViewController.backgroundImageString = media.largeBackgroundImage
@@ -629,39 +644,16 @@ class ActionHandler: NSObject {
         }
         
         let playViewController = storyboard.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
+        playViewController.delegate = self
         
-        getSubtitles(forMedia: media, id: media.id) { subtitles in
+        media.getSubtitles(forId: media.id) { subtitles in
             media.subtitles = subtitles
             
             if let perferredLanguage = SubtitleSettings().language {
                 media.currentSubtitle = media.subtitles.first(where: {$0.language == perferredLanguage})
             }
             
-            media.play(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
-        }
-    }
-    
-    /**
-     Retrieves subtitles from OpenSubtitles
-     
-     - Parameter media: The media to fetch subtitles for.
-     - Parameter id:    The imdbId of the movie. If the media is an episode, an imdbId will be fetched automatically.
-     
-     - Parameter completion: The completion handler for the request containing an array of subtitles
-     */
-    func getSubtitles(forMedia media: Media, id: String, completion: @escaping ([Subtitle]) -> Void) {
-        if let episode = media as? Episode, !id.hasPrefix("tt") {
-            TraktManager.shared.getEpisodeMetadata(episode.show.id, episodeNumber: episode.episode, seasonNumber: episode.season, completion: { [weak self] (tvdb, imdb, error) in
-                if let imdb = imdb { self?.getSubtitles(forMedia: media, id: imdb, completion: completion) } else {
-                    SubtitlesManager.shared.search(episode) { (subtitles, _) in
-                        completion(subtitles)
-                    }
-                }
-            })
-        } else {
-            SubtitlesManager.shared.search(imdbId: id) { (subtitles, _) in
-                completion(subtitles)
-            }
+            media.play(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, nextEpisodeInSeries: nextEpisode, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
         }
     }
 
@@ -715,7 +707,7 @@ class ActionHandler: NSObject {
      */
     func chooseQuality(_ torrentsString: String, _ mediaString: String) {
         guard let torrents = Mapper<Torrent>().mapArray(JSONString: torrentsString) else {
-            Kitchen.serve(recipe: AlertRecipe(title: "No torrents found", description: "Torrents could not be found for the specified movie.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")]))
+            Kitchen.serve(recipe: AlertRecipe(title: "No torrents found", description: "Torrents could not be found for the specified media.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")]))
             return
         }
         let buttons = torrents.map({ AlertButton(title: $0.quality, actionID: "streamTorrent»\(Mapper<Torrent>().toJSONString($0)?.cleaned ?? "")»\(mediaString.cleaned)") })
@@ -728,22 +720,11 @@ class ActionHandler: NSObject {
         
         Kitchen.serve(recipe: AlertRecipe(title: "Choose Quality", description: "Choose a quality to stream.", buttons: buttons))
     }
-}
-
-protocol KVC {
-    func value(forKey key: String) -> Any?
-}
-
-extension KVC {
     
-    func value(forKey key: String) -> Any? {
-        let mirror = Mirror(reflecting: self)
-        
-        for (childKey, childValue) in mirror.children where childKey == key {
-            return childValue
-        }
-
-        return nil
+    // MARK: PCTPlayerViewControllerDelegate
+    
+    func playNext(_ episode: Episode) {
+        chooseQuality(Mapper<Torrent>().toJSONString(episode.torrents) ?? "", Mapper<Episode>().toJSONString(episode) ?? "")
     }
 }
 

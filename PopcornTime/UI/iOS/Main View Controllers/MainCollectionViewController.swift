@@ -160,7 +160,7 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
         }
         if let image = media.mediumCoverImage,
             let url = URL(string: image) {
-            cell.coverImage.af_setImage(withURL: url, placeholderImage: UIImage(named: "Placeholder"), imageTransition: .crossDissolve(animationLength))
+            cell.coverImage.af_setImage(withURL: url, placeholderImage: UIImage(named: "\((media is Movie) ? "Movie" : "Episode") Placeholder"), imageTransition: .crossDissolve(animationLength))
         }
         return cell
     }

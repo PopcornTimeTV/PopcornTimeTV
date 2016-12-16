@@ -78,17 +78,16 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         switch gesture.touchLocation {
         case .left:
             if gesture.isClick && gesture.state == .ended { rewind(); progressBar.hint = .none }
-            if gesture.isLongPress { rewindHeld(gesture) } else { progressBar.hint = .jumpBackward30 }
+            if gesture.isLongPress { rewindHeld(gesture) } else if gesture.state != .ended { progressBar.hint = .jumpBackward30 }
         case .right:
             if gesture.isClick && gesture.state == .ended { fastForward(); progressBar.hint = .none }
-            if gesture.isLongPress { fastForwardHeld(gesture) } else { progressBar.hint = .jumpForward30 }
+            if gesture.isLongPress { fastForwardHeld(gesture) } else if gesture.state != .ended { progressBar.hint = .jumpForward30 }
         default: return
         }
     }
     
     func clickGesture(_ gesture: SiriRemoteGestureRecognizer) {
-
-        guard gesture.touchLocation == .unknown && gesture.isClick && gesture.state == .ended else {
+        guard gesture.touchLocation == .unknown && gesture.isClick && gesture.state == .ended && upNextView.isHidden else {
             progressBar.isHidden ? toggleControlsVisible() : ()
             return
         }
@@ -117,6 +116,10 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     }
     
     @IBAction func menuPressed() {
+        guard upNextView.isHidden else {
+            upNextView.hide()
+            return
+        }
         progressBar.isScrubbing ? endScrubbing() : didFinishPlaying()
     }
     
