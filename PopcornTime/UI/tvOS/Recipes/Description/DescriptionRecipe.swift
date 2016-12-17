@@ -9,14 +9,11 @@ public struct DescriptionRecipe: RecipeType {
     public let presentationType: PresentationType
     public let title: String
     public let description: String
-    public let buttons: [(title: String, actionID: String)]
     
     public init(title: String, message: String,
-                buttons: [(title: String, actionID: String)] = [(title: "Dismiss", actionID: "closeAlert")],
                 presentationType: PresentationType = .modal) {
         self.title = title
         self.description = message
-        self.buttons = buttons
         self.presentationType = presentationType
     }
 
@@ -27,16 +24,6 @@ public struct DescriptionRecipe: RecipeType {
         xml += "</document>"
         return xml
     }
-    
-    fileprivate var buttonString: String {
-        let mapped: [String] = buttons.map {
-            var string = "<button actionID=\"\($0.actionID)\">"
-            string += "<text>\($0.title)</text>"
-            string += "</button>"
-            return string
-        }
-        return mapped.joined(separator: "")
-    }
 
     public var template: String {
         var xml = ""
@@ -45,7 +32,6 @@ public struct DescriptionRecipe: RecipeType {
                 xml = try String(contentsOf: file)
                 xml = xml.replacingOccurrences(of: "{{TITLE}}", with: title.cleaned)
                 xml = xml.replacingOccurrences(of: "{{DESCRIPTION}}", with: description.cleaned)
-                xml = xml.replacingOccurrences(of: "{{BUTTONS}}", with: buttonString)
             } catch {
                 print("Could not open Catalog template")
             }
