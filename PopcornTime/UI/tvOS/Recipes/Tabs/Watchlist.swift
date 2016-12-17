@@ -13,24 +13,36 @@ struct Watchlist: TabItem {
     }
 
     func handler() {
+        var recipe: WatchlistRecipe
         switch fetchType {
         case .movies:
-            var recipe = WatchlistRecipe(title: title, movies: [Movie]())
+            recipe = WatchlistRecipe(title: title, movies: [Movie]())
             recipe.movies = WatchlistManager<Movie>.movie.getWatchlist({ (movies) in
                 recipe.movies = movies
             })
-            recipe.presentationType = .tab
-            Kitchen.serve(recipe: recipe)
+            guard !recipe.movies.isEmpty else {
+                let backgroundView = ErrorBackgroundView()
+                backgroundView.setUpView(title: "Watchlist Empty", description: "Try adding movies to your watchlist")
+                Kitchen.serve(xmlString: backgroundView.xmlString, type: .tab)
+                return
+            }
         case .shows:
-            var recipe = WatchlistRecipe(title: title, shows: [Show]())
+            recipe = WatchlistRecipe(title: title, shows: [Show]())
             recipe.shows = WatchlistManager<Show>.show.getWatchlist({ (shows) in
                 recipe.shows = shows
             })
-            recipe.presentationType = .tab
-            Kitchen.serve(recipe: recipe)
-        default:
-            break
+            
+            guard !recipe.shows.isEmpty else {
+                let backgroundView = ErrorBackgroundView()
+                backgroundView.setUpView(title: "Watchlist Empty", description: "Try adding shows to your watchlist")
+                Kitchen.serve(xmlString: backgroundView.xmlString, type: .tab)
+                return
+            }
+            
+        default: return
         }
+        recipe.presentationType = .tab
+        Kitchen.serve(recipe: recipe)
     }
 
 }

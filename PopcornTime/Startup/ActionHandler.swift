@@ -279,9 +279,11 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     /// Pops the second last view controller from the navigation stack 1 second after the method is called. This can be used to dismiss the loading view controller that is presented when showing movie detail or show detail.
     func dismissLoading() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-            var viewcontrollers = Kitchen.navigationController.viewControllers
-            viewcontrollers.remove(at: viewcontrollers.count-2)
-            Kitchen.navigationController.setViewControllers(viewcontrollers, animated: false)
+            var viewControllers = Kitchen.navigationController.viewControllers
+            guard let viewController = Kitchen.navigationController.viewControllers[safe: viewControllers.count - 2],
+                viewController.isLoadingViewController else { return }
+            viewControllers.remove(at: viewControllers.count - 2)
+            Kitchen.navigationController.setViewControllers(viewControllers, animated: false)
         })
     }
     
@@ -517,12 +519,10 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
         
         var recipe: CatalogRecipe!
         recipe = CatalogRecipe(title: genre.rawValue, fetchBlock: { (page, completion) in
-            PopcornKit.loadMovies(page, genre: genre, completion: { (movies, error) in
-                guard let movies = movies else { return }
-                completion(movies.map({$0.lockUp}).joined(separator: ""))
-                self.serveCatalogRecipe(recipe, topBarHidden: true)
+            PopcornKit.loadMovies(page, genre: genre) { (movies, error) in
+                completion(recipe, movies?.map({$0.lockUp}).joined(separator: ""), error, true)
                 self.dismissLoading()
-            })
+            }
         })
     }
     
@@ -538,9 +538,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
         var recipe: CatalogRecipe!
         recipe = CatalogRecipe(title: genre.rawValue, fetchBlock: { (page, completion) in
             PopcornKit.loadShows(page, genre: genre, completion: { (shows, error) in
-                guard let shows = shows else {  return }
-                completion(shows.map({$0.lockUp}).joined(separator: ""))
-                self.serveCatalogRecipe(recipe, topBarHidden: true)
+                completion(recipe, shows?.map({$0.lockUp}).joined(separator: ""), error, true)
                 self.dismissLoading()
             })
         })
@@ -561,9 +559,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
         var recipe: CatalogRecipe!
         recipe = CatalogRecipe(title: name, fetchBlock: { (page, completion) in
             TraktManager.shared.getMediaCredits(forPersonWithId: id, mediaType: Movie.self) { (movies, error) in
-                guard !movies.isEmpty else { return }
-                completion(movies.map({$0.lockUp}).joined(separator: ""))
-                self.serveCatalogRecipe(recipe, topBarHidden: true)
+                completion(recipe, movies.map({$0.lockUp}).joined(separator: ""), error, true)
                 self.dismissLoading()
             }
         })
@@ -581,9 +577,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
         var recipe: CatalogRecipe!
         recipe = CatalogRecipe(title: name, fetchBlock: { (page, completion) in
             TraktManager.shared.getMediaCredits(forPersonWithId: id, mediaType: Show.self) { (shows, error) in
-                guard !shows.isEmpty else { return }
-                completion(shows.map({$0.lockUp}).joined(separator: ""))
-                self.serveCatalogRecipe(recipe, topBarHidden: true)
+                completion(recipe, shows.map({$0.lockUp}).joined(separator: ""), error, true)
                 self.dismissLoading()
             }
         })

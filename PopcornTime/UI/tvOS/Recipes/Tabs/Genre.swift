@@ -18,8 +18,8 @@ struct Genre: TabItem {
 
 
     func serveRecipe(_ recipe: GenreRecipe) {
-        Kitchen.appController.evaluate(inJavaScriptContext: {jsContext in
-            let highlightSection: @convention(block) (String, JSValue) -> () = {(text, callback) in
+        Kitchen.appController.evaluate(inJavaScriptContext: { context in
+            let highlightSection: @convention(block) (String, JSValue) -> () = { (text, callback) in
                 recipe.section(didHighlightWithGenre: text) { string in
                     if callback.isObject {
                         callback.call(withArguments: [string])
@@ -27,18 +27,17 @@ struct Genre: TabItem {
                 }
             }
 
-            jsContext.setObject(unsafeBitCast(highlightSection, to: AnyObject.self), forKeyedSubscript: "highlightSection" as NSString)
+            context.setObject(unsafeBitCast(highlightSection, to: AnyObject.self), forKeyedSubscript: "highlightSection" as (NSCopying & NSObjectProtocol)!)
 
             if let file = Bundle.main.url(forResource: "Genre", withExtension: "js") {
                 do {
                     var js = try String(contentsOf: file)
                     js = js.replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
-                    jsContext.evaluateScript(js)
+                    context.evaluateScript(js)
                 } catch {
                     print("Could not open Genre.js")
                 }
             }
-
-            }, completion: nil)
+        }, completion: nil)
     }
 }

@@ -66,13 +66,13 @@ class EpisodeDetailViewController: UIViewController, UIGestureRecognizerDelegate
         }
         
         guard let currentItem = currentItem else {
-            let background = Bundle.main.loadNibNamed("TableBackgroundView", owner: self, options: nil)?.first as! TableBackgroundView
+            let background = Bundle.main.loadNibNamed("ErrorBackgroundView", owner: self, options: nil)?.first as! ErrorBackgroundView
             background.frame = view.bounds
             background.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             background.backgroundColor = UIColor(red: 30.0/255.0, green: 30.0/255.0, blue: 30.0/255.0, alpha: 1.0)
             view.insertSubview(background, aboveSubview: view)
-            background.setUpView(image: UIImage(named: "AirTV")!.withRenderingMode(.alwaysTemplate), description: "No episode selected")
-            background.imageView.tintColor = UIColor.darkGray
+            background.setUpView(image: UIImage(named: "AirTV")?.withRenderingMode(.alwaysTemplate), description: "No episode selected")
+            background.imageView?.tintColor = .darkGray
             return
         }
         

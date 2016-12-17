@@ -17,17 +17,15 @@ struct Trending: TabItem {
         switch fetchType {
         case .movies:
             recipe = CatalogRecipe(title: title, fetchBlock: { (page, completion) in
-                PopcornKit.loadMovies(page, filterBy: .trending, completion: { (movies, error) in
-                    if let movies = movies { completion(movies.map({$0.lockUp}).joined(separator: "")) }
-                    ActionHandler.shared.serveCatalogRecipe(recipe)
-                })
+                PopcornKit.loadMovies(page, filterBy: .trending) { (movies, error) in
+                    completion(recipe, movies?.map({$0.lockUp}).joined(separator: ""), error, false)
+                }
             })
         case .shows:
             recipe = CatalogRecipe(title: title, fetchBlock: { (page, completion) in
-                PopcornKit.loadShows(page, filterBy: .trending, completion: { (shows, error) in
-                    if let shows = shows { completion(shows.map({$0.lockUp}).joined(separator: "")) }
-                    ActionHandler.shared.serveCatalogRecipe(recipe)
-                })
+                PopcornKit.loadShows(page, filterBy: .trending) { (shows, error) in
+                    completion(recipe, shows?.map({$0.lockUp}).joined(separator: ""), error, false)
+                }
             })
         default: return
         }

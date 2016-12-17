@@ -11,9 +11,9 @@ class CatalogRecipe: RecipeType {
     let title: String
     var currentPage = 0
     var isLoading: Bool = false
-    let fetchBlock: (Int, @escaping (String) -> Void) -> Void
+    let fetchBlock: (Int, @escaping (CatalogRecipe, String?, NSError?, Bool) -> Void) -> Void
 
-    init(title: String, fetchBlock: @escaping (Int, @escaping (String) -> Void) -> Void) {
+    init(title: String, fetchBlock: @escaping (Int, @escaping (CatalogRecipe, String?, NSError?, Bool) -> Void) -> Void) {
         self.title = title
         self.fetchBlock = fetchBlock
         lockup() { (lockUp) in
@@ -49,9 +49,20 @@ class CatalogRecipe: RecipeType {
         guard !isLoading else { return }
         isLoading = true
         currentPage += 1
-        fetchBlock(currentPage, {
+        fetchBlock(currentPage, { (recipe, media, error, hidden) in
             self.isLoading = false
-            completion($0)
+            
+            guard let media = media else {
+                guard let error = error else { return }
+                let backgroundView = ErrorBackgroundView()
+                backgroundView.setUpView(error: error)
+                Kitchen.serve(xmlString: backgroundView.xmlString, type: .tab)
+                return
+            }
+            
+            if self.currentPage == 1 { ActionHandler.shared.serveCatalogRecipe(recipe, topBarHidden: hidden) } // Only present the recipe if it's the first page.
+            
+            completion(media)
         })
     }
 }

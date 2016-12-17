@@ -194,7 +194,7 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
         collectionView.backgroundView = nil
         guard media.isEmpty else { return 1 }
         if let error = error {
-            let background = Bundle.main.loadNibNamed("TableBackgroundView", owner: self, options: nil)?.first as! TableBackgroundView
+            let background = Bundle.main.loadNibNamed("ErrorBackgroundView", owner: self, options: nil)?.first as! ErrorBackgroundView
             background.setUpView(error: error)
             collectionView.backgroundView = background
         } else if isLoading {
@@ -204,7 +204,7 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
             indicator.sizeToFit()
             indicator.startAnimating()
         } else {
-            let background = Bundle.main.loadNibNamed("TableBackgroundView", owner: self, options: nil)?.first as! TableBackgroundView
+            let background = Bundle.main.loadNibNamed("ErrorBackgroundView", owner: self, options: nil)?.first as! ErrorBackgroundView
             background.setUpView(image: UIImage(named: "Search")!, title: "No results found.", description: "No search results found for \(searchController.searchBar.text!). Please check the spelling and try again.")
             collectionView.backgroundView = background
         }
