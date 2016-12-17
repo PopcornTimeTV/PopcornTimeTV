@@ -394,12 +394,12 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
         show.episodes = episodes
         
         let group = DispatchGroup()
-        var images = [String]()
-        for season in show.seasonNumbers {
+        var images = [String](repeating: "", count: show.seasonNumbers.count)
+        for (index, season) in show.seasonNumbers.enumerated() {
             group.enter()
             TMDBManager.shared.getSeasonPoster(ofShowWithImdbId: show.id, orTMDBId: show.tmdbId, season: season, completion: { (tmdb, image, error) in
                 if let tmdb = tmdb { show.tmdbId = tmdb }
-                images.append(image ?? show.largeCoverImage ?? "")
+                images[index] = image ?? show.largeCoverImage ?? ""
                 group.leave()
             })
         }
@@ -617,7 +617,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
             
             var episodesLeftInShow = [Episode]()
             
-            for season in showRecipe.show.seasonNumbers {
+            for season in showRecipe.show.seasonNumbers where season >= showRecipe.season {
                 episodesLeftInShow += showRecipe.groupedEpisodes(bySeason: season)
             }
             

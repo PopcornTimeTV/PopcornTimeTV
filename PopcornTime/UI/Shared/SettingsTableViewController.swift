@@ -359,7 +359,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                     if size == 0 {
                         controller.message = "Cache was already empty, no disk space was reclamed."
                     } else {
-                        controller.message = "Cleaned \(size) bytes."
+                        controller.message = "Cleaned \(ByteCountFormatter.string(fromByteCount: size, countStyle: .binary))."
                     }
                 } catch {
                     controller.title = "Failed"

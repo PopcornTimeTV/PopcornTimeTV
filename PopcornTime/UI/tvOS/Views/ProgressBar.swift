@@ -62,8 +62,8 @@ enum TransportBarHint: String {
             if isScrubbing {
                 scrubbingProgress = progress
                 scrubbingPositionMarker.isHidden = false
-                elapsedTimeLabel.textColor = .darkGray
-                remainingTimeLabel.textColor = .darkGray
+                elapsedTimeLabel.alpha = 0.8
+                remainingTimeLabel.alpha = 0.8
                 playbackPositionMarker.alpha = 0.6
                 
                 var frame = screenshotImageView.frame
@@ -84,8 +84,8 @@ enum TransportBarHint: String {
                 })
             } else {
                 playbackPositionMarker.alpha = 1.0
-                elapsedTimeLabel.textColor = .white
-                remainingTimeLabel.textColor = .white
+                elapsedTimeLabel.alpha = 1.0
+                remainingTimeLabel.alpha = 1.0
                 scrubbingPositionMarker.isHidden = true
                 
                 var frame = screenshotImageView.frame
@@ -278,7 +278,7 @@ enum TransportBarHint: String {
         let bufferIndicatorIntersects = bufferingIndicatorView.frame.intersects(remainingTimeLabel.frame) && bufferingIndicatorView.isHidden == false
         
         let shouldHideRemainingTime = timeLabelIntersects || imageViewIntersects || bufferIndicatorIntersects
-        let alpha: CGFloat = shouldHideRemainingTime ? 0.0 : 1.0
+        let alpha: CGFloat = shouldHideRemainingTime ? 0.0 : isScrubbing ? 0.8 : 1.0
         
         UIView.animate(withDuration: 0.15) {
             self.remainingTimeLabel.alpha = alpha

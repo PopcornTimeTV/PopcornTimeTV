@@ -14,28 +14,30 @@ class BufferingBar: UIView {
         }
     }
     
-    var bufferColor: UIColor = .darkGray {
+    var bufferColor: UIColor = .clear {
         didSet {
-            fillLayer.fillColor = bufferColor.cgColor
+            bufferView.contentView.tintColor = bufferColor
         }
     }
-    var borderColor: UIColor = .darkGray {
+    var borderColor: UIColor = UIColor(white: 1.0, alpha: 0.5) {
         didSet {
             borderLayer.borderColor = borderColor.cgColor
         }
     }
-    var elapsedColor: UIColor = .darkGray {
+    var elapsedColor: UIColor = .clear {
         didSet {
-            coverLayer.fillColor = elapsedColor.cgColor
+            elapsedView.contentView.tintColor = elapsedColor
         }
     }
     
     private let borderLayer = CAShapeLayer()
     private let borderMaskLayer = CAShapeLayer()
-    private let fillLayer = CAShapeLayer()
-    private let fillMaskLayer = CAShapeLayer()
-    private let coverMaskLayer = CAShapeLayer()
-    private let coverLayer = CAShapeLayer()
+    
+    private let elapsedView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    private let elapsedMaskLayer = CAShapeLayer()
+    
+    private let bufferView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    private let bufferMaskLayer = CAShapeLayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,15 +55,15 @@ class BufferingBar: UIView {
         borderLayer.fillColor = UIColor.clear.cgColor
         borderLayer.mask = borderMaskLayer
         
-        fillLayer.fillColor = bufferColor.cgColor
-        fillLayer.mask = fillMaskLayer
+        bufferView.layer.mask = bufferMaskLayer
+        bufferView.contentView.tintColor = bufferColor
         
-        coverLayer.mask = coverMaskLayer
-        coverLayer.fillColor = elapsedColor.cgColor
+        elapsedView.layer.mask = elapsedMaskLayer
+        elapsedView.contentView.tintColor = elapsedColor
         
         layer.addSublayer(borderLayer)
-        layer.addSublayer(fillLayer)
-        layer.addSublayer(coverLayer)
+        addSubview(elapsedView)
+        addSubview(bufferView)
     }
     
     override func layoutSubviews() {
@@ -72,25 +74,21 @@ class BufferingBar: UIView {
         let radius = bounds.size.height/2.0
         let path = UIBezierPath(roundedRect: borderRect, cornerRadius: radius)
         
-        borderLayer.path      = path.cgPath
-        borderMaskLayer.path  = path.cgPath
-        borderMaskLayer.frame = bounds
+        borderLayer.path        = path.cgPath
+        borderMaskLayer.path    = path.cgPath
+        borderMaskLayer.frame   = bounds
+        borderLayer.frame       = bounds
         
         let bufferRect = CGRect(origin: .zero, size: CGSize(width: bounds.width * CGFloat(bufferProgress), height: bounds.height))
-        let bufferPath = UIBezierPath(rect: bufferRect)
         
-        fillLayer.path      = bufferPath.cgPath
-        fillMaskLayer.path  = path.cgPath
-        borderLayer.frame   = bounds
-        fillLayer.frame     = bounds
-        fillMaskLayer.frame = bounds
+        bufferMaskLayer.path    = path.cgPath
+        bufferMaskLayer.frame   = bounds
+        bufferView.frame        = bufferRect
         
         let playerRect = CGRect(origin: .zero, size: CGSize(width: bounds.width * CGFloat(elapsedProgress), height: bounds.height))
-        let playerPath = UIBezierPath(rect: playerRect)
         
-        coverLayer.path      = playerPath.cgPath
-        coverMaskLayer.path  = path.cgPath
-        coverLayer.frame     = bounds
-        coverMaskLayer.frame = bounds
+        elapsedMaskLayer.path   = path.cgPath
+        elapsedMaskLayer.frame  = bounds
+        elapsedView.frame       = playerRect
     }
 }
