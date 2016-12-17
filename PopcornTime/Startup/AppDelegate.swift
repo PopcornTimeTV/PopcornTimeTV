@@ -53,7 +53,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate {
         #elseif os(iOS)
             NetworkActivityIndicatorManager.shared.isEnabled = true
             reachability?.startNotifier()
-            GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID))
+            
+            do { try GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID)) }
             window?.tintColor = UIColor.app
             
             if !UserDefaults.standard.bool(forKey: "tosAccepted") {

@@ -79,16 +79,16 @@ class BufferingBar: UIView {
         borderMaskLayer.frame   = bounds
         borderLayer.frame       = bounds
         
-        let bufferRect = CGRect(origin: .zero, size: CGSize(width: bounds.width * CGFloat(bufferProgress), height: bounds.height))
-        
-        bufferMaskLayer.path    = path.cgPath
-        bufferMaskLayer.frame   = bounds
-        bufferView.frame        = bufferRect
-        
         let playerRect = CGRect(origin: .zero, size: CGSize(width: bounds.width * CGFloat(elapsedProgress), height: bounds.height))
         
         elapsedMaskLayer.path   = path.cgPath
         elapsedMaskLayer.frame  = bounds
         elapsedView.frame       = playerRect
+        
+        let bufferRect = CGRect(origin: CGPoint(x: playerRect.maxX, y: 0), size: CGSize(width: (bounds.width - playerRect.width) * CGFloat(bufferProgress), height: bounds.height))
+        
+        bufferMaskLayer.path    = path.cgPath
+        bufferMaskLayer.frame   = bounds
+        bufferView.frame        = bufferRect
     }
 }

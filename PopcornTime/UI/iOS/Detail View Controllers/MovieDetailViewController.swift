@@ -183,7 +183,7 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
         
         controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
-        let preferredLanguage = SubtitleSettings().language
+        let preferredLanguage = currentItem.currentSubtitle?.language ?? SubtitleSettings().language
         controller.preferredAction = controller.actions.first(where: {$0.title == preferredLanguage})
         controller.popoverPresentationController?.sourceView = sender
         present(controller, animated: true, completion: nil)

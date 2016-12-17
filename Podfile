@@ -19,7 +19,7 @@ target 'PopcornTimeiOS' do
     pod 'AlamofireNetworkActivityIndicator', '~> 2.0'
     pod 'Reachability', '~> 3.2'
     pod 'JGProgressHUD', '~> 1.4'
-    pod 'google-cast-sdk', '~> 3.2'
+    pod 'google-cast-sdk', '~> 3.3.0'
     pod 'OBSlider', '~> 1.1.1'
     pod 'ColorArt', '~> 0.1.1'
     pod '1PasswordExtension', '~> 1.8.4'
