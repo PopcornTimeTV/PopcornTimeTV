@@ -69,6 +69,8 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
             self.tableView.reloadData()
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCastStatus), name: .gckCastStateDidChange, object: nil)
+        
         if transitionCoordinator?.viewController(forKey: .from) is LoadingViewController {
             transitionCoordinator?.animate(alongsideTransition: { (context) in
                 guard let tabBarFrame = self.tabBarController?.tabBar.frame else { return }
@@ -95,6 +97,7 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
         navigationController?.navigationBar.isBackgroundHidden = false
         navigationController?.navigationBar.frame.size.width = UIScreen.main.bounds.width
         shouldLayoutSplit = false
+        NotificationCenter.default.removeObserver(self)
         
         if transitionCoordinator?.viewController(forKey: .to) is LoadingViewController {
             transitionCoordinator?.animate(alongsideTransition: { (context) in

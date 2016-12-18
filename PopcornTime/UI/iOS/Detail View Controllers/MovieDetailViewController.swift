@@ -42,6 +42,8 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isBackgroundHidden = true
         view.addObserver(self, forKeyPath: "frame", options: .new, context: &classContext)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCastStatus), name: .gckCastStateDidChange, object: nil)
+        updateCastStatus()
         
         if transitionCoordinator?.viewController(forKey: .from) is LoadingViewController {
             transitionCoordinator?.animate(alongsideTransition: { (context) in
@@ -61,6 +63,7 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isBackgroundHidden = false
         view.removeObserver(self, forKeyPath: "frame")
+        NotificationCenter.default.removeObserver(self)
         
         if transitionCoordinator?.viewController(forKey: .to) is LoadingViewController {
             transitionCoordinator?.animate(alongsideTransition: { (context) in

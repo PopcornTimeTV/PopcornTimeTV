@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TableBackgroundView" customModule="Popcorn_Time" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ErrorBackgroundView" customModule="PopcornTime" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -52,9 +52,9 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="descriptionLabel" destination="Z7z-yU-tDo" id="Yok-yv-wYl"/>
+                <outlet property="descriptionLabel" destination="Z7z-yU-tDo" id="fDm-FD-BPF"/>
                 <outlet property="imageView" destination="MTh-9W-hSV" id="hCX-Ma-ff8"/>
-                <outlet property="titleLabel" destination="VRj-Dk-MSr" id="3iL-Z0-Z8W"/>
+                <outlet property="titleLabel" destination="VRj-Dk-MSr" id="Tjw-jE-0iZ"/>
             </connections>
         </view>
     </objects>
