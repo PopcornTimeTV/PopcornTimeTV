@@ -49,9 +49,13 @@ extension UIViewController {
         method_exchangeImplementations(originalMethod, swizzledMethod)
     }
     
+    @nonobjc var templateViewController: UIViewController? {
+        guard responds(to: Selector(("templateViewController"))) else { return nil }
+        return value(forKey: "templateViewController") as? UIViewController
+    }
+    
     @nonobjc var isLoadingViewController: Bool {
-        guard responds(to: Selector(("templateViewController"))),
-            let templateViewController = value(forKey: "templateViewController") else { return false }
+        guard let templateViewController = templateViewController else { return false }
         return type(of: templateViewController) == NSClassFromString("_TVLoadingViewController")
     }
 }

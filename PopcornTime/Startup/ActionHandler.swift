@@ -77,9 +77,8 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 guard let label = view as? UILabel, label.text == title, label.font.pointSize == 57 else { return false }
                 return true
             }), let containerView = titleLabel.superview, let url = URL(string: urlString),
-            viewController.responds(to: Selector(("templateViewController"))),
             let TVProductTemplateController = NSClassFromString("_TVProductTemplateController"),
-            let templateViewController = viewController.value(forKey: "templateViewController"),
+            let templateViewController = viewController.templateViewController,
             type(of: templateViewController) == TVProductTemplateController else { return }
         
         let imageView = UIImageView()
@@ -484,14 +483,26 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
      */
     func serveCatalogRecipe(_ recipe: CatalogRecipe, topBarHidden hidden: Bool = false) {
         Kitchen.appController.evaluate(inJavaScriptContext: { jsContext in
-            let highlightLockup: @convention(block) (JSValue) -> Void = { (callback) in
-                if callback.isObject {
-                    recipe.lockup(didChangePage: { (lockUp) in
-                        callback.call(withArguments: [lockUp])
-                    })
-                }
+            
+            let loadNextPage: @convention(block) (JSValue) -> Void = { (callback) in
+                recipe.lockup(didChangePage: { (lockUp) in
+                    callback.call(withArguments: [lockUp])
+                })
             }
-            jsContext.setObject(unsafeBitCast(highlightLockup, to: AnyObject.self), forKeyedSubscript: "highlightLockup" as (NSCopying & NSObjectProtocol)!)
+            
+            let isLoading: @convention(block) () -> Bool = {
+                return recipe.isLoading
+            }
+            
+            let hasNextPage: @convention(block) () -> Bool = {
+                return recipe.hasNextPage
+            }
+            
+            jsContext.setObject(unsafeBitCast(isLoading, to: AnyObject.self), forKeyedSubscript: "isLoading" as (NSCopying & NSObjectProtocol)!)
+            
+            jsContext.setObject(unsafeBitCast(hasNextPage, to: AnyObject.self), forKeyedSubscript: "hasNextPage" as (NSCopying & NSObjectProtocol)!)
+            
+            jsContext.setObject(unsafeBitCast(loadNextPage, to: AnyObject.self), forKeyedSubscript: "loadNextPage" as (NSCopying & NSObjectProtocol)!)
 
             if let file = Bundle.main.url(forResource: "Pagination", withExtension: "js") {
                 do {

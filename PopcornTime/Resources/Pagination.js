@@ -3,39 +3,43 @@ var type = "{{TYPE}}";
 doc.addEventListener("select", load.bind(this));
 doc.addEventListener("play", play.bind(this));
 
-var getIndex = function(nodeList, el) {
-    var i = 0;
-    for (; i < nodeList.length; i++) {
-        if (nodeList.item(i) == el) {
+var indexOf = function(element, array) {
+    for (var i = 0; i < array.length; i++) {
+        if (array.item(i) == element) {
             return i;
         }
     }
     return -1;
 }
 
-var highlightSectionEvent = function(event) {
-    var ele = event.target;
-    var lockupList = ele.parentNode.childNodes;
-    var index = getIndex(lockupList, ele);
-    var diff = lockupList.length - index;
-    var parentNode = ele.parentNode;
-    if (diff <= 8) {
-        highlightLockup(function(data) {
-          parentNode.innerHTML += data;
-          addEventListenersLockupElements(parentNode.childNodes);
+var highlightCellEvent = function(event) {
+    
+    var highlightedCell = event.target;
+    var parentNode = highlightedCell.parentNode;
+    var allCells = parentNode.childNodes;
+    var highlightedCellIndex = indexOf(highlightedCell, allCells);
+    var totalCells = allCells.length;
+    var cellsUntilLastCell = totalCells - (highlightedCellIndex + 1);
+    
+    if ((cellsUntilLastCell <= 10) && !isLoading() && hasNextPage()) {
+        loadNextPage(function(data) {
+            doc.getElementById("lockups").insertAdjacentHTML("beforeend", data);
+            addEventListeners();
         });
     }
+    
     return;
 };
 
-var addEventListenersLockupElements = function(lockupElements) {
-  for (var i = 0; i < lockupElements.length; i++) {
-    lockupElements.item(i).addEventListener("highlight", highlightSectionEvent.bind(this));
-  }
+var addEventListeners = function() {
+    var lockupElements = doc.getElementsByTagName("lockup");
+    for (var i = 0; i < lockupElements.length; i++) {
+        lockupElements.item(i).addEventListener("highlight", highlightCellEvent.bind(this));
+    }
 }
 
-var lockupElements = doc.getElementsByTagName("lockup");
-addEventListenersLockupElements(lockupElements);
+
+addEventListeners();
 
 if (type === "catalog") {
     defaultPresenter(doc);
