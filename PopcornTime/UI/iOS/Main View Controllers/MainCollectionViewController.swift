@@ -94,9 +94,9 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
             cache.setObject(vc, forKey: self)
             (vc.viewControllers.first as! GenresTableViewController).delegate = self
             vc.modalPresentationStyle = .popover
-            vc.popoverPresentationController?.backgroundColor = UIColor(red: 30.0/255.0, green: 30.0/255.0, blue: 30.0/255.0, alpha: 1.0)
             return vc
         }()
+        vc.popoverPresentationController?.backgroundColor = UIColor(red: 30.0/255.0, green: 30.0/255.0, blue: 30.0/255.0, alpha: 1.0)
         vc.popoverPresentationController?.barButtonItem = sender
         present(vc, animated: true, completion: nil)
     }

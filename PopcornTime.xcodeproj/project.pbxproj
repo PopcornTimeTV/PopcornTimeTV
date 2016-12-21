@@ -45,7 +45,7 @@
 		4D859B331DDFA07C000E2AA1 /* TermsOfServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B291DDFA079000E2AA1 /* TermsOfServiceViewController.swift */; };
 		4D859B361DDFA08B000E2AA1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D859B341DDFA087000E2AA1 /* Launch Screen.storyboard */; };
 		4D859B391DDFA0A6000E2AA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D859B371DDFA099000E2AA1 /* Main.storyboard */; };
-		4D859B3E1DDFA0C3000E2AA1 /* AirPlayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B3A1DDFA0C0000E2AA1 /* AirPlayTableViewCell.swift */; };
+		4D859B3E1DDFA0C3000E2AA1 /* StreamToDevicesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B3A1DDFA0C0000E2AA1 /* StreamToDevicesTableViewCell.swift */; };
 		4D859B3F1DDFA0C3000E2AA1 /* ShowDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B3B1DDFA0C0000E2AA1 /* ShowDetailTableViewCell.swift */; };
 		4D859B461DDFA0D5000E2AA1 /* StreamToDevicesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B401DDFA0D2000E2AA1 /* StreamToDevicesTableViewController.swift */; };
 		4D859B471DDFA0D5000E2AA1 /* SubtitlesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B411DDFA0D2000E2AA1 /* SubtitlesTableViewController.swift */; };
@@ -208,7 +208,7 @@
 		4D859B291DDFA079000E2AA1 /* TermsOfServiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsOfServiceViewController.swift; sourceTree = "<group>"; };
 		4D859B341DDFA087000E2AA1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		4D859B371DDFA099000E2AA1 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		4D859B3A1DDFA0C0000E2AA1 /* AirPlayTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirPlayTableViewCell.swift; sourceTree = "<group>"; };
+		4D859B3A1DDFA0C0000E2AA1 /* StreamToDevicesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamToDevicesTableViewCell.swift; sourceTree = "<group>"; };
 		4D859B3B1DDFA0C0000E2AA1 /* ShowDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowDetailTableViewCell.swift; sourceTree = "<group>"; };
 		4D859B401DDFA0D2000E2AA1 /* StreamToDevicesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamToDevicesTableViewController.swift; sourceTree = "<group>"; };
 		4D859B411DDFA0D2000E2AA1 /* SubtitlesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitlesTableViewController.swift; sourceTree = "<group>"; };
@@ -489,7 +489,7 @@
 		4D859B081DDCEF3E000E2AA1 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
-				4D859B3A1DDFA0C0000E2AA1 /* AirPlayTableViewCell.swift */,
+				4D859B3A1DDFA0C0000E2AA1 /* StreamToDevicesTableViewCell.swift */,
 				4D859B3B1DDFA0C0000E2AA1 /* ShowDetailTableViewCell.swift */,
 			);
 			path = "Table View Cells";
@@ -875,6 +875,7 @@
 					};
 					4D689A161DD88E17001D1318 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = BQBJ6NTPEG;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1188,7 +1189,7 @@
 				4D859B331DDFA07C000E2AA1 /* TermsOfServiceViewController.swift in Sources */,
 				4D859BA11DDFA164000E2AA1 /* UIImage+Color.swift in Sources */,
 				4D8A57411DE096B700CCDF8A /* ShowDetailViewController+EpisodeDetailViewControllerDelegate.swift in Sources */,
-				4D859B3E1DDFA0C3000E2AA1 /* AirPlayTableViewCell.swift in Sources */,
+				4D859B3E1DDFA0C3000E2AA1 /* StreamToDevicesTableViewCell.swift in Sources */,
 				4D859B7B1DDFA12C000E2AA1 /* FilterCollectionReusableView.swift in Sources */,
 				4D859B661DDFA11B000E2AA1 /* CastPlayerViewController.swift in Sources */,
 				4D859B561DDFA0F8000E2AA1 /* MoviesCollectionViewController.swift in Sources */,
@@ -1387,7 +1388,7 @@
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BQBJ6NTPEG;
 				ENABLE_BITCODE = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1397,7 +1398,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting FIles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.mourke.ios;
 				PRODUCT_NAME = PopcornTime;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1418,12 +1419,12 @@
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BQBJ6NTPEG;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting FIles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.mourke.ios;
 				PRODUCT_NAME = PopcornTime;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Supporting Files/PopcornTimeiOS-Bridging-Header.h";

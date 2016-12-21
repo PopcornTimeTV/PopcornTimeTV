@@ -275,14 +275,19 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
         }
     }
     
-    /// Pops the second last view controller from the navigation stack 1 second after the method is called. This can be used to dismiss the loading view controller that is presented when showing movie detail or show detail.
-    func dismissLoading() {
+    /** 
+     Pops the second last view controller from the navigation stack 1 second after the method is called. This can be used to dismiss the loading view controller that is presented when showing movie detail or show detail.
+     
+     - Parameter completion: Called when the view controller has sucessfully been popped from the navigation stack. Boolean value indicates the success of the operation. Will only fail if the top view controller is not a loadingViewController.
+     */
+    func dismissLoading(completion: ((Bool) -> Void)? = nil) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
             var viewControllers = Kitchen.navigationController.viewControllers
             guard let viewController = Kitchen.navigationController.viewControllers[safe: viewControllers.count - 2],
-                viewController.isLoadingViewController else { return }
+                viewController.isLoadingViewController else { completion?(false); return }
             viewControllers.remove(at: viewControllers.count - 2)
             Kitchen.navigationController.setViewControllers(viewControllers, animated: false)
+            completion?(true)
         })
     }
     
@@ -337,7 +342,12 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 guard let viewController = Kitchen.appController.navigationController.visibleViewController,
                 viewController.isLoadingViewController else { return }
                 
-                let recipe = ShowProductRecipe(show: show)
+                guard let recipe = ShowProductRecipe(show: show) else {
+                    Kitchen.appController.navigationController.popViewController(animated: true)
+                    Kitchen.serve(recipe: AlertRecipe(title: "No episodes available", description: "There are no available episodes for \(show.title).", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")]))
+                    return
+                }
+                
                 recipe.fanartLogoString = fanartLogoString
                 self.activeRecipe = recipe
                 Kitchen.appController.evaluate(inJavaScriptContext: { (context) in

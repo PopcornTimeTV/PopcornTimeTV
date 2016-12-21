@@ -12,7 +12,8 @@ public class ShowProductRecipe: NSObject, RecipeType, UINavigationControllerDele
     public let theme = DefaultTheme()
     public let presentationType = PresentationType.default
 
-    public init(show: Show, currentSeason: Int? = nil) {
+    public init?(show: Show, currentSeason: Int? = nil) {
+        guard !show.seasonNumbers.isEmpty else { return nil }
         self.show = show
         self.season = currentSeason ?? show.seasonNumbers.last ?? -1
         super.init()

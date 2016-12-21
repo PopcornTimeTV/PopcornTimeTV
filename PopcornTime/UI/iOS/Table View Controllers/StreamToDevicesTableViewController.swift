@@ -5,9 +5,9 @@ import MediaPlayer
 import GoogleCast
 import PopcornKit
 
-class StreamToDevicesTableViewController: UITableViewController, GCKDeviceScannerListener, ConnectDevicesProtocol {
+class StreamToDevicesTableViewController: UITableViewController, GCKDeviceScannerListener, ConnectDevicesDelegate, StreamToDevicesTableViewCellDelegate {
     
-    var airPlayDevices = [MPAVRouteProtocol]()
+    var airPlayDevices = [MPAVRoute]()
     var googleCastDevices = [GCKDevice]()
     
     var airPlayManager: AirPlayManager!
@@ -26,17 +26,12 @@ class StreamToDevicesTableViewController: UITableViewController, GCKDeviceScanne
         googleCastManager.delegate = self
     }
     
-    @IBAction func mirroringChanged(_ sender: UISwitch) {
-        let selectedRoute = airPlayDevices[tableView.indexPath(for: sender.superview?.superview as! AirPlayTableViewCell)!.row]
-        airPlayManager.mirrorChanged(sender, selectedRoute: selectedRoute)
-    }
-    
-    func updateTableView(dataSource newDataSource: [AnyObject], updateType: TableViewUpdates, indexPaths: [IndexPath]?) {
+    func updateTableView(dataSource newDataSource: [Any], updateType: TableViewUpdates, indexPaths: [IndexPath]?) {
         self.tableView.beginUpdates()
         if let dataSource = newDataSource as? [GCKDevice] {
             googleCastDevices = dataSource
         } else {
-            airPlayDevices = newDataSource as! [MPAVRouteProtocol]
+            airPlayDevices = newDataSource as! [MPAVRoute]
         }
         switch updateType {
         case .insert:
@@ -57,9 +52,9 @@ class StreamToDevicesTableViewController: UITableViewController, GCKDeviceScanne
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         if airPlayDevices.isEmpty && googleCastDevices.isEmpty {
-            let label = UILabel(frame: CGRect(x: 0,y: 0,width: 100,height: 100))
+            let label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
             label.text = "No devices available"
-            label.textColor = UIColor.lightGray
+            label.textColor = .lightGray
             label.numberOfLines = 0
             label.textAlignment = .center
             label.sizeToFit()
@@ -88,27 +83,35 @@ class StreamToDevicesTableViewController: UITableViewController, GCKDeviceScanne
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! AirPlayTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! StreamToDevicesTableViewCell
         if indexPath.section == 0 {
-            cell.picked = airPlayDevices[indexPath.row].isPicked!()
-            if let mirroringRoute = airPlayDevices[indexPath.row].wirelessDisplayRoute?() , mirroringRoute.isPicked!() {
-                cell.picked = true
-                cell.mirrorSwitch?.setOn(true, animated: true)
+            let route = airPlayDevices[indexPath.row]
+            cell.isPicked = route.isPicked!
+            if let mirroringRoute = route.wirelessDisplayRoute, mirroringRoute.isPicked! {
+                cell.isPicked = true
+                cell.mirroringSwitch?.setOn(true, animated: true)
             } else {
-                cell.mirrorSwitch?.setOn(false, animated: false)
+                cell.mirroringSwitch?.setOn(false, animated: false)
             }
-            cell.titleLabel?.text = airPlayDevices[indexPath.row].routeName!()
-            cell.airImageView?.image = airPlayManager.airPlayItemImage(indexPath.row)
+            cell.titleLabel?.text = route.routeName
+            //cell.iconImageView?.image = route.routeImage
+            cell.delegate = self
         } else {
             cell.titleLabel?.text = googleCastDevices[indexPath.row].friendlyName
-            cell.airImageView?.image = UIImage(named: "CastOff")
+            cell.iconImageView?.image = UIImage(named: "CastOff")
             if let session = GCKCastContext.sharedInstance().sessionManager.currentSession {
-                cell.picked = googleCastDevices[indexPath.row] == session.device
+                cell.isPicked = googleCastDevices[indexPath.row] == session.device
             } else {
-                cell.picked = false
+                cell.isPicked = false
             }
         }
         return cell
+    }
+    
+    func routingCell(_ cell: StreamToDevicesTableViewCell, mirroringSwitchValueDidChange on: Bool) {
+        guard let index = tableView.indexPath(for: cell)?.row else { return }
+        let route = airPlayDevices[index]
+        airPlayManager.didSelectRoute(on ? route.wirelessDisplayRoute ?? route : route)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -122,16 +125,17 @@ class StreamToDevicesTableViewController: UITableViewController, GCKDeviceScanne
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 && airPlayDevices.isEmpty {
-            return CGFloat.leastNormalMagnitude
+            return .leastNormalMagnitude
         } else if section == 1 && googleCastDevices.isEmpty {
-            return CGFloat.leastNormalMagnitude
+            return .leastNormalMagnitude
         }
         return 18
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            if let _ = airPlayDevices[indexPath.row].wirelessDisplayRoute?() , airPlayDevices[indexPath.row].isPicked!() || airPlayDevices[indexPath.row].wirelessDisplayRoute!().isPicked!() {
+            let route = airPlayDevices[indexPath.row]
+            if let wirelessRoute = route.wirelessDisplayRoute, (route.isPicked! || wirelessRoute.isPicked!) {
                 return 88
             }
         }
