@@ -220,7 +220,6 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
     func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
         (controller.presentedViewController as! UINavigationController).topViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonPressed))
         return controller.presentedViewController
-        
     }
     
     func cancelButtonPressed() {

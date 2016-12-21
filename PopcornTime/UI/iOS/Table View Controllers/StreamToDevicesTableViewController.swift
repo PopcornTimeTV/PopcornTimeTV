@@ -16,6 +16,10 @@ class StreamToDevicesTableViewController: UITableViewController, GCKDeviceScanne
     var onlyShowCastDevices: Bool = false
     var castMetadata: CastMetaData?
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        preferredContentSize = tableView.contentSize
+    }
     
     override func viewDidLoad() {
         if !onlyShowCastDevices {
