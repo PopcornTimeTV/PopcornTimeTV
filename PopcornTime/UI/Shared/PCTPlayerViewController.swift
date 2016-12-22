@@ -40,7 +40,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         @IBOutlet var infoHelperView: UIView!
     
         var lastTranslation: CGFloat = 0.0
-        let interactor = OptionsPercentDrivenInteractiveTransition()
     #elseif os(iOS)
         @IBOutlet var screenshotImageView: UIImageView!
     
@@ -358,7 +357,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         }
         
         progressBar.isBuffering = false
-        progressBar.bufferProgress = PTTorrentStreamer.shared().torrentStatus.totalProgreess
+        let totalProgress = PTTorrentStreamer.shared().torrentStatus.totalProgreess
+        progressBar.bufferProgress = totalProgress == 0.0 ? 1.0 : totalProgress
+        
         progressBar.remainingTimeLabel.text = mediaplayer.remainingTime.stringValue
         progressBar.elapsedTimeLabel.text = mediaplayer.time.stringValue
         progressBar.progress = mediaplayer.position

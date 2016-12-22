@@ -4,7 +4,12 @@ import Foundation
 
 extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, OptionsViewControllerDelegate {
     
-    func didSelectDelay(_ delay: Int) {
+    func didSelectAudioDelay(_ delay: Int) {
+        mediaplayer.currentAudioPlaybackDelay = delay
+    }
+
+    
+    func didSelectSubtitleDelay(_ delay: Int) {
         mediaplayer.currentVideoSubTitleDelay = delay
     }
     
@@ -23,10 +28,6 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         return presented is OptionsViewController ? OptionsPresentationController(presentedViewController: presented, presenting: presenting) : nil
-    }
-    
-    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return animator is OptionsAnimatedTransitioning && interactor.hasStarted ? interactor : nil
     }
     
     @IBAction func handlePositionSliderGesture(_ sender: UIPanGestureRecognizer) {
@@ -58,12 +59,12 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         let destinationController = storyboard?.instantiateViewController(withIdentifier: "OptionsViewController") as! OptionsViewController
         destinationController.transitioningDelegate = self
         destinationController.modalPresentationStyle = .custom
-        destinationController.interactor = interactor
         present(destinationController, animated: true, completion: nil)
         destinationController.subtitlesViewController.subtitles = subtitles
         destinationController.subtitlesViewController.currentSubtitle = currentSubtitle
         destinationController.subtitlesViewController.currentDelay = mediaplayer.currentVideoSubTitleDelay
-        destinationController.subtitlesViewController.delegate = self
+        destinationController.audioViewController.currentDelay = mediaplayer.currentAudioPlaybackDelay
+        destinationController.delegate = self
         destinationController.infoViewController.media = media
     }
     

@@ -8,9 +8,7 @@ class OptionsPresentationController: UIPresentationController {
     
     lazy var dimmingView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.black
-        let tap = UITapGestureRecognizer(target:self, action:#selector(dimmingViewTapped))
-        view.addGestureRecognizer(tap)
+        view.backgroundColor = .black
         return view
     }()
     
@@ -61,11 +59,6 @@ class OptionsPresentationController: UIPresentationController {
             })
         }
     }
-}
-
-class OptionsPercentDrivenInteractiveTransition: UIPercentDrivenInteractiveTransition {
-    var hasStarted = false
-    var shouldFinish = false
 }
 
 class OptionsAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {

@@ -3,19 +3,11 @@
 import UIKit
 import PopcornKit
 
-protocol OptionsViewControllerDelegate: class {
-    func didSelectSubtitle(_ subtitle: Subtitle?)
-    func didSelectDelay(_ delay: Int)
-    func didSelectEncoding(_ encoding: String)
-}
-
-class SubtitlesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-    weak var delegate: OptionsViewControllerDelegate?
+class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource {
     
-    @IBOutlet var languageTableView: UITableView!
-    @IBOutlet var delayTableView: UITableView!
-    @IBOutlet var encodingTableView: UITableView!
+    override var activeTabBarButton: UIView {
+        return tabBar.subviews.first(where: {$0 is UIScrollView})?.subviews[safe: 1] ?? UIView()
+    }
     
     var subtitles = [Subtitle]()
     let encodings: [String: String] = {
@@ -48,86 +40,20 @@ class SubtitlesViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        for tableView in [languageTableView, delayTableView, encodingTableView] {
-            tableView?.mask = nil
-            tableView?.clipsToBounds = true
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        let lastRightGuide = UIFocusGuide()
-        encodingTableView.addLayoutGuide(lastRightGuide)
-        
-        lastRightGuide.leftAnchor.constraint(equalTo: encodingTableView.rightAnchor).isActive = true
-        lastRightGuide.topAnchor.constraint(equalTo: encodingTableView.topAnchor).isActive = true
-        lastRightGuide.heightAnchor.constraint(equalToConstant: encodingTableView.contentSize.height).isActive = true
-        lastRightGuide.widthAnchor.constraint(equalTo: encodingTableView.widthAnchor).isActive = true
-        lastRightGuide.preferredFocusedView = languageTableView
-        
-        let lastLeftGuide = UIFocusGuide()
-        languageTableView.addLayoutGuide(lastLeftGuide)
-        
-        lastLeftGuide.rightAnchor.constraint(equalTo: languageTableView.leftAnchor).isActive = true
-        lastLeftGuide.topAnchor.constraint(equalTo: languageTableView.topAnchor).isActive = true
-        lastLeftGuide.heightAnchor.constraint(equalToConstant: languageTableView.contentSize.height).isActive = true
-        lastLeftGuide.widthAnchor.constraint(equalTo: languageTableView.widthAnchor).isActive = true
-        lastLeftGuide.preferredFocusedView = encodingTableView
-        
-        let betweenFirstAndSecondGuide = UIFocusGuide()
-        languageTableView.addLayoutGuide(betweenFirstAndSecondGuide)
-        
-        betweenFirstAndSecondGuide.leftAnchor.constraint(equalTo: languageTableView.rightAnchor).isActive = true
-        betweenFirstAndSecondGuide.topAnchor.constraint(equalTo: languageTableView.topAnchor).isActive = true
-        betweenFirstAndSecondGuide.heightAnchor.constraint(equalToConstant: languageTableView.contentSize.height).isActive = true
-        betweenFirstAndSecondGuide.rightAnchor.constraint(equalTo: delayTableView.leftAnchor).isActive = true
-        betweenFirstAndSecondGuide.preferredFocusedView = delayTableView
-        
-        let betweenSecondAndFirstGuide = UIFocusGuide()
-        delayTableView.addLayoutGuide(betweenSecondAndFirstGuide)
-        
-        betweenSecondAndFirstGuide.rightAnchor.constraint(equalTo: delayTableView.leftAnchor).isActive = true
-        betweenSecondAndFirstGuide.topAnchor.constraint(equalTo: delayTableView.topAnchor).isActive = true
-        betweenSecondAndFirstGuide.heightAnchor.constraint(equalToConstant: delayTableView.contentSize.height).isActive = true
-        betweenSecondAndFirstGuide.leftAnchor.constraint(equalTo: languageTableView.rightAnchor).isActive = true
-        betweenSecondAndFirstGuide.preferredFocusedView = languageTableView
-        
-        let betweenThirdAndSecondGuide = UIFocusGuide()
-        encodingTableView.addLayoutGuide(betweenThirdAndSecondGuide)
-        
-        betweenThirdAndSecondGuide.rightAnchor.constraint(equalTo: encodingTableView.leftAnchor).isActive = true
-        betweenThirdAndSecondGuide.topAnchor.constraint(equalTo: encodingTableView.topAnchor).isActive = true
-        betweenThirdAndSecondGuide.heightAnchor.constraint(equalToConstant: encodingTableView.contentSize.height).isActive = true
-        betweenThirdAndSecondGuide.leftAnchor.constraint(equalTo: delayTableView.rightAnchor).isActive = true
-        betweenThirdAndSecondGuide.preferredFocusedView = delayTableView
-        
-        let betweenSecondAndThirdGuide = UIFocusGuide()
-        delayTableView.addLayoutGuide(betweenSecondAndThirdGuide)
-        
-        betweenSecondAndThirdGuide.leftAnchor.constraint(equalTo: delayTableView.rightAnchor).isActive = true
-        betweenSecondAndThirdGuide.topAnchor.constraint(equalTo: delayTableView.topAnchor).isActive = true
-        betweenSecondAndThirdGuide.heightAnchor.constraint(equalToConstant: delayTableView.contentSize.height).isActive = true
-        betweenSecondAndThirdGuide.rightAnchor.constraint(equalTo: encodingTableView.leftAnchor).isActive = true
-        betweenSecondAndThirdGuide.preferredFocusedView = encodingTableView
-    }
 
     // MARK: Table view data source
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         switch tableView {
-        case languageTableView:
+        case firstTableView:
             cell.textLabel?.text = subtitles[indexPath.row].language
             cell.accessoryType = currentSubtitle == subtitles[indexPath.row] ? .checkmark : .none
-        case delayTableView:
+        case secondTableView:
             let delay = delays[indexPath.row]
             cell.textLabel?.text = (delay > 0 ? "+" : "") + "\(delay).0"
             cell.accessoryType = currentDelay == delay ? .checkmark : .none
-        case encodingTableView:
+        case thirdTableView:
             cell.textLabel?.text = Array(encodings.keys)[indexPath.row]
             cell.accessoryType = currentEncoding == Array(encodings.values)[indexPath.row] ? .checkmark : .none
         default:
@@ -138,11 +64,11 @@ class SubtitlesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch tableView {
-        case languageTableView:
+        case firstTableView:
             return "Language"
-        case delayTableView:
+        case secondTableView:
             return "Delay"
-        case encodingTableView:
+        case thirdTableView:
             return "Encoding"
         default:
             return nil
@@ -153,7 +79,7 @@ class SubtitlesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func numberOfSections(in tableView: UITableView) -> Int {
         tableView.backgroundView = nil
-        if tableView == languageTableView && subtitles.isEmpty {
+        if tableView == firstTableView && subtitles.isEmpty {
             let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 200.0, height: 20)))
             tableView.backgroundView = label
             label.text = "No subtitles available."
@@ -168,46 +94,30 @@ class SubtitlesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
-        case languageTableView:
+        case firstTableView:
             return subtitles.count
-        case delayTableView:
+        case secondTableView:
             return delays.count
-        case encodingTableView:
+        case thirdTableView:
             return encodings.count
         default:
             return 0
         }
     }
     
-    func tableView(_ tableView: UITableView, didUpdateFocusIn context: UITableViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-        if let indexPath = context.nextFocusedIndexPath, let cell = tableView.cellForRow(at: indexPath) {
-            cell.textLabel?.textColor = UIColor.white
-            tableView.scrollToRow(at: tableView.indexPath(for: cell)!, at: .none, animated: true)
-        }
-        if let indexPath = context.previouslyFocusedIndexPath, let cell = tableView.cellForRow(at: indexPath) {
-            cell.textLabel?.textColor = UIColor.lightGray
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        guard let header = view as? UITableViewHeaderFooterView else { return }
-        header.textLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        header.textLabel?.alpha = 0.45
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch tableView {
-        case languageTableView:
+        case firstTableView:
             if currentSubtitle == subtitles[indexPath.row] { // If row was already selected, user wants to remove the selection.
                 currentSubtitle = nil
             } else {
                 currentSubtitle = subtitles[indexPath.row]
             }
             delegate?.didSelectSubtitle(currentSubtitle)
-        case delayTableView:
+        case secondTableView:
             currentDelay = delays[indexPath.row]
-            delegate?.didSelectDelay(currentDelay)
-        case encodingTableView:
+            delegate?.didSelectSubtitleDelay(currentDelay)
+        case thirdTableView:
             currentEncoding = Array(encodings.values)[indexPath.row]
             delegate?.didSelectEncoding(currentEncoding)
         default:

@@ -136,6 +136,8 @@
 		4DA6EF621E00894B009A2F10 /* indicator-watched.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DA6EF611E00894B009A2F10 /* indicator-watched.png */; };
 		4DA6EF671E01AD75009A2F10 /* KVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA6EF661E01AD75009A2F10 /* KVC.swift */; };
 		4DA6EF681E01AD75009A2F10 /* KVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA6EF661E01AD75009A2F10 /* KVC.swift */; };
+		4DAFAA361E0AF4DE00AE0F9A /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFAA351E0AF4DE00AE0F9A /* AudioViewController.swift */; };
+		4DAFAA3B1E0AFDA600AE0F9A /* OptionsStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFAA3A1E0AFDA600AE0F9A /* OptionsStackViewController.swift */; };
 		4DCCBA5B1DC50D780046C755 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
 		4DD6E4D01DFB17B400818A2C /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6E4CF1DFB17B400818A2C /* ProgressBar.swift */; };
 		4DD6E4D21DFB197E00818A2C /* BufferingBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6E4D11DFB197E00818A2C /* BufferingBar.swift */; };
@@ -298,6 +300,8 @@
 		4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
 		4DA6EF611E00894B009A2F10 /* indicator-watched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator-watched.png"; sourceTree = "<group>"; };
 		4DA6EF661E01AD75009A2F10 /* KVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVC.swift; sourceTree = "<group>"; };
+		4DAFAA351E0AF4DE00AE0F9A /* AudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
+		4DAFAA3A1E0AFDA600AE0F9A /* OptionsStackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsStackViewController.swift; sourceTree = "<group>"; };
 		4DC870B51D9EDE58005455B0 /* PopcornTime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopcornTime.entitlements; sourceTree = "<group>"; };
 		4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		4DD6E4CF1DFB17B400818A2C /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProgressBar.swift; path = Views/ProgressBar.swift; sourceTree = "<group>"; };
@@ -567,9 +571,11 @@
 		4D990E3E1DC4F092005CDE34 /* Option View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4D859BAB1DDFA1AD000E2AA1 /* InfoViewController.swift */,
 				4D859BAE1DDFA1B7000E2AA1 /* OptionsViewController.swift */,
+				4DAFAA3A1E0AFDA600AE0F9A /* OptionsStackViewController.swift */,
+				4D859BAB1DDFA1AD000E2AA1 /* InfoViewController.swift */,
 				4D859BAD1DDFA1B7000E2AA1 /* SubtitlesViewController.swift */,
+				4DAFAA351E0AF4DE00AE0F9A /* AudioViewController.swift */,
 			);
 			path = "Option View Controllers";
 			sourceTree = "<group>";
@@ -1082,6 +1088,7 @@
 				4DCCBA5B1DC50D780046C755 /* UIColor+Extension.swift in Sources */,
 				28EB626C1CA3364300985F78 /* String+Cleaned.swift in Sources */,
 				4D859BD31DDFA229000E2AA1 /* SearchRecipe.swift in Sources */,
+				4DAFAA361E0AF4DE00AE0F9A /* AudioViewController.swift in Sources */,
 				4D859BCA1DDFA209000E2AA1 /* WatchlistRecipe.swift in Sources */,
 				4D9CED3B1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift in Sources */,
 				4D859BB61DDFA1C6000E2AA1 /* Movie+Lockup.swift in Sources */,
@@ -1097,6 +1104,7 @@
 				4D859BDB1DDFA237000E2AA1 /* Watchlist.swift in Sources */,
 				4D0183A91DC3ACB500AB75B3 /* Locale+Langs.swift in Sources */,
 				4D859B2C1DDFA079000E2AA1 /* SettingsTableViewController.swift in Sources */,
+				4DAFAA3B1E0AFDA600AE0F9A /* OptionsStackViewController.swift in Sources */,
 				4D859BBB1DDFA1DA000E2AA1 /* CatalogRecipe.swift in Sources */,
 				4D859BDE1DDFA237000E2AA1 /* Popular.swift in Sources */,
 				4D859BCE1DDFA219000E2AA1 /* WelcomeRecipe.swift in Sources */,
