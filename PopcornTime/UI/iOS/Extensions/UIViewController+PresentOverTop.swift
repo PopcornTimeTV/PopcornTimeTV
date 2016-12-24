@@ -1,7 +1,7 @@
 
 import Foundation
 
-extension UISplitViewController {
+extension UIViewController {
     
     private struct AssociatedKeys {
         static var windowKey = "UISplitViewController.windowKey"
@@ -17,9 +17,7 @@ extension UISplitViewController {
     
     
     /** 
-     Stops UISplitViewController delegates being called and messing with modally presented view controllers we do not want added to UISplitViewController.
-     
-     This is achieved by instantiating a separate UIWindow and presenting that instead.
+     Creates a new window with passed in view controller as root and presents using standard modal animation.
      
      - Parameter viewControllerToPresent:   The viewController to be presented.
      - Parameter animated:                  Whether or not you want the presentation to be animated.

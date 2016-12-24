@@ -412,3 +412,13 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
         }
     }
 }
+
+#if os(tvOS)
+    extension SettingsTableViewController {
+        override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+            OperationQueue.main.addOperation {
+                self.view.window?.rootViewController?.present(viewControllerToPresent, animated: flag, completion: completion)
+            }
+        }
+    }
+#endif

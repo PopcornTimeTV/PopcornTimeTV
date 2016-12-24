@@ -4,7 +4,6 @@
             tv-position: top;
             tv-align: right;
             margin: -60 -33 100 100;
-<!--            tv-tint-color: rgb(94, 105, 232);-->
         }
         
         .bar {
@@ -24,8 +23,8 @@
     </banner>
     <collectionList>
         <grid>
-            <section id="lockups">
-                {{POSTERS}}
+            <section>
+                {{LOCKUPS}}
             </section>
         </grid>
     </collectionList>

@@ -1,22 +1,7 @@
-<head>
-    <style>
-        .img {
-            tv-placeholder: movie;
-        }
-        @media tv-template and (tv-theme:light) {
-        tv-highlight-color:rgb(255, 255, 255);}
-        }
-        @media tv-template and (tv-theme:dark) {
-        tv-highlight-color:rgb(0,0,0);}
-        }
-    </style>
-</head>
-
 <grid>
     <header>
         <title>{{TITLE}}</title>
     </header>
-
     <section>
         {{RESULTS}}
     </section>

@@ -22,11 +22,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate {
     #if os(iOS)
         var reachability = Reachability.forInternetConnection()
     #elseif os(tvOS)
+    
+        public var cookbook: Cookbook!
+    
         func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
             let cookbook = Cookbook(launchOptions: launchOptions)
             cookbook.actionIDHandler = ActionHandler.shared.primary
             cookbook.playActionIDHandler = ActionHandler.shared.play
             Kitchen.prepare(cookbook)
+            self.cookbook = cookbook
         
             return true
         }
@@ -41,14 +45,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate {
                 return true
             }
             
-            ActionHandler.shared.showWelcome() { _ in
-                if !UserDefaults.standard.bool(forKey: "tosAccepted") {
-                    let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsOfServiceViewController")
-                    OperationQueue.main.addOperation {
-                        Kitchen.appController.navigationController.pushViewController(vc, animated: true)
-                    }
-                    UserDefaults.standard.set(0.75, forKey: "themeSongVolume")
+            Kitchen.serve(recipe: KitchenTabBar(items: [Browse(), Movies(), Shows(), Watchlist(), Search(), Settings()]))
+            
+            if !UserDefaults.standard.bool(forKey: "tosAccepted") {
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsOfServiceViewController")
+                OperationQueue.main.addOperation {
+                    Kitchen.appController.navigationController.pushViewController(vc, animated: true)
                 }
+                UserDefaults.standard.set(0.75, forKey: "themeSongVolume")
             }
         #elseif os(iOS)
             NetworkActivityIndicatorManager.shared.isEnabled = true
@@ -81,9 +85,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate {
                 {
                     ActionHandler.shared.primary(action)
                 } else {
-                    ActionHandler.shared.showWelcome() { _ in
-                        ActionHandler.shared.primary(action)
-                    }
+                    Kitchen.serve(recipe: KitchenTabBar(items: [Browse(), Movies(), Shows(), Watchlist(), Search(), Settings()]))
+                    ActionHandler.shared.primary(action)
                 }
             }
         #elseif os(iOS)

@@ -3,46 +3,35 @@
 import TVMLKitchen
 import PopcornKit
 
-struct Watchlist: TabItem {
+class Watchlist: TabItem {
 
     let title = "Watchlist"
-    let fetchType: Trakt.MediaType
+    var recipe: WatchlistRecipe!
     
-    init(_ type: Trakt.MediaType) {
-        fetchType = type
-    }
-
     func handler() {
-        var recipe: WatchlistRecipe
-        switch fetchType {
-        case .movies:
-            recipe = WatchlistRecipe(title: title, movies: [Movie]())
-            recipe.movies = WatchlistManager<Movie>.movie.getWatchlist({ (movies) in
-                recipe.movies = movies
-            })
-            guard !recipe.movies.isEmpty else {
-                let backgroundView = ErrorBackgroundView()
-                backgroundView.setUpView(title: "Watchlist Empty", description: "Try adding movies to your watchlist")
-                Kitchen.serve(xmlString: backgroundView.xmlString, type: .tab)
-                return
-            }
-        case .shows:
-            recipe = WatchlistRecipe(title: title, shows: [Show]())
-            recipe.shows = WatchlistManager<Show>.show.getWatchlist({ (shows) in
-                recipe.shows = shows
-            })
+        recipe = recipe ?? {
+            var recipe = WatchlistRecipe(title: title)
             
-            guard !recipe.shows.isEmpty else {
+            recipe.movies = WatchlistManager<Movie>.movie.getWatchlist { (movies) in
+                self.recipe.movies = movies
+            }
+            
+            recipe.shows = WatchlistManager<Show>.show.getWatchlist { (shows) in
+                self.recipe.shows = shows
+            }
+            
+            if recipe.shows.isEmpty && recipe.movies.isEmpty {
                 let backgroundView = ErrorBackgroundView()
                 backgroundView.setUpView(title: "Watchlist Empty", description: "Try adding shows to your watchlist")
                 Kitchen.serve(xmlString: backgroundView.xmlString, type: .tab)
-                return
+                return recipe
             }
             
-        default: return
-        }
-        recipe.presentationType = .tab
-        Kitchen.serve(recipe: recipe)
+            
+            Kitchen.serve(recipe: recipe)
+            
+            return recipe
+        }()
     }
 
 }

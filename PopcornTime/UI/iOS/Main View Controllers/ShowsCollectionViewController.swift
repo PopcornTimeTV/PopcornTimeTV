@@ -26,6 +26,8 @@ class ShowsCollectionViewController: MainCollectionViewController {
             guard let shows = shows else { self.error = error; self.collectionView?.reloadData(); return }
             if removeCurrentData { self.media.removeAll() }
             self.media += shows as [Media]
+            self.media = unique(source: self.media as! [Show])  // Remove duplicates
+            
             if shows.isEmpty // If the array passed in is empty, there are no more results so the content inset of the collection view is reset.
             {
                 self.collectionView?.contentInset.bottom = 0.0

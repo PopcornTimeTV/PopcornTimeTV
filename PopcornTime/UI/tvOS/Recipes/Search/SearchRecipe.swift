@@ -5,22 +5,29 @@ import PopcornKit
 
 class SearchRecipe: TVMLKitchen.SearchRecipe {
     
-    let fetchType: Trakt.MediaType
+    var fetchType: Trakt.MediaType = .movies
     
-    init(fetchType: Trakt.MediaType) {
-        self.fetchType = fetchType
+    init() {
         super.init()
+        try? (UIApplication.shared.delegate as! AppDelegate).cookbook.set(value: self, key: "searchRecipe")
     }
     
     var recipe: String? {
-        if let file = Bundle.main.url(forResource: "SearchRecipe", withExtension: "xml") {
-            do {
-                return try String(contentsOf: file)
-            } catch {
-                print("Could not open Catalog template")
-            }
-        }
-        return nil
+        let file = Bundle.main.url(forResource: "SearchRecipe", withExtension: "xml")!
+        return try! String(contentsOf: file)
+    }
+    
+    public var xmlString: String {
+        var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"
+        xml += "<document>"
+        xml += template
+        xml += "</document>"
+        return xml
+    }
+    
+    public var template: String {
+        let file = Bundle.main.url(forResource: "SearchTemplate", withExtension: "xml")!
+        return try! String(contentsOf: file)
     }
     
     override func filterSearchText(_ text: String, callback: @escaping ((String) -> Void)) {
@@ -44,7 +51,6 @@ class SearchRecipe: TVMLKitchen.SearchRecipe {
                 xml = xml.replacingOccurrences(of: "{{TITLE}}", with: "Found \(shows.count) \(shows.count == 1 ? "show" : "shows") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: ""))
                 
                 callback(xml)
-                
             }
         default:
             return

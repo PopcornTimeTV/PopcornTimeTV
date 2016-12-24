@@ -26,6 +26,8 @@ class AnimeCollectionViewController: MainCollectionViewController {
             guard let anime = anime else { self.error = error; self.collectionView?.reloadData(); return }
             if removeCurrentData { self.media.removeAll() }
             self.media += anime as [Media]
+            self.media = unique(source: self.media as! [Show]) // Remove duplicates
+            
             if anime.isEmpty // If the array passed in is empty, there are no more results so the content inset of the collection view is reset.
             {
                 self.collectionView?.contentInset.bottom = 0.0

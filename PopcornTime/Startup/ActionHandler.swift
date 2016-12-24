@@ -7,6 +7,7 @@ import AVKit
 import XCDYouTubeKit
 import ObjectMapper
 import AlamofireImage
+import SwiftKVC
 
 /**
  Handles all the navigation throughout the app. A string containing a method name and two optional parameters are passed into the `primary:` method. This in turn, generates the method from the string and executes it. Every method in this file has no public parameter names. This is for ease of use when calculating their names using perform selector.
@@ -103,33 +104,6 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
         imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
     }
     
-    /**
-     Loads welcome view controller (App's first view controller).
-     
-     - Parameter completion: Optional completion handler called when view controller has loaded with a boolean value indicating success.
-     */
-    func showWelcome(completion: (((Bool) -> Void))? = nil) {
-        let recipe = WelcomeRecipe(title: "PopcornTime")
-        Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
-            
-            let updateImage: @convention(block) (String, JSValue) -> Void = { (url, callback) in
-                callback.call(withArguments: ["<img src=\"\(url)\" />"])
-            }
-            
-            context.setObject(unsafeBitCast(updateImage, to: AnyObject.self),
-                              forKeyedSubscript: "updateImage" as (NSCopying & NSObjectProtocol)!)
-            
-            if let file = Bundle.main.url(forResource: "WelcomeRecipe", withExtension: "js") {
-                do {
-                    let js = try String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
-                    context.evaluateScript(js)
-                } catch {
-                    print("Could not open ProductRecipe.js")
-                }
-            }
-        }, completion: completion)
-    }
-    
     // MARK: - Watchlist
     
     /**
@@ -189,12 +163,6 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     }
     
     // MARK: - Movies
-    
-    
-    /// Initialises and presents tabBarController with tabs: **Trending**, **Popular**, **Latest**, **Genre**, **Watchlist** and **Search** of type movies.
-    func showMovies() {
-        Kitchen.serve(recipe: KitchenTabBar(items: [Trending(.movies), Popular(.movies), Latest(.movies), Genre(.movies), Watchlist(.movies), Search(.movies)]))
-    }
     
     /**
      Presents detail movie view. Called when a user taps on a movie.
@@ -292,11 +260,6 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     }
     
     // MARK: - Shows
-    
-    /// Initialises and presents tabBarController with tabs: **Trending**, **Popular**, **Latest**, **Genre**, **Watchlist** and **Search** of type shows.
-    func showShows() {
-        Kitchen.serve(recipe: KitchenTabBar(items: [Trending(.shows), Popular(.shows), Latest(.shows), Genre(.shows), Watchlist(.shows), Search(.shows)]))
-    }
     
     /**
      Presents detail show view. Called when a user taps on a show.
@@ -458,46 +421,20 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
             completion(episodes)
         })
     }
-    
-    
-    /// Presents the users watchlist for movies and shows.
-    func showGlobalWatchlist() {
-        
-        var recipe = WatchlistRecipe(title: "Watchlist")
-        
-        recipe.movies = WatchlistManager<Movie>.movie.getWatchlist { (movies) in
-            recipe.movies = movies
-        }
-        
-        recipe.shows = WatchlistManager<Show>.show.getWatchlist { (shows) in
-            recipe.shows = shows
-        }
-        Kitchen.serve(recipe: recipe)
-    }
-
-    /// Presents the settings view controller.
-    func showSettings() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let viewController = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController {
-            OperationQueue.main.addOperation({ 
-                Kitchen.appController.navigationController.pushViewController(viewController, animated: true)
-            })
-        }
-    }
 
     /**
-     Presents a recipe with pages of information (catalog).
+     Presents a recipe to be added to a tabBar controller.
      
-     - Parameter recipe:        The recipe to be presented.
-     - Parameter topBarHidden:  Boolean value indicating if the tab bar controller is to be hidden when the view controller is pushed to the navigation stack. This must be set to true when presenting detail view controllers.
+     - Parameter recipe: The recipe to be presented
      */
-    func serveCatalogRecipe(_ recipe: CatalogRecipe, topBarHidden hidden: Bool = false) {
-        Kitchen.appController.evaluate(inJavaScriptContext: { jsContext in
+    func serveTabRecipe(_ recipe: MoviesRecipe) {
+        Kitchen.appController.evaluate(inJavaScriptContext: { context in
             
             let loadNextPage: @convention(block) (JSValue) -> Void = { (callback) in
-                recipe.lockup(didChangePage: { (lockUp) in
-                    callback.call(withArguments: [lockUp])
-                })
+                recipe.loadNextPage() { (lockUp) in
+                    let argument = (lockUp)
+                    callback.call(withArguments: [argument])
+                }
             }
             
             let isLoading: @convention(block) () -> Bool = {
@@ -508,61 +445,166 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 return recipe.hasNextPage
             }
             
-            jsContext.setObject(unsafeBitCast(isLoading, to: AnyObject.self), forKeyedSubscript: "isLoading" as (NSCopying & NSObjectProtocol)!)
-            
-            jsContext.setObject(unsafeBitCast(hasNextPage, to: AnyObject.self), forKeyedSubscript: "hasNextPage" as (NSCopying & NSObjectProtocol)!)
-            
-            jsContext.setObject(unsafeBitCast(loadNextPage, to: AnyObject.self), forKeyedSubscript: "loadNextPage" as (NSCopying & NSObjectProtocol)!)
-
-            if let file = Bundle.main.url(forResource: "Pagination", withExtension: "js") {
-                do {
-                    var js = try String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
-                    if hidden { js = js.replacingOccurrences(of: "{{TYPE}}", with: "catalog") }
-                    jsContext.evaluateScript(js)
-                } catch {
-                    print("Could not open Pagination.js")
-                }
+            let filterWasPicked: @convention(block) (String, JSValue) -> Void = { (filter, callback) in
+                recipe.currentFilter = MovieManager.Filters(rawValue: filter)!
+                recipe.currentPage = 0
+                recipe.lockUpString = ""
+                callback.call(withArguments: [])
             }
+            
+            let genreWasPicked: @convention(block) (String, JSValue) -> Void = { (genre, callback) in
+                recipe.currentGenre = MovieManager.Genres(rawValue: genre)!
+                recipe.currentPage = 0
+                recipe.lockUpString = ""
+                callback.call(withArguments: [])
+            }
+            
+            context.setObject(unsafeBitCast(filterWasPicked, to: AnyObject.self), forKeyedSubscript: "filterWasPicked" as (NSCopying & NSObjectProtocol)!)
+            
+            context.setObject(unsafeBitCast(genreWasPicked, to: AnyObject.self), forKeyedSubscript: "genreWasPicked" as (NSCopying & NSObjectProtocol)!)
+            
+            context.setObject(unsafeBitCast(isLoading, to: AnyObject.self), forKeyedSubscript: "isLoading" as (NSCopying & NSObjectProtocol)!)
+            
+            context.setObject(unsafeBitCast(hasNextPage, to: AnyObject.self), forKeyedSubscript: "hasNextPage" as (NSCopying & NSObjectProtocol)!)
+            
+            context.setObject(unsafeBitCast(loadNextPage, to: AnyObject.self), forKeyedSubscript: "loadNextPage" as (NSCopying & NSObjectProtocol)!)
 
-            }, completion: nil)
+            let file = Bundle.main.url(forResource: "MoviesRecipe", withExtension: "js")!
+            let js = try! String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
+            
+            context.evaluateScript(js)
+
+        }, completion: nil)
     }
     
     // MARK: - Genres
     
     /**
-     Present a catalog of movies matching the passed in genre.
+     Present an alert of movie genres for user to pick from.
      
-     - Parameter genre: The genre of the movies to be displayed.
+     - Parameter currentGenre: The genre already selected.
      */
-    func showMovieGenre(_ genre: String) {
-        guard let genre = MovieManager.Genres(rawValue: genre) else { return }
-        Kitchen.serve(recipe: LoadingRecipe(message: genre.rawValue))
+    func showMovieGenres(_ currentGenre: String) {
+        guard let genre = MovieManager.Genres(rawValue: currentGenre) else { return }
         
-        var recipe: CatalogRecipe!
-        recipe = CatalogRecipe(title: genre.rawValue, fetchBlock: { (page, completion) in
-            PopcornKit.loadMovies(page, genre: genre) { (movies, error) in
-                completion(recipe, movies?.map({$0.lockUp}).joined(separator: ""), error, true)
-                self.dismissLoading()
-            }
-        })
+        let controller = UIAlertController(title: "Select a Genre to Filter by", message: nil, preferredStyle: .actionSheet)
+        
+        let handler: ((UIAlertAction) -> Void) = { (handler) in
+            ActionHandler.shared.genreWasPicked(handler.title!)
+        }
+        
+        MovieManager.Genres.array.forEach {
+            controller.addAction(UIAlertAction(title: $0.rawValue, style: .default, handler: handler))
+        }
+        
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        controller.preferredAction = controller.actions.first(where: {$0.title == genre.rawValue})
+        
+        OperationQueue.main.addOperation {
+             Kitchen.appController.navigationController.present(controller, animated: true, completion: nil)
+        }
     }
     
     /**
-     Present a catalog of shows matching the passed in genre.
+     Present an alert of show genres for user to pick from.
      
-     - Parameter genre: The genre of the shows to be displayed.
+     - Parameter currentGenre: The genre already selected.
      */
-    func showShowGenre(_ genre: String) {
-        guard let genre = ShowManager.Genres(rawValue: genre) else { return }
-        Kitchen.serve(recipe: LoadingRecipe(message: genre.rawValue))
+    func showShowGenres(_ currentGenre: String) {
+        guard let genre = ShowManager.Genres(rawValue: currentGenre) else { return }
         
-        var recipe: CatalogRecipe!
-        recipe = CatalogRecipe(title: genre.rawValue, fetchBlock: { (page, completion) in
-            PopcornKit.loadShows(page, genre: genre, completion: { (shows, error) in
-                completion(recipe, shows?.map({$0.lockUp}).joined(separator: ""), error, true)
-                self.dismissLoading()
-            })
-        })
+        let controller = UIAlertController(title: "Select a Genre to Filter by", message: nil, preferredStyle: .actionSheet)
+        
+        let handler: ((UIAlertAction) -> Void) = { (handler) in
+            ActionHandler.shared.genreWasPicked(handler.title!)
+        }
+        
+        ShowManager.Genres.array.forEach {
+            controller.addAction(UIAlertAction(title: $0.rawValue, style: .default, handler: handler))
+        }
+        
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        controller.preferredAction = controller.actions.first(where: {$0.title == genre.rawValue})
+        
+        OperationQueue.main.addOperation {
+            Kitchen.appController.navigationController.present(controller, animated: true, completion: nil)
+        }
+    }
+    
+    /**
+     Called when a genre was picked from alert. Triggers a UI update to filter content by new genre.
+     
+     - Parameter genre: The genre that was picked.
+     */
+    func genreWasPicked(_ genre: String) {
+        Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
+            context.objectForKeyedSubscript("changeGenre").call(withArguments: [genre])
+        }, completion: nil)
+    }
+    
+    // MARK: Filters
+    
+    /**
+     Present an alert of show filters for user to pick from.
+     
+     - Parameter currentFilter: The filter already selected.
+     */
+    func showShowFilters(_ currentFilter: String) {
+        guard let filter = ShowManager.Filters(rawValue: currentFilter) else { return }
+        
+        let controller = UIAlertController(title: "Select a Filter to Sort by", message: nil, preferredStyle: .actionSheet)
+        
+        let handler: ((UIAlertAction) -> Void) = { (handler) in
+            ActionHandler.shared.filterWasPicked(ShowManager.Filters.array.first(where: {$0.string == handler.title!})!.rawValue)
+        }
+        
+        ShowManager.Filters.array.forEach {
+            controller.addAction(UIAlertAction(title: $0.string, style: .default, handler: handler))
+        }
+        
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        controller.preferredAction = controller.actions.first(where: {$0.title == filter.string})
+        
+        OperationQueue.main.addOperation {
+             Kitchen.appController.navigationController.present(controller, animated: true, completion: nil)
+        }
+    }
+    
+    /**
+     Present an alert of movie filters for user to pick from.
+     
+     - Parameter currentFilter: The filter already selected.
+     */
+    func showMovieFilters(_ currentFilter: String) {
+        guard let filter = MovieManager.Filters(rawValue: currentFilter) else { return }
+        
+        let controller = UIAlertController(title: "Select a Filter to Sort by", message: nil, preferredStyle: .actionSheet)
+        
+        let handler: ((UIAlertAction) -> Void) = { (handler) in
+            ActionHandler.shared.filterWasPicked(MovieManager.Filters.array.first(where: {$0.string == handler.title!})!.rawValue)
+        }
+        
+        MovieManager.Filters.array.forEach {
+            controller.addAction(UIAlertAction(title: $0.string, style: .default, handler: handler))
+        }
+        
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        controller.preferredAction = controller.actions.first(where: {$0.title == filter.string})
+        
+        OperationQueue.main.addOperation {
+             Kitchen.appController.navigationController.present(controller, animated: true, completion: nil)
+        }
+    }
+    
+    /**
+     Called when a filter was picked from alert. Triggers a UI update to sort content by new filter.
+     
+     - Parameter filter: The filter that was picked.
+     */
+    func filterWasPicked(_ filter: String) {
+        Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
+            context.objectForKeyedSubscript("changeFilter").call(withArguments: [filter])
+        }, completion: nil)
     }
 
     
@@ -577,13 +619,18 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     func showMovieCredits(_ name: String, _ id: String) {
         Kitchen.serve(recipe: LoadingRecipe(message: name))
         
-        var recipe: CatalogRecipe!
-        recipe = CatalogRecipe(title: name, fetchBlock: { (page, completion) in
-            TraktManager.shared.getMediaCredits(forPersonWithId: id, mediaType: Movie.self) { (movies, error) in
-                completion(recipe, movies.map({$0.lockUp}).joined(separator: ""), error, true)
-                self.dismissLoading()
+        TraktManager.shared.getMediaCredits(forPersonWithId: id, mediaType: Movie.self) { (movies, error) in
+            if let error = error {
+                let backgroundView = ErrorBackgroundView()
+                backgroundView.setUpView(error: error)
+                Kitchen.serve(xmlString: backgroundView.xmlString, type: .default)
+                return
             }
-        })
+            let movies = unique(source: movies).map({$0.lockUp}).joined(separator: "")
+            let recipe = CatalogRecipe(title: name, media: movies)
+            Kitchen.serve(recipe: recipe)
+            self.dismissLoading()
+        }
     }
     
     /**
@@ -595,13 +642,18 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     func showShowCredits(_ name: String, _ id: String) {
         Kitchen.serve(recipe: LoadingRecipe(message: name))
         
-        var recipe: CatalogRecipe!
-        recipe = CatalogRecipe(title: name, fetchBlock: { (page, completion) in
-            TraktManager.shared.getMediaCredits(forPersonWithId: id, mediaType: Show.self) { (shows, error) in
-                completion(recipe, shows.map({$0.lockUp}).joined(separator: ""), error, true)
-                self.dismissLoading()
+        TraktManager.shared.getMediaCredits(forPersonWithId: id, mediaType: Show.self) { (shows, error) in
+            if let error = error {
+                let backgroundView = ErrorBackgroundView()
+                backgroundView.setUpView(error: error)
+                Kitchen.serve(xmlString: backgroundView.xmlString, type: .default)
+                return
             }
-        })
+            let shows = unique(source: shows).map({$0.lockUp}).joined(separator: "")
+            let recipe = CatalogRecipe(title: name, media: shows)
+            Kitchen.serve(recipe: recipe)
+            self.dismissLoading()
+        }
     }
     
     // MARK: - Media
@@ -620,9 +672,9 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let present: (UIViewController, Bool) -> Void = { (viewController, animated) in
-            OperationQueue.main.addOperation({
+            OperationQueue.main.addOperation {
                 Kitchen.appController.navigationController.pushViewController(viewController, animated: animated)
-            })
+            }
         }
         
         let currentProgress = media is Movie ? WatchedlistManager.movie.currentProgress(media.id) : WatchedlistManager.episode.currentProgress(media.id)
@@ -728,7 +780,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
         let buttons = torrents.map({ AlertButton(title: $0.quality, actionID: "streamTorrent»\(Mapper<Torrent>().toJSONString($0)?.cleaned ?? "")»\(mediaString.cleaned)") })
         
         guard buttons.count > 1 else {
-            guard let id = buttons.first?.value(forKey: "actionID") as? String else { return }
+            guard let id = (try? buttons.first?.get(key: "actionID")) as? String else { return }
             primary(id.dirtied)
             return
         }
@@ -743,4 +795,5 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     }
 }
 
-extension AlertButton: KVC {}
+extension AlertButton: Value {}
+extension Cookbook: Value {}

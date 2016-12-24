@@ -603,36 +603,9 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="bUg-kd-uQh">
                                 <rect key="frame" x="928" y="508" width="64" height="64"/>
                             </activityIndicatorView>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k35-ef-k3P" customClass="GradientView" customModule="PopcornTime" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="125"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe Down for Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Y5-Fz-byx">
-                                        <rect key="frame" x="854" y="60" width="213" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Now Playing Arrow" translatesAutoresizingMaskIntoConstraints="NO" id="2T2-lB-K0d">
-                                        <rect key="frame" x="918" y="79" width="85" height="46"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="125" id="7UX-fj-CpZ"/>
-                                    <constraint firstItem="2T2-lB-K0d" firstAttribute="centerX" secondItem="k35-ef-k3P" secondAttribute="centerX" id="OI1-X7-vlg"/>
-                                    <constraint firstItem="8Y5-Fz-byx" firstAttribute="centerX" secondItem="k35-ef-k3P" secondAttribute="centerX" id="U0S-Dc-RE5"/>
-                                    <constraint firstAttribute="bottom" secondItem="2T2-lB-K0d" secondAttribute="bottom" id="l5c-jE-Fdo"/>
-                                    <constraint firstItem="2T2-lB-K0d" firstAttribute="top" secondItem="8Y5-Fz-byx" secondAttribute="bottom" constant="-10" id="uSb-7C-KSm"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="bottomColor">
-                                        <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="topColor">
-                                        <color key="value" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
+                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Now Playing Info" translatesAutoresizingMaskIntoConstraints="NO" id="2T2-lB-K0d">
+                                <rect key="frame" x="834" y="40" width="251" height="85"/>
+                            </imageView>
                             <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EmK-cA-mZ8" userLabel="Up Next View" customClass="UpNextView" customModule="PopcornTime" customModuleProvider="target">
                                 <rect key="frame" x="-1" y="1080" width="1921" height="300"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="5Xc-S0-6B9">
@@ -820,16 +793,16 @@
                             <constraint firstItem="bUg-kd-uQh" firstAttribute="centerY" secondItem="LkF-xE-nSc" secondAttribute="centerY" id="4vQ-Xg-GKP"/>
                             <constraint firstAttribute="trailing" secondItem="kJu-2E-Je1" secondAttribute="trailing" id="5o9-bl-Eqh"/>
                             <constraint firstItem="suM-rg-3BK" firstAttribute="top" secondItem="LkF-xE-nSc" secondAttribute="top" id="BVU-WY-GIs"/>
+                            <constraint firstItem="2T2-lB-K0d" firstAttribute="centerX" secondItem="LkF-xE-nSc" secondAttribute="centerX" id="C6v-C6-6Ca"/>
                             <constraint firstItem="GOk-NB-ZjF" firstAttribute="width" secondItem="LkF-xE-nSc" secondAttribute="width" multiplier="0.9" id="Gg4-r8-oCm"/>
                             <constraint firstItem="bUg-kd-uQh" firstAttribute="centerX" secondItem="LkF-xE-nSc" secondAttribute="centerX" id="MuV-wn-MmN"/>
                             <constraint firstAttribute="bottom" secondItem="kJu-2E-Je1" secondAttribute="bottom" id="MxA-mF-Rgf"/>
                             <constraint firstItem="EmK-cA-mZ8" firstAttribute="centerX" secondItem="LkF-xE-nSc" secondAttribute="centerX" id="NYV-ZV-H6I"/>
                             <constraint firstAttribute="bottomMargin" secondItem="XBD-uM-GmB" secondAttribute="bottom" id="TyJ-Hx-ikD"/>
-                            <constraint firstAttribute="top" secondItem="k35-ef-k3P" secondAttribute="top" id="VSL-Ik-Brt"/>
                             <constraint firstAttribute="bottomMargin" secondItem="GOk-NB-ZjF" secondAttribute="bottom" constant="90" id="e0O-QR-xnZ"/>
+                            <constraint firstItem="2T2-lB-K0d" firstAttribute="top" secondItem="LkF-xE-nSc" secondAttribute="top" constant="40" id="g1a-wj-SsV"/>
                             <constraint firstAttribute="bottomMargin" secondItem="EmK-cA-mZ8" secondAttribute="bottom" priority="250" id="iAX-M7-AnH"/>
                             <constraint firstItem="XBD-uM-GmB" firstAttribute="width" secondItem="LkF-xE-nSc" secondAttribute="width" id="jHP-Xb-v3o"/>
-                            <constraint firstItem="k35-ef-k3P" firstAttribute="width" secondItem="LkF-xE-nSc" secondAttribute="width" id="jNw-6Y-J5F"/>
                             <constraint firstAttribute="bottom" secondItem="suM-rg-3BK" secondAttribute="bottom" id="kbZ-EY-0Ad"/>
                             <constraint firstItem="XBD-uM-GmB" firstAttribute="centerX" secondItem="LkF-xE-nSc" secondAttribute="centerX" id="lYb-gv-5gu"/>
                             <constraint firstItem="GOk-NB-ZjF" firstAttribute="centerX" secondItem="LkF-xE-nSc" secondAttribute="centerX" id="nRa-7w-j2H"/>
@@ -837,7 +810,6 @@
                             <constraint firstItem="EmK-cA-mZ8" firstAttribute="top" secondItem="LkF-xE-nSc" secondAttribute="bottom" priority="999" id="rgN-g7-DA7"/>
                             <constraint firstItem="EmK-cA-mZ8" firstAttribute="width" secondItem="LkF-xE-nSc" secondAttribute="width" id="wFt-3h-PUe"/>
                             <constraint firstItem="suM-rg-3BK" firstAttribute="leading" secondItem="LkF-xE-nSc" secondAttribute="leading" id="wWa-Ne-ul0"/>
-                            <constraint firstItem="k35-ef-k3P" firstAttribute="centerX" secondItem="LkF-xE-nSc" secondAttribute="centerX" id="yd9-MT-NQs"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="qtg-HJ-sha" appends="YES" id="s1E-tR-zPH"/>
@@ -848,7 +820,7 @@
                     </view>
                     <connections>
                         <outlet property="dimmerView" destination="suM-rg-3BK" id="d3x-qe-PzT"/>
-                        <outlet property="infoHelperView" destination="k35-ef-k3P" id="Fp2-le-38w"/>
+                        <outlet property="infoHelperView" destination="2T2-lB-K0d" id="9Tz-V3-c4g"/>
                         <outlet property="loadingActivityIndicatorView" destination="bUg-kd-uQh" id="hab-0d-CpB"/>
                         <outlet property="movieView" destination="kJu-2E-Je1" id="nRY-mz-Dvi"/>
                         <outlet property="progressBar" destination="GOk-NB-ZjF" id="Y6t-gS-cd4"/>
@@ -1428,12 +1400,56 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
             </objects>
             <point key="canvasLocation" x="7721" y="1321"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="wcK-8Z-YpC">
+            <objects>
+                <viewController id="qAO-x1-zfN" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="E89-uG-oNB"/>
+                        <viewControllerLayoutGuide type="bottom" id="JSe-G1-g6r"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TnZ-lg-Clz">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="grU-f7-XZ2">
+                                <rect key="frame" x="0.0" y="824" width="1831" height="256"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="XPu-Xh-xKj">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" id="yOx-7h-eAG">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lvN-a1-jMB">
+                                <rect key="frame" x="20" y="620" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4vp-GJ-fpC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="9971" y="2122"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Episode Placeholder" width="600" height="600"/>
         <image name="Icon" width="600" height="600"/>
         <image name="Movie Placeholder" width="400" height="600"/>
-        <image name="Now Playing Arrow" width="85" height="46"/>
+        <image name="Now Playing Info" width="251" height="85"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <nil key="statusBar"/>

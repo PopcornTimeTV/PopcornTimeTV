@@ -1,0 +1,31 @@
+<head>
+    <style>
+        .title {
+        text-align:left;
+        font-weight: bold;
+        font-size: 73pt;
+        }
+        .hover {
+        tv-text-highlight-style: marquee-and-show-on-highlight;
+        }
+        .indicator {
+        tv-position: top;
+        tv-align: right;
+        margin: -60 -33 100 100;
+        }
+        .bar {
+        tv-position: footer;
+        margin: 70 0 -20 -45;
+        }
+    </style>
+</head>
+
+<stackTemplate>
+    <identityBanner>
+        <title class="title">Movies</title>
+    </identityBanner>
+    <collectionList>
+        {{CONTINUE_WATCHING}}
+        {{MOVIES}}
+    </collectionList>
+</stackTemplate>

@@ -10,8 +10,7 @@ public struct DescriptionRecipe: RecipeType {
     public let title: String
     public let description: String
     
-    public init(title: String, message: String,
-                presentationType: PresentationType = .modal) {
+    public init(title: String, message: String, presentationType: PresentationType = .modal) {
         self.title = title
         self.description = message
         self.presentationType = presentationType

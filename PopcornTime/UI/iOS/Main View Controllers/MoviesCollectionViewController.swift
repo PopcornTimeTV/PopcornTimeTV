@@ -33,6 +33,8 @@ class MoviesCollectionViewController: MainCollectionViewController {
             guard let movies = movies else { self.error = error; self.collectionView?.reloadData(); return }
             if removeCurrentData { self.media.removeAll() }
             self.media += movies as [Media]
+            self.media = unique(source: self.media as! [Movie])  // Remove duplicates
+            
             if movies.isEmpty // If the array passed in is empty, there are no more results so the content inset of the collection view is reset.
             {
                 self.collectionView?.contentInset.bottom = 0.0
