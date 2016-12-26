@@ -109,10 +109,10 @@ public class MovieProductRecipe: NSObject, RecipeType, UINavigationControllerDel
         return string
     }
     
-    var watchedlistButton: String {
-        var string = "<buttonLockup id =\"watchedlistButton\" actionID=\"toggleMovieWatchedlist»\(Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")\">\n"
+    var watchedButton: String {
+        var string = "<buttonLockup id =\"watchedButton\" actionID=\"toggleMovieWatched»\(Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")\">\n"
         let action = WatchedlistManager.movie.isAdded(movie.id) ? "watched" : "unwatched"
-        string += "<badge id =\"watchedlistButtonBadge\" src=\"resource://button-\(action)\" />\n"
+        string += "<badge id =\"watchedButtonBadge\" src=\"resource://button-\(action)\" />\n"
         string += "<title>Watched</title>\n"
         string += "</buttonLockup>"
         return string
@@ -146,7 +146,7 @@ public class MovieProductRecipe: NSObject, RecipeType, UINavigationControllerDel
                 xml = xml.replacingOccurrences(of: "{{CAST}}", with: castString)
 
                 xml = xml.replacingOccurrences(of: "{{WATCH_LIST_BUTTON}}", with: watchlistButton)
-                xml = xml.replacingOccurrences(of: "{{WATCHED_LIST_BUTTON}}", with: watchedlistButton)
+                xml = xml.replacingOccurrences(of: "{{WATCHED_LIST_BUTTON}}", with: watchedButton)
                 
                 xml = xml.replacingOccurrences(of: "{{MOVIE}}", with: Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")
                 xml = xml.replacingOccurrences(of: "{{TORRENTS}}", with: Mapper<Torrent>().toJSONString(movie.torrents)?.cleaned ?? "")

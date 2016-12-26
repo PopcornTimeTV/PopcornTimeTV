@@ -240,7 +240,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         if let subtitles = media.subtitles {
             self.subtitles = subtitles
         }
-        self.currentSubtitle = media.currentSubtitle
         self.imageGenerator = AVAssetImageGenerator(asset: AVAsset(url: local))
     }
     
@@ -266,6 +265,8 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
                 NotificationCenter.default.addObserver(self, selector: #selector(alertFocusDidChange(_:)), name: .UIViewControllerFocusedViewDidChange, object: continueWatchingAlert)
             #endif
             
+            self.loadingActivityIndicatorView.isHidden = true
+            
             
             continueWatchingAlert.addAction(UIAlertAction(title: "Resume Playing", style: .default, handler:{ action in
                 self.resumePlayback = true
@@ -290,8 +291,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         mediaplayer.delegate = self
         mediaplayer.drawable = movieView
         mediaplayer.media = VLCMedia(url: url)
-        progressBar.progress = 0
-        mediaplayer.audio.volume = 200
         
         let settings = SubtitleSettings()
         (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.size))
@@ -299,6 +298,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         (mediaplayer as VLCFontAppearance).setTextRendererFont!(settings.font.familyName as NSString)
         (mediaplayer as VLCFontAppearance).setTextRendererFontForceBold!(NSNumber(booleanLiteral: settings.style == .bold || settings.style == .boldItalic))
         mediaplayer.media.addOptions([vlcSettingTextEncoding: settings.encoding])
+        currentSubtitle = media.currentSubtitle
 
         if let nextEpisode = nextEpisode {
             upNextView.delegate = self

@@ -6,17 +6,23 @@ import PopcornKit
 class Shows: TabItem, MediaRecipeDelegate  {
     
     let title = "Shows"
-    var recipe: ShowsRecipe?
+    var recipe: ShowsRecipe!
+    
+    var index: Int {
+        return ActionHandler.shared.tabBar.items.index(where: {$0.title == self.title})!
+    }
     
     func handler() {
-        recipe = recipe ?? {
-            let recipe = ShowsRecipe()
+        if let recipe = recipe {
+            // Listeners may have been removed if another tab was navigated to.
+            ActionHandler.shared.addListeners(to: recipe, at: index, andPresent: false)
+        } else {
+            recipe = ShowsRecipe()
             recipe.delegate = self
-            recipe.loadNextPage() { _ in
-                ActionHandler.shared.serveTabRecipe(recipe)
+            recipe.loadNextPage() { [unowned self] _ in
+                ActionHandler.shared.addListeners(to: self.recipe, at: self.index, andPresent: true)
             }
-            return recipe
-        }()
+        }
     }
     
     func load(page: Int, filter: String, genre: String, completion: @escaping (String?, NSError?) -> Void) {

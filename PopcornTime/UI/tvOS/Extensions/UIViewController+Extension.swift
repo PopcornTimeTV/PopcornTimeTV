@@ -20,7 +20,7 @@ extension UIViewController {
             if let function = context.objectForKeyedSubscript("viewDidAppear"), !function.isUndefined {
                 function.call(withArguments: [])
             }
-            }, completion: nil)
+            })
         self.pctViewDidAppear(animated)
     }
     

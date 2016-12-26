@@ -1,8 +1,9 @@
-
-
 var doc = makeDocument(`{{RECIPE}}`);
 doc.addEventListener("select", load.bind(this));
 doc.addEventListener("play", play.bind(this));
+
+var present = {{PRESENT}};
+var tabIndex = {{TAB_INDEX}};
 
 /**
  * @description - get the index of an element in an array
@@ -79,6 +80,14 @@ function changeFilter(filter) {
  * @param {String} stringData - the new HTML you wish to append
  */
 function refresh(element, stringData) {
+    
+    if (typeof element === 'undefined') {
+        // For some reason when the view controller is removed from the navigation stack (ie. another view controller is
+        // pushed above it) the DOM empties itself. We need to completely reload the DOM if this happens.
+        reloadDOM();
+        return;
+    }
+    
     //Create parser and new input element
     var domImplementation = doc.implementation;
     var lsParser = domImplementation.createLSParser(1, null);
@@ -90,6 +99,16 @@ function refresh(element, stringData) {
     lsParser.parseWithContext(lsInput, element, 2);
 }
 
+function reloadTab() {
+    var tabItemToReload = this.tabItemDictionary[tabIndex];
+    var feature = this.currentTab.parentNode.getFeature("MenuBarDocument");
+    feature.setDocument(doc, tabItemToReload);
+}
+
 addEventListeners();
 
-menuBarItemPresenter(doc);
+if (present == true) {
+    menuBarItemPresenter(doc);
+} else {
+    reloadTab();
+}

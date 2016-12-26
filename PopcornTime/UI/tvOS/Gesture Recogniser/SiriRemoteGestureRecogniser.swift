@@ -29,6 +29,7 @@ class SiriRemoteGestureRecognizer: UIGestureRecognizer {
         cancelsTouchesInView = false
     }
     
+    
     // MARK: Touches
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {

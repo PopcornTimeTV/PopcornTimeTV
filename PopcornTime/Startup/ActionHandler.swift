@@ -20,6 +20,9 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     /// Create a strong reference to any recipe that needs to stay around in memory longer
     var activeRecipe: Any?
     
+    /// The active tabBarController.
+    var tabBar: KitchenTabBar!
+    
     /**
      Generate a method from a function signature and parameters.
      
@@ -69,7 +72,8 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
      Serves the main tabBarController with view controllers attached.
      */
     func loadTabBar() {
-        Kitchen.serve(recipe: KitchenTabBar(items: [Movies(), Shows(), Watchlist(), Search(), Settings()]))
+        tabBar = KitchenTabBar(items: [Movies(), Shows(), Watchlist(), Search(), Settings()])
+        Kitchen.serve(recipe: tabBar)
     }
     
     // MARK: Hackery
@@ -170,11 +174,11 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
      
      - Parameter movieString: A JSON representation of the movie object to be added to the watchedlist. Use `Mapper` to achieve this.
      */
-    func toggleMovieWatchedlist(_ movieString: String) {
+    func toggleMovieWatched(_ movieString: String) {
         guard let movie = Mapper<Movie>().map(JSONString: movieString) else { return }
         WatchedlistManager.movie.isAdded(movie.id) ? WatchedlistManager.movie.remove(movie.id) : WatchedlistManager.movie.add(movie.id)
         Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
-            context.objectForKeyedSubscript("updateWatchedlistButton").call(withArguments: [])
+            context.objectForKeyedSubscript("updateWatchedButton").call(withArguments: [])
         }, completion: nil)
     }
     
@@ -243,15 +247,29 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 let recipe = MovieProductRecipe(movie: movie)
                 recipe.fanartLogoString = fanartLogoString
                 self.activeRecipe = recipe
+                
+                let disableThemeSong: @convention(block) () -> Void = {
+                    ThemeSongManager.shared.stopTheme()
+                }
+                
+                let enableThemeSong: @convention(block) () -> Void = {
+                    ThemeSongManager.shared.playMovieTheme(movie.title)
+                    
+                    Kitchen.appController.evaluate(inJavaScriptContext: {
+                        $0.objectForKeyedSubscript("updateWatchedButton").call(withArguments: [])
+                    })
+                    
+                }
+                
+                let watchedStatusButtonImage: @convention(block) () -> String = {
+                    return WatchedlistManager.movie.isAdded(movie.id) ? "button-watched" : "button-unwatched"
+                }
+                
+                let watchlistStatusButtonImage: @convention(block) () -> String = {
+                    return WatchlistManager<Movie>.movie.isAdded(movie) ? "button-remove" : "button-add"
+                }
+                
                 Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
-                    
-                    let disableThemeSong: @convention(block) (String) -> Void = { message in
-                        ThemeSongManager.shared.stopTheme()
-                    }
-                    
-                    let enableThemeSong: @convention(block) (String) -> Void = { message in
-                        ThemeSongManager.shared.playMovieTheme(movie.title)
-                    }
                     
                     context.setObject(unsafeBitCast(enableThemeSong, to: AnyObject.self),
                                       forKeyedSubscript: "enableThemeSong" as (NSCopying & NSObjectProtocol)!)
@@ -259,14 +277,16 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                     context.setObject(unsafeBitCast(disableThemeSong, to: AnyObject.self),
                                       forKeyedSubscript: "disableThemeSong" as (NSCopying & NSObjectProtocol)!)
                     
-                    if let file = Bundle.main.url(forResource: "ProductRecipe", withExtension: "js") {
-                        do {
-                            let js = try String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
-                            context.evaluateScript(js)
-                        } catch {
-                            print("Could not open ProductRecipe.js")
-                        }
-                    }
+                    context.setObject(unsafeBitCast(watchedStatusButtonImage, to: AnyObject.self),
+                                      forKeyedSubscript: "watchedStatusButtonImage" as (NSCopying & NSObjectProtocol)!)
+                    
+                    context.setObject(unsafeBitCast(watchlistStatusButtonImage, to: AnyObject.self),
+                                      forKeyedSubscript: "watchlistStatusButtonImage" as (NSCopying & NSObjectProtocol)!)
+                    
+                    let file = Bundle.main.url(forResource: "ProductRecipe", withExtension: "js")!
+                    let js = try! String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
+                    
+                    context.evaluateScript(js)
                 }, completion: { _ in
                     self.dismissLoading()
                 })
@@ -350,25 +370,29 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 
                 recipe.fanartLogoString = fanartLogoString
                 self.activeRecipe = recipe
+                
+                let disableThemeSong: @convention(block) () -> Void = {
+                    ThemeSongManager.shared.stopTheme()
+                }
+                
+                let enableThemeSong: @convention(block) () -> Void = {
+                    if let id = show.tvdbId {
+                        ThemeSongManager.shared.playShowTheme(Int(id)!)
+                    }
+                    
+                    ActionHandler.shared.showSeason(String(recipe.season)) // Refresh the current season's episode when the view controller loads
+                }
+                
+                let updateSeason: @convention(block) (Int, JSValue) -> Void = { (number, callback) in
+                    recipe.season = number
+                    callback.call(withArguments: [recipe.episodeShelf])
+                }
+                
+                let watchlistStatusButtonImage: @convention(block) () -> String = {
+                    return WatchlistManager<Show>.show.isAdded(show) ? "button-remove" : "button-add"
+                }
+
                 Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
-                    let disableThemeSong: @convention(block) (String) -> Void = { message in
-                        ThemeSongManager.shared.stopTheme()
-                    }
-                    
-                    let enableThemeSong: @convention(block) (String) -> Void = { message in
-                        if let id = show.tvdbId {
-                            ThemeSongManager.shared.playShowTheme(Int(id)!)
-                        }
-                        
-                        if let function = context.objectForKeyedSubscript("updateSeason"), !function.isUndefined {
-                            function.call(withArguments: [recipe.season]) // Refresh the current season's episode when the view controller loads
-                        }
-                    }
-                    
-                    let updateSeason: @convention(block) (Int, JSValue) -> Void = { (number, callback) in
-                        recipe.season = number
-                        callback.call(withArguments: [recipe.episodeShelf])
-                    }
                     
                     context.setObject(unsafeBitCast(enableThemeSong, to: AnyObject.self),
                                       forKeyedSubscript: "enableThemeSong" as (NSCopying & NSObjectProtocol)!)
@@ -379,14 +403,13 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                     context.setObject(unsafeBitCast(disableThemeSong, to: AnyObject.self),
                                       forKeyedSubscript: "disableThemeSong" as (NSCopying & NSObjectProtocol)!)
                     
-                    if let file = Bundle.main.url(forResource: "ProductRecipe", withExtension: "js") {
-                        do {
-                            let js = try String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
-                            context.evaluateScript(js)
-                        } catch {
-                            print("Could not open ProductRecipe.js")
-                        }
-                    }
+                    context.setObject(unsafeBitCast(watchlistStatusButtonImage, to: AnyObject.self),
+                                      forKeyedSubscript: "watchlistStatusButtonImage" as (NSCopying & NSObjectProtocol)!)
+                    
+                    let file = Bundle.main.url(forResource: "ProductRecipe", withExtension: "js")!
+                    let js = try! String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
+                    
+                    context.evaluateScript(js)
                 }, completion: { _ in
                     self.dismissLoading()
                 })
@@ -429,7 +452,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     func showSeason(_ number: String) {
         Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
             context.objectForKeyedSubscript("changeSeason").call(withArguments: [Int(number)!])
-            }, completion: nil)
+        }, completion: nil)
     }
     
     /**
@@ -458,43 +481,49 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
             completion(episodes)
         })
     }
-
+    
     /**
-     Presents a recipe to be added to a tabBar controller.
+     Adds pagination and filtering listeners to recipe and optionally presents it.
      
-     - Parameter recipe: The recipe to be presented
+     - Parameter recipe:    The media recipe.
+     - Parameter index:     The index of the recipe in the tabBarController.
+     - Parameter present:   Whether or not the passed in recipe is to be presented
      */
-    func serveTabRecipe(_ recipe: MediaRecipe) {
+    func addListeners(to recipe: MediaRecipe, at index: Int, andPresent present: Bool) {
+        
+        let loadNextPage: @convention(block) (JSValue) -> Void = { (callback) in
+            recipe.loadNextPage() { (lockUp) in
+                callback.call(withArguments: [lockUp])
+            }
+        }
+        
+        let reloadDOM: @convention(block) () -> Void = { [weak self] in
+            self?.addListeners(to: recipe, at: index, andPresent: false)
+        }
+        
+        let isLoading: @convention(block) () -> Bool = {
+            return recipe.isLoading
+        }
+        
+        let hasNextPage: @convention(block) () -> Bool = {
+            return recipe.hasNextPage
+        }
+        
+        let filterWasPicked: @convention(block) (String, JSValue) -> Void = { (filter, callback) in
+            recipe.currentFilter = filter
+            recipe.currentPage = 0
+            recipe.lockup = ""
+            callback.call(withArguments: [])
+        }
+        
+        let genreWasPicked: @convention(block) (String, JSValue) -> Void = { (genre, callback) in
+            recipe.currentGenre = genre
+            recipe.currentPage = 0
+            recipe.lockup = ""
+            callback.call(withArguments: [])
+        }
+        
         Kitchen.appController.evaluate(inJavaScriptContext: { context in
-            
-            let loadNextPage: @convention(block) (JSValue) -> Void = { (callback) in
-                recipe.loadNextPage() { (lockUp) in
-                    let argument = (lockUp)
-                    callback.call(withArguments: [argument])
-                }
-            }
-            
-            let isLoading: @convention(block) () -> Bool = {
-                return recipe.isLoading
-            }
-            
-            let hasNextPage: @convention(block) () -> Bool = {
-                return recipe.hasNextPage
-            }
-            
-            let filterWasPicked: @convention(block) (String, JSValue) -> Void = { (filter, callback) in
-                recipe.currentFilter = filter
-                recipe.currentPage = 0
-                recipe.lockup = ""
-                callback.call(withArguments: [])
-            }
-            
-            let genreWasPicked: @convention(block) (String, JSValue) -> Void = { (genre, callback) in
-                recipe.currentGenre = genre
-                recipe.currentPage = 0
-                recipe.lockup = ""
-                callback.call(withArguments: [])
-            }
             
             context.setObject(unsafeBitCast(filterWasPicked, to: AnyObject.self), forKeyedSubscript: "filterWasPicked" as (NSCopying & NSObjectProtocol)!)
             
@@ -505,12 +534,17 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
             context.setObject(unsafeBitCast(hasNextPage, to: AnyObject.self), forKeyedSubscript: "hasNextPage" as (NSCopying & NSObjectProtocol)!)
             
             context.setObject(unsafeBitCast(loadNextPage, to: AnyObject.self), forKeyedSubscript: "loadNextPage" as (NSCopying & NSObjectProtocol)!)
-
+            
+            context.setObject(unsafeBitCast(reloadDOM, to: AnyObject.self), forKeyedSubscript: "reloadDOM" as (NSCopying & NSObjectProtocol)!)
+            
             let file = Bundle.main.url(forResource: "MediaRecipe", withExtension: "js")!
-            let js = try! String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
+            var js = try! String(contentsOf: file)
+            js = js.replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
+            js = js.replacingOccurrences(of: "{{PRESENT}}", with: String(present))
+            js = js.replacingOccurrences(of: "{{TAB_INDEX}}", with: String(index))
             
             context.evaluateScript(js)
-
+            
         }, completion: nil)
     }
     
@@ -576,7 +610,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     func genreWasPicked(_ genre: String) {
         Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
             context.objectForKeyedSubscript("changeGenre").call(withArguments: [genre])
-        }, completion: nil)
+        })
     }
     
     // MARK: Filters

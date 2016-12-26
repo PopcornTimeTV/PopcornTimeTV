@@ -15,20 +15,25 @@ doc.addEventListener("appear", function(e) {
 });
 
 function viewDidDisappear() {
-  doc.getElementById("watchlistButton").dispatchEvent(disappearEvent); // Get random element to dispatch event off.
+    var element = doc.getElementById("watchlistButton");
+    
+    if (typeof element !== 'undefined') {
+        element.dispatchEvent(disappearEvent); // Get random element to dispatch event off.
+    }
 }
 
 function viewDidAppear() {
-    doc.getElementById("watchlistButton").dispatchEvent(appearEvent); // Get random element to dispatch event off.
+    var element = doc.getElementById("watchlistButton");
+    
+    if (typeof element !== 'undefined') {
+        element.dispatchEvent(appearEvent); // Get random element to dispatch event off.
+    }
 }
 
 function updateWatchlistButton() {
-    var watchlistButton = doc.getElementById("watchlistButton");
-    if (watchlistButton.innerHTML.indexOf("button-remove") == -1) {
-        watchlistButton.innerHTML = watchlistButton.innerHTML.replace("button-add","button-remove");
-    } else {
-        watchlistButton.innerHTML = watchlistButton.innerHTML.replace("button-remove","button-add");
-    }
+    var watchedButton = doc.getElementById("watchlistButton");
+    const src = "resource://" + watchlistStatusButtonImage();
+    watchedButton.firstChild.setAttribute("src", src);
 }
 
 function changeSeason(number) {
@@ -38,13 +43,10 @@ function changeSeason(number) {
     });
 }
 
-function updateWatchedlistButton() {
-    var watchedlistButton = doc.getElementById("watchedlistButton");
-    if (watchedlistButton.innerHTML.indexOf("button-watched") == -1) {
-        watchedlistButton.innerHTML = watchedlistButton.innerHTML.replace("button-unwatched","button-watched");
-    } else {
-        watchedlistButton.innerHTML = watchedlistButton.innerHTML.replace("button-watched","button-unwatched");
-    }
+function updateWatchedButton() {
+    var watchedButton = doc.getElementById("watchedButton");
+    const src = "resource://" + watchedStatusButtonImage();
+    watchedButton.firstChild.setAttribute("src", src);
 }
 
 defaultPresenter(doc);
