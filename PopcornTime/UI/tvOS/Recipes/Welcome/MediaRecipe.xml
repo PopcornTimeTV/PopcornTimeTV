@@ -22,10 +22,10 @@
 
 <stackTemplate>
     <identityBanner>
-        <title class="title">Movies</title>
+        <title class="title">{{TITLE}}</title>
     </identityBanner>
     <collectionList>
         {{CONTINUE_WATCHING}}
-        {{MOVIES}}
+        {{MEDIA}}
     </collectionList>
 </stackTemplate>

@@ -9,11 +9,11 @@ class CatalogRecipe: RecipeType {
     var presentationType = PresentationType.defaultWithLoadingIndicator
 
     let title: String
-    let lockUpString: String
+    let lockup: String
 
     init(title: String, media: String) {
         self.title = title
-        lockUpString = media
+        lockup = media
     }
 
     open var xmlString: String {
@@ -28,7 +28,7 @@ class CatalogRecipe: RecipeType {
         let file = Bundle.main.url(forResource: "CatalogRecipe", withExtension: "xml")!
         var xml = try! String(contentsOf: file)
         xml = xml.replacingOccurrences(of: "{{TITLE}}", with: title)
-        xml = xml.replacingOccurrences(of: "{{LOCKUPS}}", with: lockUpString)
+        xml = xml.replacingOccurrences(of: "{{LOCKUPS}}", with: lockup)
         return xml
     }
 }

@@ -66,6 +66,15 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     }
     
     /**
+     Serves the main tabBarController with view controllers attached.
+     */
+    func loadTabBar() {
+        Kitchen.serve(recipe: KitchenTabBar(items: [Movies(), Shows(), Watchlist(), Search(), Settings()]))
+    }
+    
+    // MARK: Hackery
+    
+    /**
      Replace the movie/shows title with a logo representation of the title.
      
      - Parameter title:                     The title of the movie/show.
@@ -102,6 +111,28 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
         imageView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
         imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+    }
+    
+    /**
+     Replaces tabBarController's template view controller with desired view controller loaded from `Main.storyboard`.
+     
+     - Parameter identifier:    The storyboard id of the viewController.
+     - Parameter type:          The type of the viewController.
+     - Parameter index:         The index of the viewController in relation to the tabBarController's viewController array.
+     
+     - Returns: The viewController instance.
+    */
+    func addViewController<T: UIViewController>(with identifier: String, of type: T.Type, at index: Int) -> T? {
+        guard let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: identifier) as? T,
+            let tabBarController = Kitchen.navigationController.viewControllers.first?.templateViewController as? UITabBarController,
+            var viewControllers = tabBarController.viewControllers else { return nil }
+        
+        OperationQueue.main.addOperation {
+            // Unfortunately replacing the actual view controller is not supported and causes some weirdness with _TVMenuBarController.
+            viewControllers[index].view.addSubview(viewController.view)
+        }
+        
+        return viewController
     }
     
     // MARK: - Watchlist
@@ -271,7 +302,13 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
         Kitchen.serve(recipe: LoadingRecipe(message: title))
         
         PopcornKit.getShowInfo(id) { (show, error) in
-            guard var show = show else { return }
+            guard var show = show else {
+                var viewcontrollers = Kitchen.navigationController.viewControllers
+                viewcontrollers.removeLast()
+                Kitchen.navigationController.setViewControllers(viewcontrollers, animated: true)
+                Kitchen.serve(recipe: AlertRecipe(title: "Failed to load show.", description: error!.localizedDescription, buttons: [AlertButton(title: "Okay", actionID: "closeAlert")]))
+                return
+            }
             
             let group = DispatchGroup()
             var fanartLogoString = ""
@@ -427,7 +464,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
      
      - Parameter recipe: The recipe to be presented
      */
-    func serveTabRecipe(_ recipe: MoviesRecipe) {
+    func serveTabRecipe(_ recipe: MediaRecipe) {
         Kitchen.appController.evaluate(inJavaScriptContext: { context in
             
             let loadNextPage: @convention(block) (JSValue) -> Void = { (callback) in
@@ -446,16 +483,16 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
             }
             
             let filterWasPicked: @convention(block) (String, JSValue) -> Void = { (filter, callback) in
-                recipe.currentFilter = MovieManager.Filters(rawValue: filter)!
+                recipe.currentFilter = filter
                 recipe.currentPage = 0
-                recipe.lockUpString = ""
+                recipe.lockup = ""
                 callback.call(withArguments: [])
             }
             
             let genreWasPicked: @convention(block) (String, JSValue) -> Void = { (genre, callback) in
-                recipe.currentGenre = MovieManager.Genres(rawValue: genre)!
+                recipe.currentGenre = genre
                 recipe.currentPage = 0
-                recipe.lockUpString = ""
+                recipe.lockup = ""
                 callback.call(withArguments: [])
             }
             
@@ -469,7 +506,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
             
             context.setObject(unsafeBitCast(loadNextPage, to: AnyObject.self), forKeyedSubscript: "loadNextPage" as (NSCopying & NSObjectProtocol)!)
 
-            let file = Bundle.main.url(forResource: "MoviesRecipe", withExtension: "js")!
+            let file = Bundle.main.url(forResource: "MediaRecipe", withExtension: "js")!
             let js = try! String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
             
             context.evaluateScript(js)

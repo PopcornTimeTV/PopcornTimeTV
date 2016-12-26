@@ -4,10 +4,10 @@ import Foundation
 import PopcornKit
 
 
-class MoviesRecipe: MediaRecipe {
+class ShowsRecipe: MediaRecipe {
     
     override var filter: String {
-        return MovieManager.Filters(rawValue: currentFilter)!.string
+        return ShowManager.Filters(rawValue: currentFilter)!.string
     }
     
     override var genre: String {
@@ -15,15 +15,15 @@ class MoviesRecipe: MediaRecipe {
     }
     
     override var type: String {
-        return "Movie"
+        return "Show"
     }
     
     override var watchedlistManager: WatchedlistManager {
-        return WatchedlistManager.movie
+        return WatchedlistManager.episode
     }
     
     init() {
-        super.init(title: "Movies", defaultGenre: MovieManager.Genres.all.rawValue, defaultFilter: MovieManager.Filters.trending.rawValue)
+        super.init(title: "Shows", defaultGenre: ShowManager.Genres.all.rawValue, defaultFilter: ShowManager.Filters.trending.rawValue)
     }
     
 }

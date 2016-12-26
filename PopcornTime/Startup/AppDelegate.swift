@@ -45,14 +45,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate {
                 return true
             }
             
-            Kitchen.serve(recipe: KitchenTabBar(items: [Browse(), Movies(), Shows(), Watchlist(), Search(), Settings()]))
+            ActionHandler.shared.loadTabBar()
             
             if !UserDefaults.standard.bool(forKey: "tosAccepted") {
-                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsOfServiceViewController")
-                OperationQueue.main.addOperation {
-                    Kitchen.appController.navigationController.pushViewController(vc, animated: true)
-                }
-                UserDefaults.standard.set(0.75, forKey: "themeSongVolume")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+                    let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsOfServiceViewController")
+                    OperationQueue.main.addOperation {
+                        Kitchen.appController.navigationController.pushViewController(vc, animated: true)
+                    }
+                    UserDefaults.standard.set(0.75, forKey: "themeSongVolume")
+                })
             }
         #elseif os(iOS)
             NetworkActivityIndicatorManager.shared.isEnabled = true
@@ -85,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate {
                 {
                     ActionHandler.shared.primary(action)
                 } else {
-                    Kitchen.serve(recipe: KitchenTabBar(items: [Browse(), Movies(), Shows(), Watchlist(), Search(), Settings()]))
+                    ActionHandler.shared.loadTabBar()
                     ActionHandler.shared.primary(action)
                 }
             }

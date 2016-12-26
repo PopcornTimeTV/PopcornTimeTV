@@ -17,7 +17,7 @@ class SearchRecipe: TVMLKitchen.SearchRecipe {
         return try! String(contentsOf: file)
     }
     
-    public var xmlString: String {
+    var xmlString: String {
         var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"
         xml += "<document>"
         xml += template
@@ -25,7 +25,7 @@ class SearchRecipe: TVMLKitchen.SearchRecipe {
         return xml
     }
     
-    public var template: String {
+    var template: String {
         let file = Bundle.main.url(forResource: "SearchTemplate", withExtension: "xml")!
         return try! String(contentsOf: file)
     }

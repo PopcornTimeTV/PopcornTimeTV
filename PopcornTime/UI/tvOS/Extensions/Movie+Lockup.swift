@@ -20,9 +20,4 @@ extension Movie {
         return string
     }
 
-    var lockUpGenre: String {
-        let string = "<img style=\"tv-placeholder:movie;\" src=\"\(smallCoverImage ?? "")\" width=\"250\" height=\"375\" />"
-        return string
-    }
-
 }
