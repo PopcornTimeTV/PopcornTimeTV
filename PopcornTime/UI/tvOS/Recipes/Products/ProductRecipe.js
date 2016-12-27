@@ -31,9 +31,10 @@ function viewDidAppear() {
 }
 
 function updateWatchlistButton() {
-    var watchedButton = doc.getElementById("watchlistButton");
+    var watchlistButton = doc.getElementById("watchlistButton");
+    if (typeof watchlistButton === 'undefined') { return; }
     const src = "resource://" + watchlistStatusButtonImage();
-    watchedButton.firstChild.setAttribute("src", src);
+    watchlistButton.firstChild.setAttribute("src", src);
 }
 
 function changeSeason(number) {
@@ -45,6 +46,7 @@ function changeSeason(number) {
 
 function updateWatchedButton() {
     var watchedButton = doc.getElementById("watchedButton");
+    if (typeof watchedButton === 'undefined') { return; }
     const src = "resource://" + watchedStatusButtonImage();
     watchedButton.firstChild.setAttribute("src", src);
 }

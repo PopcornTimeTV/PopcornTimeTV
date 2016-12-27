@@ -4,25 +4,33 @@ import TVMLKitchen
 import PopcornKit
 import ObjectMapper
 
-public class ShowProductRecipe: NSObject, RecipeType, UINavigationControllerDelegate {
+public class ShowProductRecipe: NSObject, ProductRecipe, RecipeType, UINavigationControllerDelegate {
 
-    let show: Show
     var season: Int
-
+    var media: Media
+    var show: Show {
+        get {
+            return media as! Show
+        } set (newValue) {
+            media = newValue
+        }
+    }
+    
     public let theme = DefaultTheme()
     public let presentationType = PresentationType.default
 
-    public init?(show: Show, currentSeason: Int? = nil) {
-        guard !show.seasonNumbers.isEmpty else { return nil }
-        self.show = show
-        self.season = currentSeason ?? show.seasonNumbers.last ?? -1
+    public init?(media: Media, currentSeason: Int? = nil) {
+        guard let show = media as? Show, !show.seasonNumbers.isEmpty else { return nil }
+        
+        self.media = media
+        self.season = currentSeason ?? show.seasonNumbers.last!
         super.init()
         Kitchen.appController.navigationController.delegate = self
     }
     
     public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            ActionHandler.shared.replaceTitle(self.show.title, withUrlString: self.fanartLogoString, belongingToViewController: viewController)
+            ActionHandler.shared.replaceTitle(self.show.title, withUrlString: self.fanartLogo, belongingToViewController: viewController)
         }
     }
     
@@ -134,7 +142,7 @@ public class ShowProductRecipe: NSObject, RecipeType, UINavigationControllerDele
         return ""
     }
     
-    var fanartLogoString = ""
+    var fanartLogo = ""
 
     var seasonsButton: String {
         var string = "<buttonLockup actionID=\"showSeasons»\(Mapper<Show>().toJSONString(show)?.cleaned ?? "")»\(Mapper<Episode>().toJSONString(show.episodes)?.cleaned ?? "")\">"

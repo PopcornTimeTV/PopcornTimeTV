@@ -3,16 +3,13 @@
 import TVMLKitchen
 import PopcornKit
 
-class SearchRecipe: TVMLKitchen.SearchRecipe {
+@objc class SearchRecipe: NSObject, SearchRecipeType, SearchRecipeJSExports {
+    
+    dynamic var doc: JSValue?
     
     var fetchType: Trakt.MediaType = .movies
     
-    init() {
-        super.init()
-        try? (UIApplication.shared.delegate as! AppDelegate).cookbook.set(value: self, key: "searchRecipe")
-    }
-    
-    var recipe: String? {
+    var results: String {
         let file = Bundle.main.url(forResource: "SearchRecipe", withExtension: "xml")!
         return try! String(contentsOf: file)
     }
@@ -30,30 +27,40 @@ class SearchRecipe: TVMLKitchen.SearchRecipe {
         return try! String(contentsOf: file)
     }
     
-    override func filterSearchText(_ text: String, callback: @escaping ((String) -> Void)) {
+    var noData: String {
+        return "<list> <section> <header> <title>No Results</title> </header> </section> </list>"
+    }
+    
+    func filterSearchText(_ text: String, callback: @escaping ((String) -> Void)) {
         guard !text.isEmpty else { callback(noData); return }
+        
+        var results = self.results
         
         switch fetchType {
         case .movies:
             PopcornKit.loadMovies(searchTerm: text) { movies, error in
-                guard let movies = movies, var xml = self.recipe else { callback(self.noData); return }
+                guard let movies = movies else { callback(self.noData); return }
                 let mapped = movies.map({ $0.lockUp })
                 
-                xml = xml.replacingOccurrences(of: "{{TITLE}}", with: "Found \(movies.count) \(movies.count == 1 ? "movie" : "movies") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: ""))
+                results = results.replacingOccurrences(of: "{{TITLE}}", with: "Found \(movies.count) \(movies.count == 1 ? "movie" : "movies") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: ""))
                 
-                callback(xml)
+                callback(results)
             }
         case .shows:
             PopcornKit.loadShows(searchTerm: text) { shows, error in
-                guard let shows = shows, var xml = self.recipe else { callback(self.noData); return }
+                guard let shows = shows else { callback(self.noData); return }
                 let mapped = shows.map({ $0.lockUp })
                 
-                xml = xml.replacingOccurrences(of: "{{TITLE}}", with: "Found \(shows.count) \(shows.count == 1 ? "show" : "shows") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: ""))
+                results = results.replacingOccurrences(of: "{{TITLE}}", with: "Found \(shows.count) \(shows.count == 1 ? "show" : "shows") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: ""))
                 
-                callback(xml)
+                callback(results)
             }
         default:
             return
         }
+    }
+    
+    func segmentBarDidChangeSegment(_ rawValue: String) {
+        fetchType = Trakt.MediaType(rawValue: rawValue)!
     }
 }

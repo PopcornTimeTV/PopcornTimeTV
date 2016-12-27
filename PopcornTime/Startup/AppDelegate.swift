@@ -23,14 +23,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate {
         var reachability = Reachability.forInternetConnection()
     #elseif os(tvOS)
     
-        public var cookbook: Cookbook!
-    
         func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+            
             let cookbook = Cookbook(launchOptions: launchOptions)
+            
             cookbook.actionIDHandler = ActionHandler.shared.primary
-            cookbook.playActionIDHandler = ActionHandler.shared.play
+            
             Kitchen.prepare(cookbook)
-            self.cookbook = cookbook
+            
+            ActionHandler.shared.cookbook = cookbook
         
             return true
         }

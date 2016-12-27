@@ -11,7 +11,7 @@ extension UIViewController {
             if let function = context.objectForKeyedSubscript("viewDidDisappear"), !function.isUndefined {
                 function.call(withArguments: [])
             }
-            }, completion: nil)
+        })
         self.pctViewDidDisappear(animated)
     }
     

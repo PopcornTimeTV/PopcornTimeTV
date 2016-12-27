@@ -8,22 +8,27 @@ protocol MediaRecipeDelegate: class {
     func load(page: Int, filter: String, genre: String, completion: @escaping (String?, NSError?) -> Void)
 }
 
-class MediaRecipe: RecipeType {
-    
-    let theme = DefaultTheme()
-    let presentationType = PresentationType.defaultWithLoadingIndicator
+@objc class MediaRecipe: NSObject, RecipeType, MediaRecipeJSExports {
     
     weak var delegate: MediaRecipeDelegate?
     let title: String
     
     var currentPage = 0
-    var isLoading = false
-    var hasNextPage = false
     
-    var currentFilter: String = ""
-    var currentGenre: String = ""
-
+    var currentFilter: String
+    var currentGenre: String
+    
     var continueWatchingMedia: [Media]
+    
+    // MARK: MediaRecipeJSExports
+    
+    dynamic var isLoading = false
+    dynamic var hasNextPage = false
+    dynamic var doc: JSValue?
+    var collectionList: JSValue? {
+        return doc?.invokeMethod("getElementsByTagName", withArguments: ["collectionList"]).invokeMethod("item", withArguments: [0])
+    }
+    
     
     init(continueWatchingMedia: [Media] = [], title: String, defaultGenre: String, defaultFilter: String) {
         self.continueWatchingMedia = continueWatchingMedia
@@ -36,7 +41,6 @@ class MediaRecipe: RecipeType {
     var filter: String { fatalError("Must be overridden") }
     var genre: String { fatalError("Must be overridden") }
     var type: String { fatalError("Must be overridden") }
-    
     var watchedlistManager: WatchedlistManager { fatalError("Must be overridden") }
     
     var mediaSection: String {
@@ -105,7 +109,7 @@ class MediaRecipe: RecipeType {
         return xml
     }
     
-    func loadNextPage(_ completion: ((String) -> Void)? = nil) {
+    @nonobjc func loadNextPage(_ completion: @escaping (String) -> Void) {
         guard !isLoading else { return }
         isLoading = true
         hasNextPage = false
@@ -128,7 +132,30 @@ class MediaRecipe: RecipeType {
             
             self.lockup += media
             
-            completion?(self.continueWatchingShelf + self.mediaSection)
+            completion(self.continueWatchingShelf + self.mediaSection)
         }
+    }
+    
+    // Completion parameter must be JSValue as swift closures cannot be cast properly in functions.
+    internal func loadNextPage(_ completion: JSValue) {
+        loadNextPage { (data) in
+            completion.call(withArguments: [data])
+        }
+    }
+    
+    func filterWasPicked(_ filter: String, _ completion: @escaping (String) -> Void) {
+        currentFilter = filter
+        currentPage = 0
+        lockup = ""
+        
+        loadNextPage(completion)
+    }
+    
+    func genreWasPicked(_ genre: String, _ completion: @escaping (String) -> Void) {
+        currentGenre = genre
+        currentPage = 0
+        lockup = ""
+        
+        loadNextPage(completion)
     }
 }

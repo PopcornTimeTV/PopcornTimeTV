@@ -4,22 +4,30 @@ import TVMLKitchen
 import PopcornKit
 import ObjectMapper
 
-public class MovieProductRecipe: NSObject, RecipeType, UINavigationControllerDelegate {
+public class MovieProductRecipe: NSObject, ProductRecipe, RecipeType, UINavigationControllerDelegate {
 
-    let movie: Movie
+    var media: Media
+    
+    var movie: Movie {
+        get {
+            return media as! Movie
+        } set (newValue) {
+            media = newValue
+        }
+    }
 
     public let theme = DefaultTheme()
     public let presentationType = PresentationType.default
 
-    public init(movie: Movie) {
-        self.movie = movie
+    public init(media: Media) {
+        self.media = media
         super.init()
         Kitchen.appController.navigationController.delegate = self
     }
     
     public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            ActionHandler.shared.replaceTitle(self.movie.title, withUrlString: self.fanartLogoString, belongingToViewController: viewController)
+            ActionHandler.shared.replaceTitle(self.movie.title, withUrlString: self.fanartLogo, belongingToViewController: viewController)
         }
     }
 
@@ -32,7 +40,7 @@ public class MovieProductRecipe: NSObject, RecipeType, UINavigationControllerDel
         return xml
     }
     
-    var fanartLogoString = ""
+    var fanartLogo = ""
 
     var directorsString: String {
         let directors = movie.crew.filter({ $0.roleType == .director })
@@ -125,7 +133,7 @@ public class MovieProductRecipe: NSObject, RecipeType, UINavigationControllerDel
                 xml = try String(contentsOf: file)
                 xml = xml.replacingOccurrences(of: "{{DIRECTORS}}", with: directorsString)
                 xml = xml.replacingOccurrences(of: "{{ACTORS}}", with: actorsString)
-                xml = xml.replacingOccurrences(of: "{{FANART_LOGO}}", with: fanartLogoString)
+                xml = xml.replacingOccurrences(of: "{{FANART_LOGO}}", with: fanartLogo)
 
                 xml = xml.replacingOccurrences(of: "{{RUNTIME}}", with: runtime)
                 xml = xml.replacingOccurrences(of: "{{TITLE}}", with: movie.title.cleaned)

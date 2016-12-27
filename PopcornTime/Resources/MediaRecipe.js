@@ -1,9 +1,9 @@
-var doc = makeDocument(`{{RECIPE}}`);
-doc.addEventListener("select", load.bind(this));
-doc.addEventListener("play", play.bind(this));
 
-var present = {{PRESENT}};
-var tabIndex = {{TAB_INDEX}};
+var {{RECIPE_NAME}};
+
+{{RECIPE_NAME}}.doc = makeDocument(`{{RECIPE}}`);
+
+{{RECIPE_NAME}}.doc.addEventListener("select", load.bind(this));
 
 /**
  * @description - get the index of an element in an array
@@ -30,10 +30,11 @@ var highlightCellEvent = function(event) {
     var highlightedCellIndex = indexOf(highlightedCell, allCells);
     var totalCells = allCells.length;
     var cellsUntilLastCell = totalCells - (highlightedCellIndex + 1);
-    
-    if ((cellsUntilLastCell <= 10) && !isLoading() && hasNextPage()) {
-        loadNextPage(function(data) {
-            const element = doc.getElementsByTagName("collectionList").item(0);
+
+    if ((cellsUntilLastCell <= 10) && !{{RECIPE_NAME}}.isLoading && {{RECIPE_NAME}}.hasNextPage) {
+        console.log({{RECIPE_NAME}});
+        {{RECIPE_NAME}}.loadNextPage(function(data) {
+            const element = {{RECIPE_NAME}}.doc.getElementsByTagName("collectionList").item(0);
             refresh(element, data);
             addEventListeners();
         });
@@ -44,7 +45,7 @@ var highlightCellEvent = function(event) {
  * @description - add's highlight event listeners to all paginated cells in the view
  */
 var addEventListeners = function() {
-    var lockupElements = doc.getElementsByTagName("lockup");
+    var lockupElements = {{RECIPE_NAME}}.doc.getElementsByTagName("lockup");
     for (var i = 0; i < lockupElements.length; i++) {
         var element = lockupElements.item(i);
         // do not add the highlight listener to "continue watching" elements as they are not paginated.
@@ -54,26 +55,6 @@ var addEventListeners = function() {
     }
 }
 
-function changeGenre(genre) {
-    genreWasPicked(genre, function() {
-       loadNextPage(function(data) {
-           const element = doc.getElementsByTagName("collectionList").item(0);
-           refresh(element, data);
-           addEventListeners();
-       });
-    });
-}
-
-function changeFilter(filter) {
-    filterWasPicked(filter, function() {
-        loadNextPage(function(data) {
-            const element = doc.getElementsByTagName("collectionList").item(0);
-            refresh(element, data);
-            addEventListeners();
-        });
-    });
-}
-
 /**
  * @description - refresh the DOM. Child elements will be overridden.
  * @param {IKDOMElement} element - any element you wish to append content to it's innerHTML
@@ -81,15 +62,8 @@ function changeFilter(filter) {
  */
 function refresh(element, stringData) {
     
-    if (typeof element === 'undefined') {
-        // For some reason when the view controller is removed from the navigation stack (ie. another view controller is
-        // pushed above it) the DOM empties itself. We need to completely reload the DOM if this happens.
-        reloadDOM();
-        return;
-    }
-    
     //Create parser and new input element
-    var domImplementation = doc.implementation;
+    var domImplementation = {{RECIPE_NAME}}.doc.implementation;
     var lsParser = domImplementation.createLSParser(1, null);
     var lsInput = domImplementation.createLSInput();
     
@@ -99,16 +73,12 @@ function refresh(element, stringData) {
     lsParser.parseWithContext(lsInput, element, 2);
 }
 
-function reloadTab() {
-    var tabItemToReload = this.tabItemDictionary[tabIndex];
+function reloadTab(atIndex) {
+    var tabItemToReload = this.tabItemDictionary[atIndex];
     var feature = this.currentTab.parentNode.getFeature("MenuBarDocument");
-    feature.setDocument(doc, tabItemToReload);
+    feature.setDocument({{RECIPE_NAME}}.doc, tabItemToReload);
 }
 
 addEventListeners();
 
-if (present == true) {
-    menuBarItemPresenter(doc);
-} else {
-    reloadTab();
-}
+menuBarItemPresenter({{RECIPE_NAME}}.doc);

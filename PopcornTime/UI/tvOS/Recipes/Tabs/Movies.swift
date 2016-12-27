@@ -13,16 +13,21 @@ class Movies: TabItem, MediaRecipeDelegate {
     }
     
     func handler() {
-        if let recipe = recipe {
-            // Listeners may have been removed if another tab was navigated to.
-            ActionHandler.shared.addListeners(to: recipe, at: index, andPresent: false)
-        } else {
-            recipe = MoviesRecipe()
+        recipe = recipe ?? {
+            let recipe = MoviesRecipe()
             recipe.delegate = self
-            recipe.loadNextPage() { [unowned self] _ in
-                ActionHandler.shared.addListeners(to: self.recipe, at: self.index, andPresent: true)
+            recipe.loadNextPage { _ in
+                let file = Bundle.main.url(forResource: "MediaRecipe", withExtension: "js")!
+                var script = try! String(contentsOf: file)
+                script = script.replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
+                script = script.replacingOccurrences(of: "{{RECIPE_NAME}}", with: recipe.title.lowercased())
+                
+                ActionHandler.shared.evaluate(script: script)
             }
-        }
+            return recipe
+        }()
+        
+        ActionHandler.shared.mediaRecipe = recipe
     }
     
     func load(page: Int, filter: String, genre: String, completion: @escaping (String?, NSError?) -> Void) {
