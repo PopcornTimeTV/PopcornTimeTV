@@ -420,8 +420,11 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
      - Parameter number: String representation of the season to load.
      */
     func showSeason(_ number: String) {
-        guard let shelf = productRecipe?.doc?.invokeMethod("getElementById", withArguments: ["episodeShelf"]), let recipe = productRecipe as? ShowProductRecipe else { return }
+        guard let shelf = productRecipe?.doc?.invokeMethod("getElementById", withArguments: ["episodeShelf"]),
+            let subtitle = productRecipe?.doc?.invokeMethod("getElementById", withArguments: ["seasonSubtitle"]),
+            let recipe = productRecipe as? ShowProductRecipe else { return }
         recipe.season = Int(number)!
+        subtitle.setObject(recipe.seasonString, forKeyedSubscript: "innerHTML" as (NSCopying & NSObjectProtocol)!)
         shelf.setObject(recipe.episodeShelf, forKeyedSubscript: "innerHTML" as (NSCopying & NSObjectProtocol)!)
         Kitchen.dismissModal()
     }
