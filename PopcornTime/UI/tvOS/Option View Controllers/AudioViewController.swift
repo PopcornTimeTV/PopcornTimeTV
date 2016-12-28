@@ -34,10 +34,8 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource, Co
     
     
     func updateTableView(dataSource newDataSource: [Any], updateType: TableViewUpdates, indexPaths: [IndexPath]?) {
+        
         thirdTableView.beginUpdates()
-        
-        speakers = newDataSource as! [MPAVRoute]
-        
         switch updateType {
         case .insert:
             thirdTableView.insertRows(at: indexPaths!, with: .middle)
@@ -49,6 +47,9 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource, Co
         case .delete:
             thirdTableView.deleteRows(at: indexPaths!, with: .middle)
         }
+        
+        speakers = newDataSource as! [MPAVRoute]
+        
         thirdTableView.endUpdates()
     }
     
@@ -70,7 +71,7 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource, Co
             let speaker = speakers[indexPath.row]
             cell.textLabel?.text = speaker.routeName
             //cell.imageView?.image = speaker.routeImage
-            cell.accessoryType = currentSpeaker?.routeUID == speaker.routeUID ? .checkmark : .none
+            cell.accessoryType = speaker.isPicked! ? .checkmark : .none
         default:
             break
         }
@@ -104,8 +105,7 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource, Co
             return sounds.count
         case thirdTableView:
             return speakers.count
-        default:
-            return 0
+        default: return 0
         }
     }
     

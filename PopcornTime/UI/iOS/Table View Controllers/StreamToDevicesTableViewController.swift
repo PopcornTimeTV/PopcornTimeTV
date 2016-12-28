@@ -31,24 +31,26 @@ class StreamToDevicesTableViewController: UITableViewController, GCKDeviceScanne
     }
     
     func updateTableView(dataSource newDataSource: [Any], updateType: TableViewUpdates, indexPaths: [IndexPath]?) {
-        self.tableView.beginUpdates()
+        tableView.beginUpdates()
+        switch updateType {
+        case .insert:
+            tableView.insertRows(at: indexPaths!, with: .middle)
+            fallthrough
+        case .reload:
+            if let visibleIndexPaths = tableView.indexPathsForVisibleRows {
+                tableView.reloadRows(at: visibleIndexPaths, with: .none)
+            }
+        case .delete:
+            tableView.deleteRows(at: indexPaths!, with: .middle)
+        }
+        
         if let dataSource = newDataSource as? [GCKDevice] {
             googleCastDevices = dataSource
         } else {
             airPlayDevices = newDataSource as! [MPAVRoute]
         }
-        switch updateType {
-        case .insert:
-            self.tableView.insertRows(at: indexPaths!, with: .middle)
-            fallthrough
-        case .reload:
-            if let visibleIndexPaths = self.tableView.indexPathsForVisibleRows {
-                self.tableView.reloadRows(at: visibleIndexPaths, with: .none)
-            }
-        case .delete:
-            self.tableView.deleteRows(at: indexPaths!, with: .middle)
-        }
-        self.tableView.endUpdates()
+        
+        tableView.endUpdates()
     }
     
 
