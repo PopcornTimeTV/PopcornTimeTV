@@ -39,6 +39,7 @@ public struct WatchlistRecipe: RecipeType {
     }
 
     func buildShelf(_ title: String, content: String) -> String {
+        guard !content.isEmpty else { return "" }
         var shelf = "<shelf><header><title>"
         shelf += title
         shelf += "</title></header><section>"

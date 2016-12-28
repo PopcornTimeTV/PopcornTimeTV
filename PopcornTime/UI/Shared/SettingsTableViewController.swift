@@ -414,10 +414,19 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
 }
 
 #if os(tvOS)
+    
+    import TVMLKitchen
+    
     extension SettingsTableViewController {
         override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
             OperationQueue.main.addOperation {
-                self.view.window?.rootViewController?.present(viewControllerToPresent, animated: flag, completion: completion)
+                Kitchen.navigationController.present(viewControllerToPresent, animated: flag, completion: completion)
+            }
+        }
+        
+        override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+            OperationQueue.main.addOperation {
+                Kitchen.navigationController.dismiss(animated: true, completion: nil)
             }
         }
     }
