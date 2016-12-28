@@ -34,17 +34,11 @@ struct SeasonPickerRecipe: RecipeType {
     }
 
     var template: String {
-        var xml = ""
-        if let file = Bundle.main.url(forResource: "SeasonPickerRecipe", withExtension: "xml") {
-            do {
-                xml = try String(contentsOf: file)
-                xml = xml.replacingOccurrences(of: "{{TITLE}}", with: show.title.cleaned)
-                xml = xml.replacingOccurrences(of: "{{SEASONS}}", with: seasonsString)
-                xml = xml.replacingOccurrences(of: "{{IMAGE}}", with: show.largeBackgroundImage ?? "")
-            } catch {
-                print("Could not open Catalog template")
-            }
-        }
+        let file = Bundle.main.url(forResource: "SeasonPickerRecipe", withExtension: "xml")!
+        var xml = try! String(contentsOf: file)
+        xml = xml.replacingOccurrences(of: "{{TITLE}}", with: show.title.cleaned)
+        xml = xml.replacingOccurrences(of: "{{SEASONS}}", with: seasonsString)
+        xml = xml.replacingOccurrences(of: "{{IMAGE}}", with: show.largeBackgroundImage ?? "")
         return xml
     }
 

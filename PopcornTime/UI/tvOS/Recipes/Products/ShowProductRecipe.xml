@@ -59,24 +59,12 @@
     </shelf>
     
     <!-- Suggestions -->
-    <shelf>
-        <header>
-            <title>Similar Shows</title>
-        </header>
-        <section>
-            {{SUGGESTIONS}}
-        </section>
-    </shelf>
+    
+    {{SUGGESTIONS}}
     
     <!-- Cast -->
-    <shelf>
-        <header>
-            <title>Cast and Crew</title>
-        </header>
-        <section>
-            {{CAST}}
-        </section>
-    </shelf>
+    
+    {{CAST}}
     
     <!-- Footer -->
     
@@ -107,7 +95,7 @@
                 <header>
                     <title>Network</title>
                 </header>
-                <text>{{NETWORK-FOOTER}}</text>
+                <text>{{NETWORK_FOOTER}}</text>
             </info>
         </infoTable>
         <infoTable style="tv-line-spacing:10;">

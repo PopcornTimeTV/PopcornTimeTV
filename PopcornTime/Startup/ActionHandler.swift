@@ -150,58 +150,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
         var castingValues: [String: AnyObject] = [:]
         
         if let productRecipe = productRecipe {
-            
-            let disableThemeSong: @convention(block) () -> Void = {
-                ThemeSongManager.shared.stopTheme()
-            }
-            
-            castingValues["disableThemeSong"] = unsafeBitCast(disableThemeSong, to: AnyObject.self)
-            
-            let enableThemeSong: @convention(block) () -> Void = {
-                if let recipe = productRecipe as? ShowProductRecipe, let id = recipe.show.tvdbId {
-                    ThemeSongManager.shared.playShowTheme(Int(id)!)
-                    
-                    ActionHandler.shared.showSeason(String(recipe.season)) // Refresh the current season's episode when the view controller loads
-                } else {
-                   ThemeSongManager.shared.playMovieTheme(productRecipe.media.title)
-                    
-                    Kitchen.appController.evaluate(inJavaScriptContext: {
-                        $0.objectForKeyedSubscript("updateWatchedButton").call(withArguments: [])
-                    })
-                }
-            }
-            
-            castingValues["enableThemeSong"] = unsafeBitCast(enableThemeSong, to: AnyObject.self)
-            
-            if let recipe = productRecipe as? ShowProductRecipe {
-                
-                let updateSeason: @convention(block) (Int, JSValue) -> Void = { (number, callback) in
-                    recipe.season = number
-                    callback.call(withArguments: [recipe.episodeShelf])
-                }
-                
-                castingValues["updateSeason"] = unsafeBitCast(updateSeason, to: AnyObject.self)
-            }
-            
-            let watchlistStatusButtonImage: @convention(block) () -> String = {
-                if let show = productRecipe.media as? Show {
-                    return WatchlistManager<Show>.show.isAdded(show) ? "button-remove" : "button-add"
-                } else if let movie = productRecipe.media as? Movie {
-                    return WatchlistManager<Movie>.movie.isAdded(movie) ? "button-remove" : "button-add"
-                }
-                return ""
-            }
-            
-            castingValues["watchlistStatusButtonImage"] = unsafeBitCast(watchlistStatusButtonImage, to: AnyObject.self)
-            
-            let watchedStatusButtonImage: @convention(block) () -> String = {
-                if let movie = productRecipe.media as? Movie {
-                    return WatchedlistManager.movie.isAdded(movie.id) ? "button-watched" : "button-unwatched"
-                }
-                return ""
-            }
-            
-            castingValues["watchedStatusButtonImage"] = unsafeBitCast(watchedStatusButtonImage, to: AnyObject.self)
+            castingValues[productRecipe.media.id] = productRecipe
         }
         
         if let mediaRecipe = mediaRecipe {
@@ -234,10 +183,10 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
      */
     func toggleMovieWatchlist(_ movieString: String) {
         guard let movie = Mapper<Movie>().map(JSONString: movieString) else { return }
-        WatchlistManager<Movie>.movie.isAdded(movie) ? WatchlistManager<Movie>.movie.remove(movie) : WatchlistManager<Movie>.movie.add(movie)
+        WatchlistManager<Movie>.movie.toggle(movie)
         Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
-            context.objectForKeyedSubscript("updateWatchlistButton").call(withArguments: [])
-            }, completion: nil)
+            context.objectForKeyedSubscript(movie.id).invokeMethod("updateWatchlistButton", withArguments: nil)
+        })
     }
     
     /**
@@ -247,10 +196,10 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
      */
     func toggleShowWatchlist(_ showString: String) {
         guard let show = Mapper<Show>().map(JSONString: showString) else { return }
-        WatchlistManager<Show>.show.isAdded(show) ? WatchlistManager<Show>.show.remove(show) : WatchlistManager<Show>.show.add(show)
+        WatchlistManager<Show>.show.toggle(show)
         Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
-            context.objectForKeyedSubscript("updateWatchlistButton").call(withArguments: [])
-            }, completion: nil)
+            context.objectForKeyedSubscript(show.id).invokeMethod("updateWatchlistButton", withArguments: nil)
+        })
     }
     
     // MARK: - Watchedlist
@@ -262,10 +211,10 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
      */
     func toggleMovieWatched(_ movieString: String) {
         guard let movie = Mapper<Movie>().map(JSONString: movieString) else { return }
-        WatchedlistManager.movie.isAdded(movie.id) ? WatchedlistManager.movie.remove(movie.id) : WatchedlistManager.movie.add(movie.id)
+        WatchedlistManager.movie.toggle(movie.id)
         Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
-            context.objectForKeyedSubscript("updateWatchedButton").call(withArguments: [])
-        }, completion: nil)
+            context.objectForKeyedSubscript(movie.id).invokeMethod("updateWatchedButton", withArguments: nil)
+        })
     }
     
     /**
@@ -330,12 +279,13 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 guard let viewController = Kitchen.appController.navigationController.visibleViewController,
                     viewController.isLoadingViewController else { return }
                 
-                let recipe = MovieProductRecipe(media: movie)
+                let recipe = MovieProductRecipe(movie: movie)
                 recipe.fanartLogo = fanartLogo
                 self.productRecipe = recipe
                 
                 let file = Bundle.main.url(forResource: "ProductRecipe", withExtension: "js")!
-                let script = try! String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
+                var script = try! String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
+                script = script.replacingOccurrences(of: "{{RECIPE_NAME}}", with: movie.id)
                 
                 self.evaluate(script: script) { _ in
                     self.dismissLoading()
@@ -412,7 +362,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 guard let viewController = Kitchen.appController.navigationController.visibleViewController,
                 viewController.isLoadingViewController else { return }
                 
-                guard let recipe = ShowProductRecipe(media: show) else {
+                guard let recipe = ShowProductRecipe(show: show) else {
                     Kitchen.appController.navigationController.popViewController(animated: true)
                     Kitchen.serve(recipe: AlertRecipe(title: "No episodes available", description: "There are no available episodes for \(show.title).", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")]))
                     return
@@ -422,7 +372,8 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 self.productRecipe = recipe
                 
                 let file = Bundle.main.url(forResource: "ProductRecipe", withExtension: "js")!
-                let script = try! String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
+                var script = try! String(contentsOf: file).replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
+                script = script.replacingOccurrences(of: "{{RECIPE_NAME}}", with: show.id)
                 
                 self.evaluate(script: script) { _ in
                     self.dismissLoading()
@@ -461,12 +412,13 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     /**
      Updates show detail UI with selected season information.
      
-     Parameter number: String representation of the season to load.
+     - Parameter number: String representation of the season to load.
      */
     func showSeason(_ number: String) {
-        Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
-            context.objectForKeyedSubscript("changeSeason").call(withArguments: [Int(number)!])
-        }, completion: nil)
+        guard let shelf = productRecipe?.doc?.invokeMethod("getElementById", withArguments: ["episodeShelf"]), let recipe = productRecipe as? ShowProductRecipe else { return }
+        recipe.season = Int(number)!
+        shelf.setObject(recipe.episodeShelf, forKeyedSubscript: "innerHTML" as (NSCopying & NSObjectProtocol)!)
+        Kitchen.dismissModal()
     }
     
     /**

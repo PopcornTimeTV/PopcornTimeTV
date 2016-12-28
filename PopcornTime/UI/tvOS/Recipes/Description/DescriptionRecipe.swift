@@ -25,16 +25,10 @@ public struct DescriptionRecipe: RecipeType {
     }
 
     public var template: String {
-        var xml = ""
-        if let file = Bundle.main.url(forResource: "DescriptionRecipe", withExtension: "xml") {
-            do {
-                xml = try String(contentsOf: file)
-                xml = xml.replacingOccurrences(of: "{{TITLE}}", with: title.cleaned)
-                xml = xml.replacingOccurrences(of: "{{DESCRIPTION}}", with: description.cleaned)
-            } catch {
-                print("Could not open Catalog template")
-            }
-        }
+        let file = Bundle.main.url(forResource: "DescriptionRecipe", withExtension: "xml")!
+        var xml = try! String(contentsOf: file)
+        xml = xml.replacingOccurrences(of: "{{TITLE}}", with: title.cleaned)
+        xml = xml.replacingOccurrences(of: "{{DESCRIPTION}}", with: description.cleaned)
         return xml
     }
 

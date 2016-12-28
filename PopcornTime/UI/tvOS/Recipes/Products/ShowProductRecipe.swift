@@ -4,34 +4,42 @@ import TVMLKitchen
 import PopcornKit
 import ObjectMapper
 
-public class ShowProductRecipe: NSObject, ProductRecipe, RecipeType, UINavigationControllerDelegate {
+@objc class ShowProductRecipe: ProductRecipe, RecipeType {
 
     var season: Int
-    var media: Media
-    var show: Show {
-        get {
-            return media as! Show
-        } set (newValue) {
-            media = newValue
-        }
-    }
+    var show: Show
     
-    public let theme = DefaultTheme()
-    public let presentationType = PresentationType.default
+    override var media: Media {
+        return show
+    }
 
-    public init?(media: Media, currentSeason: Int? = nil) {
-        guard let show = media as? Show, !show.seasonNumbers.isEmpty else { return nil }
+    init?(show: Show, currentSeason: Int? = nil) {
+        guard !show.seasonNumbers.isEmpty else { return nil }
         
-        self.media = media
+        self.show = show
         self.season = currentSeason ?? show.seasonNumbers.last!
+        
         super.init()
         Kitchen.appController.navigationController.delegate = self
     }
     
-    public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             ActionHandler.shared.replaceTitle(self.show.title, withUrlString: self.fanartLogo, belongingToViewController: viewController)
         }
+    }
+    
+    override func enableThemeSong() {
+        super.enableThemeSong()
+        
+        if let sid = show.tvdbId, let id = Int(sid) {
+            ThemeSongManager.shared.playShowTheme(id)
+        }
+        
+        ActionHandler.shared.showSeason(String(season)) // Refresh the current season's episode when the view controller loads
+    }
+    override dynamic var watchlistStatusButtonImage: String {
+        return WatchlistManager<Show>.show.isAdded(show) ? "button-remove" : "button-add"
     }
     
     func groupedEpisodes(bySeason season: Int) -> [Episode] {
@@ -42,7 +50,7 @@ public class ShowProductRecipe: NSObject, ProductRecipe, RecipeType, UINavigatio
         return episodes
     }
 
-    public var xmlString: String {
+    var xmlString: String {
         var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"
         xml += "<document>"
         xml += template
@@ -82,9 +90,25 @@ public class ShowProductRecipe: NSObject, ProductRecipe, RecipeType, UINavigatio
     var episodeCount: String {
         return "\(show.episodes.filter({$0.season == season}).count) Episodes"
     }
-
+    
+    var suggestionsString: String {
+        guard !show.related.isEmpty else { return "" }
+        
+        var xml = "<shelf>" + "\n"
+        xml +=      "<header>" + "\n"
+        xml +=          "<title>Similar Shows</title>" + "\n"
+        xml +=      "</header>" + "\n"
+        xml +=      "<section>" + "\n"
+        xml +=          "\(show.related.map {$0.lockUp.replacingOccurrences(of: "width=\"250\"", with: "width=\"150\"").replacingOccurrences(of: "height=\"375\"", with: "height=\"226\"")}.joined(separator: "\n"))"
+        xml +=      "</section>" + "\n"
+        xml +=  "</shelf>" + "\n"
+        
+        return xml
+    }
+    
     var castString: String {
-
+        if show.actors.isEmpty && show.crew.isEmpty { return "" }
+        
         let actors: [String] = show.actors.map {
             var headshot = ""
             if let image = $0.mediumImage {
@@ -98,22 +122,33 @@ public class ShowProductRecipe: NSObject, ProductRecipe, RecipeType, UINavigatio
             string += "</monogramLockup>" + "\n"
             return string
         }
-        
         let cast: [String] = show.crew.map {
             var headshot = ""
             if let image = $0.mediumImage {
                 headshot = " src=\"\(image)\""
             }
             let name = $0.name.components(separatedBy: " ")
-            var string = "<monogramLockup actionID=\"showMovieCredits»\($0.name)»\($0.imdbId)\">" + "\n"
+            var string = "<monogramLockup actionID=\"showShowCredits»\($0.name)»\($0.imdbId)\">" + "\n"
             string += "<monogram firstName=\"\(name.first!)\" lastName=\"\(name.last!)\"\(headshot)/>"
             string += "<title>\($0.name.cleaned)</title>" + "\n"
             string += "<subtitle>\($0.job.cleaned)</subtitle>" + "\n"
             string += "</monogramLockup>" + "\n"
             return string
         }
-        let mapped = actors + cast
-        return mapped.joined(separator: "\n")
+        
+        let lockup = (actors + cast).joined(separator: "\n")
+        
+        var xml = "<shelf>" + "\n"
+        xml +=      "<header>" + "\n"
+        xml +=          "<title>Cast and Crew</title>" + "\n"
+        xml +=      "</header>" + "\n"
+        xml +=      "<section>" + "\n"
+        xml +=          "\(lockup)" + "\n"
+        xml +=      "</section>" + "\n"
+        xml +=  "</shelf>" + "\n"
+        
+        
+        return xml
     }
 
     var watchlistButton: String {
@@ -189,50 +224,39 @@ public class ShowProductRecipe: NSObject, ProductRecipe, RecipeType, UINavigatio
         }
         return mapped.joined(separator: "\n")
     }
-    
-    var suggestionsString: String {
-        let mapped = show.related.map({ $0.lockUp.replacingOccurrences(of: "width=\"250\"", with: "width=\"150\"").replacingOccurrences(of: "height=\"375\"", with: "height=\"226\"") })
-        return mapped.joined(separator: "\n")
-    }
 
-    public var template: String {
-        var xml = ""
-        if let file = Bundle.main.url(forResource: "ShowProductRecipe", withExtension: "xml") {
-            do {
-                xml = try String(contentsOf: file)
-
-                xml = xml.replacingOccurrences(of: "{{TITLE}}", with: show.title.cleaned)
-                xml = xml.replacingOccurrences(of: "{{SEASON}}", with: seasonString)
-                
-                xml = xml.replacingOccurrences(of: "{{GENRES}}", with: genresString)
-                xml = xml.replacingOccurrences(of: "{{DESCRIPTION}}", with: show.summary.cleaned)
-                xml = xml.replacingOccurrences(of: "{{SHORT_DESCRIPTION}}", with: show.summary.cleaned)
-                xml = xml.replacingOccurrences(of: "{{IMAGE}}", with: show.largeCoverImage ?? "")
-                xml = xml.replacingOccurrences(of: "{{FANART_IMAGE}}", with: show.largeBackgroundImage ?? "")
-                xml = xml.replacingOccurrences(of: "{{YEAR}}", with: show.year.cleaned)
-                xml = xml.replacingOccurrences(of: "{{RUNTIME}}", with: (show.runtime ?? "0") + " min")
-                
-                xml = xml.replacingOccurrences(of: "{{NETWORK}}", with: networkString)
-                xml = xml.replacingOccurrences(of: "{{NETWORK-FOOTER}}", with: show.network?.cleaned ?? "TV")
-                
-                xml = xml.replacingOccurrences(of: "{{SUGGESTIONS}}", with: suggestionsString)
-                
-                xml = xml.replacingOccurrences(of: "{{WATCH_LIST_BUTTON}}", with: watchlistButton)
-                if WatchlistManager<Show>.show.isAdded(show) {
-                    xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "remove")
-                } else {
-                    xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "add")
-                }
-
-                xml = xml.replacingOccurrences(of: "{{EPISODE_SHELF}}", with: episodeShelf)
-
-                xml = xml.replacingOccurrences(of: "{{CAST}}", with: castString)
-
-                xml = xml.replacingOccurrences(of: "{{SEASONS_BUTTON}}", with: seasonsButton)
-            } catch {
-                print("Could not open Catalog template")
-            }
+    var template: String {
+        let file = Bundle.main.url(forResource: "ShowProductRecipe", withExtension: "xml")!
+        var xml = try! String(contentsOf: file)
+        
+        xml = xml.replacingOccurrences(of: "{{TITLE}}", with: show.title.cleaned)
+        xml = xml.replacingOccurrences(of: "{{SEASON}}", with: seasonString)
+        
+        xml = xml.replacingOccurrences(of: "{{GENRES}}", with: genresString)
+        xml = xml.replacingOccurrences(of: "{{DESCRIPTION}}", with: show.summary.cleaned)
+        xml = xml.replacingOccurrences(of: "{{SHORT_DESCRIPTION}}", with: show.summary.cleaned)
+        xml = xml.replacingOccurrences(of: "{{IMAGE}}", with: show.largeCoverImage ?? "")
+        xml = xml.replacingOccurrences(of: "{{FANART_IMAGE}}", with: show.largeBackgroundImage ?? "")
+        xml = xml.replacingOccurrences(of: "{{YEAR}}", with: show.year.cleaned)
+        xml = xml.replacingOccurrences(of: "{{RUNTIME}}", with: (show.runtime ?? "0") + " min")
+        
+        xml = xml.replacingOccurrences(of: "{{NETWORK}}", with: networkString)
+        xml = xml.replacingOccurrences(of: "{{NETWORK_FOOTER}}", with: show.network?.cleaned ?? "TV")
+        
+        xml = xml.replacingOccurrences(of: "{{SUGGESTIONS}}", with: suggestionsString)
+        
+        xml = xml.replacingOccurrences(of: "{{WATCH_LIST_BUTTON}}", with: watchlistButton)
+        if WatchlistManager<Show>.show.isAdded(show) {
+            xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "remove")
+        } else {
+            xml = xml.replacingOccurrences(of: "{{WATCHLIST_ACTION}}", with: "add")
         }
+        
+        xml = xml.replacingOccurrences(of: "{{EPISODE_SHELF}}", with: episodeShelf)
+        
+        xml = xml.replacingOccurrences(of: "{{CAST}}", with: castString)
+        
+        xml = xml.replacingOccurrences(of: "{{SEASONS_BUTTON}}", with: seasonsButton)
         return xml
     }
 }

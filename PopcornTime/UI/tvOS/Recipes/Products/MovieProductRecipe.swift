@@ -4,35 +4,44 @@ import TVMLKitchen
 import PopcornKit
 import ObjectMapper
 
-public class MovieProductRecipe: NSObject, ProductRecipe, RecipeType, UINavigationControllerDelegate {
-
-    var media: Media
+@objc class MovieProductRecipe: ProductRecipe, RecipeType {
     
-    var movie: Movie {
-        get {
-            return media as! Movie
-        } set (newValue) {
-            media = newValue
-        }
+    var movie: Movie
+    
+    override var media: Media {
+        return movie
     }
 
-    public let theme = DefaultTheme()
-    public let presentationType = PresentationType.default
-
-    public init(media: Media) {
-        self.media = media
+    init(movie: Movie) {
+        self.movie = movie
         super.init()
         Kitchen.appController.navigationController.delegate = self
     }
     
-    public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             ActionHandler.shared.replaceTitle(self.movie.title, withUrlString: self.fanartLogo, belongingToViewController: viewController)
         }
     }
+    
+    override func enableThemeSong() {
+        super.enableThemeSong()
+        
+        ThemeSongManager.shared.playMovieTheme(movie.title)
+        
+        updateWatchedButton()
+    }
+    
+    override dynamic var watchlistStatusButtonImage: String {
+        return WatchlistManager<Movie>.movie.isAdded(movie) ? "button-remove" : "button-add"
+    }
+    
+    override dynamic var watchedStatusButtonImage: String {
+        return WatchedlistManager.movie.isAdded(movie.id) ? "button-watched" : "button-unwatched"
+    }
 
 
-    public var xmlString: String {
+    var xmlString: String {
         var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"
         xml += "<document>"
         xml += template
@@ -73,11 +82,23 @@ public class MovieProductRecipe: NSObject, ProductRecipe, RecipeType, UINavigati
     }
 
     var suggestionsString: String {
-        let mapped = movie.related.map {$0.lockUp.replacingOccurrences(of: "width=\"250\"", with: "width=\"150\"").replacingOccurrences(of: "height=\"375\"", with: "height=\"226\"")}
-        return mapped.joined(separator: "")
+        guard !movie.related.isEmpty else { return "" }
+        
+        var xml = "<shelf>" + "\n"
+        xml +=      "<header>" + "\n"
+        xml +=          "<title>Similar Movies</title>" + "\n"
+        xml +=      "</header>" + "\n"
+        xml +=      "<section>" + "\n"
+        xml +=          "\(movie.related.map {$0.lockUp.replacingOccurrences(of: "width=\"250\"", with: "width=\"150\"").replacingOccurrences(of: "height=\"375\"", with: "height=\"226\"")}.joined(separator: "\n"))"
+        xml +=      "</section>" + "\n"
+        xml +=  "</shelf>" + "\n"
+        
+        return xml
     }
 
     var castString: String {
+        if movie.actors.isEmpty && movie.crew.isEmpty { return "" }
+        
         let actors: [String] = movie.actors.map {
             var headshot = ""
             if let image = $0.mediumImage {
@@ -104,14 +125,25 @@ public class MovieProductRecipe: NSObject, ProductRecipe, RecipeType, UINavigati
             string += "</monogramLockup>" + "\n"
             return string
         }
-        let mapped = actors + cast
-        return mapped.joined(separator: "\n")
+        
+        let lockup = (actors + cast).joined(separator: "\n")
+        
+        var xml = "<shelf>" + "\n"
+        xml +=      "<header>" + "\n"
+        xml +=          "<title>Cast and Crew</title>" + "\n"
+        xml +=      "</header>" + "\n"
+        xml +=      "<section>" + "\n"
+        xml +=          "\(lockup)" + "\n"
+        xml +=      "</section>" + "\n"
+        xml +=  "</shelf>" + "\n"
+        
+        
+        return xml
     }
 
     var watchlistButton: String {
         var string = "<buttonLockup id =\"watchlistButton\" actionID=\"toggleMovieWatchlist»\(Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")\">\n"
-        let action = WatchlistManager<Movie>.movie.isAdded(movie) ? "remove" : "add"
-        string += "<badge id =\"watchlistButtonBadge\" src=\"resource://button-\(action)\" />\n"
+        string += "<badge id =\"watchlistButtonBadge\" src=\"resource://\(watchlistStatusButtonImage)\" />\n"
         string += "<title>Watchlist</title>\n"
         string += "</buttonLockup>"
         return string
@@ -119,50 +151,41 @@ public class MovieProductRecipe: NSObject, ProductRecipe, RecipeType, UINavigati
     
     var watchedButton: String {
         var string = "<buttonLockup id =\"watchedButton\" actionID=\"toggleMovieWatched»\(Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")\">\n"
-        let action = WatchedlistManager.movie.isAdded(movie.id) ? "watched" : "unwatched"
-        string += "<badge id =\"watchedButtonBadge\" src=\"resource://button-\(action)\" />\n"
+        string += "<badge id =\"watchedButtonBadge\" src=\"resource://\(watchedStatusButtonImage)\" />\n"
         string += "<title>Watched</title>\n"
         string += "</buttonLockup>"
         return string
     }
 
-    public var template: String {
-        var xml = ""
-        if let file = Bundle.main.url(forResource: "MovieProductRecipe", withExtension: "xml") {
-            do {
-                xml = try String(contentsOf: file)
-                xml = xml.replacingOccurrences(of: "{{DIRECTORS}}", with: directorsString)
-                xml = xml.replacingOccurrences(of: "{{ACTORS}}", with: actorsString)
-                xml = xml.replacingOccurrences(of: "{{FANART_LOGO}}", with: fanartLogo)
-
-                xml = xml.replacingOccurrences(of: "{{RUNTIME}}", with: runtime)
-                xml = xml.replacingOccurrences(of: "{{TITLE}}", with: movie.title.cleaned)
-                xml = xml.replacingOccurrences(of: "{{GENRES}}", with: genresString)
-                xml = xml.replacingOccurrences(of: "{{DESCRIPTION}}", with: movie.summary.cleaned)
-                xml = xml.replacingOccurrences(of: "{{IMAGE}}", with: movie.largeCoverImage ?? "")
-                xml = xml.replacingOccurrences(of: "{{FANART_IMAGE}}", with: movie.largeBackgroundImage ?? "")
-                xml = xml.replacingOccurrences(of: "{{YEAR}}", with: movie.year)
-                xml = xml.replacingOccurrences(of: "{{RATING}}", with: movie.certification.replacingOccurrences(of: "-", with: "").lowercased())
-                xml = xml.replacingOccurrences(of: "{{RATING-FOOTER}}", with: movie.certification.replacingOccurrences(of: "-", with: " "))
-                xml = xml.replacingOccurrences(of: "{{STAR_RATING}}", with: String(movie.rating))
-
-                xml = xml.replacingOccurrences(of: "{{YOUTUBE_PREVIEW_CODE}}", with: movie.trailerCode ?? "")
-
-                xml = xml.replacingOccurrences(of: "{{SUGGESTIONS_TITLE}}", with: "Similar Movies")
-                xml = xml.replacingOccurrences(of: "{{SUGGESTIONS}}", with: suggestionsString)
-
-                xml = xml.replacingOccurrences(of: "{{CAST}}", with: castString)
-
-                xml = xml.replacingOccurrences(of: "{{WATCH_LIST_BUTTON}}", with: watchlistButton)
-                xml = xml.replacingOccurrences(of: "{{WATCHED_LIST_BUTTON}}", with: watchedButton)
-                
-                xml = xml.replacingOccurrences(of: "{{MOVIE}}", with: Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")
-                xml = xml.replacingOccurrences(of: "{{TORRENTS}}", with: Mapper<Torrent>().toJSONString(movie.torrents)?.cleaned ?? "")
-                
-            } catch {
-                print("Could not open Catalog template")
-            }
-        }
+    var template: String {
+        let file = Bundle.main.url(forResource: "MovieProductRecipe", withExtension: "xml")!
+        var xml = try! String(contentsOf: file)
+        xml = xml.replacingOccurrences(of: "{{DIRECTORS}}", with: directorsString)
+        xml = xml.replacingOccurrences(of: "{{ACTORS}}", with: actorsString)
+        xml = xml.replacingOccurrences(of: "{{FANART_LOGO}}", with: fanartLogo)
+        
+        xml = xml.replacingOccurrences(of: "{{RUNTIME}}", with: runtime)
+        xml = xml.replacingOccurrences(of: "{{TITLE}}", with: movie.title.cleaned)
+        xml = xml.replacingOccurrences(of: "{{GENRES}}", with: genresString)
+        xml = xml.replacingOccurrences(of: "{{DESCRIPTION}}", with: movie.summary.cleaned)
+        xml = xml.replacingOccurrences(of: "{{IMAGE}}", with: movie.largeCoverImage ?? "")
+        xml = xml.replacingOccurrences(of: "{{FANART_IMAGE}}", with: movie.largeBackgroundImage ?? "")
+        xml = xml.replacingOccurrences(of: "{{YEAR}}", with: movie.year)
+        xml = xml.replacingOccurrences(of: "{{RATING}}", with: movie.certification.replacingOccurrences(of: "-", with: "").lowercased())
+        xml = xml.replacingOccurrences(of: "{{RATING_FOOTER}}", with: movie.certification.replacingOccurrences(of: "-", with: " "))
+        xml = xml.replacingOccurrences(of: "{{STAR_RATING}}", with: String(movie.rating))
+        
+        xml = xml.replacingOccurrences(of: "{{YOUTUBE_PREVIEW_CODE}}", with: movie.trailerCode ?? "")
+        
+        xml = xml.replacingOccurrences(of: "{{SUGGESTIONS}}", with: suggestionsString)
+        
+        xml = xml.replacingOccurrences(of: "{{CAST}}", with: castString)
+        
+        xml = xml.replacingOccurrences(of: "{{WATCH_LIST_BUTTON}}", with: watchlistButton)
+        xml = xml.replacingOccurrences(of: "{{WATCHED_LIST_BUTTON}}", with: watchedButton)
+        
+        xml = xml.replacingOccurrences(of: "{{MOVIE}}", with: Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")
+        xml = xml.replacingOccurrences(of: "{{TORRENTS}}", with: Mapper<Torrent>().toJSONString(movie.torrents)?.cleaned ?? "")
         return xml
     }
 

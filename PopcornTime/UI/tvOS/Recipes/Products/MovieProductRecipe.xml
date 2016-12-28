@@ -79,24 +79,12 @@
     </banner>
     
     <!-- Suggestions -->
-    <shelf>
-        <header>
-            <title>{{SUGGESTIONS_TITLE}}</title>
-        </header>
-        <section>
-            {{SUGGESTIONS}}
-        </section>
-    </shelf>
+    
+    {{SUGGESTIONS}}
     
     <!-- Cast -->
-    <shelf>
-        <header>
-            <title>Cast and Crew</title>
-        </header>
-        <section>
-            {{CAST}}
-        </section>
-    </shelf>
+    
+    {{CAST}}
     
     <!-- Footer -->
     
@@ -127,7 +115,7 @@
                 <header>
                     <title>Rating</title>
                 </header>
-                <text>{{RATING-FOOTER}}</text>
+                <text>{{RATING_FOOTER}}</text>
             </info>
         </infoTable>
         <infoTable style="tv-line-spacing:10;">

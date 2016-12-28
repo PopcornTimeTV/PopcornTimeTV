@@ -62,16 +62,10 @@ class ErrorBackgroundView: UIView {
     }
     
     var template: String {
-        var xml = ""
-        if let file = Bundle.main.url(forResource: "ErrorRecipe", withExtension: "xml") {
-            do {
-                xml = try String(contentsOf: file)
-                xml = xml.replacingOccurrences(of: "{{TITLE}}", with: title ?? "")
-                xml = xml.replacingOccurrences(of: "{{DESCRIPTION}}", with: errorDescription ?? "")
-            } catch {
-                print("Could not open Catalog template")
-            }
-        }
+        let file = Bundle.main.url(forResource: "ErrorRecipe", withExtension: "xml")!
+        var xml = try! String(contentsOf: file)
+        xml = xml.replacingOccurrences(of: "{{TITLE}}", with: title ?? "")
+        xml = xml.replacingOccurrences(of: "{{DESCRIPTION}}", with: errorDescription ?? "")
         return xml
     }
 }

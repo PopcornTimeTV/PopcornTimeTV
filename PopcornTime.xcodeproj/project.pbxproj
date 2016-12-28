@@ -38,6 +38,8 @@
 		4D6A9C931E1302D6002D684C /* ErrorBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A9C911E1302CF002D684C /* ErrorBackgroundView.swift */; };
 		4D6A9C951E1302F0002D684C /* UIViewController+PresentOverTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A9C941E1302F0002D684C /* UIViewController+PresentOverTop.swift */; };
 		4D6A9C961E1302F3002D684C /* UIViewController+PresentOverTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A9C941E1302F0002D684C /* UIViewController+PresentOverTop.swift */; };
+		4D6A9C981E1304CF002D684C /* ProductRecipeJSExports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A9C971E1304CF002D684C /* ProductRecipeJSExports.swift */; };
+		4D6A9C9A1E131656002D684C /* ProductRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A9C991E131656002D684C /* ProductRecipe.swift */; };
 		4D6F837C1E0D67EA002E40FD /* SearchTemplate.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D6F837B1E0D67EA002E40FD /* SearchTemplate.xml */; };
 		4D7376021DFDC6F500505CA0 /* NSNotification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7376011DFDC6F500505CA0 /* NSNotification+Name.swift */; };
 		4D859B0F1DDE23A3000E2AA1 /* EpisodeDetailPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationDelegate.swift */; };
@@ -134,7 +136,6 @@
 		4DA6EF621E00894B009A2F10 /* indicator-watched.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DA6EF611E00894B009A2F10 /* indicator-watched.png */; };
 		4DAFAA361E0AF4DE00AE0F9A /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFAA351E0AF4DE00AE0F9A /* AudioViewController.swift */; };
 		4DAFAA3B1E0AFDA600AE0F9A /* OptionsStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFAA3A1E0AFDA600AE0F9A /* OptionsStackViewController.swift */; };
-		4DBFA27B1E11F4B300763E34 /* ProductRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBFA27A1E11F4B300763E34 /* ProductRecipe.swift */; };
 		4DBFA27F1E12CF7F00763E34 /* MediaRecipeJSExports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBFA27E1E12CF7F00763E34 /* MediaRecipeJSExports.swift */; };
 		4DBFA2821E12F79600763E34 /* SearchRecipeJSExports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBFA2811E12F79600763E34 /* SearchRecipeJSExports.swift */; };
 		4DCCBA5B1DC50D780046C755 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
@@ -210,6 +211,8 @@
 		4D6A9C8D1E130291002D684C /* SearchRecipe.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SearchRecipe.js; sourceTree = "<group>"; };
 		4D6A9C911E1302CF002D684C /* ErrorBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorBackgroundView.swift; sourceTree = "<group>"; };
 		4D6A9C941E1302F0002D684C /* UIViewController+PresentOverTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentOverTop.swift"; sourceTree = "<group>"; };
+		4D6A9C971E1304CF002D684C /* ProductRecipeJSExports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRecipeJSExports.swift; sourceTree = "<group>"; };
+		4D6A9C991E131656002D684C /* ProductRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRecipe.swift; sourceTree = "<group>"; };
 		4D6F837B1E0D67EA002E40FD /* SearchTemplate.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SearchTemplate.xml; sourceTree = "<group>"; };
 		4D7376011DFDC6F500505CA0 /* NSNotification+Name.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSNotification+Name.swift"; sourceTree = "<group>"; };
 		4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeDetailPresentationDelegate.swift; sourceTree = "<group>"; };
@@ -301,7 +304,6 @@
 		4DA6EF611E00894B009A2F10 /* indicator-watched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator-watched.png"; sourceTree = "<group>"; };
 		4DAFAA351E0AF4DE00AE0F9A /* AudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
 		4DAFAA3A1E0AFDA600AE0F9A /* OptionsStackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsStackViewController.swift; sourceTree = "<group>"; };
-		4DBFA27A1E11F4B300763E34 /* ProductRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRecipe.swift; sourceTree = "<group>"; };
 		4DBFA27E1E12CF7F00763E34 /* MediaRecipeJSExports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaRecipeJSExports.swift; sourceTree = "<group>"; };
 		4DBFA2811E12F79600763E34 /* SearchRecipeJSExports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchRecipeJSExports.swift; sourceTree = "<group>"; };
 		4DC870B51D9EDE58005455B0 /* PopcornTime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopcornTime.entitlements; sourceTree = "<group>"; };
@@ -625,9 +627,9 @@
 		4D990E571DC4F128005CDE34 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				4D6A9C991E131656002D684C /* ProductRecipe.swift */,
 				4D859BE31DDFA246000E2AA1 /* MovieProductRecipe.swift */,
 				4D859BE41DDFA246000E2AA1 /* MovieProductRecipe.xml */,
-				4DBFA27A1E11F4B300763E34 /* ProductRecipe.swift */,
 				4D859BE61DDFA246000E2AA1 /* SeasonPickerRecipe.swift */,
 				4D859BE71DDFA246000E2AA1 /* SeasonPickerRecipe.xml */,
 				4D859BE21DDFA246000E2AA1 /* ShowProductRecipe.swift */,
@@ -740,6 +742,7 @@
 			children = (
 				4DBFA27E1E12CF7F00763E34 /* MediaRecipeJSExports.swift */,
 				4DBFA2811E12F79600763E34 /* SearchRecipeJSExports.swift */,
+				4D6A9C971E1304CF002D684C /* ProductRecipeJSExports.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1134,10 +1137,12 @@
 				4DDBD9091E0EDA2E00CEA1B1 /* Array+Unique.swift in Sources */,
 				4DBFA27F1E12CF7F00763E34 /* MediaRecipeJSExports.swift in Sources */,
 				4D859B2C1DDFA079000E2AA1 /* SettingsTableViewController.swift in Sources */,
+				4D6A9C981E1304CF002D684C /* ProductRecipeJSExports.swift in Sources */,
 				4DAFAA3B1E0AFDA600AE0F9A /* OptionsStackViewController.swift in Sources */,
 				4D859BCE1DDFA219000E2AA1 /* MediaRecipe.swift in Sources */,
 				4D096D531E10351D001DDF39 /* MoviesRecipe.swift in Sources */,
 				4D859BB71DDFA1C6000E2AA1 /* Show+Lockup.swift in Sources */,
+				4D6A9C9A1E131656002D684C /* ProductRecipe.swift in Sources */,
 				4D859BEA1DDFA246000E2AA1 /* MovieProductRecipe.swift in Sources */,
 				4DA42DD21DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */,
 				4D859BAC1DDFA1AD000E2AA1 /* InfoViewController.swift in Sources */,
@@ -1145,7 +1150,6 @@
 				4D859B2A1DDFA079000E2AA1 /* LoadingViewController.swift in Sources */,
 				4DD6E4D21DFB197E00818A2C /* BufferingBar.swift in Sources */,
 				4DD6E4D71DFB315100818A2C /* SiriRemoteGestureRecogniser.swift in Sources */,
-				4DBFA27B1E11F4B300763E34 /* ProductRecipe.swift in Sources */,
 				4D859BDD1DDFA237000E2AA1 /* Movies.swift in Sources */,
 				4D859BB81DDFA1C6000E2AA1 /* UIViewController+Extension.swift in Sources */,
 				4D859BB51DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift in Sources */,
