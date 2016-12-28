@@ -46,17 +46,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate {
                 return true
             }
             
-            ActionHandler.shared.loadTabBar()
-            
-            if !UserDefaults.standard.bool(forKey: "tosAccepted") {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+            ActionHandler.shared.loadTabBar() {
+                if !UserDefaults.standard.bool(forKey: "tosAccepted") {
                     let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsOfServiceViewController")
                     OperationQueue.main.addOperation {
                         Kitchen.appController.navigationController.pushViewController(vc, animated: true)
                     }
                     UserDefaults.standard.set(0.75, forKey: "themeSongVolume")
-                })
+                }
             }
+            
+            
         #elseif os(iOS)
             NetworkActivityIndicatorManager.shared.isEnabled = true
             reachability?.startNotifier()
@@ -89,8 +89,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate {
                 {
                     ActionHandler.shared.primary(action)
                 } else {
-                    ActionHandler.shared.loadTabBar()
-                    ActionHandler.shared.primary(action)
+                    ActionHandler.shared.loadTabBar() {
+                        ActionHandler.shared.primary(action)
+                    }
                 }
             }
         #elseif os(iOS)

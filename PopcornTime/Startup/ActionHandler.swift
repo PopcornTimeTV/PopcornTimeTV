@@ -71,9 +71,12 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     /**
      Serves the main tabBarController with view controllers attached.
      */
-    func loadTabBar() {
+    func loadTabBar(completion: (() -> Void)? = nil) {
         tabBar = KitchenTabBar(items: [Movies(), Shows(), Watchlist(), Search(), Settings()])
         Kitchen.serve(recipe: tabBar)
+        
+        guard let completion = completion else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: completion)
     }
     
     // MARK: Hackery
