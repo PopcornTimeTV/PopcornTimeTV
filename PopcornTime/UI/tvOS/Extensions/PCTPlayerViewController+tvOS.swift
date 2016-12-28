@@ -55,7 +55,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
     }
     
     @IBAction func presentOptionsViewController() {
-        if presentedViewController is OptionsViewController { return }
+        if presentedViewController is OptionsViewController || !upNextView.isHidden { return }
         let destinationController = storyboard?.instantiateViewController(withIdentifier: "OptionsViewController") as! OptionsViewController
         destinationController.transitioningDelegate = self
         destinationController.modalPresentationStyle = .custom

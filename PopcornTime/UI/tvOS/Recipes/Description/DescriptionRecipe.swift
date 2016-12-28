@@ -6,14 +6,13 @@ import PopcornKit
 public struct DescriptionRecipe: RecipeType {
     
     public let theme = DefaultTheme()
-    public let presentationType: PresentationType
+    public let presentationType = PresentationType.modal
     public let title: String
     public let description: String
     
-    public init(title: String, message: String, presentationType: PresentationType = .modal) {
+    public init(title: String, message: String) {
         self.title = title
         self.description = message
-        self.presentationType = presentationType
     }
 
     public var xmlString: String {

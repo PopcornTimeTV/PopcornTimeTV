@@ -70,6 +70,8 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     
     /**
      Serves the main tabBarController with view controllers attached.
+     
+     - Parameter completion: Not really a completion handler, just a block called 2 seconds after the function ends.
      */
     func loadTabBar(completion: (() -> Void)? = nil) {
         tabBar = KitchenTabBar(items: [Movies(), Shows(), Watchlist(), Search(), Settings()])

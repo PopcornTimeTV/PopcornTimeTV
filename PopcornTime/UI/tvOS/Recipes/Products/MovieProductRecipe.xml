@@ -88,47 +88,49 @@
     
     <!-- Footer -->
     
-    <productInfo>
-        <infoTable>
-            <header>
-                <title>Information</title>
-            </header>
-            <info>
+    <separator>
+        <productInfo>
+            <infoTable>
                 <header>
-                    <title>Genre</title>
+                    <title>Information</title>
                 </header>
-                <text>{{GENRES}}</text>
-            </info>
-            <info>
+                <info>
+                    <header>
+                        <title>Genre</title>
+                    </header>
+                    <text>{{GENRES}}</text>
+                </info>
+                <info>
+                    <header>
+                        <title>Released</title>
+                    </header>
+                    <text>{{YEAR}}</text>
+                </info>
+                <info>
+                    <header>
+                        <title>Run Time</title>
+                    </header>
+                    <text>{{RUNTIME}}</text>
+                </info>
+                <info>
+                    <header>
+                        <title>Rating</title>
+                    </header>
+                    <text>{{RATING_FOOTER}}</text>
+                </info>
+            </infoTable>
+            <infoTable style="tv-line-spacing:10;">
                 <header>
-                    <title>Released</title>
+                    <title>Accessibility</title>
                 </header>
-                <text>{{YEAR}}</text>
-            </info>
-            <info>
-                <header>
-                    <title>Run Time</title>
-                </header>
-                <text>{{RUNTIME}}</text>
-            </info>
-            <info>
-                <header>
-                    <title>Rating</title>
-                </header>
-                <text>{{RATING_FOOTER}}</text>
-            </info>
-        </infoTable>
-        <infoTable style="tv-line-spacing:10;">
-            <header>
-                <title>Accessibility</title>
-            </header>
-            <info>
-                <header>
-                    <textBadge>SDH</textBadge>
-                </header>
-                <text>Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original lanuage with the addition of relevant non-dialog information.</text>
-            </info>
-        </infoTable>
-    </productInfo>
+                <info>
+                    <header>
+                        <textBadge>SDH</textBadge>
+                    </header>
+                    <text>Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original lanuage with the addition of relevant non-dialog information.</text>
+                </info>
+            </infoTable>
+        </productInfo>
+    </separator>
 
 </productTemplate>

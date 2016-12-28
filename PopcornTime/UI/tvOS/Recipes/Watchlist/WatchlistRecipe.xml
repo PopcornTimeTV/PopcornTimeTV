@@ -3,19 +3,18 @@
         .img {
             tv-placeholder: movie;
         }
-        @media tv-template and (tv-theme:light) {
-        tv-highlight-color:rgb(255, 255, 255);}
-        }
-        @media tv-template and (tv-theme:dark) {
-        tv-highlight-color:rgb(0,0,0);}
+        .title {
+            text-align:left;
+            font-weight: bold;
+            font-size: 73pt;
         }
     </style>
 </head>
 
 <stackTemplate>
-    <banner>
-        <title>{{TITLE}}</title>
-    </banner>
+    <identityBanner>
+        <title class="title">{{TITLE}}</title>
+    </identityBanner>
     <collectionList>
         {{SHELVES}}
     </collectionList>

@@ -6,7 +6,7 @@ import PopcornKit
 class CatalogRecipe: RecipeType {
     
     let theme = DefaultTheme()
-    var presentationType = PresentationType.defaultWithLoadingIndicator
+    var presentationType = PresentationType.default
 
     let title: String
     let lockup: String
