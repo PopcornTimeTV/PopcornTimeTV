@@ -11,7 +11,7 @@ class ShowsRecipe: MediaRecipe {
     }
     
     override var genre: String {
-        return currentGenre == "All" ? "" : currentGenre
+        return currentGenre == "All" ? "" : " " + currentGenre
     }
     
     override var type: String {

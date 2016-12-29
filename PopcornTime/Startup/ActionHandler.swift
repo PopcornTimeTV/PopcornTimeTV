@@ -520,8 +520,8 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
         
         mediaRecipe.genreWasPicked(genre) { data in
             Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
-                context.objectForKeyedSubscript("refresh").call(withArguments: [element, data])
-                context.objectForKeyedSubscript("addEventListeners").call(withArguments: nil)
+                context.objectForKeyedSubscript("refresh").call(withArguments: [element, data, mediaRecipe.doc!])
+                context.objectForKeyedSubscript("addEventListeners").call(withArguments: [mediaRecipe])
             })
         }
     }
@@ -590,8 +590,8 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
         
         mediaRecipe.filterWasPicked(filter) { data in
             Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
-                context.objectForKeyedSubscript("refresh").call(withArguments: [element, data])
-                context.objectForKeyedSubscript("addEventListeners").call(withArguments: nil)
+                context.objectForKeyedSubscript("refresh").call(withArguments: [element, data, mediaRecipe.doc!])
+                context.objectForKeyedSubscript("addEventListeners").call(withArguments: [mediaRecipe])
             })
         }
         

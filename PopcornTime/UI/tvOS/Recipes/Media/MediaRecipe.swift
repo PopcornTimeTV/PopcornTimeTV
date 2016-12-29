@@ -49,7 +49,7 @@ protocol MediaRecipeDelegate: class {
         var xml = "<grid>" + "\n"
         xml +=     "<header>" + "\n"
         xml +=      "<row>" + "\n"
-        xml +=          "<title style=\"tv-align: left;\">\(filter + " " + genre + " " + title)</title>" + "\n"
+        xml +=          "<title style=\"tv-align: left;\">\(filter + genre + " " + title)</title>" + "\n"
         xml +=          "<buttonLockup style=\"tv-align: right; margin: 0  20;\" actionID=\"show\(type)Filters»\(currentFilter)\">" + "\n"
         xml +=              "<text>Sort</text>" + "\n"
         xml +=          "</buttonLockup>" + "\n"
