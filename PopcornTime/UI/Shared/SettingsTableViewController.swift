@@ -426,7 +426,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
         
         override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
             OperationQueue.main.addOperation {
-                Kitchen.navigationController.dismiss(animated: true, completion: nil)
+                Kitchen.navigationController.dismiss(animated: flag, completion: completion)
             }
         }
     }

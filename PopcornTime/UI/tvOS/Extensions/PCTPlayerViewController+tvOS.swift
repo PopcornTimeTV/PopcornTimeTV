@@ -59,13 +59,13 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         let destinationController = storyboard?.instantiateViewController(withIdentifier: "OptionsViewController") as! OptionsViewController
         destinationController.transitioningDelegate = self
         destinationController.modalPresentationStyle = .custom
-        present(destinationController, animated: true, completion: nil)
         destinationController.subtitlesViewController.subtitles = subtitles
         destinationController.subtitlesViewController.currentSubtitle = currentSubtitle
         destinationController.subtitlesViewController.currentDelay = mediaplayer.currentVideoSubTitleDelay
         destinationController.audioViewController.currentDelay = mediaplayer.currentAudioPlaybackDelay
         destinationController.delegate = self
         destinationController.infoViewController.media = media
+        present(destinationController, animated: true, completion: nil)
     }
     
     func touchLocationDidChange(_ gesture: SiriRemoteGestureRecognizer) {
