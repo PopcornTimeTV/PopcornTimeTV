@@ -62,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate {
             reachability?.startNotifier()
             
             /// Weird SDK throws error if shared instance has already been initialised and doesn't mark function as throwing.
-            do { try GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID)) }
+            GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID))
             window?.tintColor = UIColor.app
             
             if !UserDefaults.standard.bool(forKey: "tosAccepted") {
