@@ -130,8 +130,8 @@ class EpisodeDetailViewController: UIViewController, UIGestureRecognizerDelegate
     
     func getSubtitles(forMedia media: Media, id: String, completion: @escaping ([Subtitle], NSError?) -> Void) {
         if let episode = media as? Episode, !id.hasPrefix("tt") {
-            TraktManager.shared.getEpisodeMetadata(episode.show.id, episodeNumber: episode.episode, seasonNumber: episode.season, completion: { [weak self] (tvdb, imdb, error) in
-                if let imdb = imdb { self?.getSubtitles(forMedia: media, id: imdb, completion: completion) } else if error == nil {
+            TraktManager.shared.getEpisodeMetadata(episode.show.id, episodeNumber: episode.episode, seasonNumber: episode.season, completion: { [weak self] (episode, error) in
+                if let imdb = episode?.imdbId { self?.getSubtitles(forMedia: media, id: imdb, completion: completion) } else if error == nil {
                     SubtitlesManager.shared.search(episode) { (subtitles, error) in
                         completion(subtitles, error)
                     }

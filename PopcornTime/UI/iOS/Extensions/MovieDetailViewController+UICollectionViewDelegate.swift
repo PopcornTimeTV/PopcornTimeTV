@@ -44,7 +44,7 @@ extension MovieDetailViewController: UICollectionViewDelegate, UICollectionViewD
                     let url = URL(string: image) {
                     coverCell.coverImage.af_setImage(withURL: url, placeholderImage: UIImage(named: "Movie Placeholder"))
                 }
-                coverCell.watched = WatchedlistManager.movie.isAdded(movie.id)
+                coverCell.watched = WatchedlistManager<Movie>.movie.isAdded(movie)
                 return coverCell
             }()
         } else {

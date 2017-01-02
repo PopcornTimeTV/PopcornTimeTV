@@ -64,8 +64,8 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
         navigationController?.navigationBar.isBackgroundHidden = true
         navigationController?.navigationBar.frame.size.width = splitViewController?.primaryColumnWidth ?? view.bounds.width
         
-        WatchedlistManager.episode.syncTraktProgress()
-        WatchedlistManager.show.getWatched() {
+        WatchedlistManager<Episode>.episode.getProgress()
+        WatchedlistManager<Episode>.episode.getWatched() { _ in
             self.tableView.reloadData()
         }
         
@@ -226,7 +226,7 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ShowDetailTableViewCell
         cell.titleLabel.text = currentSeasonArray[indexPath.row].title
         cell.seasonLabel.text = "E" + String(currentSeasonArray[indexPath.row].episode)
-        cell.tvdbId = currentSeasonArray[indexPath.row].id
+        cell.episode = currentSeasonArray[indexPath.row]
         return cell
     }
     

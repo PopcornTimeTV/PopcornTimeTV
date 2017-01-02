@@ -8,18 +8,18 @@ class ShowDetailTableViewCell: UITableViewCell {
     @IBOutlet var seasonLabel: UILabel!
     @IBOutlet var watchedButton: UIButton!
     
-    var tvdbId: String! {
+    var episode: Episode! {
         didSet {
             watchedButton.setImage(watchedButtonImage, for: .normal)
         }
     }
     
     var watchedButtonImage: UIImage {
-        return WatchedlistManager.episode.isAdded(tvdbId) ? UIImage(named: "WatchedOn")! : UIImage(named: "WatchedOff")!
+        return WatchedlistManager<Episode>.episode.isAdded(episode) ? UIImage(named: "WatchedOn")! : UIImage(named: "WatchedOff")!
     }
     
     @IBAction func toggleWatched() {
-        WatchedlistManager.episode.toggle(tvdbId)
+        WatchedlistManager<Episode>.episode.toggle(episode)
         watchedButton.setImage(watchedButtonImage, for: .normal)
     }
 }

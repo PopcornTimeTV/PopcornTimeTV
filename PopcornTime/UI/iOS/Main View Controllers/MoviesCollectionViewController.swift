@@ -19,7 +19,7 @@ class MoviesCollectionViewController: MainCollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        WatchedlistManager.movie.getWatched() {
+        WatchedlistManager<Movie>.movie.getWatched() { _ in
             self.collectionView?.reloadData()
         }
     }
