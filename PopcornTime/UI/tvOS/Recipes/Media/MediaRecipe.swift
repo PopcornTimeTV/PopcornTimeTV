@@ -18,7 +18,7 @@ protocol MediaRecipeDelegate: class {
     var currentFilter: String
     var currentGenre: String
     
-    var continueWatchingMedia: [Media]
+    var onDeck: [Media]
     
     // MARK: MediaRecipeJSExports
     
@@ -30,8 +30,8 @@ protocol MediaRecipeDelegate: class {
     }
     
     
-    init(continueWatchingMedia: [Media] = [], title: String, defaultGenre: String, defaultFilter: String) {
-        self.continueWatchingMedia = continueWatchingMedia
+    init(onDeck: [Media] = [], title: String, defaultGenre: String, defaultFilter: String) {
+        self.onDeck = onDeck
         self.currentGenre = defaultGenre
         self.currentFilter = defaultFilter
         self.title = title
@@ -41,7 +41,6 @@ protocol MediaRecipeDelegate: class {
     var filter: String { fatalError("Must be overridden") }
     var genre: String { fatalError("Must be overridden") }
     var type: String { fatalError("Must be overridden") }
-    var watchedlistManager: WatchedlistManager { fatalError("Must be overridden") }
     
     var mediaSection: String {
         guard !lockup.isEmpty else { return "" }
@@ -66,7 +65,7 @@ protocol MediaRecipeDelegate: class {
     }
     
     var continueWatchingShelf: String {
-        guard !continueWatchingMedia.isEmpty else { return "" }
+        guard !onDeck.isEmpty else { return "" }
         var xml = "<shelf>" + "\n"
         xml +=      "<header>" + "\n"
         xml +=          "<title>Continue Watching</title>" + "\n"
@@ -78,18 +77,7 @@ protocol MediaRecipeDelegate: class {
         return xml
     }
     
-    var continueWatchingLockup: String {
-        return continueWatchingMedia.map {
-            var xml = "<lockup id=\"continueWatchingLockup\"actionID=\"show\(type)»\($0.title.cleaned)»\($0.id)\">" + "\n"
-            xml +=      "<img src=\($0.largeBackgroundImage) width=\"850\" height=\"350\" />" + "\n"
-            xml +=      "<overlay>" + "\n"
-            xml +=          "<title>\($0.title)</title>" + "\n"
-            xml +=          "<progressBar value=\"\(watchedlistManager.currentProgress($0.id))\" />" + "\n"
-             xml +=     "</overlay>" + "\n"
-            xml +=  "</lockup>" + "\n"
-            return xml
-        }.joined(separator: "")
-    }
+    var continueWatchingLockup: String { fatalError("Must be overridden") }
     
     var xmlString: String {
         var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"

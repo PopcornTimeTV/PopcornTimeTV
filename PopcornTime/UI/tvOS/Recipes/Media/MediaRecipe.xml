@@ -15,7 +15,16 @@
         }
         .bar {
             tv-position: footer;
-            margin: 70 0 -20 -45;
+            margin: 70 0 -20 0;
+        }
+        .overlayTitle {
+            tv-position: bottom;
+            margin: 0 0 -40 0;
+        }
+        .overlaySubtitle {
+            tv-position: bottom;
+            margin: 0 0 -50 0;
+            color: rgba(255, 255, 255, 0.5);
         }
     </style>
 </head>

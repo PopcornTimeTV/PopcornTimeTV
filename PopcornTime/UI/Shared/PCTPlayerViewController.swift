@@ -180,7 +180,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         
         PTTorrentStreamer.shared().cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
         
-        (media is Movie ? WatchedlistManager.movie : WatchedlistManager.episode).setCurrentProgress(progressBar.progress, forId: media.id, withStatus: .finished)
+        setProgress(status: .finished)
         
         #if os(tvOS)
             OperationQueue.main.addOperation {
@@ -374,17 +374,16 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     func mediaPlayerStateChanged(_ aNotification: Notification!) {
         resetIdleTimer()
         progressBar.isBuffering = false
-        let manager: WatchedlistManager = media is Movie ? .movie : .episode
         switch mediaplayer.state {
         case .error:
             fallthrough
         case .ended:
             fallthrough
         case .stopped:
-            manager.setCurrentProgress(progressBar.progress, forId: media.id, withStatus: .finished)
+            setProgress(status: .finished)
             didFinishPlaying()
         case .paused:
-            manager.setCurrentProgress(progressBar.progress, forId: media.id, withStatus: .paused)
+            setProgress(status: .paused)
             #if os(iOS)
                 playPauseButton.setImage(UIImage(named: "Play"), for: .normal)
             #endif
@@ -392,7 +391,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             #if os(iOS)
                 playPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
             #endif
-            manager.setCurrentProgress(progressBar.progress, forId: media.id, withStatus: .watching)
+            setProgress(status: .watching)
         case .buffering:
             progressBar.isBuffering = true
         default:
@@ -442,6 +441,14 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         return true
     }
     
+    func setProgress(status: Trakt.WatchedStatus) {
+        if let movie = media as? Movie {
+            WatchedlistManager<Movie>.movie.setCurrentProgress(progressBar.progress, forMedia: movie, withStatus: status)
+        } else if let episode = media as? Episode {
+            WatchedlistManager<Episode>.episode.setCurrentProgress(progressBar.progress, forMedia: episode, withStatus: status)
+        }
+    }
+    
     // MARK: Up next view delegate
     
     func constraintsWereUpdated(willHide hide: Bool) {
@@ -454,7 +461,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     func timerFinished() {
         didFinishPlaying()
-        delegate?.playNext(nextEpisode!)
+        OperationQueue.main.addOperation { [unowned self] in
+            self.delegate?.playNext(self.nextEpisode!)
+        }
     }
     
 }

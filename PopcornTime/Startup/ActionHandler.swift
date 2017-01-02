@@ -216,7 +216,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
      */
     func toggleMovieWatched(_ movieString: String) {
         guard let movie = Mapper<Movie>().map(JSONString: movieString) else { return }
-        WatchedlistManager.movie.toggle(movie.id)
+        WatchedlistManager<Movie>.movie.toggle(movie)
         Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
             context.objectForKeyedSubscript(movie.id).invokeMethod("updateWatchedButton", withArguments: nil)
         })
@@ -667,7 +667,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
             }
         }
         
-        let currentProgress = media is Movie ? WatchedlistManager.movie.currentProgress(media.id) : WatchedlistManager.episode.currentProgress(media.id)
+        let currentProgress = media is Movie ? WatchedlistManager<Movie>.movie.currentProgress(media as! Movie) : WatchedlistManager<Episode>.episode.currentProgress(media as! Episode)
         var nextEpisode: Episode?
         
         if let showRecipe = productRecipe as? ShowProductRecipe, let episode = media as? Episode {

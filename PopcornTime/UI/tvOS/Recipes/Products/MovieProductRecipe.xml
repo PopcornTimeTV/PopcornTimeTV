@@ -10,10 +10,8 @@
         tv-placeholder:movie;
     }
     .imgGradient {
-        tv-img-treatment: blurOverlay;
-        tv-img-treatment:uber;
-        background-color: #1E1F29;
-        tv-tint-color: black;
+        tv-img-treatment: uber;
+        tv-tint-color: linear-gradient(top, rgba(0,0,0,0.7), 0.3, transparent);
     }
     .indicator {
         tv-position: top;
@@ -24,7 +22,7 @@
 </head>
 <productTemplate>
     <background>
-        <img class="imgGradient" src="{{FANART_IMAGE}}" style="tv-tint-color: linear-gradient(top, 0.33, transparent, 0.66, rgba(0,0,0,0.7), rgba(000,0,0,1.0));" />
+        <img class="imgGradient" src="{{FANART_IMAGE}}" />
     </background>
     
     <banner>

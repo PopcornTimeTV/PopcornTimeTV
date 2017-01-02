@@ -193,10 +193,10 @@ import ObjectMapper
             string += "<img class=\"placeholder\" src=\"\($0.mediumBackgroundImage ?? "")\" width=\"310\" height=\"175\" />" + "\n"
             string += "<title>\($0.episode). \($0.title.cleaned)</title>" + "\n"
             string += "<overlay class=\"overlayPosition\">" + "\n"
-            if WatchedlistManager.episode.isAdded($0.id) {
+            if WatchedlistManager<Episode>.episode.isAdded($0) {
                 string += "<badge src=\"resource://overlay-checkmark\" class=\"overlayPosition\"/>" + "\n"
-            } else if WatchedlistManager.episode.currentProgress($0.id) > 0.0 {
-                string += "<progressBar value=\"\(WatchedlistManager.episode.currentProgress($0.id))\" />" + "\n"
+            } else if WatchedlistManager<Episode>.episode.currentProgress($0) > 0.0 {
+                string += "<progressBar value=\"\(WatchedlistManager<Episode>.episode.currentProgress($0))\" />" + "\n"
             }
             string += "</overlay>" + "\n"
             string += "<relatedContent>" + "\n"

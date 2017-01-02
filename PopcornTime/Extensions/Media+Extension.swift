@@ -114,8 +114,8 @@ extension Media {
      */
     func getSubtitles(forId id: String, completion: @escaping ([Subtitle]) -> Void) {
         if let `self` = self as? Episode, !id.hasPrefix("tt") {
-            TraktManager.shared.getEpisodeMetadata(self.show.id, episodeNumber: self.episode, seasonNumber: self.season, completion: { (tvdb, imdb, error) in
-                if let imdb = imdb { self.getSubtitles(forId: imdb, completion: completion) } else {
+            TraktManager.shared.getEpisodeMetadata(self.show.id, episodeNumber: self.episode, seasonNumber: self.season, completion: { (episode, _) in
+                if let imdb = episode?.imdbId { self.getSubtitles(forId: imdb, completion: completion) } else {
                     SubtitlesManager.shared.search(self) { (subtitles, _) in
                         completion(subtitles)
                     }

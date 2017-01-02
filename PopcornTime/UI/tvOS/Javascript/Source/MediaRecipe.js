@@ -48,8 +48,9 @@ var addEventListeners = function(recipe) {
     
     for (var i = 0; i < lockupElements.length; i++) {
         var element = lockupElements.item(i);
+
         // do not add the highlight listener to "continue watching" elements as they are not paginated.
-        if (element.id === "continueWatchingLockup") { return }
+        if (element.getAttribute("id") === "continueWatchingLockup") { continue }
         
         element.addEventListener("highlight", function(event) {
             highlightCellEvent(event, recipe);
