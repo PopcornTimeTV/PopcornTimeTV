@@ -42,7 +42,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
      */
     private func performSelector(named methodSignature: String, parameters: [String]) {
         assert(parameters.count <= 2, "performSelector will not work with more than two function arguments.")
-        
+
         switch parameters.count {
         case 0:
             let selector = Selector(methodSignature)
@@ -216,7 +216,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
      */
     func toggleMovieWatched(_ movieString: String) {
         guard let movie = Mapper<Movie>().map(JSONString: movieString) else { return }
-        WatchedlistManager<Movie>.movie.toggle(movie)
+        WatchedlistManager<Movie>.movie.toggle(movie.id)
         Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
             context.objectForKeyedSubscript(movie.id).invokeMethod("updateWatchedButton", withArguments: nil)
         })
@@ -242,14 +242,15 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     /**
      Presents detail movie view. Called when a user taps on a movie.
      
-     - Parameter title: The title of the movie.
-     - Parameter id:    The imdbId of the movie.
+     - Parameter mediaString: A JSON representation of the movie object. Use `Mapper` to achieve this.
+     - Parameter autoplay:    Passing in `true` will result in the movie being played as soon as the view controller has loaded.
      */
 
-    func showMovie(_ title: String, _ id: String) {
-        Kitchen.serve(recipe: LoadingRecipe(message: title))
+    func showMovie(_ movieString: String, _ autoplay: String) {
+        guard let movie = Mapper<Movie>().map(JSONString: movieString), let autoplay = Bool(autoplay) else { return }
+        Kitchen.serve(recipe: LoadingRecipe(message: movie.title))
         
-        PopcornKit.getMovieInfo(id) { (movie, error) in
+        PopcornKit.getMovieInfo(movie.id) { (movie, error) in
             guard var movie = movie else {
                 var viewcontrollers = Kitchen.navigationController.viewControllers
                 viewcontrollers.removeLast()
@@ -274,7 +275,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
             })
             
             group.enter()
-            TraktManager.shared.getPeople(forMediaOfType: .movies, id: id, completion: { (actors, crew, _) in
+            TraktManager.shared.getPeople(forMediaOfType: .movies, id: movie.id, completion: { (actors, crew, _) in
                 movie.actors = actors
                 movie.crew = crew
                 group.leave()
@@ -293,13 +294,16 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 script = script.replacingOccurrences(of: "{{RECIPE_NAME}}", with: movie.id)
                 
                 self.evaluate(script: script) { _ in
-                    self.dismissLoading()
+                    self.dismissLoading() { _ in
+                        guard autoplay else { return }
+                        ActionHandler.shared.chooseQuality(Mapper<Torrent>().toJSONString(movie.torrents) ?? "", Mapper<Movie>().toJSONString(movie) ?? "")
+                    }
                 }
             })
         }
     }
     
-    /** 
+    /**
      Pops the second last view controller from the navigation stack 1 second after the method is called. This can be used to dismiss the loading view controller that is presented when showing movie detail or show detail.
      
      - Parameter completion: Called when the view controller has sucessfully been popped from the navigation stack. Boolean value indicates the success of the operation. Will only fail if the top view controller is not a loadingViewController.
@@ -320,13 +324,17 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     /**
      Presents detail show view. Called when a user taps on a show.
      
-     - Parameter title: The title of the show.
-     - Parameter id:    The imdbId of the show.
+     - Parameter showString:              A JSON representation of the show object. Use `Mapper` to achieve this.
+     - Parameter autoplayEpisodeString:   The episode to be played as soon as the view controller is presented. Pass an empty string to disable.
      */
-    func showShow(_ title: String, _ id: String) {
-        Kitchen.serve(recipe: LoadingRecipe(message: title))
+    func showShow(_ showString: String, _ autoplayEpisodeString: String) {
+        guard let show = Mapper<Show>().map(JSONString: showString) else { return }
         
-        PopcornKit.getShowInfo(id) { (show, error) in
+        let episode = Mapper<Episode>().map(JSONString: autoplayEpisodeString)
+        
+        Kitchen.serve(recipe: LoadingRecipe(message: show.title))
+        
+        PopcornKit.getShowInfo(show.id) { (show, error) in
             guard var show = show else {
                 var viewcontrollers = Kitchen.navigationController.viewControllers
                 viewcontrollers.removeLast()
@@ -351,7 +359,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
             })
             
             group.enter()
-            TraktManager.shared.getPeople(forMediaOfType: .shows, id: id, completion: { (actors, crew, _) in
+            TraktManager.shared.getPeople(forMediaOfType: .shows, id: show.id, completion: { (actors, crew, _) in
                 show.actors = actors
                 show.crew = crew
                 group.leave()
@@ -365,9 +373,9 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
             
             group.notify(queue: .main, execute: {
                 guard let viewController = Kitchen.appController.navigationController.visibleViewController,
-                viewController.isLoadingViewController else { return }
+                    viewController.isLoadingViewController else { return }
                 
-                guard let recipe = ShowProductRecipe(show: show) else {
+                guard let recipe = ShowProductRecipe(show: show, currentSeason: episode?.season) else {
                     Kitchen.appController.navigationController.popViewController(animated: true)
                     Kitchen.serve(recipe: AlertRecipe(title: "No episodes available", description: "There are no available episodes for \(show.title).", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")]))
                     return
@@ -381,7 +389,11 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 script = script.replacingOccurrences(of: "{{RECIPE_NAME}}", with: show.id)
                 
                 self.evaluate(script: script) { _ in
-                    self.dismissLoading()
+                    self.dismissLoading() { _ in
+                        /// Just in case popcorn time doesn't have passed in episode or it doesn't have torrents associated with it.
+                        guard let episode = show.episodes.first(where: {$0 == episode}) else { return }
+                        ActionHandler.shared.chooseQuality(Mapper<Torrent>().toJSONString(episode.torrents) ?? "", Mapper<Episode>().toJSONString(episode) ?? "")
+                    }
                 }
             })
         }
@@ -667,7 +679,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
             }
         }
         
-        let currentProgress = media is Movie ? WatchedlistManager<Movie>.movie.currentProgress(media as! Movie) : WatchedlistManager<Episode>.episode.currentProgress(media as! Episode)
+        let currentProgress = media is Movie ? WatchedlistManager<Movie>.movie.currentProgress(media.id) : WatchedlistManager<Episode>.episode.currentProgress(media.id)
         var nextEpisode: Episode?
         
         if let showRecipe = productRecipe as? ShowProductRecipe, let episode = media as? Episode {

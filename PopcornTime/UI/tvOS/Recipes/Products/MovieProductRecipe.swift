@@ -37,7 +37,7 @@ import ObjectMapper
     }
     
     override dynamic var watchedStatusButtonImage: String {
-        return WatchedlistManager<Movie>.movie.isAdded(movie) ? "button-watched" : "button-unwatched"
+        return WatchedlistManager<Movie>.movie.isAdded(movie.id) ? "button-watched" : "button-unwatched"
     }
 
 

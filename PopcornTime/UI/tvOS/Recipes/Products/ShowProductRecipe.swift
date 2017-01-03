@@ -17,7 +17,11 @@ import ObjectMapper
         guard !show.seasonNumbers.isEmpty else { return nil }
         
         self.show = show
-        self.season = currentSeason ?? show.seasonNumbers.last!
+        if let season = currentSeason, show.seasonNumbers.contains(season) {
+            self.season = season
+        } else {
+            season = show.seasonNumbers.last!
+        }
         
         super.init()
         Kitchen.appController.navigationController.delegate = self
@@ -193,10 +197,10 @@ import ObjectMapper
             string += "<img class=\"placeholder\" src=\"\($0.mediumBackgroundImage ?? "")\" width=\"310\" height=\"175\" />" + "\n"
             string += "<title>\($0.episode). \($0.title.cleaned)</title>" + "\n"
             string += "<overlay class=\"overlayPosition\">" + "\n"
-            if WatchedlistManager<Episode>.episode.isAdded($0) {
+            if WatchedlistManager<Episode>.episode.isAdded($0.id) {
                 string += "<badge src=\"resource://overlay-checkmark\" class=\"overlayPosition\"/>" + "\n"
-            } else if WatchedlistManager<Episode>.episode.currentProgress($0) > 0.0 {
-                string += "<progressBar value=\"\(WatchedlistManager<Episode>.episode.currentProgress($0))\" />" + "\n"
+            } else if WatchedlistManager<Episode>.episode.currentProgress($0.id) > 0.0 {
+                string += "<progressBar value=\"\(WatchedlistManager<Episode>.episode.currentProgress($0.id))\" />" + "\n"
             }
             string += "</overlay>" + "\n"
             string += "<relatedContent>" + "\n"

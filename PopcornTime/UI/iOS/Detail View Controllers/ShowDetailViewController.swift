@@ -226,7 +226,7 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ShowDetailTableViewCell
         cell.titleLabel.text = currentSeasonArray[indexPath.row].title
         cell.seasonLabel.text = "E" + String(currentSeasonArray[indexPath.row].episode)
-        cell.episode = currentSeasonArray[indexPath.row]
+        cell.id = currentSeasonArray[indexPath.row].id
         return cell
     }
     

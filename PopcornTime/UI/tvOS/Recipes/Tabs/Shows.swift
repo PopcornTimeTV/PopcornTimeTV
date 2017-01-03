@@ -15,14 +15,39 @@ class Shows: TabItem, MediaRecipeDelegate  {
     func handler() {
         recipe = recipe ?? {
             let recipe = ShowsRecipe()
+            let group = DispatchGroup()
             recipe.delegate = self
+            group.enter()
             recipe.loadNextPage { _ in
                 let file = Bundle.main.url(forResource: "MediaRecipe", withExtension: "js")!
                 var script = try! String(contentsOf: file)
                 script = script.replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
                 script = script.replacingOccurrences(of: "{{RECIPE_NAME}}", with: recipe.title.lowercased())
                 
-                ActionHandler.shared.evaluate(script: script)
+                ActionHandler.shared.evaluate(script: script) { _ in
+                    group.leave()
+                }
+            }
+            var onDeck: [Episode] = []
+
+            for id in WatchedlistManager<Episode>.episode.getOnDeck() {
+                group.enter()
+                PopcornKit.getEpisodeInfo(Int(id)!) { (episode, _) in
+                    if let episode = episode { onDeck.append(episode) }
+                    group.leave()
+                }
+            }
+            
+            group.notify(queue: .main) {
+                self.recipe.onDeck = onDeck
+                
+                guard let element = self.recipe.collectionList, let doc = self.recipe.doc else { return }
+                
+                let data = self.recipe.continueWatchingShelf + self.recipe.mediaSection
+                
+                Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
+                    context.objectForKeyedSubscript("refresh").call(withArguments: [element, data, doc])
+                })
             }
             return recipe
         }()

@@ -14,13 +14,14 @@
             text-align: left;
             font-weight: bold;
             tv-text-style: title1;
+            color: white;
         }
     </style>
 </head>
 <stackTemplate>
-    <identityBanner>
+    <banner>
         <title class="title">{{TITLE}}</title>
-    </identityBanner>
+    </banner>
     <collectionList>
         <grid>
             <section>

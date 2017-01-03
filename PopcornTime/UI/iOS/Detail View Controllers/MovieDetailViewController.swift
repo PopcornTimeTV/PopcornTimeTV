@@ -142,11 +142,11 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
     }
     
     var watchedButtonImage: UIImage {
-        return WatchedlistManager<Movie>.movie.isAdded(currentItem) ? UIImage(named: "WatchedOn")! : UIImage(named: "WatchedOff")!
+        return WatchedlistManager<Movie>.movie.isAdded(currentItem.id) ? UIImage(named: "WatchedOn")! : UIImage(named: "WatchedOff")!
     }
     
     @IBAction func toggleWatched() {
-        WatchedlistManager<Movie>.movie.toggle(currentItem)
+        WatchedlistManager<Movie>.movie.toggle(currentItem.id)
         watchedButton.image = watchedButtonImage
     }
     
@@ -234,7 +234,7 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
     @IBAction func playMovie() {
         if UserDefaults.standard.bool(forKey: "streamOnCellular") || (UIApplication.shared.delegate! as! AppDelegate).reachability!.isReachableViaWiFi() {
             
-            let currentProgress = WatchedlistManager<Movie>.movie.currentProgress(currentItem)
+            let currentProgress = WatchedlistManager<Movie>.movie.currentProgress(currentItem.id)
             
             let loadingViewController = storyboard?.instantiateViewController(withIdentifier: "LoadingViewController") as! LoadingViewController
             loadingViewController.transitioningDelegate = self

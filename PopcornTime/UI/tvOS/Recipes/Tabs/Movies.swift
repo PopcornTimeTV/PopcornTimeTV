@@ -15,12 +15,30 @@ class Movies: TabItem, MediaRecipeDelegate {
     func handler() {
         recipe = recipe ?? {
             let recipe = MoviesRecipe()
+            let group = DispatchGroup()
             recipe.delegate = self
+            group.enter()
             recipe.loadNextPage { _ in
+                group.leave()
+            }
+            
+            var onDeck: [Movie] = []
+            
+            for id in WatchedlistManager<Movie>.movie.getOnDeck() {
+                group.enter()
+                PopcornKit.getMovieInfo(id) { (movie, _) in
+                    if let movie = movie { onDeck.append(movie) }
+                    group.leave()
+                }
+            }
+            
+            group.notify(queue: .main) {
+                self.recipe.onDeck = onDeck
+                
                 let file = Bundle.main.url(forResource: "MediaRecipe", withExtension: "js")!
                 var script = try! String(contentsOf: file)
-                script = script.replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
-                script = script.replacingOccurrences(of: "{{RECIPE_NAME}}", with: recipe.title.lowercased())
+                script = script.replacingOccurrences(of: "{{RECIPE}}", with: self.recipe.xmlString)
+                script = script.replacingOccurrences(of: "{{RECIPE_NAME}}", with: self.recipe.title.lowercased())
                 
                 ActionHandler.shared.evaluate(script: script)
             }

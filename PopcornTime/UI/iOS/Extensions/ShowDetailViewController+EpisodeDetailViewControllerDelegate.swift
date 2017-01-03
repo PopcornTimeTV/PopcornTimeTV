@@ -8,7 +8,7 @@ extension ShowDetailViewController: EpisodeDetailViewControllerDelegate, PCTPlay
     func playEpisode(_ episode: Episode) {
         if UserDefaults.standard.bool(forKey: "streamOnCellular") || (UIApplication.shared.delegate! as! AppDelegate).reachability!.isReachableViaWiFi() {
             
-            let currentProgress = WatchedlistManager<Episode>.episode.currentProgress(episode)
+            let currentProgress = WatchedlistManager<Episode>.episode.currentProgress(episode.id)
             
             let nextEpisode: Episode? = !self.episodesLeftInShow.isEmpty ? self.episodesLeftInShow.removeFirst() : nil
             
