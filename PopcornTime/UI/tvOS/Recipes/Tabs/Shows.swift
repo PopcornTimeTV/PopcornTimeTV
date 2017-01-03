@@ -19,14 +19,7 @@ class Shows: TabItem, MediaRecipeDelegate  {
             recipe.delegate = self
             group.enter()
             recipe.loadNextPage { _ in
-                let file = Bundle.main.url(forResource: "MediaRecipe", withExtension: "js")!
-                var script = try! String(contentsOf: file)
-                script = script.replacingOccurrences(of: "{{RECIPE}}", with: recipe.xmlString)
-                script = script.replacingOccurrences(of: "{{RECIPE_NAME}}", with: recipe.title.lowercased())
-                
-                ActionHandler.shared.evaluate(script: script) { _ in
-                    group.leave()
-                }
+                group.leave()
             }
             var onDeck: [Episode] = []
 
@@ -41,13 +34,12 @@ class Shows: TabItem, MediaRecipeDelegate  {
             group.notify(queue: .main) {
                 self.recipe.onDeck = onDeck
                 
-                guard let element = self.recipe.collectionList, let doc = self.recipe.doc else { return }
+                let file = Bundle.main.url(forResource: "MediaRecipe", withExtension: "js")!
+                var script = try! String(contentsOf: file)
+                script = script.replacingOccurrences(of: "{{RECIPE}}", with: self.recipe.xmlString)
+                script = script.replacingOccurrences(of: "{{RECIPE_NAME}}", with: self.recipe.title.lowercased())
                 
-                let data = self.recipe.continueWatchingShelf + self.recipe.mediaSection
-                
-                Kitchen.appController.evaluate(inJavaScriptContext: { (context) in
-                    context.objectForKeyedSubscript("refresh").call(withArguments: [element, data, doc])
-                })
+                ActionHandler.shared.evaluate(script: script)
             }
             return recipe
         }()
