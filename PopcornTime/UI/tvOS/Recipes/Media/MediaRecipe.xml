@@ -1,9 +1,9 @@
 <head>
     <style>
         .title {
-            text-align:left;
+            text-align: left;
             font-weight: bold;
-            font-size: 73pt;
+            tv-text-style: title1;
         }
         .hover {
             tv-text-highlight-style: marquee-and-show-on-highlight;
@@ -26,13 +26,16 @@
             margin: 0 0 -50 0;
             color: rgba(255, 255, 255, 0.5);
         }
+        .overlayGradient {
+            tv-tint-color: linear-gradient(top, 0.30, transparent, 0.50, rgba(29,29,29,0.5), 1.0, rgba(29,29,29,0.5), rgba(29,29,29,0.5));
+        }
     </style>
 </head>
 
 <stackTemplate>
-    <identityBanner>
+    <banner>
         <title class="title">{{TITLE}}</title>
-    </identityBanner>
+    </banner>
     <collectionList>
         {{CONTINUE_WATCHING}}
         {{MEDIA}}

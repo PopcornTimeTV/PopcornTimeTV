@@ -4,17 +4,17 @@
             tv-placeholder: movie;
         }
         .title {
-            text-align:left;
+            text-align: left;
             font-weight: bold;
-            font-size: 73pt;
+            tv-text-style: title1;
         }
     </style>
 </head>
 
 <stackTemplate>
-    <identityBanner>
+    <banner>
         <title class="title">{{TITLE}}</title>
-    </identityBanner>
+    </banner>
     <collectionList>
         {{SHELVES}}
     </collectionList>

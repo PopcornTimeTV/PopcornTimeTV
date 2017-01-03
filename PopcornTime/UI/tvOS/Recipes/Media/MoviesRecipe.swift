@@ -21,7 +21,11 @@ class MoviesRecipe: MediaRecipe {
     override var continueWatchingLockup: String {
         return onDeck.map {
             var xml = "<lockup id=\"continueWatchingLockup\" actionID=\"showMovie»\($0.title.cleaned)»\($0.id)\">" + "\n"
+<<<<<<< Updated upstream
             xml +=      "<img src=\"\($0.mediumBackgroundImage ?? "")\" width=\"850\" height=\"350\" />" + "\n"
+=======
+            xml +=      "<img class=\"overlayGradient\" src=\"\($0.largeBackgroundImage ?? "")\" width=\"850\" height=\"350\" />" + "\n"
+>>>>>>> Stashed changes
             xml +=      "<overlay>" + "\n"
             xml +=          "<title class=\"overlayTitle\">\($0.title)</title>" + "\n"
             xml +=          "<progressBar value=\"\(WatchedlistManager<Movie>.movie.currentProgress($0 as! Movie))\" class=\"bar\" />" + "\n"

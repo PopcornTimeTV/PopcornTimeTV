@@ -22,7 +22,11 @@ class ShowsRecipe: MediaRecipe {
         return onDeck.map {
             guard let episode = $0 as? Episode else { return "" }
             var xml = "<lockup id=\"continueWatchingLockup\" actionID=\"showShow»\(episode.show.title.cleaned)»\(episode.show.id)\">" + "\n"
+<<<<<<< Updated upstream
             xml +=      "<img src=\"\(episode.mediumBackgroundImage ?? "")\" width=\"850\" height=\"350\" />" + "\n"
+=======
+            xml +=      "<img class=\"overlayGradient\" src=\"\(episode.largeBackgroundImage ?? "")\" width=\"850\" height=\"350\" />" + "\n"
+>>>>>>> Stashed changes
             xml +=      "<overlay>" + "\n"
             xml +=          "<title class=\"overlayTitle\">\(episode.title)</title>" + "\n"
             xml +=          "<subtitle class=\"overlaySubtitle\">\(episode.show.title): S\(episode.season):E\(episode.episode)</subtitle>" + "\n"
