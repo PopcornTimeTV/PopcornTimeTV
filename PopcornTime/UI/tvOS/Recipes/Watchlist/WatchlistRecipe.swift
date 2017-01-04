@@ -2,6 +2,7 @@
 
 import TVMLKitchen
 import PopcornKit
+import ObjectMapper
 
 public struct WatchlistRecipe: RecipeType {
 
@@ -28,9 +29,14 @@ public struct WatchlistRecipe: RecipeType {
 
     public func mediaString(_ media: [Media]) -> String {
         let mapped: [String] = media.map {
-            let type = $0 is Movie ? "Movie" : "Show"
-            var string = "<lockup actionID=\"show\(type)»\($0.title)»\($0.id)\">"
-            string += "<img class=\"img\" src=\"\($0.mediumCoverImage ?? "")\" width=\"250\" height=\"375\" />"
+            var string = ""
+            if let movie = $0 as? Movie {
+                string = "<lockup actionID=\"showMovie»\(Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")»\(false)\">"
+                string += "<img style=\"tv-placeholder: movie;\" src=\"\($0.smallCoverImage ?? "")\" width=\"250\" height=\"375\" />"
+            } else if let show = $0 as? Show {
+                string = "<lockup actionID=\"showShow»\(Mapper<Show>().toJSONString(show)?.cleaned ?? "")»\">"
+                string += "<img style=\"tv-placeholder: tv;\" src=\"\($0.smallCoverImage ?? "")\" width=\"250\" height=\"375\" />"
+            }
             string += "<title style=\"tv-text-highlight-style: marquee-and-show-on-highlight;\">\($0.title.cleaned)</title>"
             string += "</lockup>"
             return string
