@@ -658,6 +658,56 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
         }
     }
     
+    /**
+     Present a catalog of movies and shows that an actor starred in or was working in.
+     
+     - Parameter name:  Name of person.
+     - Parameter id:    ImdbId of person.
+     */
+    func showCredits(_ name: String, _ id: String) {
+        Kitchen.serve(recipe: LoadingRecipe(message: name))
+        
+        let group = DispatchGroup()
+        var lockup = ""
+        var error: NSError?
+        
+        group.enter()
+        TraktManager.shared.getMediaCredits(forPersonWithId: id, mediaType: Show.self) {
+            defer { group.leave() }
+            guard $0.1 == nil else {
+                error = $0.1
+                return
+            }
+            let shows = unique(source: $0.0).map({$0.lockUp}).joined(separator: "")
+            lockup += shows
+        }
+        
+        group.enter()
+        TraktManager.shared.getMediaCredits(forPersonWithId: id, mediaType: Movie.self) {
+            defer { group.leave() }
+            guard $0.1 == nil else {
+                error = $0.1
+                return
+            }
+            let movies = unique(source: $0.0).map({$0.lockUp}).joined(separator: "")
+            lockup += movies
+        }
+        
+        group.notify(queue: .main) { 
+            guard !lockup.isEmpty && error == nil else {
+                let backgroundView = ErrorBackgroundView()
+                let error = error ?? NSError(domain: "com.popcorntimetv.popcorntime.tvos.error", code: -1, userInfo: [NSLocalizedDescriptionKey: "No media found"])
+                backgroundView.setUpView(error: error)
+                Kitchen.serve(xmlString: backgroundView.xmlString, type: .default)
+                return
+            }
+            
+            let recipe = CatalogRecipe(title: name, media: lockup)
+            Kitchen.serve(recipe: recipe)
+            self.dismissLoading()
+        }
+    }
+    
     // MARK: - Media
     
     /**

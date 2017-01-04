@@ -55,6 +55,26 @@ import PopcornKit
                 
                 callback(results)
             }
+        case .people:
+            TraktManager.shared.search(forPerson: text) { (people, error) in
+                guard let people = people else { callback(self.noData); return }
+                let mapped: [String] = people.map({
+                    var headshot = ""
+                    if let image = $0.mediumImage {
+                        headshot = " src=\"\(image)\""
+                    }
+                    let name = $0.name.components(separatedBy: " ")
+                    var string = "<monogramLockup actionID=\"showCredits»\($0.name)»\($0.imdbId)\">" + "\n"
+                    string += "<monogram firstName=\"\(name.first!)\" lastName=\"\(name.last!)\"\(headshot)/>"
+                    string += "<title>\($0.name.cleaned)</title>" + "\n"
+                    string += "</monogramLockup>" + "\n"
+                    return string
+                })
+                
+                results = results.replacingOccurrences(of: "{{TITLE}}", with: "Found \(people.count) \(people.count == 1 ? "person" : "people") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: ""))
+                
+                callback(results)
+            }
         default:
             return
         }

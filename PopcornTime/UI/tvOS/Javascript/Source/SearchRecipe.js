@@ -13,7 +13,9 @@ segmentedControlElem.addEventListener("highlight", function(event) {
     const selectedElement = event.target;
     const selectedMode = selectedElement.getAttribute("value");
     search.segmentBarDidChangeSegment(selectedMode);
-    this.buildResults(search.doc, searchKeyboard.text);
+    if (typeof searchKeyboard.text != 'undefined') { // If user hasn't started typing, but has changed the segmented control, text value will be undefined.
+        this.buildResults(search.doc, searchKeyboard.text);
+    }
 });
 
 menuBarSearchPresenter(search.doc);
