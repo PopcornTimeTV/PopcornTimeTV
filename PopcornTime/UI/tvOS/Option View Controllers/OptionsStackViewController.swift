@@ -162,7 +162,9 @@ class OptionsStackViewController: UIViewController, UITableViewDelegate {
     
     func menuPressed() {
         if firstTableView.recursiveSubviews.first(where: {$0.isFocused}) != nil || secondTableView.recursiveSubviews.first(where: {$0.isFocused}) != nil || thirdTableView.recursiveSubviews.first(where: {$0.isFocused}) != nil {
-            viewToFocus = tabBar.subviews.first(where: {$0 is UIScrollView})?.subviews[safe: 1]
+            if let item = tabBar.selectedItem, let index = tabBar.items?.index(of: item) {
+                viewToFocus = tabBar.subviews.first(where: {$0 is UIScrollView})?.subviews[safe: index]
+            }
         } else {
            dismiss(animated: true, completion: nil)
         }

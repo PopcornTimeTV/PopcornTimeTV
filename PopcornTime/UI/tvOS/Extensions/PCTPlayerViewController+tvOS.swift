@@ -5,12 +5,12 @@ import Foundation
 extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, OptionsViewControllerDelegate {
     
     func didSelectAudioDelay(_ delay: Int) {
-        mediaplayer.currentAudioPlaybackDelay = delay
+        mediaplayer.currentAudioPlaybackDelay = Int(1e6) * delay
     }
 
     
     func didSelectSubtitleDelay(_ delay: Int) {
-        mediaplayer.currentVideoSubTitleDelay = delay
+        mediaplayer.currentVideoSubTitleDelay = Int(1e6) * delay
     }
     
     func didSelectEncoding(_ encoding: String) {
@@ -63,8 +63,8 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, Option
         present(destinationController, animated: true, completion: nil)
         destinationController.subtitlesViewController.subtitles = subtitles
         destinationController.subtitlesViewController.currentSubtitle = currentSubtitle
-        destinationController.subtitlesViewController.currentDelay = mediaplayer.currentVideoSubTitleDelay
-        destinationController.audioViewController.currentDelay = mediaplayer.currentAudioPlaybackDelay
+        destinationController.subtitlesViewController.currentDelay = mediaplayer.currentVideoSubTitleDelay/Int(1e6)
+        destinationController.audioViewController.currentDelay = mediaplayer.currentAudioPlaybackDelay/Int(1e6)
         destinationController.infoViewController.media = media
     }
     
