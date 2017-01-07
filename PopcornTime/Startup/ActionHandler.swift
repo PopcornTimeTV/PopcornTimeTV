@@ -84,45 +84,6 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     // MARK: Hackery
     
     /**
-     Replace the movie/shows title with a logo representation of the title.
-     
-     - Parameter title:                     The title of the movie/show.
-     - Parameter withUrlString:             The url of the logo image.
-     - Parameter height:                    The height of the image view. Defaults to 150.
-     - Parameter belongingToViewController: The view controller to add the imageView to.
-     */
-    func replaceTitle(_ title: String, withUrlString urlString: String, belongingToViewController viewController: UIViewController) {
-        guard let titleLabel = viewController.view.recursiveSubviews.first(where: { (view) -> Bool in
-                guard let label = view as? UILabel, label.text == title, label.font.pointSize == 57 else { return false }
-                return true
-            }), let containerView = titleLabel.superview, let url = URL(string: urlString),
-            let TVProductTemplateController = NSClassFromString("_TVProductTemplateController"),
-            let templateViewController = viewController.templateViewController,
-            type(of: templateViewController) == TVProductTemplateController else { return }
-        
-        let imageView = UIImageView()
-        imageView.alpha = 0.0
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        imageView.af_setImage(withURL: url) { response in
-            guard response.result.isSuccess else { return }
-            UIView.animate(withDuration: 0.3) {
-                titleLabel.alpha = 0.0
-                imageView.alpha = 1.0
-            }
-        }
-        
-        // Once we have added the imageView to the view controller, we do not need/want any more delegate calls so we can remove the delegate
-        Kitchen.appController.navigationController.delegate = nil
-        
-        containerView.addSubview(imageView)
-        imageView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-    }
-    
-    /**
      Replaces tabBarController's template view controller with desired view controller loaded from `Main.storyboard`.
      
      - Parameter identifier:    The storyboard id of the viewController.
@@ -260,11 +221,11 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
             }
             
             let group = DispatchGroup()
-            var fanartLogo = ""
+            var fanartLogo: String?
             
             group.enter()
             TMDBManager.shared.getLogo(forMediaOfType: .movies, id: movie.id) { (image, error) in
-                if let image = image { fanartLogo = image }
+                fanartLogo = image
                 group.leave()
             }
             
@@ -285,8 +246,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 guard let viewController = Kitchen.appController.navigationController.visibleViewController,
                     viewController.isLoadingViewController else { return }
                 
-                let recipe = MovieProductRecipe(movie: movie)
-                recipe.fanartLogo = fanartLogo
+                let recipe = MovieProductRecipe(movie: movie, fanart: fanartLogo)
                 self.productRecipe = recipe
                 
                 let file = Bundle.main.url(forResource: "ProductRecipe", withExtension: "js")!
@@ -344,11 +304,11 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
             }
             
             let group = DispatchGroup()
-            var fanartLogo = ""
+            var fanartLogo: String?
             
             group.enter()
             TMDBManager.shared.getLogo(forMediaOfType: .shows, id: show.tvdbId ?? "") { (image, error) in
-                if let image = image { fanartLogo = image }
+                fanartLogo = image
                 group.leave()
             }
             
@@ -375,13 +335,11 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 guard let viewController = Kitchen.appController.navigationController.visibleViewController,
                     viewController.isLoadingViewController else { return }
                 
-                guard let recipe = ShowProductRecipe(show: show, currentSeason: episode?.season) else {
+                guard let recipe = ShowProductRecipe(show: show, currentSeason: episode?.season, fanart: fanartLogo) else {
                     Kitchen.appController.navigationController.popViewController(animated: true)
                     Kitchen.serve(recipe: AlertRecipe(title: "No episodes available", description: "There are no available episodes for \(show.title).", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")]))
                     return
                 }
-                
-                recipe.fanartLogo = fanartLogo
                 self.productRecipe = recipe
                 
                 let file = Bundle.main.url(forResource: "ProductRecipe", withExtension: "js")!

@@ -8,15 +8,18 @@ import ObjectMapper
 
     var season: Int
     var show: Show
+    let fanartLogo: String?
     
     override var media: Media {
         return show
     }
 
-    init?(show: Show, currentSeason: Int? = nil) {
+    init?(show: Show, currentSeason: Int? = nil, fanart: String?) {
         guard !show.seasonNumbers.isEmpty else { return nil }
         
         self.show = show
+        self.fanartLogo = fanart
+        
         if let season = currentSeason, show.seasonNumbers.contains(season) {
             self.season = season
         } else {
@@ -24,13 +27,6 @@ import ObjectMapper
         }
         
         super.init()
-        Kitchen.appController.navigationController.delegate = self
-    }
-    
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            ActionHandler.shared.replaceTitle(self.show.title, withUrlString: self.fanartLogo, belongingToViewController: viewController)
-        }
     }
     
     override func enableThemeSong() {
@@ -86,6 +82,13 @@ import ObjectMapper
         }
         return ""
     }
+    
+    var bannerString: String {
+        if let fanartLogo = fanartLogo {
+            return "<img src=\"\(fanartLogo)\" width=\"200\" height=\"200\"/>"
+        }
+        return "<title>\(show.title.cleaned)</title>" + "\n"
+    }
 
     var episodeCount: String {
         return "\(show.episodes.filter({$0.season == season}).count) Episodes"
@@ -118,7 +121,7 @@ import ObjectMapper
             var string = "<monogramLockup actionID=\"showShowCredits»\($0.name)»\($0.imdbId)\">" + "\n"
             string += "<monogram firstName=\"\(name.first!)\" lastName=\"\(name.last!)\"\(headshot)/>"
             string += "<title>\($0.name.cleaned)</title>" + "\n"
-            string += "<subtitle>Actor</subtitle>" + "\n"
+            string += "<subtitle>\($0.characterName.cleaned)</subtitle>" + "\n"
             string += "</monogramLockup>" + "\n"
             return string
         }
@@ -176,8 +179,6 @@ import ObjectMapper
         if let network = show.network { return "Watch \(show.title) on \(network)" }
         return ""
     }
-    
-    var fanartLogo = ""
 
     var seasonsButton: String {
         var string = "<buttonLockup actionID=\"showSeasons»\(Mapper<Show>().toJSONString(show)?.cleaned ?? "")»\(Mapper<Episode>().toJSONString(show.episodes)?.cleaned ?? "")\">"
@@ -231,6 +232,7 @@ import ObjectMapper
         
         xml = xml.replacingOccurrences(of: "{{TITLE}}", with: show.title.cleaned)
         xml = xml.replacingOccurrences(of: "{{SEASON}}", with: seasonString)
+        xml = xml.replacingOccurrences(of: "{{BANNER}}", with: bannerString)
         
         xml = xml.replacingOccurrences(of: "{{GENRES}}", with: genresString)
         xml = xml.replacingOccurrences(of: "{{DESCRIPTION}}", with: show.summary.cleaned)

@@ -4,7 +4,7 @@ import Foundation
 import JavaScriptCore
 import PopcornKit
 
-@objc class ProductRecipe: NSObject, ProductRecipeJSExports, UINavigationControllerDelegate {
+@objc class ProductRecipe: NSObject, ProductRecipeJSExports {
     
     dynamic var doc: JSValue?
     dynamic var watchlistStatusButtonImage: String { fatalError("Must be overridden") }

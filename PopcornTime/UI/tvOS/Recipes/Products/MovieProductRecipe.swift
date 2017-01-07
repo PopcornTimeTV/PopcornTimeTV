@@ -7,21 +7,16 @@ import ObjectMapper
 @objc class MovieProductRecipe: ProductRecipe, RecipeType {
     
     var movie: Movie
+    let fanartLogo: String?
     
     override var media: Media {
         return movie
     }
 
-    init(movie: Movie) {
+    init(movie: Movie, fanart: String?) {
         self.movie = movie
+        self.fanartLogo = fanart
         super.init()
-        Kitchen.appController.navigationController.delegate = self
-    }
-    
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            ActionHandler.shared.replaceTitle(self.movie.title, withUrlString: self.fanartLogo, belongingToViewController: viewController)
-        }
     }
     
     override func enableThemeSong() {
@@ -48,8 +43,6 @@ import ObjectMapper
         xml += "</document>"
         return xml
     }
-    
-    var fanartLogo = ""
 
     var directorsString: String {
         let directors = movie.crew.filter({ $0.roleType == .director })
@@ -71,6 +64,12 @@ import ObjectMapper
         return ""
     }
 
+    var bannerString: String {
+        if let fanartLogo = fanartLogo {
+            return "<img src=\"\(fanartLogo)\" width=\"200\" height=\"200\"/>"
+        }
+        return "<title>\(movie.title.cleaned)</title>" + "\n"
+    }
 
     func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int, Int) {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
@@ -162,7 +161,7 @@ import ObjectMapper
         var xml = try! String(contentsOf: file)
         xml = xml.replacingOccurrences(of: "{{DIRECTORS}}", with: directorsString)
         xml = xml.replacingOccurrences(of: "{{ACTORS}}", with: actorsString)
-        xml = xml.replacingOccurrences(of: "{{FANART_LOGO}}", with: fanartLogo)
+        xml = xml.replacingOccurrences(of: "{{BANNER}}", with: bannerString)
         
         xml = xml.replacingOccurrences(of: "{{RUNTIME}}", with: runtime)
         xml = xml.replacingOccurrences(of: "{{TITLE}}", with: movie.title.cleaned)
