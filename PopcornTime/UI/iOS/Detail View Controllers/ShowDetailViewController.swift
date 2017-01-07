@@ -215,11 +215,7 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func groupedEpisodes(bySeason season: Int) -> [Episode] {
-        var episodes = [Episode]()
-        for index in currentItem.seasonNumbers where season == index {
-            episodes += currentItem.episodes.filter({$0.season == index})
-        }
-        return episodes
+        return currentItem.episodes.filter({$0.season == season}).sorted(by: {$0.0.episode < $0.1.episode})
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

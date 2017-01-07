@@ -22,6 +22,7 @@ var indexOf = function(element, array) {
 /**
  * @description - called when a cell is highlighted
  * @param {IKDOMElement} event - the cell that was highlighted
+ * @param {MediaRecipe} recipe - the current active recipe
  */
 var highlightCellEvent = function(event, recipe) {
     var highlightedCell = event.target;
@@ -30,7 +31,7 @@ var highlightCellEvent = function(event, recipe) {
     var highlightedCellIndex = indexOf(highlightedCell, allCells);
     var totalCells = allCells.length;
     var cellsUntilLastCell = totalCells - (highlightedCellIndex + 1);
-
+    
     if ((cellsUntilLastCell <= 10) && !recipe.isLoading && recipe.hasNextPage) {
         recipe.loadNextPage(function(data) {
             const element = recipe.doc.getElementsByTagName("collectionList").item(0);
@@ -41,6 +42,17 @@ var highlightCellEvent = function(event, recipe) {
 }
 
 /**
+ * @description - called when a cell is long-pressed
+ * @param {IKDOMElement} event - the cell that was long-pressed
+ * @param {MediaRecipe} recipe - the current active recipe
+ */
+var holdSelectCellEvent = function(event, recipe) {
+    var highlightedCell = event.target;
+    
+    recipe.toggleWatched(highlightedCell.getAttribute("actionID"));
+}
+
+/**
  * @description - add's highlight event listeners to all paginated cells in the view
  */
 var addEventListeners = function(recipe) {
@@ -48,7 +60,11 @@ var addEventListeners = function(recipe) {
     
     for (var i = 0; i < lockupElements.length; i++) {
         var element = lockupElements.item(i);
-
+        
+        element.addEventListener("holdselect", function(event) {
+            holdSelectCellEvent(event, recipe);
+        });
+        
         // do not add the highlight listener to "continue watching" elements as they are not paginated.
         if (element.getAttribute("id") === "continueWatchingLockup") { continue }
         

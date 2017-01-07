@@ -26,8 +26,20 @@ class Shows: TabItem, MediaRecipeDelegate  {
             for id in WatchedlistManager<Episode>.episode.getOnDeck() {
                 group.enter()
                 PopcornKit.getEpisodeInfo(Int(id)!) { (episode, _) in
-                    if let episode = episode { onDeck.append(episode) }
-                    group.leave()
+                    defer { group.leave() }
+                    guard let episode = episode else { return }
+                    
+                    let otherEpisodes                = onDeck.filter({$0.show == episode.show})
+                    let earlierEpisodesOutsideSeason = otherEpisodes.filter({$0.season < episode.season})
+                    let earlierEpisodesInSeason      = otherEpisodes.filter({$0.season == episode.season}).filter({$0.episode < episode.episode})
+                    
+                    let earlierEpisodes              = earlierEpisodesOutsideSeason + earlierEpisodesInSeason
+                    let laterEpisodes                = otherEpisodes.removing(elements: earlierEpisodes)
+                    
+                    onDeck = onDeck.removing(elements: earlierEpisodes)
+                    
+                    laterEpisodes.isEmpty ? onDeck.append(episode) : () // Only append if it is the latest episode in the array
+                    
                 }
             }
             

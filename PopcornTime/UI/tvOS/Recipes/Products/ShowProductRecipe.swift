@@ -47,11 +47,7 @@ import ObjectMapper
     }
     
     func groupedEpisodes(bySeason season: Int) -> [Episode] {
-        var episodes = [Episode]()
-        for index in show.seasonNumbers where season == index {
-            episodes += show.episodes.filter({$0.season == index})
-        }
-        return episodes
+        return show.episodes.filter({$0.season == season}).sorted(by: {$0.0.episode < $0.1.episode})
     }
 
     var xmlString: String {

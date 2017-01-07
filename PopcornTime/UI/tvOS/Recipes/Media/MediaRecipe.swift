@@ -2,6 +2,7 @@
 
 import TVMLKitchen
 import PopcornKit
+import ObjectMapper
 
 
 protocol MediaRecipeDelegate: class {
@@ -27,6 +28,12 @@ protocol MediaRecipeDelegate: class {
     dynamic var doc: JSValue?
     var collectionList: JSValue? {
         return doc?.invokeMethod("getElementsByTagName", withArguments: ["collectionList"]).invokeMethod("item", withArguments: [0])
+    }
+    
+    func toggleWatched(_ actionID: String) {
+        guard let json = actionID.components(separatedBy: "»")[safe: 1],
+            let id = Mapper<Movie>().map(JSONString: json)?.id else { return } // Only movies supported
+        WatchedlistManager<Movie>.movie.toggle(id)
     }
     
     
