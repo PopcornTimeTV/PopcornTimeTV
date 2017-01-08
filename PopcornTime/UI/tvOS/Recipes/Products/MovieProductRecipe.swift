@@ -182,6 +182,7 @@ import ObjectMapper
         
         xml = xml.replacingOccurrences(of: "{{WATCH_LIST_BUTTON}}", with: watchlistButton)
         xml = xml.replacingOccurrences(of: "{{WATCHED_LIST_BUTTON}}", with: watchedButton)
+        xml = xml.replacingOccurrences(of: "{{PLAY_BUTTON_TITLE}}", with: WatchedlistManager<Movie>.movie.currentProgress(movie.id) > 0.0 ? "Resume Playing" : "Play")
         
         xml = xml.replacingOccurrences(of: "{{MOVIE}}", with: Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")
         xml = xml.replacingOccurrences(of: "{{TORRENTS}}", with: Mapper<Torrent>().toJSONString(movie.torrents)?.cleaned ?? "")

@@ -22,8 +22,10 @@ import ObjectMapper
         
         if let season = currentSeason, show.seasonNumbers.contains(season) {
             self.season = season
+        } else if let season = show.latestUnwatchedEpisode()?.season {
+            self.season = season
         } else {
-            season = show.seasonNumbers.last!
+            season = show.seasonNumbers.first!
         }
         
         super.init()
@@ -37,6 +39,13 @@ import ObjectMapper
         }
         
         ActionHandler.shared.showSeason(String(season)) // Refresh the current season's episode when the view controller loads
+        
+        if let episode = show.latestUnwatchedEpisode(),
+            let button = doc?.invokeMethod("getElementById", withArguments: ["resumeButton"]),
+            !button.isUndefined {
+            let actionID = "chooseQuality»\(Mapper<Torrent>().toJSONString(episode.torrents) ?? "")»\(Mapper<Episode>().toJSONString(episode) ?? "")"
+            button.invokeMethod("setAttribute", withArguments: ["actionID", actionID])
+        }
     }
     override dynamic var watchlistStatusButtonImage: String {
         return WatchlistManager<Show>.show.isAdded(show) ? "button-remove" : "button-add"
@@ -81,6 +90,17 @@ import ObjectMapper
             return "\(genreString.capitalized.cleaned)"
         }
         return ""
+    }
+    
+    var playButtonString: String {
+        guard let episode = show.latestUnwatchedEpisode() else { return "" }
+        
+        var xml = "<buttonLockup id=\"resumeButton\" actionID=\"chooseQuality»\(Mapper<Torrent>().toJSONString(episode.torrents)?.cleaned ?? "")»\(Mapper<Episode>().toJSONString(episode)?.cleaned ?? "")\">"
+        xml += "<badge src=\"resource://button-play\" />" + "\n"
+        xml += "<title>Resume Playing</title>" + "\n"
+        xml += "</buttonLockup>" + "\n"
+        
+        return xml
     }
     
     var bannerString: String {
@@ -259,6 +279,7 @@ import ObjectMapper
         xml = xml.replacingOccurrences(of: "{{CAST}}", with: castString)
         
         xml = xml.replacingOccurrences(of: "{{SEASONS_BUTTON}}", with: seasonsButton)
+        xml = xml.replacingOccurrences(of: "{{RESUME_PLAYING_BUTTON}}", with: playButtonString)
         return xml
     }
 }
