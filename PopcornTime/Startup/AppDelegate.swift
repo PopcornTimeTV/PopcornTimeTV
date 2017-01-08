@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate {
     @discardableResult func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         #if os(tvOS)
             if url.scheme == "PopcornTime" {
-                guard let action = url.absoluteString.removingPercentEncoding?.components(separatedBy: "?").last?.components(separatedBy: "=").last else {
+                guard let action = url.absoluteString.removingPercentEncoding?.components(separatedBy: "PopcornTime:?action=").last else {
                     return false
                 }
                 if Kitchen.appController.navigationController.viewControllers.first != nil // Don't present WelcomeRecipe if it is already there.
