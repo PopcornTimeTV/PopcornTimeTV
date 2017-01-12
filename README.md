@@ -21,7 +21,12 @@ Want to report a bug, request a feature, contribute or translate Popcorn Time? C
 
 ## Noob?
 
-Visit our comprehensive [Build Guide](https://github.com/PopcornTimeTV/PopcornTimeTV/wiki)
+Visit our comprehensive [Build Guide](https://github.com/PopcornTimeTV/PopcornTimeTV/wiki/Building-Popcorn-Time) to get started.
+
+## iPA
+
+For security reasons, we will not be releasing an iPA but you can compile one yourself using our comprehensive [Archiving Guide](https://github.com/PopcornTimeTV/PopcornTimeTV/wiki/Archiving-Popcorn-Time).
+
 
 ## Know what you're doing?
 
