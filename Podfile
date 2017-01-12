@@ -5,7 +5,7 @@ source 'https://github.com/angryDuck2/CocoaSpecs'
 source 'https://github.com/PopcornTimeTV/Specs'
 
 def pods
-    pod 'PopcornTorrent', '~> 1.1.2.1'
+    pod 'PopcornTorrent', '~> 1.1.3'
     pod 'PopcornKit', '~> 3.2.2'
     pod 'XCDYouTubeKit', '~> 2.5.3'
     pod 'Alamofire', '~> 4.2.0'
@@ -31,7 +31,7 @@ end
 target 'PopcornTimetvOS' do
     platform :tvos, '9.0'
     pods
-    pod 'TVVLCKit-unstable', '~> 3.0.0a24'
+    pod 'TVVLCKit', '~> 2.1.0'
     pod 'TVMLKitchen', :git => 'https://github.com/toshi0383/TVMLKitchen.git'
     pod 'MBCircularProgressBar', '~> 0.3.5-1'
 end

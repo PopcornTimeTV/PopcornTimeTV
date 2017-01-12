@@ -30,15 +30,8 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
             defer { group.leave() }
             guard let media = media else { return }
             
-            let type: String
-            switch media.first! {
-            case is Movie:
-                type = "Movie"
-            case is Show:
-                type = "Show"
-            default:
-                type = ""
-            }
+            let type = media is [Movie] ? "Movie" : "Show"
+            
             var mediaItems = [TVContentItem]()
             for item in media[0..<10] {
                 mediaItems.append(
