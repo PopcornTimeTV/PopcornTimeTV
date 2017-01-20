@@ -15,7 +15,7 @@ class ShowDetailTableViewCell: UITableViewCell {
     }
     
     var watchedButtonImage: UIImage {
-        return WatchedlistManager<Episode>.episode.isAdded(id) ? UIImage(named: "WatchedOn")! : UIImage(named: "WatchedOff")!
+        return WatchedlistManager<Episode>.episode.isAdded(id) ? UIImage(named: "Watched On")! : UIImage(named: "Watched Off")!
     }
     
     @IBAction func toggleWatched() {

@@ -228,11 +228,9 @@ import ObjectMapper
             string +=   "<info>" + "\n"
             string +=       "<header>" + "\n"
             string +=           "<title>" + "\n"
-            if let date = $0.firstAirDate {
-                string +=     "\(DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))" + "\n"
-            }
+            string +=               "\(DateFormatter.localizedString(from: $0.firstAirDate, dateStyle: .medium, timeStyle: .none))" + "\n"
             if let genre = $0.show.genres.first {
-                string +=     "\(genre.capitalized)" + "\n"
+                string +=           "\(genre.capitalized)" + "\n"
             }
             string +=           "</title>" + "\n"
             string +=       "</header>" + "\n"

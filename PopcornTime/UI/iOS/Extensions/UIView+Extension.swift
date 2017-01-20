@@ -19,4 +19,9 @@ extension UIView {
         subviews.forEach { subviews.append(contentsOf: $0.recursiveSubviews) }
         return subviews
     }
+        
+    @discardableResult static func fromNib<T: UIView>() -> T? {
+        guard let view = Bundle.main.loadNibNamed(String(describing: T.self), owner: self, options: nil)?.first as? T else { return nil }
+        return view
+    }
 }

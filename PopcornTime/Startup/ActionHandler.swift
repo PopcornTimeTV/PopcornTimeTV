@@ -586,7 +586,8 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 Kitchen.serve(xmlString: backgroundView.xmlString, type: .default)
                 return
             }
-            let movies = unique(source: movies).map({$0.lockUp}).joined(separator: "")
+            
+            let movies = movies.unique().map({$0.lockUp}).joined(separator: "")
             let recipe = CatalogRecipe(title: name, media: movies)
             Kitchen.serve(recipe: recipe)
             self.dismissLoading()
@@ -609,7 +610,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 Kitchen.serve(xmlString: backgroundView.xmlString, type: .default)
                 return
             }
-            let shows = unique(source: shows).map({$0.lockUp}).joined(separator: "")
+            let shows = shows.unique().map({$0.lockUp}).joined(separator: "")
             let recipe = CatalogRecipe(title: name, media: shows)
             Kitchen.serve(recipe: recipe)
             self.dismissLoading()
@@ -636,7 +637,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 error = $0.1
                 return
             }
-            let shows = unique(source: $0.0).map({$0.lockUp}).joined(separator: "")
+            let shows = $0.0.unique().map({$0.lockUp}).joined(separator: "")
             lockup += shows
         }
         
@@ -647,7 +648,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 error = $0.1
                 return
             }
-            let movies = unique(source: $0.0).map({$0.lockUp}).joined(separator: "")
+            let movies = $0.0.unique().map({$0.lockUp}).joined(separator: "")
             lockup += movies
         }
         

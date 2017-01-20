@@ -66,12 +66,12 @@ class EpisodeDetailViewController: UIViewController, UIGestureRecognizerDelegate
         }
         
         guard let currentItem = currentItem else {
-            let background = Bundle.main.loadNibNamed("ErrorBackgroundView", owner: self, options: nil)?.first as! ErrorBackgroundView
+            guard let background: ErrorBackgroundView = .fromNib() else { return }
             background.frame = view.bounds
             background.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-            background.backgroundColor = UIColor(red: 30.0/255.0, green: 30.0/255.0, blue: 30.0/255.0, alpha: 1.0)
+            background.backgroundColor = UIColor(red: 28.0/255.0, green: 28.0/255.0, blue: 28.0/255.0, alpha: 1.0)
             view.insertSubview(background, aboveSubview: view)
-            background.setUpView(image: UIImage(named: "AirTV")?.withRenderingMode(.alwaysTemplate), description: "No episode selected")
+            background.setUpView(image: UIImage(named: "Shows Off")?.withRenderingMode(.alwaysTemplate), description: "No episode selected")
             background.imageView?.tintColor = .darkGray
             return
         }
@@ -85,9 +85,7 @@ class EpisodeDetailViewController: UIViewController, UIGestureRecognizerDelegate
         episodeAndSeasonLabel.text = "S\(season)E\(episode)"
         summaryView.text = currentItem.summary
         
-        if let date = currentItem.firstAirDate {
-            infoLabel.text = "Aired: " + DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
-        }
+        infoLabel.text = "Aired: " + DateFormatter.localizedString(from: currentItem.firstAirDate, dateStyle: .medium, timeStyle: .none)
         
         qualityButton.isUserInteractionEnabled = currentItem.torrents.count > 1
         self.currentItem!.currentTorrent = currentItem.torrents.first(where: {$0.quality == UserDefaults.standard.string(forKey: "preferredQuality")}) ?? currentItem.torrents.first

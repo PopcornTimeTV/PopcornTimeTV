@@ -39,10 +39,9 @@ extension MovieDetailViewController: UICollectionViewDelegate, UICollectionViewD
                 let coverCell = collectionView.dequeueReusableCell(withReuseIdentifier: "relatedCell", for: indexPath) as! CoverCollectionViewCell
                 let movie = currentItem.related[indexPath.row]
                 coverCell.titleLabel.text = movie.title
-                coverCell.yearLabel.text = movie.year
                 if let image = movie.smallCoverImage,
                     let url = URL(string: image) {
-                    coverCell.coverImage.af_setImage(withURL: url, placeholderImage: UIImage(named: "Movie Placeholder"))
+                    coverCell.coverImageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "Movie Placeholder"))
                 }
                 coverCell.watched = WatchedlistManager<Movie>.movie.isAdded(movie.id)
                 return coverCell

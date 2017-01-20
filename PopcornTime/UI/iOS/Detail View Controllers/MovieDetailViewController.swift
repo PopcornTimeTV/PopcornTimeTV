@@ -142,7 +142,7 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
     }
     
     var watchedButtonImage: UIImage {
-        return WatchedlistManager<Movie>.movie.isAdded(currentItem.id) ? UIImage(named: "WatchedOn")! : UIImage(named: "WatchedOff")!
+        return WatchedlistManager<Movie>.movie.isAdded(currentItem.id) ? UIImage(named: "Watched On")! : UIImage(named: "Watched Off")!
     }
     
     @IBAction func toggleWatched() {
@@ -201,11 +201,6 @@ class MovieDetailViewController: UIViewController, UIViewControllerTransitioning
             let cell = sender as? CoverCollectionViewCell,
             let index = collectionView.indexPath(for: cell)?.row {
             vc.currentItem = currentItem.related[index]
-        } else if segue.identifier == "showActor",
-            let vc = segue.destination as? ActorDetailCollectionViewController,
-            let cell = sender as? UICollectionViewCell,
-            let index = collectionView.indexPath(for: cell)?.row {
-            vc.currentItem = currentItem.actors[index]
         }
     }
     

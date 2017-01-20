@@ -25,7 +25,7 @@ class ErrorBackgroundView: UIView {
     
     
     func setUpView(image: UIImage? = nil, title: String? = nil, description: String? = nil) {
-        self.image = image
+        self.image = image?.withRenderingMode(.alwaysTemplate)
         self.title = title
         self.errorDescription = description
     }

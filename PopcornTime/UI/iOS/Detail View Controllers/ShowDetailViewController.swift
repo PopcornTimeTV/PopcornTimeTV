@@ -153,8 +153,8 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
         infoLabel.text = currentItem.year
         ratingView.rating = currentItem.rating
         
-        let completion: (Show?, NSError?) -> Void = { [weak self] (show, error) in
-            guard let `self` = self, let show = show else { return }
+        PopcornKit.getShowInfo(currentItem.id) { [unowned self] (show, error) in
+            guard let show = show else { return }
             self.currentItem = show
             self.summaryView.text = self.currentItem.summary
             self.infoLabel.text = "\(self.currentItem.year) ● \(self.currentItem.status!.capitalized) ● \(self.currentItem.genres.first!.capitalized)"
@@ -169,12 +169,6 @@ class ShowDetailViewController: UIViewController, UITableViewDataSource, UITable
             self.segmentedControlDidChangeSegment(self.segmentedControl)
             
             self.tableView.reloadData()
-        }
-        
-        if currentType == .animes {
-            PopcornKit.getAnimeInfo(currentItem.id, completion: completion)
-        } else {
-            PopcornKit.getShowInfo(currentItem.id, completion: completion)
         }
     }
     
