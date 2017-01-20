@@ -25,7 +25,7 @@ class MoviesRecipe: MediaRecipe {
             var xml = "<lockup id=\"continueWatchingLockup\" actionID=\"showMovie»\(Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")»\(true)\">" + "\n"
             xml +=      "<img class=\"overlayGradient\" src=\"\(movie.mediumBackgroundImage ?? "")\" width=\"850\" height=\"350\" />" + "\n"
             xml +=      "<overlay>" + "\n"
-            xml +=          "<title class=\"overlayTitle\">\(movie.title)</title>" + "\n"
+            xml +=          "<title class=\"overlayTitle\">\(movie.title.cleaned)</title>" + "\n"
             xml +=          "<progressBar value=\"\(WatchedlistManager<Movie>.movie.currentProgress(movie.id))\" class=\"bar\" />" + "\n"
             xml +=     "</overlay>" + "\n"
             xml +=  "</lockup>" + "\n"

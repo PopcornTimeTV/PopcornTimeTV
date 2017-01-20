@@ -52,7 +52,7 @@ class Movies: TabItem, MediaRecipeDelegate {
         guard let filter = MovieManager.Filters(rawValue: filter), let genre = MovieManager.Genres(rawValue: genre) else { return }
         
         PopcornKit.loadMovies(page, filterBy: filter, genre: genre) { (movies, error) in
-            completion(movies?.map({$0.lockUp}).joined(separator: ""), error)
+            completion(movies?.map({$0.lockUp}).joined(separator: "\n"), error)
         }
     }
 }

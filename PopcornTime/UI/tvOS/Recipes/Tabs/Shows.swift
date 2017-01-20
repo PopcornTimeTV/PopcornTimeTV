@@ -63,7 +63,7 @@ class Shows: TabItem, MediaRecipeDelegate  {
         guard let filter = ShowManager.Filters(rawValue: filter), let genre = ShowManager.Genres(rawValue: genre) else { return }
         
         PopcornKit.loadShows(page, filterBy: filter, genre: genre) { (shows, error) in
-            completion(shows?.map({$0.lockUp}).joined(separator: ""), error)
+            completion(shows?.map({$0.lockUp}).joined(separator: "\n"), error)
         }
     }
 }
