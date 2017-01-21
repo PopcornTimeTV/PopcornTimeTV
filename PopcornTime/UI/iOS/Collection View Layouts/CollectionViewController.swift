@@ -102,11 +102,12 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         let media = dataSource[indexPath.row]
         
         if let media = media as? Media {
-            let identifier = media is Movie ? "movieCell" : "showCell"
+            let identifier  = media is Movie ? "movieCell" : "showCell"
             let placeholder = media is Movie ? "Movie Placeholder" : "Episode Placeholder"
             
             let _cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CoverCollectionViewCell
             _cell.titleLabel.text = media.title
+            _cell.watched = WatchedlistManager<Movie>.movie.isAdded(media.id) // Shows not supported for watched list
             
             if let image = media.mediumCoverImage,
                 let url = URL(string: image) {

@@ -12,8 +12,6 @@ extension Movie {
         string += "<overlay>" + "\n"
         if WatchedlistManager<Movie>.movie.isAdded(id) {
             string += "<badge src=\"resource://indicator-watched\" class=\"indicator\"/>" + "\n"
-        } else if WatchedlistManager<Movie>.movie.currentProgress(id) > 0.0 {
-            string += "<progressBar value=\"\(WatchedlistManager<Movie>.movie.currentProgress(id))\" class=\"bar\" />" + "\n"
         }
         string += "</overlay>" + "\n"
         string += "</lockup>"

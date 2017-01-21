@@ -1469,7 +1469,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e7d-8g-BDy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3631" y="-432"/>
+            <point key="canvasLocation" x="3650" y="-432"/>
         </scene>
         <!--Stream to Devices-->
         <scene sceneID="TwU-Xk-gSQ">
@@ -1973,7 +1973,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                 </connections>
                                             </button>
                                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cDO-fM-PY2">
-                                                <rect key="frame" x="15" y="207" width="164.5" height="22"/>
+                                                <rect key="frame" x="15" y="207" width="165" height="22"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="22" id="GWX-of-2LN"/>
                                                 </constraints>
@@ -2000,7 +2000,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hU6-3Q-6Ah" customClass="BorderButton" customModule="PopcornTime" customModuleProvider="target">
-                                                <rect key="frame" x="187.5" y="182" width="167.5" height="44"/>
+                                                <rect key="frame" x="188" y="182" width="167" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="E9A-xj-Bbj"/>
                                                 </constraints>
@@ -2036,10 +2036,10 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="relatedCell" id="nSd-iS-E3u" customClass="CoverCollectionViewCell" customModule="PopcornTime" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="25" width="97" height="140"/>
+                                                        <rect key="frame" x="0.0" y="25" width="98" height="140"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                            <rect key="frame" x="0.0" y="0.0" width="97" height="140"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="98" height="140"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="Movie Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="JLG-Pj-URe">
@@ -2053,7 +2053,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                                     <color key="backgroundColor" white="0.0" alpha="0.39846500880000002" colorSpace="calibratedWhite"/>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P7S-Vk-9Lr">
-                                                                    <rect key="frame" x="0.0" y="140" width="97" height="0.0"/>
+                                                                    <rect key="frame" x="0.0" y="140" width="98" height="0.0"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
@@ -2094,7 +2094,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                         <rect key="frame" x="103" y="25" width="97.5" height="140"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                            <rect key="frame" x="0.0" y="0.0" width="97" height="140"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="98" height="140"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YOG-O4-7Tq">
@@ -2273,7 +2273,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2292" y="-1163"/>
+            <point key="canvasLocation" x="2244" y="-1112"/>
         </scene>
         <!--Genres Table View Controller-->
         <scene sceneID="LJP-3E-2PL">
@@ -2404,7 +2404,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <scene sceneID="BVu-kK-jCy">
             <objects>
                 <collectionViewController id="PQb-9S-L62" customClass="CollectionViewController" customModule="PopcornTime" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="hRU-yH-dJG">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" dataMode="prototypes" id="hRU-yH-dJG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.10980392160000001" green="0.10980392160000001" blue="0.10980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2542,7 +2542,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lKV-LF-Ze7">
-                                                                <rect key="frame" x="56.5" y="57.5" width="50" height="48"/>
+                                                                <rect key="frame" x="56" y="57" width="50" height="48"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="40"/>
                                                                 <color key="textColor" red="0.10980392160000001" green="0.10980392160000001" blue="0.10980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -2584,7 +2584,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qpG-pj-sah">
-                                            <rect key="frame" x="81.5" y="201" width="0.0" height="0.0"/>
+                                            <rect key="frame" x="82" y="201" width="0.0" height="0.0"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -2622,7 +2622,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4jy-12-w4w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2436" y="-432"/>
+            <point key="canvasLocation" x="2436" y="-432.23388305847078"/>
         </scene>
         <!--Settings-->
         <scene sceneID="9mU-NO-Hux">
@@ -2680,6 +2680,99 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wTx-IO-ye6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4353" y="-730"/>
+        </scene>
+        <!--Continue Watching Collection View Controller-->
+        <scene sceneID="mMb-NN-bJ3">
+            <objects>
+                <collectionViewController storyboardIdentifier="ContinueWatchingCollectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="K0F-Rc-Pup" customClass="ContinueWatchingCollectionViewController" customModule="PopcornTime" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="M0Y-v3-gKm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="196"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="20" id="CbE-Hz-M3g">
+                            <size key="itemSize" width="374" height="215"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="MIF-IW-sa9" customClass="ContinueWatchingCollectionViewCell" customModule="PopcornTime" customModuleProvider="target">
+                                <rect key="frame" x="1" y="0.0" width="374" height="215"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="215"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Episode Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="jJ0-qD-gRY">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="215"/>
+                                        </imageView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HZ9-hf-eZg" customClass="GradientView" customModule="PopcornTime" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="151.5" width="374" height="63.5"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="topColor">
+                                                    <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="bottomColor">
+                                                    <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="reN-MK-HMV">
+                                            <rect key="frame" x="12" y="201" width="350" height="2"/>
+                                            <color key="progressTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="trackTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </progressView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8k1-ED-CsV">
+                                            <rect key="frame" x="12" y="161.5" width="54" height="26.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vpz-DA-12N">
+                                            <rect key="frame" x="12" y="190" width="0.0" height="0.0"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="Vpz-DA-12N" firstAttribute="top" secondItem="8k1-ED-CsV" secondAttribute="bottom" constant="2" id="0Oc-XO-RUr"/>
+                                    <constraint firstAttribute="trailing" secondItem="jJ0-qD-gRY" secondAttribute="trailing" id="1S7-O8-XTt"/>
+                                    <constraint firstItem="8k1-ED-CsV" firstAttribute="leading" secondItem="Vpz-DA-12N" secondAttribute="leading" id="2Ea-bC-Hdg"/>
+                                    <constraint firstAttribute="trailing" secondItem="HZ9-hf-eZg" secondAttribute="trailing" id="AO7-g2-GMz"/>
+                                    <constraint firstAttribute="bottom" secondItem="HZ9-hf-eZg" secondAttribute="bottom" id="Fue-5f-I3J"/>
+                                    <constraint firstAttribute="bottom" secondItem="jJ0-qD-gRY" secondAttribute="bottom" id="H6P-LW-aV5"/>
+                                    <constraint firstItem="HZ9-hf-eZg" firstAttribute="leading" secondItem="MIF-IW-sa9" secondAttribute="leading" id="Wtf-IU-z3Y"/>
+                                    <constraint firstItem="jJ0-qD-gRY" firstAttribute="top" secondItem="MIF-IW-sa9" secondAttribute="top" id="Zes-LX-xbc"/>
+                                    <constraint firstItem="Vpz-DA-12N" firstAttribute="leading" secondItem="reN-MK-HMV" secondAttribute="leading" id="bxH-pd-0ie"/>
+                                    <constraint firstAttribute="bottom" secondItem="reN-MK-HMV" secondAttribute="bottom" constant="12" id="g2W-8Q-pGK"/>
+                                    <constraint firstItem="8k1-ED-CsV" firstAttribute="top" secondItem="HZ9-hf-eZg" secondAttribute="top" constant="10" id="nnj-xg-xmP"/>
+                                    <constraint firstItem="jJ0-qD-gRY" firstAttribute="leading" secondItem="MIF-IW-sa9" secondAttribute="leading" id="qcx-RA-o85"/>
+                                    <constraint firstItem="reN-MK-HMV" firstAttribute="top" secondItem="Vpz-DA-12N" secondAttribute="bottom" constant="11" id="rlS-TL-RTK"/>
+                                    <constraint firstAttribute="trailing" secondItem="reN-MK-HMV" secondAttribute="trailing" constant="12" id="saA-SX-v0W"/>
+                                    <constraint firstItem="reN-MK-HMV" firstAttribute="leading" secondItem="MIF-IW-sa9" secondAttribute="leading" constant="12" id="vD8-zj-FLr"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="jJ0-qD-gRY" id="Bc4-Ii-KbO"/>
+                                    <outlet property="progressView" destination="reN-MK-HMV" id="51O-eC-Mp4"/>
+                                    <outlet property="subtitleLabel" destination="Vpz-DA-12N" id="cnr-01-68T"/>
+                                    <outlet property="titleLabel" destination="8k1-ED-CsV" id="WL3-12-bBC"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="K0F-Rc-Pup" id="cxH-0e-jsc"/>
+                            <outlet property="delegate" destination="K0F-Rc-Pup" id="gjF-gt-C8n"/>
+                        </connections>
+                    </collectionView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="196"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JvR-J2-e6g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3038" y="-644"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="P3c-He-oTA">
@@ -3326,10 +3419,10 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <image name="indicator-watched.png" width="157" height="157"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UvW-7j-iLo"/>
+        <segue reference="jdi-Jx-gGa"/>
         <segue reference="UiY-ew-qaK"/>
         <segue reference="KEv-Mw-9dh"/>
-        <segue reference="jyX-rC-zV6"/>
+        <segue reference="2Ds-Ol-tyb"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.36862745098039218" green="0.40784313725490196" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

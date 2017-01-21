@@ -7,11 +7,13 @@ class ShowsViewController: MainViewController {
     
     var currentGenre = ShowManager.Genres.all {
         didSet {
+            collectionViewController.currentPage = 1
             didRefresh(collectionView: collectionView!)
         }
     }
     var currentFilter = ShowManager.Filters.trending {
         didSet {
+            collectionViewController.currentPage = 1
             didRefresh(collectionView: collectionView!)
         }
     }

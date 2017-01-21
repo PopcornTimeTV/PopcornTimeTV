@@ -11,9 +11,7 @@ class CoverCollectionViewCell: UICollectionViewCell {
     var watched = false {
         didSet {
             guard let watchedIndicator = watchedIndicator else { return }
-            UIView.animate(withDuration: 0.25, animations: { [unowned self] in
-                watchedIndicator.isHidden = !self.watched
-            })
+            watchedIndicator.isHidden = !watched
         }
     }
     
@@ -25,7 +23,17 @@ class CoverCollectionViewCell: UICollectionViewCell {
     
     override var isHighlighted: Bool {
         didSet {
-            highlightView.isHidden = !isHighlighted
+            if self.isHighlighted {
+                self.highlightView.isHidden = false
+                self.highlightView.alpha = 1.0
+            } else {
+                UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseOut, .allowUserInteraction], animations: { [unowned self] in
+                    self.highlightView.alpha = 0.0
+                    }, completion: { _ in
+                        self.highlightView.isHidden = true
+                })
+            }
+            
         }
     }
 }

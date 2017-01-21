@@ -7,11 +7,13 @@ class MoviesViewController: MainViewController {
     
     var currentGenre = MovieManager.Genres.all {
         didSet {
+            collectionViewController.currentPage = 1
             didRefresh(collectionView: collectionView!)
         }
     }
     var currentFilter = MovieManager.Filters.trending {
         didSet {
+            collectionViewController.currentPage = 1
             didRefresh(collectionView: collectionView!)
         }
     }

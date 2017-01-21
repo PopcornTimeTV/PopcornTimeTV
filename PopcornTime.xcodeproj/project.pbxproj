@@ -144,6 +144,8 @@
 		4DAFAA3B1E0AFDA600AE0F9A /* OptionsStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFAA3A1E0AFDA600AE0F9A /* OptionsStackViewController.swift */; };
 		4DBFA27F1E12CF7F00763E34 /* MediaRecipeJSExports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBFA27E1E12CF7F00763E34 /* MediaRecipeJSExports.swift */; };
 		4DBFA2821E12F79600763E34 /* SearchRecipeJSExports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBFA2811E12F79600763E34 /* SearchRecipeJSExports.swift */; };
+		4DC7B6931E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B6921E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift */; };
+		4DC7B6951E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */; };
 		4DCCBA5B1DC50D780046C755 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
 		4DD6E4D01DFB17B400818A2C /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6E4CF1DFB17B400818A2C /* ProgressBar.swift */; };
 		4DD6E4D21DFB197E00818A2C /* BufferingBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6E4D11DFB197E00818A2C /* BufferingBar.swift */; };
@@ -317,6 +319,8 @@
 		4DAFAA3A1E0AFDA600AE0F9A /* OptionsStackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsStackViewController.swift; sourceTree = "<group>"; };
 		4DBFA27E1E12CF7F00763E34 /* MediaRecipeJSExports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaRecipeJSExports.swift; sourceTree = "<group>"; };
 		4DBFA2811E12F79600763E34 /* SearchRecipeJSExports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchRecipeJSExports.swift; sourceTree = "<group>"; };
+		4DC7B6921E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContinueWatchingCollectionViewController.swift; path = "Collection View Controllers/ContinueWatchingCollectionViewController.swift"; sourceTree = "<group>"; };
+		4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueWatchingCollectionViewCell.swift; sourceTree = "<group>"; };
 		4DC870B51D9EDE58005455B0 /* PopcornTime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopcornTime.entitlements; sourceTree = "<group>"; };
 		4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		4DD6E4CF1DFB17B400818A2C /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
@@ -432,6 +436,7 @@
 			isa = PBXGroup;
 			children = (
 				4D11C5061E31409100CF9182 /* CollectionViewController.swift */,
+				4DC7B6921E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift */,
 			);
 			name = "Collection View Controllers";
 			sourceTree = "<group>";
@@ -703,6 +708,7 @@
 			isa = PBXGroup;
 			children = (
 				4D859B491DDFA0E4000E2AA1 /* CoverCollectionViewCell.swift */,
+				4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */,
 				4DAF1A451E2D3BDB00D963BD /* MonogramCollectionViewCell.swift */,
 			);
 			path = "Collection View Cells";
@@ -1210,6 +1216,7 @@
 				4D29072C1E2BA95B00581701 /* LoadingView.swift in Sources */,
 				4D859B301DDFA07C000E2AA1 /* PCTPlayerViewController.swift in Sources */,
 				4DDBD90A1E0EDA2E00CEA1B1 /* Array+Extension.swift in Sources */,
+				4DC7B6951E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift in Sources */,
 				4D4F90341E33AA440050CA47 /* WatchlistViewController.swift in Sources */,
 				4D859B311DDFA07C000E2AA1 /* SettingsTableViewController.swift in Sources */,
 				4D859B551DDFA0F8000E2AA1 /* MainViewController.swift in Sources */,
@@ -1242,6 +1249,7 @@
 				4D689A6E1DD8ADFD001D1318 /* CastIconButton.swift in Sources */,
 				4D859B761DDFA12C000E2AA1 /* ExpandableTextView.swift in Sources */,
 				4D859B9C1DDFA164000E2AA1 /* MovieDetailViewController+UICollectionViewDelegate.swift in Sources */,
+				4DC7B6931E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift in Sources */,
 				4D24E5201DF1D731002D73F5 /* HeaderScrollView.swift in Sources */,
 				4D8A57431DE0F39A00CCDF8A /* UITableView+Header.swift in Sources */,
 				4D8A57471DE10DFE00CCDF8A /* UIViewController+StatusBar.swift in Sources */,
