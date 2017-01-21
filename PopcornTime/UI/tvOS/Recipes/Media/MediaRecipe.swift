@@ -50,8 +50,6 @@ protocol MediaRecipeDelegate: class {
     var type: String { fatalError("Must be overridden") }
     
     var mediaSection: String {
-        guard !lockup.isEmpty else { return "" }
-        
         var xml = "<grid>" + "\n"
         xml +=     "<header>" + "\n"
         xml +=      "<row>" + "\n"
@@ -65,7 +63,9 @@ protocol MediaRecipeDelegate: class {
         xml +=      "</row>" + "\n"
         xml +=  "</header>" + "\n"
         xml +=  "<section>" + "\n"
-        xml +=      lockup + "\n"
+        if !lockup.isEmpty {
+            xml +=  lockup + "\n"
+        }
         xml +=  "</section>" + "\n"
         xml += "</grid>" + "\n"
         return xml
