@@ -42,7 +42,7 @@ import PopcornKit
                 guard let movies = movies else { callback(self.noData); return }
                 let mapped = movies.map({ $0.lockUp })
                 
-                results = results.replacingOccurrences(of: "{{TITLE}}", with: "Found \(movies.count) \(movies.count == 1 ? "movie" : "movies") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: ""))
+                results = results.replacingOccurrences(of: "{{TITLE}}", with: "Found \(movies.count) \(movies.count == 1 ? "movie" : "movies") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: "\n"))
                 
                 callback(results)
             }
@@ -51,7 +51,7 @@ import PopcornKit
                 guard let shows = shows else { callback(self.noData); return }
                 let mapped = shows.map({ $0.lockUp })
                 
-                results = results.replacingOccurrences(of: "{{TITLE}}", with: "Found \(shows.count) \(shows.count == 1 ? "show" : "shows") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: ""))
+                results = results.replacingOccurrences(of: "{{TITLE}}", with: "Found \(shows.count) \(shows.count == 1 ? "show" : "shows") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: "\n"))
                 
                 callback(results)
             }
@@ -71,7 +71,7 @@ import PopcornKit
                     return string
                 })
                 
-                results = results.replacingOccurrences(of: "{{TITLE}}", with: "Found \(people.count) \(people.count == 1 ? "person" : "people") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: ""))
+                results = results.replacingOccurrences(of: "{{TITLE}}", with: "Found \(people.count) \(people.count == 1 ? "person" : "people") for \"\(text.cleaned)\"").replacingOccurrences(of: "{{RESULTS}}", with: mapped.joined(separator: "\n"))
                 
                 callback(results)
             }

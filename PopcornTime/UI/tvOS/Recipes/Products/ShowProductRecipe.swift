@@ -78,7 +78,7 @@ import ObjectMapper
     }
 
     var actorsString: String {
-        return show.actors.map { "<text>\($0.name)</text>" }.joined(separator: "")
+        return show.actors.map { "<text>\($0.name)</text>" }.joined(separator: "\n")
     }
 
     var genresString: String {

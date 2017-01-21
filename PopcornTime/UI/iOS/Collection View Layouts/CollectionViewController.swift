@@ -111,6 +111,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             if let image = media.mediumCoverImage,
                 let url = URL(string: image) {
                 _cell.coverImageView.af_setImage(withURL: url, placeholderImage: UIImage(named: placeholder), imageTransition: .crossDissolve(animationLength))
+            } else {
+                _cell.coverImageView = nil
             }
             
             cell = _cell
@@ -122,6 +124,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             if let image = person.mediumImage,
                 let url = URL(string: image) {
                 _cell.headshotImageView.af_setImage(withURL: url, imageTransition: .crossDissolve(animationLength))
+            } else {
+                _cell.headshotImageView = nil
             }
             
             cell = _cell

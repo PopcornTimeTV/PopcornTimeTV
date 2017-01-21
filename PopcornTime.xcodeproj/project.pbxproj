@@ -22,6 +22,8 @@
 		4D29072A1E2BA80F00581701 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D2907291E2BA80F00581701 /* LoadingView.xib */; };
 		4D29072C1E2BA95B00581701 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D29072B1E2BA95B00581701 /* LoadingView.swift */; };
 		4D4F90301E3299C40050CA47 /* ShowContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4F902F1E3299C40050CA47 /* ShowContainerViewController.swift */; };
+		4D4F90321E33847A0050CA47 /* UIAlertController+BlurStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4F90311E33847A0050CA47 /* UIAlertController+BlurStyle.swift */; };
+		4D4F90341E33AA440050CA47 /* WatchlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4F90331E33AA440050CA47 /* WatchlistViewController.swift */; };
 		4D52E04B1DE4C69900486F31 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B6C1DDFA12A000E2AA1 /* GradientView.swift */; };
 		4D689A291DD88EE9001D1318 /* EncodingTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E2B1DC4F00F005CDE34 /* EncodingTypes.plist */; };
 		4D689A2A1DD88EFC001D1318 /* SubtitleSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */; };
@@ -210,6 +212,8 @@
 		4D2907291E2BA80F00581701 /* LoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		4D29072B1E2BA95B00581701 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		4D4F902F1E3299C40050CA47 /* ShowContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowContainerViewController.swift; sourceTree = "<group>"; };
+		4D4F90311E33847A0050CA47 /* UIAlertController+BlurStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+BlurStyle.swift"; sourceTree = "<group>"; };
+		4D4F90331E33AA440050CA47 /* WatchlistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchlistViewController.swift; sourceTree = "<group>"; };
 		4D689A171DD88E17001D1318 /* PopcornTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopcornTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D689A6C1DD8ADFA001D1318 /* CastIconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CastIconButton.swift; sourceTree = "<group>"; };
 		4D69B7601DC6396D00A88A37 /* button-unwatched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-unwatched.png"; sourceTree = "<group>"; };
@@ -508,10 +512,11 @@
 		4D689A761DD8BC2E001D1318 /* Main View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4D859B4F1DDFA0F5000E2AA1 /* SearchCollectionViewController.swift */,
 				4D859B4D1DDFA0F5000E2AA1 /* MainViewController.swift */,
 				4D859B4E1DDFA0F5000E2AA1 /* MoviesViewController.swift */,
 				4D859B4C1DDFA0F5000E2AA1 /* ShowsViewController.swift */,
+				4D859B4F1DDFA0F5000E2AA1 /* SearchCollectionViewController.swift */,
+				4D4F90331E33AA440050CA47 /* WatchlistViewController.swift */,
 			);
 			path = "Main View Controllers";
 			sourceTree = "<group>";
@@ -529,6 +534,7 @@
 			isa = PBXGroup;
 			children = (
 				4D859B921DDFA162000E2AA1 /* CGSize+Min.swift */,
+				4D4F90311E33847A0050CA47 /* UIAlertController+BlurStyle.swift */,
 				4D859B8E1DDFA162000E2AA1 /* MovieDetailViewController+UICollectionViewDelegate.swift */,
 				4D859B8F1DDFA162000E2AA1 /* PCTPlayerViewController+iOS.swift */,
 				4D8A57401DE096B700CCDF8A /* ShowDetailViewController+EpisodeDetailViewControllerDelegate.swift */,
@@ -1204,6 +1210,7 @@
 				4D29072C1E2BA95B00581701 /* LoadingView.swift in Sources */,
 				4D859B301DDFA07C000E2AA1 /* PCTPlayerViewController.swift in Sources */,
 				4DDBD90A1E0EDA2E00CEA1B1 /* Array+Extension.swift in Sources */,
+				4D4F90341E33AA440050CA47 /* WatchlistViewController.swift in Sources */,
 				4D859B311DDFA07C000E2AA1 /* SettingsTableViewController.swift in Sources */,
 				4D859B551DDFA0F8000E2AA1 /* MainViewController.swift in Sources */,
 				4D689A2D1DD88F0F001D1318 /* UIPanGestureRecogniser+Direction.swift in Sources */,
@@ -1225,6 +1232,7 @@
 				4D859B861DDFA13D000E2AA1 /* BorderButton.swift in Sources */,
 				4D859B611DDFA10C000E2AA1 /* MovieDetailViewController.swift in Sources */,
 				4D91ECBD1DDBA842001B798A /* UIFont+Traits.swift in Sources */,
+				4D4F90321E33847A0050CA47 /* UIAlertController+BlurStyle.swift in Sources */,
 				4D859B0F1DDE23A3000E2AA1 /* EpisodeDetailPresentationDelegate.swift in Sources */,
 				4D859B321DDFA07C000E2AA1 /* UpNextView.swift in Sources */,
 				4D859B631DDFA10C000E2AA1 /* EpisodeDetailViewController.swift in Sources */,

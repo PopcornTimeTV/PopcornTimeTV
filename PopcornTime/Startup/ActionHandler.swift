@@ -436,7 +436,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     func showMovieGenres(_ currentGenre: String) {
         guard let genre = MovieManager.Genres(rawValue: currentGenre) else { return }
         
-        let controller = UIAlertController(title: "Select a Genre to Filter by", message: nil, preferredStyle: .actionSheet)
+        let controller = UIAlertController(title: "Select a genre to filter by", message: nil, preferredStyle: .actionSheet)
         
         let handler: ((UIAlertAction) -> Void) = { (handler) in
             ActionHandler.shared.genreWasPicked(handler.title!)
@@ -462,7 +462,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     func showShowGenres(_ currentGenre: String) {
         guard let genre = ShowManager.Genres(rawValue: currentGenre) else { return }
         
-        let controller = UIAlertController(title: "Select a Genre to Filter by", message: nil, preferredStyle: .actionSheet)
+        let controller = UIAlertController(title: "Select a genre to filter by", message: nil, preferredStyle: .actionSheet)
         
         let handler: ((UIAlertAction) -> Void) = { (handler) in
             ActionHandler.shared.genreWasPicked(handler.title!)
@@ -506,7 +506,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     func showShowFilters(_ currentFilter: String) {
         guard let filter = ShowManager.Filters(rawValue: currentFilter) else { return }
         
-        let controller = UIAlertController(title: "Select a Filter to Sort by", message: nil, preferredStyle: .actionSheet)
+        let controller = UIAlertController(title: "Select a filter to sort by", message: nil, preferredStyle: .actionSheet)
         
         let handler: ((UIAlertAction) -> Void) = { (handler) in
             ActionHandler.shared.filterWasPicked(ShowManager.Filters.array.first(where: {$0.string == handler.title!})!.rawValue)
@@ -532,7 +532,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     func showMovieFilters(_ currentFilter: String) {
         guard let filter = MovieManager.Filters(rawValue: currentFilter) else { return }
         
-        let controller = UIAlertController(title: "Select a Filter to Sort by", message: nil, preferredStyle: .actionSheet)
+        let controller = UIAlertController(title: "Select a filter to sort by", message: nil, preferredStyle: .actionSheet)
         
         let handler: ((UIAlertAction) -> Void) = { (handler) in
             ActionHandler.shared.filterWasPicked(MovieManager.Filters.array.first(where: {$0.string == handler.title!})!.rawValue)
@@ -587,7 +587,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 return
             }
             
-            let movies = movies.unique().map({$0.lockUp}).joined(separator: "")
+            let movies = movies.unique().map({$0.lockUp}).joined(separator: "\n")
             let recipe = CatalogRecipe(title: name, media: movies)
             Kitchen.serve(recipe: recipe)
             self.dismissLoading()
@@ -610,7 +610,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 Kitchen.serve(xmlString: backgroundView.xmlString, type: .default)
                 return
             }
-            let shows = shows.unique().map({$0.lockUp}).joined(separator: "")
+            let shows = shows.unique().map({$0.lockUp}).joined(separator: "\n")
             let recipe = CatalogRecipe(title: name, media: shows)
             Kitchen.serve(recipe: recipe)
             self.dismissLoading()
@@ -637,7 +637,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 error = $0.1
                 return
             }
-            let shows = $0.0.unique().map({$0.lockUp}).joined(separator: "")
+            let shows = $0.0.unique().map({$0.lockUp}).joined(separator: "\n")
             lockup += shows
         }
         
@@ -648,7 +648,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
                 error = $0.1
                 return
             }
-            let movies = $0.0.unique().map({$0.lockUp}).joined(separator: "")
+            let movies = $0.0.unique().map({$0.lockUp}).joined(separator: "\n")
             lockup += movies
         }
         

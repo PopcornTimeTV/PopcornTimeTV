@@ -3,13 +3,8 @@
 import UIKit
 
 protocol GenresDelegate: class {
-    func finished(_ genreArrayIndex: Int)
-    func populateDataSourceArray(_ array: inout [String])
-}
-
-extension GenresDelegate {
-    func finished(_ genreArrayIndex: Int) {}
-    func populateDataSourceArray(_ array: inout [String]) {}
+    func populateGenres(_ array: inout [String])
+    func didSelectGenre(at index: Int)
 }
 
 
@@ -21,7 +16,7 @@ class GenresTableViewController: UITableViewController, NSDiscardableContent {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate?.populateDataSourceArray(&genres)
+        delegate?.populateGenres(&genres)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,17 +35,17 @@ class GenresTableViewController: UITableViewController, NSDiscardableContent {
         cell.textLabel?.text = genres[indexPath.row]
         if selectedRow == indexPath.row {
             cell.accessoryType = .checkmark
-            cell.textLabel?.textColor = UIColor.app
+            cell.textLabel?.textColor = .app
         } else {
             cell.accessoryType = .none
-            cell.textLabel?.textColor = UIColor.white
+            cell.textLabel?.textColor = .white
         }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRow = indexPath.row
-        delegate?.finished(indexPath.row)
+        delegate?.didSelectGenre(at: indexPath.row)
         dismiss(animated: true, completion: nil)
     }
     

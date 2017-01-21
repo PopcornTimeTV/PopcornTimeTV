@@ -40,5 +40,7 @@ extension UIColor {
         return ["Black", "Dark Gray", "Light Gray", "White", "Gray", "Red", "Green", "Blue", "Cyan", "Yellow", "Magenta", "Orange", "Purple", "Brown"]
     }
     
-    @nonobjc static let app = UIColor(red:0.37, green:0.41, blue:0.91, alpha:1.0)
+    @nonobjc static let app = UIColor(red: 0.37, green: 0.41, blue: 0.91, alpha: 1.0)
+    
+    @nonobjc static let dark = UIColor(red: 28.0/255.0, green: 28.0/255.0, blue: 28.0/255.0, alpha: 1.0)
 }

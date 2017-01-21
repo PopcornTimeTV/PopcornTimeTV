@@ -4,7 +4,7 @@ import UIKit
 import AlamofireImage
 import PopcornKit
 
-class SearchViewController: UIViewController, UISearchBarDelegate, UIToolbarDelegate, CollectionViewControllerDelegate {
+class SearchViewController: MainViewController, UISearchBarDelegate, UIToolbarDelegate {
     
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var toolbar: UIToolbar!
@@ -16,16 +16,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UIToolbarDele
     
     var fetchType: Trakt.MediaType = .movies
     
-    var collectionViewController: CollectionViewController!
-    
-    var collectionView: UICollectionView? {
-        get {
-            return collectionViewController.collectionView
-        } set(newObject) {
-            collectionViewController.collectionView = newObject
-        }
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHairlineHidden = true
@@ -35,14 +25,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UIToolbarDele
         super.viewDidLoad()
         searchBar.keyboardAppearance = .dark
         collectionView?.contentInset.top = toolbar.frame.height
-        collectionView?.contentInset.bottom = tabBarController?.tabBar.frame.height ?? 0
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+        collectionViewController.paginated = false
         
-        segmentedControl.frame.origin.x = searchBar.frame.origin.x
-        segmentedControl.frame.size.width = searchBar.frame.width
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor, constant: 12.0).isActive = true
+        segmentedControl.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor, constant: -12.0).isActive = true
+        segmentedControl.centerYAnchor.constraint(equalTo: toolbar.centerYAnchor).isActive = true
     }
     
     @IBAction func segmentedControlDidChangeSegment(_ segmentedControl: UISegmentedControl) {
@@ -84,15 +72,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UIToolbarDele
     }
     
     func filterSearchText(_ text: String) {
-        guard !text.isEmpty else {
-            collectionViewController.dataSource.removeAll()
-            collectionView?.reloadData()
-            return
-        }
+        collectionViewController.isLoading = !text.isEmpty
+        collectionViewController.dataSource.removeAll()
+        collectionView?.reloadData()
+        
+        if text.isEmpty { return }
         
         let completion: ([AnyHashable]?, NSError?) -> Void = { [unowned self] (data, error) in
             self.collectionViewController.dataSource = data ?? []
             self.collectionViewController.error = error
+            self.collectionViewController.isLoading = false
             self.collectionView?.reloadData()
         }
         
@@ -114,18 +103,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UIToolbarDele
         }
     }
     
-    func collectionView(isEmptyForUnknownReason collectionView: UICollectionView) {
+    override func collectionView(isEmptyForUnknownReason collectionView: UICollectionView) {
         if let background: ErrorBackgroundView = .fromNib(),
             let image = UIImage(named: "No Search Results"), let text = searchBar.text, !text.isEmpty {
             background.setUpView(image: image, title: "No Results", description: "We didn't turn up anything for \"\(text)\". Try something else.")
             collectionView.backgroundView = background
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "embed", let vc = segue.destination as? CollectionViewController {
-            collectionViewController = vc
-            collectionViewController.delegate = self
+        } else {
+            /// TODO: Empty UI
         }
     }
     

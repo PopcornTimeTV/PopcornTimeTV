@@ -46,11 +46,11 @@ import ObjectMapper
 
     var directorsString: String {
         let directors = movie.crew.filter({ $0.roleType == .director })
-        return directors.map { "<text>\($0.name.cleaned)</text>" }.joined(separator: "")
+        return directors.map { "<text>\($0.name.cleaned)</text>" }.joined(separator: "\n")
     }
 
     var actorsString: String {
-        return movie.actors.map { "<text>\($0.name.cleaned)</text>" }.joined(separator: "")
+        return movie.actors.map { "<text>\($0.name.cleaned)</text>" }.joined(separator: "\n")
     }
 
     var genresString: String {

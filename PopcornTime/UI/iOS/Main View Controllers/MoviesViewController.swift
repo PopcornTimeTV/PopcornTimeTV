@@ -16,13 +16,6 @@ class MoviesViewController: MainViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        WatchedlistManager<Movie>.movie.getWatched() { [unowned self] _ in
-            self.collectionView!.reloadData()
-        }
-    }
-    
     override func load(page: Int) {
         guard !collectionViewController.isLoading else { return }
         collectionViewController.isLoading = true
@@ -56,5 +49,24 @@ class MoviesViewController: MainViewController {
     
     override func populateGenres(_ array: inout [String]) {
         array = MovieManager.Genres.array.map({$0.rawValue})
+    }
+    
+    @IBAction func showFilters(_ sender: UIBarButtonItem) {
+        let controller = UIAlertController(title: "Select a filter to sort by", message: nil, preferredStyle: .actionSheet, blurStyle: .dark)
+        
+        let handler: ((UIAlertAction) -> Void) = { (handler) in
+            self.currentFilter = MovieManager.Filters.array.first(where: {$0.string == handler.title!})!
+        }
+        
+        MovieManager.Filters.array.forEach {
+            controller.addAction(UIAlertAction(title: $0.string, style: .default, handler: handler))
+        }
+        
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        controller.preferredAction = controller.actions.first(where: {$0.title == self.currentFilter.string})
+        
+        controller.popoverPresentationController?.barButtonItem = sender
+        
+        present(controller, animated: true, completion: nil)
     }
 }

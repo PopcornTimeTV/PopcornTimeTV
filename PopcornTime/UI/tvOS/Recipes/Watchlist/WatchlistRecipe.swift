@@ -31,14 +31,14 @@ public struct WatchlistRecipe: RecipeType {
         let mapped: [String] = media.map {
             var string = ""
             if let movie = $0 as? Movie {
-                string = "<lockup actionID=\"showMovie»\(Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")»\(false)\">"
-                string += "<img style=\"tv-placeholder: movie;\" src=\"\($0.smallCoverImage ?? "")\" width=\"250\" height=\"375\" />"
+                string = "<lockup actionID=\"showMovie»\(Mapper<Movie>().toJSONString(movie)?.cleaned ?? "")»\(false)\">" + "\n"
+                string += "<img style=\"tv-placeholder: movie;\" src=\"\($0.smallCoverImage ?? "")\" width=\"250\" height=\"375\" />" + "\n"
             } else if let show = $0 as? Show {
-                string = "<lockup actionID=\"showShow»\(Mapper<Show>().toJSONString(show)?.cleaned ?? "")»\">"
-                string += "<img style=\"tv-placeholder: tv;\" src=\"\($0.smallCoverImage ?? "")\" width=\"250\" height=\"375\" />"
+                string = "<lockup actionID=\"showShow»\(Mapper<Show>().toJSONString(show)?.cleaned ?? "")»\">" + "\n"
+                string += "<img style=\"tv-placeholder: tv;\" src=\"\($0.smallCoverImage ?? "")\" width=\"250\" height=\"375\" />" + "\n"
             }
-            string += "<title style=\"tv-text-highlight-style: marquee-and-show-on-highlight;\">\($0.title.cleaned)</title>"
-            string += "</lockup>"
+            string += "<title style=\"tv-text-highlight-style: marquee-and-show-on-highlight;\">\($0.title.cleaned)</title>" + "\n"
+            string += "</lockup>" + "\n"
             return string
         }
         return mapped.joined(separator: "")

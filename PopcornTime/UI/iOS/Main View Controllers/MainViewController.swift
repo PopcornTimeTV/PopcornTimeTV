@@ -5,13 +5,11 @@ import PopcornKit
 
 class MainViewController: UIViewController, CollectionViewControllerDelegate, GenresDelegate, UIPopoverPresentationControllerDelegate {
     
-    func load(page: Int) { fatalError("Must be overridden") }
-    
-    func populateGenres(_ array: inout [String]) { fatalError("Must be overridden") }
-    
-    func didSelectGenre(at index: Int) { fatalError("Must be overridden") }
-    
-    func didSelectFilter(at index: Int) { fatalError("Must be overridden") }
+    func load(page: Int) {}
+    func populateGenres(_ array: inout [String]) {}
+    func didSelectGenre(at index: Int) {}
+    func didSelectFilter(at index: Int) {}
+    func collectionView(isEmptyForUnknownReason collectionView: UICollectionView) {}
     
     let cache = NSCache<AnyObject, UINavigationController>()
     
@@ -27,20 +25,15 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate, Ge
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        load(page: 1)
         
-        collectionView?.contentInset.bottom = tabBarController?.tabBar.frame.height ?? 0
+        collectionViewController.paginated = true
+        load(page: 1)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.tintColor = .app
-    }
-    
-    // MARK: - Bar buttons
-    
-    @IBAction func showFilters(_ sender: UIBarButtonItem) {
-        
+        self.collectionView?.reloadData()
     }
     
     @IBAction func showGenres(_ sender: UIBarButtonItem) {
@@ -65,7 +58,6 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate, Ge
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "embed", let vc = segue.destination as? CollectionViewController {
             collectionViewController = vc
-            collectionViewController.paginated = true
             collectionViewController.delegate = self
         }
     }
