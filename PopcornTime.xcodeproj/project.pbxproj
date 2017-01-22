@@ -87,7 +87,6 @@
 		4D859B871DDFA13D000E2AA1 /* BlurButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B7E1DDFA13A000E2AA1 /* BlurButton.swift */; };
 		4D859B8C1DDFA151000E2AA1 /* BarSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B881DDFA14C000E2AA1 /* BarSlider.swift */; };
 		4D859B8D1DDFA151000E2AA1 /* ProgressSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B891DDFA14C000E2AA1 /* ProgressSlider.swift */; };
-		4D859B9C1DDFA164000E2AA1 /* MovieDetailViewController+UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B8E1DDFA162000E2AA1 /* MovieDetailViewController+UICollectionViewDelegate.swift */; };
 		4D859B9D1DDFA164000E2AA1 /* PCTPlayerViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B8F1DDFA162000E2AA1 /* PCTPlayerViewController+iOS.swift */; };
 		4D859B9E1DDFA164000E2AA1 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B901DDFA162000E2AA1 /* UIView+Extension.swift */; };
 		4D859B9F1DDFA164000E2AA1 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B911DDFA162000E2AA1 /* UINavigationBar+Extension.swift */; };
@@ -146,6 +145,8 @@
 		4DBFA2821E12F79600763E34 /* SearchRecipeJSExports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBFA2811E12F79600763E34 /* SearchRecipeJSExports.swift */; };
 		4DC7B6931E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B6921E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift */; };
 		4DC7B6951E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */; };
+		4DC7B69B1E3503720098B12E /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B69A1E3503720098B12E /* CircularButton.swift */; };
+		4DC7B69D1E35295E0098B12E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B69C1E35295E0098B12E /* InfoViewController.swift */; };
 		4DCCBA5B1DC50D780046C755 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
 		4DD6E4D01DFB17B400818A2C /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6E4CF1DFB17B400818A2C /* ProgressBar.swift */; };
 		4DD6E4D21DFB197E00818A2C /* BufferingBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6E4D11DFB197E00818A2C /* BufferingBar.swift */; };
@@ -262,7 +263,6 @@
 		4D859B7E1DDFA13A000E2AA1 /* BlurButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurButton.swift; sourceTree = "<group>"; };
 		4D859B881DDFA14C000E2AA1 /* BarSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarSlider.swift; sourceTree = "<group>"; };
 		4D859B891DDFA14C000E2AA1 /* ProgressSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressSlider.swift; sourceTree = "<group>"; };
-		4D859B8E1DDFA162000E2AA1 /* MovieDetailViewController+UICollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MovieDetailViewController+UICollectionViewDelegate.swift"; sourceTree = "<group>"; };
 		4D859B8F1DDFA162000E2AA1 /* PCTPlayerViewController+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PCTPlayerViewController+iOS.swift"; sourceTree = "<group>"; };
 		4D859B901DDFA162000E2AA1 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		4D859B911DDFA162000E2AA1 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
@@ -321,6 +321,8 @@
 		4DBFA2811E12F79600763E34 /* SearchRecipeJSExports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchRecipeJSExports.swift; sourceTree = "<group>"; };
 		4DC7B6921E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContinueWatchingCollectionViewController.swift; path = "Collection View Controllers/ContinueWatchingCollectionViewController.swift"; sourceTree = "<group>"; };
 		4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueWatchingCollectionViewCell.swift; sourceTree = "<group>"; };
+		4DC7B69A1E3503720098B12E /* CircularButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
+		4DC7B69C1E35295E0098B12E /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		4DC870B51D9EDE58005455B0 /* PopcornTime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopcornTime.entitlements; sourceTree = "<group>"; };
 		4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		4DD6E4CF1DFB17B400818A2C /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
@@ -509,6 +511,7 @@
 			isa = PBXGroup;
 			children = (
 				4D859B641DDFA11A000E2AA1 /* CastPlayerViewController.swift */,
+				4DC7B69C1E35295E0098B12E /* InfoViewController.swift */,
 				4D4F902F1E3299C40050CA47 /* ShowContainerViewController.swift */,
 			);
 			path = "View Controllers";
@@ -540,7 +543,6 @@
 			children = (
 				4D859B921DDFA162000E2AA1 /* CGSize+Min.swift */,
 				4D4F90311E33847A0050CA47 /* UIAlertController+BlurStyle.swift */,
-				4D859B8E1DDFA162000E2AA1 /* MovieDetailViewController+UICollectionViewDelegate.swift */,
 				4D859B8F1DDFA162000E2AA1 /* PCTPlayerViewController+iOS.swift */,
 				4D8A57401DE096B700CCDF8A /* ShowDetailViewController+EpisodeDetailViewControllerDelegate.swift */,
 				4D859B931DDFA162000E2AA1 /* UIImage+Color.swift */,
@@ -742,6 +744,7 @@
 			isa = PBXGroup;
 			children = (
 				4D859B7E1DDFA13A000E2AA1 /* BlurButton.swift */,
+				4DC7B69A1E3503720098B12E /* CircularButton.swift */,
 				4D859B7D1DDFA13A000E2AA1 /* BorderButton.swift */,
 				4D859B7C1DDFA13A000E2AA1 /* WhiteHighlightButton.swift */,
 			);
@@ -1241,6 +1244,7 @@
 				4D91ECBD1DDBA842001B798A /* UIFont+Traits.swift in Sources */,
 				4D4F90321E33847A0050CA47 /* UIAlertController+BlurStyle.swift in Sources */,
 				4D859B0F1DDE23A3000E2AA1 /* EpisodeDetailPresentationDelegate.swift in Sources */,
+				4DC7B69D1E35295E0098B12E /* InfoViewController.swift in Sources */,
 				4D859B321DDFA07C000E2AA1 /* UpNextView.swift in Sources */,
 				4D859B631DDFA10C000E2AA1 /* EpisodeDetailViewController.swift in Sources */,
 				4D859B4B1DDFA0E6000E2AA1 /* CoverCollectionViewCell.swift in Sources */,
@@ -1248,7 +1252,6 @@
 				4D859B871DDFA13D000E2AA1 /* BlurButton.swift in Sources */,
 				4D689A6E1DD8ADFD001D1318 /* CastIconButton.swift in Sources */,
 				4D859B761DDFA12C000E2AA1 /* ExpandableTextView.swift in Sources */,
-				4D859B9C1DDFA164000E2AA1 /* MovieDetailViewController+UICollectionViewDelegate.swift in Sources */,
 				4DC7B6931E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift in Sources */,
 				4D24E5201DF1D731002D73F5 /* HeaderScrollView.swift in Sources */,
 				4D8A57431DE0F39A00CCDF8A /* UITableView+Header.swift in Sources */,
@@ -1272,6 +1275,7 @@
 				4D689A2C1DD88F0A001D1318 /* UIColor+Extension.swift in Sources */,
 				4D11C5071E31409100CF9182 /* CollectionViewController.swift in Sources */,
 				4D859B9D1DDFA164000E2AA1 /* PCTPlayerViewController+iOS.swift in Sources */,
+				4DC7B69B1E3503720098B12E /* CircularButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

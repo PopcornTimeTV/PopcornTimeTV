@@ -1,22 +1,12 @@
 
 
-import Foundation
+import UIKit
 
-@IBDesignable class BlurButton: UIButton {
+@IBDesignable class CircularButton: UIButton {
     @IBInspectable var cornerRadius: CGFloat = 0.0 {
         didSet {
             backgroundView.layer.cornerRadius = cornerRadius
             backgroundView.layer.masksToBounds = cornerRadius > 0
-        }
-    }
-    @IBInspectable var blurTint: UIColor = .clear {
-        didSet {
-            backgroundView.contentView.backgroundColor = blurTint
-        }
-    }
-    var blurStyle: UIBlurEffectStyle = .light {
-        didSet {
-            backgroundView.effect = UIBlurEffect(style: blurStyle)
         }
     }
     
@@ -26,17 +16,15 @@ import Foundation
         }
     }
     
-    var backgroundView: UIVisualEffectView
-    fileprivate var updatedImageView = UIImageView()
+    let backgroundView = UIView()
+    private var updatedImageView = UIImageView()
     
     override init(frame: CGRect) {
-        backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
         super.init(frame: frame)
         setUpButton()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
         super.init(coder: aDecoder)
         setUpButton()
     }
@@ -48,7 +36,7 @@ import Foundation
         
         guard let imageView = imageView else { return }
         
-        updatedImageView = UIImageView(image: imageView.image)
+        updatedImageView = UIImageView(image: imageView.image?.withRenderingMode(.alwaysTemplate))
         updatedImageView.frame = imageView.bounds
         updatedImageView.center = CGPoint(x: bounds.midX, y: bounds.midY)
         updatedImageView.isUserInteractionEnabled = false
@@ -56,17 +44,23 @@ import Foundation
         addSubview(updatedImageView)
         updatedImageView.transform = imageTransform
         cornerRadius = frame.width/2
+        
+        backgroundView.backgroundColor = tintColor
+        updatedImageView.tintColor = .dark
+    }
+    
+    override var tintColor: UIColor! {
+        didSet {
+            backgroundView.backgroundColor = tintColor
+            updatedImageView.tintColor = .dark
+        }
     }
     
     override var isHighlighted: Bool {
         didSet {
-            updateColor(isHighlighted)
+            UIView.animate(withDuration: 0.25, delay: 0.0, options: [.allowUserInteraction, .curveEaseInOut], animations: { [unowned self] in
+                self.alpha = self.isHighlighted ? 0.3 : 1.0
+            })
         }
-    }
-    
-    func updateColor(_ tint: Bool) {
-        UIView.animate(withDuration: 0.25, delay: 0.0, options: [.allowUserInteraction, .curveEaseInOut], animations: { [unowned self] in
-            self.backgroundView.contentView.backgroundColor = tint ? .white : self.blurTint
-        })
     }
 }

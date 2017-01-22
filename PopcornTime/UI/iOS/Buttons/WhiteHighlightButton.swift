@@ -7,11 +7,11 @@ import Foundation
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setImage(self.imageView?.image?.withColor(highlightedImageTintColor), for: .highlighted)
+        setImage(self.imageView?.image?.colored(highlightedImageTintColor), for: .highlighted)
     }
     
     override func setImage(_ image: UIImage?, for state: UIControlState) {
         super.setImage(image, for: state)
-        super.setImage(image?.withColor(highlightedImageTintColor), for: .highlighted)
+        super.setImage(image?.colored(highlightedImageTintColor), for: .highlighted)
     }
 }

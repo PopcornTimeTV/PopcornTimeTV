@@ -32,7 +32,7 @@ class CastIconButton: UIButton {
     let castOff = UIImage(named: "CastOff")!
     let castOn = UIImage(named: "CastOn")!
     var castConnecting: [UIImage] {
-      return [UIImage(named: "CastOn0")!.withColor(superview?.tintColor), UIImage(named: "CastOn1")!.withColor(superview?.tintColor), UIImage(named: "CastOn2")!.withColor(superview?.tintColor), UIImage(named: "CastOn1")!.withColor(superview?.tintColor)]
+      return [UIImage(named: "CastOn0")!.colored(superview?.tintColor), UIImage(named: "CastOn1")!.colored(superview?.tintColor), UIImage(named: "CastOn2")!.colored(superview?.tintColor), UIImage(named: "CastOn1")!.colored(superview?.tintColor)]
     }
     override init(frame: CGRect) {
         super.init(frame: frame)

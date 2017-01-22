@@ -13,9 +13,9 @@ class ProgressSlider: UISlider {
     }
     
     override func awakeFromNib() {
-        setThumbImage(UIImage(named: "Progress Indicator")?.withColor(minimumTrackTintColor), for: .normal)
-        setMinimumTrackImage(UIImage.fromColor(minimumTrackTintColor), for: .normal)
-        setMaximumTrackImage(UIImage.fromColor(maximumTrackTintColor), for: .normal)
+        setThumbImage(UIImage(named: "Progress Indicator")?.colored(minimumTrackTintColor), for: .normal)
+        setMinimumTrackImage(UIImage.from(color: minimumTrackTintColor), for: .normal)
+        setMaximumTrackImage(UIImage.from(color: maximumTrackTintColor), for: .normal)
         super.awakeFromNib()
     }
     

@@ -35,13 +35,13 @@ import Foundation
     }
     
     func updateColor(_ highlighted: Bool, _ color: UIColor? = nil) {
-        UIView.animate(withDuration: 0.25, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: [.allowUserInteraction, .curveEaseInOut], animations: { [unowned self] in
             if highlighted {
                 self.backgroundColor =  color ?? self.tintColor
                 self.layer.borderColor = color?.cgColor ?? self.tintColor?.cgColor
-                self.setTitleColor(UIColor.white, for: .highlighted)
+                self.setTitleColor(.white, for: .highlighted)
             } else {
-                self.backgroundColor = UIColor.clear
+                self.backgroundColor = .clear
                 self.layer.borderColor = color?.cgColor ?? self.tintColor?.cgColor
                 self.setTitleColor(color ?? self.tintColor, for: .normal)
             }
