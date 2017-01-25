@@ -58,6 +58,7 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate, Ge
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "embed", let vc = segue.destination as? CollectionViewController {
             collectionViewController = vc
+            collectionViewController.isRefreshable = true
             collectionViewController.delegate = self
         }
     }

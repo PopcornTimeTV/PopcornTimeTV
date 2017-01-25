@@ -8,7 +8,7 @@ import FloatRatingView
 import PopcornTorrent
 import PopcornKit
 
-class MovieDetailViewController: UIViewController, PCTPlayerViewControllerDelegate {
+class MovieDetailViewController: UIViewController, PCTPlayerViewControllerDelegate, CollectionViewControllerDelegate, UIScrollViewDelegate {
 
     @IBOutlet var watchedButton: UIBarButtonItem!
     @IBOutlet var castButton: CastIconBarButtonItem!
@@ -16,12 +16,29 @@ class MovieDetailViewController: UIViewController, PCTPlayerViewControllerDelega
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var backgroundImageView: UIImageView!
     
+    var relatedCollectionViewController: CollectionViewController!
+    var castCollectionViewController: CollectionViewController!
+    var informationCollectionViewController: DescriptionCollectionViewController!
+    var accessibilityCollectionViewController: DescriptionCollectionViewController!
+    
     var currentItem: Movie!
+    var headerHeight: CGFloat = 315
+    
+    
+    @IBOutlet var relatedViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var castViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var seasonsViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var relatedCollectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var castCollectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var informationCollectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var accessibilityCollectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var seasonsCollectionViewHeightConstraint: NSLayoutConstraint!
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isBackgroundHidden = true
+        scrollViewDidScroll(scrollView) // Update the hidden status of UINavigationBar.
         NotificationCenter.default.addObserver(self, selector: #selector(updateCastStatus), name: .gckCastStateDidChange, object: nil)
         updateCastStatus()
     }
@@ -32,29 +49,60 @@ class MovieDetailViewController: UIViewController, PCTPlayerViewControllerDelega
         NotificationCenter.default.removeObserver(self)
     }
     
+    func updateHeaderFrame() {
+        var headerRect = CGRect(x: 0, y: 0, width: scrollView.bounds.width, height: headerHeight)
+        if scrollView.contentOffset.y < -headerHeight {
+            headerRect.size.height = -scrollView.contentOffset.y
+        }
+        
+        backgroundImageView.frame = headerRect
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = currentItem.title
         watchedButton.image = watchedButtonImage
-        (castButton.customView as! CastIconButton).addTarget(self, action: #selector(castButtonTapped), for: .touchUpInside)
+        
+        scrollView.contentInset.bottom = tabBarController?.tabBar.frame.height ?? 0
         
         if let image = currentItem.largeBackgroundImage, let url = URL(string: image) {
             backgroundImageView.af_setImage(withURL: url)
         }
         
         TMDBManager.shared.getLogo(forMediaOfType: .movies, id: currentItem.id) { [weak self] (image, error) in
-            if let image = image, let url = URL(string: image) {
+            if let image = image, let url = URL(string: image), let `self` = self {
                 let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: .max, height: 40)))
                 imageView.clipsToBounds = true
                 imageView.contentMode = .scaleAspectFit
-                imageView.af_setImage(withURL: url) { [weak self] response in
+                imageView.af_setImage(withURL: url) { response in
                     guard response.result.isSuccess else { return }
-                    self?.navigationItem.titleView = imageView
+                    self.navigationItem.titleView = imageView
                 }
             }
         }
         
-        scrollView.contentInset.top = 315
+        TraktManager.shared.getRelated(currentItem) { [weak self] (related, error) in
+            guard let `self` = self else { return }
+            
+            self.currentItem.related = related
+
+            self.relatedCollectionViewController.dataSource = related
+            self.relatedCollectionViewController.collectionView?.reloadData()
+        }
+        
+        TraktManager.shared.getPeople(forMediaOfType: .movies, id: currentItem.id) { [weak self] (actors, crew, error) in
+            guard let `self` = self else { return }
+            
+            self.currentItem.actors = actors
+            self.currentItem.crew = crew
+            
+            self.castCollectionViewController.dataSource = actors
+            self.castCollectionViewController.dataSource += crew as [AnyHashable]
+            
+            self.castCollectionViewController.collectionView?.reloadData()
+        }
+        
+        scrollView.contentInset.top = headerHeight
     }
     
     var watchedButtonImage: UIImage {
@@ -66,21 +114,8 @@ class MovieDetailViewController: UIViewController, PCTPlayerViewControllerDelega
         watchedButton.image = watchedButtonImage
     }
     
-    func castButtonTapped() {
-        performSegue(withIdentifier: "showCasts", sender: castButton)
-    }
-    
     func updateCastStatus() {
         (castButton.customView as! CastIconButton).status = GCKCastContext.sharedInstance().castState
-    }
-    
-    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
-        (controller.presentedViewController as! UINavigationController).topViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonPressed))
-        return controller.presentedViewController
-    }
-    
-    func cancelButtonPressed() {
-        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func playTrailer() {
@@ -89,7 +124,7 @@ class MovieDetailViewController: UIViewController, PCTPlayerViewControllerDelega
     }
     
     @IBAction func playMovie() {
-        if UserDefaults.standard.bool(forKey: "streamOnCellular") || (UIApplication.shared.delegate! as! AppDelegate).reachability!.isReachableViaWiFi() {
+        if UserDefaults.standard.bool(forKey: "streamOnCellular") || (UIApplication.shared.delegate as! AppDelegate).reachability!.isReachableViaWiFi() {
             
             let currentProgress = WatchedlistManager<Movie>.movie.currentProgress(currentItem.id)
             
@@ -131,15 +166,64 @@ class MovieDetailViewController: UIViewController, PCTPlayerViewControllerDelega
         
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        updateHeaderFrame()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        navigationController?.navigationBar.isBackgroundHidden = scrollView.contentOffset.y <= -44
+        navigationController?.navigationBar.tintColor = scrollView.contentOffset.y <= -44 ? .white : .app
+        updateHeaderFrame()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "embedInfo",
             let vc = segue.destination as? InfoViewController {
             
-            let info = NSMutableAttributedString(string: "\(formattedRuntime)\t\(currentItem.year)\t")
+            let info = NSMutableAttributedString(string: "\(currentItem.year)\t")
             
             attributedString(from: currentItem.certification, "HD", "CC").forEach({info.append($0)})
             
-            vc.info = (title: currentItem.title, info: info, rating: currentItem.rating, summary: currentItem.summary, image: currentItem.mediumCoverImage)
+            vc.info = (title: currentItem.title, length: formattedRuntime, genre: currentItem.genres.first?.capitalized ?? "", info: info, rating: currentItem.rating, summary: currentItem.summary, image: currentItem.mediumCoverImage)
+            
+            vc.view.translatesAutoresizingMaskIntoConstraints = false
+        } else if let vc = segue.destination as? DescriptionCollectionViewController {
+            vc.delegate = self
+            
+            if segue.identifier == "embedInformation" {
+                vc.headerTitle = "Information"
+                
+                vc.dataSourceTuple = [("Genre", currentItem.genres.first?.capitalized ?? "Unknown"), ("Released", currentItem.year), ("Run Time", formattedRuntime), ("Rating", currentItem.certification)]
+                
+                informationCollectionViewController = vc
+            } else if segue.identifier == "embedAccessibility" {
+                vc.headerTitle = "Accessibility"
+                
+                let key = attributedString(from: "SDH").first!
+                let value = "Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original lanuage with the addition of relevant non-dialog information."
+                
+                vc.dataSourceTuple = [(key, value)]
+                
+                accessibilityCollectionViewController = vc
+            }
+        } else if let vc = segue.destination as? CollectionViewController {
+            vc.delegate = self
+            
+            if segue.identifier == "embedRelated" {
+                relatedCollectionViewController = vc
+            } else if segue.identifier == "embedCast" {
+                castCollectionViewController = vc
+                castCollectionViewController.minItemSize.height = 230
+            }
+            
+            let layout = vc.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
+            layout?.scrollDirection = .horizontal
+            layout?.minimumLineSpacing = 30
+            vc.collectionView?.showsHorizontalScrollIndicator = false
+            vc.collectionView?.contentInset.left = 48
+            vc.collectionView?.contentInset.right = 48
         }
     }
     
@@ -149,7 +233,7 @@ class MovieDetailViewController: UIViewController, PCTPlayerViewControllerDelega
             attachment.image = UIImage(named: $0)?.colored(.white)
             
             let string = NSMutableAttributedString(attributedString: NSAttributedString(attachment: attachment))
-            string.append(NSAttributedString(string: "  "))
+            string.append(NSAttributedString(string: "\t"))
             
             return string
         })
@@ -160,7 +244,27 @@ class MovieDetailViewController: UIViewController, PCTPlayerViewControllerDelega
     }
     
     var formattedRuntime: String {
-        let (hours, minutes, _) = secondsToHoursMinutesSeconds(Int(currentItem.runtime)! * 60)
-        return "\(hours) h \(minutes) min"
+        if let runtime = Int(currentItem.runtime) {
+            let (hours, minutes, _) = secondsToHoursMinutesSeconds(runtime * 60)
+            
+            let formatted = "\(hours) h"
+            
+            return minutes > 0 ? formatted + " \(minutes) min" : formatted
+        }
+        return ""
+    }
+    
+    func collectionViewController(_ collectionViewController: CollectionViewController, preferredSizeForLayout size: CGSize) {
+        if collectionViewController == relatedCollectionViewController {
+            relatedCollectionViewHeightConstraint.constant = size.height
+            relatedViewHeightConstraint.priority = size.height == 0 ? 999 : 1
+        } else if collectionViewController == castCollectionViewController {
+            castCollectionViewHeightConstraint.constant = size.height
+            castViewHeightConstraint.priority = size.height == 0 ? 999 : 1
+        } else if collectionViewController == informationCollectionViewController {
+            informationCollectionViewHeightConstraint.constant = size.height
+        } else if collectionViewController == accessibilityCollectionViewController {
+            accessibilityCollectionViewHeightConstraint.constant = size.height
+        }
     }
 }

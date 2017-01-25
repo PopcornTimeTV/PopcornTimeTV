@@ -15,10 +15,13 @@ class CoverCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        coverImageView.layer.borderColor = UIColor(white: 1.0, alpha: 0.1).cgColor
-        coverImageView.layer.borderWidth = 1.0
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        highlightView.layer.cornerRadius   = frame.width * 0.02
+        coverImageView.layer.cornerRadius  = frame.width * 0.02
+        coverImageView.layer.masksToBounds = true
+        highlightView.layer.masksToBounds  = true
     }
     
     override var isHighlighted: Bool {

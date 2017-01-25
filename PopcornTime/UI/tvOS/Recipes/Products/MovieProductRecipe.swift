@@ -76,8 +76,14 @@ import ObjectMapper
     }
 
     var runtime: String {
-        let (hours, minutes, _) = self.secondsToHoursMinutesSeconds(Int(movie.runtime)! * 60)
-        return "\(hours) h \(minutes) min"
+        if let runtime = Int(currentItem.runtime) {
+            let (hours, minutes, _) = secondsToHoursMinutesSeconds(runtime * 60)
+            
+            let formatted = "\(hours) h"
+            
+            return minutes > 0 ? formatted + " \(minutes) min" : formatted
+        }
+        return ""
     }
 
     var suggestionsString: String {

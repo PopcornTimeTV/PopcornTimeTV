@@ -147,6 +147,10 @@
 		4DC7B6951E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */; };
 		4DC7B69B1E3503720098B12E /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B69A1E3503720098B12E /* CircularButton.swift */; };
 		4DC7B69D1E35295E0098B12E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B69C1E35295E0098B12E /* InfoViewController.swift */; };
+		4DC7B6A11E39027A0098B12E /* DescriptionCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B6A01E39027A0098B12E /* DescriptionCollectionViewController.swift */; };
+		4DC7B6A31E3907B50098B12E /* DescriptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B6A21E3907B50098B12E /* DescriptionCollectionViewCell.swift */; };
+		4DC7B6A51E3907CC0098B12E /* DescriptionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DC7B6A41E3907CC0098B12E /* DescriptionCollectionViewCell.xib */; };
+		4DC7B6A71E391E280098B12E /* EpisodeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B6A61E391E280098B12E /* EpisodeCollectionViewCell.swift */; };
 		4DCCBA5B1DC50D780046C755 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
 		4DD6E4D01DFB17B400818A2C /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6E4CF1DFB17B400818A2C /* ProgressBar.swift */; };
 		4DD6E4D21DFB197E00818A2C /* BufferingBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6E4D11DFB197E00818A2C /* BufferingBar.swift */; };
@@ -322,7 +326,11 @@
 		4DC7B6921E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContinueWatchingCollectionViewController.swift; path = "Collection View Controllers/ContinueWatchingCollectionViewController.swift"; sourceTree = "<group>"; };
 		4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueWatchingCollectionViewCell.swift; sourceTree = "<group>"; };
 		4DC7B69A1E3503720098B12E /* CircularButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
-		4DC7B69C1E35295E0098B12E /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		4DC7B69C1E35295E0098B12E /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoViewController.swift; path = "View Controllers/InfoViewController.swift"; sourceTree = "<group>"; };
+		4DC7B6A01E39027A0098B12E /* DescriptionCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DescriptionCollectionViewController.swift; path = "Collection View Controllers/DescriptionCollectionViewController.swift"; sourceTree = "<group>"; };
+		4DC7B6A21E3907B50098B12E /* DescriptionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionCollectionViewCell.swift; sourceTree = "<group>"; };
+		4DC7B6A41E3907CC0098B12E /* DescriptionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DescriptionCollectionViewCell.xib; sourceTree = "<group>"; };
+		4DC7B6A61E391E280098B12E /* EpisodeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeCollectionViewCell.swift; sourceTree = "<group>"; };
 		4DC870B51D9EDE58005455B0 /* PopcornTime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopcornTime.entitlements; sourceTree = "<group>"; };
 		4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		4DD6E4CF1DFB17B400818A2C /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
@@ -492,6 +500,7 @@
 			isa = PBXGroup;
 			children = (
 				4D859B371DDFA099000E2AA1 /* Main.storyboard */,
+				4DC7B6A81E391FA40098B12E /* Container View Controllers */,
 				4D11C5051E31407800CF9182 /* Collection View Controllers */,
 				4DA42DE51DD8F1BD00933A10 /* Buttons */,
 				4DA42DD41DD8EFA500933A10 /* Collection View Cells */,
@@ -511,7 +520,6 @@
 			isa = PBXGroup;
 			children = (
 				4D859B641DDFA11A000E2AA1 /* CastPlayerViewController.swift */,
-				4DC7B69C1E35295E0098B12E /* InfoViewController.swift */,
 				4D4F902F1E3299C40050CA47 /* ShowContainerViewController.swift */,
 			);
 			path = "View Controllers";
@@ -709,6 +717,9 @@
 		4DA42DD41DD8EFA500933A10 /* Collection View Cells */ = {
 			isa = PBXGroup;
 			children = (
+				4DC7B6A21E3907B50098B12E /* DescriptionCollectionViewCell.swift */,
+				4DC7B6A61E391E280098B12E /* EpisodeCollectionViewCell.swift */,
+				4DC7B6A41E3907CC0098B12E /* DescriptionCollectionViewCell.xib */,
 				4D859B491DDFA0E4000E2AA1 /* CoverCollectionViewCell.swift */,
 				4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */,
 				4DAF1A451E2D3BDB00D963BD /* MonogramCollectionViewCell.swift */,
@@ -788,6 +799,15 @@
 				4D6A9C8D1E130291002D684C /* SearchRecipe.js */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		4DC7B6A81E391FA40098B12E /* Container View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4DC7B69C1E35295E0098B12E /* InfoViewController.swift */,
+				4DC7B6A01E39027A0098B12E /* DescriptionCollectionViewController.swift */,
+			);
+			name = "Container View Controllers";
 			sourceTree = "<group>";
 		};
 		4DD6E4CE1DFB179700818A2C /* Views */ = {
@@ -1010,6 +1030,7 @@
 				4D859B361DDFA08B000E2AA1 /* Launch Screen.storyboard in Resources */,
 				4D11C5011E313F7500CF9182 /* indicator-watched.png in Resources */,
 				4D859B771DDFA12C000E2AA1 /* ErrorBackgroundView.xib in Resources */,
+				4DC7B6A51E3907CC0098B12E /* DescriptionCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1232,6 +1253,7 @@
 				4DA42DD31DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */,
 				4DAF1A461E2D3BDB00D963BD /* MonogramCollectionViewCell.swift in Sources */,
 				4D689A301DD88F1A001D1318 /* Media+Extension.swift in Sources */,
+				4DC7B6A11E39027A0098B12E /* DescriptionCollectionViewController.swift in Sources */,
 				4D859BA01DDFA164000E2AA1 /* CGSize+Min.swift in Sources */,
 				4D859B601DDFA10C000E2AA1 /* PersonDetailCollectionViewController.swift in Sources */,
 				4D859B851DDFA13D000E2AA1 /* WhiteHighlightButton.swift in Sources */,
@@ -1260,6 +1282,7 @@
 				4D859B8D1DDFA151000E2AA1 /* ProgressSlider.swift in Sources */,
 				4D859B2F1DDFA07C000E2AA1 /* LoadingViewController.swift in Sources */,
 				4D689A6F1DD8AF12001D1318 /* AppDelegate.swift in Sources */,
+				4DC7B6A71E391E280098B12E /* EpisodeCollectionViewCell.swift in Sources */,
 				4D859B751DDFA12C000E2AA1 /* ProgressBar.swift in Sources */,
 				4D859B9E1DDFA164000E2AA1 /* UIView+Extension.swift in Sources */,
 				4D859B9F1DDFA164000E2AA1 /* UINavigationBar+Extension.swift in Sources */,
@@ -1273,6 +1296,7 @@
 				4D859B561DDFA0F8000E2AA1 /* MoviesViewController.swift in Sources */,
 				4D6A9C931E1302D6002D684C /* ErrorBackgroundView.swift in Sources */,
 				4D689A2C1DD88F0A001D1318 /* UIColor+Extension.swift in Sources */,
+				4DC7B6A31E3907B50098B12E /* DescriptionCollectionViewCell.swift in Sources */,
 				4D11C5071E31409100CF9182 /* CollectionViewController.swift in Sources */,
 				4D859B9D1DDFA164000E2AA1 /* PCTPlayerViewController+iOS.swift in Sources */,
 				4DC7B69B1E3503720098B12E /* CircularButton.swift in Sources */,

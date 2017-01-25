@@ -7,12 +7,15 @@ protocol CollectionViewControllerDelegate: class {
     func load(page: Int)
     func didRefresh(collectionView: UICollectionView)
     func collectionView(isEmptyForUnknownReason collectionView: UICollectionView)
+    func collectionViewController(_ collectionViewController: CollectionViewController, preferredSizeForLayout size: CGSize)
 }
 
 extension CollectionViewControllerDelegate {
     func load(page: Int) {}
     func didRefresh(collectionView: UICollectionView) {}
     func collectionView(isEmptyForUnknownReason collectionView: UICollectionView) {}
+    
+    func collectionViewController(_ collectionViewController: CollectionViewController, preferredSizeForLayout size: CGSize) {}
 }
 
 class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
@@ -21,13 +24,45 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     var error: NSError?
     
     var paginationIndicatorInset: CGFloat = 20
+    var minItemSize: CGSize = CGSize(width: 180, height: 300)
     
     var isLoading: Bool = false
     var paginated: Bool = false
+    var isRefreshable: Bool = false {
+        didSet {
+            if isRefreshable {
+                refreshControl = refreshControl ?? {
+                    let refreshControl = UIRefreshControl()
+                    refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+                    if #available(iOS 10.0, *) {
+                        collectionView?.refreshControl = refreshControl
+                    } else {
+                        collectionView?.addSubview(refreshControl)
+                    }
+                    return refreshControl
+                }()
+            } else {
+                if #available(iOS 10.0, *) {
+                    collectionView?.refreshControl = nil
+                } else {
+                    refreshControl?.removeFromSuperview()
+                }
+            }
+            
+        }
+    }
     weak var delegate: CollectionViewControllerDelegate?
     var hasNextPage: Bool = false
     var currentPage: Int = 1
     private var classContext = 0
+    
+    private var refreshControl: UIRefreshControl?
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        delegate?.collectionViewController(self, preferredSizeForLayout: dataSource.isEmpty ? .zero : collectionView?.contentSize ?? .zero)
+    }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard scrollView == collectionView, paginated else { return }
@@ -58,18 +93,22 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var width = (view.bounds.width/2) - 8
+        guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
+        guard flowLayout.scrollDirection == .vertical else { return minItemSize }
+        
+        let itemSpacing = flowLayout.minimumInteritemSpacing
+        var width = (view.bounds.width/2) - itemSpacing
         
         if traitCollection.horizontalSizeClass == .regular {
             var items: CGFloat = 1
-            while (view.bounds.width/items) - 8 > 162.0 {
+            while (view.bounds.width/items) - itemSpacing > minItemSize.width {
                 items += 1
             }
-            width = (view.bounds.width/items) - 8
+            width = (view.bounds.width/items) - itemSpacing
         }
         
-        let ratio = width/162.0
-        let height = (dataSource[indexPath.row] is Person ? 190.0 : 275.0) * ratio
+        let ratio = width/minItemSize.width
+        let height = minItemSize.height * ratio
         
         return CGSize(width: width, height: height)
     }
@@ -113,7 +152,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 let url = URL(string: image) {
                 _cell.coverImageView.af_setImage(withURL: url, placeholderImage: UIImage(named: placeholder), imageTransition: .crossDissolve(animationLength))
             } else {
-                _cell.coverImageView = nil
+                _cell.coverImageView.image = nil
             }
             
             cell = _cell
@@ -124,9 +163,15 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             
             if let image = person.mediumImage,
                 let url = URL(string: image) {
-                _cell.headshotImageView.af_setImage(withURL: url, imageTransition: .crossDissolve(animationLength))
+                _cell.headshotImageView.af_setImage(withURL: url,  placeholderImage: UIImage(named: "Other Placeholder"), imageTransition: .crossDissolve(animationLength))
             } else {
-                _cell.headshotImageView = nil
+                _cell.headshotImageView.image = nil
+            }
+            
+            if let actor = person as? Actor {
+                _cell.subtitleLabel.text = actor.characterName
+            } else if let crew = person as? Crew {
+                _cell.subtitleLabel.text = crew.job
             }
             
             cell = _cell
@@ -140,7 +185,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     @objc private func refresh(_ sender: UIRefreshControl) {
         currentPage = 1
         sender.endRefreshing()
-        
         delegate?.didRefresh(collectionView: collectionView!)
     }
     
@@ -149,19 +193,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             collectionView?.performBatchUpdates(nil, completion: nil)
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
-        
-        if #available(iOS 10.0, *) {
-            collectionView?.refreshControl = refreshControl
-        } else {
-            collectionView?.addSubview(refreshControl)
         }
     }
     
