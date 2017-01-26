@@ -76,7 +76,7 @@ import ObjectMapper
     }
 
     var runtime: String {
-        if let runtime = Int(currentItem.runtime) {
+        if let runtime = Int(movie.runtime) {
             let (hours, minutes, _) = secondsToHoursMinutesSeconds(runtime * 60)
             
             let formatted = "\(hours) h"

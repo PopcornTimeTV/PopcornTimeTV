@@ -61,7 +61,14 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        delegate?.collectionViewController(self, preferredSizeForLayout: dataSource.isEmpty ? .zero : collectionView?.contentSize ?? .zero)
+        if let collectionView = collectionView {
+            self.collectionView(collectionView, didChangeToSize: collectionView.contentSize)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didChangeToSize size: CGSize) {
+        let size = dataSource.isEmpty ? .zero : CGSize(width: collectionView.bounds.width, height: size.height)
+        delegate?.collectionViewController(self, preferredSizeForLayout: size)
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -196,15 +203,14 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         collectionView?.addObserver(self, forKeyPath: "frame", options: .new, context: &classContext)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         collectionView?.removeObserver(self, forKeyPath: "frame")
     }
     

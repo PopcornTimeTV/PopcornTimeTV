@@ -14,6 +14,7 @@ class MovieDetailViewController: UIViewController, PCTPlayerViewControllerDelega
     @IBOutlet var castButton: CastIconBarButtonItem!
 
     @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet var infoStackView: UIStackView!
     @IBOutlet var backgroundImageView: UIImageView!
     
     var relatedCollectionViewController: CollectionViewController!
@@ -24,7 +25,6 @@ class MovieDetailViewController: UIViewController, PCTPlayerViewControllerDelega
     var currentItem: Movie!
     var headerHeight: CGFloat = 315
     
-    
     @IBOutlet var relatedViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var castViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var seasonsViewHeightConstraint: NSLayoutConstraint!
@@ -34,6 +34,9 @@ class MovieDetailViewController: UIViewController, PCTPlayerViewControllerDelega
     @IBOutlet var informationCollectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var accessibilityCollectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var seasonsCollectionViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var compactConstraints: [NSLayoutConstraint]!
+    @IBOutlet var regularConstraints: [NSLayoutConstraint]!
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,10 +67,6 @@ class MovieDetailViewController: UIViewController, PCTPlayerViewControllerDelega
         watchedButton.image = watchedButtonImage
         
         scrollView.contentInset.bottom = tabBarController?.tabBar.frame.height ?? 0
-        
-        if let image = currentItem.largeBackgroundImage, let url = URL(string: image) {
-            backgroundImageView.af_setImage(withURL: url)
-        }
         
         TMDBManager.shared.getLogo(forMediaOfType: .movies, id: currentItem.id) { [weak self] (image, error) in
             if let image = image, let url = URL(string: image), let `self` = self {
@@ -222,8 +221,6 @@ class MovieDetailViewController: UIViewController, PCTPlayerViewControllerDelega
             layout?.scrollDirection = .horizontal
             layout?.minimumLineSpacing = 30
             vc.collectionView?.showsHorizontalScrollIndicator = false
-            vc.collectionView?.contentInset.left = 48
-            vc.collectionView?.contentInset.right = 48
         }
     }
     
@@ -266,5 +263,28 @@ class MovieDetailViewController: UIViewController, PCTPlayerViewControllerDelega
         } else if collectionViewController == accessibilityCollectionViewController {
             accessibilityCollectionViewHeightConstraint.constant = size.height
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        let isCompact = traitCollection.horizontalSizeClass == .compact
+        if let image = isCompact ? currentItem.largeCoverImage : currentItem.largeBackgroundImage, let url = URL(string: image) {
+            backgroundImageView.af_setImage(withURL: url)
+        }
+        infoStackView.axis = isCompact ? .vertical : .horizontal
+        infoStackView.alignment = isCompact ? .fill : .top
+        [castCollectionViewController.collectionView, relatedCollectionViewController.collectionView].forEach({
+            $0?.contentInset.left  = isCompact ? 14 : 26
+            $0?.contentInset.right = isCompact ? 14 : 26
+        })
+        
+        for constraint in compactConstraints {
+            constraint.priority = isCompact ? 999 : 240
+        }
+        for constraint in regularConstraints {
+            constraint.priority = isCompact ? 240 : 999
+        }
+        UIView.animate(withDuration: animationLength, animations: {
+            self.view.layoutIfNeeded()
+        })
     }
 }
