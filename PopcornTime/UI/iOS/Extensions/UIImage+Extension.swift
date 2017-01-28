@@ -34,4 +34,21 @@ extension UIImage {
         return image!
     }
     
+    var attributed: NSAttributedString {
+        let attachment = NSTextAttachment()
+        attachment.image = self
+        return NSAttributedString(attachment: attachment)
+    }
+    
+}
+
+func attributedString(from images: String...) -> [NSAttributedString] {
+    return images.flatMap({
+        guard let attributedString = UIImage(named: $0)?.colored(.white).attributed else { return nil }
+        
+        let string = NSMutableAttributedString(attributedString: attributedString)
+        string.append(NSAttributedString(string: "\t"))
+        
+        return string
+    })
 }

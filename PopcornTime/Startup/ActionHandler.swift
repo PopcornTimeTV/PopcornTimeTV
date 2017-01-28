@@ -326,7 +326,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
             })
             
             group.enter()
-            self.loadEpisodeMetadata(forShow: show) { episodes in
+            self.loadEpisodeMetadata(for: show) { episodes in
                 show.episodes = episodes
                 group.leave()
             }
@@ -402,10 +402,10 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     /**
      Load episode images from trakt.
      
-     - Parameter forShow:       The show that episode metadata is to be requested.
+     - Parameter show:          The show that episode metadata is to be requested.
      - Parameter completion:    Completion handler containing the updated episodes.
      */
-    func loadEpisodeMetadata(forShow show: Show, completion: @escaping ([Episode]) -> Void) {
+    func loadEpisodeMetadata(for show: Show, completion: @escaping ([Episode]) -> Void) {
         let group = DispatchGroup()
         
         var episodes = [Episode]()

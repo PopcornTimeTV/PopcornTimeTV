@@ -7,18 +7,15 @@ protocol CollectionViewControllerDelegate: class {
     func load(page: Int)
     func didRefresh(collectionView: UICollectionView)
     func collectionView(isEmptyForUnknownReason collectionView: UICollectionView)
-    func collectionViewController(_ collectionViewController: CollectionViewController, preferredSizeForLayout size: CGSize)
 }
 
 extension CollectionViewControllerDelegate {
     func load(page: Int) {}
     func didRefresh(collectionView: UICollectionView) {}
     func collectionView(isEmptyForUnknownReason collectionView: UICollectionView) {}
-    
-    func collectionViewController(_ collectionViewController: CollectionViewController, preferredSizeForLayout size: CGSize) {}
 }
 
-class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class CollectionViewController: ResponsiveCollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var dataSource: [AnyHashable] = []
     var error: NSError?
@@ -54,22 +51,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     weak var delegate: CollectionViewControllerDelegate?
     var hasNextPage: Bool = false
     var currentPage: Int = 1
-    private var classContext = 0
     
     private var refreshControl: UIRefreshControl?
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        if let collectionView = collectionView {
-            self.collectionView(collectionView, didChangeToSize: collectionView.contentSize)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didChangeToSize size: CGSize) {
-        let size = dataSource.isEmpty ? .zero : CGSize(width: collectionView.bounds.width, height: size.height)
-        delegate?.collectionViewController(self, preferredSizeForLayout: size)
-    }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard scrollView == collectionView, paginated else { return }
@@ -95,8 +78,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         }
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        collectionView?.performBatchUpdates(nil, completion: nil)
+    override func collectionView(_ collectionView: UICollectionView, didChangeToSize size: CGSize) {
+        let itemSize = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: IndexPath(item: 0, section: 0))
+        super.collectionView(collectionView, didChangeToSize: CGSize(width: size.width, height: itemSize.height))
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -195,38 +179,36 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         delegate?.didRefresh(collectionView: collectionView!)
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if let keyPath = keyPath, keyPath == "frame" && context == &classContext {
-            collectionView?.performBatchUpdates(nil, completion: nil)
-        } else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        collectionView?.addObserver(self, forKeyPath: "frame", options: .new, context: &classContext)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        collectionView?.removeObserver(self, forKeyPath: "frame")
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier,
             let cell = sender as? UICollectionViewCell,
             let indexPath = collectionView?.indexPath(for: cell) {
             
-            if identifier == "showMovie",
-                let vc = segue.destination as? MovieDetailViewController,
-                let movie = dataSource[indexPath.row] as? Movie {
-                vc.currentItem = movie
-            } else if identifier == "showShow",
-                let vc = segue.destination as? ShowContainerViewController,
-                let show = dataSource[indexPath.row] as? Show {
-                vc.currentItem = show
+            if let media = dataSource[indexPath.row] as? Media,
+                let vc = storyboard?.instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController {
+                
+                // Exact same storyboard UI is being used for both classes. This will enable subclass-specific functions however, stored instance variables cannot be created on either subclass because object_setClass does not initialise stored variables.
+                object_setClass(vc, media is Movie ? MovieDetailViewController.self : ShowDetailViewController.self)
+                navigationController?.navigationBar.isBackgroundHidden = true
+                
+                vc.loadMedia(id: media.id) { (media, error) in
+                    guard let navigationController = self.navigationController,
+                        navigationController.visibleViewController === segue.destination else { return }
+                    
+                    if let _ = error {
+                        // TODO: Error handling
+                        return
+                    }
+                    
+                    vc.currentItem = media
+                    
+                    navigationController.push(vc, animated: true) {
+                        var viewControllers = navigationController.viewControllers
+                        let index = viewControllers.count - 2
+                        viewControllers.remove(at: index)
+                        navigationController.setViewControllers(viewControllers, animated: false)
+                    }
+                }
             } else if identifier == "showPerson",
                 let vc = segue.destination as? PersonDetailCollectionViewController,
                 let person = dataSource[indexPath.row] as? Person {

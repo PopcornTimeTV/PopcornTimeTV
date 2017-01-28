@@ -8,7 +8,7 @@ import AlamofireImage
 class InfoViewController: UIViewController {
     
     @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var lengthLabel: UILabel!
+    @IBOutlet var subtitleLabel: UILabel!
     @IBOutlet var genreLabel: UILabel!
     @IBOutlet var infoLabel: UILabel!
     @IBOutlet var summaryTextView: ExpandableTextView!
@@ -18,7 +18,7 @@ class InfoViewController: UIViewController {
     @IBOutlet var compactConstraints: [NSLayoutConstraint]!
     @IBOutlet var regularConstraints: [NSLayoutConstraint]!
     
-    var info: (title: String, length: String, genre: String, info: NSMutableAttributedString, rating: Float, summary: String, image: String?)!
+    var info: (title: String, subtitle: String, genre: String, info: NSMutableAttributedString, rating: Float, summary: String, image: String?)!
     
     
     override func viewDidLoad() {
@@ -26,7 +26,7 @@ class InfoViewController: UIViewController {
 
         titleLabel.text = info.title
         infoLabel.attributedText = info.info
-        lengthLabel.text = info.length
+        subtitleLabel.text = info.subtitle
         genreLabel.text = info.genre
         
         summaryTextView.text = info.summary

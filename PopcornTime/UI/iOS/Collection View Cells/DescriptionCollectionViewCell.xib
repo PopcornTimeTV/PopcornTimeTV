@@ -11,14 +11,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="fLB-GI-A65" customClass="DescriptionCollectionViewCell" customModule="PopcornTime" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="15"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <rect key="frame" x="0.0" y="0.0" width="334" height="19"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="15"/>
+                <rect key="frame" x="0.0" y="0.0" width="334" height="19"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhL-4f-wAq">
-                        <rect key="frame" x="0.0" y="0.0" width="60" height="15"/>
+                        <rect key="frame" x="0.0" y="0.5" width="60" height="18.5"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="15" id="s3g-Cl-rr1"/>
                             <constraint firstAttribute="width" constant="60" id="tbK-Ap-6WW"/>
@@ -28,7 +28,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jkU-Ya-dZx">
-                        <rect key="frame" x="68" y="0.0" width="29" height="15"/>
+                        <rect key="frame" x="68" y="0.0" width="266" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="15" id="tvQ-xg-gEf"/>
                         </constraints>
@@ -41,16 +41,18 @@
             <constraints>
                 <constraint firstItem="jkU-Ya-dZx" firstAttribute="leading" secondItem="nhL-4f-wAq" secondAttribute="trailing" constant="8" symbolic="YES" id="K0d-pz-wMx"/>
                 <constraint firstItem="nhL-4f-wAq" firstAttribute="top" secondItem="fLB-GI-A65" secondAttribute="top" id="PRP-gU-Fye"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jkU-Ya-dZx" secondAttribute="trailing" id="SRO-ZO-Quc"/>
+                <constraint firstAttribute="trailing" secondItem="jkU-Ya-dZx" secondAttribute="trailing" id="SRO-ZO-Quc"/>
                 <constraint firstItem="nhL-4f-wAq" firstAttribute="leading" secondItem="fLB-GI-A65" secondAttribute="leading" id="V3h-Kr-yC4"/>
                 <constraint firstItem="jkU-Ya-dZx" firstAttribute="top" secondItem="fLB-GI-A65" secondAttribute="top" id="ZEL-I0-rFj"/>
                 <constraint firstAttribute="bottom" secondItem="nhL-4f-wAq" secondAttribute="bottom" id="bfr-M4-gvH"/>
                 <constraint firstAttribute="bottom" secondItem="jkU-Ya-dZx" secondAttribute="bottom" id="qd9-iD-Bxg"/>
             </constraints>
+            <size key="customSize" width="334" height="-99"/>
             <connections>
                 <outlet property="keyLabel" destination="nhL-4f-wAq" id="XuH-eK-7o7"/>
                 <outlet property="valueLabel" destination="jkU-Ya-dZx" id="VIq-sf-BJY"/>
             </connections>
+            <point key="canvasLocation" x="13" y="47.5"/>
         </collectionViewCell>
     </objects>
 </document>

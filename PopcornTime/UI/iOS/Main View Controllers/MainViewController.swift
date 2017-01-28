@@ -33,6 +33,7 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate, Ge
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.tintColor = .app
+        navigationController?.navigationBar.isBackgroundHidden = false
         self.collectionView?.reloadData()
     }
     

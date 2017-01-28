@@ -8,6 +8,16 @@ extension UIAlertController {
         static var blurStyleKey = "UIAlertController.blurStyleKey"
     }
     
+    @nonobjc public var preferredAction: UIAlertAction? {
+        get {
+            return perform(Selector("preferredAction"))?.takeUnretainedValue() as? UIAlertAction
+        } set (action) {
+            perform(Selector("setPreferredAction:"), with: action)
+            actions.forEach({$0.isChecked = false})
+            action?.isChecked = true
+        }
+    }
+    
     public var blurStyle: UIBlurEffectStyle {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.blurStyleKey) as? UIBlurEffectStyle ?? .extraLight
@@ -46,5 +56,6 @@ extension UIAlertController {
         
         visualEffectView?.effect = UIBlurEffect(style: blurStyle)
         cancelActionView?.backgroundColor = cancelButtonColor
+        preferredAction?.isChecked = true
     }
 }

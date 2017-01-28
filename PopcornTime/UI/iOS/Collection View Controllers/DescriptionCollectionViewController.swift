@@ -2,18 +2,12 @@
 
 import Foundation
 
-class DescriptionCollectionViewController: CollectionViewController {
+class DescriptionCollectionViewController: ResponsiveCollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var headerTitle: String?
     var sizingCell: DescriptionCollectionViewCell?
     
-    override var dataSource: [AnyHashable] {
-        get {
-            return dataSourceTuple.flatMap({ $0.value })
-        } set {}
-    }
-    
-    var dataSourceTuple: [(key: Any, value: String)] = [("", "")]
+    var dataSource: [(key: Any, value: String)] = [("", "")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +19,7 @@ class DescriptionCollectionViewController: CollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! DescriptionCollectionViewCell
         
-        let data = dataSourceTuple[indexPath.row]
+        let data = dataSource[indexPath.row]
         
         if let text = data.key as? String {
             cell.keyLabel.text = text
@@ -37,8 +31,8 @@ class DescriptionCollectionViewController: CollectionViewController {
         return cell
     }
     
-    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let data = dataSourceTuple[indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let data = dataSource[indexPath.row]
         
         sizingCell = sizingCell ?? .fromNib()
         
@@ -52,7 +46,18 @@ class DescriptionCollectionViewController: CollectionViewController {
         sizingCell?.setNeedsLayout()
         sizingCell?.layoutIfNeeded()
         
-        return sizingCell?.systemLayoutSizeFitting(UILayoutFittingCompressedSize) ?? .zero
+        let maxWidth   = collectionView.bounds.width
+        let targetSize = CGSize(width: maxWidth, height: 0)
+        
+        return sizingCell?.contentView.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityFittingSizeLevel) ?? .zero
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSource.count
+    }
+    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

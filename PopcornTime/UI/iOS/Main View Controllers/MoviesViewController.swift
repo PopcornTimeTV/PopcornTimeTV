@@ -69,6 +69,6 @@ class MoviesViewController: MainViewController {
         
         controller.popoverPresentationController?.barButtonItem = sender
         
-        present(controller, animated: true, completion: nil)
+        present(controller, animated: true)
     }
 }
