@@ -1276,12 +1276,12 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="IWe-kB-TAO" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="389.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="350.5"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" image="Episode Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Gaq-5q-Kfy">
-                                                <rect key="frame" x="24" y="24" width="327" height="204.5"/>
+                                                <rect key="frame" x="24" y="24" width="327" height="163.5"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="Gaq-5q-Kfy" secondAttribute="height" multiplier="16:10" id="eei-8h-Rcq"/>
+                                                    <constraint firstAttribute="width" secondItem="Gaq-5q-Kfy" secondAttribute="height" multiplier="16:8" id="eei-8h-Rcq"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -1291,25 +1291,25 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDs-4j-P8k">
-                                                <rect key="frame" x="24" y="236.5" width="327" height="16"/>
+                                                <rect key="frame" x="24" y="197.5" width="327" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="1" alpha="0.59724361800000003" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMS-Sz-8C3">
-                                                <rect key="frame" x="24" y="256.5" width="327" height="48"/>
+                                                <rect key="frame" x="24" y="217.5" width="327" height="48"/>
                                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="40"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eu6-iu-pli">
-                                                <rect key="frame" x="24" y="314.5" width="327" height="18"/>
+                                                <rect key="frame" x="24" y="275.5" width="327" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJW-mN-dnu" customClass="ExpandableTextView" customModule="PopcornTime" customModuleProvider="target">
-                                                <rect key="frame" x="19" y="332.5" width="337" height="57"/>
+                                                <rect key="frame" x="19" y="293.5" width="337" height="57"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <color key="textColor" white="1" alpha="0.59724361800000003" colorSpace="calibratedWhite"/>
@@ -1327,7 +1327,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                             <constraint firstItem="KJW-mN-dnu" firstAttribute="top" secondItem="eu6-iu-pli" secondAttribute="bottom" id="0RN-po-5ur"/>
                                             <constraint firstItem="eu6-iu-pli" firstAttribute="leading" secondItem="pMS-Sz-8C3" secondAttribute="leading" id="EZ7-CN-Ej2"/>
                                             <constraint firstItem="KJW-mN-dnu" firstAttribute="trailing" secondItem="eu6-iu-pli" secondAttribute="trailing" constant="5" id="U8Z-ZU-lpf"/>
-                                            <constraint firstItem="eDs-4j-P8k" firstAttribute="top" secondItem="Gaq-5q-Kfy" secondAttribute="bottom" constant="8" symbolic="YES" id="Ure-VZ-dZR"/>
+                                            <constraint firstItem="eDs-4j-P8k" firstAttribute="top" secondItem="Gaq-5q-Kfy" secondAttribute="bottom" constant="10" id="Ure-VZ-dZR"/>
                                             <constraint firstItem="pMS-Sz-8C3" firstAttribute="top" secondItem="eDs-4j-P8k" secondAttribute="bottom" constant="4" id="Yqd-n4-DvV"/>
                                             <constraint firstAttribute="trailing" secondItem="Gaq-5q-Kfy" secondAttribute="trailing" constant="24" id="bAk-Rx-FND"/>
                                             <constraint firstAttribute="bottom" secondItem="KJW-mN-dnu" secondAttribute="bottom" id="bVh-Jb-l6s"/>
@@ -2070,13 +2070,13 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uKh-Xl-6wC">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uKh-Xl-6wC">
                                             <rect key="frame" x="89" y="5" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EV3-M2-mbY">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EV3-M2-mbY">
                                             <rect key="frame" x="89" y="30" width="36" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" white="1" alpha="0.59724361800000003" colorSpace="calibratedWhite"/>

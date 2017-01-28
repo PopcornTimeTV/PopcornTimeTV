@@ -22,7 +22,7 @@ class EpisodeDetailViewController: UIViewController, UIScrollViewDelegate {
         titleLabel.text = episode.title
         summaryTextView.text = episode.summary
         
-        let info = NSMutableAttributedString(string: "\(DateFormatter.localizedString(from: episode.firstAirDate, dateStyle: .medium, timeStyle: .none))\t\(episode.show.runtime ?? "0") min\t")
+        let info = NSMutableAttributedString(string: "\(DateFormatter.localizedString(from: episode.firstAirDate, dateStyle: .medium, timeStyle: .none))    \(episode.show.runtime ?? "0") min\t")
         attributedString(from: "HD", "CC").forEach({info.append($0)})
         infoLabel.attributedText = info
         
@@ -31,7 +31,9 @@ class EpisodeDetailViewController: UIViewController, UIScrollViewDelegate {
             let url = URL(string: image) {
             imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "Episode Placeholder"), imageTransition: .crossDissolve(animationLength))
         }
-        
-        
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 }

@@ -27,7 +27,11 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     var currentType: Trakt.MediaType {
         return currentItem is Movie ? .movies : .shows
     }
-    var headerHeight: CGFloat = 315
+    var headerHeight: CGFloat = 0 {
+        didSet {
+            scrollView.contentInset.top = headerHeight
+        }
+    }
     var currentSeason = -1
     
     
@@ -73,6 +77,10 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         
         scrollView.contentInset.bottom = tabBarController?.tabBar.frame.height ?? 0
         
+        if let image = currentItem.largeBackgroundImage, let url = URL(string: image) {
+            backgroundImageView.af_setImage(withURL: url)
+        }
+        
         TMDBManager.shared.getLogo(forMediaOfType: currentType, id: currentItem.id) { [weak self] (image, error) in
             if let image = image, let url = URL(string: image), let `self` = self {
                 let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: .max, height: 40)))
@@ -84,8 +92,6 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
                 }
             }
         }
-        
-        scrollView.contentInset.top = headerHeight
     }
     
     func loadMedia(id: String, completion: @escaping (Media?, NSError?) -> Void) { }
@@ -197,9 +203,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         let isCompact = traitCollection.horizontalSizeClass == .compact
-        if let image = isCompact ? currentItem.largeCoverImage : currentItem.largeBackgroundImage, let url = URL(string: image) {
-            backgroundImageView.af_setImage(withURL: url)
-        }
+        headerHeight = isCompact ? 240 : 315
         infoStackView.axis = isCompact ? .vertical : .horizontal
         infoStackView.alignment = isCompact ? .fill : .top
         [castCollectionViewController.collectionView, relatedCollectionViewController.collectionView].forEach({

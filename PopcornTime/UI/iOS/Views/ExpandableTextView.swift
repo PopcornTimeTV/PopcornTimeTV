@@ -22,6 +22,12 @@ import Foundation
         }
     }
     
+    override var font: UIFont? {
+        didSet {
+            moreButton.titleLabel?.font = font
+        }
+    }
+    
     private var heightConstraint: NSLayoutConstraint!
     
     let moreButton = UIButton(type: .system)
@@ -76,7 +82,7 @@ import Foundation
     override func layoutSubviews() {
         super.layoutSubviews()
         moreButton.frame.origin.x = bounds.width - moreButton.frame.width - 5
-        moreButton.frame.origin.y = bounds.height - moreButton.frame.height - 2.5
+        moreButton.frame.origin.y = bounds.height - moreButton.frame.height
         moreButton.isHidden = totalNumberOfLines <= visibleNumberOfLines
     }
 }
