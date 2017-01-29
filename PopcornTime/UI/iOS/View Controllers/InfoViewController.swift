@@ -14,6 +14,7 @@ class InfoViewController: UIViewController {
     @IBOutlet var summaryTextView: ExpandableTextView!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var ratingView: FloatRatingView!
+    @IBOutlet var trailerButton: UIButton!
     
     @IBOutlet var compactConstraints: [NSLayoutConstraint]!
     @IBOutlet var regularConstraints: [NSLayoutConstraint]!

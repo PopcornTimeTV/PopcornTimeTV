@@ -85,7 +85,6 @@ class ShowDetailViewController: DetailViewController {
             attributedString(from: "HD", "CC").forEach({info.append($0)})
             
             vc.info = (title: show.title, subtitle: show.network ?? "TV", genre: show.genres.first?.capitalized ?? "", info: info, rating: show.rating, summary: show.summary, image: show.mediumCoverImage)
-            
             vc.view.translatesAutoresizingMaskIntoConstraints = false
         } else if let vc = segue.destination as? DescriptionCollectionViewController, segue.identifier == "embedInformation" {
             vc.headerTitle = "Information"

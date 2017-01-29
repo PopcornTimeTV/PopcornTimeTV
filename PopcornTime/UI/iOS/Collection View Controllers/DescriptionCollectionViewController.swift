@@ -15,6 +15,26 @@ class DescriptionCollectionViewController: ResponsiveCollectionViewController, U
         collectionView?.register(UINib(nibName: String(describing: DescriptionCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: "cell")
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didChangeToSize size: CGSize) {
+        var estimatedContentHeight: CGFloat = 0.0
+        
+        for section in 0..<collectionView.numberOfSections {
+            
+            let headerSize = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, referenceSizeForHeaderInSection: section)
+        
+            estimatedContentHeight += headerSize.height
+            
+            let numberOfCells = collectionView.numberOfItems(inSection: section)
+            
+            for item in 0..<numberOfCells {
+                let itemSize = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: IndexPath(item: item, section: section))
+                estimatedContentHeight += itemSize.height
+            }
+        }
+        
+        super.collectionView(collectionView, didChangeToSize: CGSize(width: collectionView.bounds.width, height: estimatedContentHeight))
+    }
+    
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! DescriptionCollectionViewCell

@@ -8,22 +8,10 @@ class EpisodesCollectionViewController: ResponsiveCollectionViewController, UICo
     
     var dataSource: [Episode] = []
     
-    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        scrollViewSnapToCell(scrollView)
-    }
-    
-    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        scrollViewSnapToCell(scrollView)
-    }
-    
-    func scrollViewSnapToCell(_ scrollView: UIScrollView) {
-        guard let collectionView = collectionView, scrollView === collectionView,
-            let width = collectionView.cellForItem(at: IndexPath(item: 0, section: 0))?.bounds.width else { return }
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        for item in 0..<collectionView.numberOfItems(inSection: 0) where scrollView.contentOffset.x <= CGFloat(item) * (width + width/2) {
-            let indexPath = IndexPath(item: item, section: 0)
-            collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
-        }
+        collectionView?.decelerationRate = UIScrollViewDecelerationRateFast
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -68,7 +56,9 @@ class EpisodesCollectionViewController: ResponsiveCollectionViewController, UICo
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.bounds.width
+        let inset = collectionView.contentInset
+        let spacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumLineSpacing
+        let width = collectionView.bounds.width - inset.left - inset.right - spacing
         return CGSize(width: traitCollection.horizontalSizeClass == .regular ? width/2 : width, height: 55)
     }
     
