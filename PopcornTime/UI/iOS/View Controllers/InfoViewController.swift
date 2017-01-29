@@ -4,6 +4,7 @@ import UIKit
 import PopcornKit
 import FloatRatingView
 import AlamofireImage
+import XCDYouTubeKit
 
 class InfoViewController: UIViewController {
     
@@ -19,7 +20,7 @@ class InfoViewController: UIViewController {
     @IBOutlet var compactConstraints: [NSLayoutConstraint]!
     @IBOutlet var regularConstraints: [NSLayoutConstraint]!
     
-    var info: (title: String, subtitle: String, genre: String, info: NSMutableAttributedString, rating: Float, summary: String, image: String?)!
+    var info: (title: String, subtitle: String, genre: String, info: NSMutableAttributedString, rating: Float, summary: String, image: String?, trailerCode: String?)!
     
     
     override func viewDidLoad() {
@@ -37,6 +38,13 @@ class InfoViewController: UIViewController {
             imageView.af_setImage(withURL: url)
         }
         
+        trailerButton.isHidden = info.trailerCode == nil
+        
+    }
+    
+    @IBAction func playTrailer() {
+        let vc = XCDYouTubeVideoPlayerViewController(videoIdentifier: info.trailerCode!)
+        present(vc, animated: true, completion: nil)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -46,9 +54,13 @@ class InfoViewController: UIViewController {
         for constraint in regularConstraints {
             constraint.priority = traitCollection.horizontalSizeClass == .compact ? 240 : 999
         }
-        UIView.animate(withDuration: animationLength, animations: {
-            self.view.layoutIfNeeded()
-        })
+        
+        // Don't animate if when the view is being first presented. 
+        if previousTraitCollection != nil {
+            UIView.animate(withDuration: animationLength, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
     }
 
 }

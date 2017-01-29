@@ -127,6 +127,7 @@
 		4D8A57431DE0F39A00CCDF8A /* UITableView+Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A57421DE0F39A00CCDF8A /* UITableView+Header.swift */; };
 		4D8A57451DE109B700CCDF8A /* LoadingViewControllerPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A57441DE109B700CCDF8A /* LoadingViewControllerPresentationDelegate.swift */; };
 		4D8A57471DE10DFE00CCDF8A /* UIViewController+StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A57461DE10DFD00CCDF8A /* UIViewController+StatusBar.swift */; };
+		4D8DE76D1E3E869A0017036B /* UIAlertController+BlurStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4F90311E33847A0050CA47 /* UIAlertController+BlurStyle.swift */; };
 		4D91ECBC1DDBA842001B798A /* UIFont+Traits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91ECBB1DDBA842001B798A /* UIFont+Traits.swift */; };
 		4D91ECBD1DDBA842001B798A /* UIFont+Traits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91ECBB1DDBA842001B798A /* UIFont+Traits.swift */; };
 		4D990E231DC4EFA2005CDE34 /* Media+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E1D1DC4EFA2005CDE34 /* Media+Extension.swift */; };
@@ -228,7 +229,7 @@
 		4D2543B21DACFBFE00149533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D2907291E2BA80F00581701 /* LoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		4D29072B1E2BA95B00581701 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		4D4F90311E33847A0050CA47 /* UIAlertController+BlurStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+BlurStyle.swift"; sourceTree = "<group>"; };
+		4D4F90311E33847A0050CA47 /* UIAlertController+BlurStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIAlertController+BlurStyle.swift"; path = "../UI/iOS/Extensions/UIAlertController+BlurStyle.swift"; sourceTree = "<group>"; };
 		4D4F90331E33AA440050CA47 /* WatchlistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchlistViewController.swift; sourceTree = "<group>"; };
 		4D689A171DD88E17001D1318 /* PopcornTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopcornTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D689A6C1DD8ADFA001D1318 /* CastIconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CastIconButton.swift; sourceTree = "<group>"; };
@@ -439,6 +440,7 @@
 		28EB626A1CA3362B00985F78 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				4D4F90311E33847A0050CA47 /* UIAlertController+BlurStyle.swift */,
 				4DDBD9081E0EDA2E00CEA1B1 /* Array+Extension.swift */,
 				4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */,
 				4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */,
@@ -566,7 +568,6 @@
 				4DE9E06B1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift */,
 				4D1B88AA1E3C9BFA00DB701D /* UINavigationController+Extension.swift */,
 				4D1B88AC1E3CAF6700DB701D /* UIAlertAction+Extension.swift */,
-				4D4F90311E33847A0050CA47 /* UIAlertController+BlurStyle.swift */,
 				4D859B8F1DDFA162000E2AA1 /* PCTPlayerViewController+iOS.swift */,
 				4D859B931DDFA162000E2AA1 /* UIImage+Extension.swift */,
 				4D859B911DDFA162000E2AA1 /* UINavigationBar+Extension.swift */,
@@ -1234,6 +1235,7 @@
 				4D859BE91DDFA246000E2AA1 /* ShowProductRecipe.swift in Sources */,
 				4D859BDC1DDFA237000E2AA1 /* Settings.swift in Sources */,
 				4D990E421DC4F0BD005CDE34 /* OptionsViewControllerPresentationDelegate.swift in Sources */,
+				4D8DE76D1E3E869A0017036B /* UIAlertController+BlurStyle.swift in Sources */,
 				4D859B2D1DDFA079000E2AA1 /* UpNextView.swift in Sources */,
 				4DD6E4D51DFB2FAA00818A2C /* TapGestureRecogniser.swift in Sources */,
 				4D990E231DC4EFA2005CDE34 /* Media+Extension.swift in Sources */,

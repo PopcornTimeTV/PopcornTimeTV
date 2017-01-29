@@ -8,6 +8,8 @@ extension UIAlertController {
         static var blurStyleKey = "UIAlertController.blurStyleKey"
     }
     
+    #if os(iOS)
+    
     @nonobjc public var preferredAction: UIAlertAction? {
         get {
             return perform(Selector("preferredAction"))?.takeUnretainedValue() as? UIAlertAction
@@ -17,6 +19,16 @@ extension UIAlertController {
             action?.isChecked = true
         }
     }
+    
+    open override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        visualEffectView?.effect = UIBlurEffect(style: blurStyle)
+        cancelActionView?.backgroundColor = cancelButtonColor
+        preferredAction?.isChecked = true
+    }
+    
+    #endif
     
     public var blurStyle: UIBlurEffectStyle {
         get {
@@ -49,13 +61,5 @@ extension UIAlertController {
     public convenience init(title: String?, message: String?, preferredStyle: UIAlertControllerStyle, blurStyle: UIBlurEffectStyle) {
         self.init(title: title, message: message, preferredStyle: preferredStyle)
         self.blurStyle = blurStyle
-    }
-    
-    open override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        visualEffectView?.effect = UIBlurEffect(style: blurStyle)
-        cancelActionView?.backgroundColor = cancelButtonColor
-        preferredAction?.isChecked = true
     }
 }

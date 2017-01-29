@@ -202,7 +202,14 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
                     
                     vc.currentItem = media
                     
-                    navigationController.push(vc, animated: true) {
+                    let transition = CATransition()
+                    transition.duration = 0.5
+                    transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+                    transition.type = kCATransitionFade
+                    navigationController.view.layer.add(transition, forKey: nil)
+                    navigationController.pushViewController(vc, animated: false)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + transition.duration) {
                         var viewControllers = navigationController.viewControllers
                         let index = viewControllers.count - 2
                         viewControllers.remove(at: index)
