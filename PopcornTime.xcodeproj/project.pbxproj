@@ -19,7 +19,6 @@
 		4D1B88A91E3BFF4000DB701D /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B88A81E3BFF4000DB701D /* MovieDetailViewController.swift */; };
 		4D1B88AB1E3C9BFA00DB701D /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B88AA1E3C9BFA00DB701D /* UINavigationController+Extension.swift */; };
 		4D1B88AD1E3CAF6700DB701D /* UIAlertAction+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B88AC1E3CAF6700DB701D /* UIAlertAction+Extension.swift */; };
-		4D24E5201DF1D731002D73F5 /* HeaderScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D24E51F1DF1D731002D73F5 /* HeaderScrollView.swift */; };
 		4D2543AE1DACFBFE00149533 /* TVServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 002682111CD0B76200F51D31 /* TVServices.framework */; };
 		4D2543B11DACFBFE00149533 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2543B01DACFBFE00149533 /* ServiceProvider.swift */; };
 		4D2543B51DACFBFE00149533 /* TopShelf.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4D2543AD1DACFBFE00149533 /* TopShelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -32,7 +31,6 @@
 		4D689A291DD88EE9001D1318 /* EncodingTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E2B1DC4F00F005CDE34 /* EncodingTypes.plist */; };
 		4D689A2A1DD88EFC001D1318 /* SubtitleSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */; };
 		4D689A2C1DD88F0A001D1318 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
-		4D689A2D1DD88F0F001D1318 /* UIPanGestureRecogniser+Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9CED3A1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift */; };
 		4D689A2E1DD88F12001D1318 /* Locale+Langs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */; };
 		4D689A2F1DD88F15001D1318 /* String+Cleaned.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB626B1CA3364300985F78 /* String+Cleaned.swift */; };
 		4D689A301DD88F1A001D1318 /* Media+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E1D1DC4EFA2005CDE34 /* Media+Extension.swift */; };
@@ -47,8 +45,6 @@
 		4D6A9C901E130291002D684C /* SearchRecipe.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D6A9C8D1E130291002D684C /* SearchRecipe.js */; };
 		4D6A9C921E1302CF002D684C /* ErrorBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A9C911E1302CF002D684C /* ErrorBackgroundView.swift */; };
 		4D6A9C931E1302D6002D684C /* ErrorBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A9C911E1302CF002D684C /* ErrorBackgroundView.swift */; };
-		4D6A9C951E1302F0002D684C /* UIViewController+PresentOverTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A9C941E1302F0002D684C /* UIViewController+PresentOverTop.swift */; };
-		4D6A9C961E1302F3002D684C /* UIViewController+PresentOverTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A9C941E1302F0002D684C /* UIViewController+PresentOverTop.swift */; };
 		4D6A9C981E1304CF002D684C /* ProductRecipeJSExports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A9C971E1304CF002D684C /* ProductRecipeJSExports.swift */; };
 		4D6A9C9A1E131656002D684C /* ProductRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A9C991E131656002D684C /* ProductRecipe.swift */; };
 		4D6F837C1E0D67EA002E40FD /* SearchTemplate.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D6F837B1E0D67EA002E40FD /* SearchTemplate.xml */; };
@@ -67,7 +63,6 @@
 		4D859B361DDFA08B000E2AA1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D859B341DDFA087000E2AA1 /* Launch Screen.storyboard */; };
 		4D859B391DDFA0A6000E2AA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D859B371DDFA099000E2AA1 /* Main.storyboard */; };
 		4D859B3E1DDFA0C3000E2AA1 /* StreamToDevicesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B3A1DDFA0C0000E2AA1 /* StreamToDevicesTableViewCell.swift */; };
-		4D859B3F1DDFA0C3000E2AA1 /* ShowDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B3B1DDFA0C0000E2AA1 /* ShowDetailTableViewCell.swift */; };
 		4D859B461DDFA0D5000E2AA1 /* StreamToDevicesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B401DDFA0D2000E2AA1 /* StreamToDevicesTableViewController.swift */; };
 		4D859B471DDFA0D5000E2AA1 /* SubtitlesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B411DDFA0D2000E2AA1 /* SubtitlesTableViewController.swift */; };
 		4D859B481DDFA0D5000E2AA1 /* GenresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B421DDFA0D2000E2AA1 /* GenresTableViewController.swift */; };
@@ -124,7 +119,6 @@
 		4D859BED1DDFA246000E2AA1 /* SeasonPickerRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BE61DDFA246000E2AA1 /* SeasonPickerRecipe.swift */; };
 		4D859BEE1DDFA246000E2AA1 /* SeasonPickerRecipe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D859BE71DDFA246000E2AA1 /* SeasonPickerRecipe.xml */; };
 		4D89A5EB1DF886210063F9E1 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B901DDFA162000E2AA1 /* UIView+Extension.swift */; };
-		4D8A57431DE0F39A00CCDF8A /* UITableView+Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A57421DE0F39A00CCDF8A /* UITableView+Header.swift */; };
 		4D8A57451DE109B700CCDF8A /* LoadingViewControllerPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A57441DE109B700CCDF8A /* LoadingViewControllerPresentationDelegate.swift */; };
 		4D8A57471DE10DFE00CCDF8A /* UIViewController+StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A57461DE10DFD00CCDF8A /* UIViewController+StatusBar.swift */; };
 		4D8DE76D1E3E869A0017036B /* UIAlertController+BlurStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4F90311E33847A0050CA47 /* UIAlertController+BlurStyle.swift */; };
@@ -139,7 +133,6 @@
 		4D9A91D11E144FB800C29CA5 /* indicator-watched.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D9A91D01E144FB800C29CA5 /* indicator-watched.png */; };
 		4D9CED371DD278BD005ABC0A /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9CED361DD278BD005ABC0A /* libc++.tbd */; };
 		4D9CED391DD278F1005ABC0A /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9CED381DD278F1005ABC0A /* libiconv.tbd */; };
-		4D9CED3B1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9CED3A1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift */; };
 		4DA42DD21DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */; };
 		4DA42DD31DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */; };
 		4DAF1A461E2D3BDB00D963BD /* MonogramCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAF1A451E2D3BDB00D963BD /* MonogramCollectionViewCell.swift */; };
@@ -223,7 +216,6 @@
 		4D1B88A81E3BFF4000DB701D /* MovieDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		4D1B88AA1E3C9BFA00DB701D /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		4D1B88AC1E3CAF6700DB701D /* UIAlertAction+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Extension.swift"; sourceTree = "<group>"; };
-		4D24E51F1DF1D731002D73F5 /* HeaderScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderScrollView.swift; sourceTree = "<group>"; };
 		4D2543AD1DACFBFE00149533 /* TopShelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TopShelf.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2543B01DACFBFE00149533 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		4D2543B21DACFBFE00149533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -239,7 +231,6 @@
 		4D6A9C8C1E130291002D684C /* ProductRecipe.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ProductRecipe.js; sourceTree = "<group>"; };
 		4D6A9C8D1E130291002D684C /* SearchRecipe.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SearchRecipe.js; sourceTree = "<group>"; };
 		4D6A9C911E1302CF002D684C /* ErrorBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorBackgroundView.swift; sourceTree = "<group>"; };
-		4D6A9C941E1302F0002D684C /* UIViewController+PresentOverTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentOverTop.swift"; sourceTree = "<group>"; };
 		4D6A9C971E1304CF002D684C /* ProductRecipeJSExports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRecipeJSExports.swift; sourceTree = "<group>"; };
 		4D6A9C991E131656002D684C /* ProductRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRecipe.swift; sourceTree = "<group>"; };
 		4D6F837B1E0D67EA002E40FD /* SearchTemplate.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SearchTemplate.xml; sourceTree = "<group>"; };
@@ -253,7 +244,6 @@
 		4D859B341DDFA087000E2AA1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		4D859B371DDFA099000E2AA1 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		4D859B3A1DDFA0C0000E2AA1 /* StreamToDevicesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamToDevicesTableViewCell.swift; sourceTree = "<group>"; };
-		4D859B3B1DDFA0C0000E2AA1 /* ShowDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowDetailTableViewCell.swift; sourceTree = "<group>"; };
 		4D859B401DDFA0D2000E2AA1 /* StreamToDevicesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamToDevicesTableViewController.swift; sourceTree = "<group>"; };
 		4D859B411DDFA0D2000E2AA1 /* SubtitlesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitlesTableViewController.swift; sourceTree = "<group>"; };
 		4D859B421DDFA0D2000E2AA1 /* GenresTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenresTableViewController.swift; sourceTree = "<group>"; };
@@ -309,7 +299,6 @@
 		4D859BE51DDFA246000E2AA1 /* ShowProductRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ShowProductRecipe.xml; sourceTree = "<group>"; };
 		4D859BE61DDFA246000E2AA1 /* SeasonPickerRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeasonPickerRecipe.swift; sourceTree = "<group>"; };
 		4D859BE71DDFA246000E2AA1 /* SeasonPickerRecipe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SeasonPickerRecipe.xml; sourceTree = "<group>"; };
-		4D8A57421DE0F39A00CCDF8A /* UITableView+Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Header.swift"; sourceTree = "<group>"; };
 		4D8A57441DE109B700CCDF8A /* LoadingViewControllerPresentationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewControllerPresentationDelegate.swift; sourceTree = "<group>"; };
 		4D8A57461DE10DFD00CCDF8A /* UIViewController+StatusBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+StatusBar.swift"; sourceTree = "<group>"; };
 		4D91ECBB1DDBA842001B798A /* UIFont+Traits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Traits.swift"; sourceTree = "<group>"; };
@@ -324,7 +313,6 @@
 		4D9A91D01E144FB800C29CA5 /* indicator-watched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator-watched.png"; sourceTree = "<group>"; };
 		4D9CED361DD278BD005ABC0A /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		4D9CED381DD278F1005ABC0A /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
-		4D9CED3A1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPanGestureRecogniser+Direction.swift"; sourceTree = "<group>"; };
 		4DA42DC41DD8C6D900933A10 /* PopcornTimeiOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PopcornTimeiOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
 		4DAF1A451E2D3BDB00D963BD /* MonogramCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonogramCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -446,10 +434,8 @@
 				4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */,
 				4D990E1D1DC4EFA2005CDE34 /* Media+Extension.swift */,
 				28EB626B1CA3364300985F78 /* String+Cleaned.swift */,
-				4D6A9C941E1302F0002D684C /* UIViewController+PresentOverTop.swift */,
 				4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */,
 				4D91ECBB1DDBA842001B798A /* UIFont+Traits.swift */,
-				4D9CED3A1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -555,7 +541,6 @@
 		4D859B081DDCEF3E000E2AA1 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
-				4D859B3B1DDFA0C0000E2AA1 /* ShowDetailTableViewCell.swift */,
 				4D859B3A1DDFA0C0000E2AA1 /* StreamToDevicesTableViewCell.swift */,
 			);
 			path = "Table View Cells";
@@ -571,7 +556,6 @@
 				4D859B8F1DDFA162000E2AA1 /* PCTPlayerViewController+iOS.swift */,
 				4D859B931DDFA162000E2AA1 /* UIImage+Extension.swift */,
 				4D859B911DDFA162000E2AA1 /* UINavigationBar+Extension.swift */,
-				4D8A57421DE0F39A00CCDF8A /* UITableView+Header.swift */,
 				4D859B901DDFA162000E2AA1 /* UIView+Extension.swift */,
 				4D8A57461DE10DFD00CCDF8A /* UIViewController+StatusBar.swift */,
 			);
@@ -753,7 +737,6 @@
 				4D859B691DDFA12A000E2AA1 /* ErrorBackgroundView.xib */,
 				4D859B681DDFA12A000E2AA1 /* ExpandableTextView.swift */,
 				4D859B6C1DDFA12A000E2AA1 /* GradientView.swift */,
-				4D24E51F1DF1D731002D73F5 /* HeaderScrollView.swift */,
 				4D859B671DDFA12A000E2AA1 /* ProgressBar.swift */,
 			);
 			path = Views;
@@ -1196,10 +1179,8 @@
 				28EB626C1CA3364300985F78 /* String+Cleaned.swift in Sources */,
 				4D859BD31DDFA229000E2AA1 /* SearchRecipe.swift in Sources */,
 				4DAFAA361E0AF4DE00AE0F9A /* AudioViewController.swift in Sources */,
-				4D6A9C951E1302F0002D684C /* UIViewController+PresentOverTop.swift in Sources */,
 				4D6A9C921E1302CF002D684C /* ErrorBackgroundView.swift in Sources */,
 				4D859BCA1DDFA209000E2AA1 /* WatchlistRecipe.swift in Sources */,
-				4D9CED3B1DD78C6A005ABC0A /* UIPanGestureRecogniser+Direction.swift in Sources */,
 				4D859BB61DDFA1C6000E2AA1 /* Movie+Lockup.swift in Sources */,
 				4D89A5EB1DF886210063F9E1 /* UIView+Extension.swift in Sources */,
 				4D990E2D1DC4F00F005CDE34 /* SubtitleSettings.swift in Sources */,
@@ -1272,9 +1253,7 @@
 				4D4F90341E33AA440050CA47 /* WatchlistViewController.swift in Sources */,
 				4D859B311DDFA07C000E2AA1 /* SettingsTableViewController.swift in Sources */,
 				4D859B551DDFA0F8000E2AA1 /* MainViewController.swift in Sources */,
-				4D689A2D1DD88F0F001D1318 /* UIPanGestureRecogniser+Direction.swift in Sources */,
 				4D859B621DDFA10C000E2AA1 /* ShowDetailViewController.swift in Sources */,
-				4D859B3F1DDFA0C3000E2AA1 /* ShowDetailTableViewCell.swift in Sources */,
 				4D859B541DDFA0F8000E2AA1 /* ShowsViewController.swift in Sources */,
 				4D689A2E1DD88F12001D1318 /* Locale+Langs.swift in Sources */,
 				4D8A57451DE109B700CCDF8A /* LoadingViewControllerPresentationDelegate.swift in Sources */,
@@ -1299,13 +1278,10 @@
 				4D859B321DDFA07C000E2AA1 /* UpNextView.swift in Sources */,
 				4D859B631DDFA10C000E2AA1 /* EpisodeDetailViewController.swift in Sources */,
 				4D859B4B1DDFA0E6000E2AA1 /* CoverCollectionViewCell.swift in Sources */,
-				4D6A9C961E1302F3002D684C /* UIViewController+PresentOverTop.swift in Sources */,
 				4D859B871DDFA13D000E2AA1 /* BlurButton.swift in Sources */,
 				4D689A6E1DD8ADFD001D1318 /* CastIconButton.swift in Sources */,
 				4D859B761DDFA12C000E2AA1 /* ExpandableTextView.swift in Sources */,
 				4DC7B6931E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift in Sources */,
-				4D24E5201DF1D731002D73F5 /* HeaderScrollView.swift in Sources */,
-				4D8A57431DE0F39A00CCDF8A /* UITableView+Header.swift in Sources */,
 				4D8A57471DE10DFE00CCDF8A /* UIViewController+StatusBar.swift in Sources */,
 				4D859B8C1DDFA151000E2AA1 /* BarSlider.swift in Sources */,
 				4D859B8D1DDFA151000E2AA1 /* ProgressSlider.swift in Sources */,

@@ -258,8 +258,10 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         super.viewDidAppear(animated)
         guard !mediaplayer.isPlaying else { return }
         if startPosition > 0.0 {
-            let style: UIAlertControllerStyle = (traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular) ? .alert : .actionSheet
-            let continueWatchingAlert = UIAlertController(title: nil, message: nil, preferredStyle: style)
+            let isRegular = traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular
+            let style: UIAlertControllerStyle = isRegular ? .alert : .actionSheet
+            let blurStyle: UIBlurEffectStyle  = isRegular ? .extraLight : .dark
+            let continueWatchingAlert = UIAlertController(title: nil, message: nil, preferredStyle: style, blurStyle: blurStyle)
             
             #if os(tvOS)
                 NotificationCenter.default.addObserver(self, selector: #selector(alertFocusDidChange(_:)), name: .UIViewControllerFocusedViewDidChange, object: continueWatchingAlert)
@@ -293,7 +295,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         mediaplayer.media = VLCMedia(url: url)
         
         let settings = SubtitleSettings()
-        (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.size))
+        (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.size.rawValue))
         (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.color.hexInt()))
         (mediaplayer as VLCFontAppearance).setTextRendererFont!(settings.font.familyName as NSString)
         (mediaplayer as VLCFontAppearance).setTextRendererFontForceBold!(NSNumber(booleanLiteral: settings.style == .bold || settings.style == .boldItalic))

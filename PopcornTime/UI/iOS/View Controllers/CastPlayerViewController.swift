@@ -32,11 +32,9 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
         return hud!
     }()
     private var subtitleColors: [String: UIColor] = {
-        var colorDict = [String: UIColor]()
-        for (index, color) in UIColor.systemColors.enumerated() {
-            colorDict[UIColor.systemColorStrings[index]] = color
-        }
-        return colorDict
+        let colors  = UIColor.systemColors
+        let strings = colors.flatMap({$0.string})
+        return Dictionary<String, UIColor>(zip(strings, colors))
     }()
     private var subtitleFonts: [String: UIFont] = {
         var fontDict = [String: UIFont]()

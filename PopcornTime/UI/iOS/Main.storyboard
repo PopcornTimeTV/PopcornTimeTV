@@ -1793,7 +1793,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cH6-vX-BEe">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="240"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
                                 <connections>
                                     <segue destination="PQb-9S-L62" kind="embed" identifier="embed" id="0jz-5F-ARv"/>
                                 </connections>
@@ -2089,6 +2089,9 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aeK-e0-ISc">
                                             <rect key="frame" x="340" y="18" width="27" height="19"/>
                                             <state key="normal" image="Watched Off"/>
+                                            <connections>
+                                                <action selector="toggleWatched" destination="qa8-GZ-Vm1" eventType="touchUpInside" id="O6Z-fa-faT"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </view>
@@ -2136,7 +2139,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <scene sceneID="KoH-yB-faY">
             <objects>
                 <collectionViewController id="bd3-Qn-q9Z" customClass="DescriptionCollectionViewController" customModule="PopcornTime" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" dataMode="prototypes" id="sOh-NB-hk2">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" id="sOh-NB-hk2">
                         <rect key="frame" x="0.0" y="0.0" width="132.5" height="110"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.15102305429999999" alpha="1" colorSpace="calibratedWhite"/>
@@ -2470,7 +2473,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <scene sceneID="mMb-NN-bJ3">
             <objects>
                 <collectionViewController storyboardIdentifier="ContinueWatchingCollectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="K0F-Rc-Pup" customClass="ContinueWatchingCollectionViewController" customModule="PopcornTime" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="M0Y-v3-gKm">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="M0Y-v3-gKm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="196"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3129,7 +3132,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="TJI-HA-yb0">
-                                <rect key="frame" x="290" y="110" width="20" height="20"/>
+                                <rect key="frame" x="178" y="110" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.10980392160000001" green="0.10980392160000001" blue="0.10980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

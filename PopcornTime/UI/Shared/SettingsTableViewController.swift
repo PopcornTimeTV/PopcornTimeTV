@@ -9,7 +9,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
     
     func authenticationDidSucceed() {
         dismiss(animated: true) {
-            let alert = UIAlertController(title: "Success!", message: "Successfully authenticated with Trakt", preferredStyle: .alert, blurStyle: .dark)
+            let alert = UIAlertController(title: "Success!", message: "Successfully authenticated with Trakt", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
@@ -19,7 +19,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
     
     func authenticationDidFail(withError error: NSError) {
         dismiss(animated: true, completion: nil)
-        let alert = UIAlertController(title: "Failed to authenticate with Trakt", message: error.localizedDescription, preferredStyle: .alert, blurStyle: .dark)
+        let alert = UIAlertController(title: "Failed to authenticate with Trakt", message: error.localizedDescription, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
     }
@@ -30,11 +30,11 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
         switch indexPath.section {
         case 0:
             if indexPath.row == 0 {
-                #if os(tvOS)
+                if UIDevice.current.userInterfaceIdiom == .tv {
                     cell.detailTextLabel?.text = "\(Int(UserDefaults.standard.float(forKey: "themeSongVolume") * 100))%"
-                #elseif os(iOS)
+                } else {
                     cell.detailTextLabel?.text = UserDefaults.standard.bool(forKey: "streamOnCellular") ? "On" : "Off"
-                #endif
+                }
             } else if indexPath.row == 1 {
                 cell.detailTextLabel?.text = UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit") ? "On" : "Off"
             }
@@ -44,16 +44,9 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
             if indexPath.row == 0 {
                 cell.detailTextLabel?.text = subtitleSettings.language ?? "None"
             } else if indexPath.row == 1 {
-                switch subtitleSettings.size {
-                case 20.0 : cell.detailTextLabel?.text = "Small"
-                case 16.0 : cell.detailTextLabel?.text = "Medium"
-                case 12.0 : cell.detailTextLabel?.text = "Medium Large"
-                case 6.0  : cell.detailTextLabel?.text = "Large"
-                default: break
-                }
+                cell.detailTextLabel?.text = subtitleSettings.size.string
             } else if indexPath.row == 2 {
-                let index = UIColor.systemColors.index(of: subtitleSettings.color)!
-                cell.detailTextLabel?.text = UIColor.systemColorStrings[index]
+                cell.detailTextLabel?.text = UIColor.systemColors.first(where: {$0 == subtitleSettings.color})?.string ?? ""
             } else if indexPath.row == 3 {
                 cell.detailTextLabel?.text = subtitleSettings.font.familyName
             } else if indexPath.row == 4 {
@@ -87,7 +80,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
         switch indexPath.section {
         case 0:
             if indexPath.row == 0 {
-                #if os(tvOS)
+                if UIDevice.current.userInterfaceIdiom == .tv {
                     let handler: (UIAlertAction) -> Void = { action in
                         guard let title = action.title?.replacingOccurrences(of: "%", with: ""),
                             let value = Double(title) else { return }
@@ -111,11 +104,11 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                     alertController.preferredAction = alertController.actions.first(where: { $0.title == String(Int((UserDefaults.standard.float(forKey: "themeSongVolume") * 100.0))).appending("%") })
                     
                     present(alertController, animated: true, completion: nil)
-                #elseif os(iOS)
+                } else {
                     let value = UserDefaults.standard.bool(forKey: "streamOnCellular")
                     UserDefaults.standard.set(!value, forKey: "streamOnCellular")
                     tableView.reloadData()
-                #endif
+                }
             } else if indexPath.row == 1 {
                 let value = UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit")
                 UserDefaults.standard.set(!value, forKey: "removeCacheOnPlayerExit")
@@ -149,29 +142,17 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 
-                alertController.addAction(UIAlertAction(title: "Small (46pts)", style: .default, handler: { action in
-                    subtitleSettings.size = 20.0
+                let handler: (UIAlertAction) -> Void = { action in
+                    subtitleSettings.size = SubtitleSettings.Size.array.first(where: {$0.string == action.title})!
                     subtitleSettings.save()
                     tableView.reloadData()
-                }))
+                }
                 
-                alertController.addAction(UIAlertAction(title: "Medium (56pts)", style: .default, handler: { action in
-                    subtitleSettings.size = 16.0
-                    subtitleSettings.save()
-                    tableView.reloadData()
-                }))
+                for size in SubtitleSettings.Size.array {
+                    alertController.addAction(UIAlertAction(title: size.string, style: .default, handler: handler))
+                }
                 
-                alertController.addAction(UIAlertAction(title: "Medium Large (66pts)", style: .default, handler: { action in
-                    subtitleSettings.size = 12.0
-                    subtitleSettings.save()
-                    tableView.reloadData()
-                }))
-                
-                alertController.addAction(UIAlertAction(title: "Large (96pts)", style: .default, handler: { action in
-                    subtitleSettings.size = 6.0
-                    subtitleSettings.save()
-                    tableView.reloadData()
-                }))
+                alertController.preferredAction = alertController.actions.first(where: { $0.title == subtitleSettings.size.string })
                 
                 alertController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
                 
@@ -180,18 +161,18 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 let alertController = UIAlertController(title: "Subtitle Color", message: "Choose text color for the player subtitles.", preferredStyle: .actionSheet, blurStyle: .dark)
                 
                 let handler: (UIAlertAction) -> Void = { action in
-                    subtitleSettings.color = UIColor.systemColors[UIColor.systemColorStrings.index(of: action.title!)!]
+                    subtitleSettings.color = UIColor.systemColors.first(where: {$0.string == action.title}) ?? .white
                     subtitleSettings.save()
                     tableView.reloadData()
                 }
                 
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 
-                for title in UIColor.systemColorStrings {
+                for title in UIColor.systemColors.flatMap({$0.string}) {
                     alertController.addAction(UIAlertAction(title: title, style: .default, handler: handler))
                 }
                 
-                alertController.preferredAction = alertController.actions.first(where: { $0.title == UIColor.systemColorStrings[UIColor.systemColors.index(of: subtitleSettings.color)!] })
+                alertController.preferredAction = alertController.actions.first(where: { $0.title == subtitleSettings.color.string })
                 
                 alertController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
                 
@@ -268,7 +249,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
             }
         case 2 where indexPath.row == 0 :
             if TraktManager.shared.isSignedIn() {
-                let alert = UIAlertController(title: "Sign Out", message: "Are you sure you want to Sign Out?", preferredStyle: .alert, blurStyle: .dark)
+                let alert = UIAlertController(title: "Sign Out", message: "Are you sure you want to Sign Out?", preferredStyle: .alert)
                 
                 alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { action in
                     do { try TraktManager.shared.logout() } catch { }
@@ -283,7 +264,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
             }
         case 3:
             if indexPath.row == 0 {
-                let controller = UIAlertController(title: nil, message: nil, preferredStyle: .alert, blurStyle: .dark)
+                let controller = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
                 controller.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                 do {
                     let size = FileManager.default.folderSize(atPath: NSTemporaryDirectory())
@@ -303,14 +284,13 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 }
                 present(controller, animated: true, completion: nil)
             } else if indexPath.row == 1 {
-                let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert, blurStyle: .dark)
+                let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
                 let loadingView: UIViewController = {
                     let viewController = UIViewController()
                     viewController.view.translatesAutoresizingMaskIntoConstraints = false
                     let label = UILabel(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 200, height: 20)))
                     label.translatesAutoresizingMaskIntoConstraints = false
                     label.text = "Checking for updates..."
-                    label.textColor = .white
                     label.font = UIDevice.current.userInterfaceIdiom == .tv ? UIFont.systemFont(ofSize: 37) : UIFont.systemFont(ofSize: 16, weight: UIFontWeightBold)
                     label.sizeToFit()
                     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
@@ -330,7 +310,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 UpdateManager.shared.checkVersion(.immediately) { [weak self] success in
                     alert.dismiss(animated: true) {
                         if !success {
-                            let alert = UIAlertController(title: "No Updates Available", message: "There are no updates available for Popcorn Time at this time.", preferredStyle: .alert, blurStyle: .dark)
+                            let alert = UIAlertController(title: "No Updates Available", message: "There are no updates available for Popcorn Time at this time.", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                             self?.present(alert, animated: true, completion: nil)
                         }

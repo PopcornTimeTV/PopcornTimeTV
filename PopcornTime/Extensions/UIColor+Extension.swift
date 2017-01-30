@@ -32,12 +32,43 @@ extension UIColor {
         return rgb
     }
     
-    @nonobjc static var systemColors: [UIColor] {
-        return [UIColor.black, UIColor.darkGray, UIColor.lightGray, UIColor.white, UIColor.gray, UIColor.red, UIColor.green, UIColor.blue, UIColor.cyan, UIColor.yellow, UIColor.magenta, UIColor.orange, UIColor.purple, UIColor.brown]
+    @nonobjc var string: String? {
+        switch self {
+        case UIColor.black:
+            return "Black"
+        case UIColor.darkGray:
+            return "Dark Gray"
+        case UIColor.lightGray:
+            return "Light Gray"
+        case UIColor.white:
+            return "White"
+        case UIColor.gray:
+            return "Gray"
+        case UIColor.red:
+            return "Red"
+        case UIColor.green:
+            return "Green"
+        case UIColor.blue:
+            return "Blue"
+        case UIColor.cyan:
+            return "Cyan"
+        case UIColor.yellow:
+            return "Yellow"
+        case UIColor.magenta:
+            return "Magenta"
+        case UIColor.orange:
+            return "Orange"
+        case UIColor.purple:
+            return "Purple"
+        case UIColor.brown:
+            return "Brown"
+        default:
+            return nil
+        }
     }
     
-    @nonobjc static var systemColorStrings: [String] {
-        return ["Black", "Dark Gray", "Light Gray", "White", "Gray", "Red", "Green", "Blue", "Cyan", "Yellow", "Magenta", "Orange", "Purple", "Brown"]
+    @nonobjc static var systemColors: [UIColor] {
+        return [UIColor.black, UIColor.darkGray, UIColor.lightGray, UIColor.white, UIColor.gray, UIColor.red, UIColor.green, UIColor.blue, UIColor.cyan, UIColor.yellow, UIColor.magenta, UIColor.orange, UIColor.purple, UIColor.brown]
     }
     
     @nonobjc static let app = UIColor(red: 0.37, green: 0.41, blue: 0.91, alpha: 1.0)

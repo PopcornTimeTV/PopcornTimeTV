@@ -21,6 +21,7 @@ class EpisodesCollectionViewController: ResponsiveCollectionViewController, UICo
         
         cell.titleLabel.text = "\(data.episode). \(data.title)"
         cell.subtitleLabel.text = DateFormatter.localizedString(from: data.firstAirDate, dateStyle: .medium, timeStyle: .none)
+        cell.id = data.id
         
         if let image = data.smallBackgroundImage,
             let url = URL(string: image) {

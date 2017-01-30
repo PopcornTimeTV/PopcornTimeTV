@@ -1,6 +1,7 @@
 
 
 import Foundation
+import PopcornKit
 
 class EpisodeCollectionViewCell: UICollectionViewCell {
     @IBOutlet var imageView: UIImageView!
@@ -9,8 +10,19 @@ class EpisodeCollectionViewCell: UICollectionViewCell {
     @IBOutlet var watchedButton: UIButton!
     @IBOutlet var highlightView: UIView!
     
-    @IBAction func toggleWatched(_ button: UIButton) {
-        
+    var id: String! {
+        didSet {
+            watchedButton.setImage(watchedButtonImage, for: .normal)
+        }
+    }
+    
+    var watchedButtonImage: UIImage {
+        return WatchedlistManager<Episode>.episode.isAdded(id) ? UIImage(named: "Watched On")! : UIImage(named: "Watched Off")!
+    }
+    
+    @IBAction func toggleWatched() {
+        WatchedlistManager<Episode>.episode.toggle(id)
+        watchedButton.setImage(watchedButtonImage, for: .normal)
     }
     
     override var isHighlighted: Bool {
