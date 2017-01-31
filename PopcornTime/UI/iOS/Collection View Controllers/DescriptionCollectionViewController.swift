@@ -15,24 +15,24 @@ class DescriptionCollectionViewController: ResponsiveCollectionViewController, U
         collectionView?.register(UINib(nibName: String(describing: DescriptionCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: "cell")
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didChangeToSize size: CGSize) {
+    override func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewFlowLayout, didChangeToSize size: CGSize) {
         var estimatedContentHeight: CGFloat = 0.0
         
         for section in 0..<collectionView.numberOfSections {
             
-            let headerSize = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, referenceSizeForHeaderInSection: section)
+            let headerSize = self.collectionView(collectionView, layout: layout, referenceSizeForHeaderInSection: section)
         
             estimatedContentHeight += headerSize.height
             
             let numberOfCells = collectionView.numberOfItems(inSection: section)
             
             for item in 0..<numberOfCells {
-                let itemSize = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: IndexPath(item: item, section: section))
-                estimatedContentHeight += itemSize.height
+                let itemSize = self.collectionView(collectionView, layout: layout, sizeForItemAt: IndexPath(item: item, section: section))
+                estimatedContentHeight += itemSize.height + layout.minimumLineSpacing
             }
         }
         
-        super.collectionView(collectionView, didChangeToSize: CGSize(width: collectionView.bounds.width, height: estimatedContentHeight))
+        super.collectionView(collectionView, layout: layout, didChangeToSize: CGSize(width: collectionView.bounds.width, height: estimatedContentHeight))
     }
     
     

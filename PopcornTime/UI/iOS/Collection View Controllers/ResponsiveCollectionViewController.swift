@@ -10,13 +10,12 @@ class ResponsiveCollectionViewController: UICollectionViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        if let collectionView = collectionView {
-            self.collectionView(collectionView, didChangeToSize: collectionView.systemLayoutSizeFitting(UILayoutFittingCompressedSize))
+        if let collectionView = collectionView, let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            self.collectionView(collectionView, layout: layout, didChangeToSize: collectionView.systemLayoutSizeFitting(UILayoutFittingCompressedSize))
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, didChangeToSize size: CGSize) {
-        guard let layout  = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+    func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewFlowLayout, didChangeToSize size: CGSize) {
         
         let section = layout.sectionInset
         let content = collectionView.contentInset
@@ -29,6 +28,7 @@ class ResponsiveCollectionViewController: UICollectionViewController {
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        guard previousTraitCollection != nil else { return }
         collectionView?.performBatchUpdates(nil, completion: nil)
     }
     

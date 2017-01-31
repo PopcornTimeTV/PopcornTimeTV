@@ -132,7 +132,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                     alertController.addAction(UIAlertAction(title: language, style: .default, handler: handler))
                 }
                 
-                alertController.preferredAction = alertController.actions.first(where: { $0.title == subtitleSettings.language })
+                alertController.preferredAction = alertController.actions.first(where: { $0.title == subtitleSettings.language }) ?? alertController.actions.first(where: { $0.title == "None" })
                 
                 alertController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
                 

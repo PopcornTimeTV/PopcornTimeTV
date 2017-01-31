@@ -21,6 +21,15 @@ class WatchlistViewController: MainViewController {
         } as [AnyHashable]
     }
     
+    override func collectionView(_ collectionView: UICollectionView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "Shows"
+        } else if section == 1 {
+            return "Movies"
+        }
+        return nil
+    }
+    
     override func collectionView(isEmptyForUnknownReason collectionView: UICollectionView) {
         if let background: ErrorBackgroundView = .fromNib() {
             background.setUpView(title: "Watchlist Empty", description: "Try adding shows to your watchlist")

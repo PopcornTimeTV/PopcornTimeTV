@@ -33,18 +33,21 @@ class EpisodesCollectionViewController: ResponsiveCollectionViewController, UICo
         return cell
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didChangeToSize size: CGSize) {
-        let layout = collectionView.collectionViewLayout as! SeparatorCollectionViewLayout
-        let itemSize = self.collectionView(collectionView, layout: layout, sizeForItemAt: IndexPath(item: 0, section: 0))
+    override func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewFlowLayout, didChangeToSize size: CGSize) {
+        let layout = layout as! SeparatorCollectionViewLayout
         
-        let items = CGFloat(collectionView.numberOfItems(inSection: 0))
-        let itemHeight = itemSize.height + layout.minimumInteritemSpacing // Account for the separator height.
-        let estimatedHeight = itemHeight * items
+        var estimatedContentHeight: CGFloat = 0.0
+            
+        let numberOfCells = CGFloat(collectionView.numberOfItems(inSection: 0))
+        
+        let itemSize = self.collectionView(collectionView, layout: layout, sizeForItemAt: IndexPath(item: 0, section: 0))
+        let itemHeight = (itemSize.height + layout.minimumInteritemSpacing)
+        estimatedContentHeight = itemHeight * numberOfCells
         
         let maxSize = CGSize(width: size.width, height: itemHeight * 6)
-        let size = CGSize(width: size.width, height: estimatedHeight)
+        let size = CGSize(width: size.width, height: estimatedContentHeight)
         
-        super.collectionView(collectionView, didChangeToSize: size.height <= maxSize.height ? size : maxSize)
+        super.collectionView(collectionView, layout: layout, didChangeToSize: size.height <= maxSize.height ? size : maxSize)
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {

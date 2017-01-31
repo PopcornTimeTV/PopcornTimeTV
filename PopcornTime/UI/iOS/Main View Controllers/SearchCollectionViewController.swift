@@ -106,8 +106,8 @@ class SearchViewController: MainViewController, UISearchBarDelegate, UIToolbarDe
     
     override func collectionView(isEmptyForUnknownReason collectionView: UICollectionView) {
         if let background: ErrorBackgroundView = .fromNib(),
-            let image = UIImage(named: "No Search Results"), let text = searchBar.text, !text.isEmpty {
-            background.setUpView(image: image, title: "No Results", description: "We didn't turn up anything for \"\(text)\". Try something else.")
+            let text = searchBar.text, !text.isEmpty {
+            background.setUpView(title: "No Results", description: "We didn't turn up anything for \"\(text)\". Try something else.")
             collectionView.backgroundView = background
         } else {
             /// TODO: Empty UI

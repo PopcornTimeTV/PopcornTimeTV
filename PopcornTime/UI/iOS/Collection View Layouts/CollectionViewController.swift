@@ -7,12 +7,16 @@ protocol CollectionViewControllerDelegate: class {
     func load(page: Int)
     func didRefresh(collectionView: UICollectionView)
     func collectionView(isEmptyForUnknownReason collectionView: UICollectionView)
+    
+    func collectionView(_ collectionView: UICollectionView, titleForHeaderInSection section: Int) -> String?
 }
 
 extension CollectionViewControllerDelegate {
     func load(page: Int) {}
     func didRefresh(collectionView: UICollectionView) {}
     func collectionView(isEmptyForUnknownReason collectionView: UICollectionView) {}
+    
+    func collectionView(_ collectionView: UICollectionView, titleForHeaderInSection section: Int) -> String? { return nil }
 }
 
 class CollectionViewController: ResponsiveCollectionViewController, UICollectionViewDelegateFlowLayout {
@@ -54,6 +58,12 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     
     private var refreshControl: UIRefreshControl?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.sectionHeadersPinToVisibleBounds = true
+    }
+    
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard scrollView == collectionView, paginated else { return }
         let y = scrollView.contentOffset.y + scrollView.bounds.size.height - scrollView.contentInset.bottom
@@ -78,9 +88,9 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
         }
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didChangeToSize size: CGSize) {
-        let itemSize = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: IndexPath(item: 0, section: 0))
-        super.collectionView(collectionView, didChangeToSize: CGSize(width: size.width, height: itemSize.height))
+    override func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewFlowLayout, didChangeToSize size: CGSize) {
+        let itemSize = self.collectionView(collectionView, layout: layout, sizeForItemAt: IndexPath(item: 0, section: 0))
+        super.collectionView(collectionView, layout: layout, didChangeToSize: CGSize(width: size.width, height: itemSize.height))
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -125,6 +135,22 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return delegate?.collectionView(collectionView, titleForHeaderInSection: section) == nil ? .zero : CGSize(width: collectionView.bounds.width, height: 40)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if let title = delegate?.collectionView(collectionView, titleForHeaderInSection: indexPath.section), kind == UICollectionElementKindSectionHeader {
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "sectionHeader", for: indexPath)
+            
+            let label = header.viewWithTag(1) as? UILabel
+            label?.text = title
+            
+            return header
+        }
+        return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -195,26 +221,35 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
                     guard let navigationController = self.navigationController,
                         navigationController.visibleViewController === segue.destination else { return }
                     
-                    if let _ = error {
-                        // TODO: Error handling
-                        return
-                    }
-                    
-                    vc.currentItem = media
-                    
                     let transition = CATransition()
                     transition.duration = 0.5
                     transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
                     transition.type = kCATransitionFade
                     navigationController.view.layer.add(transition, forKey: nil)
-                    navigationController.pushViewController(vc, animated: false)
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + transition.duration) {
-                        var viewControllers = navigationController.viewControllers
-                        let index = viewControllers.count - 2
-                        viewControllers.remove(at: index)
-                        navigationController.setViewControllers(viewControllers, animated: false)
+                    defer {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + transition.duration) {
+                            var viewControllers = navigationController.viewControllers
+                            let index = viewControllers.count - 2
+                            viewControllers.remove(at: index)
+                            navigationController.setViewControllers(viewControllers, animated: false)
+                        }
                     }
+                    
+                    if let error = error {
+                        let vc = UIViewController()
+                        let view: ErrorBackgroundView? = .fromNib()
+                        
+                        view?.setUpView(error: error)
+                        vc.view = view
+                        
+                        navigationController.pushViewController(vc, animated: false)
+                        return
+                    }
+                    
+                    vc.currentItem = media
+                    
+                    navigationController.pushViewController(vc, animated: false)
                 }
             } else if identifier == "showPerson",
                 let vc = segue.destination as? PersonDetailCollectionViewController,

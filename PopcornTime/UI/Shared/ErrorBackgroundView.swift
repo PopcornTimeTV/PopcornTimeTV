@@ -3,7 +3,6 @@
 import UIKit
 
 class ErrorBackgroundView: UIView {
-    @IBOutlet var imageView: UIImageView?
     @IBOutlet var titleLabel: UILabel?
     @IBOutlet var descriptionLabel: UILabel?
     
@@ -12,27 +11,22 @@ class ErrorBackgroundView: UIView {
             titleLabel?.text = title
         }
     }
+    
     var errorDescription: String? {
         didSet {
             descriptionLabel?.text = errorDescription
         }
     }
-    var image: UIImage? {
-        didSet {
-            imageView?.image = image
-        }
-    }
     
     
-    func setUpView(image: UIImage? = nil, title: String? = nil, description: String? = nil) {
-        self.image = image?.withRenderingMode(.alwaysTemplate)
+    func setUpView(title: String? = nil, description: String? = nil) {
         self.title = title
         self.errorDescription = description
     }
     
     func setUpView(error: NSError) {
-        var helpfulDescription = error.localizedDescription
-        var title = String()
+        let helpfulDescription: String
+        let title: String
         switch error.code {
         case -1200:
             title = "SSL Error"
@@ -48,9 +42,9 @@ class ErrorBackgroundView: UIView {
             helpfulDescription = "Please make sure you have a valid internet connection and try again."
         default:
             title = "Unknown Error"
-            helpfulDescription = "Uh Oh! An unknown error has occured. Please try again."
+            helpfulDescription = "Uh Oh! An unknown error has occured (\(error.localizedDescription)). Please try again."
         }
-        setUpView(image: UIImage(named: "Error"), title: title, description: helpfulDescription)
+        setUpView(title: title, description: helpfulDescription)
     }
     
     var xmlString: String {

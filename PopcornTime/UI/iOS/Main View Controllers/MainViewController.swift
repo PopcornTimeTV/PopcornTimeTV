@@ -10,6 +10,7 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate, Ge
     func didSelectGenre(at index: Int) {}
     func didSelectFilter(at index: Int) {}
     func collectionView(isEmptyForUnknownReason collectionView: UICollectionView) {}
+    func collectionView(_ collectionView: UICollectionView, titleForHeaderInSection section: Int) -> String? { return nil }
     
     let cache = NSCache<AnyObject, UINavigationController>()
     

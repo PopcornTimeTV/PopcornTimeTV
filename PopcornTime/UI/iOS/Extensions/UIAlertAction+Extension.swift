@@ -28,7 +28,7 @@ extension UIAlertAction {
     }
     
     private var view: UIView? {
-        return alertController?.view.recursiveSubviews.filter({type(of: $0) == NSClassFromString("_UIAlertControllerActionView")}).first(where: {$0.value(forKey: "action") as? UIAlertAction == self})
+        return alertController?.view.recursiveSubviews.filter({type(of: $0) == NSClassFromString("_UIInterfaceActionCustomViewRepresentationView")}).flatMap({$0.value(forKeyPath: "action.customContentView") as? UIView}).first(where: {$0.value(forKey: "action") as? UIAlertAction == self})
     }
     
     var imageView: UIImageView? {
