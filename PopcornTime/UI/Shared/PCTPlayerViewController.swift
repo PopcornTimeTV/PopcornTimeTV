@@ -14,14 +14,12 @@ protocol PCTPlayerViewControllerDelegate: class {
     
     #if os(iOS)
         func presentCastPlayer(_ media: Media, videoFilePath: URL, startPosition: TimeInterval)
-        func dismiss()
     #endif
 }
 
 /// Optional functions
 extension PCTPlayerViewControllerDelegate {
     func playNext(_ episode: Episode) {}
-    func dismiss() {}
 }
 
 class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestureRecognizerDelegate, UpNextViewDelegate {
@@ -187,7 +185,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
                 Kitchen.appController.navigationController.popViewController(animated: true)
             }
         #elseif os(iOS)
-            delegate?.dismiss()
+            dismiss(animated: true, completion: nil)
         #endif
     }
     
@@ -260,8 +258,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         if startPosition > 0.0 {
             let isRegular = traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular
             let style: UIAlertControllerStyle = isRegular ? .alert : .actionSheet
-            let blurStyle: UIBlurEffectStyle  = isRegular ? .extraLight : .dark
-            let continueWatchingAlert = UIAlertController(title: nil, message: nil, preferredStyle: style, blurStyle: blurStyle)
+            let continueWatchingAlert = UIAlertController(title: nil, message: nil, preferredStyle: style, blurStyle: .dark)
             
             #if os(tvOS)
                 NotificationCenter.default.addObserver(self, selector: #selector(alertFocusDidChange(_:)), name: .UIViewControllerFocusedViewDidChange, object: continueWatchingAlert)

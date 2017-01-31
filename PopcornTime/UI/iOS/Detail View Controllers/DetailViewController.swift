@@ -8,7 +8,7 @@ import FloatRatingView
 import PopcornTorrent
 import PopcornKit
 
-class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, CollectionViewControllerDelegate, UIScrollViewDelegate {
+class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, CollectionViewControllerDelegate, UIScrollViewDelegate, InfoViewControllerDelegate, UIViewControllerTransitioningDelegate {
 
     @IBOutlet var castButton: CastIconBarButtonItem!
     @IBOutlet var seasonsLabel: UILabel!
@@ -16,6 +16,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var infoStackView: UIStackView!
     @IBOutlet var backgroundImageView: UIImageView!
+    @IBOutlet var gradientView: GradientView!
     
     var relatedCollectionViewController: CollectionViewController!
     var castCollectionViewController: CollectionViewController!
@@ -54,12 +55,44 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         scrollViewDidScroll(scrollView) // Update the hidden status of UINavigationBar.
         NotificationCenter.default.addObserver(self, selector: #selector(updateCastStatus), name: .gckCastStateDidChange, object: nil)
         updateCastStatus()
+        
+        if transitionCoordinator?.viewController(forKey: .from) is LoadingViewController {
+            self.scrollView.contentOffset.y = -self.view.bounds.height
+            transitionCoordinator?.animate(alongsideTransition: { (context) in
+                guard let tabBarFrame = self.tabBarController?.tabBar.frame else { return }
+                
+                let tabBarOffsetY = -tabBarFrame.size.height
+                self.tabBarController?.tabBar.frame = tabBarFrame.offsetBy(dx: 0, dy: tabBarOffsetY)
+                
+                self.gradientView.alpha = 1.0
+                self.scrollView.contentOffset.y = -self.headerHeight
+                
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isBackgroundHidden = false
         NotificationCenter.default.removeObserver(self)
+        
+        if transitionCoordinator?.viewController(forKey: .to) is LoadingViewController {
+            transitionCoordinator?.animate(alongsideTransition: { (context) in
+                guard let tabBarFrame = self.tabBarController?.tabBar.frame, let navigationBarFrame = self.navigationController?.navigationBar.frame else { return }
+                
+                let tabBarOffsetY = tabBarFrame.size.height
+                let navigationOffsetY = -(navigationBarFrame.size.height + self.statusBarHeight)
+                
+                self.tabBarController?.tabBar.frame = tabBarFrame.offsetBy(dx: 0, dy: tabBarOffsetY)
+                self.navigationController?.navigationBar.frame = navigationBarFrame.offsetBy(dx: 0, dy: navigationOffsetY)
+                
+                self.gradientView.alpha = 0.0
+                self.scrollView.contentOffset.y = -self.view.bounds.height
+                
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
     }
     
     func updateHeaderFrame() {
@@ -102,39 +135,75 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     
     @IBAction func changeSeason(_ sender: UIButton) { }
     
-    @IBAction func play() {
+    func chooseQuality(_ sender: UIButton) {
+        let vc = UIAlertController(title: "Choose Quality", message: "Choose a quality to stream.", preferredStyle: .actionSheet, blurStyle: .dark)
+        
+        for torrent in currentItem.torrents {
+            vc.addAction(UIAlertAction(title: torrent.quality, style: .default, handler: { (action) in
+                self.play(self.currentItem, torrent: torrent)
+            }))
+        }
+        
+        vc.popoverPresentationController?.sourceView = sender
+        
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func play(_ media: Media, torrent: Torrent) {
         if UserDefaults.standard.bool(forKey: "streamOnCellular") || (UIApplication.shared.delegate as! AppDelegate).reachability!.isReachableViaWiFi() {
+            var media = media
             
-            let currentProgress = WatchedlistManager<Movie>.movie.currentProgress(currentItem.id)
+            let currentProgress = media is Movie ? WatchedlistManager<Movie>.movie.currentProgress(media.id) : WatchedlistManager<Episode>.episode.currentProgress(media.id)
+            var nextEpisode: Episode?
+            
+            if let episode = media as? Episode {
+                
+                var episodesLeftInShow = [Episode]()
+                
+                for season in episode.show.seasonNumbers where season >= currentSeason {
+                    episodesLeftInShow += episode.show.episodes.filter({$0.season == season}).sorted(by: {$0.0.episode < $0.1.episode})
+                }
+                
+                let index = episodesLeftInShow.index(of: episode)!
+                episodesLeftInShow.removeFirst(index + 1)
+                
+                nextEpisode = !episodesLeftInShow.isEmpty ? episodesLeftInShow.removeFirst() : nil
+            }
             
             let loadingViewController = storyboard?.instantiateViewController(withIdentifier: "LoadingViewController") as! LoadingViewController
-            loadingViewController.backgroundImage = backgroundImageView.image
-            present(loadingViewController, animated: true, completion: nil)
+            loadingViewController.backgroundImageString = media.largeBackgroundImage
+            loadingViewController.mediaTitle = media.title
+            loadingViewController.transitioningDelegate = self
+            present(loadingViewController, animated: true)
             
-            let error: (String) -> Void = { [weak self] (errorMessage) in
-                let alertVc = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
-                alertVc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                self?.present(alertVc, animated: true, completion: nil)
+            let error: (String) -> Void = { (errorMessage) in
+                let vc = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+                vc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(vc, animated: true)
             }
             
-            let finishedLoading: (LoadingViewController, UIViewController) -> Void = { [weak self] (loadingVc, playerVc) in
-                loadingVc.dismiss(animated: false, completion: nil)
-                self?.present(playerVc, animated: true, completion: nil)
+            let finishedLoading: (LoadingViewController, UIViewController) -> Void = { (loadingVc, playerVc) in
+                self.dismiss(animated: true, completion: nil)
+                self.present(playerVc, animated: true)
             }
             
-            if GCKCastContext.sharedInstance().castState == .connected {
-                let playViewController = self.storyboard?.instantiateViewController(withIdentifier: "CastPlayerViewController") as! CastPlayerViewController
-                currentItem.playOnChromecast(fromFileOrMagnetLink: currentItem.currentTorrent!.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
-            } else {
-                let playViewController = self.storyboard?.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
-                playViewController.delegate = self
-                currentItem.play(fromFileOrMagnetLink: currentItem.currentTorrent!.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
+            let playViewController = storyboard?.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
+            playViewController.delegate = self
+            
+            media.getSubtitles(forId: media.id) { subtitles in
+                media.subtitles = subtitles
+                
+                if let perferredLanguage = SubtitleSettings().language {
+                    media.currentSubtitle = media.subtitles.first(where: {$0.language == perferredLanguage})
+                }
+                
+                media.play(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, nextEpisodeInSeries: nextEpisode, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
             }
         } else {
             let errorAlert = UIAlertController(title: "Cellular Data is turned off for streaming", message: nil, preferredStyle: .alert)
             errorAlert.addAction(UIAlertAction(title: "Turn On", style: .default, handler: { [weak self] _ in
                 UserDefaults.standard.set(true, forKey: "streamOnCellular")
-                self?.play()
+                self?.play(media, torrent: torrent)
             }))
             errorAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             present(errorAlert, animated: true, completion: nil)
@@ -220,5 +289,22 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         for constraint in regularConstraints {
             constraint.priority = isCompact ? 240 : 999
         }
+    }
+    
+    // MARK: - Presentation
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if presented is LoadingViewController {
+            return LoadingViewAnimatedTransitioning(isPresenting: true)
+        }
+        return nil
+        
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if dismissed is LoadingViewController {
+            return LoadingViewAnimatedTransitioning(isPresenting: false)
+        }
+        return nil
     }
 }

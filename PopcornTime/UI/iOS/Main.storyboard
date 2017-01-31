@@ -1661,6 +1661,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         <outlet property="castViewHeightConstraint" destination="4OJ-q9-D62" id="Vps-vd-tPa"/>
                         <outlet property="episodesCollectionViewHeightConstraint" destination="YXz-QF-KbP" id="zKR-Uj-jXK"/>
                         <outlet property="episodesViewHeightConstraint" destination="ism-CM-RUH" id="aqz-gJ-Bia"/>
+                        <outlet property="gradientView" destination="4R2-A9-rNw" id="Nb0-H4-n5L"/>
                         <outlet property="infoStackView" destination="jLd-yS-5NW" id="Wbc-xd-4DA"/>
                         <outlet property="informationCollectionViewHeightConstraint" destination="27c-SX-bHo" id="2It-Jj-SHl"/>
                         <outlet property="relatedCollectionViewHeightConstraint" destination="phI-Oi-2ot" id="fs2-I0-uN6"/>
@@ -1919,6 +1920,9 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                 </constraints>
                                 <color key="tintColor" red="0.36862745098039218" green="0.40784313725490196" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="Play"/>
+                                <connections>
+                                    <action selector="play:" destination="kRO-WR-uwJ" eventType="touchUpInside" id="R3K-1L-kzl"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jJ7-G0-hfl" customClass="BorderButton" customModule="PopcornTime" customModuleProvider="target">
                                 <rect key="frame" x="28" y="433.5" width="70" height="26"/>
@@ -2139,7 +2143,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <scene sceneID="KoH-yB-faY">
             <objects>
                 <collectionViewController id="bd3-Qn-q9Z" customClass="DescriptionCollectionViewController" customModule="PopcornTime" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" dataMode="prototypes" id="sOh-NB-hk2">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" id="sOh-NB-hk2">
                         <rect key="frame" x="0.0" y="0.0" width="132.5" height="110"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.15102305429999999" alpha="1" colorSpace="calibratedWhite"/>

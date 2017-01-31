@@ -86,6 +86,7 @@ class MovieDetailViewController: DetailViewController {
             attributedString(from: movie.certification, "HD", "CC").forEach({info.append($0)})
             
             vc.info = (title: movie.title, subtitle: formattedRuntime, genre: movie.genres.first?.capitalized ?? "", info: info, rating: movie.rating, summary: movie.summary, image: movie.mediumCoverImage, trailerCode: movie.trailerCode)
+            vc.delegate = self
             
             vc.view.translatesAutoresizingMaskIntoConstraints = false
         } else if let vc = segue.destination as? DescriptionCollectionViewController, segue.identifier == "embedInformation" {

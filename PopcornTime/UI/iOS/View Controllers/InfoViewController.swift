@@ -6,6 +6,10 @@ import FloatRatingView
 import AlamofireImage
 import XCDYouTubeKit
 
+protocol InfoViewControllerDelegate: class {
+    func chooseQuality(_ sender: UIButton)
+}
+
 class InfoViewController: UIViewController {
     
     @IBOutlet var titleLabel: UILabel!
@@ -21,6 +25,8 @@ class InfoViewController: UIViewController {
     @IBOutlet var regularConstraints: [NSLayoutConstraint]!
     
     var info: (title: String, subtitle: String, genre: String, info: NSMutableAttributedString, rating: Float, summary: String, image: String?, trailerCode: String?)!
+    
+    weak var delegate: InfoViewControllerDelegate?
     
     
     override func viewDidLoad() {
@@ -45,6 +51,10 @@ class InfoViewController: UIViewController {
     @IBAction func playTrailer() {
         let vc = XCDYouTubeVideoPlayerViewController(videoIdentifier: info.trailerCode!)
         present(vc, animated: true, completion: nil)
+    }
+    
+    @IBAction func play(_ sender: UIButton) {
+        delegate?.chooseQuality(sender)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
