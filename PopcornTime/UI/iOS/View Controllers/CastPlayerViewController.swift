@@ -205,18 +205,15 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
         elapsedTimeLabel.text = elapsedTime.stringValue
     }
     func remoteMediaClient(_ client: GCKRemoteMediaClient, didUpdate mediaStatus: GCKMediaStatus) {
-        if mediaStatus != nil // mediaStatus can be uninitialised when this delegate method is called even though it is not marked as an optional value. Stupid google-cast-sdk.
-        {
-            if !observingValues {
-                if let subtitles = media.subtitles, let subtitle = media.currentSubtitle {
-                    remoteMediaClient?.setActiveTrackIDs([NSNumber(value: subtitles.index{$0.link == subtitle.link}! as Int)])
-                }
-                elapsedTimer = elapsedTimer ?? Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
-                mediaStatus.addObserver(self, forKeyPath: "playerState", options: .new, context: &classContext)
-                observingValues = true
-                streamPosition = startPosition * streamDuration
-                self.volumeSlider?.setValue(mediaStatus.volume, animated: true)
+        if !observingValues {
+            if let subtitles = media.subtitles, let subtitle = media.currentSubtitle {
+                remoteMediaClient?.setActiveTrackIDs([NSNumber(value: subtitles.index{$0.link == subtitle.link}! as Int)])
             }
+            elapsedTimer = elapsedTimer ?? Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+            mediaStatus.addObserver(self, forKeyPath: "playerState", options: .new, context: &classContext)
+            observingValues = true
+            streamPosition = startPosition * streamDuration
+            self.volumeSlider?.setValue(mediaStatus.volume, animated: true)
         }
     }
     
