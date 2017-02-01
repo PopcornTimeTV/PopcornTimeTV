@@ -136,6 +136,17 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     @IBAction func changeSeason(_ sender: UIButton) { }
     
     func chooseQuality(_ sender: UIButton) {
+        guard currentItem.torrents.count > 1 else {
+            if let torrent = currentItem.torrents.first {
+                play(currentItem, torrent: torrent)
+            } else {
+                let vc = UIAlertController(title: "No torrents found", message: "Torrents could not be found for the specified media.", preferredStyle: .alert)
+                vc.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                present(vc, animated: true, completion: nil)
+            }
+            return
+        }
+        
         let vc = UIAlertController(title: "Choose Quality", message: "Choose a quality to stream.", preferredStyle: .actionSheet, blurStyle: .dark)
         
         for torrent in currentItem.torrents {

@@ -14,20 +14,14 @@ class EpisodeDetailViewController: UIViewController, UIScrollViewDelegate, UIGes
     @IBOutlet var scrollView: UIScrollView!
     
     var episode: Episode!
-    var dismissRecognizer: UITapGestureRecognizer!
+    var interactor: EpisodeDetailPercentDrivenInteractiveTransition?
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
-        
-        view.window?.addGestureRecognizer(dismissRecognizer)
-    }
+    @IBOutlet var dismissPanGestureRecognizer: UIPanGestureRecognizer!
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
-        view.window?.removeGestureRecognizer(dismissRecognizer)
+        preferredContentSize = scrollView.contentSize
     }
     
     override func viewDidLoad() {
@@ -47,27 +41,48 @@ class EpisodeDetailViewController: UIViewController, UIScrollViewDelegate, UIGes
             imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "Episode Placeholder"), imageTransition: .crossDissolve(animationLength))
         }
         
-        dismissRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDismissTap(_:)))
-        dismissRecognizer.numberOfTapsRequired = 1
-        dismissRecognizer.cancelsTouchesInView = false
-        dismissRecognizer.delegate = self
+        scrollView.setNeedsLayout()
+        scrollView.layoutIfNeeded()
+        preferredContentSize = scrollView.contentSize
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-    func handleDismissTap(_ sender: UITapGestureRecognizer) {
-        guard sender.state == .ended, let rootView = view.window?.rootViewController?.view else { return }
+    
+    @IBAction func handleDismissPan(_ sender: UIPanGestureRecognizer) {
+        let percentThreshold: CGFloat = 0.12
+        let superview = sender.view!.superview!
+        let translation = sender.translation(in: superview)
+        let progress = translation.y/superview.bounds.height/3.0
         
+        guard let interactor = interactor else { return }
         
-        let location = sender.location(in: rootView)
-        let point = view.convert(location, from: rootView)
-        let inView = view.point(inside: point, with: nil)
-        
-        if !inView {
+        switch sender.state {
+        case .began:
+            interactor.hasStarted = true
             dismiss(animated: true, completion: nil)
+            scrollView.bounces = false
+        case .changed:
+            interactor.shouldFinish = progress > percentThreshold
+            interactor.update(progress)
+        case .cancelled:
+            interactor.hasStarted = false
+            interactor.cancel()
+            scrollView.bounces = true
+        case .ended:
+            interactor.hasStarted = false
+            interactor.shouldFinish ? interactor.finish() : interactor.cancel()
+            scrollView.bounces = true
+        default:
+            break
         }
+    }
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard gestureRecognizer == dismissPanGestureRecognizer else { return true }
+        return scrollView.contentOffset.y == 0 ? true : false
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {

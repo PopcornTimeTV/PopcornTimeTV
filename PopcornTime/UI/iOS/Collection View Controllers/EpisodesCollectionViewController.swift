@@ -4,9 +4,10 @@ import Foundation
 import AlamofireImage
 import PopcornKit
 
-class EpisodesCollectionViewController: ResponsiveCollectionViewController, UICollectionViewDelegateFlowLayout {
+class EpisodesCollectionViewController: ResponsiveCollectionViewController, UICollectionViewDelegateFlowLayout, UIViewControllerTransitioningDelegate {
     
     var dataSource: [Episode] = []
+    let interactor = EpisodeDetailPercentDrivenInteractiveTransition()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +73,37 @@ class EpisodesCollectionViewController: ResponsiveCollectionViewController, UICo
             let indexPath = collectionView?.indexPath(for: cell),
             let vc = segue.destination as? EpisodeDetailViewController {
             vc.episode = dataSource[indexPath.row]
+            vc.transitioningDelegate = self
+            vc.modalPresentationStyle = .custom
+            vc.interactor = interactor
         }
+    }
+    
+    // MARK: - Presentation
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if presented is EpisodeDetailViewController {
+            return EpisodeDetailAnimatedTransitioning(isPresenting: true)
+        }
+        return nil
+        
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if dismissed is EpisodeDetailViewController {
+            return EpisodeDetailAnimatedTransitioning(isPresenting: false)
+        }
+        return nil
+    }
+    
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return presented is EpisodeDetailViewController ? EpisodeDetailPresentationController(presentedViewController: presented, presenting: presenting) : nil
+    }
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        if animator is EpisodeDetailAnimatedTransitioning && interactor.hasStarted  {
+            return interactor
+        }
+        return nil
     }
 }

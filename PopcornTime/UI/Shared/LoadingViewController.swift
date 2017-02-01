@@ -49,7 +49,6 @@ class LoadingViewController: UIViewController {
     }
     
     var backgroundImageString: String?
-    var backgroundImage: UIImage?
     var mediaTitle: String?
     
     override func viewDidLoad() {
@@ -57,8 +56,6 @@ class LoadingViewController: UIViewController {
         UIApplication.shared.isIdleTimerDisabled = true
         if let image = backgroundImageString, let url = URL(string: image) {
             backgroundImageView.af_setImage(withURL: url)
-        } else if let image = backgroundImage {
-            backgroundImageView.image = image
         }
         mediaTitleLabel?.text = mediaTitle
     }

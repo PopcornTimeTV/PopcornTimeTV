@@ -31,41 +31,10 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
         hud?.interactionType = .blockAllTouches
         return hud!
     }()
-    private var subtitleColors: [String: UIColor] = {
-        let colors  = UIColor.systemColors
-        let strings = colors.flatMap({$0.string})
-        return Dictionary<String, UIColor>(zip(strings, colors))
-    }()
-    private var subtitleFonts: [String: UIFont] = {
-        var fontDict = [String: UIFont]()
-        for familyName in UIFont.familyNames {
-            for fontName in UIFont.fontNames(forFamilyName: familyName) {
-                let font = UIFont(name: fontName, size: 25)!; let traits = font.fontDescriptor.symbolicTraits
-                if !traits.contains(.traitCondensed) && !traits.contains(.traitBold) && !traits.contains(.traitItalic) && !fontName.contains("Thin") && !fontName.contains("Light") && !fontName.contains("Medium") && !fontName.contains("Black") {
-                    fontDict[fontName] = UIFont(name: fontName, size: 25)
-                }
-            }
-        }
-        fontDict["Default"] = UIFont.systemFont(ofSize: 25)
-        return fontDict
-    }()
-    private var subtitles = ["None": ""]
-    private var selectedSubtitleMeta: [String]
     
     var backgroundImage: UIImage?
     var startPosition: TimeInterval = 0.0
-    var media: Media! {
-        didSet {
-            if let subtitles = media.subtitles {
-                var subtitleDict = [String: String]()
-                for subtitle in subtitles {
-                    subtitleDict[subtitle.language] = subtitle.link
-                }
-                self.subtitles += subtitleDict
-                self.selectedSubtitleMeta[0] = media.currentSubtitle?.language ?? UserDefaults.standard.string(forKey: "PreferredSubtitleLanguage") ?? "None"
-            }
-        }
-    }
+    var media: Media!
     var directory: URL!
     
     private var remoteMediaClient = GCKCastContext.sharedInstance().sessionManager.currentCastSession?.remoteMediaClient
@@ -118,7 +87,6 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     }
     
     @IBAction func subtitles(_ sender: UIButton) {
-        //pickerView.toggle()
     }
     
     @IBAction func volumeSliderAction() {
@@ -208,8 +176,8 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
         if mediaStatus != nil // mediaStatus can be uninitialised when this delegate method is called even though it is not marked as an optional value. Stupid google-cast-sdk.
         {
             if !observingValues {
-                if let subtitles = media.subtitles, let subtitle = media.currentSubtitle {
-                    remoteMediaClient?.setActiveTrackIDs([NSNumber(value: subtitles.index{$0.link == subtitle.link}! as Int)])
+                if let subtitle = media.currentSubtitle {
+                    remoteMediaClient?.setActiveTrackIDs([NSNumber(value: media.subtitles.index{$0.link == subtitle.link}! as Int)])
                 }
                 elapsedTimer = elapsedTimer ?? Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
                 mediaStatus.addObserver(self, forKeyPath: "playerState", options: .new, context: &classContext)
@@ -221,16 +189,9 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        selectedSubtitleMeta = ["None", UserDefaults.standard.string(forKey: "PreferredSubtitleColor") ?? "White", UserDefaults.standard.string(forKey: "PreferredSubtitleFont") ?? "Default"]
         super.init(coder: aDecoder)
         remoteMediaClient?.add(self)
         UIApplication.shared.isIdleTimerDisabled = true
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        //pickerView?.setNeedsLayout()
-        //pickerView?.layoutIfNeeded()
     }
 
     override func viewDidLoad() {
@@ -240,8 +201,6 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
             backgroundImageView.image = image
         } 
         titleLabel.text = title
-        //pickerView = PCTPickerView(superView: view, componentDataSources: [subtitles as Dictionary<String, AnyObject>, subtitleColors, subtitleFonts], delegate: self, selectedItems: selectedSubtitleMeta, attributesForComponents: [nil, NSForegroundColorAttributeName, NSFontAttributeName])
-        //view.addSubview(pickerView)
         bufferView.show(in: view)
         Timer.after(30.0) { [weak self] in
             if let weakSelf = self {
@@ -257,28 +216,6 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
         volumeSlider?.setThumbImage(UIImage(named: "Scrubber Image"), for: .normal)
     }
     
-//    func pickerView(_ pickerView: PCTPickerView, didClose items: [String : AnyObject]) {
-//        selectedSubtitleMeta = Array(items.keys)
-//        let trackStyle = GCKMediaTextTrackStyle.createDefault()
-//        for (index, value) in items.values.enumerated() {
-//            if let font = value as? UIFont {
-//                trackStyle.fontFamily = font.familyName
-//            } else if let color = value as? UIColor {
-//                trackStyle.foregroundColor = GCKColor(uiColor: color)
-//            } else if let link = value as? String {
-//                if link != "None" {
-//                    PopcornKit.downloadSubtitleFile(link, fileName: Locale.langs.allKeysForValue(Array(items.keys)[index]).first! + ".vtt", downloadDirectory: directory, convertToVTT: true, completion: { (_, error) in
-//                        guard error == nil else { return }
-//                        self.remoteMediaClient?.setActiveTrackIDs([NSNumber(value: index as Int)])
-//                    })
-//                } else {
-//                    remoteMediaClient?.setActiveTrackIDs(nil)
-//                }
-//            }
-//        }
-//        remoteMediaClient?.setTextTrackStyle(trackStyle)
-//    }
-    
     deinit {
         UIApplication.shared.isIdleTimerDisabled = false
     }
@@ -290,5 +227,4 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .lightContent
     }
-
 }

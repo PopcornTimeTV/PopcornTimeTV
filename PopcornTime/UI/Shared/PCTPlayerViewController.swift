@@ -235,9 +235,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         self.startPosition = fromPosition
         self.nextEpisode = nextEpisode
         self.directory = directory
-        if let subtitles = media.subtitles {
-            self.subtitles = subtitles
-        }
+        self.subtitles = media.subtitles
         self.imageGenerator = AVAssetImageGenerator(asset: AVAsset(url: local))
     }
     
