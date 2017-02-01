@@ -17,7 +17,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
         TraktManager.shared.syncUserData()
     }
     
-    func authenticationDidFail(withError error: NSError) {
+    func authenticationDidFail(with error: NSError) {
         dismiss(animated: true, completion: nil)
         let alert = UIAlertController(title: "Failed to authenticate with Trakt", message: error.localizedDescription, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -260,6 +260,9 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
             } else {
                 TraktManager.shared.delegate = self
                 let vc = TraktManager.shared.loginViewController()
+                #if os(iOS)
+                vc.modalPresentationStyle = .formSheet
+                #endif
                 present(vc, animated: true, completion: nil)
             }
         case 3:
