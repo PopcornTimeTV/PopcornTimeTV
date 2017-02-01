@@ -44,10 +44,10 @@ class EpisodeDetailPresentationController: UIPresentationController {
     }
     
     override var frameOfPresentedViewInContainerView: CGRect {
-        let isCompact  = traitCollection.horizontalSizeClass == .compact
+        let isRegular  = traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular
         let screenSize = UIScreen.main.bounds.size
         
-        if isCompact {
+        if !isRegular {
             if containerContentSize.height < screenSize.height {
                 return CGRect(x: 0, y: screenSize.height - containerContentSize.height, width: containerView?.bounds.width ?? containerContentSize.width, height: containerContentSize.height)
             }
@@ -73,7 +73,7 @@ class EpisodeDetailPresentationController: UIPresentationController {
             dimmingView.frame = bounds
         }
         
-        presentedView?.layer.cornerRadius = traitCollection.horizontalSizeClass == .compact ? 0 : 10
+        presentedView?.layer.cornerRadius = frameOfPresentedViewInContainerView.size == CGSize(width: 524, height: 572) ? 10 : 0
         presentedView?.layer.masksToBounds = true
         
         if presentedView?.frame != frameOfPresentedViewInContainerView {

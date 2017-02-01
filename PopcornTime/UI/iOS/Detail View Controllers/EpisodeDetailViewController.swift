@@ -82,7 +82,8 @@ class EpisodeDetailViewController: UIViewController, UIScrollViewDelegate, UIGes
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard gestureRecognizer == dismissPanGestureRecognizer else { return true }
-        return scrollView.contentOffset.y == 0 ? true : false
+        let isRegular = traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular
+        return scrollView.contentOffset.y == 0 && !isRegular ? true : false
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
