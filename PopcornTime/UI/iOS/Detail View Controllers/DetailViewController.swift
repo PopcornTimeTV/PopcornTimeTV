@@ -12,6 +12,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
 
     @IBOutlet var castButton: CastIconBarButtonItem!
     @IBOutlet var seasonsLabel: UILabel!
+    @IBOutlet var moreSeasonsButton: UIButton!
 
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var infoStackView: UIStackView!
@@ -162,13 +163,22 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     
     func play(_ media: Media, torrent: Torrent) {
         if UserDefaults.standard.bool(forKey: "streamOnCellular") || (UIApplication.shared.delegate as! AppDelegate).reachability!.isReachableViaWiFi() {
+            
+            dismiss(animated: false, completion: nil) // Make sure we're not already presenting a view controller.
+            
             var media = media
             
             let currentProgress = media is Movie ? WatchedlistManager<Movie>.movie.currentProgress(media.id) : WatchedlistManager<Episode>.episode.currentProgress(media.id)
             var nextEpisode: Episode?
             
+            let loadingViewController = storyboard?.instantiateViewController(withIdentifier: "LoadingViewController") as! LoadingViewController
+            loadingViewController.backgroundImageString = media.largeBackgroundImage
+            loadingViewController.mediaTitle = media.title
+            loadingViewController.transitioningDelegate = self
+            
             if let episode = media as? Episode {
                 
+                loadingViewController.backgroundImageString = episode.show.largeBackgroundImage
                 var episodesLeftInShow = [Episode]()
                 
                 for season in episode.show.seasonNumbers where season >= currentSeason {
@@ -179,12 +189,9 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
                 episodesLeftInShow.removeFirst(index + 1)
                 
                 nextEpisode = !episodesLeftInShow.isEmpty ? episodesLeftInShow.removeFirst() : nil
+                nextEpisode?.show = episode.show
             }
             
-            let loadingViewController = storyboard?.instantiateViewController(withIdentifier: "LoadingViewController") as! LoadingViewController
-            loadingViewController.backgroundImageString = media.largeBackgroundImage
-            loadingViewController.mediaTitle = media.title
-            loadingViewController.transitioningDelegate = self
             present(loadingViewController, animated: true)
             
             let error: (String) -> Void = { (errorMessage) in

@@ -13,6 +13,12 @@ class ShowDetailViewController: DetailViewController {
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        moreSeasonsButton.isHidden = show.seasonNumbers.count == 1
+    }
+    
     override func loadMedia(id: String, completion: @escaping (Media?, NSError?) -> Void) {
         PopcornKit.getShowInfo(id) { (show, error) in
             guard var show = show, let season = show.seasonNumbers.first else {
