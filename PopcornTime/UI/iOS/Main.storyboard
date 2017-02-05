@@ -60,7 +60,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1f8-za-H7e" customClass="BorderButton" customModule="PopcornTime" customModuleProvider="target">
-                                                <rect key="frame" x="198" y="1339.5" width="157" height="40"/>
+                                                <rect key="frame" x="197.5" y="1339.5" width="157.5" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="lcZ-zT-e8d"/>
                                                 </constraints>
@@ -83,7 +83,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rCq-rW-7AR" customClass="BorderButton" customModule="PopcornTime" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="1339.5" width="158" height="40"/>
+                                                <rect key="frame" x="20" y="1339.5" width="157.5" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="4qC-h4-oJn"/>
                                                 </constraints>
@@ -548,13 +548,13 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slide your finger down to adjust the scrubbing rate." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zeh-gx-8qo">
-                                                        <rect key="frame" x="53" y="60" width="270" height="14"/>
+                                                        <rect key="frame" x="52.5" y="60" width="270" height="14"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi-Speed Scrubbing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hh-pl-htD">
-                                                        <rect key="frame" x="134" y="74" width="107" height="14"/>
+                                                        <rect key="frame" x="134.5" y="74" width="107" height="14"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -571,7 +571,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                             </vibrancyEffect>
                                         </visualEffectView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ddh-6l-xNw" userLabel="Loading View">
-                                            <rect key="frame" x="135" y="17" width="105" height="30"/>
+                                            <rect key="frame" x="135.5" y="17" width="105" height="30"/>
                                             <subviews>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OBQ-7o-Acv">
                                                     <rect key="frame" x="0.0" y="5" width="20" height="20"/>
@@ -708,7 +708,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CNT-g3-DOo" userLabel="Play/Pause" customClass="WhiteHighlightButton" customModule="PopcornTime" customModuleProvider="target">
-                                            <rect key="frame" x="176" y="15" width="23" height="25"/>
+                                            <rect key="frame" x="176.5" y="15" width="23" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="23" id="tDQ-eg-jyI"/>
                                                 <constraint firstAttribute="height" constant="25" id="ylQ-wh-ChD"/>
@@ -734,7 +734,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qii-G5-LCn" userLabel="Fast Forward" customClass="WhiteHighlightButton" customModule="PopcornTime" customModuleProvider="target">
-                                            <rect key="frame" x="254" y="17" width="32" height="22"/>
+                                            <rect key="frame" x="254.5" y="17" width="32" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="32" id="ypt-qN-XHL"/>
                                             </constraints>
@@ -746,7 +746,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OiK-wA-SDT" userLabel="Rewind" customClass="WhiteHighlightButton" customModule="PopcornTime" customModuleProvider="target">
-                                            <rect key="frame" x="89" y="17" width="32" height="22"/>
+                                            <rect key="frame" x="89.5" y="17" width="32" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="32" id="qeD-Ft-Vfy"/>
                                             </constraints>
@@ -921,7 +921,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wer-ja-W3q">
-                                                        <rect key="frame" x="176" y="504" width="23" height="25"/>
+                                                        <rect key="frame" x="176.5" y="504" width="23" height="25"/>
                                                         <state key="normal" image="Play"/>
                                                         <connections>
                                                             <action selector="playPause:" destination="9g2-2Z-FUe" eventType="touchUpInside" id="hQN-Jr-7hu"/>
@@ -935,7 +935,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tgk-yf-Lhx">
-                                                        <rect key="frame" x="166" y="423" width="44" height="21"/>
+                                                        <rect key="frame" x="165.5" y="423" width="44" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="21" id="uhJ-ml-dIF"/>
                                                         </constraints>
@@ -975,7 +975,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                         </connections>
                                                     </slider>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNf-Hh-jqc">
-                                                        <rect key="frame" x="93" y="503" width="28" height="28"/>
+                                                        <rect key="frame" x="93.5" y="503" width="28" height="28"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="28" id="nB5-hS-W5q"/>
                                                             <constraint firstAttribute="width" constant="28" id="tFA-Jc-ZE0"/>
@@ -988,7 +988,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27u-Zm-lOe">
-                                                        <rect key="frame" x="254" y="503" width="28" height="28"/>
+                                                        <rect key="frame" x="254.5" y="503" width="28" height="28"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="28" id="98q-vI-fDg"/>
                                                             <constraint firstAttribute="width" constant="28" id="lu9-W6-myo"/>
@@ -1221,21 +1221,24 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <!--Subtitles-->
         <scene sceneID="b3l-fi-LLR">
             <objects>
-                <tableViewController definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" id="vbu-gi-gcV" customClass="SubtitlesTableViewController" customModule="PopcornTime" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" id="vbu-gi-gcV" customClass="OptionsTableViewController" customModule="PopcornTime" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="qQT-yY-2p8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="delayCell" id="brJ-la-ayX">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="delayCell" id="brJ-la-ayX" customClass="StepperTableViewCell" customModule="PopcornTime" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="brJ-la-ayX" id="i7t-hM-KGC">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" minimumValue="-10" maximumValue="10" stepValue="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="GHs-Hr-zXt">
+                                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" minimumValue="-10" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="GHs-Hr-zXt">
                                             <rect key="frame" x="266" y="7" width="94" height="29"/>
+                                            <connections>
+                                                <action selector="stepperPressed:" destination="brJ-la-ayX" eventType="valueChanged" id="yMn-rV-EdO"/>
+                                            </connections>
                                         </stepper>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2J1-Lq-c9Y">
                                             <rect key="frame" x="15" y="11" width="42" height="21"/>
@@ -1252,6 +1255,10 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                         <constraint firstItem="2J1-Lq-c9Y" firstAttribute="leading" secondItem="i7t-hM-KGC" secondAttribute="leadingMargin" constant="7" id="V5U-7K-8lk"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="stepper" destination="GHs-Hr-zXt" id="spV-aw-7LR"/>
+                                    <outlet property="titleLabel" destination="2J1-Lq-c9Y" id="e5t-Fa-Btd"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="cell" textLabel="0fp-J9-VPJ" style="IBUITableViewCellStyleDefault" id="Qmn-3M-w9d">
                                 <rect key="frame" x="0.0" y="100" width="375" height="44"/>
@@ -1261,7 +1268,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0fp-J9-VPJ">
-                                            <rect key="frame" x="15" y="0.0" width="321" height="43.5"/>
+                                            <rect key="frame" x="15" y="0.0" width="321" height="43"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1754,11 +1761,11 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="euz-nX-Qk1" id="8Rt-A7-80p">
-                                    <rect key="frame" x="0.0" y="0.0" width="336" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="336" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rMl-sa-eJ5">
-                                            <rect key="frame" x="15" y="0.0" width="321" height="43.5"/>
+                                            <rect key="frame" x="15" y="0.0" width="321" height="43"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2243,7 +2250,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="showCell" id="DFM-c1-K1Z" customClass="CoverCollectionViewCell" customModule="PopcornTime" customModuleProvider="target">
-                                <rect key="frame" x="97" y="55" width="180" height="300"/>
+                                <rect key="frame" x="98" y="55" width="180" height="300"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="180" height="300"/>
@@ -2298,7 +2305,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="movieCell" id="7iq-Qv-wgC" customClass="CoverCollectionViewCell" customModule="PopcornTime" customModuleProvider="target">
-                                <rect key="frame" x="97" y="370" width="180" height="300"/>
+                                <rect key="frame" x="98" y="370" width="180" height="300"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="180" height="300"/>
@@ -2353,7 +2360,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="personCell" id="PFe-jc-BLR" customClass="MonogramCollectionViewCell" customModule="PopcornTime" customModuleProvider="target">
-                                <rect key="frame" x="97.5" y="685" width="180" height="300"/>
+                                <rect key="frame" x="98" y="685" width="180" height="300"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="180" height="300"/>
@@ -2452,7 +2459,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                 </connections>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="sectionHeader" id="tl4-ol-aPl">
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="sectionHeader" id="tl4-ol-aPl">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -2541,7 +2548,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <scene sceneID="mMb-NN-bJ3">
             <objects>
                 <collectionViewController storyboardIdentifier="ContinueWatchingCollectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="K0F-Rc-Pup" customClass="ContinueWatchingCollectionViewController" customModule="PopcornTime" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="M0Y-v3-gKm">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="M0Y-v3-gKm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="196"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2553,7 +2560,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="MIF-IW-sa9" customClass="ContinueWatchingCollectionViewCell" customModule="PopcornTime" customModuleProvider="target">
-                                <rect key="frame" x="0.5" y="0.0" width="374" height="215"/>
+                                <rect key="frame" x="1" y="0.0" width="374" height="215"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="215"/>
@@ -2715,14 +2722,14 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Clear cache upon exit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hxp-ii-Yl3">
-                                                    <rect key="frame" x="15" y="12" width="165.5" height="20.5"/>
+                                                    <rect key="frame" x="15" y="11" width="166" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Off" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jMo-Mc-dcl">
-                                                    <rect key="frame" x="335.5" y="12" width="24.5" height="20.5"/>
+                                                    <rect key="frame" x="335" y="11" width="25" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -2738,21 +2745,21 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                             <tableViewSection headerTitle="Subtitles" id="G0K-DS-ErA">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" textLabel="IhV-p0-PbG" detailTextLabel="KTt-ho-PY4" style="IBUITableViewCellStyleValue1" id="dCw-LU-ZrZ">
-                                        <rect key="frame" x="0.0" y="200" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="201" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dCw-LU-ZrZ" id="pDz-Zu-idb">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Language" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IhV-p0-PbG">
-                                                    <rect key="frame" x="15" y="12" width="76" height="20.5"/>
+                                                    <rect key="frame" x="15" y="11" width="76" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" alpha="0.5" contentMode="left" text="Normal" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KTt-ho-PY4">
-                                                    <rect key="frame" x="304.5" y="12" width="55.5" height="20.5"/>
+                                                    <rect key="frame" x="304" y="11" width="56" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2764,21 +2771,21 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                         <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" textLabel="dbX-zT-QDj" detailTextLabel="3F3-c1-ZzI" style="IBUITableViewCellStyleValue1" id="Pgk-BJ-2Bh">
-                                        <rect key="frame" x="0.0" y="244" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="245" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pgk-BJ-2Bh" id="K9m-VG-qef">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dbX-zT-QDj">
-                                                    <rect key="frame" x="15" y="12" width="32.5" height="20.5"/>
+                                                    <rect key="frame" x="15" y="11" width="33" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" alpha="0.5" contentMode="left" text="25" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3F3-c1-ZzI">
-                                                    <rect key="frame" x="339.5" y="12" width="20.5" height="20.5"/>
+                                                    <rect key="frame" x="339" y="11" width="21" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2790,21 +2797,21 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                         <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" textLabel="bNa-8T-fEm" detailTextLabel="OvG-mg-4e9" style="IBUITableViewCellStyleValue1" id="kay-4L-fXv">
-                                        <rect key="frame" x="0.0" y="288" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="289" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kay-4L-fXv" id="oZ7-94-DPl">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Color" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bNa-8T-fEm">
-                                                    <rect key="frame" x="15" y="12" width="41.5" height="20.5"/>
+                                                    <rect key="frame" x="15" y="11" width="42" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" alpha="0.5" contentMode="left" text="White" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OvG-mg-4e9">
-                                                    <rect key="frame" x="315" y="12" width="45" height="20.5"/>
+                                                    <rect key="frame" x="315" y="11" width="45" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2816,21 +2823,21 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                         <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" textLabel="Y47-ht-KPO" detailTextLabel="eaA-e8-haC" style="IBUITableViewCellStyleValue1" id="aYN-Yo-pK5">
-                                        <rect key="frame" x="0.0" y="332" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="333" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aYN-Yo-pK5" id="tHY-dM-rZd">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Font" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y47-ht-KPO">
-                                                    <rect key="frame" x="15" y="12" width="34.5" height="20.5"/>
+                                                    <rect key="frame" x="15" y="11" width="35" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" alpha="0.5" contentMode="left" text="System" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eaA-e8-haC">
-                                                    <rect key="frame" x="303" y="12" width="57" height="20.5"/>
+                                                    <rect key="frame" x="303" y="11" width="57" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2842,21 +2849,21 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                         <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" textLabel="Hn7-3m-7mw" detailTextLabel="xXp-f5-HDR" style="IBUITableViewCellStyleValue1" id="enf-3Q-nGs">
-                                        <rect key="frame" x="0.0" y="376" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="377" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="enf-3Q-nGs" id="NBI-yk-Zz0">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Style" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hn7-3m-7mw">
-                                                    <rect key="frame" x="15" y="12" width="38.5" height="20.5"/>
+                                                    <rect key="frame" x="15" y="11" width="39" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" alpha="0.5" contentMode="left" text="Normal" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xXp-f5-HDR">
-                                                    <rect key="frame" x="304.5" y="12" width="55.5" height="20.5"/>
+                                                    <rect key="frame" x="304" y="11" width="56" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2868,21 +2875,21 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                         <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" textLabel="tt3-ub-w91" detailTextLabel="FVI-gk-M7x" style="IBUITableViewCellStyleValue1" id="j9S-BI-ULK">
-                                        <rect key="frame" x="0.0" y="420" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="421" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="j9S-BI-ULK" id="Zqn-tF-sbZ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Encoding" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tt3-ub-w91">
-                                                    <rect key="frame" x="15" y="12" width="71.5" height="20.5"/>
+                                                    <rect key="frame" x="15" y="11" width="72" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" alpha="0.5" contentMode="left" text="Windows-1252" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FVI-gk-M7x">
-                                                    <rect key="frame" x="245" y="12" width="115" height="20.5"/>
+                                                    <rect key="frame" x="245" y="11" width="115" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2898,7 +2905,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                             <tableViewSection headerTitle="Services" id="2f8-BX-9jE">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" textLabel="R4t-Mj-Mny" detailTextLabel="wBP-QA-czk" style="IBUITableViewCellStyleValue1" id="w0D-Au-KQD">
-                                        <rect key="frame" x="0.0" y="520" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="522" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w0D-Au-KQD" id="mcY-YE-2Zd">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
@@ -2928,14 +2935,14 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                             <tableViewSection headerTitle="Info" footerTitle="Made with ♥︎ by a bunch of geeks from All Around The World" id="viZ-pA-ncL">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" textLabel="TJk-sQ-cdo" style="IBUITableViewCellStyleDefault" id="uCY-Hf-qQj">
-                                        <rect key="frame" x="0.0" y="627" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="630" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uCY-Hf-qQj" id="yJa-mc-NIu">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Clear all cache" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TJk-sQ-cdo">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2947,21 +2954,21 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                         <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" textLabel="hRo-AR-mJc" detailTextLabel="Zl6-g9-nMa" style="IBUITableViewCellStyleValue1" id="OzN-r5-NHV">
-                                        <rect key="frame" x="0.0" y="671" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="674" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OzN-r5-NHV" id="AJk-vQ-TkC">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Check for updates" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hRo-AR-mJc">
-                                                    <rect key="frame" x="15" y="12" width="141" height="20.5"/>
+                                                    <rect key="frame" x="15" y="11" width="141" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Never" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Zl6-g9-nMa">
-                                                    <rect key="frame" x="314.5" y="12" width="45.5" height="20.5"/>
+                                                    <rect key="frame" x="314" y="11" width="46" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2973,21 +2980,21 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                         <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="0.0" textLabel="Jut-a4-TVs" detailTextLabel="VFZ-aP-RU0" style="IBUITableViewCellStyleValue1" id="BtB-me-Oew">
-                                        <rect key="frame" x="0.0" y="715" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="718" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BtB-me-Oew" id="sIq-Y1-FUp">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jut-a4-TVs">
-                                                    <rect key="frame" x="15" y="12" width="54" height="19.5"/>
+                                                    <rect key="frame" x="15" y="12" width="54" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VFZ-aP-RU0">
-                                                    <rect key="frame" x="337" y="12" width="23" height="19.5"/>
+                                                    <rect key="frame" x="337" y="12" width="23" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

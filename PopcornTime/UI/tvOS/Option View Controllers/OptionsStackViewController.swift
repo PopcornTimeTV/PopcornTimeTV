@@ -4,13 +4,17 @@ import Foundation
 
 class OptionsStackViewController: UIViewController, UITableViewDelegate {
     
-    weak var delegate: OptionsViewControllerDelegate?
+    weak var delegate: OptionsViewControllerDelegate? {
+        return (parent as? OptionsViewController)?.delegate
+    }
     
     @IBOutlet var firstTableView: UITableView!
     @IBOutlet var secondTableView: UITableView!
     @IBOutlet var thirdTableView: UITableView!
     
-    var tabBar: UITabBar!
+    var tabBar: UITabBar! {
+        return (parent as? OptionsViewController)?.tabBar
+    }
     
     var activeTabBarButton: UIView { fatalError("Must be overridden")  }
     

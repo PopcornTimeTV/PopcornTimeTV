@@ -2,20 +2,7 @@
 
 import Foundation
 
-extension PCTPlayerViewController: UIViewControllerTransitioningDelegate, OptionsViewControllerDelegate {
-    
-    func didSelectAudioDelay(_ delay: Int) {
-        mediaplayer.currentAudioPlaybackDelay = Int(1e6) * delay
-    }
-
-    
-    func didSelectSubtitleDelay(_ delay: Int) {
-        mediaplayer.currentVideoSubTitleDelay = Int(1e6) * delay
-    }
-    
-    func didSelectEncoding(_ encoding: String) {
-        mediaplayer.media.addOptions([vlcSettingTextEncoding: encoding])
-    }
+extension PCTPlayerViewController: UIViewControllerTransitioningDelegate {
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return presented is OptionsViewController ? OptionsAnimatedTransitioning(isPresenting: true) : nil

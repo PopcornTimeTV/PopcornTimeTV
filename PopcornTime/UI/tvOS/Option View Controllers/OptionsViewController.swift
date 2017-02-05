@@ -74,12 +74,8 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
             infoViewController = vc
         } else if let vc = segue.destination as? SubtitlesViewController {
             subtitlesViewController = vc
-            subtitlesViewController.tabBar = tabBar
-            subtitlesViewController.delegate = delegate
         } else if let vc = segue.destination as? AudioViewController {
             audioViewController = vc
-            audioViewController.tabBar = tabBar
-            audioViewController.delegate = delegate
         }
     }
 }

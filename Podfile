@@ -22,7 +22,6 @@ target 'PopcornTimeiOS' do
     pod 'JGProgressHUD', '~> 1.4'
     pod 'google-cast-sdk', '~> 3.3.0'
     pod 'OBSlider', '~> 1.1.1'
-    pod 'ColorArt', '~> 0.1.1'
     pod '1PasswordExtension', '~> 1.8.4'
     pod 'MobileVLCKit-unstable', '~> 3.0.0a24'
     pod 'FloatRatingView', '~> 2.0'

@@ -22,7 +22,7 @@ extension PCTPlayerViewControllerDelegate {
     func playNext(_ episode: Episode) {}
 }
 
-class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestureRecognizerDelegate, UpNextViewDelegate {
+class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestureRecognizerDelegate, UpNextViewDelegate, OptionsViewControllerDelegate {
     
     // MARK: - IBOutlets
     @IBOutlet var movieView: UIView!
@@ -239,8 +239,23 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         self.imageGenerator = AVAssetImageGenerator(asset: AVAsset(url: local))
     }
     
+    // MARK: - Options view controller delegate
+    
     func didSelectSubtitle(_ subtitle: Subtitle?) {
         currentSubtitle = subtitle
+    }
+    
+    func didSelectAudioDelay(_ delay: Int) {
+        mediaplayer.currentAudioPlaybackDelay = Int(1e6) * delay
+    }
+    
+    
+    func didSelectSubtitleDelay(_ delay: Int) {
+        mediaplayer.currentVideoSubTitleDelay = Int(1e6) * delay
+    }
+    
+    func didSelectEncoding(_ encoding: String) {
+        mediaplayer.media.addOptions([vlcSettingTextEncoding: encoding])
     }
     
     func screenshotAtTime(_ time: NSNumber) -> UIImage? {
@@ -252,11 +267,11 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard !mediaplayer.isPlaying else { return }
+        guard mediaplayer.state == .stopped || mediaplayer.state == .opening else { return }
         if startPosition > 0.0 {
             let isRegular = traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular
             let style: UIAlertControllerStyle = isRegular ? .alert : .actionSheet
-            let continueWatchingAlert = UIAlertController(title: nil, message: nil, preferredStyle: style, blurStyle: .dark)
+            let continueWatchingAlert = UIAlertController(title: nil, message: nil, preferredStyle: style)
             
             #if os(tvOS)
                 NotificationCenter.default.addObserver(self, selector: #selector(alertFocusDidChange(_:)), name: .UIViewControllerFocusedViewDidChange, object: continueWatchingAlert)
@@ -352,6 +367,10 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             
             resetIdleTimer()
         }
+        
+        #if os(iOS)
+            playPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
+        #endif
         
         progressBar.isBuffering = false
         let totalProgress = PTTorrentStreamer.shared().torrentStatus.totalProgreess

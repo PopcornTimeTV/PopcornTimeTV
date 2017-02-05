@@ -4,14 +4,15 @@ import Foundation
 import UIKit
 import PopcornKit
 
-extension PCTPlayerViewController: SubtitlesTableViewControllerDelegate, UIPopoverPresentationControllerDelegate {
+extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         segue.destination.popoverPresentationController?.delegate = self
-        if segue.identifier == "showSubtitles" {
-            let vc = (segue.destination as! UINavigationController).viewControllers.first! as! SubtitlesTableViewController
-            vc.dataSourceArray = subtitles
-            vc.selectedSubtitle = currentSubtitle
+        if segue.identifier == "showSubtitles", let vc = (segue.destination as? UINavigationController)?.viewControllers.first as? OptionsTableViewController {
+            vc.subtitles = subtitles
+            vc.currentSubtitle = currentSubtitle
+            vc.currentSubtitleDelay = mediaplayer.currentVideoSubTitleDelay/Int(1e6)
+            vc.currentAudioDelay = mediaplayer.currentAudioPlaybackDelay/Int(1e6)
             vc.delegate = self
         } else if segue.identifier == "showDevices" {
             let vc = (segue.destination as! UINavigationController).viewControllers.first! as! StreamToDevicesTableViewController
@@ -22,7 +23,6 @@ extension PCTPlayerViewController: SubtitlesTableViewControllerDelegate, UIPopov
     func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
         (controller.presentedViewController as! UINavigationController).topViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonPressed))
         return controller.presentedViewController
-        
     }
     
     
@@ -123,21 +123,15 @@ extension PCTPlayerViewController: SubtitlesTableViewControllerDelegate, UIPopov
         resetIdleTimer()
         if mediaplayer.videoCropGeometry == nil // Change to aspect to scale to fill
         {
-            if movieView.bounds.width.truncatingRemainder(dividingBy: 4) == 0 && movieView.bounds.height.truncatingRemainder(dividingBy: 3) == 0 {
-                mediaplayer.videoCropGeometry = UnsafeMutablePointer<Int8>(mutating: ("4:3" as NSString).utf8String)
-            } else if movieView.bounds.width.truncatingRemainder(dividingBy: 3) == 0 && movieView.bounds.height.truncatingRemainder(dividingBy: 4) == 0 {
-                mediaplayer.videoCropGeometry = UnsafeMutablePointer<Int8>(mutating: ("3:4" as NSString).utf8String)
-            } else if movieView.bounds.width.truncatingRemainder(dividingBy: 16) == 0 && movieView.bounds.height.truncatingRemainder(dividingBy: 9) == 0 {
-                mediaplayer.videoCropGeometry = UnsafeMutablePointer<Int8>(mutating: ("16:9" as NSString).utf8String)
-            } else if movieView.bounds.width.truncatingRemainder(dividingBy: 9) == 0 && movieView.bounds.height.truncatingRemainder(dividingBy: 16) == 0 {
-                mediaplayer.videoCropGeometry = UnsafeMutablePointer<Int8>(mutating: ("9:16" as NSString).utf8String)
-            }
+            mediaplayer.videoCropGeometry = UnsafeMutablePointer<Int8>(mutating: (UIScreen.main.aspectRatio as NSString).utf8String)
             videoDimensionsButton.setImage(UIImage(named: "Scale To Fit"), for: .normal)
+            screenshotImageView.contentMode = .scaleAspectFill
         } else // Change aspect ratio to scale to fit
         {
             videoDimensionsButton.setImage(UIImage(named: "Scale To Fill"), for: .normal)
             mediaplayer.videoAspectRatio = nil
             mediaplayer.videoCropGeometry = nil
+            screenshotImageView.contentMode = .scaleAspectFit
         }
     }
 }
