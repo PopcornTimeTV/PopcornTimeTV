@@ -53,7 +53,6 @@ class LoadingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.isIdleTimerDisabled = true
         if let image = backgroundImageString, let url = URL(string: image) {
             backgroundImageView.af_setImage(withURL: url)
         }
@@ -61,8 +60,13 @@ class LoadingViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidLoad()
+        super.viewDidDisappear(animated)
         UIApplication.shared.isIdleTimerDisabled = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIApplication.shared.isIdleTimerDisabled = true
     }
     
     @IBAction func cancel() {
