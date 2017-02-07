@@ -307,7 +307,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
             var fanartLogo: String?
             
             group.enter()
-            TMDBManager.shared.getLogo(forMediaOfType: .shows, id: show.tvdbId ?? "") { (image, error) in
+            TMDBManager.shared.getLogo(forMediaOfType: .shows, id: show.tvdbId) { (image, error) in
                 fanartLogo = image
                 group.leave()
             }

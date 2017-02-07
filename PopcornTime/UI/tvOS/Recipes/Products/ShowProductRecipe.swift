@@ -34,9 +34,7 @@ import ObjectMapper
     override func enableThemeSong() {
         super.enableThemeSong()
         
-        if let sid = show.tvdbId, let id = Int(sid) {
-            ThemeSongManager.shared.playShowTheme(id)
-        }
+        ThemeSongManager.shared.playShowTheme(Int(show.tvdbId)!)
         
         ActionHandler.shared.showSeason(String(season)) // Refresh the current season's episode when the view controller loads
         
@@ -185,7 +183,7 @@ import ObjectMapper
     var themeSong: String {
         var s = "<background>\n"
         s += "<audio>\n"
-        s += "<asset id=\"tv_theme\" src=\"http://tvthemes.plexapp.com/\(show.tvdbId ?? "").mp3\"/>"
+        s += "<asset id=\"tv_theme\" src=\"http://tvthemes.plexapp.com/\(show.tvdbId).mp3\"/>"
         s += "</audio>\n"
         s += "</background>\n"
         return ""

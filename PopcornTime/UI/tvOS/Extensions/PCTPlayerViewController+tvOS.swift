@@ -94,7 +94,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate {
         
         mediaplayer.canPause ? mediaplayer.pause() : ()
         progressBar.isHidden ? toggleControlsVisible() : ()
-        dimmerView.isHidden = false
+        dimmerView!.isHidden = false
         progressBar.isScrubbing = true
         
         let currentTime = NSNumber(value: progressBar.progress * streamDuration)
@@ -115,20 +115,20 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate {
         mediaplayer.willPlay ? mediaplayer.play() : ()
         resetIdleTimer()
         progressBar.isScrubbing = false
-        dimmerView.isHidden = true
+        dimmerView!.isHidden = true
     }
     
     func hideInfoLabel() {
-        guard infoHelperView.alpha == 1 else { return }
+        guard infoHelperView!.alpha == 1 else { return }
         UIView.animate(withDuration: 0.3) {
-            self.infoHelperView.alpha = 0.0
+            self.infoHelperView!.alpha = 0.0
         }
     }
     
     func showInfoLabel() {
-        guard infoHelperView.alpha == 0 else { return }
+        guard infoHelperView!.alpha == 0 else { return }
         UIView.animate(withDuration: 0.3) {
-            self.infoHelperView.alpha = 1.0
+            self.infoHelperView!.alpha = 1.0
         }
     }
     

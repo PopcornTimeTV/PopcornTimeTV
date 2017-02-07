@@ -26,9 +26,6 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     var episodesCollectionViewController: EpisodesCollectionViewController!
     
     var currentItem: Media!
-    var currentType: Trakt.MediaType {
-        return currentItem is Movie ? .movies : .shows
-    }
     var headerHeight: CGFloat = 0 {
         didSet {
             scrollView.contentInset.top = headerHeight
@@ -115,16 +112,21 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             backgroundImageView.af_setImage(withURL: url)
         }
         
-        TMDBManager.shared.getLogo(forMediaOfType: currentType, id: currentItem.id) { [weak self] (image, error) in
-            if let image = image, let url = URL(string: image), let `self` = self {
-                let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: .max, height: 40)))
-                imageView.clipsToBounds = true
-                imageView.contentMode = .scaleAspectFit
-                imageView.af_setImage(withURL: url) { response in
-                    guard response.result.isSuccess else { return }
-                    self.navigationItem.titleView = imageView
-                }
+        let completion: (String?, NSError?) -> Void = { [weak self] (image, error) in
+            guard let image = image, let url = URL(string: image), let `self` = self else { return }
+            let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: .max, height: 40)))
+            imageView.clipsToBounds = true
+            imageView.contentMode = .scaleAspectFit
+            imageView.af_setImage(withURL: url) { response in
+                guard response.result.isSuccess else { return }
+                self.navigationItem.titleView = imageView
             }
+        }
+        
+        if let movie = currentItem as? Movie {
+            TMDBManager.shared.getLogo(forMediaOfType: .movies, id: movie.id, completion: completion)
+        } else if let show = currentItem as? Show {
+            TMDBManager.shared.getLogo(forMediaOfType: .shows, id: show.tvdbId, completion: completion)
         }
     }
     

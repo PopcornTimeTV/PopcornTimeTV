@@ -58,12 +58,16 @@ class InfoViewController: UIViewController {
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        let isCompact = traitCollection.horizontalSizeClass == .compact
+        
         for constraint in compactConstraints {
-            constraint.priority = traitCollection.horizontalSizeClass == .compact ? 999 : 240
+            constraint.priority = isCompact ? 999 : 240
         }
         for constraint in regularConstraints {
-            constraint.priority = traitCollection.horizontalSizeClass == .compact ? 240 : 999
+            constraint.priority = isCompact ? 240 : 999
         }
+        
+        titleLabel.font = isCompact ? UIFont.systemFont(ofSize: 40, weight: UIFontWeightHeavy) : UIFont.systemFont(ofSize: 50, weight: UIFontWeightHeavy)
         
         // Don't animate if when the view is being first presented. 
         if previousTraitCollection != nil {

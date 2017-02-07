@@ -76,21 +76,21 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate {
             break
         }
         text += " Scrubbing"
-        scrubbingSpeedLabel.text = text
+        scrubbingSpeedLabel!.text = text
         positionSliderDidDrag()
     }
     
     @IBAction func scrubbingBegan() {
-        screenshotImageView.image = nil
-        screenshotImageView.isHidden = false
+        screenshotImageView!.image = nil
+        screenshotImageView!.isHidden = false
         
         if mediaplayer.isPlaying {
             mediaplayer.pause()
         }
         
         UIView.animate(withDuration: animationLength, animations: {
-            self.finishedScrubbingConstraints.isActive = false
-            self.duringScrubbingConstraints.isActive = true
+            self.finishedScrubbingConstraints!.isActive = false
+            self.duringScrubbingConstraints!.isActive = true
             self.view.layoutIfNeeded()
         })
     }
@@ -107,14 +107,14 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate {
     @IBAction func scrubbingEnded() {
         positionSliderAction()
         
-        screenshotImageView.image = nil
-        screenshotImageView.isHidden = true
+        screenshotImageView!.image = nil
+        screenshotImageView!.isHidden = true
         
         
         view.layoutIfNeeded()
         UIView.animate(withDuration: animationLength, animations: {
-            self.duringScrubbingConstraints.isActive = false
-            self.finishedScrubbingConstraints.isActive = true
+            self.duringScrubbingConstraints!.isActive = false
+            self.finishedScrubbingConstraints!.isActive = true
             self.view.layoutIfNeeded()
         })
     }
@@ -124,14 +124,14 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate {
         if mediaplayer.videoCropGeometry == nil // Change to aspect to scale to fill
         {
             mediaplayer.videoCropGeometry = UnsafeMutablePointer<Int8>(mutating: (UIScreen.main.aspectRatio as NSString).utf8String)
-            videoDimensionsButton.setImage(UIImage(named: "Scale To Fit"), for: .normal)
-            screenshotImageView.contentMode = .scaleAspectFill
+            videoDimensionsButton!.setImage(UIImage(named: "Scale To Fit"), for: .normal)
+            screenshotImageView!.contentMode = .scaleAspectFill
         } else // Change aspect ratio to scale to fit
         {
-            videoDimensionsButton.setImage(UIImage(named: "Scale To Fill"), for: .normal)
+            videoDimensionsButton!.setImage(UIImage(named: "Scale To Fill"), for: .normal)
             mediaplayer.videoAspectRatio = nil
             mediaplayer.videoCropGeometry = nil
-            screenshotImageView.contentMode = .scaleAspectFit
+            screenshotImageView!.contentMode = .scaleAspectFit
         }
     }
 }

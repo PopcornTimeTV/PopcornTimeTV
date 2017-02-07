@@ -32,15 +32,31 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     @IBOutlet var overlayViews: [UIView]!
     
-    #if os(tvOS)
+    // tvOS exclusive
+    @IBOutlet var dimmerView: UIView?
+    @IBOutlet var infoHelperView: UIView?
     
-        @IBOutlet var dimmerView: UIView!
-        @IBOutlet var infoHelperView: UIView!
+    var lastTranslation: CGFloat = 0.0
     
-        var lastTranslation: CGFloat = 0.0
-    #elseif os(iOS)
-        @IBOutlet var screenshotImageView: UIImageView!
+    // iOS exclusive
+    @IBOutlet var screenshotImageView: UIImageView?
     
+    @IBOutlet var playPauseButton: UIButton?
+    @IBOutlet var subtitleSwitcherButton: UIButton?
+    @IBOutlet var videoDimensionsButton: UIButton?
+    
+    @IBOutlet var tapOnVideoRecognizer: UITapGestureRecognizer!
+    @IBOutlet var doubleTapToZoomOnVideoRecognizer: UITapGestureRecognizer!
+    
+    @IBOutlet var regularConstraints: [NSLayoutConstraint] = []
+    @IBOutlet var compactConstraints: [NSLayoutConstraint] = []
+    @IBOutlet var duringScrubbingConstraints: NSLayoutConstraint?
+    @IBOutlet var finishedScrubbingConstraints: NSLayoutConstraint?
+    @IBOutlet var subtitleSwitcherButtonWidthConstraint: NSLayoutConstraint?
+    
+    @IBOutlet var scrubbingSpeedLabel: UILabel?
+    
+    #if os(iOS)
         @IBOutlet var volumeSlider: BarSlider! {
             didSet {
                 volumeSlider.setValue(AVAudioSession.sharedInstance().outputVolume, animated: false)
@@ -52,21 +68,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             view.sizeToFit()
             return view
         }()
-    
-        @IBOutlet var playPauseButton: UIButton!
-        @IBOutlet var subtitleSwitcherButton: UIButton!
-        @IBOutlet var videoDimensionsButton: UIButton!
-    
-        @IBOutlet var tapOnVideoRecognizer: UITapGestureRecognizer!
-        @IBOutlet var doubleTapToZoomOnVideoRecognizer: UITapGestureRecognizer!
-    
-        @IBOutlet var regularConstraints: [NSLayoutConstraint]!
-        @IBOutlet var compactConstraints: [NSLayoutConstraint]!
-        @IBOutlet var duringScrubbingConstraints: NSLayoutConstraint!
-        @IBOutlet var finishedScrubbingConstraints: NSLayoutConstraint!
-        @IBOutlet var subtitleSwitcherButtonWidthConstraint: NSLayoutConstraint!
-    
-        @IBOutlet var scrubbingSpeedLabel: UILabel!
     #endif
     
     
@@ -84,7 +85,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
                 #if os(tvOS)
                     self?.progressBar.screenshot = image
                 #elseif os(iOS)
-                    self?.screenshotImageView.image = image
+                    self?.screenshotImageView?.image = image
                 #endif
             }
         }
@@ -330,15 +331,16 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             })
         }
         
+        tapOnVideoRecognizer.require(toFail: doubleTapToZoomOnVideoRecognizer)
+        
+        subtitleSwitcherButton?.isHidden = subtitles.count == 0
+        subtitleSwitcherButtonWidthConstraint?.constant = subtitleSwitcherButton?.isHidden == true ? 0 : 24
+        
         #if os(iOS)
             view.addSubview(volumeView)
             if let slider = volumeView.subviews.flatMap({$0 as? UISlider}).first {
                 slider.addTarget(self, action: #selector(volumeChanged), for: .valueChanged)
             }
-            tapOnVideoRecognizer.require(toFail: doubleTapToZoomOnVideoRecognizer)
-            
-            subtitleSwitcherButton.isHidden = subtitles.count == 0
-            subtitleSwitcherButtonWidthConstraint.constant = subtitleSwitcherButton.isHidden == true ? 0 : 24
         #elseif os(tvOS)
             let gesture = SiriRemoteGestureRecognizer(target: self, action: #selector(touchLocationDidChange(_:)))
             gesture.delegate = self
@@ -368,9 +370,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             resetIdleTimer()
         }
         
-        #if os(iOS)
-            playPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
-        #endif
+        playPauseButton?.setImage(UIImage(named: "Pause"), for: .normal)
         
         progressBar.isBuffering = false
         let totalProgress = PTTorrentStreamer.shared().torrentStatus.totalProgreess
@@ -400,13 +400,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             didFinishPlaying()
         case .paused:
             setProgress(status: .paused)
-            #if os(iOS)
-                playPauseButton.setImage(UIImage(named: "Play"), for: .normal)
-            #endif
+            playPauseButton?.setImage(UIImage(named: "Play"), for: .normal)
         case .playing:
-            #if os(iOS)
-                playPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
-            #endif
+            playPauseButton?.setImage(UIImage(named: "Pause"), for: .normal)
             setProgress(status: .watching)
         case .buffering:
             progressBar.isBuffering = true
