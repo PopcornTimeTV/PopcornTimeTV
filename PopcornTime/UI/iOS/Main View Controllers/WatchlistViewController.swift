@@ -32,7 +32,7 @@ class WatchlistViewController: MainViewController {
     
     override func collectionView(isEmptyForUnknownReason collectionView: UICollectionView) {
         if let background: ErrorBackgroundView = .fromNib() {
-            background.setUpView(title: "Watchlist Empty", description: "Try adding shows to your watchlist")
+            background.setUpView(title: "Watchlist Empty", description: "Try adding movies or shows to your watchlist.")
             collectionView.backgroundView = background
         }
     }

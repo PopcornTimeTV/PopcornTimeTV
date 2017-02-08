@@ -213,7 +213,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             media.getSubtitles(forId: media.id) { subtitles in
                 media.subtitles = subtitles
                 
-                if let perferredLanguage = SubtitleSettings().language {
+                if let perferredLanguage = SubtitleSettings.shared.language {
                     media.currentSubtitle = media.subtitles.first(where: {$0.language == perferredLanguage})
                 }
                 

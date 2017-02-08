@@ -35,6 +35,8 @@ class SubtitleSettings: NSObject, NSCoding {
     var font: UIFont = UIFont.systemFont(ofSize: CGFloat(Size.medium.rawValue))
     var style: UIFont.FontStyle = .normal
     
+    static let shared = SubtitleSettings()
+    
     override init() {
         guard let codedData = UserDefaults.standard.data(forKey: "subtitleSettings"), let settings = NSKeyedUnarchiver.unarchiveObject(with: codedData) as? SubtitleSettings else { return }
         self.size = settings.size

@@ -59,9 +59,9 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     }
 
     /**
-     The action handler for when the primary (select) button is pressed
+     The action handler for when the primary (select) or play-pause button is pressed.
 
-     - Parameter id: The actionID of the element pressed
+     - Parameter id: The actionID of the element pressed.
      */
     func primary(_ id: String) {
         var pieces = id.components(separatedBy: "»")
@@ -571,53 +571,6 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
     // MARK: - Credits
     
     /**
-     Present a catalog of movies that an actor starred in or was working in.
-     
-     - Parameter name:  Name of person.
-     - Parameter id:    ImdbId of person.
-     */
-    func showMovieCredits(_ name: String, _ id: String) {
-        Kitchen.serve(recipe: LoadingRecipe(message: name))
-        
-        TraktManager.shared.getMediaCredits(forPersonWithId: id, mediaType: Movie.self) { (movies, error) in
-            if let error = error {
-                let backgroundView = ErrorBackgroundView()
-                backgroundView.setUpView(error: error)
-                Kitchen.serve(xmlString: backgroundView.xmlString, type: .default)
-                return
-            }
-            
-            let movies = movies.unique().map({$0.lockUp}).joined(separator: "\n")
-            let recipe = CatalogRecipe(title: name, media: movies)
-            Kitchen.serve(recipe: recipe)
-            self.dismissLoading()
-        }
-    }
-    
-    /**
-     Present a catalog of shows that an actor starred in or was working in.
-     
-     - Parameter name:  Name of person.
-     - Parameter id:    ImdbId of person.
-     */
-    func showShowCredits(_ name: String, _ id: String) {
-        Kitchen.serve(recipe: LoadingRecipe(message: name))
-        
-        TraktManager.shared.getMediaCredits(forPersonWithId: id, mediaType: Show.self) { (shows, error) in
-            if let error = error {
-                let backgroundView = ErrorBackgroundView()
-                backgroundView.setUpView(error: error)
-                Kitchen.serve(xmlString: backgroundView.xmlString, type: .default)
-                return
-            }
-            let shows = shows.unique().map({$0.lockUp}).joined(separator: "\n")
-            let recipe = CatalogRecipe(title: name, media: shows)
-            Kitchen.serve(recipe: recipe)
-            self.dismissLoading()
-        }
-    }
-    
-    /**
      Present a catalog of movies and shows that an actor starred in or was working in.
      
      - Parameter name:  Name of person.
@@ -727,7 +680,7 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
         media.getSubtitles(forId: media.id) { subtitles in
             media.subtitles = subtitles
             
-            if let perferredLanguage = SubtitleSettings().language {
+            if let perferredLanguage = SubtitleSettings.shared.language {
                 media.currentSubtitle = media.subtitles.first(where: {$0.language == perferredLanguage})
             }
             
@@ -788,6 +741,15 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
             Kitchen.serve(recipe: AlertRecipe(title: "No torrents found", description: "Torrents could not be found for the specified media.", buttons: [AlertButton(title: "Okay", actionID: "closeAlert")]))
             return
         }
+        
+        if let quality = UserDefaults.standard.string(forKey: "autoSelectQuality") {
+            let sorted  = torrents.sorted(by: <)
+            let torrent = quality == "highest" ? sorted.last! : sorted.first!
+            
+            streamTorrent(Mapper<Torrent>().toJSONString(torrent) ?? "", mediaString)
+            return
+        }
+    
         let buttons = torrents.map({ AlertButton(title: $0.quality, actionID: "streamTorrent»\(Mapper<Torrent>().toJSONString($0)?.cleaned ?? "")»\(mediaString.cleaned)") })
         
         guard buttons.count > 1 else {

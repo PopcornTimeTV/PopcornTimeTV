@@ -110,7 +110,7 @@ import ObjectMapper
                 headshot = " src=\"\(image)\""
             }
             let name = $0.name.components(separatedBy: " ")
-            var string = "<monogramLockup actionID=\"showMovieCredits»\($0.name)»\($0.imdbId)\">" + "\n"
+            var string = "<monogramLockup actionID=\"showCredits»\($0.name)»\($0.imdbId)\">" + "\n"
             string += "<monogram firstName=\"\(name.first!)\" lastName=\"\(name.last!)\"\(headshot)/>"
             string += "<title>\($0.name.cleaned)</title>" + "\n"
             string += "<subtitle>\($0.characterName.cleaned)</subtitle>" + "\n"
@@ -123,7 +123,7 @@ import ObjectMapper
                 headshot = " src=\"\(image)\""
             }
             let name = $0.name.components(separatedBy: " ")
-            var string = "<monogramLockup actionID=\"showMovieCredits»\($0.name)»\($0.imdbId)\">" + "\n"
+            var string = "<monogramLockup actionID=\"showCredits»\($0.name)»\($0.imdbId)\">" + "\n"
             string += "<monogram firstName=\"\(name.first!)\" lastName=\"\(name.last!)\"\(headshot)/>"
             string += "<title>\($0.name.cleaned)</title>" + "\n"
             string += "<subtitle>\($0.job.cleaned)</subtitle>" + "\n"

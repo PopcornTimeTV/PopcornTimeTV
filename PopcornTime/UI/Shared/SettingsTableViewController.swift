@@ -37,9 +37,11 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 }
             } else if indexPath.row == 1 {
                 cell.detailTextLabel?.text = UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit") ? "On" : "Off"
+            } else if indexPath.row == 2 {
+                cell.detailTextLabel?.text = UserDefaults.standard.string(forKey: "autoSelectQuality")?.capitalized ?? "Off"
             }
         case 1:
-            let subtitleSettings = SubtitleSettings()
+            let subtitleSettings = SubtitleSettings.shared
             
             if indexPath.row == 0 {
                 cell.detailTextLabel?.text = subtitleSettings.language ?? "None"
@@ -113,9 +115,29 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 let value = UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit")
                 UserDefaults.standard.set(!value, forKey: "removeCacheOnPlayerExit")
                 tableView.reloadData()
+            } else if indexPath.row == 2 {
+                let alertController = UIAlertController(title: "Auto Select Quality", message: "Choose a default quality. If said quality is available, it will be automatically selected.", preferredStyle: .actionSheet, blurStyle: .dark)
+                
+                let handler: (UIAlertAction) -> Void = { action in
+                    let value = action.title == "Off" ? nil : action.title?.lowercased()
+                    UserDefaults.standard.set(value, forKey: "autoSelectQuality")
+                    tableView.reloadData()
+                }
+                
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                
+                for quality in ["Off", "Highest", "Lowest"] {
+                    alertController.addAction(UIAlertAction(title: quality, style: .default, handler: handler))
+                }
+                
+                alertController.preferredAction = alertController.actions.first(where: { $0.title == UserDefaults.standard.string(forKey: "autoSelectQuality")?.capitalized ?? "Off" })
+                
+                alertController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+                
+                present(alertController, animated: true, completion: nil)
             }
         case 1:
-            let subtitleSettings = SubtitleSettings()
+            let subtitleSettings = SubtitleSettings.shared
             if indexPath.row == 0 {
                 let alertController = UIAlertController(title: "Subtitle Language", message: "Choose a default language for the player subtitles.", preferredStyle: .actionSheet, blurStyle: .dark)
                 

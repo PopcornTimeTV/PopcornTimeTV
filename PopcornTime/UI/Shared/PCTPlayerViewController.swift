@@ -305,7 +305,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         mediaplayer.drawable = movieView
         mediaplayer.media = VLCMedia(url: url)
         
-        let settings = SubtitleSettings()
+        let settings = SubtitleSettings.shared
         (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.size.rawValue))
         (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.color.hexInt()))
         (mediaplayer as VLCFontAppearance).setTextRendererFont!(settings.font.familyName as NSString)

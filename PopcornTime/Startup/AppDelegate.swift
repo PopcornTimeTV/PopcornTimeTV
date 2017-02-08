@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate {
             let cookbook = Cookbook(launchOptions: launchOptions)
             
             cookbook.actionIDHandler = ActionHandler.shared.primary
+            cookbook.playActionIDHandler = ActionHandler.shared.primary
             
             Kitchen.prepare(cookbook)
             

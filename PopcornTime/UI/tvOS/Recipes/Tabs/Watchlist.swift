@@ -22,7 +22,7 @@ class Watchlist: TabItem {
             
             if recipe.shows.isEmpty && recipe.movies.isEmpty {
                 let backgroundView = ErrorBackgroundView()
-                backgroundView.setUpView(title: "Watchlist Empty", description: "Try adding shows to your watchlist")
+                backgroundView.setUpView(title: "Watchlist Empty", description: "Try adding movies or shows to your watchlist.")
                 Kitchen.serve(xmlString: backgroundView.xmlString, type: .tab)
                 return recipe
             }

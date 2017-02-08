@@ -6,7 +6,7 @@ import ObjectMapper
 extension Movie {
 
     var lockUp: String {
-        var string = "<lockup actionID=\"showMovie»\(Mapper<Movie>().toJSONString(self)?.cleaned ?? "")»\(false)\">"
+        var string = "<lockup actionID=\"showMovie»\(Mapper<Movie>().toJSONString(self)?.cleaned ?? "")»\(false)\" playActionID=\"chooseQuality»\(Mapper<Torrent>().toJSONString(torrents)?.cleaned ?? "")»\(Mapper<Movie>().toJSONString(self)?.cleaned ?? "")\">"
         string += "<img style=\"tv-placeholder:movie;\" src=\"\(smallCoverImage ?? "")\" width=\"250\" height=\"375\" />"
         string += "<title style=\"tv-text-highlight-style: marquee-and-show-on-highlight;\">\(title.cleaned)</title>"
         string += "<overlay>" + "\n"

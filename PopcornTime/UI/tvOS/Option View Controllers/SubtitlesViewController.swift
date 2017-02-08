@@ -32,9 +32,9 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
     
     var currentSubtitle: Subtitle?
     var currentDelay = 0
-    var currentEncoding = SubtitleSettings().encoding {
+    var currentEncoding = SubtitleSettings.shared.encoding {
         didSet {
-            let subtitle = SubtitleSettings()
+            let subtitle = SubtitleSettings.shared
             subtitle.encoding = currentEncoding
             subtitle.save()
         }
