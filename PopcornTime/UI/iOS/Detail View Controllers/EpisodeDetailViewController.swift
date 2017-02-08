@@ -53,6 +53,14 @@ class EpisodeDetailViewController: UIViewController, UIScrollViewDelegate, UIGes
     @IBAction func play(_ sender: UIButton) {
         guard let parent = (transitioningDelegate as? EpisodesCollectionViewController)?.parent as? ShowDetailViewController else { return }
         
+        if let quality = UserDefaults.standard.string(forKey: "autoSelectQuality") {
+            let sorted  = episode.torrents.sorted(by: <)
+            let torrent = quality == "highest" ? sorted.last! : sorted.first!
+            
+            parent.play(episode, torrent: torrent)
+            return
+        }
+        
         guard episode.torrents.count > 1 else {
             if let torrent = episode.torrents.first {
                 parent.play(episode, torrent: torrent)
@@ -71,6 +79,8 @@ class EpisodeDetailViewController: UIViewController, UIScrollViewDelegate, UIGes
                 parent.play(self.episode, torrent: torrent)
             }))
         }
+        
+        vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         vc.popoverPresentationController?.sourceView = sender
         

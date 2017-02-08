@@ -139,6 +139,15 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     @IBAction func changeSeason(_ sender: UIButton) { }
     
     func chooseQuality(_ sender: UIButton) {
+        
+        if let quality = UserDefaults.standard.string(forKey: "autoSelectQuality") {
+            let sorted  = currentItem.torrents.sorted(by: <)
+            let torrent = quality == "highest" ? sorted.last! : sorted.first!
+            
+            play(currentItem, torrent: torrent)
+            return
+        }
+        
         guard currentItem.torrents.count > 1 else {
             if let torrent = currentItem.torrents.first {
                 play(currentItem, torrent: torrent)
@@ -157,6 +166,8 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
                 self.play(self.currentItem, torrent: torrent)
             }))
         }
+        
+        vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         vc.popoverPresentationController?.sourceView = sender
         
