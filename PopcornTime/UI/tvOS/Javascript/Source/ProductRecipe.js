@@ -4,6 +4,7 @@ var {{RECIPE_NAME}};
 {{RECIPE_NAME}}.doc = makeDocument(`{{RECIPE}}`);
 
 {{RECIPE_NAME}}.doc.addEventListener("select", load.bind(this));
+{{RECIPE_NAME}}.doc.addEventListener("play", play.bind(this));
 
 
 var disappearEvent = new CustomEvent("disappear");
