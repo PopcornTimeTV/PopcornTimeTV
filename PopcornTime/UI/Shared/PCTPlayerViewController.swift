@@ -375,7 +375,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         playPauseButton?.setImage(UIImage(named: "Pause"), for: .normal)
         
         progressBar.isBuffering = false
-        let totalProgress = PTTorrentStreamer.shared().torrentStatus.totalProgreess
+        let totalProgress = PTTorrentStreamer.shared().torrentStatus.totalProgress
         progressBar.bufferProgress = totalProgress == 0.0 ? 1.0 : totalProgress
         
         progressBar.remainingTimeLabel.text = mediaplayer.remainingTime.stringValue
