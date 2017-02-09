@@ -45,8 +45,8 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     @IBOutlet var subtitleSwitcherButton: UIButton?
     @IBOutlet var videoDimensionsButton: UIButton?
     
-    @IBOutlet var tapOnVideoRecognizer: UITapGestureRecognizer!
-    @IBOutlet var doubleTapToZoomOnVideoRecognizer: UITapGestureRecognizer!
+    @IBOutlet var tapOnVideoRecognizer: UITapGestureRecognizer?
+    @IBOutlet var doubleTapToZoomOnVideoRecognizer: UITapGestureRecognizer?
     
     @IBOutlet var regularConstraints: [NSLayoutConstraint] = []
     @IBOutlet var compactConstraints: [NSLayoutConstraint] = []
@@ -331,7 +331,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             })
         }
         
-        tapOnVideoRecognizer.require(toFail: doubleTapToZoomOnVideoRecognizer)
+        if let first = tapOnVideoRecognizer, let second = doubleTapToZoomOnVideoRecognizer {
+            first.require(toFail: second)
+        }
         
         subtitleSwitcherButton?.isHidden = subtitles.count == 0
         subtitleSwitcherButtonWidthConstraint?.constant = subtitleSwitcherButton?.isHidden == true ? 0 : 24
