@@ -51,6 +51,7 @@ extension Media {
             })
         } else {
             PopcornKit.downloadTorrentFile(url, completion: { (url, error) in
+                guard !loadingViewController.shouldCancelStreaming else { return } // Make sure streaming hasn't been cancelled while torrent was downloading.
                 guard let url = url, error == nil else { errorBlock(error!.localizedDescription); return }
                 self.play(fromFileOrMagnetLink: url, nextEpisodeInSeries: nextEpisode, loadingViewController: loadingViewController, playViewController: playViewController, progress: progress, loadingBlock: loadingBlock, playBlock: playBlock, errorBlock: errorBlock, finishedLoadingBlock: finishedLoadingBlock)
             })

@@ -22,6 +22,9 @@ class LoadingViewController: UIViewController {
     // iOS exclusive 
     @IBOutlet private var processingView: UIView?
     
+    /// If torrent hasn't begun processing, use this variable to make sure processing should still continue.
+    var shouldCancelStreaming: Bool = false
+    
     
     var progress: Float = 0.0 {
         didSet {
@@ -71,6 +74,7 @@ class LoadingViewController: UIViewController {
     
     @IBAction func cancel() {
         PTTorrentStreamer.shared().cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
+        shouldCancelStreaming = true
         #if os(tvOS)
             OperationQueue.main.addOperation {
                 Kitchen.appController.navigationController.popViewController(animated: true)

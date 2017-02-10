@@ -678,6 +678,8 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
         playViewController.delegate = self
         
         media.getSubtitles(forId: media.id) { subtitles in
+            guard !loadingViewController.shouldCancelStreaming else { return }
+            
             media.subtitles = subtitles
             
             if let perferredLanguage = SubtitleSettings.shared.language {
