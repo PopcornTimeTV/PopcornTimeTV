@@ -63,8 +63,7 @@
 		4D859B331DDFA07C000E2AA1 /* TermsOfServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B291DDFA079000E2AA1 /* TermsOfServiceViewController.swift */; };
 		4D859B361DDFA08B000E2AA1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D859B341DDFA087000E2AA1 /* Launch Screen.storyboard */; };
 		4D859B391DDFA0A6000E2AA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D859B371DDFA099000E2AA1 /* Main.storyboard */; };
-		4D859B3E1DDFA0C3000E2AA1 /* StreamToDevicesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B3A1DDFA0C0000E2AA1 /* StreamToDevicesTableViewCell.swift */; };
-		4D859B461DDFA0D5000E2AA1 /* StreamToDevicesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B401DDFA0D2000E2AA1 /* StreamToDevicesTableViewController.swift */; };
+		4D859B461DDFA0D5000E2AA1 /* GoogleCastTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B401DDFA0D2000E2AA1 /* GoogleCastTableViewController.swift */; };
 		4D859B471DDFA0D5000E2AA1 /* OptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B411DDFA0D2000E2AA1 /* OptionsTableViewController.swift */; };
 		4D859B481DDFA0D5000E2AA1 /* GenresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B421DDFA0D2000E2AA1 /* GenresTableViewController.swift */; };
 		4D859B4B1DDFA0E6000E2AA1 /* CoverCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B491DDFA0E4000E2AA1 /* CoverCollectionViewCell.swift */; };
@@ -247,8 +246,7 @@
 		4D859B291DDFA079000E2AA1 /* TermsOfServiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsOfServiceViewController.swift; sourceTree = "<group>"; };
 		4D859B341DDFA087000E2AA1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		4D859B371DDFA099000E2AA1 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		4D859B3A1DDFA0C0000E2AA1 /* StreamToDevicesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamToDevicesTableViewCell.swift; sourceTree = "<group>"; };
-		4D859B401DDFA0D2000E2AA1 /* StreamToDevicesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamToDevicesTableViewController.swift; sourceTree = "<group>"; };
+		4D859B401DDFA0D2000E2AA1 /* GoogleCastTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleCastTableViewController.swift; sourceTree = "<group>"; };
 		4D859B411DDFA0D2000E2AA1 /* OptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsTableViewController.swift; sourceTree = "<group>"; };
 		4D859B421DDFA0D2000E2AA1 /* GenresTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenresTableViewController.swift; sourceTree = "<group>"; };
 		4D859B491DDFA0E4000E2AA1 /* CoverCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -558,7 +556,6 @@
 		4D859B081DDCEF3E000E2AA1 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
-				4D859B3A1DDFA0C0000E2AA1 /* StreamToDevicesTableViewCell.swift */,
 				4D77D1F71E47A1B80089242C /* StepperTableViewCell.swift */,
 			);
 			path = "Table View Cells";
@@ -783,7 +780,7 @@
 			isa = PBXGroup;
 			children = (
 				4D859B421DDFA0D2000E2AA1 /* GenresTableViewController.swift */,
-				4D859B401DDFA0D2000E2AA1 /* StreamToDevicesTableViewController.swift */,
+				4D859B401DDFA0D2000E2AA1 /* GoogleCastTableViewController.swift */,
 				4D859B411DDFA0D2000E2AA1 /* OptionsTableViewController.swift */,
 			);
 			path = "Table View Controllers";
@@ -1258,7 +1255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D1B88A71E3BEFF300DB701D /* EpisodesCollectionViewController.swift in Sources */,
-				4D859B461DDFA0D5000E2AA1 /* StreamToDevicesTableViewController.swift in Sources */,
+				4D859B461DDFA0D5000E2AA1 /* GoogleCastTableViewController.swift in Sources */,
 				4D859B571DDFA0F8000E2AA1 /* SearchCollectionViewController.swift in Sources */,
 				4D859B481DDFA0D5000E2AA1 /* GenresTableViewController.swift in Sources */,
 				4D1B88A91E3BFF4000DB701D /* MovieDetailViewController.swift in Sources */,
@@ -1314,7 +1311,6 @@
 				4D859B7A1DDFA12C000E2AA1 /* GradientView.swift in Sources */,
 				4D859B331DDFA07C000E2AA1 /* TermsOfServiceViewController.swift in Sources */,
 				4D859BA11DDFA164000E2AA1 /* UIImage+Extension.swift in Sources */,
-				4D859B3E1DDFA0C3000E2AA1 /* StreamToDevicesTableViewCell.swift in Sources */,
 				4D1B88A51E3BD42B00DB701D /* ResponsiveCollectionViewController.swift in Sources */,
 				4D77D1F81E47A1B80089242C /* StepperTableViewCell.swift in Sources */,
 				4D859B661DDFA11B000E2AA1 /* CastPlayerViewController.swift in Sources */,

@@ -106,6 +106,8 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         super.viewDidLoad()
         navigationItem.title = currentItem.title
         
+        castButton.button.addTarget(self, action: #selector(showCastDevices), for: .touchUpInside)
+        
         scrollView.contentInset.bottom = tabBarController?.tabBar.frame.height ?? 0
         
         if let image = currentItem.largeBackgroundImage, let url = URL(string: image) {
@@ -133,7 +135,11 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     func loadMedia(id: String, completion: @escaping (Media?, NSError?) -> Void) { }
     
     func updateCastStatus() {
-        (castButton.customView as! CastIconButton).status = GCKCastContext.sharedInstance().castState
+        castButton.status = GCKCastContext.sharedInstance().castState
+    }
+    
+    func showCastDevices() {
+        performSegue(withIdentifier: "showCasts", sender: castButton)
     }
     
     @IBAction func changeSeason(_ sender: UIButton) { }

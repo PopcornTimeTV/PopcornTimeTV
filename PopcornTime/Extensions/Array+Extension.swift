@@ -45,4 +45,17 @@ extension Array where Element: Hashable {
     func removing(elements: [Element]) -> Array {
         return Array(Set(self).subtracting(Set(elements)))
     }
+    
+    /**
+     Returns a new array containing the elements of the previous array plus the passed in items. Non mutating.
+     
+     - Parameter items: The items you wish to have appended to a `mutableCopy()` of `self`.
+     
+     - Returns: A new array with the items appended.
+     */
+    func appending(_ items: Element...) -> [Element] {
+        var new = self
+        new.append(contentsOf: items)
+        return new
+    }
 }

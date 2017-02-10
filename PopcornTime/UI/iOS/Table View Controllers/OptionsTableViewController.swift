@@ -21,6 +21,10 @@ class OptionsTableViewController: UITableViewController {
     var currentSubtitleDelay = 0
     var currentAudioDelay = 0
     
+    @IBAction func cancel() {
+        dismiss(animated: true)
+    }
+    
     // MARK: - Table view delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

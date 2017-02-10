@@ -3,7 +3,7 @@
 import Foundation
 import PopcornKit
 
-class AudioViewController: OptionsStackViewController, UITableViewDataSource, ConnectDevicesDelegate {
+class AudioViewController: OptionsStackViewController, UITableViewDataSource, AirPlayManagerDelegate {
     
     override var activeTabBarButton: UIView {
         return tabBar.subviews.first(where: {$0 is UIScrollView})?.subviews[safe: 2] ?? UIView()
@@ -70,8 +70,7 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource, Co
         case thirdTableView:
             let speaker = speakers[indexPath.row]
             cell.textLabel?.text = speaker.routeName
-            //cell.imageView?.image = speaker.routeImage
-            cell.accessoryType = speaker.isPicked! ? .checkmark : .none
+            cell.accessoryType = speaker.isPicked ? .checkmark : .none
         default:
             break
         }

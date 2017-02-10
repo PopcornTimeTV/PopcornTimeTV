@@ -14,20 +14,9 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate {
             vc.currentSubtitleDelay = mediaplayer.currentVideoSubTitleDelay/Int(1e6)
             vc.currentAudioDelay = mediaplayer.currentAudioPlaybackDelay/Int(1e6)
             vc.delegate = self
-        } else if segue.identifier == "showDevices" {
-            let vc = (segue.destination as! UINavigationController).viewControllers.first! as! StreamToDevicesTableViewController
+        } else if segue.identifier == "showDevices", let vc = (segue.destination as? UINavigationController)?.viewControllers.first as? GoogleCastTableViewController {
             vc.castMetadata = (title: media.title, image: media.smallCoverImage != nil ? URL(string: media.smallCoverImage!) : nil, contentType: media is Movie ? "video/mp4" : "video/x-matroska", subtitles: media.subtitles, url: url.relativeString, mediaAssetsPath: directory)
         }
-    }
-    
-    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
-        (controller.presentedViewController as! UINavigationController).topViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonPressed))
-        return controller.presentedViewController
-    }
-    
-    
-    func cancelButtonPressed() {
-        self.dismiss(animated: true, completion: nil)
     }
     
     override var prefersStatusBarHidden: Bool {
