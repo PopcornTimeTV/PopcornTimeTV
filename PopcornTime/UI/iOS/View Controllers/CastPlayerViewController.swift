@@ -32,14 +32,13 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
         return hud!
     }()
     
-    var backgroundImage: UIImage?
     var startPosition: TimeInterval = 0.0
     var media: Media!
     var directory: URL!
     
     private var remoteMediaClient = GCKCastContext.sharedInstance().sessionManager.currentCastSession?.remoteMediaClient
     private var timeSinceLastMediaStatusUpdate: TimeInterval {
-        if let remoteMediaClient = remoteMediaClient , state == .playing {
+        if let remoteMediaClient = remoteMediaClient, state == .playing {
             return remoteMediaClient.timeSinceLastMediaStatusUpdate
         }
         return 0.0
@@ -128,20 +127,19 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if context == &classContext,  let newValue = change?[NSKeyValueChangeKey.newKey] {
+        if context == &classContext, let newValue = change?[.newKey] {
             if keyPath == "playerState" {
-                let type: Trakt.MediaType = media is Movie ? .movies : .shows
                 bufferView.dismiss()
                 switch GCKMediaPlayerState(rawValue: newValue as! Int)! {
                 case .paused:
                     UIApplication.shared.isIdleTimerDisabled = false
-                    TraktManager.shared.scrobble(media.id, progress: progressSlider.value, type: type, status: .paused)
+                    setProgress(status: .paused)
                     playPauseButton.setImage(UIImage(named: "Play"), for: .normal)
                     elapsedTimer.invalidate()
                     elapsedTimer = nil
                 case .playing:
                     UIApplication.shared.isIdleTimerDisabled = true
-                    TraktManager.shared.scrobble(media.id, progress: progressSlider.value, type: type, status: .watching)
+                    setProgress(status: .watching)
                     playPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
                     if elapsedTimer == nil {
                         elapsedTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
@@ -155,7 +153,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
                     case .none:
                         break
                     default:
-                        TraktManager.shared.scrobble(media.id, progress: progressSlider.value, type: type, status: .finished)
+                        setProgress(status: .finished)
                         close()
                     }
                 default:
@@ -164,6 +162,14 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
             }
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+        }
+    }
+    
+    func setProgress(status: Trakt.WatchedStatus) {
+        if let movie = media as? Movie {
+            WatchedlistManager<Movie>.movie.setCurrentProgress(progressSlider.value, forId: movie.id, withStatus: status)
+        } else if let episode = media as? Episode {
+            WatchedlistManager<Episode>.episode.setCurrentProgress(progressSlider.value, forId: episode.id, withStatus: status)
         }
     }
     
@@ -196,11 +202,11 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let image = backgroundImage {
-            imageView.image = image
-            backgroundImageView.image = image
+        if let image = media.largeCoverImage, let url = URL(string: image) {
+            imageView.af_setImage(withURL: url)
+            backgroundImageView.af_setImage(withURL: url)
         } 
-        titleLabel.text = title
+        titleLabel.text = media.title
         bufferView.show(in: view)
         Timer.after(30.0) { [weak self] in
             if let weakSelf = self {

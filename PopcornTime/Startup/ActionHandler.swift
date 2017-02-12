@@ -682,8 +682,8 @@ class ActionHandler: NSObject, PCTPlayerViewControllerDelegate {
             
             media.subtitles = subtitles
             
-            if let perferredLanguage = SubtitleSettings.shared.language {
-                media.currentSubtitle = media.subtitles.first(where: {$0.language == perferredLanguage})
+            if let preferredLanguage = SubtitleSettings.shared.language {
+                media.currentSubtitle = media.subtitles.first(where: {$0.language == preferredLanguage})
             }
             
             media.play(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, nextEpisodeInSeries: nextEpisode, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)

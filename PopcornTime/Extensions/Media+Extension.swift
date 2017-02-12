@@ -86,7 +86,6 @@ extension Media {
         guard let viewController = viewController as? CastPlayerViewController else { return }
         let castMetadata: CastMetaData = (title: media.title, image: media.smallCoverImage != nil ? URL(string: media.smallCoverImage!) : nil, contentType: (media is Episode) ? "video/x-matroska" : "video/mp4", subtitles: media.subtitles, url: videoFileURL.relativeString, mediaAssetsPath: videoFilePath.deletingLastPathComponent())
         GoogleCastManager(castMetadata: castMetadata).sessionManager(GCKCastContext.sharedInstance().sessionManager, didStart: GCKCastContext.sharedInstance().sessionManager.currentSession!)
-        viewController.title = media.title
         viewController.media = media
         viewController.startPosition = TimeInterval(progress)
         viewController.directory = videoFilePath.deletingLastPathComponent()

@@ -224,17 +224,23 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
                 self.present(playerVc, animated: true)
             }
             
-            let playViewController = storyboard?.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
-            playViewController.delegate = self
-            
             media.getSubtitles(forId: media.id) { subtitles in
+                guard !loadingViewController.shouldCancelStreaming else { return }
+                
                 media.subtitles = subtitles
                 
-                if let perferredLanguage = SubtitleSettings.shared.language {
-                    media.currentSubtitle = media.subtitles.first(where: {$0.language == perferredLanguage})
+                if let preferredLanguage = SubtitleSettings.shared.language {
+                    media.currentSubtitle = media.subtitles.first(where: {$0.language == preferredLanguage})
                 }
                 
-                media.play(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, nextEpisodeInSeries: nextEpisode, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
+                if GCKCastContext.sharedInstance().castState == .connected {
+                    let playViewController = self.storyboard?.instantiateViewController(withIdentifier: "CastPlayerViewController") as! CastPlayerViewController
+                    media.playOnChromecast(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
+                } else {
+                    let playViewController = self.storyboard?.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
+                    playViewController.delegate = self
+                    media.play(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, nextEpisodeInSeries: nextEpisode, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
+                }
             }
         } else {
             let errorAlert = UIAlertController(title: "Cellular Data is turned off for streaming", message: nil, preferredStyle: .alert)

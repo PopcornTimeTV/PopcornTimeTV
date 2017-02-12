@@ -10,12 +10,33 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
     var manager = GoogleCastManager()
     var castMetadata: CastMetaData?
     
+    var sizingCell: UITableViewCell?
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        preferredContentSize = tableView.contentSize
+        
+        var estimatedHeight: CGFloat = 0
+        
+        for section in 0..<tableView.numberOfSections {
+            
+            estimatedHeight += tableView(tableView, heightForHeaderInSection: section)
+            estimatedHeight += tableView(tableView, heightForFooterInSection: section)
+            
+            let rows = tableView.numberOfRows(inSection: section)
+            
+            for row in 0..<rows {
+                estimatedHeight += tableView(tableView, heightForRowAt: IndexPath(row: row, section: section))
+            }
+        }
+        
+        estimatedHeight += tableView.contentInset.top
+        
+        preferredContentSize = CGSize(width: 320, height: estimatedHeight < 400 ? estimatedHeight : 400)
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.contentInset.top = 20
         manager.delegate = self
     }
     
@@ -23,8 +44,11 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
         dismiss(animated: true)
     }
     
-    func updateTableView(dataSource newDataSource: [Any], updateType: TableViewUpdates, indexPaths: [IndexPath]?) {
+    func updateTableView(dataSource newDataSource: [Any], updateType: TableViewUpdates, rows: [Int]?) {
         tableView.beginUpdates()
+        
+        let indexPaths: [IndexPath]? = rows?.flatMap({IndexPath(row: $0, section: 0)})
+        
         switch updateType {
         case .insert:
             tableView.insertRows(at: indexPaths!, with: .middle)
@@ -61,7 +85,7 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
             tableView.backgroundView = nil
             tableView.separatorStyle = .singleLine
         }
-        return 2
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -87,6 +111,7 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.accessoryType = .none
         manager.didSelectDevice(dataSource[indexPath.row], castMetadata: castMetadata)
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -95,7 +120,22 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
         return dataSource.isEmpty ? .leastNormalMagnitude : 18
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        sizingCell = sizingCell ?? tableView.dequeueReusableCell(withIdentifier: "cell")
+        
+        sizingCell?.textLabel?.text = dataSource[indexPath.row].friendlyName
+        
+        sizingCell?.setNeedsLayout()
+        sizingCell?.layoutIfNeeded()
+        
+        let maxWidth   = tableView.bounds.width
+        let targetSize = CGSize(width: maxWidth, height: 0)
+        
+        return sizingCell?.contentView.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityFittingSizeLevel).height ?? 44
+    }
+    
     func didConnectToDevice() {
+        tableView.reloadData()
         //playerViewController.delegate?.presentCastPlayer(playerViewController.media, videoFilePath: playerViewController.directory, startPosition: TimeInterval(playerViewController.progressBar.progress))
     }
 }

@@ -15,17 +15,14 @@ class CastIconButton: UIButton {
                 isHidden = false
                 imageView!.stopAnimating()
                 setImage(castOff, for: .normal)
-                tintColor = superview?.tintColor
             case .connecting:
                 isHidden = false
-                tintColor = superview?.tintColor
                 setImage(castOff, for: .normal)
                 imageView!.startAnimating()
             case .connected:
                 isHidden = false
                 imageView!.stopAnimating()
                 setImage(castOn, for: .normal)
-                tintColor = .app
             }
         }
     }

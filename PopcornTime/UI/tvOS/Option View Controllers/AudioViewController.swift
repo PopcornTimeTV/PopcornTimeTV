@@ -33,9 +33,11 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource, Ai
     }
     
     
-    func updateTableView(dataSource newDataSource: [Any], updateType: TableViewUpdates, indexPaths: [IndexPath]?) {
-        
+    func updateTableView(dataSource newDataSource: [Any], updateType: TableViewUpdates, rows: [Int]?) {
         thirdTableView.beginUpdates()
+        
+        let indexPaths: [IndexPath]? = rows?.flatMap({IndexPath(row: $0, section: 0)})
+        
         switch updateType {
         case .insert:
             thirdTableView.insertRows(at: indexPaths!, with: .middle)
