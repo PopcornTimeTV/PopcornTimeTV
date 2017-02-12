@@ -108,12 +108,12 @@ class MovieDetailViewController: DetailViewController {
             
             if segue.identifier == "embedRelated" {
                 relatedCollectionViewController = vc
-                relatedCollectionViewController.dataSource = movie.related
+                relatedCollectionViewController.dataSources = [movie.related]
             } else if segue.identifier == "embedCast" {
                 castCollectionViewController = vc
                 
                 let dataSource = (movie.actors as [AnyHashable]) + (movie.crew as [AnyHashable])
-                castCollectionViewController.dataSource = dataSource
+                castCollectionViewController.dataSources = [dataSource]
                 castCollectionViewController.minItemSize.height = 230
             }
             

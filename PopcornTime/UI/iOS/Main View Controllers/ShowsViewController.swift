@@ -27,8 +27,8 @@ class ShowsViewController: MainViewController {
             
             guard let shows = shows else { self.collectionViewController.error = error; self.collectionView?.reloadData(); return }
             
-            self.collectionViewController.dataSource += shows as [AnyHashable]
-            self.collectionViewController.dataSource.uniqued()
+            self.collectionViewController.dataSources[0] += shows as [AnyHashable]
+            self.collectionViewController.dataSources[0].uniqued()
             
             if shows.isEmpty // If the array passed in is empty, there are no more results so the content inset of the collection view is reset.
             {

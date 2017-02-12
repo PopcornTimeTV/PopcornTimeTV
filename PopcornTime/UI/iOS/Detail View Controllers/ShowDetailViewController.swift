@@ -120,12 +120,12 @@ class ShowDetailViewController: DetailViewController {
             
             if segue.identifier == "embedRelated" {
                 relatedCollectionViewController = vc
-                relatedCollectionViewController.dataSource = show.related
+                relatedCollectionViewController.dataSources = [show.related]
             } else if segue.identifier == "embedCast" {
                 castCollectionViewController = vc
                 
                 let dataSource = (show.actors as [AnyHashable]) + (show.crew as [AnyHashable])
-                castCollectionViewController.dataSource = dataSource
+                castCollectionViewController.dataSources = [dataSource]
                 castCollectionViewController.minItemSize.height = 230
             }
             

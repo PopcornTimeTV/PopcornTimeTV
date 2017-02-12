@@ -21,14 +21,14 @@ extension CollectionViewControllerDelegate {
 
 class CollectionViewController: ResponsiveCollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    var dataSource: [AnyHashable] = []
+    var dataSources: [[AnyHashable]] = [[]]
     var error: NSError?
     
     var paginationIndicatorInset: CGFloat = 20
-    var minItemSize: CGSize = CGSize(width: 180, height: 300)
+    var minItemSize = CGSize(width: 180, height: 300)
     
-    var isLoading: Bool = false
-    var paginated: Bool = false
+    var isLoading = false
+    var paginated = false
     var isRefreshable: Bool = false {
         didSet {
             if isRefreshable {
@@ -53,8 +53,8 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
         }
     }
     weak var delegate: CollectionViewControllerDelegate?
-    var hasNextPage: Bool = false
-    var currentPage: Int = 1
+    var hasNextPage = false
+    var currentPage = 1
     
     private var refreshControl: UIRefreshControl?
     
@@ -113,7 +113,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         collectionView.backgroundView = nil
-        guard dataSource.isEmpty else { return 1 }
+        guard dataSources.flatMap({$0}).isEmpty else { return dataSources.count }
         
         if let error = error,
             let background: ErrorBackgroundView = .fromNib() {
@@ -131,7 +131,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
+        return dataSources[safe: section]?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -150,9 +150,17 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
         return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return .zero
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return dataSources[safe: section]?.isEmpty ?? true ? .zero : UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: UICollectionViewCell
-        let media = dataSource[indexPath.row]
+        let media = dataSources[indexPath.section][indexPath.row]
         
         if let media = media as? Media {
             let identifier  = media is Movie ? "movieCell" : "showCell"
@@ -207,7 +215,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
             let cell = sender as? UICollectionViewCell,
             let indexPath = collectionView?.indexPath(for: cell) {
             
-            if let media = dataSource[indexPath.row] as? Media,
+            if let media = dataSources[indexPath.section][indexPath.row] as? Media,
                 let vc = storyboard?.instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController {
                 
                 // Exact same storyboard UI is being used for both classes. This will enable subclass-specific functions however, stored instance variables cannot be created on either subclass because object_setClass does not initialise stored variables.
@@ -250,7 +258,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
                 }
             } else if identifier == "showPerson",
                 let vc = segue.destination as? PersonDetailCollectionViewController,
-                let person = dataSource[indexPath.row] as? Person {
+                let person = dataSources[indexPath.section][indexPath.row] as? Person {
                 vc.currentItem = person
             }
         }

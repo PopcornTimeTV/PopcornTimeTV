@@ -74,13 +74,13 @@ class SearchViewController: MainViewController, UISearchBarDelegate, UIToolbarDe
     
     func filterSearchText(_ text: String) {
         collectionViewController.isLoading = !text.isEmpty
-        collectionViewController.dataSource.removeAll()
+        collectionViewController.dataSources = [[]]
         collectionView?.reloadData()
         
         if text.isEmpty { return }
         
         let completion: ([AnyHashable]?, NSError?) -> Void = { [unowned self] (data, error) in
-            self.collectionViewController.dataSource = data ?? []
+            self.collectionViewController.dataSources = [data ?? []]
             self.collectionViewController.error = error
             self.collectionViewController.isLoading = false
             self.collectionView?.reloadData()

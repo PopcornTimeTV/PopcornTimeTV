@@ -52,7 +52,7 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate, Ge
     }
     
     func didRefresh(collectionView: UICollectionView) {
-        collectionViewController.dataSource.removeAll()
+        collectionViewController.dataSources = [[]]
         collectionView.reloadData()
         load(page: 1)
     }

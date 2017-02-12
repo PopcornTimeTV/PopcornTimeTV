@@ -17,20 +17,20 @@ class WatchlistViewController: MainViewController {
     }
     
     override func load(page: Int) {
-        collectionViewController.dataSource = WatchlistManager<Movie>.movie.getWatchlist { (updated) in
-            
-        } as [AnyHashable]
+        collectionViewController.dataSources = [WatchlistManager<Movie>.movie.getWatchlist { [unowned self] (updated) in
+            self.collectionViewController.dataSources[0] = updated
+        }]
         
-        collectionViewController.dataSource += WatchlistManager<Show>.show.getWatchlist { (updated) in
-            
-        } as [AnyHashable]
+        collectionViewController.dataSources.append(WatchlistManager<Show>.show.getWatchlist { [unowned self] (updated) in
+            self.collectionViewController.dataSources[1] = updated
+        })
     }
     
     override func collectionView(_ collectionView: UICollectionView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "Shows"
-        } else if section == 1 {
             return "Movies"
+        } else if section == 1 {
+            return "Shows"
         }
         return nil
     }

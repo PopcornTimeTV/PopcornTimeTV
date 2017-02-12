@@ -20,7 +20,7 @@ class PersonDetailCollectionViewController: MainViewController {
         let group = DispatchGroup()
         
         let completion: ([AnyHashable], NSError?) -> Void = { [unowned self] (data, error) in
-            self.collectionViewController.dataSource += data
+            self.collectionViewController.dataSources[0] += data
             self.collectionViewController.error = error
             group.leave()
         }
