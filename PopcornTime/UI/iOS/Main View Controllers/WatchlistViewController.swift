@@ -17,7 +17,7 @@ class WatchlistViewController: MainViewController {
     }
     
     override func load(page: Int) {
-        collectionViewController.dataSource += WatchlistManager<Movie>.movie.getWatchlist { (updated) in
+        collectionViewController.dataSource = WatchlistManager<Movie>.movie.getWatchlist { (updated) in
             
         } as [AnyHashable]
         
