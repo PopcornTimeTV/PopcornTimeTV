@@ -68,7 +68,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
         guard scrollView == collectionView, paginated else { return }
         let y = scrollView.contentOffset.y + scrollView.bounds.size.height - scrollView.contentInset.bottom
         let height = scrollView.contentSize.height
-        let reloadDistance: CGFloat = 10
+        let reloadDistance: CGFloat = 300
         if y > height + reloadDistance && !isLoading && hasNextPage {
             collectionView?.contentInset.bottom += paginationIndicatorInset
             
