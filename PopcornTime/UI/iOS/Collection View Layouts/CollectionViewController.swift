@@ -95,18 +95,15 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
-        guard flowLayout.scrollDirection == .vertical else { return minItemSize }
         
         let itemSpacing = flowLayout.minimumInteritemSpacing
-        var width = (view.bounds.width/2) - itemSpacing
         
-        if traitCollection.horizontalSizeClass == .regular {
-            var items: CGFloat = 1
-            while (view.bounds.width/items) - itemSpacing > minItemSize.width {
-                items += 1
-            }
-            width = (view.bounds.width/items) - itemSpacing
+        var items: CGFloat = 1
+        while (view.bounds.width/items) - itemSpacing > minItemSize.width {
+            items += 1
         }
+        
+        let width = (items < 2 ? view.bounds.width/2 : view.bounds.width/items) - itemSpacing
         
         let ratio = width/minItemSize.width
         let height = minItemSize.height * ratio

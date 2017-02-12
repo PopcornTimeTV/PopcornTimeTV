@@ -32,7 +32,7 @@ class EpisodeDetailPresentationController: UIPresentationController {
         dimmingView.alpha = 0
         containerView?.insertSubview(dimmingView, at: 0)
         presentedViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] context in
-            self?.dimmingView.alpha = 0.3
+            self?.dimmingView.alpha = 0.4
         }, completion: nil)
     }
     
