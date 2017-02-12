@@ -21,7 +21,8 @@ class ShowDetailViewController: DetailViewController {
     
     override func loadMedia(id: String, completion: @escaping (Media?, NSError?) -> Void) {
         PopcornKit.getShowInfo(id) { (show, error) in
-            guard var show = show, let season = show.seasonNumbers.first else {
+            
+            guard var show = show, let season = show.latestUnwatchedEpisode()?.season ?? show.seasonNumbers.first else {
                 completion(nil, error)
                 return
             }
@@ -60,6 +61,21 @@ class ShowDetailViewController: DetailViewController {
         }
     }
     
+    override var watchlistButtonImage: UIImage? {
+        return WatchlistManager<Show>.show.isAdded(show) ? UIImage(named: "Watchlist On") : UIImage(named: "Watchlist Off")
+    }
+    
+    @IBAction override func toggleWatchlist(_ sender: UIBarButtonItem) {
+        WatchlistManager<Show>.show.toggle(show)
+        sender.image = watchlistButtonImage
+    }
+    
+    override func chooseQuality(_ sender: UIButton?, media: Media) {
+        guard media.id == show.id, let episode = show.latestUnwatchedEpisode() else { return super.chooseQuality(sender, media: media) }
+        
+        super.chooseQuality(sender, media: episode)
+    }
+    
     @IBAction override func changeSeason(_ sender: UIButton) {
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet, blurStyle: .dark)
         
@@ -90,7 +106,7 @@ class ShowDetailViewController: DetailViewController {
             
             attributedString(from: "HD", "CC").forEach({info.append($0)})
             
-            vc.info = (title: show.title, subtitle: show.network ?? "TV", genre: show.genres.first?.capitalized ?? "", info: info, rating: show.rating, summary: show.summary, image: show.mediumCoverImage, trailerCode: nil)
+            vc.info = (title: show.title, subtitle: show.network ?? "TV", genre: show.genres.first?.capitalized ?? "", info: info, rating: show.rating, summary: show.summary, image: show.mediumCoverImage, trailerCode: nil, media: show.latestUnwatchedEpisode())
             vc.delegate = self
             
             vc.view.translatesAutoresizingMaskIntoConstraints = false

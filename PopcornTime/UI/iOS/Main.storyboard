@@ -8,6 +8,7 @@
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -1140,14 +1141,14 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="06M-0M-LNH">
-                                            <rect key="frame" x="60" y="0.0" width="276" height="43"/>
+                                            <rect key="frame" x="73" y="0.0" width="263" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="CastOff" id="aYC-7i-YTA">
-                                            <rect key="frame" x="15" y="6" width="30" height="30"/>
+                                            <rect key="frame" x="15" y="0.0" width="43" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </imageView>
@@ -1662,13 +1663,20 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="u9L-Eb-ppD">
-                        <barButtonItem key="rightBarButtonItem" id="200-GR-eZ9" customClass="CastIconBarButtonItem" customModule="PopcornTime" customModuleProvider="target">
-                            <connections>
-                                <segue destination="BcV-kc-8G4" kind="popoverPresentation" identifier="showCasts" popoverAnchorBarButtonItem="200-GR-eZ9" id="2Ds-Ol-tyb">
-                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                </segue>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="Watchlist Off" id="s3A-hw-Qxq">
+                                <connections>
+                                    <action selector="toggleWatchlist:" destination="iGR-Da-fZh" id="JjW-He-jgp"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem id="200-GR-eZ9" customClass="CastIconBarButtonItem" customModule="PopcornTime" customModuleProvider="target">
+                                <connections>
+                                    <segue destination="BcV-kc-8G4" kind="popoverPresentation" identifier="showCasts" popoverAnchorBarButtonItem="200-GR-eZ9" id="2Ds-Ol-tyb">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
@@ -1687,6 +1695,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         <outlet property="relatedViewHeightConstraint" destination="CiN-ff-Ux4" id="85U-jH-3VL"/>
                         <outlet property="scrollView" destination="v3a-91-rQb" id="5Wh-Sd-mze"/>
                         <outlet property="seasonsLabel" destination="r0b-Fz-t7J" id="NRW-53-6Un"/>
+                        <outlet property="watchlistButton" destination="s3A-hw-Qxq" id="LZm-yQ-1Ae"/>
                         <outletCollection property="regularConstraints" destination="1T5-tr-jE7" collectionClass="NSMutableArray" id="t5w-nf-HXU"/>
                         <outletCollection property="compactConstraints" destination="oZY-XQ-sPZ" collectionClass="NSMutableArray" id="Zup-SQ-yBE"/>
                         <outletCollection property="regularConstraints" destination="Hgv-d8-d3R" collectionClass="NSMutableArray" id="7PT-EJ-UEf"/>
@@ -2012,6 +2021,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         <outlet property="genreLabel" destination="wq7-gM-WWf" id="4Bv-gQ-Gaf"/>
                         <outlet property="imageView" destination="Gxj-Ca-zMU" id="nl9-1h-jwC"/>
                         <outlet property="infoLabel" destination="S2N-VK-bZ6" id="WUo-XR-Q74"/>
+                        <outlet property="playButton" destination="82F-a5-r2c" id="wBU-pQ-i3N"/>
                         <outlet property="ratingView" destination="yoG-Ac-iZY" id="AQr-1a-7Ro"/>
                         <outlet property="subtitleLabel" destination="I5a-CB-axO" id="u9c-bq-0oV"/>
                         <outlet property="summaryTextView" destination="68M-4s-36K" id="CDW-mh-6TI"/>
@@ -3212,7 +3222,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
     </scenes>
     <resources>
         <image name="AirPlay" width="24" height="17"/>
-        <image name="CastOff" width="30" height="30"/>
+        <image name="CastOff" width="50" height="50"/>
         <image name="Close" width="25" height="25"/>
         <image name="Episode Placeholder" width="600" height="600"/>
         <image name="Fast Forward" width="32" height="16"/>
@@ -3237,15 +3247,15 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <image name="Volume Maximum" width="17" height="15"/>
         <image name="Volume Minimum" width="7" height="10"/>
         <image name="Watched Off" width="27" height="19"/>
-        <image name="Watchlist Off" width="32" height="32"/>
-        <image name="Watchlist On" width="32" height="32"/>
+        <image name="Watchlist Off" width="17" height="30"/>
+        <image name="Watchlist On" width="15" height="26"/>
         <image name="indicator-watched.png" width="157" height="157"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="vdG-GO-Y3V"/>
         <segue reference="hh6-V4-c8u"/>
+        <segue reference="2Ds-Ol-tyb"/>
         <segue reference="ikm-my-cK3"/>
-        <segue reference="jyX-rC-zV6"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.36862745098039218" green="0.40784313725490196" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

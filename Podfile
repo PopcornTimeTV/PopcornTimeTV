@@ -6,7 +6,7 @@ source 'https://github.com/PopcornTimeTV/Specs'
 
 def pods
     pod 'PopcornTorrent', '~> 1.1.5'
-    pod 'PopcornKit', '~> 3.2.7'
+    pod 'PopcornKit', '~> 3.2.8'
     pod 'XCDYouTubeKit', '~> 2.5.3'
     pod 'Alamofire', '~> 4.2.0'
     pod 'AlamofireImage', '~> 3.2.0'
@@ -19,7 +19,6 @@ target 'PopcornTimeiOS' do
     pods
     pod 'AlamofireNetworkActivityIndicator', '~> 2.1.0'
     pod 'Reachability', '~> 3.2'
-    pod 'JGProgressHUD', '~> 1.4'
     pod 'google-cast-sdk', '~> 3.3.0'
     pod 'OBSlider', '~> 1.1.1'
     pod '1PasswordExtension', '~> 1.8.4'
@@ -36,7 +35,7 @@ target 'PopcornTimetvOS' do
 end
 
 target 'TopShelf' do
-    pod 'PopcornKit', '~> 3.2.7'
+    pod 'PopcornKit', '~> 3.2.8'
 end
 
 post_install do |installer|

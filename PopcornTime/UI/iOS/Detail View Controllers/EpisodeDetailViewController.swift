@@ -53,38 +53,7 @@ class EpisodeDetailViewController: UIViewController, UIScrollViewDelegate, UIGes
     @IBAction func play(_ sender: UIButton) {
         guard let parent = (transitioningDelegate as? EpisodesCollectionViewController)?.parent as? ShowDetailViewController else { return }
         
-        if let quality = UserDefaults.standard.string(forKey: "autoSelectQuality") {
-            let sorted  = episode.torrents.sorted(by: <)
-            let torrent = quality == "highest" ? sorted.last! : sorted.first!
-            
-            parent.play(episode, torrent: torrent)
-            return
-        }
-        
-        guard episode.torrents.count > 1 else {
-            if let torrent = episode.torrents.first {
-                parent.play(episode, torrent: torrent)
-            } else {
-                let vc = UIAlertController(title: "No torrents found", message: "Torrents could not be found for the specified media.", preferredStyle: .alert)
-                vc.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                present(vc, animated: true, completion: nil)
-            }
-            return
-        }
-        
-        let vc = UIAlertController(title: "Choose Quality", message: "Choose a quality to stream.", preferredStyle: .actionSheet, blurStyle: .dark)
-        
-        for torrent in episode.torrents {
-            vc.addAction(UIAlertAction(title: torrent.quality, style: .default, handler: { (action) in
-                parent.play(self.episode, torrent: torrent)
-            }))
-        }
-        
-        vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        vc.popoverPresentationController?.sourceView = sender
-        
-        present(vc, animated: true, completion: nil)
+        parent.chooseQuality(sender, media: episode)
     }
     
     

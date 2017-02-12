@@ -11,6 +11,7 @@ import PopcornKit
 class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, CollectionViewControllerDelegate, UIScrollViewDelegate, InfoViewControllerDelegate, UIViewControllerTransitioningDelegate {
 
     @IBOutlet var castButton: CastIconBarButtonItem!
+    @IBOutlet var watchlistButton: UIBarButtonItem!
     @IBOutlet var seasonsLabel: UILabel!
     @IBOutlet var moreSeasonsButton: UIButton!
 
@@ -102,9 +103,14 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         backgroundImageView.frame = headerRect
     }
     
+    var watchlistButtonImage: UIImage? { return nil }
+    @IBAction func toggleWatchlist(_ sender: UIBarButtonItem) { }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         navigationItem.title = currentItem.title
+        watchlistButton.image = watchlistButtonImage
         
         castButton.button.addTarget(self, action: #selector(showCastDevices), for: .touchUpInside)
         
@@ -144,40 +150,41 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     
     @IBAction func changeSeason(_ sender: UIButton) { }
     
-    func chooseQuality(_ sender: UIButton) {
+    func chooseQuality(_ sender: UIButton?, media: Media) {
         
         if let quality = UserDefaults.standard.string(forKey: "autoSelectQuality") {
-            let sorted  = currentItem.torrents.sorted(by: <)
+            let sorted  = media.torrents.sorted(by: <)
             let torrent = quality == "highest" ? sorted.last! : sorted.first!
             
-            play(currentItem, torrent: torrent)
+            play(media, torrent: torrent)
             return
         }
         
-        guard currentItem.torrents.count > 1 else {
-            if let torrent = currentItem.torrents.first {
-                play(currentItem, torrent: torrent)
+        guard media.torrents.count > 1 else {
+            if let torrent = media.torrents.first {
+                play(media, torrent: torrent)
             } else {
                 let vc = UIAlertController(title: "No torrents found", message: "Torrents could not be found for the specified media.", preferredStyle: .alert)
                 vc.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                present(vc, animated: true, completion: nil)
+                vc.show()
             }
             return
         }
         
         let vc = UIAlertController(title: "Choose Quality", message: "Choose a quality to stream.", preferredStyle: .actionSheet, blurStyle: .dark)
         
-        for torrent in currentItem.torrents {
+        for torrent in media.torrents {
             vc.addAction(UIAlertAction(title: torrent.quality, style: .default, handler: { (action) in
-                self.play(self.currentItem, torrent: torrent)
+                self.play(media, torrent: torrent)
             }))
         }
         
         vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         vc.popoverPresentationController?.sourceView = sender
+        vc.view.tintColor = .app
         
-        present(vc, animated: true, completion: nil)
+        vc.show()
     }
     
     func play(_ media: Media, torrent: Torrent) {
@@ -255,6 +262,10 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     
     func presentCastPlayer(_ media: Media, videoFilePath: URL, startPosition: TimeInterval) {
         
+    }
+    
+    func playNext(_ episode: Episode) {
+        chooseQuality(nil, media: episode)
     }
     
     override func viewDidLayoutSubviews() {

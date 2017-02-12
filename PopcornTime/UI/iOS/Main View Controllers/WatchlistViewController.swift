@@ -11,6 +11,11 @@ class WatchlistViewController: MainViewController {
         collectionViewController.paginated = false
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        load(page: -1) // Refresh watchlsit
+        super.viewWillAppear(animated)
+    }
+    
     override func load(page: Int) {
         collectionViewController.dataSource += WatchlistManager<Movie>.movie.getWatchlist { (updated) in
             

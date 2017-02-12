@@ -7,7 +7,7 @@ import AlamofireImage
 import XCDYouTubeKit
 
 protocol InfoViewControllerDelegate: class {
-    func chooseQuality(_ sender: UIButton)
+    func chooseQuality(_ sender: UIButton?, media: Media)
 }
 
 class InfoViewController: UIViewController {
@@ -20,11 +20,12 @@ class InfoViewController: UIViewController {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var ratingView: FloatRatingView!
     @IBOutlet var trailerButton: UIButton!
+    @IBOutlet var playButton: UIButton!
     
     @IBOutlet var compactConstraints: [NSLayoutConstraint]!
     @IBOutlet var regularConstraints: [NSLayoutConstraint]!
     
-    var info: (title: String, subtitle: String, genre: String, info: NSMutableAttributedString, rating: Float, summary: String, image: String?, trailerCode: String?)!
+    var info: (title: String, subtitle: String, genre: String, info: NSMutableAttributedString, rating: Float, summary: String, image: String?, trailerCode: String?, media: Media?)!
     
     weak var delegate: InfoViewControllerDelegate?
     
@@ -46,6 +47,8 @@ class InfoViewController: UIViewController {
         
         trailerButton.isHidden = info.trailerCode == nil
         
+        playButton.isHidden = info.media == nil
+        
     }
     
     @IBAction func playTrailer() {
@@ -54,7 +57,7 @@ class InfoViewController: UIViewController {
     }
     
     @IBAction func play(_ sender: UIButton) {
-        delegate?.chooseQuality(sender)
+        delegate?.chooseQuality(sender, media: info.media!)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

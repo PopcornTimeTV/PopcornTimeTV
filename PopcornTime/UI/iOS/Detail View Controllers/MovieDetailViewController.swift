@@ -54,12 +54,21 @@ class MovieDetailViewController: DetailViewController {
         }
     }
     
-    var watchedButtonImage: UIImage {
-        return WatchedlistManager<Movie>.movie.isAdded(currentItem.id) ? UIImage(named: "Watched On")! : UIImage(named: "Watched Off")!
+    override var watchlistButtonImage: UIImage? {
+        return WatchlistManager<Movie>.movie.isAdded(movie) ? UIImage(named: "Watchlist On") : UIImage(named: "Watchlist Off")
+    }
+    
+    @IBAction override func toggleWatchlist(_ sender: UIBarButtonItem) {
+        WatchlistManager<Movie>.movie.toggle(movie)
+        sender.image = watchlistButtonImage
+    }
+    
+    var watchedButtonImage: UIImage? {
+        return WatchedlistManager<Movie>.movie.isAdded(movie.id) ? UIImage(named: "Watched On") : UIImage(named: "Watched Off")
     }
     
     func toggleWatched(_ sender: UIBarButtonItem) {
-        WatchedlistManager<Movie>.movie.toggle(currentItem.id)
+        WatchedlistManager<Movie>.movie.toggle(movie.id)
         sender.image = watchedButtonImage
     }
     
@@ -85,7 +94,7 @@ class MovieDetailViewController: DetailViewController {
             
             attributedString(from: movie.certification, "HD", "CC").forEach({info.append($0)})
             
-            vc.info = (title: movie.title, subtitle: formattedRuntime, genre: movie.genres.first?.capitalized ?? "", info: info, rating: movie.rating, summary: movie.summary, image: movie.mediumCoverImage, trailerCode: movie.trailerCode)
+            vc.info = (title: movie.title, subtitle: formattedRuntime, genre: movie.genres.first?.capitalized ?? "", info: info, rating: movie.rating, summary: movie.summary, image: movie.mediumCoverImage, trailerCode: movie.trailerCode, media: movie)
             vc.delegate = self
             
             vc.view.translatesAutoresizingMaskIntoConstraints = false

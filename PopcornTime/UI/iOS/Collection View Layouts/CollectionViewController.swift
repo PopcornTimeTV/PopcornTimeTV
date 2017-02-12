@@ -138,7 +138,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return delegate?.collectionView(collectionView, titleForHeaderInSection: section) == nil ? .zero : CGSize(width: collectionView.bounds.width, height: 40)
+        return delegate?.collectionView(collectionView, titleForHeaderInSection: section) != nil && collectionView.numberOfItems(inSection: section) != 0 ? CGSize(width: collectionView.bounds.width, height: 40) : .zero
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

@@ -3,7 +3,6 @@
 import UIKit
 import PopcornTorrent
 import GoogleCast
-import JGProgressHUD
 import SwiftyTimer
 import PopcornKit
 
@@ -11,7 +10,7 @@ import PopcornKit
 class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     
     @IBOutlet var progressSlider: ProgressSlider!
-    @IBOutlet var volumeSlider: UISlider?
+    @IBOutlet var volumeSlider: UISlider!
     @IBOutlet var closeButton: BlurButton!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var backgroundImageView: UIImageView!
@@ -25,12 +24,6 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     private var classContext = 0
     private var elapsedTimer: Timer!
     private var observingValues: Bool = false
-    private var bufferView: JGProgressHUD = {
-       let hud = JGProgressHUD(style: .dark)
-        hud?.textLabel.text = "Buffering"
-        hud?.interactionType = .blockAllTouches
-        return hud!
-    }()
     
     var startPosition: TimeInterval = 0.0
     var media: Media!
@@ -89,7 +82,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     }
     
     @IBAction func volumeSliderAction() {
-        remoteMediaClient?.setStreamVolume(volumeSlider!.value)
+        remoteMediaClient?.setStreamVolume(volumeSlider.value)
     }
     
     @IBAction func progressSliderAction() {
@@ -104,7 +97,8 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     
     @IBAction func close() {
         if observingValues {
-            remoteMediaClient?.mediaStatus?.removeObserver(self, forKeyPath: "playerState")
+            do { try remoteMediaClient?.mediaStatus?.removeObserver(self, forKeyPath: "playerState") }
+            observingValues = false
         }
         elapsedTimer?.invalidate()
         elapsedTimer = nil
@@ -128,9 +122,8 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if context == &classContext, let newValue = change?[.newKey] {
-            if keyPath == "playerState" {
-                bufferView.dismiss()
-                switch GCKMediaPlayerState(rawValue: newValue as! Int)! {
+            if keyPath == "playerState", let raw = newValue as? Int, let state = GCKMediaPlayerState(rawValue: raw) {
+                switch state {
                 case .paused:
                     UIApplication.shared.isIdleTimerDisabled = false
                     setProgress(status: .paused)
@@ -147,7 +140,6 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
                 case .buffering:
                     UIApplication.shared.isIdleTimerDisabled = true
                     playPauseButton.setImage(UIImage(named: "Play"), for: .normal)
-                    bufferView.show(in: view)
                 case .idle:
                     switch idleReason {
                     case .none:
@@ -178,19 +170,17 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
         remainingTimeLabel.text = remainingTime.stringValue
         elapsedTimeLabel.text = elapsedTime.stringValue
     }
+    
     func remoteMediaClient(_ client: GCKRemoteMediaClient, didUpdate mediaStatus: GCKMediaStatus) {
-        if mediaStatus != nil // mediaStatus can be uninitialised when this delegate method is called even though it is not marked as an optional value. Stupid google-cast-sdk.
-        {
-            if !observingValues {
-                if let subtitle = media.currentSubtitle {
-                    remoteMediaClient?.setActiveTrackIDs([NSNumber(value: media.subtitles.index{$0.link == subtitle.link}! as Int)])
-                }
-                elapsedTimer = elapsedTimer ?? Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
-                mediaStatus.addObserver(self, forKeyPath: "playerState", options: .new, context: &classContext)
-                observingValues = true
-                streamPosition = startPosition * streamDuration
-                self.volumeSlider?.setValue(mediaStatus.volume, animated: true)
+        if !observingValues {
+            if let subtitle = media.currentSubtitle {
+                remoteMediaClient?.setActiveTrackIDs([NSNumber(value: media.subtitles.index{$0.link == subtitle.link}! as Int)])
             }
+            elapsedTimer = elapsedTimer ?? Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+            mediaStatus.addObserver(self, forKeyPath: "playerState", options: .new, context: &classContext)
+            observingValues = true
+            streamPosition = startPosition * streamDuration
+            volumeSlider?.setValue(mediaStatus.volume, animated: true)
         }
     }
     
@@ -207,19 +197,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
             backgroundImageView.af_setImage(withURL: url)
         } 
         titleLabel.text = media.title
-        bufferView.show(in: view)
-        Timer.after(30.0) { [weak self] in
-            if let weakSelf = self {
-                if weakSelf.bufferView.isVisible && weakSelf.streamPosition == 0.0 {
-                    weakSelf.bufferView.indicatorView = JGProgressHUDErrorIndicatorView()
-                    weakSelf.bufferView.textLabel.text = "Error loading movie."
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
-                        weakSelf.close()
-                    })
-                }
-            }            
-        }
-        volumeSlider?.setThumbImage(UIImage(named: "Scrubber Image"), for: .normal)
+        volumeSlider.setThumbImage(UIImage(named: "Scrubber Image"), for: .normal)
     }
     
     deinit {
