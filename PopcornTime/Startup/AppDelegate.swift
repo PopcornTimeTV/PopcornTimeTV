@@ -15,7 +15,7 @@ public let animationLength = 0.33
 public let vlcSettingTextEncoding = "subsdec-encoding"
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UITabBarControllerDelegate {
 
     var window: UIWindow?
     
@@ -77,6 +77,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate {
         TraktManager.shared.syncUserData()
         UpdateManager.shared.delegate = self
         
+        (window?.rootViewController as? UITabBarController)?.delegate = self
+        
+        return true
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if tabBarController.selectedViewController == viewController, let scrollView = viewController.view.recursiveSubviews.flatMap({$0 as? UIScrollView}).first {
+            let offset = CGPoint(x: 0, y: -scrollView.contentInset.top)
+            scrollView.setContentOffset(offset, animated: true)
+        }
         return true
     }
     
