@@ -21,21 +21,21 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     @IBOutlet var compactConstraints: [NSLayoutConstraint]!
     @IBOutlet var regularConstraints: [NSLayoutConstraint]!
     
-    private var classContext = 0
     private var elapsedTimer: Timer!
-    private var observingValues: Bool = false
     
     var startPosition: TimeInterval = 0.0
     var media: Media!
     var directory: URL!
     
     private var remoteMediaClient = GCKCastContext.sharedInstance().sessionManager.currentCastSession?.remoteMediaClient
+    
     private var timeSinceLastMediaStatusUpdate: TimeInterval {
         if let remoteMediaClient = remoteMediaClient, state == .playing {
             return remoteMediaClient.timeSinceLastMediaStatusUpdate
         }
         return 0.0
     }
+    
     private var streamPosition: TimeInterval {
         get {
             if let mediaStatus = remoteMediaClient?.mediaStatus {
@@ -46,21 +46,28 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
             remoteMediaClient?.seek(toTimeInterval: newValue, resumeState: GCKMediaResumeState.play)
         }
     }
+    
     private var state: GCKMediaPlayerState {
         return remoteMediaClient?.mediaStatus?.playerState ?? GCKMediaPlayerState.unknown
     }
+    
     private var idleReason: GCKMediaPlayerIdleReason {
         return remoteMediaClient?.mediaStatus?.idleReason ?? GCKMediaPlayerIdleReason.none
     }
+    
     private var streamDuration: TimeInterval {
         return remoteMediaClient?.mediaStatus?.mediaInformation?.streamDuration ?? 0.0
     }
+    
     private var elapsedTime: VLCTime {
         return VLCTime(number: NSNumber(value: streamPosition * 1000 as Double))
     }
+    
     private var remainingTime: VLCTime {
         return VLCTime(number: NSNumber(value: (streamPosition - streamDuration) * 1000 as Double))
     }
+    
+    // MARK: - IBActions
     
     @IBAction func playPause(_ sender: UIButton) {
         if state == .paused {
@@ -96,16 +103,14 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     }
     
     @IBAction func close() {
-        if observingValues {
-            do { try remoteMediaClient?.mediaStatus?.removeObserver(self, forKeyPath: "playerState") }
-            observingValues = false
-        }
         elapsedTimer?.invalidate()
         elapsedTimer = nil
         remoteMediaClient?.stop()
         PTTorrentStreamer.shared().cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
         dismiss(animated: true, completion: nil)
     }
+    
+    // MARK: - Frame changes
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         for constraint in compactConstraints {
@@ -119,43 +124,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
         })
     }
     
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if context == &classContext, let newValue = change?[.newKey] {
-            if keyPath == "playerState", let raw = newValue as? Int, let state = GCKMediaPlayerState(rawValue: raw) {
-                switch state {
-                case .paused:
-                    UIApplication.shared.isIdleTimerDisabled = false
-                    setProgress(status: .paused)
-                    playPauseButton.setImage(UIImage(named: "Play"), for: .normal)
-                    elapsedTimer.invalidate()
-                    elapsedTimer = nil
-                case .playing:
-                    UIApplication.shared.isIdleTimerDisabled = true
-                    setProgress(status: .watching)
-                    playPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
-                    if elapsedTimer == nil {
-                        elapsedTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
-                    }
-                case .buffering:
-                    UIApplication.shared.isIdleTimerDisabled = true
-                    playPauseButton.setImage(UIImage(named: "Play"), for: .normal)
-                case .idle:
-                    switch idleReason {
-                    case .none:
-                        break
-                    default:
-                        setProgress(status: .finished)
-                        close()
-                    }
-                default:
-                    break
-                }
-            }
-        } else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        }
-    }
+    // MARK: - Player changes notifications
     
     func setProgress(status: Trakt.WatchedStatus) {
         if let movie = media as? Movie {
@@ -166,22 +135,59 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     }
     
     func updateTime() {
-        progressSlider.value = Float(streamPosition/streamDuration)
-        remainingTimeLabel.text = remainingTime.stringValue
-        elapsedTimeLabel.text = elapsedTime.stringValue
+        progressSlider?.value = Float(streamPosition/streamDuration)
+        remainingTimeLabel?.text = remainingTime.stringValue
+        elapsedTimeLabel?.text = elapsedTime.stringValue
     }
     
     func remoteMediaClient(_ client: GCKRemoteMediaClient, didUpdate mediaStatus: GCKMediaStatus) {
-        if !observingValues {
-            if let subtitle = media.currentSubtitle {
-                remoteMediaClient?.setActiveTrackIDs([NSNumber(value: media.subtitles.index{$0.link == subtitle.link}! as Int)])
+        switch mediaStatus.playerState {
+        case .paused:
+            UIApplication.shared.isIdleTimerDisabled = false
+            setProgress(status: .paused)
+            playPauseButton.setImage(UIImage(named: "Play"), for: .normal)
+            elapsedTimer.invalidate()
+            elapsedTimer = nil
+        case .playing:
+            UIApplication.shared.isIdleTimerDisabled = true
+            setProgress(status: .watching)
+            playPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
+            if elapsedTimer == nil {
+                elapsedTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
             }
-            elapsedTimer = elapsedTimer ?? Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
-            mediaStatus.addObserver(self, forKeyPath: "playerState", options: .new, context: &classContext)
-            observingValues = true
-            streamPosition = startPosition * streamDuration
-            volumeSlider?.setValue(mediaStatus.volume, animated: true)
+        case .buffering:
+            UIApplication.shared.isIdleTimerDisabled = true
+            playPauseButton.setImage(UIImage(named: "Play"), for: .normal)
+        case .idle:
+            switch idleReason {
+            case .none:
+                break
+            default:
+                setProgress(status: .finished)
+                close()
+            }
+        default:
+            break
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if let image = media.largeCoverImage, let url = URL(string: image) {
+            imageView.af_setImage(withURL: url)
+            backgroundImageView.af_setImage(withURL: url)
+        }
+        
+        if let subtitle = media.currentSubtitle {
+            remoteMediaClient?.setActiveTrackIDs([NSNumber(value: media.subtitles.index{$0.link == subtitle.link}! as Int)])
+        }
+        
+        titleLabel.text = media.title
+        volumeSlider.setThumbImage(UIImage(named: "Scrubber Image"), for: .normal)
+        volumeSlider?.setValue(remoteMediaClient?.mediaStatus?.volume ?? 1.0, animated: true)
+        
+        elapsedTimer = elapsedTimer ?? Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+        streamPosition = startPosition * streamDuration
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -189,18 +195,9 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
         remoteMediaClient?.add(self)
         UIApplication.shared.isIdleTimerDisabled = true
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if let image = media.largeCoverImage, let url = URL(string: image) {
-            imageView.af_setImage(withURL: url)
-            backgroundImageView.af_setImage(withURL: url)
-        } 
-        titleLabel.text = media.title
-        volumeSlider.setThumbImage(UIImage(named: "Scrubber Image"), for: .normal)
-    }
     
     deinit {
+        remoteMediaClient?.remove(self)
         UIApplication.shared.isIdleTimerDisabled = false
     }
     

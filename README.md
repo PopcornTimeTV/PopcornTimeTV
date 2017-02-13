@@ -33,9 +33,9 @@ For security reasons, we will not be releasing an iPA but you can compile one yo
 This project uses  [CocoaPods](http://cocoapods.org/). Build instructions:
 
 ``` bash
-$ git clone https://github.com/PopcornTimeTV/PopcornTimeTV.git master
+$ git clone https://github.com/PopcornTimeTV/PopcornTimeTV.git
 $ cd PopcornTimeTV/
-$ swift install.swift
+$ pod repo update; pod install
 $ open PopcornTime.xcworkspace
 ```
 

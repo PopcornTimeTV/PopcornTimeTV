@@ -249,12 +249,11 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
                         vc.view = view
                         
                         navigationController.pushViewController(vc, animated: false)
-                        return
+                    } else {
+                        vc.currentItem = media
+                        
+                        navigationController.pushViewController(vc, animated: false)
                     }
-                    
-                    vc.currentItem = media
-                    
-                    navigationController.pushViewController(vc, animated: false)
                 }
             } else if identifier == "showPerson",
                 let vc = segue.destination as? PersonDetailCollectionViewController,

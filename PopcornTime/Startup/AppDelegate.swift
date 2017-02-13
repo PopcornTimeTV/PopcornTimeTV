@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UI
             
             /// Weird SDK throws error if shared instance has already been initialised and doesn't mark function as throwing.
             do { try GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID)) }
-            window?.tintColor = UIColor.app
+            window?.tintColor = .app
             
             if !UserDefaults.standard.bool(forKey: "tosAccepted") {
                 let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsOfServiceNavigationController")
