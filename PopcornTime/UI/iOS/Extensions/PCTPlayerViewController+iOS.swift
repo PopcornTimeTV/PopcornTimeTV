@@ -4,7 +4,7 @@ import Foundation
 import UIKit
 import PopcornKit
 
-extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate {
+extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, GoogleCastTableViewControllerDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         segue.destination.popoverPresentationController?.delegate = self
@@ -16,6 +16,7 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate {
             vc.delegate = self
         } else if segue.identifier == "showDevices", let vc = (segue.destination as? UINavigationController)?.viewControllers.first as? GoogleCastTableViewController {
             vc.castMetadata = (title: media.title, image: media.smallCoverImage != nil ? URL(string: media.smallCoverImage!) : nil, contentType: media is Movie ? "video/mp4" : "video/x-matroska", subtitles: media.subtitles, url: url.relativeString, mediaAssetsPath: directory)
+            vc.delegate = self
         }
     }
     
@@ -122,6 +123,13 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate {
             mediaplayer.videoCropGeometry = nil
             screenshotImageView!.contentMode = .scaleAspectFit
         }
+    }
+    
+    func didConnectToDevice() {
+        mediaplayer.delegate = nil
+        mediaplayer.stop()
+
+        delegate?.presentCastPlayer(media, videoFilePath: directory, startPosition: TimeInterval(progressBar.progress))
     }
 }
 

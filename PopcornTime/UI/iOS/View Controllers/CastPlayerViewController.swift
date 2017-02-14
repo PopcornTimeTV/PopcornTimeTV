@@ -119,9 +119,12 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
         for constraint in regularConstraints {
             constraint.priority = traitCollection.horizontalSizeClass == .compact ? 240 : traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular ? 999 : constraint.priority
         }
-        UIView.animate(withDuration: animationLength, animations: {
-            self.view.layoutIfNeeded()
-        })
+        
+        if previousTraitCollection != nil {
+            UIView.animate(withDuration: animationLength, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
     }
     
     // MARK: - Player changes notifications

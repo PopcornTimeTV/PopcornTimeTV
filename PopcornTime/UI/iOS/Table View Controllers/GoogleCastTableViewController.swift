@@ -4,11 +4,17 @@ import UIKit
 import GoogleCast
 import PopcornKit
 
+protocol GoogleCastTableViewControllerDelegate: class {
+    func didConnectToDevice()
+}
+
 class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerListener, GoogleCastManagerDelegate {
     
     var dataSource = [GCKDevice]()
     var manager = GoogleCastManager()
     var castMetadata: CastMetaData?
+    
+    weak var delegate: GoogleCastTableViewControllerDelegate?
     
     var sizingCell: UITableViewCell?
     
@@ -136,6 +142,7 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
     
     func didConnectToDevice() {
         tableView.reloadData()
-        //playerViewController.delegate?.presentCastPlayer(playerViewController.media, videoFilePath: playerViewController.directory, startPosition: TimeInterval(playerViewController.progressBar.progress))
+        
+        delegate?.didConnectToDevice()
     }
 }
