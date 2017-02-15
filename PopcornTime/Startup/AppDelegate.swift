@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UI
     var window: UIWindow?
     
     #if os(iOS)
-        var reachability = Reachability.forInternetConnection()
+        var reachability: Reachability = .forInternetConnection()
     #elseif os(tvOS)
     
         func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UI
             
         #elseif os(iOS)
             NetworkActivityIndicatorManager.shared.isEnabled = true
-            reachability?.startNotifier()
+            reachability.startNotifier()
             
             /// Weird SDK throws error if shared instance has already been initialised and doesn't mark function as throwing.
             do { try GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID)) }
@@ -108,13 +108,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UI
         #elseif os(iOS)
             if let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, (sourceApplication == "com.apple.SafariViewService" || sourceApplication == "com.apple.mobilesafari") && url.scheme == "popcorntime" {
                 TraktManager.shared.authenticate(url)
-                return true
+            } else if url.scheme == "magnet" || url.isFileURL {
+                let torrent: Torrent
+                let media: Media
+                
+                if url.scheme == "magnet" {
+                    let url = url.absoluteString
+                    torrent = Torrent(hash: url.slice(from: "magnet:?xt=urn:btih:", to: url.contains("&dn=") ? "&dn=" : ""))
+                    media = Movie(id: torrent.hash!, torrents: [torrent]) // Type here is arbitrary.
+                } else {
+                    torrent = Torrent(url: url.path)
+                    media = Movie(id: url.lastPathComponent, torrents: [torrent])
+                }
+                
+                if let root = window?.rootViewController {
+                    let type = type(of: root)
+                    object_setClass(root, DetailViewController.self)
+                    let vc = root as! DetailViewController
+                    object_setIvar(vc, class_getInstanceVariable(DetailViewController.self, NSString(string: "currentItem").utf8String), media)
+                    vc.play(media, torrent: torrent)
+                    object_setClass(root, type)
+                }
             }
         #endif
-        
-        if url.scheme == "magnet" {
-            // TODO: Manget links
-        }
         
         return true
     }

@@ -188,16 +188,20 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     }
     
     func play(_ media: Media, torrent: Torrent) {
-        if UserDefaults.standard.bool(forKey: "streamOnCellular") || (UIApplication.shared.delegate as! AppDelegate).reachability!.isReachableViaWiFi() {
+        if UserDefaults.standard.bool(forKey: "streamOnCellular") || (UIApplication.shared.delegate as! AppDelegate).reachability.isReachableViaWiFi() {
             
-            dismiss(animated: false, completion: nil) // Make sure we're not already presenting a view controller.
+            // Make sure we're not already presenting a view controller.
+            if presentedViewController != nil {
+                dismiss(animated: false, completion: nil)
+            }
             
             var media = media
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
             
             let currentProgress = media is Movie ? WatchedlistManager<Movie>.movie.currentProgress(media.id) : WatchedlistManager<Episode>.episode.currentProgress(media.id)
             var nextEpisode: Episode?
             
-            let loadingViewController = storyboard?.instantiateViewController(withIdentifier: "LoadingViewController") as! LoadingViewController
+            let loadingViewController = storyboard.instantiateViewController(withIdentifier: "LoadingViewController") as! LoadingViewController
             loadingViewController.backgroundImageString = media.largeBackgroundImage
             loadingViewController.mediaTitle = media.title
             loadingViewController.transitioningDelegate = self
@@ -241,10 +245,10 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
                 }
                 
                 if GCKCastContext.sharedInstance().castState == .connected {
-                    let playViewController = self.storyboard?.instantiateViewController(withIdentifier: "CastPlayerViewController") as! CastPlayerViewController
+                    let playViewController = storyboard.instantiateViewController(withIdentifier: "CastPlayerViewController") as! CastPlayerViewController
                     media.playOnChromecast(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
                 } else {
-                    let playViewController = self.storyboard?.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
+                    let playViewController = storyboard.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
                     playViewController.delegate = self
                     media.play(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, nextEpisodeInSeries: nextEpisode, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
                 }
@@ -256,7 +260,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
                 self?.play(media, torrent: torrent)
             }))
             errorAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            present(errorAlert, animated: true, completion: nil)
+            errorAlert.show()
         }
     }
     
