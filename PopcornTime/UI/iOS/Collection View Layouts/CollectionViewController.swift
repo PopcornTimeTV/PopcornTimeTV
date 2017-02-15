@@ -24,7 +24,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     var dataSources: [[AnyHashable]] = [[]]
     var error: NSError?
     
-    var paginationIndicatorInset: CGFloat = 20
+    var paginationIndicatorInset: CGFloat = 5
     var minItemSize = CGSize(width: 180, height: 300)
     
     var isLoading = false
@@ -170,7 +170,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
             _cell.titleLabel.text = media.title
             _cell.watched = WatchedlistManager<Movie>.movie.isAdded(media.id) // Shows not supported for watched list
             
-            if let image = media.mediumCoverImage,
+            if let image = media.smallCoverImage,
                 let url = URL(string: image) {
                 _cell.coverImageView.af_setImage(withURL: url, placeholderImage: UIImage(named: placeholder), imageTransition: .crossDissolve(animationLength))
             } else {
