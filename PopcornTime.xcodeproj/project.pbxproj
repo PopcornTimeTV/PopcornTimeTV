@@ -51,6 +51,8 @@
 		4D6F837C1E0D67EA002E40FD /* SearchTemplate.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D6F837B1E0D67EA002E40FD /* SearchTemplate.xml */; };
 		4D7376021DFDC6F500505CA0 /* NSNotification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7376011DFDC6F500505CA0 /* NSNotification+Name.swift */; };
 		4D77D1F81E47A1B80089242C /* StepperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D77D1F71E47A1B80089242C /* StepperTableViewCell.swift */; };
+		4D8330BD1E57643A00E1DD41 /* StreamToDevicesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8330BC1E57643A00E1DD41 /* StreamToDevicesTableViewController.swift */; };
+		4D8330BF1E57662D00E1DD41 /* AirPlayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8330BE1E57662D00E1DD41 /* AirPlayTableViewCell.swift */; };
 		4D859B0F1DDE23A3000E2AA1 /* EpisodeDetailPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationDelegate.swift */; };
 		4D859B2A1DDFA079000E2AA1 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B251DDFA079000E2AA1 /* LoadingViewController.swift */; };
 		4D859B2B1DDFA079000E2AA1 /* PCTPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B261DDFA079000E2AA1 /* PCTPlayerViewController.swift */; };
@@ -239,6 +241,8 @@
 		4D6F837B1E0D67EA002E40FD /* SearchTemplate.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SearchTemplate.xml; sourceTree = "<group>"; };
 		4D7376011DFDC6F500505CA0 /* NSNotification+Name.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSNotification+Name.swift"; sourceTree = "<group>"; };
 		4D77D1F71E47A1B80089242C /* StepperTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepperTableViewCell.swift; sourceTree = "<group>"; };
+		4D8330BC1E57643A00E1DD41 /* StreamToDevicesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamToDevicesTableViewController.swift; sourceTree = "<group>"; };
+		4D8330BE1E57662D00E1DD41 /* AirPlayTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirPlayTableViewCell.swift; sourceTree = "<group>"; };
 		4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodeDetailPresentationDelegate.swift; path = ../../Resources/EpisodeDetailPresentationDelegate.swift; sourceTree = "<group>"; };
 		4D859B251DDFA079000E2AA1 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		4D859B261DDFA079000E2AA1 /* PCTPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCTPlayerViewController.swift; sourceTree = "<group>"; };
@@ -559,6 +563,7 @@
 			isa = PBXGroup;
 			children = (
 				4D77D1F71E47A1B80089242C /* StepperTableViewCell.swift */,
+				4D8330BE1E57662D00E1DD41 /* AirPlayTableViewCell.swift */,
 			);
 			path = "Table View Cells";
 			sourceTree = "<group>";
@@ -782,6 +787,7 @@
 			children = (
 				4D859B421DDFA0D2000E2AA1 /* GenresTableViewController.swift */,
 				4D859B401DDFA0D2000E2AA1 /* GoogleCastTableViewController.swift */,
+				4D8330BC1E57643A00E1DD41 /* StreamToDevicesTableViewController.swift */,
 				4D859B411DDFA0D2000E2AA1 /* OptionsTableViewController.swift */,
 			);
 			path = "Table View Controllers";
@@ -1315,10 +1321,12 @@
 				4DC7B6A71E391E280098B12E /* EpisodeCollectionViewCell.swift in Sources */,
 				4DE9E06A1E3D0DC300806522 /* SeparatorCollectionViewLayout.swift in Sources */,
 				4D859B751DDFA12C000E2AA1 /* ProgressBar.swift in Sources */,
+				4D8330BF1E57662D00E1DD41 /* AirPlayTableViewCell.swift in Sources */,
 				4D859B9E1DDFA164000E2AA1 /* UIView+Extension.swift in Sources */,
 				4D859B9F1DDFA164000E2AA1 /* UINavigationBar+Extension.swift in Sources */,
 				4D859B7A1DDFA12C000E2AA1 /* GradientView.swift in Sources */,
 				4D859B331DDFA07C000E2AA1 /* TermsOfServiceViewController.swift in Sources */,
+				4D8330BD1E57643A00E1DD41 /* StreamToDevicesTableViewController.swift in Sources */,
 				4D859BA11DDFA164000E2AA1 /* UIImage+Extension.swift in Sources */,
 				4D1B88A51E3BD42B00DB701D /* ResponsiveCollectionViewController.swift in Sources */,
 				4D77D1F81E47A1B80089242C /* StepperTableViewCell.swift in Sources */,

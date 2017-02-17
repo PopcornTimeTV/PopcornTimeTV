@@ -93,7 +93,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     }
     
     @IBAction func progressSliderAction() {
-        streamPosition += (TimeInterval(progressSlider.value) * streamDuration)
+        streamPosition = (TimeInterval(progressSlider.value) * streamDuration)
     }
     
     @IBAction func progressSliderDrag() {
@@ -149,7 +149,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
             UIApplication.shared.isIdleTimerDisabled = false
             setProgress(status: .paused)
             playPauseButton.setImage(UIImage(named: "Play"), for: .normal)
-            elapsedTimer.invalidate()
+            elapsedTimer?.invalidate()
             elapsedTimer = nil
         case .playing:
             UIApplication.shared.isIdleTimerDisabled = true
