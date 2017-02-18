@@ -70,7 +70,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UI
                 let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsOfServiceNavigationController")
                 window?.makeKeyAndVisible()
                 window?.rootViewController?.present(vc, animated: false, completion: nil)
-                UserDefaults.standard.set("720p", forKey: "preferredQuality")
             }
         #endif
             

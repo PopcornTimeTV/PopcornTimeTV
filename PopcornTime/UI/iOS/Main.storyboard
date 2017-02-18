@@ -397,16 +397,49 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k6H-dM-QeF">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aWu-Pj-a6r">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TV" translatesAutoresizingMaskIntoConstraints="NO" id="fi6-2O-Cai">
+                                        <rect key="frame" x="87.5" y="183.5" width="200" height="200"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AirPlay" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5U-jL-YOB">
+                                        <rect key="frame" x="157" y="375.5" width="62.5" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This video is playing on a different screen." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GeB-Nu-suA">
+                                        <rect key="frame" x="27" y="407.5" width="321.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.098121268621512825" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GeB-Nu-suA" secondAttribute="trailing" constant="5" id="6oP-HY-4qd"/>
+                                    <constraint firstItem="A5U-jL-YOB" firstAttribute="centerX" secondItem="fi6-2O-Cai" secondAttribute="centerX" id="IVI-7D-vUC"/>
+                                    <constraint firstItem="GeB-Nu-suA" firstAttribute="centerX" secondItem="A5U-jL-YOB" secondAttribute="centerX" id="KzC-ua-652"/>
+                                    <constraint firstItem="fi6-2O-Cai" firstAttribute="centerY" secondItem="aWu-Pj-a6r" secondAttribute="centerY" constant="-50" id="LUB-0G-88R"/>
+                                    <constraint firstItem="GeB-Nu-suA" firstAttribute="top" secondItem="A5U-jL-YOB" secondAttribute="bottom" constant="8" symbolic="YES" id="cgi-rK-Vbe"/>
+                                    <constraint firstItem="A5U-jL-YOB" firstAttribute="top" secondItem="fi6-2O-Cai" secondAttribute="bottom" constant="-8" id="f93-fU-7ba"/>
+                                    <constraint firstItem="GeB-Nu-suA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aWu-Pj-a6r" secondAttribute="leading" constant="5" id="r3U-64-iHF"/>
+                                    <constraint firstItem="fi6-2O-Cai" firstAttribute="centerX" secondItem="aWu-Pj-a6r" secondAttribute="centerX" id="vY2-h3-my8"/>
+                                </constraints>
+                            </view>
+                            <view multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k6H-dM-QeF">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="dwV-h7-sg2" appends="YES" id="0Eo-Ku-uJf"/>
                                     <outletCollection property="gestureRecognizers" destination="xbd-Wq-rlE" appends="YES" id="kEW-9t-qww"/>
                                 </connections>
                             </view>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="waL-sG-Ck8">
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="waL-sG-Ck8">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iCb-no-dy3" customClass="UpNextView" customModule="PopcornTime" customModuleProvider="target">
@@ -816,27 +849,24 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="waL-sG-Ck8" firstAttribute="leading" secondItem="JrP-zb-Inc" secondAttribute="leading" id="0tY-6M-fLb"/>
+                            <constraint firstAttribute="topMargin" secondItem="aWu-Pj-a6r" secondAttribute="top" id="4bz-7L-Jqz"/>
                             <constraint firstAttribute="leading" secondItem="iCb-no-dy3" secondAttribute="trailing" priority="999" id="8E8-wV-O5A"/>
                             <constraint firstItem="39E-ow-QdV" firstAttribute="centerX" secondItem="JrP-zb-Inc" secondAttribute="centerX" id="8Eh-WP-tJc"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="k6H-dM-QeF" secondAttribute="bottom" id="ANZ-IV-U0t"/>
-                            <constraint firstAttribute="trailing" secondItem="waL-sG-Ck8" secondAttribute="trailing" id="CM8-Cx-8hR"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="aWu-Pj-a6r" secondAttribute="bottom" id="B98-G4-XIp"/>
                             <constraint firstItem="39E-ow-QdV" firstAttribute="width" secondItem="JrP-zb-Inc" secondAttribute="width" id="FKe-Zh-hiZ"/>
+                            <constraint firstAttribute="trailing" secondItem="aWu-Pj-a6r" secondAttribute="trailing" id="GHn-cw-mNY"/>
                             <constraint firstAttribute="bottomMargin" secondItem="39E-ow-QdV" secondAttribute="bottom" id="L14-cD-UBH"/>
-                            <constraint firstItem="waL-sG-Ck8" firstAttribute="top" secondItem="JrP-zb-Inc" secondAttribute="topMargin" id="QTG-lp-UTf"/>
                             <constraint firstItem="5fE-Dm-ASP" firstAttribute="centerX" secondItem="JrP-zb-Inc" secondAttribute="centerX" id="SCe-kN-krX"/>
                             <constraint firstItem="5fE-Dm-ASP" firstAttribute="width" secondItem="JrP-zb-Inc" secondAttribute="width" id="SiX-A1-hDD"/>
-                            <constraint firstAttribute="topMargin" secondItem="k6H-dM-QeF" secondAttribute="top" id="XxM-uO-EJB"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="waL-sG-Ck8" secondAttribute="bottom" id="aVK-3w-xIs"/>
-                            <constraint firstItem="k6H-dM-QeF" firstAttribute="leading" secondItem="JrP-zb-Inc" secondAttribute="leading" id="do0-5i-H6g"/>
+                            <constraint firstItem="aWu-Pj-a6r" firstAttribute="leading" secondItem="JrP-zb-Inc" secondAttribute="leading" id="ZXP-em-2Dl"/>
                             <constraint firstItem="5fE-Dm-ASP" firstAttribute="top" secondItem="JrP-zb-Inc" secondAttribute="topMargin" id="faa-Og-xl8"/>
                             <constraint firstItem="iCb-no-dy3" firstAttribute="leading" secondItem="JrP-zb-Inc" secondAttribute="leading" priority="250" id="mK4-mZ-4y7"/>
                             <constraint firstItem="39E-ow-QdV" firstAttribute="top" secondItem="iCb-no-dy3" secondAttribute="bottom" constant="25" id="twW-MF-sfB"/>
-                            <constraint firstAttribute="trailing" secondItem="k6H-dM-QeF" secondAttribute="trailing" id="zGh-9A-3k1"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <connections>
+                        <outlet property="airPlayingView" destination="aWu-Pj-a6r" id="seq-Qf-9Sj"/>
                         <outlet property="doubleTapToZoomOnVideoRecognizer" destination="xbd-Wq-rlE" id="fdW-oQ-eMa"/>
                         <outlet property="duringScrubbingConstraints" destination="qYD-9b-PdB" id="jBM-CU-tf7"/>
                         <outlet property="finishedScrubbingConstraints" destination="4lR-gS-Hd1" id="c1H-le-DfJ"/>
@@ -928,7 +958,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                             <action selector="playPause:" destination="9g2-2Z-FUe" eventType="touchUpInside" id="hQN-Jr-7hu"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bzI-qL-pwk">
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bzI-qL-pwk">
                                                         <rect key="frame" x="19" y="508" width="23" height="18"/>
                                                         <state key="normal" image="Subtitles"/>
                                                         <connections>
@@ -1192,7 +1222,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Stream to Devices" id="mLh-Zi-g27">
-                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="Wdb-Bo-zel">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="Wdb-Bo-zel">
                             <connections>
                                 <action selector="cancel" destination="Rxu-HI-Dot" id="WwL-aS-X48"/>
                             </connections>
@@ -1271,7 +1301,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Subtitles" id="zP8-pm-nXp">
-                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="AET-9f-DNO">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="AET-9f-DNO">
                             <connections>
                                 <action selector="cancel" destination="vbu-gi-gcV" id="arf-nk-MF3"/>
                             </connections>
@@ -3273,6 +3303,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <image name="Star Empty" width="40" height="40"/>
         <image name="Star Full" width="40" height="40"/>
         <image name="Subtitles" width="23" height="18"/>
+        <image name="TV" width="200" height="200"/>
         <image name="Volume Maximum" width="17" height="15"/>
         <image name="Volume Minimum" width="7" height="10"/>
         <image name="Watched Off" width="27" height="19"/>
@@ -3281,10 +3312,10 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <image name="indicator-watched.png" width="157" height="157"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="ikm-my-cK3"/>
         <segue reference="vdG-GO-Y3V"/>
         <segue reference="hh6-V4-c8u"/>
-        <segue reference="2Ds-Ol-tyb"/>
-        <segue reference="ikm-my-cK3"/>
+        <segue reference="jyX-rC-zV6"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.36862745098039218" green="0.40784313725490196" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

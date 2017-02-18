@@ -264,11 +264,10 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         }
     }
     
-    func presentCastPlayer(_ media: Media, videoFilePath: URL, startPosition: TimeInterval) {
+    func presentCastPlayer(_ media: Media, videoFilePath: URL) {
         dismiss(animated: true, completion: nil) // Close player view controller first.
         let castPlayerViewController = storyboard?.instantiateViewController(withIdentifier: "CastPlayerViewController") as! CastPlayerViewController
         castPlayerViewController.media = media
-        castPlayerViewController.startPosition = startPosition
         castPlayerViewController.directory = videoFilePath.deletingLastPathComponent()
         present(castPlayerViewController, animated: true, completion: nil)
     }

@@ -1,0 +1,75 @@
+
+
+import Foundation
+import MediaPlayer
+import AlamofireImage
+
+extension PCTPlayerViewController {
+    
+    func addRemoteCommandCenterHandlers() {
+        let center = MPRemoteCommandCenter.shared()
+            
+        center.pauseCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+            if self.mediaplayer.canPause && self.mediaplayer.isPlaying {
+                self.mediaplayer.pause()
+                return .success
+            }
+            return .commandFailed
+        }
+        
+        center.playCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+            if self.mediaplayer.willPlay && !self.mediaplayer.isPlaying {
+                self.mediaplayer.play()
+                return .success
+            }
+            return .commandFailed
+        }
+        
+        if #available(iOS 9.1, tvOS 9.1, *) {
+            center.changePlaybackPositionCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+                self.mediaplayer.time = VLCTime(number: NSNumber(value: (event as! MPChangePlaybackPositionCommandEvent).positionTime * 1000))
+                return .success
+            }
+        }
+        
+        center.stopCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+            self.mediaplayer.stop()
+            return .success
+        }
+        
+        center.changePlaybackRateCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+            self.mediaplayer.rate = (event as! MPChangePlaybackRateCommandEvent).playbackRate
+            return .success
+        }
+        
+        center.skipForwardCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+            self.mediaplayer.jumpForward(Int32((event as! MPSkipIntervalCommandEvent).interval))
+            return .success
+        }
+        
+        center.skipBackwardCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+            self.mediaplayer.jumpBackward(Int32((event as! MPSkipIntervalCommandEvent).interval))
+            return .success
+        }
+    }
+    
+    func removeRemoteCommandCenterHandlers() {
+        nowPlayingInfo = nil
+        UIApplication.shared.endReceivingRemoteControlEvents()
+    }
+    
+    func configureNowPlayingInfo() {
+        nowPlayingInfo = [MPMediaItemPropertyTitle: media.title,
+                          MPMediaItemPropertyPlaybackDuration: TimeInterval(streamDuration/1000),
+                          MPNowPlayingInfoPropertyElapsedPlaybackTime: mediaplayer.time.value.doubleValue/1000,
+                          MPNowPlayingInfoPropertyPlaybackRate: Double(mediaplayer.rate),
+                          MPMediaItemPropertyMediaType: 256] // `MPMediaType` enum not available in tvOS for some reason so raw value used instead.
+        
+        if let image = media.mediumCoverImage ?? media.mediumCoverImage, let request = try? URLRequest(url: image, method: .get) {
+            ImageDownloader.default.download(request) { (response) in
+                guard let image = response.result.value else { return }
+                self.nowPlayingInfo?[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: image)
+            }
+        }
+    }
+}

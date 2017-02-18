@@ -84,10 +84,9 @@ extension Media {
         },
         playBlock: @escaping (URL, URL, Media, Episode?, Float, UIViewController) -> Void = { (videoFileURL, videoFilePath, media, _, progress, viewController) in
         guard let viewController = viewController as? CastPlayerViewController, let currentSession = GCKCastContext.sharedInstance().sessionManager.currentSession else { return }
-        let castMetadata: CastMetaData = (title: media.title, image: media.smallCoverImage != nil ? URL(string: media.smallCoverImage!) : nil, contentType: (media is Episode) ? "video/x-matroska" : "video/mp4", subtitles: media.subtitles, url: videoFileURL.relativeString, mediaAssetsPath: videoFilePath.deletingLastPathComponent())
+        let castMetadata: CastMetaData = (title: media.title, image: media.smallCoverImage != nil ? URL(string: media.smallCoverImage!) : nil, contentType: (media is Episode) ? "video/x-matroska" : "video/mp4", subtitles: media.subtitles, url: videoFileURL.relativeString, mediaAssetsPath: videoFilePath.deletingLastPathComponent(), startPosition: TimeInterval(progress))
         GoogleCastManager(castMetadata: castMetadata).sessionManager(GCKCastContext.sharedInstance().sessionManager, didStart: currentSession)
         viewController.media = media
-        viewController.startPosition = TimeInterval(progress)
         viewController.directory = videoFilePath.deletingLastPathComponent()
         },
         errorBlock: @escaping (String) -> Void,

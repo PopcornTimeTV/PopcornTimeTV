@@ -3,9 +3,7 @@
 import UIKit
 import PopcornTorrent
 import GoogleCast
-import SwiftyTimer
 import PopcornKit
-
 
 class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     
@@ -23,7 +21,6 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     
     private var elapsedTimer: Timer!
     
-    var startPosition: TimeInterval = 0.0
     var media: Media!
     var directory: URL!
     
@@ -98,14 +95,15 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     
     @IBAction func progressSliderDrag() {
         remoteMediaClient?.pause()
-        elapsedTimeLabel.text = VLCTime(number: NSNumber(value: ((TimeInterval(progressSlider.value) * streamDuration)) * 1000 as Double)).stringValue
-        remainingTimeLabel.text = VLCTime(number: NSNumber(value: (((TimeInterval(progressSlider.value) * streamDuration) - streamDuration)) * 1000 as Double)).stringValue
+        elapsedTimeLabel.text = VLCTime(number: NSNumber(value: ((TimeInterval(progressSlider.value) * streamDuration)) * 1000)).stringValue
+        remainingTimeLabel.text = VLCTime(number: NSNumber(value: (((TimeInterval(progressSlider.value) * streamDuration) - streamDuration)) * 1000)).stringValue
     }
     
     @IBAction func close() {
         elapsedTimer?.invalidate()
         elapsedTimer = nil
         remoteMediaClient?.stop()
+        setProgress(status: .finished)
         PTTorrentStreamer.shared().cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
         dismiss(animated: true, completion: nil)
     }
@@ -146,20 +144,17 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     func remoteMediaClient(_ client: GCKRemoteMediaClient, didUpdate mediaStatus: GCKMediaStatus) {
         switch mediaStatus.playerState {
         case .paused:
-            UIApplication.shared.isIdleTimerDisabled = false
             setProgress(status: .paused)
             playPauseButton.setImage(UIImage(named: "Play"), for: .normal)
             elapsedTimer?.invalidate()
             elapsedTimer = nil
         case .playing:
-            UIApplication.shared.isIdleTimerDisabled = true
             setProgress(status: .watching)
             playPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
             if elapsedTimer == nil {
                 elapsedTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
             }
         case .buffering:
-            UIApplication.shared.isIdleTimerDisabled = true
             playPauseButton.setImage(UIImage(named: "Play"), for: .normal)
         case .idle:
             switch idleReason {
@@ -176,21 +171,17 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let image = media.largeCoverImage, let url = URL(string: image) {
-            imageView.af_setImage(withURL: url)
-            backgroundImageView.af_setImage(withURL: url)
-        }
-        
-        if let subtitle = media.currentSubtitle {
-            remoteMediaClient?.setActiveTrackIDs([NSNumber(value: media.subtitles.index{$0.link == subtitle.link}! as Int)])
-        }
-        
+    
         titleLabel.text = media.title
         volumeSlider.setThumbImage(UIImage(named: "Scrubber Image"), for: .normal)
         volumeSlider?.setValue(remoteMediaClient?.mediaStatus?.volume ?? 1.0, animated: true)
         
         elapsedTimer = elapsedTimer ?? Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
-        streamPosition = startPosition * streamDuration
+        
+        if let image = media.largeCoverImage, let url = URL(string: image) {
+            imageView.af_setImage(withURL: url)
+            backgroundImageView.af_setImage(withURL: url)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -204,11 +195,11 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
         UIApplication.shared.isIdleTimerDisabled = false
     }
     
-    override var shouldAutorotate : Bool {
+    override var shouldAutorotate: Bool {
         return UIDevice.current.userInterfaceIdiom == .pad
     }
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
 }

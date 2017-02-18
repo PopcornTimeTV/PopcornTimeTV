@@ -5,6 +5,7 @@ import MediaPlayer
 import PopcornTorrent
 import PopcornKit
 
+
 #if os(tvOS)
     import TVMLKitchen
 #endif
@@ -13,7 +14,7 @@ protocol PCTPlayerViewControllerDelegate: class {
     func playNext(_ episode: Episode)
     
     #if os(iOS)
-        func presentCastPlayer(_ media: Media, videoFilePath: URL, startPosition: TimeInterval)
+        func presentCastPlayer(_ media: Media, videoFilePath: URL)
     #endif
 }
 
@@ -39,6 +40,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     var lastTranslation: CGFloat = 0.0
     
     // iOS exclusive
+    @IBOutlet var airPlayingView: UIView?
     @IBOutlet var screenshotImageView: UIImageView?
     
     @IBOutlet var playPauseButton: UIButton?
@@ -177,6 +179,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         mediaplayer.delegate = nil
         mediaplayer.stop()
         
+        removeRemoteCommandCenterHandlers()
+        endReceivingScreenNotifications()
+        
         PTTorrentStreamer.shared().cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
         
         setProgress(status: .finished)
@@ -225,6 +230,13 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     internal var streamDuration: Float {
         guard let remaining = mediaplayer.remainingTime?.value?.floatValue, let elapsed = mediaplayer.time?.value?.floatValue else { return Float(CMTimeGetSeconds(imageGenerator.asset.duration) * 1000) }
         return fabsf(remaining) + elapsed
+    }
+    internal var nowPlayingInfo: [String : Any]? {
+        get {
+            return MPNowPlayingInfoCenter.default().nowPlayingInfo
+        } set {
+            MPNowPlayingInfoCenter.default().nowPlayingInfo = newValue
+        }
     }
     
     // MARK: - Player functions
@@ -369,6 +381,10 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
                 mediaplayer.time = VLCTime(number: time)
             }
             
+            addRemoteCommandCenterHandlers()
+            beginReceivingScreenNotifications()
+            configureNowPlayingInfo()
+            
             resetIdleTimer()
         }
         
@@ -392,6 +408,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     func mediaPlayerStateChanged(_ aNotification: Notification!) {
         resetIdleTimer()
         progressBar.isBuffering = false
+        nowPlayingInfo?[MPNowPlayingInfoPropertyElapsedPlaybackTime] = mediaplayer.time.value.doubleValue/1000
         switch mediaplayer.state {
         case .error:
             fallthrough
@@ -403,9 +420,11 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         case .paused:
             setProgress(status: .paused)
             playPauseButton?.setImage(UIImage(named: "Play"), for: .normal)
+            nowPlayingInfo?[MPNowPlayingInfoPropertyPlaybackRate] = 0.0
         case .playing:
             playPauseButton?.setImage(UIImage(named: "Pause"), for: .normal)
             setProgress(status: .watching)
+            nowPlayingInfo?[MPNowPlayingInfoPropertyPlaybackRate] = Double(mediaplayer.rate)
         case .buffering:
             progressBar.isBuffering = true
         default:
@@ -441,7 +460,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     func resetIdleTimer() {
         idleWorkItem?.cancel()
         idleWorkItem = DispatchWorkItem() {
-            if !self.progressBar.isHidden && self.mediaplayer.isPlaying && !self.progressBar.isScrubbing && !self.progressBar.isBuffering && self.mediaplayer.rate == 1.0 // If paused, scrubbing, fast forwarding or loading, cancel work Item so UI doesn't disappear
+            if !self.progressBar.isHidden && self.mediaplayer.isPlaying && !self.progressBar.isScrubbing && !self.progressBar.isBuffering && self.mediaplayer.rate == 1.0  && self.view.subviews.contains(self.movieView) // If paused, scrubbing, fast forwarding, loading or mirroring, cancel work Item so UI doesn't disappear
             {
                 self.toggleControlsVisible()
             }

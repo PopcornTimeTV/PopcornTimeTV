@@ -16,7 +16,7 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
             vc.delegate = self
         } else if segue.identifier == "showDevices", let vc = (segue.destination as? UINavigationController)?.viewControllers.first as? GoogleCastTableViewController {
             object_setClass(vc, StreamToDevicesTableViewController.self)
-            vc.castMetadata = (title: media.title, image: media.smallCoverImage != nil ? URL(string: media.smallCoverImage!) : nil, contentType: media is Movie ? "video/mp4" : "video/x-matroska", subtitles: media.subtitles, url: url.relativeString, mediaAssetsPath: directory)
+            vc.castMetadata = (title: media.title, image: media.smallCoverImage != nil ? URL(string: media.smallCoverImage!) : nil, contentType: media is Movie ? "video/mp4" : "video/x-matroska", subtitles: media.subtitles, url: url.relativeString, mediaAssetsPath: directory, startPosition: TimeInterval(progressBar.progress))
             vc.delegate = self
         }
     }
@@ -130,7 +130,7 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
         mediaplayer.delegate = nil
         mediaplayer.stop()
 
-        delegate?.presentCastPlayer(media, videoFilePath: directory, startPosition: TimeInterval(progressBar.progress))
+        delegate?.presentCastPlayer(media, videoFilePath: directory)
     }
 }
 
