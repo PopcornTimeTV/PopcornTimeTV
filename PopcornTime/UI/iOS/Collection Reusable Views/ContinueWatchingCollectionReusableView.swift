@@ -138,7 +138,7 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
         }
         
         let ratio = estimatedWidth/23
-        let height = 19 * ratio
+        let height = 17 * ratio
         
         return CGSize(width: estimatedWidth, height: height)
     }
