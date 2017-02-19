@@ -2,6 +2,7 @@
 
 import Foundation
 import PopcornKit
+import CSStickyHeaderFlowLayout
 
 protocol CollectionViewControllerDelegate: class {
     func load(page: Int)
@@ -9,6 +10,7 @@ protocol CollectionViewControllerDelegate: class {
     func collectionView(isEmptyForUnknownReason collectionView: UICollectionView)
     
     func collectionView(_ collectionView: UICollectionView, titleForHeaderInSection section: Int) -> String?
+    func collectionView(nibForHeaderInCollectionView collectionView: UICollectionView) -> UINib?
 }
 
 extension CollectionViewControllerDelegate {
@@ -17,6 +19,7 @@ extension CollectionViewControllerDelegate {
     func collectionView(isEmptyForUnknownReason collectionView: UICollectionView) {}
     
     func collectionView(_ collectionView: UICollectionView, titleForHeaderInSection section: Int) -> String? { return nil }
+    func collectionView(nibForHeaderInCollectionView collectionView: UICollectionView) -> UINib? { return nil }
 }
 
 class CollectionViewController: ResponsiveCollectionViewController, UICollectionViewDelegateFlowLayout {
@@ -61,7 +64,20 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.sectionHeadersPinToVisibleBounds = true
+        if let collectionView = collectionView,
+            let layout = collectionView.collectionViewLayout as? CSStickyHeaderFlowLayout {
+            if let nib = delegate?.collectionView(nibForHeaderInCollectionView: collectionView) {
+                let size = CGSize(width: collectionView.bounds.width, height: 200)
+                layout.parallaxHeaderReferenceSize = size
+                layout.parallaxHeaderMinimumReferenceSize = size
+                layout.disableStickyHeaders = true
+                layout.disableStretching = true
+                
+                collectionView.register(nib, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "stickyHeader")
+            } else {
+                layout.sectionHeadersPinToVisibleBounds = true
+            }
+        }
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -96,14 +112,13 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
         
-        let itemSpacing = flowLayout.minimumInteritemSpacing
-        
         var items: CGFloat = 1
-        while (view.bounds.width/items) - itemSpacing > minItemSize.width {
+        var width: CGFloat = .greatestFiniteMagnitude
+        let sectionInset = flowLayout.sectionInset.left + flowLayout.sectionInset.right
+        while width > minItemSize.width {
             items += 1
+            width = (view.bounds.width/items) - (sectionInset/items) - (flowLayout.minimumInteritemSpacing * (items - 1)/items)
         }
-        
-        let width = (items < 2 ? view.bounds.width/2 : view.bounds.width/items) - itemSpacing
         
         let ratio = width/minItemSize.width
         let height = minItemSize.height * ratio
@@ -139,12 +154,19 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if let title = delegate?.collectionView(collectionView, titleForHeaderInSection: indexPath.section), kind == UICollectionElementKindSectionHeader {
+        if kind == UICollectionElementKindSectionHeader, let title = delegate?.collectionView(collectionView, titleForHeaderInSection: indexPath.section) {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "sectionHeader", for: indexPath)
             
             let label = header.viewWithTag(1) as? UILabel
             label?.text = title
             
+            return header
+        } else if kind == CSStickyHeaderParallaxHeader {
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "stickyHeader", for: indexPath) as! ContinueWatchingCollectionReusableView
+            if let parent = parent {
+                header.type = type(of: parent) == MoviesViewController.self ? .movies : .episodes
+                header.refreshOnDeck()
+            }
             return header
         }
         return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
@@ -210,12 +232,17 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
         delegate?.didRefresh(collectionView: collectionView!)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing = traitCollection.horizontalSizeClass == .regular ? 30 : 10
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier,
             let cell = sender as? UICollectionViewCell,
             let indexPath = collectionView?.indexPath(for: cell) {
             
-            if let media = dataSources[indexPath.section][indexPath.row] as? Media,
+            if identifier == "showMovie" || identifier == "showShow",
+                let media = dataSources[indexPath.section][indexPath.row] as? Media,
                 let vc = storyboard?.instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController {
                 
                 // Exact same storyboard UI is being used for both classes. This will enable subclass-specific functions however, stored instance variables cannot be created on either subclass because object_setClass does not initialise stored variables.

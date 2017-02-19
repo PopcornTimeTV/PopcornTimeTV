@@ -24,6 +24,7 @@ target 'PopcornTimeiOS' do
     pod '1PasswordExtension', '~> 1.8.4'
     pod 'MobileVLCKit-unstable', '~> 3.0.0a24'
     pod 'FloatRatingView', '~> 2.0'
+    pod 'CSStickyHeaderFlowLayout', '~> 0.2.11'
 end
 
 target 'PopcornTimetvOS' do

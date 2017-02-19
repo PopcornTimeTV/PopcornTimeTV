@@ -24,6 +24,8 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate, Ge
         }
     }
     
+    func collectionView(nibForHeaderInCollectionView collectionView: UICollectionView) -> UINib? { return nil }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,8 +62,8 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate, Ge
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "embed", let vc = segue.destination as? CollectionViewController {
             collectionViewController = vc
-            collectionViewController.isRefreshable = true
             collectionViewController.delegate = self
+            collectionViewController.isRefreshable = true
         }
     }
 }

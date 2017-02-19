@@ -149,6 +149,10 @@
 		4DAFAA3B1E0AFDA600AE0F9A /* OptionsStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFAA3A1E0AFDA600AE0F9A /* OptionsStackViewController.swift */; };
 		4DBFA27F1E12CF7F00763E34 /* MediaRecipeJSExports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBFA27E1E12CF7F00763E34 /* MediaRecipeJSExports.swift */; };
 		4DBFA2821E12F79600763E34 /* SearchRecipeJSExports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBFA2811E12F79600763E34 /* SearchRecipeJSExports.swift */; };
+		4DC2D12F1E59F33C0019DB7D /* ContinueWatchingCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DC2D12E1E59F33C0019DB7D /* ContinueWatchingCollectionReusableView.xib */; };
+		4DC2D1311E59FD2C0019DB7D /* ContinueWatchingCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2D1301E59FD2C0019DB7D /* ContinueWatchingCollectionReusableView.swift */; };
+		4DC2D1331E59FE290019DB7D /* ContinueWatchingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DC2D1321E59FE290019DB7D /* ContinueWatchingCollectionViewCell.xib */; };
+		4DC2D1351E5A250B0019DB7D /* SnappingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2D1341E5A250B0019DB7D /* SnappingCollectionViewLayout.swift */; };
 		4DC7B6931E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B6921E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift */; };
 		4DC7B6951E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */; };
 		4DC7B69B1E3503720098B12E /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B69A1E3503720098B12E /* CircularButton.swift */; };
@@ -335,6 +339,10 @@
 		4DAFAA3A1E0AFDA600AE0F9A /* OptionsStackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsStackViewController.swift; sourceTree = "<group>"; };
 		4DBFA27E1E12CF7F00763E34 /* MediaRecipeJSExports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaRecipeJSExports.swift; sourceTree = "<group>"; };
 		4DBFA2811E12F79600763E34 /* SearchRecipeJSExports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchRecipeJSExports.swift; sourceTree = "<group>"; };
+		4DC2D12E1E59F33C0019DB7D /* ContinueWatchingCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContinueWatchingCollectionReusableView.xib; path = "Collection Reusable Views/ContinueWatchingCollectionReusableView.xib"; sourceTree = "<group>"; };
+		4DC2D1301E59FD2C0019DB7D /* ContinueWatchingCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContinueWatchingCollectionReusableView.swift; path = "Collection Reusable Views/ContinueWatchingCollectionReusableView.swift"; sourceTree = "<group>"; };
+		4DC2D1321E59FE290019DB7D /* ContinueWatchingCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContinueWatchingCollectionViewCell.xib; sourceTree = "<group>"; };
+		4DC2D1341E5A250B0019DB7D /* SnappingCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnappingCollectionViewLayout.swift; path = "Collection View Layouts/SnappingCollectionViewLayout.swift"; sourceTree = "<group>"; };
 		4DC7B6921E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContinueWatchingCollectionViewController.swift; path = "Collection View Controllers/ContinueWatchingCollectionViewController.swift"; sourceTree = "<group>"; };
 		4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueWatchingCollectionViewCell.swift; sourceTree = "<group>"; };
 		4DC7B69A1E3503720098B12E /* CircularButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
@@ -529,6 +537,7 @@
 			isa = PBXGroup;
 			children = (
 				4D859B371DDFA099000E2AA1 /* Main.storyboard */,
+				4DC2D12D1E59F3090019DB7D /* Collection Reusable Views */,
 				4D111F3F1E42415500DF586A /* Presentation Controllers */,
 				4DE9E0681E3D0D8000806522 /* Collection View Layouts */,
 				4DC7B6A81E391FA40098B12E /* Container View Controllers */,
@@ -746,10 +755,11 @@
 			isa = PBXGroup;
 			children = (
 				4DC7B6A21E3907B50098B12E /* DescriptionCollectionViewCell.swift */,
-				4DC7B6A61E391E280098B12E /* EpisodeCollectionViewCell.swift */,
 				4DC7B6A41E3907CC0098B12E /* DescriptionCollectionViewCell.xib */,
+				4DC7B6A61E391E280098B12E /* EpisodeCollectionViewCell.swift */,
 				4D859B491DDFA0E4000E2AA1 /* CoverCollectionViewCell.swift */,
 				4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */,
+				4DC2D1321E59FE290019DB7D /* ContinueWatchingCollectionViewCell.xib */,
 				4DAF1A451E2D3BDB00D963BD /* MonogramCollectionViewCell.swift */,
 			);
 			path = "Collection View Cells";
@@ -830,6 +840,15 @@
 			path = Source;
 			sourceTree = "<group>";
 		};
+		4DC2D12D1E59F3090019DB7D /* Collection Reusable Views */ = {
+			isa = PBXGroup;
+			children = (
+				4DC2D12E1E59F33C0019DB7D /* ContinueWatchingCollectionReusableView.xib */,
+				4DC2D1301E59FD2C0019DB7D /* ContinueWatchingCollectionReusableView.swift */,
+			);
+			name = "Collection Reusable Views";
+			sourceTree = "<group>";
+		};
 		4DC7B6A81E391FA40098B12E /* Container View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -869,6 +888,7 @@
 			isa = PBXGroup;
 			children = (
 				4DE9E0691E3D0DC300806522 /* SeparatorCollectionViewLayout.swift */,
+				4DC2D1341E5A250B0019DB7D /* SnappingCollectionViewLayout.swift */,
 			);
 			name = "Collection View Layouts";
 			sourceTree = "<group>";
@@ -1069,9 +1089,11 @@
 			files = (
 				4D689A291DD88EE9001D1318 /* EncodingTypes.plist in Resources */,
 				4D859B391DDFA0A6000E2AA1 /* Main.storyboard in Resources */,
+				4DC2D1331E59FE290019DB7D /* ContinueWatchingCollectionViewCell.xib in Resources */,
 				4D689A361DD8906F001D1318 /* Images.xcassets in Resources */,
 				4D29072A1E2BA80F00581701 /* LoadingView.xib in Resources */,
 				4D859B361DDFA08B000E2AA1 /* Launch Screen.storyboard in Resources */,
+				4DC2D12F1E59F33C0019DB7D /* ContinueWatchingCollectionReusableView.xib in Resources */,
 				4D11C5011E313F7500CF9182 /* indicator-watched.png in Resources */,
 				4D859B771DDFA12C000E2AA1 /* ErrorBackgroundView.xib in Resources */,
 				4DC7B6A51E3907CC0098B12E /* DescriptionCollectionViewCell.xib in Resources */,
@@ -1289,6 +1311,7 @@
 				4DDBD90A1E0EDA2E00CEA1B1 /* Array+Extension.swift in Sources */,
 				4DE9E06C1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift in Sources */,
 				4DC7B6951E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift in Sources */,
+				4DC2D1351E5A250B0019DB7D /* SnappingCollectionViewLayout.swift in Sources */,
 				4D4F90341E33AA440050CA47 /* WatchlistViewController.swift in Sources */,
 				4D859B311DDFA07C000E2AA1 /* SettingsTableViewController.swift in Sources */,
 				4D859B551DDFA0F8000E2AA1 /* MainViewController.swift in Sources */,
@@ -1344,6 +1367,7 @@
 				4D77D1F81E47A1B80089242C /* StepperTableViewCell.swift in Sources */,
 				4D859B661DDFA11B000E2AA1 /* CastPlayerViewController.swift in Sources */,
 				4D859B561DDFA0F8000E2AA1 /* MoviesViewController.swift in Sources */,
+				4DC2D1311E59FD2C0019DB7D /* ContinueWatchingCollectionReusableView.swift in Sources */,
 				4D6A9C931E1302D6002D684C /* ErrorBackgroundView.swift in Sources */,
 				4D689A2C1DD88F0A001D1318 /* UIColor+Extension.swift in Sources */,
 				4D17C2C31E509C4A00B61902 /* Show+Extension.swift in Sources */,

@@ -29,12 +29,14 @@ class ResponsiveCollectionViewController: UICollectionViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         guard previousTraitCollection != nil else { return }
-        collectionView?.performBatchUpdates(nil, completion: nil)
+        collectionView?.performBatchUpdates(nil)
+        collectionView?.subviews.filter({$0 is UICollectionReusableView}).forEach({$0.layoutSubviews()})
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let keyPath = keyPath, keyPath == "frame" && context == &classContext {
-            collectionView?.performBatchUpdates(nil, completion: nil)
+            collectionView?.performBatchUpdates(nil)
+            collectionView?.subviews.filter({$0 is UICollectionReusableView}).forEach({$0.layoutSubviews()})
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }

@@ -18,6 +18,10 @@ class ShowsViewController: MainViewController {
         }
     }
     
+    override func collectionView(nibForHeaderInCollectionView collectionView: UICollectionView) -> UINib? {
+        return UINib(nibName: String(describing: ContinueWatchingCollectionReusableView.self), bundle: nil)
+    }
+    
     override func load(page: Int) {
         guard !collectionViewController.isLoading else { return }
         collectionViewController.isLoading = true
