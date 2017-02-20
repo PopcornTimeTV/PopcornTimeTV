@@ -126,7 +126,7 @@ class ShowDetailViewController: DetailViewController {
                 
                 let dataSource = (show.actors as [AnyHashable]) + (show.crew as [AnyHashable])
                 castCollectionViewController.dataSources = [dataSource]
-                castCollectionViewController.minItemSize.height = 230
+                castCollectionViewController.minItemSize.height = 250
             }
             
             super.prepare(for: segue, sender: sender)

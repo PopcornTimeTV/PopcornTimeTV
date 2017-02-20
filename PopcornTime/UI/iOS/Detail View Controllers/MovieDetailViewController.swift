@@ -114,7 +114,7 @@ class MovieDetailViewController: DetailViewController {
                 
                 let dataSource = (movie.actors as [AnyHashable]) + (movie.crew as [AnyHashable])
                 castCollectionViewController.dataSources = [dataSource]
-                castCollectionViewController.minItemSize.height = 230
+                castCollectionViewController.minItemSize.height = 250
             }
             
             super.prepare(for: segue, sender: sender)

@@ -44,7 +44,7 @@ class SearchViewController: MainViewController, UISearchBarDelegate, UIToolbarDe
         default: return
         }
         
-        collectionViewController.minItemSize.height = fetchType == .people ? 230 : 300
+        collectionViewController.minItemSize.height = fetchType == .people ? 250 : 300
         filterSearchText(searchBar.text ?? "")
     }
     

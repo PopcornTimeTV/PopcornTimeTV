@@ -18,10 +18,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Episode Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="FRb-As-wVp">
-                        <rect key="frame" x="0.0" y="0.0" width="374" height="165.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="374" height="166"/>
                     </imageView>
                     <progressView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ajz-rz-aCF">
-                        <rect key="frame" x="15" y="144.5" width="344" height="6"/>
+                        <rect key="frame" x="15" y="145" width="344" height="6"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="6" id="Xf6-yT-GGs"/>
                         </constraints>
@@ -35,11 +35,11 @@
                         </userDefinedRuntimeAttributes>
                     </progressView>
                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e2z-td-O3M">
-                        <rect key="frame" x="0.0" y="0.0" width="374" height="165.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="374" height="166"/>
                         <color key="backgroundColor" white="0.0" alpha="0.39846500880000002" colorSpace="calibratedWhite"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcd-Ga-Vmc">
-                        <rect key="frame" x="0.0" y="173.5" width="44" height="21.5"/>
+                        <rect key="frame" x="0.0" y="174" width="44" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21.5" id="tzm-gK-49t"/>
                         </constraints>
@@ -48,7 +48,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kbX-C2-vDd">
-                        <rect key="frame" x="0.0" y="198" width="35.5" height="17"/>
+                        <rect key="frame" x="0.0" y="198" width="36" height="17"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="17" id="zBN-Kz-68U"/>
                         </constraints>

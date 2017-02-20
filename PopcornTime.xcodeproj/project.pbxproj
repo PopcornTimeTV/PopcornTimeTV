@@ -153,7 +153,8 @@
 		4DC2D1311E59FD2C0019DB7D /* ContinueWatchingCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2D1301E59FD2C0019DB7D /* ContinueWatchingCollectionReusableView.swift */; };
 		4DC2D1331E59FE290019DB7D /* ContinueWatchingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DC2D1321E59FE290019DB7D /* ContinueWatchingCollectionViewCell.xib */; };
 		4DC2D1351E5A250B0019DB7D /* SnappingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2D1341E5A250B0019DB7D /* SnappingCollectionViewLayout.swift */; };
-		4DC7B6931E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B6921E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift */; };
+		4DC2D1371E5B25750019DB7D /* AutoPlayStoryboardSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2D1361E5B25750019DB7D /* AutoPlayStoryboardSegue.swift */; };
+		4DC2D1381E5B25750019DB7D /* AutoPlayStoryboardSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2D1361E5B25750019DB7D /* AutoPlayStoryboardSegue.swift */; };
 		4DC7B6951E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */; };
 		4DC7B69B1E3503720098B12E /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B69A1E3503720098B12E /* CircularButton.swift */; };
 		4DC7B69D1E35295E0098B12E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B69C1E35295E0098B12E /* InfoViewController.swift */; };
@@ -343,7 +344,7 @@
 		4DC2D1301E59FD2C0019DB7D /* ContinueWatchingCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContinueWatchingCollectionReusableView.swift; path = "Collection Reusable Views/ContinueWatchingCollectionReusableView.swift"; sourceTree = "<group>"; };
 		4DC2D1321E59FE290019DB7D /* ContinueWatchingCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContinueWatchingCollectionViewCell.xib; sourceTree = "<group>"; };
 		4DC2D1341E5A250B0019DB7D /* SnappingCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnappingCollectionViewLayout.swift; path = "Collection View Layouts/SnappingCollectionViewLayout.swift"; sourceTree = "<group>"; };
-		4DC7B6921E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContinueWatchingCollectionViewController.swift; path = "Collection View Controllers/ContinueWatchingCollectionViewController.swift"; sourceTree = "<group>"; };
+		4DC2D1361E5B25750019DB7D /* AutoPlayStoryboardSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoPlayStoryboardSegue.swift; sourceTree = "<group>"; };
 		4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueWatchingCollectionViewCell.swift; sourceTree = "<group>"; };
 		4DC7B69A1E3503720098B12E /* CircularButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
 		4DC7B69C1E35295E0098B12E /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoViewController.swift; path = "View Controllers/InfoViewController.swift"; sourceTree = "<group>"; };
@@ -482,7 +483,6 @@
 				4DC7B6A01E39027A0098B12E /* DescriptionCollectionViewController.swift */,
 				4D1B88A61E3BEFF300DB701D /* EpisodesCollectionViewController.swift */,
 				4D11C5061E31409100CF9182 /* CollectionViewController.swift */,
-				4DC7B6921E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift */,
 				4D1B88A41E3BD42B00DB701D /* ResponsiveCollectionViewController.swift */,
 			);
 			name = "Collection View Controllers";
@@ -632,6 +632,7 @@
 				4D990E2B1DC4F00F005CDE34 /* EncodingTypes.plist */,
 				4D990E321DC4F028005CDE34 /* Images.xcassets */,
 				4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */,
+				4DC2D1361E5B25750019DB7D /* AutoPlayStoryboardSegue.swift */,
 				4D69B7601DC6396D00A88A37 /* button-unwatched.png */,
 				4D69B7611DC6396D00A88A37 /* button-watched.png */,
 				4D9A91D01E144FB800C29CA5 /* indicator-watched.png */,
@@ -1247,6 +1248,7 @@
 				4D859BBF1DDFA1EB000E2AA1 /* DescriptionRecipe.swift in Sources */,
 				4D859BED1DDFA246000E2AA1 /* SeasonPickerRecipe.swift in Sources */,
 				4D859BAF1DDFA1B7000E2AA1 /* SubtitlesViewController.swift in Sources */,
+				4DC2D1371E5B25750019DB7D /* AutoPlayStoryboardSegue.swift in Sources */,
 				4D7376021DFDC6F500505CA0 /* NSNotification+Name.swift in Sources */,
 				4D859BE01DDFA237000E2AA1 /* Shows.swift in Sources */,
 				4D859BB01DDFA1B7000E2AA1 /* OptionsViewController.swift in Sources */,
@@ -1342,11 +1344,11 @@
 				4D1B88AD1E3CAF6700DB701D /* UIAlertAction+Extension.swift in Sources */,
 				4D859B321DDFA07C000E2AA1 /* UpNextView.swift in Sources */,
 				4D859B631DDFA10C000E2AA1 /* EpisodeDetailViewController.swift in Sources */,
+				4DC2D1381E5B25750019DB7D /* AutoPlayStoryboardSegue.swift in Sources */,
 				4D859B4B1DDFA0E6000E2AA1 /* CoverCollectionViewCell.swift in Sources */,
 				4D859B871DDFA13D000E2AA1 /* BlurButton.swift in Sources */,
 				4D689A6E1DD8ADFD001D1318 /* CastIconButton.swift in Sources */,
 				4D859B761DDFA12C000E2AA1 /* ExpandableTextView.swift in Sources */,
-				4DC7B6931E33EAEC0098B12E /* ContinueWatchingCollectionViewController.swift in Sources */,
 				4D8A57471DE10DFE00CCDF8A /* UIViewController+StatusBar.swift in Sources */,
 				4D859B8C1DDFA151000E2AA1 /* BarSlider.swift in Sources */,
 				4D859B8D1DDFA151000E2AA1 /* ProgressSlider.swift in Sources */,

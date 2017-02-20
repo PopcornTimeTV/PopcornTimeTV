@@ -5,7 +5,7 @@ import PopcornKit
 import AlamofireImage
 import CSStickyHeaderFlowLayout
 
-class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, ContinueWatchingCollectionViewCellDelegate {
     
     @IBOutlet var collectionView: UICollectionView!
     
@@ -72,6 +72,8 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ContinueWatchingCollectionViewCell
         
+        cell.delegate = self
+        
         let media = onDeck[indexPath.row]
         let placeholder = media is Movie ? "Movie Placeholder" : "Episode Placeholder"
         
@@ -100,6 +102,38 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
     // MARK: - Collection view delegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let info: (media: Media, identifier: String) = {
+            let media = onDeck[indexPath.row]
+            if let episode = media as? Episode {
+                return (episode.show, "showShow")
+            }
+            return (media, "showMovie")
+        }()
+        
+        parentViewController?.performSegue(withIdentifier: info.identifier, sender: info.media)
+    }
+    
+    // MARK: - Continue watching collection view cell delegate
+    
+    func cell(_ cell: ContinueWatchingCollectionViewCell, didDetectLongPressGesture: UILongPressGestureRecognizer) {
+        guard let indexPath = collectionView.indexPath(for: cell), let media = onDeck[safe: indexPath.row] else { return }
+        
+        let vc = UIAlertController(title: "Remove from on deck", message: "Are you sure you want to remove this item?", preferredStyle: .alert)
+        
+        vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        vc.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (_) in
+            if let episode = media as? Episode {
+                WatchedlistManager<Episode>.episode.setCurrentProgress(0, for: episode.id, with: .finished)
+            } else if let movie = media as? Movie {
+                WatchedlistManager<Movie>.movie.setCurrentProgress(0, for: movie.id, with: .finished)
+            }
+            
+            self.onDeck.remove(at: indexPath.row)
+            self.collectionView.reloadData()
+            self.refreshOnDeck()
+        }))
+            
+        parentViewController?.present(vc, animated: true, completion: nil)
     }
     
     // MARK: - Layout
@@ -145,6 +179,6 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.minimumLineSpacing = traitCollection.horizontalSizeClass == .regular ? 30 : 10
-        self.layoutSubviews()
+        layoutSubviews()
     }
 }

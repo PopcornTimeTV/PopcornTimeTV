@@ -113,12 +113,14 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
         guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
         
         var items: CGFloat = 1
-        var width: CGFloat = .greatestFiniteMagnitude
+        var width: CGFloat = 0
         let sectionInset = flowLayout.sectionInset.left + flowLayout.sectionInset.right
-        while width > minItemSize.width {
+        let spacing = flowLayout.scrollDirection == .horizontal ? flowLayout.minimumLineSpacing : flowLayout.minimumInteritemSpacing
+        
+        repeat {
             items += 1
-            width = (view.bounds.width/items) - (sectionInset/items) - (flowLayout.minimumInteritemSpacing * (items - 1)/items)
-        }
+            width = (view.bounds.width/items) - (sectionInset/items) - (spacing * (items - 1)/items)
+        } while width > minItemSize.width
         
         let ratio = width/minItemSize.width
         let height = minItemSize.height * ratio
@@ -134,6 +136,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
             let background: ErrorBackgroundView = .fromNib() {
             background.setUpView(error: error)
             collectionView.backgroundView = background
+            self.error = nil
         } else if isLoading {
             let view: LoadingView? = .fromNib()
             collectionView.backgroundView = view
@@ -233,60 +236,26 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing = traitCollection.horizontalSizeClass == .regular ? 30 : 10
+        if let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            let isHorizontal = layout.scrollDirection == .horizontal
+            let isRegular = traitCollection.horizontalSizeClass == .regular
+            let spacing: CGFloat = isRegular ? 30 : 10
+            
+            if isHorizontal {
+                layout.minimumLineSpacing = spacing
+            } else {
+                layout.minimumInteritemSpacing = spacing
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let identifier = segue.identifier,
-            let cell = sender as? UICollectionViewCell,
+        if let cell = sender as? UICollectionViewCell,
             let indexPath = collectionView?.indexPath(for: cell) {
-            
-            if identifier == "showMovie" || identifier == "showShow",
-                let media = dataSources[indexPath.section][indexPath.row] as? Media,
-                let vc = storyboard?.instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController {
-                
-                // Exact same storyboard UI is being used for both classes. This will enable subclass-specific functions however, stored instance variables cannot be created on either subclass because object_setClass does not initialise stored variables.
-                object_setClass(vc, media is Movie ? MovieDetailViewController.self : ShowDetailViewController.self)
-                navigationController?.navigationBar.isBackgroundHidden = true
-                
-                vc.loadMedia(id: media.id) { (media, error) in
-                    guard let navigationController = self.navigationController,
-                        navigationController.visibleViewController === segue.destination else { return }
-                    
-                    let transition = CATransition()
-                    transition.duration = 0.5
-                    transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                    transition.type = kCATransitionFade
-                    navigationController.view.layer.add(transition, forKey: nil)
-                    
-                    defer {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + transition.duration) {
-                            var viewControllers = navigationController.viewControllers
-                            let index = viewControllers.count - 2
-                            viewControllers.remove(at: index)
-                            navigationController.setViewControllers(viewControllers, animated: false)
-                        }
-                    }
-                    
-                    if let error = error {
-                        let vc = UIViewController()
-                        let view: ErrorBackgroundView? = .fromNib()
-                        
-                        view?.setUpView(error: error)
-                        vc.view = view
-                        
-                        navigationController.pushViewController(vc, animated: false)
-                    } else {
-                        vc.currentItem = media
-                        
-                        navigationController.pushViewController(vc, animated: false)
-                    }
-                }
-            } else if identifier == "showPerson",
-                let vc = segue.destination as? PersonDetailCollectionViewController,
-                let person = dataSources[indexPath.section][indexPath.row] as? Person {
-                vc.currentItem = person
-            }
+            parent?.prepare(for: segue, sender: dataSources[indexPath.section][indexPath.row])
+        } else if sender is Movie || sender is Show, let segue = segue as? AutoPlayStoryboardSegue {
+            segue.shouldAutoPlay = true // Called from continue watching, enable autoplaying.
+            parent?.prepare(for: segue, sender: sender)
         }
     }
 }

@@ -64,6 +64,56 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate, Ge
             collectionViewController = vc
             collectionViewController.delegate = self
             collectionViewController.isRefreshable = true
+        } else if let segue = segue as? AutoPlayStoryboardSegue,
+            segue.identifier == "showMovie" || segue.identifier == "showShow",
+            let media: Media = sender as? Movie ?? sender as? Show,
+            let vc = storyboard?.instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController {
+            
+            // Exact same storyboard UI is being used for both classes. This will enable subclass-specific functions however, stored instance variables cannot be created on either subclass because object_setClass does not initialise stored variables.
+            object_setClass(vc, media is Movie ? MovieDetailViewController.self : ShowDetailViewController.self)
+            navigationController?.navigationBar.isBackgroundHidden = true
+            
+            vc.loadMedia(id: media.id) { (media, error) in
+                guard let navigationController = self.navigationController,
+                    navigationController.visibleViewController === segue.destination else { return }
+                
+                let transition = CATransition()
+                transition.duration = 0.5
+                transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+                transition.type = kCATransitionFade
+                navigationController.view.layer.add(transition, forKey: nil)
+                
+                defer {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + transition.duration) {
+                        var viewControllers = navigationController.viewControllers
+                        let index = viewControllers.count - 2
+                        viewControllers.remove(at: index)
+                        navigationController.setViewControllers(viewControllers, animated: false)
+                        
+                        if let media = media, segue.shouldAutoPlay {
+                           vc.chooseQuality(nil, media: media)
+                        }
+                    }
+                }
+                
+                if let error = error {
+                    let vc = UIViewController()
+                    let view: ErrorBackgroundView? = .fromNib()
+                    
+                    view?.setUpView(error: error)
+                    vc.view = view
+                    
+                    navigationController.pushViewController(vc, animated: false)
+                } else {
+                    vc.currentItem = media
+                    
+                    navigationController.pushViewController(vc, animated: false)
+                }
+            }
+        } else if segue.identifier == "showPerson",
+            let vc = segue.destination as? PersonDetailCollectionViewController,
+            let person = sender as? Person {
+            vc.currentItem = person
         }
     }
 }

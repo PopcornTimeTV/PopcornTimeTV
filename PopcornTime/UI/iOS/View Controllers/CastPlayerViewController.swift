@@ -129,9 +129,9 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     
     func setProgress(status: Trakt.WatchedStatus) {
         if let movie = media as? Movie {
-            WatchedlistManager<Movie>.movie.setCurrentProgress(progressSlider.value, forId: movie.id, withStatus: status)
+            WatchedlistManager<Movie>.movie.setCurrentProgress(progressSlider.value, for: movie.id, with: status)
         } else if let episode = media as? Episode {
-            WatchedlistManager<Episode>.episode.setCurrentProgress(progressSlider.value, forId: episode.id, withStatus: status)
+            WatchedlistManager<Episode>.episode.setCurrentProgress(progressSlider.value, for: episode.id, with: status)
         }
     }
     

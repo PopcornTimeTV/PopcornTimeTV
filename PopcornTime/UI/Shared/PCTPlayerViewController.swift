@@ -476,9 +476,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     func setProgress(status: Trakt.WatchedStatus) {
         if let movie = media as? Movie {
-            WatchedlistManager<Movie>.movie.setCurrentProgress(progressBar.progress, forId: movie.id, withStatus: status)
+            WatchedlistManager<Movie>.movie.setCurrentProgress(progressBar.progress, for: movie.id, with: status)
         } else if let episode = media as? Episode {
-            WatchedlistManager<Episode>.episode.setCurrentProgress(progressBar.progress, forId: episode.id, withStatus: status)
+            WatchedlistManager<Episode>.episode.setCurrentProgress(progressBar.progress, for: episode.id, with: status)
         }
     }
     
