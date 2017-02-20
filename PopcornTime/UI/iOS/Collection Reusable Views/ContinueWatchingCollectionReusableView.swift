@@ -130,6 +130,7 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
             
             self.onDeck.remove(at: indexPath.row)
             self.collectionView.reloadData()
+            self.layoutSubviews()
         }))
             
         parentViewController?.present(vc, animated: true, completion: nil)
