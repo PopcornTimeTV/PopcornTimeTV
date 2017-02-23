@@ -8,17 +8,53 @@ import FloatRatingView
 import PopcornTorrent
 import PopcornKit
 
-class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, CollectionViewControllerDelegate, UIScrollViewDelegate, InfoViewControllerDelegate, UIViewControllerTransitioningDelegate {
+class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, CollectionViewControllerDelegate, UIScrollViewDelegate {
+    
+    
+    #if os(iOS)
 
-    @IBOutlet var castButton: CastIconBarButtonItem!
+    @IBOutlet var castButton: CastIconBarButtonItem?
     @IBOutlet var watchlistButton: UIBarButtonItem!
-    @IBOutlet var seasonsLabel: UILabel!
-    @IBOutlet var moreSeasonsButton: UIButton!
+    
+    var headerHeight: CGFloat = 0 {
+        didSet {
+            scrollView.contentInset.top = headerHeight
+        }
+    }
+    
+    @IBOutlet var compactConstraints: [NSLayoutConstraint] = []
+    @IBOutlet var regularConstraints: [NSLayoutConstraint] = []
+    
+    @IBAction func toggleWatchlist(_ sender: UIBarButtonItem) {
+        currentItem.isAddedToWatchlist = !currentItem.isAddedToWatchlist
+        sender.image = watchlistButtonImage
+    }
+    
+    
+    #elseif os(tvOS)
+    
+    @IBOutlet var watchlistButton: UIButton!
+    
+    @IBAction func toggleWatchlist(_ sender: UIButton) {
+        currentItem.isAddedToWatchlist = !currentItem.isAddedToWatchlist
+        sender.imageView?.image = watchlistButtonImage
+    }
+    
+    #endif
+    
+    // tvOS Exclusive
+    @IBOutlet var titleImageViews: [UIImageView] = []
+    @IBOutlet var titleLabel: UILabel?
+    
+    // iOS Exclusive 
+    @IBOutlet var gradientView: GradientView?
 
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var infoStackView: UIStackView!
     @IBOutlet var backgroundImageView: UIImageView!
-    @IBOutlet var gradientView: GradientView!
+    @IBOutlet var moreSeasonsButton: UIButton!
+    @IBOutlet var seasonsLabel: UILabel!
+    
     
     var relatedCollectionViewController: CollectionViewController!
     var castCollectionViewController: CollectionViewController!
@@ -27,11 +63,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     var episodesCollectionViewController: EpisodesCollectionViewController!
     
     var currentItem: Media!
-    var headerHeight: CGFloat = 0 {
-        didSet {
-            scrollView.contentInset.top = headerHeight
-        }
-    }
+    
     var currentSeason = -1
     
     
@@ -45,74 +77,27 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     @IBOutlet var accessibilityCollectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var episodesCollectionViewHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet var compactConstraints: [NSLayoutConstraint]!
-    @IBOutlet var regularConstraints: [NSLayoutConstraint]!
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        scrollViewDidScroll(scrollView) // Update the hidden status of UINavigationBar.
-        NotificationCenter.default.addObserver(self, selector: #selector(updateCastStatus), name: .gckCastStateDidChange, object: nil)
-        updateCastStatus()
-        
-        if transitionCoordinator?.viewController(forKey: .from) is LoadingViewController {
-            self.scrollView.contentOffset.y = -self.view.bounds.height
-            transitionCoordinator?.animate(alongsideTransition: { (context) in
-                guard let tabBarFrame = self.tabBarController?.tabBar.frame else { return }
-                
-                let tabBarOffsetY = -tabBarFrame.size.height
-                self.tabBarController?.tabBar.frame = tabBarFrame.offsetBy(dx: 0, dy: tabBarOffsetY)
-                
-                self.gradientView.alpha = 1.0
-                self.scrollView.contentOffset.y = -self.headerHeight
-                
-                self.view.layoutIfNeeded()
-            }, completion: nil)
-        }
+    var watchlistButtonImage: UIImage? {
+        return currentItem.isAddedToWatchlist ? UIImage(named: "Watchlist On") : UIImage(named: "Watchlist Off")
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isBackgroundHidden = false
-        NotificationCenter.default.removeObserver(self)
-        
-        if transitionCoordinator?.viewController(forKey: .to) is LoadingViewController {
-            transitionCoordinator?.animate(alongsideTransition: { (context) in
-                guard let tabBarFrame = self.tabBarController?.tabBar.frame, let navigationBarFrame = self.navigationController?.navigationBar.frame else { return }
-                
-                let tabBarOffsetY = tabBarFrame.size.height
-                let navigationOffsetY = -(navigationBarFrame.size.height + self.statusBarHeight)
-                
-                self.tabBarController?.tabBar.frame = tabBarFrame.offsetBy(dx: 0, dy: tabBarOffsetY)
-                self.navigationController?.navigationBar.frame = navigationBarFrame.offsetBy(dx: 0, dy: navigationOffsetY)
-                
-                self.gradientView.alpha = 0.0
-                self.scrollView.contentOffset.y = -self.view.bounds.height
-                
-                self.view.layoutIfNeeded()
-            }, completion: nil)
-        }
-    }
-    
-    func updateHeaderFrame() {
-        var headerRect = CGRect(x: 0, y: 0, width: scrollView.bounds.width, height: headerHeight)
-        if scrollView.contentOffset.y < -headerHeight {
-            headerRect.size.height = -scrollView.contentOffset.y
-        }
-        
-        backgroundImageView.frame = headerRect
-    }
-    
-    var watchlistButtonImage: UIImage? { return nil }
-    @IBAction func toggleWatchlist(_ sender: UIBarButtonItem) { }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = currentItem.title
-        watchlistButton.image = watchlistButtonImage
+        #if os(iOS)
+            
+            castButton?.button.addTarget(self, action: #selector(showCastDevices), for: .touchUpInside)
+            watchlistButton.image = watchlistButtonImage
+            
+        #elseif os(tvOS)
+            
+            watchlistButton.imageView?.image = watchlistButtonImage
+            
+        #endif
         
-        castButton.button.addTarget(self, action: #selector(showCastDevices), for: .touchUpInside)
+        navigationItem.title = currentItem.title
+        titleLabel?.text = currentItem.title
+        
         
         scrollView.contentInset.bottom = tabBarController?.tabBar.frame.height ?? 0
         
@@ -128,6 +113,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             imageView.af_setImage(withURL: url) { response in
                 guard response.result.isSuccess else { return }
                 self.navigationItem.titleView = imageView
+                self.titleImageViews.forEach({$0.image = response.result.value})
             }
         }
         
@@ -140,15 +126,12 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     
     func loadMedia(id: String, completion: @escaping (Media?, NSError?) -> Void) { }
     
-    func updateCastStatus() {
-        castButton.status = GCKCastContext.sharedInstance().castState
+    func minItemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize? {
+        if collectionView === castCollectionViewController.collectionView {
+            return CGSize(width: 180, height: 250)
+        }
+        return nil
     }
-    
-    func showCastDevices() {
-        performSegue(withIdentifier: "showCasts", sender: castButton)
-    }
-    
-    @IBAction func changeSeason(_ sender: UIButton) { }
     
     func chooseQuality(_ sender: UIButton?, media: Media) {
         
@@ -171,7 +154,9 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             return
         }
         
-        let vc = UIAlertController(title: "Choose Quality", message: "Choose a quality to stream.", preferredStyle: .actionSheet, blurStyle: .dark)
+        let style: UIAlertControllerStyle = sender == nil ? .alert : .actionSheet
+        let blurStyle: UIBlurEffectStyle  = style == .alert ? .extraLight : .dark
+        let vc = UIAlertController(title: "Choose Quality", message: "Choose a quality to stream.", preferredStyle: style, blurStyle: blurStyle)
         
         for torrent in media.torrents {
             vc.addAction(UIAlertAction(title: torrent.quality, style: .default, handler: { (action) in
@@ -195,8 +180,8 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
                 dismiss(animated: false, completion: nil)
             }
             
-            var media = media
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            var media = media
             
             let currentProgress = media is Movie ? WatchedlistManager<Movie>.movie.currentProgress(media.id) : WatchedlistManager<Episode>.episode.currentProgress(media.id)
             var nextEpisode: Episode?
@@ -204,7 +189,11 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             let loadingViewController = storyboard.instantiateViewController(withIdentifier: "LoadingViewController") as! LoadingViewController
             loadingViewController.backgroundImageString = media.largeBackgroundImage
             loadingViewController.mediaTitle = media.title
-            loadingViewController.transitioningDelegate = self
+            
+            if let `self` = self as? UIViewControllerTransitioningDelegate {
+                loadingViewController.transitioningDelegate = self
+            }
+            
             
             if let episode = media as? Episode {
                 
@@ -240,18 +229,19 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
                 
                 media.subtitles = subtitles
                 
-                if let preferredLanguage = SubtitleSettings.shared.language {
-                    media.currentSubtitle = media.subtitles.first(where: {$0.language == preferredLanguage})
-                }
+                #if os(iOS)
+                    
+                    if GCKCastContext.sharedInstance().castState == .connected {
+                        let playViewController = storyboard.instantiateViewController(withIdentifier: "CastPlayerViewController") as! CastPlayerViewController
+                        media.playOnChromecast(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
+                        return
+                    }
+                    
+                #endif
                 
-                if GCKCastContext.sharedInstance().castState == .connected {
-                    let playViewController = storyboard.instantiateViewController(withIdentifier: "CastPlayerViewController") as! CastPlayerViewController
-                    media.playOnChromecast(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
-                } else {
-                    let playViewController = storyboard.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
-                    playViewController.delegate = self
-                    media.play(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, nextEpisodeInSeries: nextEpisode, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
-                }
+                let playViewController = storyboard.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
+                playViewController.delegate = self
+                media.play(fromFileOrMagnetLink: torrent.magnet ?? torrent.url, nextEpisodeInSeries: nextEpisode, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
             }
         } else {
             let errorAlert = UIAlertController(title: "Cellular Data is turned off for streaming", message: nil, preferredStyle: .alert)
@@ -264,28 +254,8 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         }
     }
     
-    func presentCastPlayer(_ media: Media, videoFilePath: URL) {
-        dismiss(animated: true, completion: nil) // Close player view controller first.
-        let castPlayerViewController = storyboard?.instantiateViewController(withIdentifier: "CastPlayerViewController") as! CastPlayerViewController
-        castPlayerViewController.media = media
-        castPlayerViewController.directory = videoFilePath.deletingLastPathComponent()
-        present(castPlayerViewController, animated: true, completion: nil)
-    }
-    
     func playNext(_ episode: Episode) {
         chooseQuality(nil, media: episode)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        updateHeaderFrame()
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        navigationController?.navigationBar.isBackgroundHidden = scrollView.contentOffset.y <= -44
-        navigationController?.navigationBar.tintColor = scrollView.contentOffset.y <= -44 ? .white : .app
-        updateHeaderFrame()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -305,8 +275,6 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             
             let layout = vc.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
             layout?.scrollDirection = .horizontal
-            layout?.minimumLineSpacing = 30
-            vc.collectionView?.showsHorizontalScrollIndicator = false
             
             vc.collectionView?.reloadData()
         }
@@ -330,43 +298,5 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         } else if vc == accessibilityCollectionViewController {
             accessibilityCollectionViewHeightConstraint.constant = height
         }
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        let isCompact = traitCollection.horizontalSizeClass == .compact
-        headerHeight = isCompact ? 240 : 315
-        infoStackView.axis = isCompact ? .vertical : .horizontal
-        infoStackView.alignment = isCompact ? .fill : .top
-        [castCollectionViewController.collectionView, relatedCollectionViewController.collectionView].forEach({
-            $0?.contentInset.left  = isCompact ? 14 : 26
-            $0?.contentInset.right = isCompact ? 14 : 26
-        })
-        
-        episodesCollectionViewController.collectionView?.contentInset.left  = isCompact ? 28 : 40
-        episodesCollectionViewController.collectionView?.contentInset.right = isCompact ? 28 : 40
-        
-        for constraint in compactConstraints {
-            constraint.priority = isCompact ? 999 : 240
-        }
-        for constraint in regularConstraints {
-            constraint.priority = isCompact ? 240 : 999
-        }
-    }
-    
-    // MARK: - Presentation
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if presented is LoadingViewController {
-            return LoadingViewAnimatedTransitioning(isPresenting: true)
-        }
-        return nil
-        
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if dismissed is LoadingViewController {
-            return LoadingViewAnimatedTransitioning(isPresenting: false)
-        }
-        return nil
     }
 }

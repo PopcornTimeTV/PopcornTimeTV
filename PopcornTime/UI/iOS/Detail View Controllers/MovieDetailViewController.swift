@@ -13,14 +13,6 @@ class MovieDetailViewController: DetailViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let watchedButton = UIBarButtonItem(image: watchedButtonImage, style: .plain, target: self, action: #selector(self.toggleWatched(_:)))
-        
-        navigationItem.rightBarButtonItems?.insert(watchedButton, at: 0)
-    }
-    
     override func loadMedia(id: String, completion: @escaping (Media?, NSError?) -> Void) {
         PopcornKit.getMovieInfo(id) { (movie, error) in
             guard var movie = movie else {
@@ -54,22 +46,8 @@ class MovieDetailViewController: DetailViewController {
         }
     }
     
-    override var watchlistButtonImage: UIImage? {
-        return WatchlistManager<Movie>.movie.isAdded(movie) ? UIImage(named: "Watchlist On") : UIImage(named: "Watchlist Off")
-    }
-    
-    @IBAction override func toggleWatchlist(_ sender: UIBarButtonItem) {
-        WatchlistManager<Movie>.movie.toggle(movie)
-        sender.image = watchlistButtonImage
-    }
-    
     var watchedButtonImage: UIImage? {
-        return WatchedlistManager<Movie>.movie.isAdded(movie.id) ? UIImage(named: "Watched On") : UIImage(named: "Watched Off")
-    }
-    
-    func toggleWatched(_ sender: UIBarButtonItem) {
-        WatchedlistManager<Movie>.movie.toggle(movie.id)
-        sender.image = watchedButtonImage
+        return movie.isWatched ? UIImage(named: "Watched On") : UIImage(named: "Watched Off")
     }
     
     func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int, Int) {
@@ -88,17 +66,22 @@ class MovieDetailViewController: DetailViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "embedInfo", let vc = segue.destination as? InfoViewController {
-            
-            let info = NSMutableAttributedString(string: "\(movie.year)\t")
-            
-            attributedString(from: movie.certification, "HD", "CC").forEach({info.append($0)})
-            
-            vc.info = (title: movie.title, subtitle: formattedRuntime, genre: movie.genres.first?.capitalized ?? "", info: info, rating: movie.rating, summary: movie.summary, image: movie.mediumCoverImage, trailerCode: movie.trailerCode, media: movie)
-            vc.delegate = self
-            
-            vc.view.translatesAutoresizingMaskIntoConstraints = false
-        } else if let vc = segue.destination as? DescriptionCollectionViewController, segue.identifier == "embedInformation" {
+        
+        #if os(iOS)
+            if segue.identifier == "embedInfo", let vc = segue.destination as? InfoViewController {
+                
+                let info = NSMutableAttributedString(string: "\(movie.year)\t")
+                
+                attributedString(from: movie.certification, "HD", "CC").forEach({info.append($0)})
+                
+                vc.info = (title: movie.title, subtitle: formattedRuntime, genre: movie.genres.first?.capitalized ?? "", info: info, rating: movie.rating, summary: movie.summary, image: movie.mediumCoverImage, trailerCode: movie.trailerCode, media: movie)
+                vc.delegate = self
+                
+                vc.view.translatesAutoresizingMaskIntoConstraints = false
+            }
+        #endif
+        
+        if let vc = segue.destination as? DescriptionCollectionViewController, segue.identifier == "embedInformation" {
             vc.headerTitle = "Information"
             
             vc.dataSource = [("Genre", movie.genres.first?.capitalized ?? "Unknown"), ("Released", movie.year), ("Run Time", formattedRuntime), ("Rating", movie.certification)]
@@ -114,7 +97,6 @@ class MovieDetailViewController: DetailViewController {
                 
                 let dataSource = (movie.actors as [AnyHashable]) + (movie.crew as [AnyHashable])
                 castCollectionViewController.dataSources = [dataSource]
-                castCollectionViewController.minItemSize.height = 250
             }
             
             super.prepare(for: segue, sender: sender)

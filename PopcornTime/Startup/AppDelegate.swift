@@ -2,11 +2,9 @@
 
 import UIKit
 import PopcornKit
+import Reachability
 
-#if os(tvOS)
-    import TVMLKitchen
-#elseif os(iOS)
-    import Reachability
+#if os(iOS)
     import AlamofireNetworkActivityIndicator
     import GoogleCast
 #endif
@@ -19,60 +17,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UI
 
     var window: UIWindow?
     
-    #if os(iOS)
-        var reachability: Reachability = .forInternetConnection()
-    #elseif os(tvOS)
-    
-        func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
-            
-            let cookbook = Cookbook(launchOptions: launchOptions)
-            
-            cookbook.actionIDHandler = ActionHandler.shared.primary
-            cookbook.playActionIDHandler = ActionHandler.shared.primary
-            
-            Kitchen.prepare(cookbook)
-            
-            ActionHandler.shared.cookbook = cookbook
-        
-            return true
-        }
-    #endif
+    var reachability: Reachability = .forInternetConnection()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         #if os(tvOS)
-            
             if let url = launchOptions?[.url] as? URL {
                 self.application(.shared, open: url)
                 return true
             }
-            
-            ActionHandler.shared.loadTabBar() {
-                if !UserDefaults.standard.bool(forKey: "tosAccepted") {
-                    let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsOfServiceViewController")
-                    OperationQueue.main.addOperation {
-                        Kitchen.appController.navigationController.pushViewController(vc, animated: true)
-                    }
-                    UserDefaults.standard.set(0.75, forKey: "themeSongVolume")
-                }
-            }
-            
-            
         #elseif os(iOS)
             NetworkActivityIndicatorManager.shared.isEnabled = true
-            reachability.startNotifier()
             
             /// Weird SDK throws error if shared instance has already been initialised and doesn't mark function as throwing.
             do { try GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID)) }
-            window?.tintColor = .app
-            
-            if !UserDefaults.standard.bool(forKey: "tosAccepted") {
-                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsOfServiceNavigationController")
-                window?.makeKeyAndVisible()
-                window?.rootViewController?.present(vc, animated: false, completion: nil)
-            }
+
         #endif
-            
+        
+        if !UserDefaults.standard.bool(forKey: "tosAccepted") {
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsOfServiceNavigationController")
+            window?.makeKeyAndVisible()
+            window?.rootViewController?.present(vc, animated: false, completion: nil)
+            UserDefaults.standard.set(0.75, forKey: "themeSongVolume")
+        }
+        
+        reachability.startNotifier()
+        window?.tintColor = .app
+        
         TraktManager.shared.syncUserData()
         UpdateManager.shared.delegate = self
         
@@ -94,14 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UI
             if url.scheme == "PopcornTime" {
                 guard let action = url.absoluteString.removingPercentEncoding?.components(separatedBy: "PopcornTime:?action=").last else {
                     return false
-                }
-                if Kitchen.appController.navigationController.viewControllers.first != nil // Don't present WelcomeRecipe if it is already there.
-                {
-                    ActionHandler.shared.primary(action)
-                } else {
-                    ActionHandler.shared.loadTabBar() {
-                        ActionHandler.shared.primary(action)
-                    }
                 }
             }
         #elseif os(iOS)

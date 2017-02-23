@@ -11,6 +11,8 @@ protocol CollectionViewControllerDelegate: class {
     
     func collectionView(_ collectionView: UICollectionView, titleForHeaderInSection section: Int) -> String?
     func collectionView(nibForHeaderInCollectionView collectionView: UICollectionView) -> UINib?
+    
+    func minItemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize?
 }
 
 extension CollectionViewControllerDelegate {
@@ -20,6 +22,8 @@ extension CollectionViewControllerDelegate {
     
     func collectionView(_ collectionView: UICollectionView, titleForHeaderInSection section: Int) -> String? { return nil }
     func collectionView(nibForHeaderInCollectionView collectionView: UICollectionView) -> UINib? { return nil }
+    
+    func minItemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize? { return nil }
 }
 
 class CollectionViewController: ResponsiveCollectionViewController, UICollectionViewDelegateFlowLayout {
@@ -28,46 +32,27 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     var error: NSError?
     
     var paginationIndicatorInset: CGFloat = 5
-    var minItemSize = CGSize(width: 180, height: 300)
+    
+    func minItemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize {
+        if let size = delegate?.minItemSize(forCellIn: collectionView, at: indexPath) {
+            return size
+        } else {
+            return UIDevice.current.userInterfaceIdiom == .tv ? CGSize(width: 250, height: 460) : CGSize(width: 180, height: 300)
+        }
+    }
     
     var isLoading = false
     var paginated = false
-    var isRefreshable: Bool = false {
-        didSet {
-            if isRefreshable {
-                refreshControl = refreshControl ?? {
-                    let refreshControl = UIRefreshControl()
-                    refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
-                    if #available(iOS 10.0, *) {
-                        collectionView?.refreshControl = refreshControl
-                    } else {
-                        collectionView?.addSubview(refreshControl)
-                    }
-                    return refreshControl
-                }()
-            } else {
-                if #available(iOS 10.0, *) {
-                    collectionView?.refreshControl = nil
-                } else {
-                    refreshControl?.removeFromSuperview()
-                }
-            }
-            
-        }
-    }
     weak var delegate: CollectionViewControllerDelegate?
     var hasNextPage = false
     var currentPage = 1
     
-    private var refreshControl: UIRefreshControl?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let collectionView = collectionView,
-            let layout = collectionView.collectionViewLayout as? CSStickyHeaderFlowLayout {
+        if let collectionView = collectionView, let layout = collectionView.collectionViewLayout as? CSStickyHeaderFlowLayout {
             if let nib = delegate?.collectionView(nibForHeaderInCollectionView: collectionView) {
-                let size = CGSize(width: collectionView.bounds.width, height: 200)
+                let size = CGSize(width: collectionView.bounds.width, height: 0)
                 layout.parallaxHeaderReferenceSize = size
                 layout.parallaxHeaderMinimumReferenceSize = size
                 layout.disableStickyHeaders = true
@@ -80,30 +65,6 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
         }
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView == collectionView, paginated else { return }
-        let y = scrollView.contentOffset.y + scrollView.bounds.size.height - scrollView.contentInset.bottom
-        let height = scrollView.contentSize.height
-        let reloadDistance: CGFloat = 10
-        if y > height + reloadDistance && !isLoading && hasNextPage {
-            collectionView?.contentInset.bottom += paginationIndicatorInset
-            
-            let background = UIView(frame: collectionView!.bounds)
-            let indicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
-            
-            indicator.translatesAutoresizingMaskIntoConstraints = false
-            indicator.startAnimating()
-            background.addSubview(indicator)
-            
-            indicator.centerXAnchor.constraint(equalTo: background.centerXAnchor).isActive = true
-            indicator.bottomAnchor.constraint(equalTo: background.bottomAnchor, constant: -55).isActive = true
-            collectionView?.backgroundView = background
-            
-            currentPage += 1
-            delegate?.load(page: currentPage)
-        }
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewFlowLayout, didChangeToSize size: CGSize) {
         let itemSize = self.collectionView(collectionView, layout: layout, sizeForItemAt: IndexPath(item: 0, section: 0))
         super.collectionView(collectionView, layout: layout, didChangeToSize: CGSize(width: size.width, height: itemSize.height))
@@ -111,6 +72,8 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
+        
+        let minItemSize = self.minItemSize(forCellIn: collectionView, at: indexPath)
         
         var items: CGFloat = 1
         var width: CGFloat = 0
@@ -180,7 +143,8 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return dataSources[safe: section]?.isEmpty ?? true ? .zero : UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        let isTv = UIDevice.current.userInterfaceIdiom == .tv
+        return dataSources[safe: section]?.isEmpty ?? true ? .zero : isTv ? UIEdgeInsets(top: 60, left: 90, bottom: 60, right: 90) : UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -229,33 +193,20 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
         return cell
     }
     
-    @objc private func refresh(_ sender: UIRefreshControl) {
-        currentPage = 1
-        sender.endRefreshing()
-        delegate?.didRefresh(collectionView: collectionView!)
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        if let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
-            let isHorizontal = layout.scrollDirection == .horizontal
-            let isRegular = traitCollection.horizontalSizeClass == .regular
-            let spacing: CGFloat = isRegular ? 30 : 10
-            
-            if isHorizontal {
-                layout.minimumLineSpacing = spacing
-            } else {
-                layout.minimumInteritemSpacing = spacing
-            }
-        }
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let cell = sender as? UICollectionViewCell,
             let indexPath = collectionView?.indexPath(for: cell) {
-            parent?.prepare(for: segue, sender: dataSources[indexPath.section][indexPath.row])
+            let sender = dataSources[indexPath.section][indexPath.row]
+            
+            if let parent = delegate as? UIViewController ?? parent {
+                parent.prepare(for: segue, sender: sender)
+            }
         } else if sender is Movie || sender is Show, let segue = segue as? AutoPlayStoryboardSegue {
             segue.shouldAutoPlay = true // Called from continue watching, enable autoplaying.
-            parent?.prepare(for: segue, sender: sender)
+            
+            if let parent = delegate as? UIViewController ?? parent {
+                parent.prepare(for: segue, sender: sender)
+            }
         }
     }
 }

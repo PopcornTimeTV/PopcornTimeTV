@@ -28,25 +28,6 @@ extension Array where Element: Hashable {
     }
     
     /**
-     Returns a new array containing the elements of this array that are not common with the given array.
-    
-     In the following example, the `goodFriends` array is made up of the
-     elements of the `friends` array excluding the `badFriends` array:
-    
-         let friends = ["Alicia", "Bethany", "Chris", "Diana", "Eric"]
-         let badFriends = ["Bethany", "Chris"]
-         let goodFriends = friends.removing(badFriends)
-         print(goodFriends)
-         // Prints "["Alicia", "Diana", "Eric"]"
-    
-     - Parameter elements: Sub-elements of this array.
-     - Returns: A new array.
-     */
-    func removing(elements: [Element]) -> Array {
-        return Array(Set(self).subtracting(Set(elements)))
-    }
-    
-    /**
      Returns a new array containing the elements of the previous array plus the passed in items. Non mutating.
      
      - Parameter items: The items you wish to have appended to a `mutableCopy()` of `self`.

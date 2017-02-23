@@ -2,40 +2,63 @@
 
 import UIKit
 
-class CoverCollectionViewCell: UICollectionViewCell {
+class CoverCollectionViewCell: BaseCollectionViewCell {
+    
     @IBOutlet var coverImageView: UIImageView!
+    @IBOutlet var watchedIndicator: UIImageView!
     @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var watchedIndicator: UIImageView?
-    @IBOutlet var highlightView: UIView!
     
     var watched = false {
         didSet {
-            guard let watchedIndicator = watchedIndicator else { return }
-            watchedIndicator.isHidden = !watched
+            watchedIndicator?.isHidden = !watched
         }
     }
+    
+    var hidesTitleLabelWhenUnfocused: Bool = true {
+        didSet {
+            titleLabel?.alpha = hidesTitleLabelWhenUnfocused ? 0 : 1
+        }
+    }
+    
+    #if os(iOS)
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        highlightView.layer.cornerRadius   = frame.width * 0.02
-        coverImageView.layer.cornerRadius  = frame.width * 0.02
-        coverImageView.layer.masksToBounds = true
-        highlightView.layer.masksToBounds  = true
-    }
-    
-    override var isHighlighted: Bool {
-        didSet {
-            if self.isHighlighted {
-                self.highlightView.isHidden = false
-                self.highlightView.alpha = 1.0
-            } else {
-                UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseOut, .allowUserInteraction], animations: { [unowned self] in
-                    self.highlightView.alpha = 0.0
-                }, completion: { _ in
-                    self.highlightView.isHidden = true
-                })
-            }
+        
+        [highlightView, coverImageView].forEach {
+            $0?.layer.cornerRadius = self.bounds.width * 0.02
+            $0?.layer.masksToBounds = true
         }
     }
+    
+    #elseif os(tvOS)
+    
+    @IBOutlet var imageLabelSpacingConstraint: NSLayoutConstraint!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        titleLabel.alpha = 0
+        titleLabel.layer.zPosition = 10
+        titleLabel.layer.shadowColor = UIColor.black.cgColor
+        titleLabel.layer.shadowOffset = CGSize(width: 0, height: 1)
+        titleLabel.layer.shadowRadius = 2
+        titleLabel.layer.shadowOpacity = 0.6
+    }
+    
+    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        if hidesTitleLabelWhenUnfocused {
+            coordinator.addCoordinatedAnimations({
+                self.titleLabel.alpha = self.isFocused ? 1 : 0
+            })
+        } else {
+            imageLabelSpacingConstraint.constant = isFocused ? 43 : 5
+            coordinator.addCoordinatedAnimations({
+                self.layoutIfNeeded()
+            })
+        }
+    }
+    
+    #endif
 }

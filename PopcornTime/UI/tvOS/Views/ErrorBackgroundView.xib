@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="appleTV" orientation="landscape">
+        <adaptation id="dark"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ErrorBackgroundView" customModule="PopcornTime" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FtG-P9-Z0I">
+                    <rect key="frame" x="868" y="498" width="184" height="84"/>
+                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="70"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qje-h9-Uua">
+                    <rect key="frame" x="918" y="597" width="84" height="42"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                    <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="FtG-P9-Z0I" secondAttribute="trailing" constant="15" id="Cfd-ld-2tv"/>
+                <constraint firstItem="Qje-h9-Uua" firstAttribute="centerX" secondItem="FtG-P9-Z0I" secondAttribute="centerX" id="DkX-cL-mFz"/>
+                <constraint firstItem="FtG-P9-Z0I" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="KOs-I6-gGC"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Qje-h9-Uua" secondAttribute="trailing" constant="15" id="NJ8-52-aQ8"/>
+                <constraint firstItem="FtG-P9-Z0I" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Ysf-Q5-Hoy"/>
+                <constraint firstItem="Qje-h9-Uua" firstAttribute="top" secondItem="FtG-P9-Z0I" secondAttribute="bottom" constant="15" id="cip-Pt-Chf"/>
+                <constraint firstItem="FtG-P9-Z0I" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="d1d-Ce-QIW"/>
+                <constraint firstItem="Qje-h9-Uua" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="nuA-4N-b59"/>
+            </constraints>
+            <connections>
+                <outlet property="descriptionLabel" destination="Qje-h9-Uua" id="nb8-Tu-cPM"/>
+                <outlet property="titleLabel" destination="FtG-P9-Z0I" id="5U9-00-Ygm"/>
+            </connections>
+            <point key="canvasLocation" x="68" y="-293.5"/>
+        </view>
+    </objects>
+</document>

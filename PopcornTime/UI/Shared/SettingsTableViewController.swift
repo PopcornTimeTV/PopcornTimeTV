@@ -3,8 +3,6 @@
 import UIKit
 import PopcornKit
 
-class SettingsViewController: UIViewController { }
-
 class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
     
     func authenticationDidSucceed() {
@@ -227,14 +225,14 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 let alertController = UIAlertController(title: "Subtitle Font Style", message: "Choose a default font style for the player subtitles.", preferredStyle: .actionSheet, blurStyle: .dark)
                 
                 let handler: (UIAlertAction) -> Void = { action in
-                    subtitleSettings.style = UIFont.FontStyle(rawValue: action.title!)!
+                    subtitleSettings.style = UIFont.Style(rawValue: action.title!)!
                     subtitleSettings.save()
                     tableView.reloadData()
                 }
                 
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 
-                for style in UIFont.FontStyle.arrayValue.map({$0.rawValue}) {
+                for style in UIFont.Style.arrayValue.map({$0.rawValue}) {
                     alertController.addAction(UIAlertAction(title: style, style: .default, handler: handler))
                 }
                 
@@ -282,9 +280,6 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
             } else {
                 TraktManager.shared.delegate = self
                 let vc = TraktManager.shared.loginViewController()
-                #if os(iOS)
-                vc.modalPresentationStyle = .formSheet
-                #endif
                 present(vc, animated: true, completion: nil)
             }
         case 3:
@@ -310,26 +305,8 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 present(controller, animated: true, completion: nil)
             } else if indexPath.row == 1 {
                 let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-                let loadingView: UIViewController = {
-                    let viewController = UIViewController()
-                    viewController.view.translatesAutoresizingMaskIntoConstraints = false
-                    let label = UILabel(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 200, height: 20)))
-                    label.translatesAutoresizingMaskIntoConstraints = false
-                    label.text = "Checking for updates..."
-                    label.font = UIDevice.current.userInterfaceIdiom == .tv ? UIFont.systemFont(ofSize: 37) : UIFont.systemFont(ofSize: 16, weight: UIFontWeightBold)
-                    label.sizeToFit()
-                    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
-                    activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-                    activityIndicator.startAnimating()
-                    viewController.view.addSubview(activityIndicator)
-                    viewController.view.addSubview(label)
-                    viewController.view.centerXAnchor.constraint(equalTo: label.centerXAnchor, constant: -10).isActive = true
-                    viewController.view.centerYAnchor.constraint(equalTo: label.centerYAnchor).isActive = true
-                    label.leadingAnchor.constraint(equalTo: activityIndicator.trailingAnchor, constant: 10).isActive = true
-                    viewController.view.centerYAnchor.constraint(equalTo: activityIndicator.centerYAnchor).isActive = true
-                    return viewController
-                }()
-                alert.setValue(loadingView, forKey: "contentViewController")
+                let contentViewController = UIViewController(nibName: "CheckForUpdatesViewController", bundle: nil)
+                alert.setValue(contentViewController, forKey: "contentViewController")
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 present(alert, animated: true, completion: nil)
                 UpdateManager.shared.checkVersion(.immediately) { [weak self] success in
@@ -348,22 +325,3 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
         }
     }
 }
-
-#if os(tvOS)
-    
-    import TVMLKitchen
-    
-    extension SettingsTableViewController {
-        override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
-            OperationQueue.main.addOperation {
-                Kitchen.navigationController.present(viewControllerToPresent, animated: flag, completion: completion)
-            }
-        }
-        
-        override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-            OperationQueue.main.addOperation {
-                Kitchen.navigationController.dismiss(animated: flag, completion: completion)
-            }
-        }
-    }
-#endif

@@ -18,8 +18,8 @@ extension UINavigationBar {
             if hidden {
                 setBackgroundImage(UIImage(), for: .default)
                 shadowImage = UIImage()
-                backgroundColor = UIColor.clear
-                tintColor = UIColor.white
+                backgroundColor = .clear
+                tintColor = .white
             } else {
                 setBackgroundImage(nil, for: .default)
                 shadowImage = nil

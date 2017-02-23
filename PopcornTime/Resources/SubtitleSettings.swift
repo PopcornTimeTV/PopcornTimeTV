@@ -33,7 +33,7 @@ class SubtitleSettings: NSObject, NSCoding {
     var encoding: String = "Windows-1252"
     var language: String? = nil
     var font: UIFont = UIFont.systemFont(ofSize: CGFloat(Size.medium.rawValue))
-    var style: UIFont.FontStyle = .normal
+    var style: UIFont.Style = .normal
     
     static let shared = SubtitleSettings()
     
@@ -59,7 +59,7 @@ class SubtitleSettings: NSObject, NSCoding {
             let encoding = aDecoder.decodeObject(of: NSString.self, forKey: "encoding") as? String,
             let descriptor = aDecoder.decodeObject(of: UIFontDescriptor.self, forKey: "font"),
             let rawValue = aDecoder.decodeObject(of: NSString.self, forKey: "style") as? String,
-            let style = UIFont.FontStyle(rawValue: rawValue) else { return nil }
+            let style = UIFont.Style(rawValue: rawValue) else { return nil }
         self.size = size
         self.color = color
         self.encoding = encoding

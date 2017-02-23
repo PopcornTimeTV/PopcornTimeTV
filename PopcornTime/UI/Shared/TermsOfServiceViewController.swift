@@ -2,15 +2,11 @@
 
 import UIKit
 
-#if os(tvOS)
-    import TVMLKitchen
-#endif
-
 class TermsOfServiceViewController: UIViewController {
 
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = false
     }
     
@@ -21,14 +17,7 @@ class TermsOfServiceViewController: UIViewController {
     
     @IBAction func accepted(_ sender: UIButton) {
         UserDefaults.standard.set(true, forKey: "tosAccepted")
-        
-        #if os(tvOS)
-            OperationQueue.main.addOperation {
-                Kitchen.appController.navigationController.popViewController(animated: true)
-            }
-        #elseif os(iOS)
-            dismiss(animated: true, completion: nil)
-        #endif
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func canceled(_ sender: UIButton) {

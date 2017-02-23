@@ -71,7 +71,9 @@ extension UIColor {
         return [UIColor.black, UIColor.darkGray, UIColor.lightGray, UIColor.white, UIColor.gray, UIColor.red, UIColor.green, UIColor.blue, UIColor.cyan, UIColor.yellow, UIColor.magenta, UIColor.orange, UIColor.purple, UIColor.brown]
     }
     
-    @nonobjc static let app = UIColor(red: 0.37, green: 0.41, blue: 0.91, alpha: 1.0)
+    @nonobjc static var app: UIColor {
+        return UIDevice.current.userInterfaceIdiom == .tv ? .white : UIColor(red: 0.37, green: 0.41, blue: 0.91, alpha: 1.0)
+    }
     
     @nonobjc static let dark = UIColor(red: 28.0/255.0, green: 28.0/255.0, blue: 28.0/255.0, alpha: 1.0)
 }

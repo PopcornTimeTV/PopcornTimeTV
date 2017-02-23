@@ -3,9 +3,6 @@
 import UIKit
 import PopcornTorrent
 import AlamofireImage
-#if os(tvOS)
-    import TVMLKitchen
-#endif
 
 class LoadingViewController: UIViewController {
 
@@ -75,13 +72,7 @@ class LoadingViewController: UIViewController {
     @IBAction func cancel() {
         PTTorrentStreamer.shared().cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
         shouldCancelStreaming = true
-        #if os(tvOS)
-            OperationQueue.main.addOperation {
-                Kitchen.appController.navigationController.popViewController(animated: true)
-            }
-        #elseif os(iOS)
-            dismiss(animated: true, completion: nil)
-        #endif
+        dismiss(animated: true, completion: nil)
     }
     
     #if os(iOS)

@@ -44,19 +44,6 @@ class ShowsViewController: MainViewController {
         }
     }
     
-    override func didSelectFilter(at index: Int) {
-        currentFilter = ShowManager.Filters.array[index]
-    }
-    
-    override func didSelectGenre(at index: Int) {
-        currentGenre = ShowManager.Genres.array[index]
-        navigationItem.title = currentGenre == .all ? "Shows" : currentGenre.rawValue
-    }
-    
-    override func populateGenres(_ array: inout [String]) {
-        array = ShowManager.Genres.array.map({$0.rawValue})
-    }
-    
     @IBAction func showFilters(_ sender: UIBarButtonItem) {
         let controller = UIAlertController(title: "Select a filter to sort by", message: nil, preferredStyle: .actionSheet, blurStyle: .dark)
         
@@ -74,5 +61,25 @@ class ShowsViewController: MainViewController {
         controller.popoverPresentationController?.barButtonItem = sender
         
         present(controller, animated: true, completion: nil)
+    }
+    
+    @IBAction func showGenres(_ sender: UIBarButtonItem) {
+        let controller = UIAlertController(title: "Select a genre to filter by", message: nil, preferredStyle: .actionSheet, blurStyle: .dark)
+        
+        let handler: ((UIAlertAction) -> Void) = { (handler) in
+            self.currentGenre = ShowManager.Genres.array.first(where: {$0.rawValue == handler.title!})!
+            self.navigationItem.title = self.currentGenre == .all ? "Shows" : self.currentGenre.rawValue
+        }
+        
+        ShowManager.Genres.array.forEach {
+            controller.addAction(UIAlertAction(title: $0.rawValue, style: .default, handler: handler))
+        }
+        
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        controller.preferredAction = controller.actions.first(where: {$0.title == self.currentGenre.rawValue})
+        
+        controller.popoverPresentationController?.barButtonItem = sender
+        
+        present(controller, animated: true)
     }
 }

@@ -6,13 +6,12 @@ protocol ContinueWatchingCollectionViewCellDelegate: class {
     func cell(_ cell: ContinueWatchingCollectionViewCell, didDetectLongPressGesture: UILongPressGestureRecognizer)
 }
 
-class ContinueWatchingCollectionViewCell: UICollectionViewCell, UIGestureRecognizerDelegate {
+class ContinueWatchingCollectionViewCell: BaseCollectionViewCell, UIGestureRecognizerDelegate {
     
     @IBOutlet var imageView: UIImageView!
-    @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subtitleLabel: UILabel!
+    @IBOutlet var titleLabel: UILabel!
     @IBOutlet var progressView: UIProgressView!
-    @IBOutlet var highlightView: UIView!
     
     weak var delegate: ContinueWatchingCollectionViewCellDelegate?
     
@@ -24,6 +23,7 @@ class ContinueWatchingCollectionViewCell: UICollectionViewCell, UIGestureRecogni
         gesture.delegate = self
     }
     
+    #if os(iOS)
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -34,20 +34,7 @@ class ContinueWatchingCollectionViewCell: UICollectionViewCell, UIGestureRecogni
         }
     }
     
-    override var isHighlighted: Bool {
-        didSet {
-            if self.isHighlighted {
-                self.highlightView.isHidden = false
-                self.highlightView.alpha = 1.0
-            } else {
-                UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseOut, .allowUserInteraction], animations: { [unowned self] in
-                    self.highlightView.alpha = 0.0
-                    }, completion: { _ in
-                        self.highlightView.isHidden = true
-                })
-            }
-        }
-    }
+    #endif
     
     func didDetectLongPress(_ gesture: UILongPressGestureRecognizer) {
         guard gesture.state == .ended else { return }

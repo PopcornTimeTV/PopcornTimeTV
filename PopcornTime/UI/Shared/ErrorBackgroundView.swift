@@ -6,22 +6,10 @@ class ErrorBackgroundView: UIView {
     @IBOutlet var titleLabel: UILabel?
     @IBOutlet var descriptionLabel: UILabel?
     
-    var title: String? {
-        didSet {
-            titleLabel?.text = title
-        }
-    }
-    
-    var errorDescription: String? {
-        didSet {
-            descriptionLabel?.text = errorDescription
-        }
-    }
-    
     
     func setUpView(title: String? = nil, description: String? = nil) {
-        self.title = title
-        self.errorDescription = description
+        titleLabel?.text = title
+        descriptionLabel?.text = description
     }
     
     func setUpView(error: NSError) {
@@ -45,21 +33,5 @@ class ErrorBackgroundView: UIView {
             helpfulDescription = "Uh Oh! An unknown error has occured (\(error.localizedDescription)). Please try again."
         }
         setUpView(title: title, description: helpfulDescription)
-    }
-    
-    var xmlString: String {
-        var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"
-        xml += "<document>"
-        xml += template
-        xml += "</document>"
-        return xml
-    }
-    
-    var template: String {
-        let file = Bundle.main.url(forResource: "ErrorRecipe", withExtension: "xml")!
-        var xml = try! String(contentsOf: file)
-        xml = xml.replacingOccurrences(of: "{{TITLE}}", with: title ?? "")
-        xml = xml.replacingOccurrences(of: "{{DESCRIPTION}}", with: errorDescription ?? "")
-        return xml
     }
 }

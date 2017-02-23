@@ -61,55 +61,41 @@ class ShowDetailViewController: DetailViewController {
         }
     }
     
-    override var watchlistButtonImage: UIImage? {
-        return WatchlistManager<Show>.show.isAdded(show) ? UIImage(named: "Watchlist On") : UIImage(named: "Watchlist Off")
-    }
-    
-    @IBAction override func toggleWatchlist(_ sender: UIBarButtonItem) {
-        WatchlistManager<Show>.show.toggle(show)
-        sender.image = watchlistButtonImage
-    }
-    
     override func chooseQuality(_ sender: UIButton?, media: Media) {
         guard media.id == show.id, let episode = show.latestUnwatchedEpisode() else { return super.chooseQuality(sender, media: media) }
         
         super.chooseQuality(sender, media: episode)
     }
     
-    @IBAction override func changeSeason(_ sender: UIButton) {
-        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet, blurStyle: .dark)
-        
-        let handler: (UIAlertAction) -> Void = { [unowned self] action in
-            guard let title = action.title,
-                let string = title.components(separatedBy: "Season ").last, let season = Int(string) else { return }
-            self.change(to: season)
-        }
-        
-        show.seasonNumbers.forEach({
-            controller.addAction(UIAlertAction(title: "Season \($0)", style: .default, handler: handler))
-        })
-        
-        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        controller.preferredAction = controller.actions.first(where: {$0.title == "Season \(self.currentSeason)"})
-        controller.popoverPresentationController?.sourceView = sender
-        
-        present(controller, animated: true, completion: nil)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        #if os(iOS)
+        
+            if segue.identifier == "embedInfo", let vc = segue.destination as? InfoViewController {
+                
+                let info = NSMutableAttributedString(string: "\(show.year)\t")
+                
+                attributedString(from: "HD", "CC").forEach({info.append($0)})
+                
+                vc.info = (title: show.title, subtitle: show.network ?? "TV", genre: show.genres.first?.capitalized ?? "", info: info, rating: show.rating, summary: show.summary, image: show.mediumCoverImage, trailerCode: nil, media: show.latestUnwatchedEpisode())
+                vc.delegate = self
+                
+                vc.view.translatesAutoresizingMaskIntoConstraints = false
+            }
+            
+        #elseif os(tvOS)
+            
+            if let vc = segue.destination as? SeasonPickerViewController, segue.identifier == "showSeasons" {
+                vc.show = show
+                vc.currentSeason = currentSeason
+                vc.delegate = self
+            }
+            
+        #endif
+        
         if segue.identifier == "embedEpisodes" {
             super.prepare(for: segue, sender: sender)
             change(to: currentSeason)
-        } else if segue.identifier == "embedInfo", let vc = segue.destination as? InfoViewController {
-            
-            let info = NSMutableAttributedString(string: "\(show.year)\t")
-            
-            attributedString(from: "HD", "CC").forEach({info.append($0)})
-            
-            vc.info = (title: show.title, subtitle: show.network ?? "TV", genre: show.genres.first?.capitalized ?? "", info: info, rating: show.rating, summary: show.summary, image: show.mediumCoverImage, trailerCode: nil, media: show.latestUnwatchedEpisode())
-            vc.delegate = self
-            
-            vc.view.translatesAutoresizingMaskIntoConstraints = false
         } else if let vc = segue.destination as? DescriptionCollectionViewController, segue.identifier == "embedInformation" {
             vc.headerTitle = "Information"
             
@@ -126,7 +112,6 @@ class ShowDetailViewController: DetailViewController {
                 
                 let dataSource = (show.actors as [AnyHashable]) + (show.crew as [AnyHashable])
                 castCollectionViewController.dataSources = [dataSource]
-                castCollectionViewController.minItemSize.height = 250
             }
             
             super.prepare(for: segue, sender: sender)

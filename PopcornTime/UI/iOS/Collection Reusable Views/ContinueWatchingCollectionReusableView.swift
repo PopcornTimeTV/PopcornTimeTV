@@ -18,6 +18,7 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
         collectionView.contentInset.left = 15
         collectionView.register(UINib(nibName: String(describing: ContinueWatchingCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: "cell")
     }
@@ -85,11 +86,11 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
         }
         
         if let episode = media as? Episode {
-            cell.titleLabel.text = episode.show.title
+            cell.titleLabel?.text = episode.show.title
             cell.subtitleLabel.text = "Season \(episode.season), Episode \(episode.episode)"
             cell.progressView.progress = WatchedlistManager<Episode>.episode.currentProgress(episode.id)
         } else if let movie = media as? Movie {
-            cell.titleLabel.text = movie.title
+            cell.titleLabel?.text = movie.title
             cell.progressView.progress = WatchedlistManager<Movie>.movie.currentProgress(movie.id)
             if let runtime = Float(movie.runtime) {
                 cell.subtitleLabel.text = "\(Int(runtime - (runtime * cell.progressView.progress))) mins Remaining"

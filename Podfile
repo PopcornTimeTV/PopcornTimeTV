@@ -6,37 +6,35 @@ source 'https://github.com/PopcornTimeTV/Specs'
 
 def pods
     pod 'PopcornTorrent', '~> 1.1.5'
-    pod 'PopcornKit', '~> 3.2.11'
+    pod 'PopcornKit', '~> 3.2.12'
     pod 'XCDYouTubeKit', '~> 2.5.3'
     pod 'Alamofire', '~> 4.2.0'
     pod 'AlamofireImage', '~> 3.2.0'
     pod 'SwiftyTimer', '~> 2.0.0'
-    pod 'SwiftKVC', '~> 3.0.1'
+    pod 'CSStickyHeaderFlowLayout', '~> 0.2.11-1'
+    pod 'FloatRatingView', '~> 2.0.1'
+    pod 'Reachability', :git => 'https://github.com/tonymillion/Reachability'
 end
 
 target 'PopcornTimeiOS' do
     platform :ios, '9.0'
     pods
     pod 'AlamofireNetworkActivityIndicator', '~> 2.1.0'
-    pod 'Reachability', '~> 3.2'
     pod 'google-cast-sdk', '~> 3.3.0'
     pod 'OBSlider', '~> 1.1.1'
     pod '1PasswordExtension', '~> 1.8.4'
     pod 'MobileVLCKit-unstable', '~> 3.0.0a24'
-    pod 'FloatRatingView', '~> 2.0'
-    pod 'CSStickyHeaderFlowLayout', '~> 0.2.11'
 end
 
 target 'PopcornTimetvOS' do
     platform :tvos, '9.0'
     pods
     pod 'TVVLCKit', '~> 2.1.0'
-    pod 'TVMLKitchen', :git => 'https://github.com/toshi0383/TVMLKitchen.git'
     pod 'MBCircularProgressBar', '~> 0.3.5-1'
 end
 
 target 'TopShelf' do
-    pod 'PopcornKit', '~> 3.2.11'
+    pod 'PopcornKit', '~> 3.2.12'
 end
 
 post_install do |installer|

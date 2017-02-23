@@ -8,6 +8,7 @@ enum LoadingViewStyle {
 }
 
 class LoadingView: UIView {
+    
     @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet var loadingLabel: UILabel!
     
@@ -17,9 +18,5 @@ class LoadingView: UIView {
             loadingLabel.textColor = color
             activityIndicatorView.color = color
         }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 }

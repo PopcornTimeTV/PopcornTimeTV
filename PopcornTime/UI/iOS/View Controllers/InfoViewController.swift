@@ -22,8 +22,8 @@ class InfoViewController: UIViewController {
     @IBOutlet var trailerButton: UIButton!
     @IBOutlet var playButton: UIButton!
     
-    @IBOutlet var compactConstraints: [NSLayoutConstraint]!
-    @IBOutlet var regularConstraints: [NSLayoutConstraint]!
+    @IBOutlet var compactConstraints: [NSLayoutConstraint] = []
+    @IBOutlet var regularConstraints: [NSLayoutConstraint] = []
     
     var info: (title: String, subtitle: String, genre: String, info: NSMutableAttributedString, rating: Float, summary: String, image: String?, trailerCode: String?, media: Media?)!
     

@@ -16,8 +16,8 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     @IBOutlet var remainingTimeLabel: UILabel!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var playPauseButton: UIButton!
-    @IBOutlet var compactConstraints: [NSLayoutConstraint]!
-    @IBOutlet var regularConstraints: [NSLayoutConstraint]!
+    @IBOutlet var compactConstraints: [NSLayoutConstraint] = []
+    @IBOutlet var regularConstraints: [NSLayoutConstraint] = []
     
     private var elapsedTimer: Timer!
     

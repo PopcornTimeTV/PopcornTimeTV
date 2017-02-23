@@ -6,10 +6,6 @@ import PopcornTorrent
 import PopcornKit
 
 
-#if os(tvOS)
-    import TVMLKitchen
-#endif
-
 protocol PCTPlayerViewControllerDelegate: class {
     func playNext(_ episode: Episode)
     
@@ -31,7 +27,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     @IBOutlet var upNextView: UpNextView!
     @IBOutlet var progressBar: ProgressBar!
     
-    @IBOutlet var overlayViews: [UIView]!
+    @IBOutlet var overlayViews: [UIView] = []
     
     // tvOS exclusive
     @IBOutlet var dimmerView: UIView?
@@ -186,19 +182,15 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         
         setProgress(status: .finished)
         
-        #if os(tvOS)
-            OperationQueue.main.addOperation {
-                Kitchen.appController.navigationController.popViewController(animated: true)
-            }
-        #elseif os(iOS)
-            dismiss(animated: true, completion: nil)
-        #endif
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Public vars
     
     weak var delegate: PCTPlayerViewControllerDelegate?
-    var subtitles = [Subtitle]()
+    var subtitles: [Subtitle] {
+        return media.subtitles
+    }
     var currentSubtitle: Subtitle? {
         didSet {
             if let subtitle = currentSubtitle {
@@ -248,7 +240,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         self.startPosition = fromPosition
         self.nextEpisode = nextEpisode
         self.directory = directory
-        self.subtitles = media.subtitles
         self.imageGenerator = AVAssetImageGenerator(asset: AVAsset(url: local))
     }
     
@@ -322,8 +313,10 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.color.hexInt()))
         (mediaplayer as VLCFontAppearance).setTextRendererFont!(settings.font.familyName as NSString)
         (mediaplayer as VLCFontAppearance).setTextRendererFontForceBold!(NSNumber(booleanLiteral: settings.style == .bold || settings.style == .boldItalic))
+        if let preferredLanguage = settings.language {
+            currentSubtitle = subtitles.first(where: {$0.language == preferredLanguage})
+        }
         mediaplayer.media.addOptions([vlcSettingTextEncoding: settings.encoding])
-        currentSubtitle = media.currentSubtitle
 
         if let nextEpisode = nextEpisode {
             upNextView.delegate = self
@@ -494,7 +487,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     func timerFinished() {
         didFinishPlaying()
-        OperationQueue.main.addOperation { [unowned self] in
+        OperationQueue.main.addOperation {
             self.delegate?.playNext(self.nextEpisode!)
         }
     }

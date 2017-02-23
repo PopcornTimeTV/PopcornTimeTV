@@ -22,4 +22,20 @@ extension UINavigationController {
         coordinator.animate(alongsideTransition: nil) { _ in completion?() }
     }
     
+    /// Pops the top view controller from the navigation stack and updates the display.
+    /// This method removes the top view controller from the stack and makes the new top of the stack the active view controller. If the view controller at the top of the stack is the root view controller, this method does nothing. In other words, you cannot pop the last item on the stack.
+    /// In addition to displaying the view associated with the new view controller at the top of the stack, this method also updates the navigation bar and tool bar accordingly.
+    /// - Parameter flag:       Pass `true` to animate the transition.
+    /// - Parameter completion: The block to execute after the view controller is dismissed. This block has no return value and takes no parameters. You may specify `nil` for this parameter.
+    public func pop(animated flag: Bool, completion: (() -> Void)? = nil) {
+        popViewController(animated: flag)
+        
+        guard flag, let coordinator = transitionCoordinator else {
+            completion?()
+            return
+        }
+        
+        coordinator.animate(alongsideTransition: nil) { _ in completion?() }
+    }
+    
 }

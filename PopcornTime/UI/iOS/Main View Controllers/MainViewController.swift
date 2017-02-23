@@ -3,16 +3,15 @@
 import UIKit
 import PopcornKit
 
-class MainViewController: UIViewController, CollectionViewControllerDelegate, GenresDelegate, UIPopoverPresentationControllerDelegate {
+class MainViewController: UIViewController, CollectionViewControllerDelegate {
     
     func load(page: Int) {}
-    func populateGenres(_ array: inout [String]) {}
-    func didSelectGenre(at index: Int) {}
-    func didSelectFilter(at index: Int) {}
     func collectionView(isEmptyForUnknownReason collectionView: UICollectionView) {}
     func collectionView(_ collectionView: UICollectionView, titleForHeaderInSection section: Int) -> String? { return nil }
+    func collectionView(nibForHeaderInCollectionView collectionView: UICollectionView) -> UINib? { return nil }
     
-    let cache = NSCache<AnyObject, UINavigationController>()
+    func minItemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize? { return nil }
+    
     
     var collectionViewController: CollectionViewController!
     
@@ -24,33 +23,20 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate, Ge
         }
     }
     
-    func collectionView(nibForHeaderInCollectionView collectionView: UICollectionView) -> UINib? { return nil }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        #if os(iOS)
+            navigationController?.navigationBar.isBackgroundHidden = false
+        #endif
+        navigationController?.navigationBar.tintColor = .app
+        collectionView?.reloadData()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionViewController.paginated = true
         load(page: 1)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.tintColor = .app
-        navigationController?.navigationBar.isBackgroundHidden = false
-        self.collectionView?.reloadData()
-    }
-    
-    @IBAction func showGenres(_ sender: UIBarButtonItem) {
-        let vc = cache.object(forKey: self) ?? {
-            let vc = storyboard?.instantiateViewController(withIdentifier: "GenresNavigationController") as! UINavigationController
-            cache.setObject(vc, forKey: self)
-            (vc.viewControllers.first as! GenresTableViewController).delegate = self
-            vc.modalPresentationStyle = .popover
-            return vc
-        }()
-        vc.popoverPresentationController?.backgroundColor = UIColor(red: 28.0/255.0, green: 28.0/255.0, blue: 28.0/255.0, alpha: 1.0)
-        vc.popoverPresentationController?.barButtonItem = sender
-        present(vc, animated: true, completion: nil)
     }
     
     func didRefresh(collectionView: UICollectionView) {
@@ -63,15 +49,35 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate, Ge
         if segue.identifier == "embed", let vc = segue.destination as? CollectionViewController {
             collectionViewController = vc
             collectionViewController.delegate = self
-            collectionViewController.isRefreshable = true
+            #if os(iOS)
+                collectionViewController.isRefreshable = true
+            #endif
         } else if let segue = segue as? AutoPlayStoryboardSegue,
             segue.identifier == "showMovie" || segue.identifier == "showShow",
             let media: Media = sender as? Movie ?? sender as? Show,
             let vc = storyboard?.instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController {
             
+            #if os(tvOS)
+
+                if let destination = segue.destination as? TVLoadingViewController {
+                    
+                    destination.loadView() // Initialize the @IBOutlets
+                    
+                    if let image = media.smallCoverImage, let url = URL(string: image) {
+                        destination.backgroundImageView.af_setImage(withURL: url)
+                    }
+                    
+                    destination.titleLabel.text = media.title
+                }
+            
+            #endif
+            
             // Exact same storyboard UI is being used for both classes. This will enable subclass-specific functions however, stored instance variables cannot be created on either subclass because object_setClass does not initialise stored variables.
             object_setClass(vc, media is Movie ? MovieDetailViewController.self : ShowDetailViewController.self)
-            navigationController?.navigationBar.isBackgroundHidden = true
+            
+            #if os(iOS)
+                navigationController?.navigationBar.isBackgroundHidden = true
+            #endif
             
             vc.loadMedia(id: media.id) { (media, error) in
                 guard let navigationController = self.navigationController,
@@ -91,7 +97,7 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate, Ge
                         navigationController.setViewControllers(viewControllers, animated: false)
                         
                         if let media = media, segue.shouldAutoPlay {
-                           vc.chooseQuality(nil, media: media)
+                            vc.chooseQuality(nil, media: media)
                         }
                     }
                 }
@@ -111,7 +117,7 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate, Ge
                 }
             }
         } else if segue.identifier == "showPerson",
-            let vc = segue.destination as? PersonDetailCollectionViewController,
+            let vc = segue.destination as? PersonViewController,
             let person = sender as? Person {
             vc.currentItem = person
         }
