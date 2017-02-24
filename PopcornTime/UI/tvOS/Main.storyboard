@@ -677,7 +677,7 @@
                             <constraint firstItem="pKc-6J-X3N" firstAttribute="leading" secondItem="xWm-gZ-npz" secondAttribute="trailing" constant="10" id="4Jk-TC-thV"/>
                             <constraint firstAttribute="bottomMargin" secondItem="fzp-40-kz2" secondAttribute="bottom" constant="15" id="4wl-9s-8fc"/>
                             <constraint firstItem="RTE-V9-Wtj" firstAttribute="leading" secondItem="xWm-gZ-npz" secondAttribute="leading" id="6pj-8m-gFc"/>
-                            <constraint firstAttribute="topMargin" secondItem="Abn-cm-wmU" secondAttribute="topMargin" constant="15" id="C7U-mH-5qY"/>
+                            <constraint firstAttribute="topMargin" secondItem="Abn-cm-wmU" secondAttribute="topMargin" constant="10" id="C7U-mH-5qY"/>
                             <constraint firstItem="oaX-rW-5nN" firstAttribute="leadingMargin" secondItem="RTE-V9-Wtj" secondAttribute="leading" constant="-15" id="I4f-i0-1Pf"/>
                             <constraint firstItem="25c-aU-nsO" firstAttribute="leading" secondItem="Abn-cm-wmU" secondAttribute="trailing" constant="30" id="Jzo-J4-wk7"/>
                             <constraint firstItem="xWm-gZ-npz" firstAttribute="leading" secondItem="25c-aU-nsO" secondAttribute="leading" id="KOU-OQ-web"/>
@@ -1024,27 +1024,27 @@
                                                 <constraint firstAttribute="width" constant="900" id="bQ7-Cc-ixk"/>
                                             </constraints>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="48" minimumInteritemSpacing="10" id="BgR-f5-F6i">
-                                                <size key="itemSize" width="290" height="555"/>
+                                                <size key="itemSize" width="290" height="488"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                 <inset key="sectionInset" minX="60" minY="0.0" maxX="60" maxY="0.0"/>
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="q4Q-f5-xNe" customClass="CoverCollectionViewCell" customModule="PopcornTime" customModuleProvider="target">
-                                                    <rect key="frame" x="60" y="48" width="290" height="555"/>
+                                                    <rect key="frame" x="60" y="81" width="290" height="488"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                        <rect key="frame" x="0.0" y="0.0" width="290" height="555"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="290" height="488"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Episode Placeholder" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8l1-Vq-5oQ">
-                                                                <rect key="frame" x="0.0" y="0.0" width="290" height="515"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="290" height="435"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" secondItem="8l1-Vq-5oQ" secondAttribute="height" multiplier="9:16" id="bfN-3W-umq"/>
+                                                                    <constraint firstAttribute="width" secondItem="8l1-Vq-5oQ" secondAttribute="height" multiplier="2:3" id="bfN-3W-umq"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z4y-XW-Afv">
-                                                                <rect key="frame" x="0.0" y="520" width="290" height="35"/>
+                                                                <rect key="frame" x="0.0" y="440" width="290" height="35"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="29"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -1128,13 +1128,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Movie Placeholder" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WXU-Jj-dDk">
-                                            <rect key="frame" x="0.0" y="0.0" width="250" height="382"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="250" height="375"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" secondItem="WXU-Jj-dDk" secondAttribute="height" multiplier="16:9" id="6Wx-YZ-Gzx"/>
+                                                <constraint firstAttribute="width" secondItem="WXU-Jj-dDk" secondAttribute="height" multiplier="2:3" id="6Wx-YZ-Gzx"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGh-td-JUz" customClass="MarqueeLabel" customModule="MarqueeLabel">
-                                            <rect key="frame" x="0.0" y="425" width="250" height="35"/>
+                                            <rect key="frame" x="0.0" y="418" width="250" height="36"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -1189,7 +1189,7 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Episode Placeholder" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w2W-F0-2R6">
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="382"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" secondItem="w2W-F0-2R6" secondAttribute="height" multiplier="16:9" id="ao9-gz-6KT"/>
+                                                <constraint firstAttribute="width" secondItem="w2W-F0-2R6" secondAttribute="height" multiplier="2:3" id="ao9-gz-6KT"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ql8-AW-B2U" customClass="MarqueeLabel" customModule="MarqueeLabel">

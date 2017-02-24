@@ -77,20 +77,19 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
         
         let minItemSize = self.minItemSize(forCellIn: collectionView, at: indexPath)
         
-        var items: CGFloat = 1
         var width: CGFloat = 0
         let sectionInset = flowLayout.sectionInset.left + flowLayout.sectionInset.right
         let spacing = flowLayout.scrollDirection == .horizontal ? flowLayout.minimumLineSpacing : flowLayout.minimumInteritemSpacing
         
-        repeat {
-            items += 1
+        for items in (2...Int.max) {
+            let items = CGFloat(items)
             let newWidth = (view.bounds.width/items) - (sectionInset/items) - (spacing * (items - 1)/items)
             if newWidth < minItemSize.width && items > 2 // Minimum of 2 cells no matter the screen size
             {
                 break
             }
             width = newWidth
-        } while width > minItemSize.width
+        }
         
         let ratio = width/minItemSize.width
         let height = minItemSize.height * ratio
