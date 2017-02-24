@@ -14,6 +14,7 @@ def pods
     pod 'CSStickyHeaderFlowLayout', '~> 0.2.11-1'
     pod 'FloatRatingView', '~> 2.0.1'
     pod 'Reachability', :git => 'https://github.com/tonymillion/Reachability'
+    pod 'MarqueeLabel/Swift', '~> 3.0.0'
 end
 
 target 'PopcornTimeiOS' do

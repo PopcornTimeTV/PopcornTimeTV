@@ -40,19 +40,6 @@ extension CollectionViewController {
         }
         
         if paginated && focusIndexPath.item >= (collectionView.numberOfItems(inSection: focusIndexPath.section) - 10) && !isLoading {
-            collectionView.contentInset.bottom += paginationIndicatorInset
-            
-            let background = UIView(frame: collectionView.bounds)
-            let indicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
-            
-            indicator.translatesAutoresizingMaskIntoConstraints = false
-            indicator.startAnimating()
-            background.addSubview(indicator)
-            
-            indicator.centerXAnchor.constraint(equalTo: background.centerXAnchor).isActive = true
-            indicator.bottomAnchor.constraint(equalTo: background.bottomAnchor, constant: -55).isActive = true
-            collectionView.backgroundView = background
-            
             currentPage += 1
             delegate?.load(page: currentPage)
         }

@@ -93,8 +93,6 @@ class SeasonPickerViewController: UIViewController, UICollectionViewDelegate, UI
         } else {
             cell.imageView.image = UIImage(named: "Episode Placeholder")
         }
-    
-        cell.hidesTitleLabelWhenUnfocused = false
         
         return cell
     }

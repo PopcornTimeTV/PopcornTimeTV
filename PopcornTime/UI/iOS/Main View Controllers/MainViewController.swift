@@ -84,18 +84,15 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
                     navigationController.visibleViewController === segue.destination // Make sure we're still loading and the user hasn't dismissed the view.
                     else { return }
                 
-                #if os(iOS)
                 
-                    let transition = CATransition()
-                    transition.duration = 0.5
-                    transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                    transition.type = kCATransitionFade
-                    navigationController.view.layer.add(transition, forKey: nil)
-                    
-                #endif
+                let transition = CATransition()
+                transition.duration = 0.5
+                transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+                transition.type = kCATransitionFade
+                navigationController.view.layer.add(transition, forKey: nil)
                 
                 defer {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + transition.duration) {
                         var viewControllers = navigationController.viewControllers
                         let index = viewControllers.count - 2
                         viewControllers.remove(at: index)

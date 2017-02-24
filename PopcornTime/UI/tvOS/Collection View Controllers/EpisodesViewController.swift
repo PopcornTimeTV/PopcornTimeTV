@@ -67,7 +67,6 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
         
         cell.titleLabel.text = "\(episode.episode). \(episode.title)"
         cell.id = episode.id
-        cell.hidesTitleLabelWhenUnfocused = false
         
         if let image = episode.smallBackgroundImage, let url = URL(string: image) {
             cell.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "Episode Placeholder"), imageTransition: .crossDissolve(animationLength))

@@ -31,7 +31,9 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     var dataSources: [[AnyHashable]] = [[]]
     var error: NSError?
     
-    var paginationIndicatorInset: CGFloat = 5
+    var paginationIndicatorInset: CGFloat {
+        return UIDevice.current.userInterfaceIdiom == .tv ? 0 : 5
+    }
     
     func minItemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize {
         if let size = delegate?.minItemSize(forCellIn: collectionView, at: indexPath) {
@@ -162,7 +164,9 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
             
             let _cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CoverCollectionViewCell
             _cell.titleLabel.text = media.title
-            _cell.watched = WatchedlistManager<Movie>.movie.isAdded(media.id) // Shows not supported for watched list
+            _cell.watched = media.isWatched
+            
+            _cell.hidesTitleLabelWhenUnfocused = true
             
             if let image = media.smallCoverImage,
                 let url = URL(string: image) {
@@ -190,12 +194,9 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
                 _cell.subtitleLabel.text = crew.job
             }
             
-            #if os(tvOS)
-            
+            if UIDevice.current.userInterfaceIdiom == .tv {
                 _cell.subtitleLabel.text = _cell.subtitleLabel.text?.uppercased()
-                _cell.hidesTitleLabelWhenUnfocused = false
-            
-            #endif
+            }
             
             cell = _cell
         } else {

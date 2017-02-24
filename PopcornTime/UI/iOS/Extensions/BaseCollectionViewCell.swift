@@ -1,12 +1,19 @@
 
 
 import Foundation
+import MarqueeLabel
 
 
-class BaseCollectionViewCell: UICollectionViewCell {
+@IBDesignable class BaseCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
+    
+    var hidesTitleLabelWhenUnfocused: Bool = false {
+        didSet {
+            titleLabel.alpha = hidesTitleLabelWhenUnfocused ? 0 : 1
+        }
+    }
         
     #if os(iOS)
     
@@ -29,23 +36,20 @@ class BaseCollectionViewCell: UICollectionViewCell {
     
     #elseif os(tvOS)
     
+    @IBInspectable var titleLabelFocusedColor: UIColor = .white
+    @IBInspectable var titleLabelUnfocusedColor = UIColor(white: 1.0, alpha: 0.6)
+    
     @IBOutlet var imageLabelSpacingConstraint: NSLayoutConstraint?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        titleLabel.alpha = 0
+        titleLabel.textColor = titleLabelUnfocusedColor
         titleLabel.layer.zPosition = 10
         titleLabel.layer.shadowColor = UIColor.black.cgColor
         titleLabel.layer.shadowOffset = CGSize(width: 0, height: 1)
         titleLabel.layer.shadowRadius = 2
         titleLabel.layer.shadowOpacity = 0.6
-    }
-    
-    var hidesTitleLabelWhenUnfocused: Bool = true {
-        didSet {
-            titleLabel.alpha = hidesTitleLabelWhenUnfocused ? 0 : 1
-        }
     }
     
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
@@ -59,6 +63,12 @@ class BaseCollectionViewCell: UICollectionViewCell {
                 self.layoutIfNeeded()
             })
         }
+        
+        if let titleLabel = titleLabel as? MarqueeLabel {
+            titleLabel.labelize = !isFocused
+        }
+        
+        titleLabel.textColor = isFocused ? titleLabelFocusedColor : titleLabelUnfocusedColor
     }
     
     #endif
