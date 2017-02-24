@@ -69,27 +69,13 @@ class ShowDetailViewController: DetailViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        #if os(iOS)
-        
-            if segue.identifier == "embedInfo", let vc = segue.destination as? InfoViewController {
-                
-                let info = NSMutableAttributedString(string: "\(show.year)\t")
-                
-                attributedString(from: "HD", "CC").forEach({info.append($0)})
-                
-                vc.info = (title: show.title, subtitle: show.network ?? "TV", genre: show.genres.first?.capitalized ?? "", info: info, rating: show.rating, summary: show.summary, image: show.mediumCoverImage, trailerCode: nil, media: show.latestUnwatchedEpisode())
-                vc.delegate = self
-                
-                vc.view.translatesAutoresizingMaskIntoConstraints = false
-            }
+        #if os(tvOS)
             
-        #elseif os(tvOS)
-            
-            if let vc = segue.destination as? SeasonPickerViewController, segue.identifier == "showSeasons" {
-                vc.show = show
-                vc.currentSeason = currentSeason
-                vc.delegate = self
-            }
+        if let vc = segue.destination as? SeasonPickerViewController, segue.identifier == "showSeasons" {
+            vc.show = show
+            vc.currentSeason = currentSeason
+            vc.delegate = self
+        }
             
         #endif
         
@@ -101,17 +87,17 @@ class ShowDetailViewController: DetailViewController {
             
             vc.dataSource = [("Genre", show.genres.first?.capitalized ?? "Unknown"), ("Released", show.year), ("Run Time", (show.runtime ?? "0") + " min"), ("Network", show.network ?? "TV")]
             
-            informationCollectionViewController = vc
+            informationDescriptionCollectionViewController = vc
         } else if let vc = segue.destination as? CollectionViewController {
             
             if segue.identifier == "embedRelated" {
                 relatedCollectionViewController = vc
                 relatedCollectionViewController.dataSources = [show.related]
-            } else if segue.identifier == "embedCast" {
-                castCollectionViewController = vc
+            } else if segue.identifier == "embedPeople" {
+                peopleCollectionViewController = vc
                 
                 let dataSource = (show.actors as [AnyHashable]) + (show.crew as [AnyHashable])
-                castCollectionViewController.dataSources = [dataSource]
+                peopleCollectionViewController.dataSources = [dataSource]
             }
             
             super.prepare(for: segue, sender: sender)
@@ -146,6 +132,5 @@ class ShowDetailViewController: DetailViewController {
         seasonsLabel.text = "Season \(season)"
         currentSeason = season
         episodesCollectionViewController.dataSource = show.episodes.filter({$0.season == season}).sorted(by: {$0.0.episode < $0.1.episode})
-        episodesCollectionViewController.collectionView?.reloadData()
     }
 }

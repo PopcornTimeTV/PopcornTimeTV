@@ -3,7 +3,7 @@
 import Foundation
 import PopcornKit
 
-extension DetailViewController: UIViewControllerTransitioningDelegate, InfoViewControllerDelegate {
+extension DetailViewController: UIViewControllerTransitioningDelegate {
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -12,6 +12,9 @@ extension DetailViewController: UIViewControllerTransitioningDelegate, InfoViewC
         NotificationCenter.default.addObserver(self, selector: #selector(updateCastStatus), name: .gckCastStateDidChange, object: nil)
         updateCastStatus()
         
+        
+        scrollView.contentInset.bottom = tabBarController?.tabBar.frame.height ?? 0
+    
         if transitionCoordinator?.viewController(forKey: .from) is LoadingViewController {
             self.scrollView.contentOffset.y = -self.view.bounds.height
             transitionCoordinator?.animate(alongsideTransition: { (context) in

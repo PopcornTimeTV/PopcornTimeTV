@@ -29,7 +29,7 @@ class InfoViewController: UIViewController {
                     let imageUrl = URL(string: imageString) {
                     imageView.af_setImage(withURL: imageUrl)
                 }
-                infoLabel.text = movie.runtime + " min"
+                infoLabel.text = String(movie.runtime) + " min"
                 if let genre = movie.genres.first?.capitalized {
                     infoLabel.text?.append(" • " + genre)
                 }

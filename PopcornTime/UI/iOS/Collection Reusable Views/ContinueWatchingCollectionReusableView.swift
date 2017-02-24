@@ -92,9 +92,8 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
         } else if let movie = media as? Movie {
             cell.titleLabel?.text = movie.title
             cell.progressView.progress = WatchedlistManager<Movie>.movie.currentProgress(movie.id)
-            if let runtime = Float(movie.runtime) {
-                cell.subtitleLabel.text = "\(Int(runtime - (runtime * cell.progressView.progress))) mins Remaining"
-            }
+            let runtime = Float(movie.runtime)
+            cell.subtitleLabel.text = "\(Int(runtime - (runtime * cell.progressView.progress))) mins Remaining"
         }
         
         return cell

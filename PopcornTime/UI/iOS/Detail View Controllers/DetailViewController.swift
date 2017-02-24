@@ -16,14 +16,14 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     @IBOutlet var castButton: CastIconBarButtonItem?
     @IBOutlet var watchlistButton: UIBarButtonItem!
     
+    @IBOutlet var moreSeasonsButton: UIButton!
+    @IBOutlet var seasonsLabel: UILabel!
+    
     var headerHeight: CGFloat = 0 {
         didSet {
             scrollView.contentInset.top = headerHeight
         }
     }
-    
-    @IBOutlet var compactConstraints: [NSLayoutConstraint] = []
-    @IBOutlet var regularConstraints: [NSLayoutConstraint] = []
     
     @IBAction func toggleWatchlist(_ sender: UIBarButtonItem) {
         currentItem.isAddedToWatchlist = !currentItem.isAddedToWatchlist
@@ -33,17 +33,25 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     
     #elseif os(tvOS)
     
-    @IBOutlet var watchlistButton: UIButton!
-    
-    @IBAction func toggleWatchlist(_ sender: UIButton) {
-        currentItem.isAddedToWatchlist = !currentItem.isAddedToWatchlist
-        sender.imageView?.image = watchlistButtonImage
+    var moreSeasonsButton: UIButton {
+        get {
+           return itemViewController.seasonsButton!
+        } set (button) {
+            itemViewController.seasonsButton = button
+        }
+    }
+    var seasonsLabel: UILabel {
+        get {
+            return itemViewController.titleLabel
+        } set (label) {
+            itemViewController.titleLabel = label
+        }
     }
     
     #endif
     
     // tvOS Exclusive
-    @IBOutlet var titleImageViews: [UIImageView] = []
+    @IBOutlet var titleImageView: UIImageView?
     @IBOutlet var titleLabel: UILabel?
     
     // iOS Exclusive 
@@ -52,30 +60,32 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var infoStackView: UIStackView!
     @IBOutlet var backgroundImageView: UIImageView!
-    @IBOutlet var moreSeasonsButton: UIButton!
-    @IBOutlet var seasonsLabel: UILabel!
+    
+    @IBOutlet var compactConstraints: [NSLayoutConstraint] = []
+    @IBOutlet var regularConstraints: [NSLayoutConstraint] = []
     
     
+    // MARK: - Container view controllers
+    
+    var itemViewController: ItemViewController!
     var relatedCollectionViewController: CollectionViewController!
-    var castCollectionViewController: CollectionViewController!
-    var informationCollectionViewController: DescriptionCollectionViewController!
-    var accessibilityCollectionViewController: DescriptionCollectionViewController!
+    var peopleCollectionViewController: CollectionViewController!
+    var informationDescriptionCollectionViewController: DescriptionCollectionViewController!
+    var accessibilityDescriptionCollectionViewController: DescriptionCollectionViewController!
     var episodesCollectionViewController: EpisodesCollectionViewController!
     
+    typealias EpisodesCollectionViewController = EpisodesViewController // Keep Xcode happy
+    
+    // MARK: - Container view height constraints
+    
+    @IBOutlet var relatedContainerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var peopleContainerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var episodesContainerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var informationContainerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var accessibilityContainerViewHeightConstraint: NSLayoutConstraint!
+    
     var currentItem: Media!
-    
     var currentSeason = -1
-    
-    
-    @IBOutlet var relatedViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var castViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var episodesViewHeightConstraint: NSLayoutConstraint!
-    
-    @IBOutlet var relatedCollectionViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var castCollectionViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var informationCollectionViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var accessibilityCollectionViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var episodesCollectionViewHeightConstraint: NSLayoutConstraint!
     
     var watchlistButtonImage: UIImage? {
         return currentItem.isAddedToWatchlist ? UIImage(named: "Watchlist On") : UIImage(named: "Watchlist Off")
@@ -89,17 +99,10 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             castButton?.button.addTarget(self, action: #selector(showCastDevices), for: .touchUpInside)
             watchlistButton.image = watchlistButtonImage
             
-        #elseif os(tvOS)
-            
-            watchlistButton.imageView?.image = watchlistButtonImage
-            
         #endif
         
         navigationItem.title = currentItem.title
         titleLabel?.text = currentItem.title
-        
-        
-        scrollView.contentInset.bottom = tabBarController?.tabBar.frame.height ?? 0
         
         if let image = currentItem.largeBackgroundImage, let url = URL(string: image) {
             backgroundImageView.af_setImage(withURL: url)
@@ -112,8 +115,15 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             imageView.contentMode = .scaleAspectFit
             imageView.af_setImage(withURL: url) { response in
                 guard response.result.isSuccess else { return }
-                self.navigationItem.titleView = imageView
-                self.titleImageViews.forEach({$0.image = response.result.value})
+                #if os(tvOS)
+                    self.titleImageView?.image = response.result.value
+                    self.titleLabel?.isHidden = true
+                    
+                    self.episodesCollectionViewController.titleImageView.image = response.result.value
+                    self.episodesCollectionViewController.titleLabel.isHidden = true
+                #elseif os(iOS)
+                    self.navigationItem.titleView = imageView
+                #endif
             }
         }
         
@@ -126,12 +136,18 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     
     func loadMedia(id: String, completion: @escaping (Media?, NSError?) -> Void) { }
     
+    // MARK: - Collection view controller delegate
+    
     func minItemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize? {
-        if collectionView === castCollectionViewController.collectionView {
-            return CGSize(width: 180, height: 250)
+        if collectionView === peopleCollectionViewController.collectionView {
+            return UIDevice.current.userInterfaceIdiom == .tv ? CGSize(width: 250, height: 360) : CGSize(width: 180, height: 250)
+        } else if collectionView === relatedCollectionViewController.collectionView && UIDevice.current.userInterfaceIdiom == .tv {
+            return CGSize(width: 150, height: 304)
         }
         return nil
     }
+    
+    // MARK: - Play media
     
     func chooseQuality(_ sender: UIButton?, media: Media) {
         
@@ -254,12 +270,20 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         }
     }
     
+    // MARK: - PCTPlayerViewControllerDelegate
+    
     func playNext(_ episode: Episode) {
         chooseQuality(nil, media: episode)
     }
     
+    // MARK: Navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "embedEpisodes", let vc = segue.destination as? EpisodesCollectionViewController {
+        if segue.identifier == "embedItem", let vc = segue.destination as? ItemViewController {
+            itemViewController = vc
+            itemViewController.media = currentItem
+            vc.view.translatesAutoresizingMaskIntoConstraints = false
+        } else if segue.identifier == "embedEpisodes", let vc = segue.destination as? EpisodesCollectionViewController {
             episodesCollectionViewController = vc
         } else if let vc = segue.destination as? DescriptionCollectionViewController, segue.identifier == "embedAccessibility" {
             vc.headerTitle = "Accessibility"
@@ -269,34 +293,40 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             
             vc.dataSource = [(key, value)]
             
-            accessibilityCollectionViewController = vc
+            accessibilityDescriptionCollectionViewController = vc
         } else if let vc = segue.destination as? CollectionViewController {
             vc.delegate = self
             
             let layout = vc.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
             layout?.scrollDirection = .horizontal
-            
-            vc.collectionView?.reloadData()
+            layout?.minimumLineSpacing = 48
+            layout?.sectionInset.top = 0
+            layout?.sectionInset.bottom = 0
         }
     }
+    
+    
+    // MARK: Container view size changes
     
     override func preferredContentSizeDidChange(forChildContentContainer container: UIContentContainer) {
         let height = container.preferredContentSize.height
         let vc     = container as? UIViewController
+        let margin: CGFloat // Account for anything else on the view (header label etc.).
+        let isTv = UIDevice.current.userInterfaceIdiom == .tv
         
         if vc == relatedCollectionViewController {
-            relatedCollectionViewHeightConstraint.constant = height
-            relatedViewHeightConstraint.priority = height == 0 ? 999 : 1
-        } else if vc == castCollectionViewController {
-            castCollectionViewHeightConstraint.constant = height
-            castViewHeightConstraint.priority = height == 0 ? 999 : 1
+            margin = height == 0 ? 0 : isTv ? 90 : 40 // If 0 height is passed in for the collection view, the container view is to be completely hidden.
+            relatedContainerViewHeightConstraint.constant = height + margin
+        } else if vc == peopleCollectionViewController {
+            margin = height == 0 ? 0 : isTv ? 90 : 40 // If 0 height is passed in for the collection view, the container view is to be completely hidden.
+            peopleContainerViewHeightConstraint.constant = height + margin
         } else if vc == episodesCollectionViewController {
-            episodesCollectionViewHeightConstraint.constant = height
-            episodesViewHeightConstraint.priority = height == 0 ? 999 : 1
-        } else if vc == informationCollectionViewController {
-            informationCollectionViewHeightConstraint.constant = height
-        } else if vc == accessibilityCollectionViewController {
-            accessibilityCollectionViewHeightConstraint.constant = height
+             margin = height == 0 ? 0 : isTv ? 0 : 40 // If 0 height is passed in for the collection view, the container view is to be completely hidden.
+            episodesContainerViewHeightConstraint.constant = height
+        } else if vc == informationDescriptionCollectionViewController {
+            informationContainerViewHeightConstraint.constant = height
+        } else if vc == accessibilityDescriptionCollectionViewController {
+            accessibilityContainerViewHeightConstraint.constant = height
         }
     }
 }

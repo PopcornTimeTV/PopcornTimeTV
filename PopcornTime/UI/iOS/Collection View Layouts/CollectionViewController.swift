@@ -82,7 +82,12 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
         
         repeat {
             items += 1
-            width = (view.bounds.width/items) - (sectionInset/items) - (spacing * (items - 1)/items)
+            let newWidth = (view.bounds.width/items) - (sectionInset/items) - (spacing * (items - 1)/items)
+            if newWidth < minItemSize.width && items > 2 // Minimum of 2 cells no matter the screen size
+            {
+                break
+            }
+            width = newWidth
         } while width > minItemSize.width
         
         let ratio = width/minItemSize.width
@@ -161,9 +166,9 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
             
             if let image = media.smallCoverImage,
                 let url = URL(string: image) {
-                _cell.coverImageView.af_setImage(withURL: url, placeholderImage: UIImage(named: placeholder), imageTransition: .crossDissolve(animationLength))
+                _cell.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: placeholder), imageTransition: .crossDissolve(animationLength))
             } else {
-                _cell.coverImageView.image = nil
+                _cell.imageView.image = UIImage(named: placeholder)
             }
             
             cell = _cell
@@ -174,9 +179,9 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
             
             if let image = person.mediumImage,
                 let url = URL(string: image) {
-                _cell.headshotImageView.af_setImage(withURL: url,  placeholderImage: UIImage(named: "Other Placeholder"), imageTransition: .crossDissolve(animationLength))
+                _cell.imageView.af_setImage(withURL: url,  placeholderImage: UIImage(named: "Other Placeholder"), imageTransition: .crossDissolve(animationLength))
             } else {
-                _cell.headshotImageView.image = nil
+                _cell.imageView.image = nil
             }
             
             if let actor = person as? Actor {
@@ -184,6 +189,8 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
             } else if let crew = person as? Crew {
                 _cell.subtitleLabel.text = crew.job
             }
+            
+            _cell.subtitleLabel.text = UIDevice.current.userInterfaceIdiom == .tv ? _cell.subtitleLabel.text?.uppercased() : _cell.subtitleLabel.text
             
             cell = _cell
         } else {
@@ -194,19 +201,17 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let parent = parent?.navigationController?.viewControllers.first(where: {$0 is MainViewController}) else { return } // Search navigation stack for any main view controller subclass.
+        
         if let cell = sender as? UICollectionViewCell,
             let indexPath = collectionView?.indexPath(for: cell) {
             let sender = dataSources[indexPath.section][indexPath.row]
             
-            if let parent = delegate as? UIViewController ?? parent {
-                parent.prepare(for: segue, sender: sender)
-            }
+            parent.prepare(for: segue, sender: sender)
         } else if sender is Movie || sender is Show, let segue = segue as? AutoPlayStoryboardSegue {
             segue.shouldAutoPlay = true // Called from continue watching, enable autoplaying.
             
-            if let parent = delegate as? UIViewController ?? parent {
-                parent.prepare(for: segue, sender: sender)
-            }
+            parent.prepare(for: segue, sender: sender)
         }
     }
 }

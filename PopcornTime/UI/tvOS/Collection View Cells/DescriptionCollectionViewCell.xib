@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="appleTV" orientation="landscape">
+        <adaptation id="dark"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" id="vak-Zi-XdC" customClass="DescriptionCollectionViewCell" customModule="PopcornTime" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="453" height="32"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="453" height="32"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHG-tv-es1">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="JYt-uL-iAv"/>
+                            <constraint firstAttribute="width" constant="100" id="KQ2-TL-sXV"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k82-Lo-38n">
+                        <rect key="frame" x="130" y="0.0" width="323" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="KfK-J5-J3b"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                        <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="XHG-tv-es1" firstAttribute="top" secondItem="vak-Zi-XdC" secondAttribute="top" id="6ph-8Q-SEK"/>
+                <constraint firstAttribute="trailing" secondItem="k82-Lo-38n" secondAttribute="trailing" id="Ebj-eI-STN"/>
+                <constraint firstAttribute="bottom" secondItem="XHG-tv-es1" secondAttribute="bottom" id="Tai-Qw-FDR"/>
+                <constraint firstItem="XHG-tv-es1" firstAttribute="leading" secondItem="vak-Zi-XdC" secondAttribute="leading" id="UWJ-Yu-J4O"/>
+                <constraint firstAttribute="bottom" secondItem="k82-Lo-38n" secondAttribute="bottom" id="hmS-f5-i1e"/>
+                <constraint firstItem="k82-Lo-38n" firstAttribute="top" secondItem="vak-Zi-XdC" secondAttribute="top" id="wsn-78-c8p"/>
+                <constraint firstItem="k82-Lo-38n" firstAttribute="leading" secondItem="XHG-tv-es1" secondAttribute="trailing" constant="30" id="xr6-3I-69H"/>
+            </constraints>
+            <size key="customSize" width="453" height="32"/>
+            <connections>
+                <outlet property="keyLabel" destination="XHG-tv-es1" id="vE6-nQ-H9Q"/>
+                <outlet property="valueLabel" destination="k82-Lo-38n" id="lqB-0U-28b"/>
+            </connections>
+            <point key="canvasLocation" x="481.5" y="320"/>
+        </collectionViewCell>
+    </objects>
+</document>

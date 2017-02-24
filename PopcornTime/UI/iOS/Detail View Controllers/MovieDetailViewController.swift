@@ -50,53 +50,23 @@ class MovieDetailViewController: DetailViewController {
         return movie.isWatched ? UIImage(named: "Watched On") : UIImage(named: "Watched Off")
     }
     
-    func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int, Int) {
-        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
-    }
-    
-    var formattedRuntime: String {
-        if let runtime = Int(movie.runtime) {
-            let (hours, minutes, _) = secondsToHoursMinutesSeconds(runtime * 60)
-            
-            let formatted = "\(hours) h"
-            
-            return minutes > 0 ? formatted + " \(minutes) min" : formatted
-        }
-        return ""
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        #if os(iOS)
-            if segue.identifier == "embedInfo", let vc = segue.destination as? InfoViewController {
-                
-                let info = NSMutableAttributedString(string: "\(movie.year)\t")
-                
-                attributedString(from: movie.certification, "HD", "CC").forEach({info.append($0)})
-                
-                vc.info = (title: movie.title, subtitle: formattedRuntime, genre: movie.genres.first?.capitalized ?? "", info: info, rating: movie.rating, summary: movie.summary, image: movie.mediumCoverImage, trailerCode: movie.trailerCode, media: movie)
-                vc.delegate = self
-                
-                vc.view.translatesAutoresizingMaskIntoConstraints = false
-            }
-        #endif
-        
         if let vc = segue.destination as? DescriptionCollectionViewController, segue.identifier == "embedInformation" {
             vc.headerTitle = "Information"
             
-            vc.dataSource = [("Genre", movie.genres.first?.capitalized ?? "Unknown"), ("Released", movie.year), ("Run Time", formattedRuntime), ("Rating", movie.certification)]
+            vc.dataSource = [("Genre", movie.genres.first?.capitalized ?? "Unknown"), ("Released", movie.year), ("Run Time", movie.formattedRuntime), ("Rating", movie.certification)]
             
-            informationCollectionViewController = vc
+            informationDescriptionCollectionViewController = vc
         } else if let vc = segue.destination as? CollectionViewController {
             
             if segue.identifier == "embedRelated" {
                 relatedCollectionViewController = vc
                 relatedCollectionViewController.dataSources = [movie.related]
-            } else if segue.identifier == "embedCast" {
-                castCollectionViewController = vc
+            } else if segue.identifier == "embedPeople" {
+                peopleCollectionViewController = vc
                 
                 let dataSource = (movie.actors as [AnyHashable]) + (movie.crew as [AnyHashable])
-                castCollectionViewController.dataSources = [dataSource]
+                peopleCollectionViewController.dataSources = [dataSource]
             }
             
             super.prepare(for: segue, sender: sender)

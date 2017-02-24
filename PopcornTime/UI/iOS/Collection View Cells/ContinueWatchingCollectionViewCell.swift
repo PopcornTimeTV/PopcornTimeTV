@@ -8,9 +8,7 @@ protocol ContinueWatchingCollectionViewCellDelegate: class {
 
 class ContinueWatchingCollectionViewCell: BaseCollectionViewCell, UIGestureRecognizerDelegate {
     
-    @IBOutlet var imageView: UIImageView!
     @IBOutlet var subtitleLabel: UILabel!
-    @IBOutlet var titleLabel: UILabel!
     @IBOutlet var progressView: UIProgressView!
     
     weak var delegate: ContinueWatchingCollectionViewCellDelegate?

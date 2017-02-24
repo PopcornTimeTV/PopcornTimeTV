@@ -18,13 +18,13 @@ class EpisodesCollectionViewController: ResponsiveCollectionViewController, UICo
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! EpisodeCollectionViewCell
         
-        let data = dataSource[indexPath.row]
+        let episode = dataSource[indexPath.row]
         
-        cell.titleLabel.text = "\(data.episode). \(data.title)"
-        cell.subtitleLabel.text = DateFormatter.localizedString(from: data.firstAirDate, dateStyle: .medium, timeStyle: .none)
-        cell.id = data.id
+        cell.titleLabel.text = "\(episode.episode). \(episode.title)"
+        cell.subtitleLabel?.text = DateFormatter.localizedString(from: episode.firstAirDate, dateStyle: .medium, timeStyle: .none)
+        cell.id = episode.id
         
-        if let image = data.smallBackgroundImage,
+        if let image = episode.smallBackgroundImage,
             let url = URL(string: image) {
             cell.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "Episode Placeholder"), imageTransition: .crossDissolve(animationLength))
         } else {

@@ -271,6 +271,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        ThemeSongManager.shared.stopTheme() // Make sure theme song isn't playing.
         guard mediaplayer.state == .stopped || mediaplayer.state == .opening else { return }
         if startPosition > 0.0 {
             let isRegular = traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular
@@ -298,7 +299,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         } else {
             mediaplayer.play()
         }
-        ThemeSongManager.shared.stopTheme() // Make sure theme song isn't playing.
     }
     
     override func viewDidLoad() {

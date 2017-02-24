@@ -20,12 +20,8 @@ extension CollectionViewController {
         return focusIndexPath
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if !collectionView!.isFocused {
-            focusIndexPath = IndexPath(item: 0, section: 0)
-        }
+    override var preferredFocusedView: UIView? {
+        return collectionView?.cellForItem(at: focusIndexPath)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

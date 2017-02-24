@@ -23,12 +23,11 @@ extension UIImage {
         return coloredImage!
     }
     
-    class func from(color: UIColor?, inRect rect: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)) -> UIImage {
-        let color: UIColor = color ?? UIColor.app
-        UIGraphicsBeginImageContext(rect.size)
+    class func from(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+        UIGraphicsBeginImageContext(size)
         let context = UIGraphicsGetCurrentContext()
         context?.setFillColor(color.cgColor)
-        context?.fill(rect)
+        context?.fill(CGRect(origin: .zero, size: size))
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image!
@@ -37,18 +36,8 @@ extension UIImage {
     var attributed: NSAttributedString {
         let attachment = NSTextAttachment()
         attachment.image = self
+        attachment.bounds = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         return NSAttributedString(attachment: attachment)
     }
     
-}
-
-func attributedString(from images: String...) -> [NSAttributedString] {
-    return images.flatMap({
-        guard let attributedString = UIImage(named: $0)?.colored(.white).attributed else { return nil }
-        
-        let string = NSMutableAttributedString(attributedString: attributedString)
-        string.append(NSAttributedString(string: "\t"))
-        
-        return string
-    })
 }

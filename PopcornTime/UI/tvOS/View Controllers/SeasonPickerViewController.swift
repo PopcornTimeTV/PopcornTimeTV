@@ -33,12 +33,19 @@ class SeasonPickerViewController: UIViewController, UICollectionViewDelegate, UI
         
         seasons = show.seasonNumbers.flatMap({($0, nil)})
         
+        let group = DispatchGroup()
+        
         for (index, season) in show.seasonNumbers.enumerated() {
+            group.enter()
             TMDBManager.shared.getSeasonPoster(ofShowWithImdbId: show.id, orTMDBId: show.tmdbId, season: season) { (tmdb, image, _) in
                 if let tmdb = tmdb { self.show.tmdbId = tmdb }
                 self.seasons[index] = (season, image ?? self.show.largeCoverImage)
-                self.collectionView.reloadData()
+                group.leave()
             }
+        }
+        
+        group.notify(queue: .main) { 
+            self.collectionView.reloadData()
         }
     }
     
@@ -82,9 +89,9 @@ class SeasonPickerViewController: UIViewController, UICollectionViewDelegate, UI
         cell.titleLabel.text = "Season \(season.number)"
         
         if let image = season.image, let url = URL(string: image) {
-            cell.coverImageView.af_setImage(withURL: url)
+            cell.imageView.af_setImage(withURL: url)
         } else {
-            cell.coverImageView.image = UIImage(named: "Episode Placeholder")
+            cell.imageView.image = UIImage(named: "Episode Placeholder")
         }
     
         cell.hidesTitleLabelWhenUnfocused = false

@@ -4,12 +4,16 @@ import Foundation
 
 class MonogramCollectionViewCell: BaseCollectionViewCell {
     
-    @IBOutlet var headshotImageView: UIImageView!
     @IBOutlet var subtitleLabel: UILabel!
     @IBOutlet var initialsLabel: UILabel!
     @IBOutlet var noImageVisualEffectView: UIVisualEffectView!
     @IBOutlet var circularView: CircularView!
-    @IBOutlet var titleLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        hidesTitleLabelWhenUnfocused = false
+    }
     
     
     override func layoutSubviews() {

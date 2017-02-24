@@ -45,6 +45,10 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
         load(page: 1)
     }
     
+    override var preferredFocusedView: UIView? {
+        return collectionView?.preferredFocusedView
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "embed", let vc = segue.destination as? CollectionViewController {
             collectionViewController = vc
@@ -81,16 +85,21 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
             
             vc.loadMedia(id: media.id) { (media, error) in
                 guard let navigationController = self.navigationController,
-                    navigationController.visibleViewController === segue.destination else { return }
+                    navigationController.visibleViewController === segue.destination // Make sure we're still loading and the user hasn't dismissed the view.
+                    else { return }
                 
-                let transition = CATransition()
-                transition.duration = 0.5
-                transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                transition.type = kCATransitionFade
-                navigationController.view.layer.add(transition, forKey: nil)
+                #if os(iOS)
+                
+                    let transition = CATransition()
+                    transition.duration = 0.5
+                    transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+                    transition.type = kCATransitionFade
+                    navigationController.view.layer.add(transition, forKey: nil)
+                    
+                #endif
                 
                 defer {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + transition.duration) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         var viewControllers = navigationController.viewControllers
                         let index = viewControllers.count - 2
                         viewControllers.remove(at: index)
