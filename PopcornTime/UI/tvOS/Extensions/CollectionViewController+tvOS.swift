@@ -28,6 +28,12 @@ extension CollectionViewController {
         focusIndexPath = indexPath
     }
     
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let adjustment = scrollView.contentOffset.y + scrollView.contentInset.top
+        parent?.navigationItem.leftBarButtonItem?.customView?.frame.origin.y = -adjustment + 44
+        parent?.navigationItem.rightBarButtonItems?.forEach({$0.customView?.frame.origin.y = -adjustment + 44})
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         if let next = context.nextFocusedIndexPath {
             focusIndexPath = next

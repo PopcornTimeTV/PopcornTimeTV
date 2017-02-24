@@ -2,9 +2,7 @@
 
 import Foundation
 import UIKit
-import XCDYouTubeKit
 import AlamofireImage
-import FloatRatingView
 import PopcornTorrent
 import PopcornKit
 
@@ -33,13 +31,6 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     
     #elseif os(tvOS)
     
-    var moreSeasonsButton: UIButton {
-        get {
-           return itemViewController.seasonsButton!
-        } set (button) {
-            itemViewController.seasonsButton = button
-        }
-    }
     var seasonsLabel: UILabel {
         get {
             return itemViewController.titleLabel
@@ -73,8 +64,6 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     var informationDescriptionCollectionViewController: DescriptionCollectionViewController!
     var accessibilityDescriptionCollectionViewController: DescriptionCollectionViewController!
     var episodesCollectionViewController: EpisodesCollectionViewController!
-    
-    typealias EpisodesCollectionViewController = EpisodesViewController // Keep Xcode happy
     
     // MARK: - Container view height constraints
     
@@ -315,14 +304,14 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         let isTv = UIDevice.current.userInterfaceIdiom == .tv
         
         if vc == relatedCollectionViewController {
-            margin = height == 0 ? 0 : isTv ? 90 : 40 // If 0 height is passed in for the collection view, the container view is to be completely hidden.
+            margin = height == 0 ? 0 : isTv ? 90 : 70 // If 0 height is passed in for the collection view, the container view is to be completely hidden.
             relatedContainerViewHeightConstraint.constant = height + margin
         } else if vc == peopleCollectionViewController {
-            margin = height == 0 ? 0 : isTv ? 90 : 40 // If 0 height is passed in for the collection view, the container view is to be completely hidden.
+            margin = height == 0 ? 0 : isTv ? 90 : 70 // If 0 height is passed in for the collection view, the container view is to be completely hidden.
             peopleContainerViewHeightConstraint.constant = height + margin
         } else if vc == episodesCollectionViewController {
-             margin = height == 0 ? 0 : isTv ? 0 : 40 // If 0 height is passed in for the collection view, the container view is to be completely hidden.
-            episodesContainerViewHeightConstraint.constant = height
+             margin = height == 0 ? 0 : isTv ? 0 : 70 // If 0 height is passed in for the collection view, the container view is to be completely hidden.
+            episodesContainerViewHeightConstraint.constant = height + margin
         } else if vc == informationDescriptionCollectionViewController {
             informationContainerViewHeightConstraint.constant = height
         } else if vc == accessibilityDescriptionCollectionViewController {

@@ -1,15 +1,17 @@
 
 
-import UIKit
+import Foundation
 
 protocol ContinueWatchingCollectionViewCellDelegate: class {
     func cell(_ cell: ContinueWatchingCollectionViewCell, didDetectLongPressGesture: UILongPressGestureRecognizer)
 }
 
-class ContinueWatchingCollectionViewCell: BaseCollectionViewCell {
+class ContinueWatchingCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subtitleLabel: UILabel!
     @IBOutlet var progressView: UIProgressView!
+    @IBOutlet var imageView: UIImageView!
     
     weak var delegate: ContinueWatchingCollectionViewCellDelegate?
     
@@ -18,15 +20,6 @@ class ContinueWatchingCollectionViewCell: BaseCollectionViewCell {
         
         let gesture = UILongPressGestureRecognizer(target: self, action: #selector(didDetectLongPress(_:)))
         addGestureRecognizer(gesture)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        [highlightView, imageView].forEach {
-            $0?.layer.cornerRadius = self.bounds.width/70.0
-            $0?.layer.masksToBounds = true
-        }
     }
     
     func didDetectLongPress(_ gesture: UILongPressGestureRecognizer) {

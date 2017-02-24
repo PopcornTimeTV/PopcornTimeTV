@@ -3,8 +3,18 @@
 import Foundation
 import TVServices
 import PopcornKit
+import ObjectMapper
 
 class ServiceProvider: NSObject, TVTopShelfProvider {
+    
+    func toSelector(_ media: Media) -> String {
+        if let movie = media as? Movie {
+            return "showMovie" + "»" + (Mapper<Movie>().toJSONString(movie) ?? "")
+        } else if let show = media as? Show {
+            return "showShow" + "»" + (Mapper<Show>().toJSONString(show) ?? "")
+        }
+        return ""
+    }
 
     var topShelfStyle: TVTopShelfContentStyle {
         return .sectioned
@@ -28,7 +38,7 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
                     self.buildShelfItem(
                         item.title,
                         image: item.mediumCoverImage,
-                        action: item is Movie ? "showMovie" : "showShow"
+                        action: self.toSelector(item)
                     )
                 )
             }

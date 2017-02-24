@@ -190,7 +190,12 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
                 _cell.subtitleLabel.text = crew.job
             }
             
-            _cell.subtitleLabel.text = UIDevice.current.userInterfaceIdiom == .tv ? _cell.subtitleLabel.text?.uppercased() : _cell.subtitleLabel.text
+            #if os(tvOS)
+            
+                _cell.subtitleLabel.text = _cell.subtitleLabel.text?.uppercased()
+                _cell.hidesTitleLabelWhenUnfocused = false
+            
+            #endif
             
             cell = _cell
         } else {

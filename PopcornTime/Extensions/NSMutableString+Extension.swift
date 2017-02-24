@@ -15,7 +15,7 @@ extension NSMutableAttributedString {
     }
 }
 
-func attributedString(with spacing: Int = 15, between images: String...) -> [NSAttributedString] {
+func attributedString(with spacing: Int = 25, between images: String...) -> [NSAttributedString] {
     return images.flatMap({
         guard let attributedString = UIImage(named: $0)?.colored(.white).attributed else { return nil }
         

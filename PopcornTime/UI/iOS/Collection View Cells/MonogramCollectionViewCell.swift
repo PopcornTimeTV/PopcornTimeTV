@@ -9,12 +9,6 @@ class MonogramCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet var noImageVisualEffectView: UIVisualEffectView!
     @IBOutlet var circularView: CircularView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        hidesTitleLabelWhenUnfocused = false
-    }
-    
     
     override func layoutSubviews() {
         super.layoutSubviews()

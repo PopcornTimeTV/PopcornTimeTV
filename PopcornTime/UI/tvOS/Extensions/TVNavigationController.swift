@@ -4,6 +4,12 @@ import Foundation
 
 class TVNavigationController: UINavigationController, UINavigationControllerDelegate {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.clear]
+    }
+    
     func sharedSetup() {
         delegate = self
     }

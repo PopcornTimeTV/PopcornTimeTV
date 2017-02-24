@@ -7,10 +7,15 @@ class PersonViewController: MainViewController {
     
     var currentItem: Person!
     
+    // tvOS Exclusive
+    
+    @IBOutlet var titleLabel: UILabel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = currentItem.name
+        titleLabel?.text = currentItem.name
         collectionViewController.paginated = false
     }
     

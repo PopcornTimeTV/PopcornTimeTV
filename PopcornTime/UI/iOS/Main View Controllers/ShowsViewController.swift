@@ -44,7 +44,7 @@ class ShowsViewController: MainViewController {
         }
     }
     
-    @IBAction func showFilters(_ sender: UIBarButtonItem) {
+    @IBAction func showFilters(_ sender: Any) {
         let controller = UIAlertController(title: "Select a filter to sort by", message: nil, preferredStyle: .actionSheet, blurStyle: .dark)
         
         let handler: ((UIAlertAction) -> Void) = { (handler) in
@@ -58,12 +58,14 @@ class ShowsViewController: MainViewController {
         controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         controller.preferredAction = controller.actions.first(where: {$0.title == self.currentFilter.string})
         
-        controller.popoverPresentationController?.barButtonItem = sender
+        if let barButtonItem = sender as? UIBarButtonItem {
+            controller.popoverPresentationController?.barButtonItem = barButtonItem
+        }
         
         present(controller, animated: true, completion: nil)
     }
     
-    @IBAction func showGenres(_ sender: UIBarButtonItem) {
+    @IBAction func showGenres(_ sender: Any) {
         let controller = UIAlertController(title: "Select a genre to filter by", message: nil, preferredStyle: .actionSheet, blurStyle: .dark)
         
         let handler: ((UIAlertAction) -> Void) = { (handler) in
@@ -78,7 +80,9 @@ class ShowsViewController: MainViewController {
         controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         controller.preferredAction = controller.actions.first(where: {$0.title == self.currentGenre.rawValue})
         
-        controller.popoverPresentationController?.barButtonItem = sender
+        if let barButtonItem = sender as? UIBarButtonItem {
+            controller.popoverPresentationController?.barButtonItem = barButtonItem
+        }
         
         present(controller, animated: true)
     }

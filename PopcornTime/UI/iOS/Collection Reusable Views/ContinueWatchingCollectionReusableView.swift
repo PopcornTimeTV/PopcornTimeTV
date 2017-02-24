@@ -13,7 +13,9 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
     var workItem: DispatchWorkItem!
     var type: Trakt.MediaType!
     
-    let minItemSize = CGSize(width: 420, height: 260)
+    var minItemSize: CGSize {
+        return UIDevice.current.userInterfaceIdiom == .tv ? CGSize(width: 850, height: 350) : CGSize(width: 420, height: 260)
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

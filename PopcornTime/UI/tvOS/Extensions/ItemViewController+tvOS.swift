@@ -25,7 +25,7 @@ extension ItemViewController {
             paragraphStyle.alignment = .right
             
             let appendSection: (String, [String]) -> Void = { (title, items) in
-                let titleAttributes = [NSParagraphStyleAttributeName: paragraphStyle, NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: UIFontWeightBold), NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 0.8)]
+                let titleAttributes = [NSParagraphStyleAttributeName: paragraphStyle, NSFontAttributeName: UIFont.systemFont(ofSize: 24, weight: UIFontWeightBold), NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 0.8)]
                 
                 let isFirstSection = peopleText.length == 0
                 peopleText.append(NSAttributedString(string: (!isFirstSection ? "\n" : "") + title + "\n", attributes: titleAttributes))
@@ -81,6 +81,9 @@ extension ItemViewController {
                 playButton.removeFromSuperview()
             }
             watchedButton?.removeFromSuperview()
+            if show.seasonNumbers.count == 1 {
+                seasonsButton?.removeFromSuperview()
+            }
         }
     }
     

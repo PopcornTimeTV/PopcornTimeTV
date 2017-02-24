@@ -119,7 +119,6 @@
 		4D99953D1E5C6CC1005C432A /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99953B1E5C6C15005C432A /* BaseCollectionViewCell.swift */; };
 		4D99953E1E5C6E78005C432A /* CircularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B6B1DDFA12A000E2AA1 /* CircularView.swift */; };
 		4D99953F1E5C6ECD005C432A /* ContinueWatchingCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2D1301E59FD2C0019DB7D /* ContinueWatchingCollectionReusableView.swift */; };
-		4D9995401E5C6EEB005C432A /* ContinueWatchingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */; };
 		4D9995421E5C6FFE005C432A /* CollectionViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9995411E5C6FFD005C432A /* CollectionViewController+iOS.swift */; };
 		4D9995431E5C7240005C432A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B4D1DDFA0F5000E2AA1 /* MainViewController.swift */; };
 		4D9995441E5C7243005C432A /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B4E1DDFA0F5000E2AA1 /* MoviesViewController.swift */; };
@@ -150,6 +149,7 @@
 		4DAF1A461E2D3BDB00D963BD /* MonogramCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAF1A451E2D3BDB00D963BD /* MonogramCollectionViewCell.swift */; };
 		4DAFAA361E0AF4DE00AE0F9A /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFAA351E0AF4DE00AE0F9A /* AudioViewController.swift */; };
 		4DAFAA3B1E0AFDA600AE0F9A /* OptionsStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFAA3A1E0AFDA600AE0F9A /* OptionsStackViewController.swift */; };
+		4DB0477A1E6035860008721A /* ContinueWatchingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB047791E6035860008721A /* ContinueWatchingCollectionViewCell.swift */; };
 		4DBE608A1E5E49B200C2549B /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60891E5E49B200C2549B /* FileManager+Extension.swift */; };
 		4DBE608B1E5E49B200C2549B /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60891E5E49B200C2549B /* FileManager+Extension.swift */; };
 		4DBE608D1E5E511000C2549B /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B591DDFA109000E2AA1 /* DetailViewController.swift */; };
@@ -339,6 +339,7 @@
 		4DAF1A451E2D3BDB00D963BD /* MonogramCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MonogramCollectionViewCell.swift; path = "../iOS/Collection View Cells/MonogramCollectionViewCell.swift"; sourceTree = "<group>"; };
 		4DAFAA351E0AF4DE00AE0F9A /* AudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
 		4DAFAA3A1E0AFDA600AE0F9A /* OptionsStackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsStackViewController.swift; sourceTree = "<group>"; };
+		4DB047791E6035860008721A /* ContinueWatchingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContinueWatchingCollectionViewCell.swift; path = "Collection View Cells/ContinueWatchingCollectionViewCell.swift"; sourceTree = "<group>"; };
 		4DBE60891E5E49B200C2549B /* FileManager+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
 		4DBE608E1E5E51C300C2549B /* DetailViewController+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DetailViewController+iOS.swift"; sourceTree = "<group>"; };
 		4DBE60971E5E590500C2549B /* MovieDetailViewController+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MovieDetailViewController+iOS.swift"; sourceTree = "<group>"; };
@@ -350,7 +351,7 @@
 		4DC2D1321E59FE290019DB7D /* ContinueWatchingCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContinueWatchingCollectionViewCell.xib; sourceTree = "<group>"; };
 		4DC2D1341E5A250B0019DB7D /* SnappingCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnappingCollectionViewLayout.swift; path = "../iOS/Collection View Layouts/SnappingCollectionViewLayout.swift"; sourceTree = "<group>"; };
 		4DC2D1361E5B25750019DB7D /* AutoPlayStoryboardSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoPlayStoryboardSegue.swift; sourceTree = "<group>"; };
-		4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContinueWatchingCollectionViewCell.swift; path = "../iOS/Collection View Cells/ContinueWatchingCollectionViewCell.swift"; sourceTree = "<group>"; };
+		4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueWatchingCollectionViewCell.swift; sourceTree = "<group>"; };
 		4DC7B69A1E3503720098B12E /* CircularButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
 		4DC7B69C1E35295E0098B12E /* ItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemViewController.swift; path = "../iOS/View Controllers/ItemViewController.swift"; sourceTree = "<group>"; };
 		4DC7B6A01E39027A0098B12E /* DescriptionCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DescriptionCollectionViewController.swift; path = "../iOS/Collection View Controllers/DescriptionCollectionViewController.swift"; sourceTree = "<group>"; };
@@ -565,6 +566,7 @@
 			isa = PBXGroup;
 			children = (
 				4D99955A1E5C81DF005C432A /* ContinueWatchingCollectionViewCell.xib */,
+				4DB047791E6035860008721A /* ContinueWatchingCollectionViewCell.swift */,
 				4D784D551E5F546E009E3423 /* DescriptionCollectionViewCell.xib */,
 			);
 			name = "Collection View Cells";
@@ -712,7 +714,6 @@
 				4D859B491DDFA0E4000E2AA1 /* CoverCollectionViewCell.swift */,
 				4DAF1A451E2D3BDB00D963BD /* MonogramCollectionViewCell.swift */,
 				4D99953B1E5C6C15005C432A /* BaseCollectionViewCell.swift */,
-				4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */,
 			);
 			name = "Collection View Cells";
 			sourceTree = "<group>";
@@ -759,6 +760,7 @@
 			children = (
 				4DC7B6A41E3907CC0098B12E /* DescriptionCollectionViewCell.xib */,
 				4DC2D1321E59FE290019DB7D /* ContinueWatchingCollectionViewCell.xib */,
+				4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */,
 			);
 			path = "Collection View Cells";
 			sourceTree = "<group>";
@@ -1182,7 +1184,6 @@
 				4D89A5EB1DF886210063F9E1 /* UIView+Extension.swift in Sources */,
 				4D990E2D1DC4F00F005CDE34 /* SubtitleSettings.swift in Sources */,
 				4D784D5A1E5F7CC0009E3423 /* MovieDetailViewController+tvOS.swift in Sources */,
-				4D9995401E5C6EEB005C432A /* ContinueWatchingCollectionViewCell.swift in Sources */,
 				4DBE60941E5E559700C2549B /* UIImage+Extension.swift in Sources */,
 				4D859BAF1DDFA1B7000E2AA1 /* SubtitlesViewController.swift in Sources */,
 				4DC2D1371E5B25750019DB7D /* AutoPlayStoryboardSegue.swift in Sources */,
@@ -1245,6 +1246,7 @@
 				4DBE60931E5E54FF00C2549B /* DescriptionCollectionViewCell.swift in Sources */,
 				4D9995471E5C724D005C432A /* WatchlistViewController.swift in Sources */,
 				4D5624751E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift in Sources */,
+				4DB0477A1E6035860008721A /* ContinueWatchingCollectionViewCell.swift in Sources */,
 				4D52E04B1DE4C69900486F31 /* GradientView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -4,6 +4,8 @@ import Foundation
 import PopcornKit
 import AlamofireImage
 
+typealias EpisodesCollectionViewController = EpisodesViewController // Keep Xcode happy
+
 class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     var dataSource: [Episode] = []

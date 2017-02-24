@@ -3,6 +3,7 @@
 import UIKit
 import PopcornKit
 import Reachability
+import ObjectMapper
 
 #if os(iOS)
     import AlamofireNetworkActivityIndicator
@@ -63,8 +64,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UI
     @discardableResult func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         #if os(tvOS)
             if url.scheme == "PopcornTime" {
-                guard let action = url.absoluteString.removingPercentEncoding?.components(separatedBy: "PopcornTime:?action=").last else {
-                    return false
+                guard
+                    let actions = url.absoluteString.removingPercentEncoding?.components(separatedBy: "PopcornTime:?action=").last?.components(separatedBy: "»"),
+                    let type = actions.first, let json = actions.last
+                    else {
+                        return false
+                }
+                
+                let media: Media = type == "showMovie" ? Mapper<Movie>().map(JSONString: json)! : Mapper<Show>().map(JSONString: json)!
+                
+                if let tabBarController = window?.rootViewController as? UITabBarController,
+                    let navigationController = tabBarController.selectedViewController as? UINavigationController,
+                    let mainViewController = navigationController.viewControllers.flatMap({$0 as? MainViewController}).first,
+                    let vc = mainViewController.collectionViewController {
+                    tabBarController.tabBar.isHidden = true
+                    vc.performSegue(withIdentifier: type, sender: media)
                 }
             }
         #elseif os(iOS)
@@ -80,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UI
                     media = Movie(id: torrent.hash!, torrents: [torrent]) // Type here is arbitrary.
                 } else {
                     torrent = Torrent(url: url.path)
-                    media = Movie(id: url.lastPathComponent, torrents: [torrent])
+                    media = Movie(id: url.lastPathComponent, torrents: [torrent]) // Type here is arbitrary.
                 }
                 
                 if let root = window?.rootViewController {

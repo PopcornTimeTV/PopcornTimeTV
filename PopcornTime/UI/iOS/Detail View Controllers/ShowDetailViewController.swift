@@ -13,12 +13,6 @@ class ShowDetailViewController: DetailViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        moreSeasonsButton.isHidden = show.seasonNumbers.count == 1
-    }
-    
     override func loadMedia(id: String, completion: @escaping (Media?, NSError?) -> Void) {
         PopcornKit.getShowInfo(id) { (show, error) in
             
@@ -132,5 +126,6 @@ class ShowDetailViewController: DetailViewController {
         seasonsLabel.text = "Season \(season)"
         currentSeason = season
         episodesCollectionViewController.dataSource = show.episodes.filter({$0.season == season}).sorted(by: {$0.0.episode < $0.1.episode})
+        episodesCollectionViewController.collectionView?.reloadData()
     }
 }

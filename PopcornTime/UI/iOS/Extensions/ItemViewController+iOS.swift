@@ -1,7 +1,8 @@
 
 
 import Foundation
-import XCDYoutubeKit
+import PopcornKit
+import XCDYouTubeKit
 
 extension ItemViewController {
     
@@ -11,16 +12,16 @@ extension ItemViewController {
         titleLabel.text = media.title
         summaryTextView.text = media.summary
         
-        if let image = media.image, let url = URL(string: image) {
-            imageView.af_setImage(withURL: url)
+        if let image = media.mediumCoverImage, let url = URL(string: image) {
+            imageView?.af_setImage(withURL: url)
         }
         
         if let movie = media as? Movie {
             subtitleLabel.text = movie.formattedRuntime
-            genreLabel.text = movie.genres.first?.capitalized ?? ""
+            genreLabel?.text = movie.genres.first?.capitalized ?? ""
             
             let info = NSMutableAttributedString(string: "\(movie.year)\t")
-            attributedString(from: movie.certification, "HD", "CC").forEach({info.append($0)})
+            attributedString(with: 10, between: movie.certification, "HD", "CC").forEach({info.append($0)})
             
             infoLabel.attributedText = info
             ratingView.rating = movie.rating/20.0
@@ -28,10 +29,10 @@ extension ItemViewController {
             trailerButton.isHidden = movie.trailerCode == nil
         } else if let show = media as? Show {
             subtitleLabel.text = show.network ?? "TV"
-            genreLabel.text = show.genres.first?.capitalized ?? ""
+            genreLabel?.text = show.genres.first?.capitalized ?? ""
             
             let info = NSMutableAttributedString(string: "\(show.year)\t")
-            attributedString(from: "HD", "CC").forEach({info.append($0)})
+            attributedString(with: 10, between: "HD", "CC").forEach({info.append($0)})
             
             infoLabel.attributedText = info
             ratingView.rating = show.rating/20.0

@@ -45,10 +45,6 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
         load(page: 1)
     }
     
-    override var preferredFocusedView: UIView? {
-        return collectionView?.preferredFocusedView
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "embed", let vc = segue.destination as? CollectionViewController {
             collectionViewController = vc
@@ -127,7 +123,7 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
             }
         } else if segue.identifier == "showPerson",
             let vc = segue.destination as? PersonViewController,
-            let person = sender as? Person {
+            let person: Person = sender as? Crew ?? sender as? Actor {
             vc.currentItem = person
         }
     }

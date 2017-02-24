@@ -32,7 +32,7 @@ class EpisodeDetailViewController: UIViewController, UIScrollViewDelegate, UIGes
         summaryTextView.text = episode.summary
         
         let info = NSMutableAttributedString(string: "\(DateFormatter.localizedString(from: episode.firstAirDate, dateStyle: .medium, timeStyle: .none))    \(episode.show.runtime ?? "0") min\t")
-        attributedString(from: "HD", "CC").forEach({info.append($0)})
+        attributedString(with: 10, between: "HD", "CC").forEach({info.append($0)})
         infoLabel.attributedText = info
         
         
