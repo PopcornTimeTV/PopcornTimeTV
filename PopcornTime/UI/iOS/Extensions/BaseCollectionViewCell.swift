@@ -57,12 +57,15 @@ import MarqueeLabel
             coordinator.addCoordinatedAnimations({
                 self.titleLabel.alpha = self.isFocused ? 1 : 0
             })
-        } else {
-            imageLabelSpacingConstraint?.constant = isFocused ? 43 : 5
+        }
+        
+        if let constraint = imageLabelSpacingConstraint {
+            constraint.constant = isFocused ? 43 : 5
             coordinator.addCoordinatedAnimations({
                 self.layoutIfNeeded()
             })
         }
+        
         
         if let titleLabel = titleLabel as? MarqueeLabel {
             titleLabel.labelize = !isFocused

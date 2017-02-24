@@ -69,7 +69,7 @@ extension ItemViewController {
             titleLabel.text = ""
             infoLabel.text = "Watch \(show.title) on \(show.network ?? "TV")"
             
-            let subtitle = NSMutableAttributedString(string: "\(show.genres.first?.capitalized ?? "")\t\(show.year)\t")
+            let subtitle = NSMutableAttributedString(string: "\(show.genres.first?.capitalized ?? "")\t\(show.year)\t\t")
             attributedString(between: "HD", "CC").forEach({subtitle.append($0)})
             
             subtitleLabel.attributedText = subtitle

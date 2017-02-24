@@ -4,18 +4,36 @@ import Foundation
 
 @IBDesignable class GradientView: UIView {
     
-    @IBInspectable var topColor: UIColor? {
+    @IBInspectable var isHorizontal: Bool = false {
+        didSet {
+            guard isHorizontal != oldValue else { return }
+            
+            isVertical = !isHorizontal
+            configureView()
+        }
+    }
+    
+    @IBInspectable var isVertical = true {
+        didSet {
+            guard isVertical != oldValue else { return }
+            
+            isHorizontal = !isVertical
+            configureView()
+        }
+    }
+
+    @IBInspectable var topColor: UIColor = .clear {
         didSet {
             configureView()
         }
     }
-    @IBInspectable var bottomColor: UIColor? {
+    @IBInspectable var bottomColor: UIColor = .black {
         didSet {
             configureView()
         }
     }
     
-    override class var layerClass : AnyClass {
+    override class var layerClass: AnyClass {
         return CAGradientLayer.self
     }
     
@@ -36,11 +54,14 @@ import Foundation
     
     func configureView() {
         let layer = self.layer as! CAGradientLayer
-        let locations = [ 0.0, 1.0 ]
-        layer.locations = locations as [NSNumber]?
-        let color1: UIColor = topColor ?? self.tintColor
-        let color2: UIColor = bottomColor ?? UIColor.black
-        let colors = [ color1.cgColor, color2.cgColor ]
+        
+        let locations: [NSNumber] = [0.0, 1.0]
+        layer.locations = locations
+        
+        layer.startPoint = isHorizontal ? CGPoint(x: 0.0, y: 0.5) : CGPoint(x: 0.0, y: 1.0)
+        layer.endPoint   = isHorizontal ? CGPoint(x: 1.0, y: 0.5) : CGPoint(x: 1.0, y: 1.0)
+        
+        let colors = [topColor.cgColor, bottomColor.cgColor]
         layer.colors = colors
     }
     
