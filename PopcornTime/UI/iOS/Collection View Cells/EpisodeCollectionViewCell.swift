@@ -18,14 +18,20 @@ class EpisodeCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
+    #if os(tvOS)
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        if UIDevice.current.userInterfaceIdiom == .tv {
-            let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didDetectLongPress(_:)))
-            addGestureRecognizer(gestureRecognizer)
-        }
+        
+        focusedConstraints.append(watchedOverlay!.widthAnchor.constraint(equalTo: imageView.focusedFrameGuide.widthAnchor))
+        focusedConstraints.append(watchedOverlay!.heightAnchor.constraint(equalTo: imageView.focusedFrameGuide.heightAnchor))
+        
+        let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didDetectLongPress(_:)))
+        addGestureRecognizer(gestureRecognizer)
     }
+    
+    #endif
     
     func didDetectLongPress(_ gesture: UILongPressGestureRecognizer) {
         guard gesture.state == .ended else { return }

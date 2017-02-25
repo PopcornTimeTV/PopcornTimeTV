@@ -32,6 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UI
             
             /// Weird SDK throws error if shared instance has already been initialised and doesn't mark function as throwing.
             do { try GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID)) }
+            
+            (window?.rootViewController as? UITabBarController)?.delegate = self
 
         #endif
         
@@ -47,8 +49,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UI
         
         TraktManager.shared.syncUserData()
         UpdateManager.shared.delegate = self
-        
-        (window?.rootViewController as? UITabBarController)?.delegate = self
         
         return true
     }

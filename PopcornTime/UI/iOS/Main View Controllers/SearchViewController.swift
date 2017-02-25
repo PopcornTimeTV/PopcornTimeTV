@@ -30,7 +30,7 @@ class SearchViewController: MainViewController, UISearchBarDelegate {
         if UIDevice.current.userInterfaceIdiom == .tv {
             return CGSize(width: 250, height: fetchType == .people ? 400 : 460)
         } else {
-            return CGSize(width: 180, height: fetchType == .people ? 250 : 300)
+            return CGSize(width: 108, height: fetchType == .people ? 160 : 185)
         }
     }
     

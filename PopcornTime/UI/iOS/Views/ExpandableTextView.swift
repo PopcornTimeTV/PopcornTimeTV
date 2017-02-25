@@ -62,7 +62,7 @@ import Foundation
         UIView.animate(withDuration: animationLength, animations: {
             self.superview?.layoutIfNeeded()
         }, completion: { _ in
-            self.superview?.parentViewController?.viewDidLayoutSubviews()
+            self.superview?.parent?.viewDidLayoutSubviews()
         })
     }
     

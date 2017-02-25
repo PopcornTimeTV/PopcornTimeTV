@@ -129,7 +129,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     
     func minItemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize? {
         if collectionView === peopleCollectionViewController.collectionView {
-            return UIDevice.current.userInterfaceIdiom == .tv ? CGSize(width: 250, height: 360) : CGSize(width: 180, height: 250)
+            return UIDevice.current.userInterfaceIdiom == .tv ? CGSize(width: 250, height: 360) : CGSize(width: 108, height: 180)
         } else if collectionView === relatedCollectionViewController.collectionView && UIDevice.current.userInterfaceIdiom == .tv {
             return CGSize(width: 150, height: 304)
         }
@@ -304,7 +304,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         let isTv = UIDevice.current.userInterfaceIdiom == .tv
         
         if vc == relatedCollectionViewController {
-            margin = height == 0 ? 0 : isTv ? 90 : 70 // If 0 height is passed in for the collection view, the container view is to be completely hidden.
+            margin = height == 0 ? 0 : isTv ? 90 : 90 // If 0 height is passed in for the collection view, the container view is to be completely hidden.
             relatedContainerViewHeightConstraint.constant = height + margin
         } else if vc == peopleCollectionViewController {
             margin = height == 0 ? 0 : isTv ? 90 : 70 // If 0 height is passed in for the collection view, the container view is to be completely hidden.

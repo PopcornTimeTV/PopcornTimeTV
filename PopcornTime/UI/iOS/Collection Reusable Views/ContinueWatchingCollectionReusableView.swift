@@ -112,7 +112,7 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
             return (media, "showMovie")
         }()
         
-        parentViewController?.performSegue(withIdentifier: info.identifier, sender: info.media)
+        parent?.performSegue(withIdentifier: info.identifier, sender: info.media)
     }
     
     // MARK: - Continue watching collection view cell delegate
@@ -135,7 +135,7 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
             self.layoutSubviews()
         }))
             
-        parentViewController?.present(vc, animated: true, completion: nil)
+        parent?.present(vc, animated: true, completion: nil)
     }
     
     // MARK: - Layout
@@ -167,7 +167,7 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
         
         let itemSpacing = flowLayout.minimumLineSpacing + content.left + content.right + section.left + section.right
         
-        let estimatedWidth = parentViewController!.view.bounds.width - itemSpacing
+        let estimatedWidth = parent!.view.bounds.width - itemSpacing
         
         if estimatedWidth > minItemSize.width {
             return minItemSize

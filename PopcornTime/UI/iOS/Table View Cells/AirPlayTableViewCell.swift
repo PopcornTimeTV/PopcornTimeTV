@@ -44,7 +44,7 @@ class AirPlayTableViewCell: UITableViewCell {
             
             alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
             
-            parentViewController?.present(alertController, animated: true, completion: nil)
+            parent?.present(alertController, animated: true, completion: nil)
         }
     }
     

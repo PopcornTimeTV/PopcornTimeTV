@@ -21,6 +21,7 @@
 		4D2543B51DACFBFE00149533 /* TopShelf.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4D2543AD1DACFBFE00149533 /* TopShelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4D29072A1E2BA80F00581701 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D2907291E2BA80F00581701 /* LoadingView.xib */; };
 		4D29072C1E2BA95B00581701 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D29072B1E2BA95B00581701 /* LoadingView.swift */; };
+		4D3B5E6D1E621B21001A7031 /* UICollectionViewCell+ReactiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3B5E6C1E621B21001A7031 /* UICollectionViewCell+ReactiveCell.swift */; };
 		4D4F90321E33847A0050CA47 /* UIAlertController+BlurStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4F90311E33847A0050CA47 /* UIAlertController+BlurStyle.swift */; };
 		4D4F90341E33AA440050CA47 /* WatchlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4F90331E33AA440050CA47 /* WatchlistViewController.swift */; };
 		4D52E04B1DE4C69900486F31 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B6C1DDFA12A000E2AA1 /* GradientView.swift */; };
@@ -135,7 +136,6 @@
 		4D9995621E5CAD51005C432A /* SearchViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9995611E5CAD51005C432A /* SearchViewController+iOS.swift */; };
 		4D9995631E5CC0A8005C432A /* PersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B581DDFA109000E2AA1 /* PersonViewController.swift */; };
 		4D9995641E5CDF08005C432A /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B88AA1E3C9BFA00DB701D /* UINavigationController+Extension.swift */; };
-		4D9995651E5CDF65005C432A /* SnappingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2D1341E5A250B0019DB7D /* SnappingCollectionViewLayout.swift */; };
 		4D99956E1E5CE227005C432A /* UIFont+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99956D1E5CE227005C432A /* UIFont+Style.swift */; };
 		4D99956F1E5CE227005C432A /* UIFont+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99956D1E5CE227005C432A /* UIFont+Style.swift */; };
 		4D9995741E5CE306005C432A /* CheckForUpdatesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D9995731E5CE306005C432A /* CheckForUpdatesViewController.xib */; };
@@ -246,6 +246,7 @@
 		4D2543B21DACFBFE00149533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D2907291E2BA80F00581701 /* LoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		4D29072B1E2BA95B00581701 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingView.swift; path = ../iOS/Views/LoadingView.swift; sourceTree = "<group>"; };
+		4D3B5E6C1E621B21001A7031 /* UICollectionViewCell+ReactiveCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UICollectionViewCell+ReactiveCell.swift"; path = "../Collection View Cells/UICollectionViewCell+ReactiveCell.swift"; sourceTree = "<group>"; };
 		4D4F90311E33847A0050CA47 /* UIAlertController+BlurStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIAlertController+BlurStyle.swift"; path = "../UI/iOS/Extensions/UIAlertController+BlurStyle.swift"; sourceTree = "<group>"; };
 		4D4F90331E33AA440050CA47 /* WatchlistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WatchlistViewController.swift; path = "../iOS/Main View Controllers/WatchlistViewController.swift"; sourceTree = "<group>"; };
 		4D5624741E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PCTPlayerViewController+ScreenNotifications.swift"; sourceTree = "<group>"; };
@@ -349,7 +350,7 @@
 		4DC2D12E1E59F33C0019DB7D /* ContinueWatchingCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContinueWatchingCollectionReusableView.xib; path = "../Collection Reusable Views/ContinueWatchingCollectionReusableView.xib"; sourceTree = "<group>"; };
 		4DC2D1301E59FD2C0019DB7D /* ContinueWatchingCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContinueWatchingCollectionReusableView.swift; path = "../iOS/Collection Reusable Views/ContinueWatchingCollectionReusableView.swift"; sourceTree = "<group>"; };
 		4DC2D1321E59FE290019DB7D /* ContinueWatchingCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContinueWatchingCollectionViewCell.xib; sourceTree = "<group>"; };
-		4DC2D1341E5A250B0019DB7D /* SnappingCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnappingCollectionViewLayout.swift; path = "../iOS/Collection View Layouts/SnappingCollectionViewLayout.swift"; sourceTree = "<group>"; };
+		4DC2D1341E5A250B0019DB7D /* SnappingCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnappingCollectionViewLayout.swift; path = "Collection View Layouts/SnappingCollectionViewLayout.swift"; sourceTree = "<group>"; };
 		4DC2D1361E5B25750019DB7D /* AutoPlayStoryboardSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoPlayStoryboardSegue.swift; sourceTree = "<group>"; };
 		4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueWatchingCollectionViewCell.swift; sourceTree = "<group>"; };
 		4DC7B69A1E3503720098B12E /* CircularButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
@@ -529,7 +530,6 @@
 				4D99956A1E5CE081005C432A /* View Controllers */,
 				4D9995691E5CE05F005C432A /* Collection View Controllers */,
 				4D9995681E5CE049005C432A /* Collection View Cells */,
-				4D99956B1E5CE088005C432A /* Collection View Layouts */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -614,6 +614,7 @@
 				4D859BB11DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift */,
 				4D20C02F1E5E2D2500DBFF4F /* TVNavigationController.swift */,
 				4D7376011DFDC6F500505CA0 /* NSNotification+Name.swift */,
+				4D3B5E6C1E621B21001A7031 /* UICollectionViewCell+ReactiveCell.swift */,
 				4D859BB41DDFA1C6000E2AA1 /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
@@ -739,14 +740,6 @@
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
-		4D99956B1E5CE088005C432A /* Collection View Layouts */ = {
-			isa = PBXGroup;
-			children = (
-				4DC2D1341E5A250B0019DB7D /* SnappingCollectionViewLayout.swift */,
-			);
-			name = "Collection View Layouts";
-			sourceTree = "<group>";
-		};
 		4D9995791E5E0058005C432A /* Presentation Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -843,6 +836,7 @@
 		4DE9E0681E3D0D8000806522 /* Collection View Layouts */ = {
 			isa = PBXGroup;
 			children = (
+				4DC2D1341E5A250B0019DB7D /* SnappingCollectionViewLayout.swift */,
 				4DE9E0691E3D0DC300806522 /* SeparatorCollectionViewLayout.swift */,
 			);
 			name = "Collection View Layouts";
@@ -972,6 +966,7 @@
 					};
 					4D689A161DD88E17001D1318 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = BQBJ6NTPEG;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -1190,6 +1185,7 @@
 				4D9995361E5BBC23005C432A /* CoverCollectionViewCell.swift in Sources */,
 				4D7376021DFDC6F500505CA0 /* NSNotification+Name.swift in Sources */,
 				4DBE60A21E5F220100C2549B /* EpisodeCollectionViewCell.swift in Sources */,
+				4D3B5E6D1E621B21001A7031 /* UICollectionViewCell+ReactiveCell.swift in Sources */,
 				4D859BB01DDFA1B7000E2AA1 /* OptionsViewController.swift in Sources */,
 				4D859B2E1DDFA079000E2AA1 /* TermsOfServiceViewController.swift in Sources */,
 				4D0183A91DC3ACB500AB75B3 /* Locale+Langs.swift in Sources */,
@@ -1223,7 +1219,6 @@
 				4D9995451E5C7245005C432A /* ShowsViewController.swift in Sources */,
 				4D99955D1E5C8F09005C432A /* CollectionViewController+tvOS.swift in Sources */,
 				4D9995441E5C7243005C432A /* MoviesViewController.swift in Sources */,
-				4D9995651E5CDF65005C432A /* SnappingCollectionViewLayout.swift in Sources */,
 				4D784D531E5F4559009E3423 /* ItemViewController+tvOS.swift in Sources */,
 				4D20C0301E5E2D2500DBFF4F /* TVNavigationController.swift in Sources */,
 				4D9995381E5C66E7005C432A /* ResponsiveCollectionViewController.swift in Sources */,
@@ -1538,7 +1533,7 @@
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BQBJ6NTPEG;
 				ENABLE_BITCODE = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1548,7 +1543,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting FIles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.mourke.ios;
 				PRODUCT_NAME = PopcornTime;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1569,12 +1564,12 @@
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BQBJ6NTPEG;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting FIles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.mourke.ios;
 				PRODUCT_NAME = PopcornTime;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Supporting Files/PopcornTimeiOS-Bridging-Header.h";

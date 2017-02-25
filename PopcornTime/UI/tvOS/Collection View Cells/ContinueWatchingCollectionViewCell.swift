@@ -12,6 +12,7 @@ class ContinueWatchingCollectionViewCell: UICollectionViewCell {
     @IBOutlet var subtitleLabel: UILabel!
     @IBOutlet var progressView: UIProgressView!
     @IBOutlet var imageView: UIImageView!
+    @IBOutlet var dimmingView: GradientView!
     
     weak var delegate: ContinueWatchingCollectionViewCellDelegate?
     
@@ -20,6 +21,10 @@ class ContinueWatchingCollectionViewCell: UICollectionViewCell {
         
         let gesture = UILongPressGestureRecognizer(target: self, action: #selector(didDetectLongPress(_:)))
         addGestureRecognizer(gesture)
+        
+        focusedConstraints.append(dimmingView.leadingAnchor.constraint(equalTo: imageView.focusedFrameGuide.leadingAnchor))
+        focusedConstraints.append(dimmingView.trailingAnchor.constraint(equalTo: imageView.focusedFrameGuide.trailingAnchor))
+        focusedConstraints.append(dimmingView.bottomAnchor.constraint(equalTo: imageView.focusedFrameGuide.bottomAnchor))
     }
     
     func didDetectLongPress(_ gesture: UILongPressGestureRecognizer) {

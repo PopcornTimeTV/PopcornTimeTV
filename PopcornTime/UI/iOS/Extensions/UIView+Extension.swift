@@ -3,7 +3,7 @@
 import UIKit
 
 extension UIView {
-    @nonobjc var parentViewController: UIViewController? {
+    @nonobjc var parent: UIViewController? {
         var parentResponder: UIResponder? = self
         while parentResponder != nil {
             parentResponder = parentResponder!.next

@@ -13,7 +13,7 @@ import Foundation
         }
     }
     
-    @IBInspectable var isVertical = true {
+    @IBInspectable var isVertical: Bool = true {
         didSet {
             guard isVertical != oldValue else { return }
             
@@ -47,22 +47,13 @@ import Foundation
         configureView()
     }
     
-    override func tintColorDidChange() {
-        super.tintColorDidChange()
-        configureView()
-    }
-    
     func configureView() {
         let layer = self.layer as! CAGradientLayer
         
-        let locations: [NSNumber] = [0.0, 1.0]
-        layer.locations = locations
+        layer.startPoint = isHorizontal ? CGPoint(x: 0.0, y: 0.5) : CGPoint(x: 0.5, y: 0.0)
+        layer.endPoint   = isHorizontal ? CGPoint(x: 1.0, y: 0.5) : CGPoint(x: 0.5, y: 1.0)
         
-        layer.startPoint = isHorizontal ? CGPoint(x: 0.0, y: 0.5) : CGPoint(x: 0.0, y: 1.0)
-        layer.endPoint   = isHorizontal ? CGPoint(x: 1.0, y: 0.5) : CGPoint(x: 1.0, y: 1.0)
-        
-        let colors = [topColor.cgColor, bottomColor.cgColor]
-        layer.colors = colors
+        layer.colors = [topColor.cgColor, bottomColor.cgColor]
     }
     
 }

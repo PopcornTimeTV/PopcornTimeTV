@@ -14,7 +14,7 @@ class StepperTableViewCell: UITableViewCell {
     @IBAction func stepperPressed(_ sender: UIStepper) {
         textLabel?.text = (sender.value > 0 ? "+" : "") + "\(sender.value)"
         
-        let parent = parentViewController as? OptionsTableViewController
+        let parent = self.parent as? OptionsTableViewController
         let indexPath = parent?.tableView?.indexPath(for: self)
         
         if indexPath?.section == 0 {

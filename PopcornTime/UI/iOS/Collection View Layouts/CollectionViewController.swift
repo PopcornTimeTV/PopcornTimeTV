@@ -39,7 +39,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
         if let size = delegate?.minItemSize(forCellIn: collectionView, at: indexPath) {
             return size
         } else {
-            return UIDevice.current.userInterfaceIdiom == .tv ? CGSize(width: 250, height: 460) : CGSize(width: 180, height: 300)
+            return UIDevice.current.userInterfaceIdiom == .tv ? CGSize(width: 250, height: 460) : CGSize(width: 108, height: 185)
         }
     }
     
@@ -165,7 +165,9 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
             _cell.titleLabel.text = media.title
             _cell.watched = media.isWatched
             
-            _cell.hidesTitleLabelWhenUnfocused = true
+            #if os(tvOS)
+                _cell.hidesTitleLabelWhenUnfocused = true
+            #endif
             
             if let image = media.smallCoverImage,
                 let url = URL(string: image) {

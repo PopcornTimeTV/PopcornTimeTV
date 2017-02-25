@@ -23,5 +23,15 @@ class CoverCollectionViewCell: BaseCollectionViewCell {
             $0?.layer.masksToBounds = true
         }
     }
+    
+    #elseif os(tvOS)
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        focusedConstraints.append(watchedIndicator.trailingAnchor.constraint(equalTo: imageView.focusedFrameGuide.trailingAnchor))
+        focusedConstraints.append(watchedIndicator.topAnchor.constraint(equalTo: imageView.focusedFrameGuide.topAnchor))
+    }
+    
     #endif
 }
