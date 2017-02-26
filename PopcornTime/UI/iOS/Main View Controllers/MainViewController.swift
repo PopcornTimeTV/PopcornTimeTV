@@ -60,7 +60,6 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
             #if os(tvOS)
 
                 if let destination = segue.destination as? TVLoadingViewController {
-                    
                     destination.loadView() // Initialize the @IBOutlets
                     
                     if let image = media.smallCoverImage, let url = URL(string: image) {
@@ -94,9 +93,10 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
                 defer {
                     DispatchQueue.main.asyncAfter(deadline: .now() + transition.duration) {
                         var viewControllers = navigationController.viewControllers
-                        let index = viewControllers.count - 2
-                        viewControllers.remove(at: index)
-                        navigationController.setViewControllers(viewControllers, animated: false)
+                        if let index = viewControllers.index(where: {$0 === segue.destination}) {
+                            viewControllers.remove(at: index)
+                            navigationController.setViewControllers(viewControllers, animated: false)
+                        }
                         
                         if let media = media, segue.shouldAutoPlay {
                             vc.chooseQuality(nil, media: media)

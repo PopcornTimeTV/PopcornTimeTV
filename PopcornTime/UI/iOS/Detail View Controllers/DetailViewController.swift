@@ -310,7 +310,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             margin = height == 0 ? 0 : isTv ? 90 : 70 // If 0 height is passed in for the collection view, the container view is to be completely hidden.
             peopleContainerViewHeightConstraint.constant = height + margin
         } else if vc == episodesCollectionViewController {
-             margin = height == 0 ? 0 : isTv ? 0 : 70 // If 0 height is passed in for the collection view, the container view is to be completely hidden.
+             margin = height == 0 ? 0 : isTv ? 0 : 90 // If 0 height is passed in for the collection view, the container view is to be completely hidden.
             episodesContainerViewHeightConstraint.constant = height + margin
         } else if vc == informationDescriptionCollectionViewController {
             informationContainerViewHeightConstraint.constant = height

@@ -208,7 +208,11 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let parent = parent?.navigationController?.viewControllers.first(where: {$0 is MainViewController}) else { return } // Search navigation stack for any main view controller subclass.
+        guard
+            let tabBarController = UIApplication.shared.delegate?.window??.rootViewController as? UITabBarController,
+            let navigationController = tabBarController.selectedViewController as? UINavigationController,
+            let parent = navigationController.viewControllers.first(where: {$0 is MainViewController})
+            else { return } // Search navigation stack for any main view controller subclass.
         
         if let cell = sender as? UICollectionViewCell,
             let indexPath = collectionView?.indexPath(for: cell) {
