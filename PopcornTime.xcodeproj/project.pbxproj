@@ -142,6 +142,7 @@
 		4D9995761E5CE41C005C432A /* CheckForUpdatesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D9995751E5CE41C005C432A /* CheckForUpdatesViewController.xib */; };
 		4D9995781E5DCE7B005C432A /* SeasonPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9995771E5DCE7B005C432A /* SeasonPickerViewController.swift */; };
 		4D99957B1E5E007A005C432A /* TVAppDocumentControllerAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99957A1E5E007A005C432A /* TVAppDocumentControllerAnimatedTransitioning.swift */; };
+		4D9BF6B21E632E1D00A33D5F /* TVVisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BF6B11E632E1D00A33D5F /* TVVisualEffectView.swift */; };
 		4D9CED371DD278BD005ABC0A /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9CED361DD278BD005ABC0A /* libc++.tbd */; };
 		4D9CED391DD278F1005ABC0A /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9CED381DD278F1005ABC0A /* libiconv.tbd */; };
 		4DA42DD21DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */; };
@@ -333,6 +334,7 @@
 		4D9995751E5CE41C005C432A /* CheckForUpdatesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CheckForUpdatesViewController.xib; path = Views/CheckForUpdatesViewController.xib; sourceTree = "<group>"; };
 		4D9995771E5DCE7B005C432A /* SeasonPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SeasonPickerViewController.swift; path = "View Controllers/SeasonPickerViewController.swift"; sourceTree = "<group>"; };
 		4D99957A1E5E007A005C432A /* TVAppDocumentControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVAppDocumentControllerAnimatedTransitioning.swift; path = Presentation/TVAppDocumentControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
+		4D9BF6B11E632E1D00A33D5F /* TVVisualEffectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVVisualEffectView.swift; path = ../../../Extensions/TVVisualEffectView.swift; sourceTree = "<group>"; };
 		4D9CED361DD278BD005ABC0A /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		4D9CED381DD278F1005ABC0A /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		4DA42DC41DD8C6D900933A10 /* PopcornTimeiOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PopcornTimeiOS-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -815,6 +817,7 @@
 		4DD6E4CE1DFB179700818A2C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4D9BF6B11E632E1D00A33D5F /* TVVisualEffectView.swift */,
 				4DD6E4D11DFB197E00818A2C /* BufferingBar.swift */,
 				4DD6E4CF1DFB17B400818A2C /* ProgressBar.swift */,
 				4D9995521E5C7E68005C432A /* LoadingView.xib */,
@@ -1238,6 +1241,7 @@
 				4D9995391E5C6784005C432A /* LoadingView.swift in Sources */,
 				4D990E231DC4EFA2005CDE34 /* Media+Extension.swift in Sources */,
 				4DD6E4D01DFB17B400818A2C /* ProgressBar.swift in Sources */,
+				4D9BF6B21E632E1D00A33D5F /* TVVisualEffectView.swift in Sources */,
 				4DBE60931E5E54FF00C2549B /* DescriptionCollectionViewCell.swift in Sources */,
 				4D9995471E5C724D005C432A /* WatchlistViewController.swift in Sources */,
 				4D5624751E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift in Sources */,

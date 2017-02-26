@@ -4,7 +4,7 @@ import UIKit
 
 class CoverCollectionViewCell: BaseCollectionViewCell {
     
-    @IBOutlet var watchedIndicator: UIImageView!
+    @IBOutlet var watchedIndicator: UIImageView?
     
     var watched = false {
         didSet {
@@ -29,8 +29,10 @@ class CoverCollectionViewCell: BaseCollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        focusedConstraints.append(watchedIndicator.trailingAnchor.constraint(equalTo: imageView.focusedFrameGuide.trailingAnchor))
-        focusedConstraints.append(watchedIndicator.topAnchor.constraint(equalTo: imageView.focusedFrameGuide.topAnchor))
+        if let watchedIndicator = watchedIndicator {
+            focusedConstraints.append(watchedIndicator.trailingAnchor.constraint(equalTo: imageView.focusedFrameGuide.trailingAnchor))
+            focusedConstraints.append(watchedIndicator.topAnchor.constraint(equalTo: imageView.focusedFrameGuide.topAnchor))
+        }
     }
     
     #endif

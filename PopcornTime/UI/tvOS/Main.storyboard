@@ -356,7 +356,7 @@
                                                     <segue destination="vQY-b7-ZL1" kind="embed" identifier="embedItem" id="eOJ-hq-Vaq"/>
                                                 </connections>
                                             </containerView>
-                                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mnE-Xa-s53">
+                                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mnE-Xa-s53" customClass="TVVisualEffectView" customModule="PopcornTime" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="705" width="1920" height="2110"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="2Hd-hv-cMf">
                                                     <rect key="frame" x="0.0" y="0.0" width="1920" height="2110"/>
@@ -453,7 +453,6 @@
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.30471500880281688" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="GeX-BK-RB0" secondAttribute="trailing" id="1WG-4B-A6j"/>
                                                         <constraint firstItem="sVq-HX-JcL" firstAttribute="leading" secondItem="2Hd-hv-cMf" secondAttribute="leading" id="6RM-ib-CbW"/>
@@ -474,6 +473,7 @@
                                                         <constraint firstItem="sVq-HX-JcL" firstAttribute="top" secondItem="VTT-oE-CQs" secondAttribute="bottom" id="xaJ-Ev-XBF"/>
                                                     </constraints>
                                                 </view>
+                                                <color key="backgroundColor" white="1" alpha="0.14999999999999999" colorSpace="calibratedWhite"/>
                                                 <blurEffect style="light"/>
                                             </visualEffectView>
                                         </subviews>
@@ -950,11 +950,11 @@
                         <viewControllerLayoutGuide type="bottom" id="eFf-jt-oBp"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="74d-b2-gZl">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ky-is-LZ2">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
                                 <connections>
                                     <segue destination="9uQ-LP-RR8" kind="embed" identifier="embed" id="qsW-BP-NaD"/>
                                 </connections>
@@ -1061,12 +1061,12 @@
                                                     </view>
                                                     <constraints>
                                                         <constraint firstItem="Z4y-XW-Afv" firstAttribute="top" secondItem="8l1-Vq-5oQ" secondAttribute="bottom" priority="750" constant="5" id="79S-bt-hu0"/>
+                                                        <constraint firstItem="Z4y-XW-Afv" firstAttribute="centerX" secondItem="8l1-Vq-5oQ" secondAttribute="centerX" id="ACa-Sj-FD9"/>
                                                         <constraint firstItem="8l1-Vq-5oQ" firstAttribute="top" secondItem="q4Q-f5-xNe" secondAttribute="top" id="Bh5-yi-8he"/>
                                                         <constraint firstItem="8l1-Vq-5oQ" firstAttribute="leading" secondItem="q4Q-f5-xNe" secondAttribute="leading" id="SF3-fN-eLB"/>
-                                                        <constraint firstItem="Z4y-XW-Afv" firstAttribute="leading" secondItem="q4Q-f5-xNe" secondAttribute="leading" priority="750" id="SfG-MB-A4Y"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Z4y-XW-Afv" secondAttribute="trailing" priority="750" id="TPD-Jv-C9T"/>
                                                         <constraint firstItem="8l1-Vq-5oQ" firstAttribute="width" secondItem="q4Q-f5-xNe" secondAttribute="width" id="VXL-7H-Qs4"/>
                                                         <constraint firstAttribute="trailing" secondItem="8l1-Vq-5oQ" secondAttribute="trailing" id="iLf-ot-SmO"/>
+                                                        <constraint firstItem="Z4y-XW-Afv" firstAttribute="width" secondItem="8l1-Vq-5oQ" secondAttribute="width" priority="750" id="s4K-24-bV5"/>
                                                     </constraints>
                                                     <connections>
                                                         <outlet property="imageView" destination="8l1-Vq-5oQ" id="hOC-XP-RrL"/>
@@ -1117,8 +1117,8 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Qb-cW-DB9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <collectionViewController storyboardIdentifier="CollectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9uQ-LP-RR8" customClass="CollectionViewController" customModule="PopcornTime" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" id="GGp-VC-hgJ">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                    <collectionView key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" id="GGp-VC-hgJ">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="30" minimumInteritemSpacing="48" id="dAV-Fa-e8x" customClass="CSStickyHeaderFlowLayout">
                             <size key="itemSize" width="250" height="460"/>
@@ -2306,29 +2306,29 @@
                         <viewControllerLayoutGuide type="bottom" id="DvR-hI-Jc6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="azI-A4-1Ul">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tOi-zm-Rjl">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yx5-JC-ZxJ">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="vbt-Mc-zjR">
-                                    <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ogm-Uz-Slq">
-                                            <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="NGd-2S-BoP">
-                                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ohz-Pg-x0J">
-                                                        <rect key="frame" x="928" y="508" width="64" height="64"/>
+                                                        <rect key="frame" x="928" y="85" width="64" height="64"/>
                                                     </activityIndicatorView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rU-hk-tum">
-                                                        <rect key="frame" x="890" y="429" width="140" height="69"/>
+                                                        <rect key="frame" x="890" y="6" width="140" height="69"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -2928,8 +2928,8 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <simulatedScreenMetrics key="destination" type="appleTV.dark"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="KnT-1J-TaD"/>
-        <segue reference="J2o-2Q-WCT"/>
+        <segue reference="E0s-O3-eSm"/>
         <segue reference="ocL-5j-FkT"/>
+        <segue reference="J2o-2Q-WCT"/>
     </inferredMetricsTieBreakers>
 </document>
