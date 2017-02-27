@@ -49,6 +49,10 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     var hasNextPage = false
     var currentPage = 1
     
+    var activeRootViewController: MainViewController? {
+        return (UIApplication.shared.delegate as! AppDelegate).activeRootViewController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -207,22 +211,16 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
         return cell
     }
     
+    override func targetViewController(forAction action: Selector, sender: Any?) -> UIViewController? {
+        return activeRootViewController
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard
-            let tabBarController = UIApplication.shared.delegate?.window??.rootViewController as? UITabBarController,
-            let navigationController = tabBarController.selectedViewController as? UINavigationController,
-            let parent = navigationController.viewControllers.first(where: {$0 is MainViewController})
-            else { return } // Search navigation stack for any main view controller subclass.
-        
         if let cell = sender as? UICollectionViewCell,
             let indexPath = collectionView?.indexPath(for: cell) {
             let sender = dataSources[indexPath.section][indexPath.row]
             
-            parent.prepare(for: segue, sender: sender)
-        } else if sender is Movie || sender is Show, let segue = segue as? AutoPlayStoryboardSegue {
-            segue.shouldAutoPlay = true // Called from continue watching, enable autoplaying.
-            
-            parent.prepare(for: segue, sender: sender)
+            activeRootViewController?.prepare(for: segue, sender: sender)
         }
     }
 }

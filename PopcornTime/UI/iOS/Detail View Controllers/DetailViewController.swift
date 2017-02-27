@@ -191,7 +191,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             let currentProgress = media is Movie ? WatchedlistManager<Movie>.movie.currentProgress(media.id) : WatchedlistManager<Episode>.episode.currentProgress(media.id)
             var nextEpisode: Episode?
             
-            let loadingViewController = storyboard.instantiateViewController(withIdentifier: "LoadingViewController") as! LoadingViewController
+            let loadingViewController = storyboard.instantiateViewController(withIdentifier: "PreloadTorrentViewController") as! PreloadTorrentViewController
             loadingViewController.backgroundImageString = media.largeBackgroundImage
             loadingViewController.mediaTitle = media.title
             
@@ -224,7 +224,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
                 self.present(vc, animated: true)
             }
             
-            let finishedLoading: (LoadingViewController, UIViewController) -> Void = { (loadingVc, playerVc) in
+            let finishedLoading: (PreloadTorrentViewController, UIViewController) -> Void = { (loadingVc, playerVc) in
                 self.dismiss(animated: true, completion: nil)
                 self.present(playerVc, animated: true)
             }

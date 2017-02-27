@@ -22,10 +22,10 @@ extension Media {
     func play(
         fromFileOrMagnetLink url: String,
         nextEpisodeInSeries nextEpisode: Episode? = nil,
-        loadingViewController: LoadingViewController,
+        loadingViewController: PreloadTorrentViewController,
         playViewController: UIViewController,
         progress: Float,
-        loadingBlock: @escaping (PTTorrentStatus, LoadingViewController) -> Void = { (status, viewController) in
+        loadingBlock: @escaping (PTTorrentStatus, PreloadTorrentViewController) -> Void = { (status, viewController) in
         viewController.progress = status.bufferingProgress
         viewController.speed = Int(status.downloadSpeed)
         viewController.seeds = Int(status.seeds)
@@ -36,7 +36,7 @@ extension Media {
         }
         },
         errorBlock: @escaping (String) -> Void,
-        finishedLoadingBlock: @escaping (LoadingViewController, UIViewController) -> Void)
+        finishedLoadingBlock: @escaping (PreloadTorrentViewController, UIViewController) -> Void)
     {
         PTTorrentStreamer.shared().cancelStreamingAndDeleteData(false) // Make sure we're not already streaming
         
@@ -77,7 +77,7 @@ extension Media {
         loadingViewController: LoadingViewController,
         playViewController: UIViewController,
         progress: Float,
-        loadingBlock: @escaping ((PTTorrentStatus, LoadingViewController) -> Void) = { (status, viewController) in
+        loadingBlock: @escaping ((PTTorrentStatus, PreloadTorrentViewController) -> Void) = { (status, viewController) in
         viewController.progress = status.bufferingProgress
         viewController.speed = Int(status.downloadSpeed)
         viewController.seeds = Int(status.seeds)
@@ -90,7 +90,7 @@ extension Media {
         viewController.directory = videoFilePath.deletingLastPathComponent()
         },
         errorBlock: @escaping (String) -> Void,
-        finishedLoadingBlock: @escaping (LoadingViewController, UIViewController) -> Void)
+        finishedLoadingBlock: @escaping (PreloadTorrentViewController, UIViewController) -> Void)
     {
         self.play(
             fromFileOrMagnetLink: url,

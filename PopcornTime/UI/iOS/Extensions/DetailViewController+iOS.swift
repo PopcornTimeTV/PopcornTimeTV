@@ -15,7 +15,7 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
         
         scrollView.contentInset.bottom = tabBarController?.tabBar.frame.height ?? 0
     
-        if transitionCoordinator?.viewController(forKey: .from) is LoadingViewController {
+        if transitionCoordinator?.viewController(forKey: .from) is PreloadTorrentViewController {
             self.scrollView.contentOffset.y = -self.view.bounds.height
             transitionCoordinator?.animate(alongsideTransition: { (context) in
                 guard let tabBarFrame = self.tabBarController?.tabBar.frame else { return }
@@ -36,7 +36,7 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
         navigationController?.navigationBar.isBackgroundHidden = false
         NotificationCenter.default.removeObserver(self)
         
-        if transitionCoordinator?.viewController(forKey: .to) is LoadingViewController {
+        if transitionCoordinator?.viewController(forKey: .to) is PreloadTorrentViewController {
             transitionCoordinator?.animate(alongsideTransition: { (context) in
                 guard let tabBarFrame = self.tabBarController?.tabBar.frame, let navigationBarFrame = self.navigationController?.navigationBar.frame else { return }
                 
@@ -115,16 +115,16 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
     // MARK: - Presentation
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if presented is LoadingViewController {
-            return LoadingViewAnimatedTransitioning(isPresenting: true)
+        if presented is PreloadTorrentViewController {
+            return PreloadTorrentViewControllerAnimatedTransitioning(isPresenting: true)
         }
         return nil
         
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if dismissed is LoadingViewController {
-            return LoadingViewAnimatedTransitioning(isPresenting: false)
+        if dismissed is PreloadTorrentViewController {
+            return PreloadTorrentViewControllerAnimatedTransitioning(isPresenting: false)
         }
         return nil
     }

@@ -2,7 +2,7 @@
 
 import Foundation
 
-class LoadingViewAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
+class PreloadTorrentViewControllerAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
     
     let isPresenting: Bool
     

@@ -4,7 +4,7 @@ import UIKit
 import PopcornTorrent
 import AlamofireImage
 
-class LoadingViewController: UIViewController {
+class PreloadTorrentViewController: UIViewController {
 
     @IBOutlet private var progressLabel: UILabel!
     @IBOutlet private var progressView: UIProgressView!

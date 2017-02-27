@@ -19,6 +19,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UI
     var window: UIWindow?
     
     var reachability: Reachability = .forInternetConnection()
+    
+    var tabBarController: UITabBarController {
+        return window?.rootViewController as! UITabBarController
+    }
+    
+    var activeRootViewController: MainViewController? {
+        guard
+            let navigationController = tabBarController.selectedViewController as? UINavigationController,
+            let main = navigationController.viewControllers.flatMap({$0 as? MainViewController}).first
+            else {
+                return nil
+        }
+        return main
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -73,12 +87,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UI
                 
                 let media: Media = type == "showMovie" ? Mapper<Movie>().map(JSONString: json)! : Mapper<Show>().map(JSONString: json)!
                 
-                if let tabBarController = window?.rootViewController as? UITabBarController,
-                    let navigationController = tabBarController.selectedViewController as? UINavigationController,
-                    let mainViewController = navigationController.viewControllers.flatMap({$0 as? MainViewController}).first,
-                    let vc = mainViewController.collectionViewController {
+                if let vc = activeRootViewController {
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let loadingViewController = storyboard.instantiateViewController(withIdentifier: "LoadingViewController")
+                    
+                    let segue = AutoPlayStoryboardSegue(identifier: type, source: vc, destination: loadingViewController)
+                    vc.prepare(for: segue, sender: media)
+                    
                     tabBarController.tabBar.isHidden = true
-                    vc.performSegue(withIdentifier: type, sender: media)
+                    vc.navigationController?.push(loadingViewController, animated: true)
                 }
             }
         #elseif os(iOS)

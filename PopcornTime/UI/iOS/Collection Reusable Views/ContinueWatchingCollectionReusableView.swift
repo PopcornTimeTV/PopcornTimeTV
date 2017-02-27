@@ -104,7 +104,7 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
     // MARK: - Collection view delegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let info: (media: Media, identifier: String) = {
+        let info: (sender: Media, identifier: String) = {
             let media = onDeck[indexPath.row]
             if let episode = media as? Episode {
                 return (episode.show, "showShow")
@@ -112,7 +112,16 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
             return (media, "showMovie")
         }()
         
-        parent?.performSegue(withIdentifier: info.identifier, sender: info.media)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "LoadingViewController")
+        
+        guard let parent = parent as? CollectionViewController else { return }
+        
+        let segue = AutoPlayStoryboardSegue(identifier: info.identifier, source: parent, destination: vc)
+        segue.shouldAutoPlay = true
+        parent.activeRootViewController?.prepare(for: segue, sender: info.sender)
+        
+        parent.activeRootViewController?.navigationController?.push(vc, animated: true)
     }
     
     // MARK: - Continue watching collection view cell delegate

@@ -71,7 +71,7 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
             
             #endif
             
-            // Exact same storyboard UI is being used for both classes. This will enable subclass-specific functions however, stored instance variables cannot be created on either subclass because object_setClass does not initialise stored variables.
+            // Exact same storyboard UI is being used for both classes. This will enable subclass-specific functions however, stored instance variables have to be set using `object_setIvar` otherwise there will be weird malloc crashes.
             object_setClass(vc, media is Movie ? MovieDetailViewController.self : ShowDetailViewController.self)
             
             #if os(iOS)
@@ -79,7 +79,7 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
             #endif
             
             vc.loadMedia(id: media.id) { (media, error) in
-                guard let navigationController = self.navigationController,
+                guard let navigationController = segue.destination.navigationController,
                     navigationController.visibleViewController === segue.destination // Make sure we're still loading and the user hasn't dismissed the view.
                     else { return }
                 
