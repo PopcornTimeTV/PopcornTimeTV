@@ -103,13 +103,15 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         collectionView.backgroundView = nil
-        guard dataSources.flatMap({$0}).isEmpty else { return dataSources.count }
+        guard dataSources.flatMap({$0}).isEmpty else {
+            error = nil
+            return dataSources.count
+        }
         
         if let error = error,
             let background: ErrorBackgroundView = .fromNib() {
             background.setUpView(error: error)
             collectionView.backgroundView = background
-            self.error = nil
         } else if isLoading {
             let view: LoadingView? = .fromNib()
             collectionView.backgroundView = view

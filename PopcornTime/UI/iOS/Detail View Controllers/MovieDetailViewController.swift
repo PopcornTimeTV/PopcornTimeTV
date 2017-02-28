@@ -19,14 +19,11 @@ class MovieDetailViewController: DetailViewController {
                 completion(nil, error)
                 return
             }
-            
-            var error: NSError?
             let group = DispatchGroup()
                 
             group.enter()
             TraktManager.shared.getRelated(movie) {
                 movie.related = $0.0
-                error = $0.1
                 
                 group.leave()
             }
@@ -35,13 +32,12 @@ class MovieDetailViewController: DetailViewController {
             TraktManager.shared.getPeople(forMediaOfType: .movies, id: movie.id) {
                 movie.actors = $0.0
                 movie.crew = $0.1
-                error = $0.2
                 
                 group.leave()
             }
             
             group.notify(queue: .main) {
-                completion(movie, error)
+                completion(movie, nil)
             }
         }
     }
