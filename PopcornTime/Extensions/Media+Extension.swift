@@ -74,7 +74,7 @@ extension Media {
      */
     func playOnChromecast(
         fromFileOrMagnetLink url: String,
-        loadingViewController: LoadingViewController,
+        loadingViewController: PreloadTorrentViewController,
         playViewController: UIViewController,
         progress: Float,
         loadingBlock: @escaping ((PTTorrentStatus, PreloadTorrentViewController) -> Void) = { (status, viewController) in
