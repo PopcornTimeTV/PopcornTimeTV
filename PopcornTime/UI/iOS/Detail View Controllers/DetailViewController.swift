@@ -277,7 +277,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         } else if let vc = segue.destination as? DescriptionCollectionViewController, segue.identifier == "embedAccessibility" {
             vc.headerTitle = "Accessibility"
             
-            let key = UIImage(named: "SDH")!.colored(.white).attributed
+            let key = UIImage(named: "SDH")!.colored(.white)!.attributed
             let value = "Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original lanuage with the addition of relevant non-dialog information."
             
             vc.dataSource = [(key, value)]

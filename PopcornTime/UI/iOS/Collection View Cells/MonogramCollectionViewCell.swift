@@ -6,8 +6,34 @@ import Foundation
     
     @IBOutlet var subtitleLabel: UILabel!
     @IBOutlet var initialsLabel: UILabel!
-    @IBOutlet var noImageVisualEffectView: UIVisualEffectView!
-    @IBOutlet var circularView: CircularView!
+    
+    
+    var originalImage: UIImage? {
+        didSet {
+            if let image = originalImage?.rounded(with: imageView.bounds.size) {
+                imageView.image = image
+                initialsLabel.isHidden = true
+            } else {
+                // TODO: Set placeholder nondynamic blurred image.
+                imageView.image = nil
+                initialsLabel.isHidden = false
+            }
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if imageView.image?.size != imageView.bounds.size {
+            originalImage = (originalImage) // Refresh image only when bounds change.
+        }
+        
+        if let highlightView = highlightView {
+            highlightView.layer.cornerRadius = imageView.bounds.size.width/2.0
+            highlightView.layer.masksToBounds = true
+        }
+        
+    }
     
     #if os(tvOS)
     
@@ -22,9 +48,6 @@ import Foundation
         subtitleLabel.layer.shadowOffset = CGSize(width: 0, height: 1)
         subtitleLabel.layer.shadowRadius = 2
         subtitleLabel.layer.shadowOpacity = 0.6
-        
-        focusedConstraints.append(circularView.leadingAnchor.constraint(equalTo: imageView.focusedFrameGuide.leadingAnchor))
-        focusedConstraints.append(circularView.trailingAnchor.constraint(equalTo: imageView.focusedFrameGuide.trailingAnchor))
     }
     
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {

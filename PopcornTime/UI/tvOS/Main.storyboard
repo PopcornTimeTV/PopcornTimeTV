@@ -16,7 +16,7 @@
         <!--Preload Torrent View Controller-->
         <scene sceneID="kdN-jE-Kk0">
             <objects>
-                <viewController storyboardIdentifier="PreloadTorrentViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="t1q-76-pXm" customClass="PreloadTorrentViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PreloadTorrentViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="t1q-76-pXm" customClass="PreloadTorrentViewController" customModule="PopcornTime" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JDI-yQ-NxC"/>
                         <viewControllerLayoutGuide type="bottom" id="Zwh-FH-fPr"/>
@@ -949,11 +949,11 @@
                         <viewControllerLayoutGuide type="bottom" id="eFf-jt-oBp"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="74d-b2-gZl">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ky-is-LZ2">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                                 <connections>
                                     <segue destination="9uQ-LP-RR8" kind="embed" identifier="embed" id="qsW-BP-NaD"/>
                                 </connections>
@@ -1117,7 +1117,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Qb-cW-DB9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <collectionViewController storyboardIdentifier="CollectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9uQ-LP-RR8" customClass="CollectionViewController" customModule="PopcornTime" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" id="GGp-VC-hgJ">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="30" minimumInteritemSpacing="48" id="dAV-Fa-e8x" customClass="CSStickyHeaderFlowLayout">
                             <size key="itemSize" width="250" height="460"/>
@@ -1249,47 +1249,20 @@
                                     <rect key="frame" x="0.0" y="0.0" width="250" height="460"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fNA-v4-bCr" customClass="CircularView" customModule="PopcornTime" customModuleProvider="target">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Other Placeholder" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IvQ-PL-W2t">
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
-                                            <subviews>
-                                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mOD-QE-C8K">
-                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
-                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="w4s-1f-aSp">
-                                                        <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVD-Eg-Mb1">
-                                                                <rect key="frame" x="91" y="91" width="69" height="69"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                                                <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                        </subviews>
-                                                        <constraints>
-                                                            <constraint firstItem="qVD-Eg-Mb1" firstAttribute="centerY" secondItem="w4s-1f-aSp" secondAttribute="centerY" id="QAQ-Ta-Lf3"/>
-                                                            <constraint firstItem="qVD-Eg-Mb1" firstAttribute="centerX" secondItem="w4s-1f-aSp" secondAttribute="centerX" id="tbJ-jQ-Sdu"/>
-                                                        </constraints>
-                                                    </view>
-                                                    <blurEffect style="light"/>
-                                                </visualEffectView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Other Placeholder" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IvQ-PL-W2t">
-                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="IvQ-PL-W2t" secondAttribute="height" multiplier="1:1" id="uoI-nv-Daa"/>
-                                                    </constraints>
-                                                </imageView>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="mOD-QE-C8K" firstAttribute="trailing" secondItem="IvQ-PL-W2t" secondAttribute="trailing" id="MYY-3S-XNP"/>
-                                                <constraint firstItem="mOD-QE-C8K" firstAttribute="leading" secondItem="IvQ-PL-W2t" secondAttribute="leading" id="O0Y-vn-pUq"/>
-                                                <constraint firstItem="mOD-QE-C8K" firstAttribute="top" secondItem="IvQ-PL-W2t" secondAttribute="top" id="Qmy-E5-Dpa"/>
-                                                <constraint firstAttribute="width" secondItem="fNA-v4-bCr" secondAttribute="height" multiplier="1:1" id="kkz-sy-FeM"/>
-                                                <constraint firstItem="mOD-QE-C8K" firstAttribute="bottom" secondItem="IvQ-PL-W2t" secondAttribute="bottom" id="lcv-hJ-fAj"/>
+                                                <constraint firstAttribute="width" secondItem="IvQ-PL-W2t" secondAttribute="height" multiplier="1:1" id="uoI-nv-Daa"/>
                                             </constraints>
-                                        </view>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVD-Eg-Mb1">
+                                            <rect key="frame" x="90" y="91" width="69" height="69"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                            <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" text="Title" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8d1-bm-LhB" customClass="MarqueeLabel" customModule="MarqueeLabel">
-                                            <rect key="frame" x="0.0" y="260" width="250" height="39"/>
+                                            <rect key="frame" x="0.0" y="255" width="250" height="39"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="32"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -1307,7 +1280,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="SUBTITLE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42r-KI-eoi">
-                                            <rect key="frame" x="0.0" y="304" width="250" height="32"/>
+                                            <rect key="frame" x="0.0" y="299" width="250" height="32"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                             <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -1315,25 +1288,22 @@
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="fNA-v4-bCr" secondAttribute="trailing" priority="750" id="50n-69-jY7"/>
-                                    <constraint firstItem="IvQ-PL-W2t" firstAttribute="top" secondItem="dgY-nR-jAJ" secondAttribute="top" id="9jJ-pF-FDl"/>
-                                    <constraint firstItem="fNA-v4-bCr" firstAttribute="leading" secondItem="dgY-nR-jAJ" secondAttribute="leading" priority="750" id="Jl8-5n-U7M"/>
-                                    <constraint firstAttribute="trailing" secondItem="IvQ-PL-W2t" secondAttribute="trailing" id="LSK-jM-Yht"/>
-                                    <constraint firstItem="IvQ-PL-W2t" firstAttribute="leading" secondItem="dgY-nR-jAJ" secondAttribute="leading" id="b08-oU-WT0"/>
-                                    <constraint firstItem="8d1-bm-LhB" firstAttribute="width" secondItem="fNA-v4-bCr" secondAttribute="width" id="dcV-QB-wML"/>
+                                    <constraint firstItem="8d1-bm-LhB" firstAttribute="top" secondItem="IvQ-PL-W2t" secondAttribute="bottom" priority="750" constant="5" id="6fx-Sb-XYY"/>
+                                    <constraint firstItem="IvQ-PL-W2t" firstAttribute="width" secondItem="dgY-nR-jAJ" secondAttribute="width" id="Gi2-Rw-kyF"/>
+                                    <constraint firstItem="IvQ-PL-W2t" firstAttribute="leading" secondItem="dgY-nR-jAJ" secondAttribute="leading" id="Kau-iT-OUW"/>
+                                    <constraint firstItem="IvQ-PL-W2t" firstAttribute="top" secondItem="dgY-nR-jAJ" secondAttribute="top" id="Kli-gC-fnc"/>
+                                    <constraint firstItem="qVD-Eg-Mb1" firstAttribute="centerY" secondItem="IvQ-PL-W2t" secondAttribute="centerY" id="SRC-NK-ZlW"/>
+                                    <constraint firstItem="8d1-bm-LhB" firstAttribute="centerX" secondItem="dgY-nR-jAJ" secondAttribute="centerX" id="Vw6-Lm-nR3"/>
                                     <constraint firstItem="42r-KI-eoi" firstAttribute="trailing" secondItem="8d1-bm-LhB" secondAttribute="trailing" id="erK-Zd-JA4"/>
-                                    <constraint firstItem="8d1-bm-LhB" firstAttribute="centerX" secondItem="fNA-v4-bCr" secondAttribute="centerX" id="gv3-1k-KWO"/>
-                                    <constraint firstItem="IvQ-PL-W2t" firstAttribute="centerX" secondItem="dgY-nR-jAJ" secondAttribute="centerX" id="m4p-7v-zJn"/>
-                                    <constraint firstItem="fNA-v4-bCr" firstAttribute="top" secondItem="dgY-nR-jAJ" secondAttribute="top" id="uc6-5a-U0J"/>
+                                    <constraint firstItem="8d1-bm-LhB" firstAttribute="width" secondItem="dgY-nR-jAJ" secondAttribute="width" id="hE7-Xb-x4k"/>
+                                    <constraint firstItem="qVD-Eg-Mb1" firstAttribute="centerX" secondItem="IvQ-PL-W2t" secondAttribute="centerX" id="mLN-tv-XO6"/>
+                                    <constraint firstAttribute="trailing" secondItem="IvQ-PL-W2t" secondAttribute="trailing" id="tzY-YR-h0f"/>
                                     <constraint firstItem="42r-KI-eoi" firstAttribute="leading" secondItem="8d1-bm-LhB" secondAttribute="leading" id="wQW-vN-Txp"/>
                                     <constraint firstItem="42r-KI-eoi" firstAttribute="top" secondItem="8d1-bm-LhB" secondAttribute="bottom" constant="5" id="y1X-9m-jtK"/>
-                                    <constraint firstItem="8d1-bm-LhB" firstAttribute="top" secondItem="fNA-v4-bCr" secondAttribute="bottom" constant="10" id="zO5-1n-lR7"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="circularView" destination="fNA-v4-bCr" id="9lm-dO-fgR"/>
                                     <outlet property="imageView" destination="IvQ-PL-W2t" id="eP2-FE-l7g"/>
                                     <outlet property="initialsLabel" destination="qVD-Eg-Mb1" id="u1a-Ue-8Kc"/>
-                                    <outlet property="noImageVisualEffectView" destination="mOD-QE-C8K" id="RtG-ew-fIp"/>
                                     <outlet property="subtitleLabel" destination="42r-KI-eoi" id="DWk-85-EFs"/>
                                     <outlet property="titleLabel" destination="8d1-bm-LhB" id="VHs-4Y-eUQ"/>
                                     <segue destination="9lQ-BL-a1K" kind="show" identifier="showPerson" id="Uc8-MJ-jNm"/>
@@ -2305,29 +2275,29 @@
                         <viewControllerLayoutGuide type="bottom" id="DvR-hI-Jc6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="azI-A4-1Ul">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tOi-zm-Rjl">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yx5-JC-ZxJ">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="vbt-Mc-zjR">
-                                    <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ogm-Uz-Slq">
-                                            <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="NGd-2S-BoP">
-                                                <rect key="frame" x="0.0" y="0.0" width="1920" height="234"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ohz-Pg-x0J">
-                                                        <rect key="frame" x="928" y="85" width="64" height="64"/>
+                                                        <rect key="frame" x="928" y="508" width="64" height="64"/>
                                                     </activityIndicatorView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rU-hk-tum">
-                                                        <rect key="frame" x="890" y="6" width="140" height="69"/>
+                                                        <rect key="frame" x="890" y="429" width="140" height="69"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -2927,8 +2897,8 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <simulatedScreenMetrics key="destination" type="appleTV.dark"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="E0s-O3-eSm"/>
-        <segue reference="ocL-5j-FkT"/>
+        <segue reference="KnT-1J-TaD"/>
         <segue reference="J2o-2Q-WCT"/>
+        <segue reference="ocL-5j-FkT"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -35,6 +35,12 @@ class WatchlistViewController: MainViewController {
         return nil
     }
     
+    override func collectionView(_ collectionView: UICollectionView, insetForSectionAt section: Int) -> UIEdgeInsets? {
+        let isTv = UIDevice.current.userInterfaceIdiom == .tv
+        
+        return isTv ? UIEdgeInsets(top: 10, left: 90, bottom: 60, right: 90) : UIEdgeInsets(top: 10, left: 15, bottom: 15, right: 15)
+    }
+    
     override func collectionView(isEmptyForUnknownReason collectionView: UICollectionView) {
         if let background: ErrorBackgroundView = .fromNib() {
             background.setUpView(title: "Watchlist Empty", description: "Try adding movies or shows to your watchlist.")

@@ -33,7 +33,6 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
             
             let completion: ([Media]) -> Void = { media in
                 self.onDeck = media.sorted(by: {$0.0.title < $0.1.title})
-                self.collectionView.reloadData()
                 self.layoutSubviews()
             }
             
@@ -59,7 +58,7 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
                 completion(media)
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: workItem) // Because function is being called from `collectionView:viewForSupplementaryElementOfKind:at:` it would be inefficent to actually refresh the view every time the function is called.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: workItem)
     }
     
     // MARK: - Collection view data source

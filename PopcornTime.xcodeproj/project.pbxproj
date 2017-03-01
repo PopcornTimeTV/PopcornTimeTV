@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4D0183A91DC3ACB500AB75B3 /* Locale+Langs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */; };
+		4D0E130B1E6709EB0000AD65 /* UICollectionViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E130A1E6709EB0000AD65 /* UICollectionViewController+Extension.swift */; };
+		4D0E130C1E6709EB0000AD65 /* UICollectionViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E130A1E6709EB0000AD65 /* UICollectionViewController+Extension.swift */; };
 		4D11C5071E31409100CF9182 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11C5061E31409100CF9182 /* CollectionViewController.swift */; };
 		4D17C2C31E509C4A00B61902 /* Show+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BB31DDFA1C6000E2AA1 /* Show+Extension.swift */; };
 		4D1B88A51E3BD42B00DB701D /* ResponsiveCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B88A41E3BD42B00DB701D /* ResponsiveCollectionViewController.swift */; };
@@ -81,7 +83,6 @@
 		4D859B751DDFA12C000E2AA1 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B671DDFA12A000E2AA1 /* ProgressBar.swift */; };
 		4D859B761DDFA12C000E2AA1 /* ExpandableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B681DDFA12A000E2AA1 /* ExpandableTextView.swift */; };
 		4D859B771DDFA12C000E2AA1 /* ErrorBackgroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D859B691DDFA12A000E2AA1 /* ErrorBackgroundView.xib */; };
-		4D859B791DDFA12C000E2AA1 /* CircularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B6B1DDFA12A000E2AA1 /* CircularView.swift */; };
 		4D859B7A1DDFA12C000E2AA1 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B6C1DDFA12A000E2AA1 /* GradientView.swift */; };
 		4D859B851DDFA13D000E2AA1 /* WhiteHighlightButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B7C1DDFA13A000E2AA1 /* WhiteHighlightButton.swift */; };
 		4D859B861DDFA13D000E2AA1 /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B7D1DDFA13A000E2AA1 /* BorderButton.swift */; };
@@ -117,7 +118,6 @@
 		4D99953A1E5C680B005C432A /* MonogramCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAF1A451E2D3BDB00D963BD /* MonogramCollectionViewCell.swift */; };
 		4D99953C1E5C6C15005C432A /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99953B1E5C6C15005C432A /* BaseCollectionViewCell.swift */; };
 		4D99953D1E5C6CC1005C432A /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99953B1E5C6C15005C432A /* BaseCollectionViewCell.swift */; };
-		4D99953E1E5C6E78005C432A /* CircularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B6B1DDFA12A000E2AA1 /* CircularView.swift */; };
 		4D99953F1E5C6ECD005C432A /* ContinueWatchingCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2D1301E59FD2C0019DB7D /* ContinueWatchingCollectionReusableView.swift */; };
 		4D9995421E5C6FFE005C432A /* CollectionViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9995411E5C6FFD005C432A /* CollectionViewController+iOS.swift */; };
 		4D9995431E5C7240005C432A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B4D1DDFA0F5000E2AA1 /* MainViewController.swift */; };
@@ -233,6 +233,7 @@
 		287B85401C9873A200EEF5C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E2A1684A64499B8ED0B31B3 /* Pods-TopShelf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TopShelf.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TopShelf/Pods-TopShelf.debug.xcconfig"; sourceTree = "<group>"; };
 		4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Locale+Langs.swift"; sourceTree = "<group>"; };
+		4D0E130A1E6709EB0000AD65 /* UICollectionViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewController+Extension.swift"; sourceTree = "<group>"; };
 		4D1178641DC6A7F90077A598 /* TopShelf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TopShelf.entitlements; sourceTree = "<group>"; };
 		4D11C5061E31409100CF9182 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewController.swift; path = "../iOS/Collection View Layouts/CollectionViewController.swift"; sourceTree = "<group>"; };
 		4D1B88A41E3BD42B00DB701D /* ResponsiveCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponsiveCollectionViewController.swift; path = "../iOS/Collection View Controllers/ResponsiveCollectionViewController.swift"; sourceTree = "<group>"; };
@@ -287,7 +288,6 @@
 		4D859B671DDFA12A000E2AA1 /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		4D859B681DDFA12A000E2AA1 /* ExpandableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableTextView.swift; sourceTree = "<group>"; };
 		4D859B691DDFA12A000E2AA1 /* ErrorBackgroundView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorBackgroundView.xib; sourceTree = "<group>"; };
-		4D859B6B1DDFA12A000E2AA1 /* CircularView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircularView.swift; path = ../iOS/Views/CircularView.swift; sourceTree = "<group>"; };
 		4D859B6C1DDFA12A000E2AA1 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientView.swift; path = ../iOS/Views/GradientView.swift; sourceTree = "<group>"; };
 		4D859B7C1DDFA13A000E2AA1 /* WhiteHighlightButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteHighlightButton.swift; sourceTree = "<group>"; };
 		4D859B7D1DDFA13A000E2AA1 /* BorderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
@@ -458,6 +458,7 @@
 			isa = PBXGroup;
 			children = (
 				4D859B931DDFA162000E2AA1 /* UIImage+Extension.swift */,
+				4D0E130A1E6709EB0000AD65 /* UICollectionViewController+Extension.swift */,
 				4D784D5B1E5FA4B9009E3423 /* NSMutableString+Extension.swift */,
 				4D784D4F1E5F3D38009E3423 /* Movie+Extension.swift */,
 				4D1B88AA1E3C9BFA00DB701D /* UINavigationController+Extension.swift */,
@@ -685,7 +686,6 @@
 				4D6A9C911E1302CF002D684C /* ErrorBackgroundView.swift */,
 				4D29072B1E2BA95B00581701 /* LoadingView.swift */,
 				4D859B281DDFA079000E2AA1 /* UpNextView.swift */,
-				4D859B6B1DDFA12A000E2AA1 /* CircularView.swift */,
 				4D859B6C1DDFA12A000E2AA1 /* GradientView.swift */,
 				4DC2D1301E59FD2C0019DB7D /* ContinueWatchingCollectionReusableView.swift */,
 			);
@@ -1196,6 +1196,7 @@
 				4DBE60921E5E54DE00C2549B /* DescriptionCollectionViewController.swift in Sources */,
 				4D859B2C1DDFA079000E2AA1 /* SettingsTableViewController.swift in Sources */,
 				4DAFAA3B1E0AFDA600AE0F9A /* OptionsStackViewController.swift in Sources */,
+				4D0E130B1E6709EB0000AD65 /* UICollectionViewController+Extension.swift in Sources */,
 				4D99957B1E5E007A005C432A /* TVAppDocumentControllerAnimatedTransitioning.swift in Sources */,
 				4D784D5C1E5FA4B9009E3423 /* NSMutableString+Extension.swift in Sources */,
 				4D9995631E5CC0A8005C432A /* PersonViewController.swift in Sources */,
@@ -1204,7 +1205,6 @@
 				4D99955F1E5CAB98005C432A /* SearchViewController+tvOS.swift in Sources */,
 				4D5624781E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift in Sources */,
 				4D99956E1E5CE227005C432A /* UIFont+Style.swift in Sources */,
-				4D99953E1E5C6E78005C432A /* CircularView.swift in Sources */,
 				4D9995781E5DCE7B005C432A /* SeasonPickerViewController.swift in Sources */,
 				4D784D581E5F791B009E3423 /* DetailViewController+tvOS.swift in Sources */,
 				4DA42DD21DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */,
@@ -1280,6 +1280,7 @@
 				4D8A57451DE109B700CCDF8A /* LoadingViewAnimatedTransitioning.swift in Sources */,
 				4DA42DD31DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */,
 				4DAF1A461E2D3BDB00D963BD /* MonogramCollectionViewCell.swift in Sources */,
+				4D0E130C1E6709EB0000AD65 /* UICollectionViewController+Extension.swift in Sources */,
 				4D689A301DD88F1A001D1318 /* Media+Extension.swift in Sources */,
 				4DC7B6A11E39027A0098B12E /* DescriptionCollectionViewController.swift in Sources */,
 				4DBE608F1E5E51C300C2549B /* DetailViewController+iOS.swift in Sources */,
@@ -1292,7 +1293,6 @@
 				4D859B471DDFA0D5000E2AA1 /* OptionsTableViewController.swift in Sources */,
 				4D5624791E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift in Sources */,
 				4D689A2A1DD88EFC001D1318 /* SubtitleSettings.swift in Sources */,
-				4D859B791DDFA12C000E2AA1 /* CircularView.swift in Sources */,
 				4D859B861DDFA13D000E2AA1 /* BorderButton.swift in Sources */,
 				4D859B611DDFA10C000E2AA1 /* DetailViewController.swift in Sources */,
 				4D99953C1E5C6C15005C432A /* BaseCollectionViewCell.swift in Sources */,

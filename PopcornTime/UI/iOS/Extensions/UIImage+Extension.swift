@@ -5,22 +5,41 @@ import UIKit
 
 extension UIImage {
     
-    func colored(_ color: UIColor?) -> UIImage {
+    func rounded(with size: CGSize) -> UIImage? {
+        let cornerRadius = size.width/2.0
+        let new = copy() as! UIImage
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
+        let layer = CALayer()
+        
+        layer.frame = CGRect(origin: .zero, size: size)
+        layer.cornerRadius = cornerRadius
+        layer.masksToBounds = true
+        layer.contentsGravity = "resizeAspectFill"
+        layer.contents = new.cgImage
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return finalImage
+    }
+    
+    func colored(_ color: UIColor?) -> UIImage? {
         let color: UIColor = color ?? .app
         UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
-        let context = UIGraphicsGetCurrentContext()
+        guard let context = UIGraphicsGetCurrentContext(), let cgImage = cgImage else { return nil }
         color.setFill()
-        context?.translateBy(x: 0, y: size.height)
-        context?.scaleBy(x: 1.0, y: -1.0)
-        context?.setBlendMode(CGBlendMode.colorBurn)
+        context.translateBy(x: 0, y: size.height)
+        context.scaleBy(x: 1.0, y: -1.0)
+        context.setBlendMode(.colorBurn)
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        context?.draw(cgImage!, in: rect)
-        context?.setBlendMode(CGBlendMode.sourceIn)
-        context?.addRect(rect)
-        context?.drawPath(using: CGPathDrawingMode.fill)
+        context.draw(cgImage, in: rect)
+        context.setBlendMode(.sourceIn)
+        context.addRect(rect)
+        context.drawPath(using: .fill)
         let coloredImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return coloredImage!
+        return coloredImage
     }
     
     class func from(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {

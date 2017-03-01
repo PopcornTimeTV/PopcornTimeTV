@@ -3,6 +3,7 @@
 import Foundation
 import PopcornKit
 import CSStickyHeaderFlowLayout
+import AlamofireImage
 
 protocol CollectionViewControllerDelegate: class {
     func load(page: Int)
@@ -13,6 +14,7 @@ protocol CollectionViewControllerDelegate: class {
     func collectionView(nibForHeaderInCollectionView collectionView: UICollectionView) -> UINib?
     
     func minItemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize?
+    func collectionView(_ collectionView: UICollectionView, insetForSectionAt section: Int) -> UIEdgeInsets?
 }
 
 extension CollectionViewControllerDelegate {
@@ -24,6 +26,7 @@ extension CollectionViewControllerDelegate {
     func collectionView(nibForHeaderInCollectionView collectionView: UICollectionView) -> UINib? { return nil }
     
     func minItemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize? { return nil }
+    func collectionView(_ collectionView: UICollectionView, insetForSectionAt section: Int) -> UIEdgeInsets? { return nil }
 }
 
 class CollectionViewController: ResponsiveCollectionViewController, UICollectionViewDelegateFlowLayout {
@@ -53,14 +56,18 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
         return (UIApplication.shared.delegate as! AppDelegate).activeRootViewController
     }
     
+    private var continueWatchingCollectionReusableView: ContinueWatchingCollectionReusableView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let collectionView = collectionView, let layout = collectionView.collectionViewLayout as? CSStickyHeaderFlowLayout {
             if let nib = delegate?.collectionView(nibForHeaderInCollectionView: collectionView) {
                 let size = CGSize(width: collectionView.bounds.width, height: 0)
+                
                 layout.parallaxHeaderReferenceSize = size
                 layout.parallaxHeaderMinimumReferenceSize = size
+                
                 layout.disableStickyHeaders = true
                 layout.disableStretching = true
                 
@@ -69,6 +76,11 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
                 layout.sectionHeadersPinToVisibleBounds = true
             }
         }
+    }
+    
+    override func collectionViewDidReloadData(_ collectionView: UICollectionView) {
+        super.collectionViewDidReloadData(collectionView)
+        continueWatchingCollectionReusableView?.refreshOnDeck()
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewFlowLayout, didChangeToSize size: CGSize) {
@@ -140,12 +152,15 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
             
             return header
         } else if kind == CSStickyHeaderParallaxHeader {
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "stickyHeader", for: indexPath) as! ContinueWatchingCollectionReusableView
-            if let parent = parent {
-                header.type = type(of: parent) == MoviesViewController.self ? .movies : .episodes
-                header.refreshOnDeck()
-            }
-            return header
+            continueWatchingCollectionReusableView = continueWatchingCollectionReusableView ?? {
+                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "stickyHeader", for: indexPath) as! ContinueWatchingCollectionReusableView
+                if let parent = parent {
+                    header.type = type(of: parent) == MoviesViewController.self ? .movies : .episodes
+                }
+                return header
+            }()
+            continueWatchingCollectionReusableView?.refreshOnDeck()
+            return continueWatchingCollectionReusableView!
         }
         return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
     }
@@ -155,8 +170,18 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let isTv = UIDevice.current.userInterfaceIdiom == .tv
-        return dataSources[safe: section]?.isEmpty ?? true ? .zero : isTv ? UIEdgeInsets(top: 60, left: 90, bottom: 60, right: 90) : UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        if let dataSource = dataSources[safe: section], !dataSource.isEmpty {
+            
+            if let inset = delegate?.collectionView(collectionView, insetForSectionAt: section) {
+                return inset
+            }
+            
+            let isTv = UIDevice.current.userInterfaceIdiom == .tv
+            
+            return isTv ? UIEdgeInsets(top: 60, left: 90, bottom: 60, right: 90) : UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        }
+        
+        return .zero
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -188,9 +213,14 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
             _cell.titleLabel.text = person.name
             _cell.initialsLabel.text = person.initials
             
+            
             if let image = person.mediumImage,
-                let url = URL(string: image) {
-                _cell.imageView.af_setImage(withURL: url,  placeholderImage: UIImage(named: "Other Placeholder"), imageTransition: .crossDissolve(animationLength))
+                let url = URL(string: image),
+                let request = try? URLRequest(url: url, method: .get) {
+                _cell.originalImage = UIImage(named: "Other Placeholder")
+                ImageDownloader.default.download(request) { (response) in
+                    _cell.originalImage = response.result.value
+                }
             } else {
                 _cell.imageView.image = nil
             }

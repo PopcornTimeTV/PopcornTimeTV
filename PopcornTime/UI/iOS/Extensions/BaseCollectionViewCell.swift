@@ -8,8 +8,6 @@ import MarqueeLabel
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
-        
-    #if os(iOS)
     
     @IBOutlet var highlightView: UIView?
     
@@ -28,7 +26,7 @@ import MarqueeLabel
         }
     }
     
-    #elseif os(tvOS)
+    #if os(tvOS)
     
     var hidesTitleLabelWhenUnfocused: Bool = false {
         didSet {
