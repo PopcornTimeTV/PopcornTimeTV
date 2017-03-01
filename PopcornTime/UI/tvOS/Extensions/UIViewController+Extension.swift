@@ -2,10 +2,9 @@
 
 import Foundation
 
-
 extension UIViewController {
     
-    func pctFocusedViewDidChange() {
+    @objc private func pctFocusedViewDidChange() {
         NotificationCenter.default.post(name: .UIViewControllerFocusedViewDidChange, object: self)
         self.pctFocusedViewDidChange()
     }

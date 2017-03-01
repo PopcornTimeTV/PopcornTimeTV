@@ -11,7 +11,7 @@ extension UICollectionViewController {
 
 extension UICollectionView {
     
-    func pctReloadData() {
+    @objc private func pctReloadData() {
         if let parent = parent as? UICollectionViewController {
             parent.collectionViewWillReloadData(self)
             self.pctReloadData()

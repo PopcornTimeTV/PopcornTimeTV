@@ -17,8 +17,10 @@ class TVTabBarController: UITabBarController {
             let nextFocusedView = context.nextFocusedView,
             let navigationController = selectedViewController as? TVNavigationController,
             let root = navigationController.topViewController as? MainViewController,
+            let collectionView = root.collectionView,
             let items = root.navigationItem.rightBarButtonItems,
-            !items.isEmpty
+            !items.isEmpty,
+            collectionView.contentOffset.y + collectionView.contentInset.top < 100 // Make sure we're more or less at the top
         else {
             return true
         }
