@@ -39,10 +39,9 @@ class UpNextView: UIVisualEffectView {
         }
     }
     
-    override var preferredFocusedView: UIView? {
-        return viewToFocus != nil ? viewToFocus : super.preferredFocusedView
+    override var preferredFocusEnvironments: [UIFocusEnvironment] {
+        return [viewToFocus].flatMap({$0})
     }
-    
     func show() {
         guard isHidden else { return }
         isHidden = false

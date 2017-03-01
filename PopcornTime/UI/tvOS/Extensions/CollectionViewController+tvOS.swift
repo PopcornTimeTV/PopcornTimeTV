@@ -20,18 +20,14 @@ extension CollectionViewController {
         return focusIndexPath
     }
     
-    override var preferredFocusedView: UIView? {
-        return collectionView?.cellForItem(at: focusIndexPath)
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         focusIndexPath = indexPath
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let adjustment = scrollView.contentOffset.y + scrollView.contentInset.top
-        parent?.navigationItem.leftBarButtonItem?.customView?.frame.origin.y = -adjustment + 44
-        parent?.navigationItem.rightBarButtonItems?.forEach({$0.customView?.frame.origin.y = -adjustment + 44})
+        let adjustment = scrollView.contentOffset.y + scrollView.contentInset.top - 44
+        parent?.navigationItem.leftBarButtonItem?.customView?.frame.origin.y = -adjustment
+        parent?.navigationItem.rightBarButtonItems?.forEach({$0.customView?.frame.origin.y = -adjustment})
     }
     
     override func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {

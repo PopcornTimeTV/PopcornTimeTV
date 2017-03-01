@@ -16,6 +16,10 @@ extension DetailViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
+    override var preferredFocusEnvironments: [UIFocusEnvironment] {
+        return [itemViewController.trailerButton, itemViewController.playButton, itemViewController.seasonsButton, itemViewController.watchlistButton, itemViewController.watchedButton].flatMap({$0}).filter({$0.superview != nil})
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -25,7 +29,8 @@ extension DetailViewController {
     }
     
     override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        if let nextFocusedView = context.nextFocusedView, let tabBarItemViews = tabBarController?.tabBar.subviews.first(where: {$0 is UIScrollView})?.subviews, tabBarItemViews.contains(nextFocusedView) {
+        
+        if let nextFocusedView = context.nextFocusedView, type(of: nextFocusedView) === NSClassFromString("UITabBarButton") {
             return false
         }
         return true

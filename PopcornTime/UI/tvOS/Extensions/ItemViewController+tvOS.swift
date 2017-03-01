@@ -69,9 +69,10 @@ extension ItemViewController {
             titleLabel.text = ""
             infoLabel.text = "Watch \(show.title) on \(show.network ?? "TV")"
             
-            let subtitle = NSMutableAttributedString(string: "\(show.genres.first?.capitalized ?? "")\t\(show.year)\t\t")
+            let subtitle = NSMutableAttributedString(string: "\(show.genres.first?.capitalized ?? "")\t\(show.year)\t")
             attributedString(between: "HD", "CC").forEach({subtitle.append($0)})
             
+            subtitleLabel.font = UIFont.systemFont(ofSize: 31, weight: UIFontWeightMedium)
             subtitleLabel.attributedText = subtitle
             peopleTextView?.text = ""
             

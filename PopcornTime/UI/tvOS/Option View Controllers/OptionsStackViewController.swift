@@ -121,9 +121,9 @@ class OptionsStackViewController: UIViewController, UITableViewDelegate {
         
         tableView.visibleCells.forEach({ $0.textLabel?.textColor = UIColor(red: 169.0/255.0, green: 169.0/255.0, blue: 169.0/255.0, alpha: 0.7) })
         
-        if let indexPath = context.nextFocusedIndexPath, let cell = tableView.cellForRow(at: indexPath) {
+        if let indexPath = context.nextFocusedIndexPath, let cell = context.nextFocusedView as? UITableViewCell {
             cell.textLabel?.textColor = .white
-            tableView.scrollToRow(at: tableView.indexPath(for: cell)!, at: .none, animated: true)
+            tableView.scrollToRow(at: indexPath, at: .none, animated: true)
         }
         
         if let indexPath = context.previouslyFocusedIndexPath {
@@ -146,7 +146,7 @@ class OptionsStackViewController: UIViewController, UITableViewDelegate {
     }
     
     override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        if let nextFocusedView = context.nextFocusedView, let tabBarItemViews = tabBar.subviews.first(where: {$0 is UIScrollView})?.subviews, tabBarItemViews.contains(nextFocusedView) {
+        if let nextFocusedView = context.nextFocusedView, type(of: nextFocusedView) === NSClassFromString("UITabBarButton") {
             return canFocusTabBar
         }
         return true

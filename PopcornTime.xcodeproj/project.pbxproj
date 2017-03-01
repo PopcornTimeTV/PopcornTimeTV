@@ -10,6 +10,7 @@
 		4D0183A91DC3ACB500AB75B3 /* Locale+Langs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */; };
 		4D0E130B1E6709EB0000AD65 /* UICollectionViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E130A1E6709EB0000AD65 /* UICollectionViewController+Extension.swift */; };
 		4D0E130C1E6709EB0000AD65 /* UICollectionViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E130A1E6709EB0000AD65 /* UICollectionViewController+Extension.swift */; };
+		4D0E130E1E671E050000AD65 /* TVTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E130D1E671E050000AD65 /* TVTabBarController.swift */; };
 		4D11C5071E31409100CF9182 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11C5061E31409100CF9182 /* CollectionViewController.swift */; };
 		4D17C2C31E509C4A00B61902 /* Show+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BB31DDFA1C6000E2AA1 /* Show+Extension.swift */; };
 		4D1B88A51E3BD42B00DB701D /* ResponsiveCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B88A41E3BD42B00DB701D /* ResponsiveCollectionViewController.swift */; };
@@ -234,6 +235,7 @@
 		3E2A1684A64499B8ED0B31B3 /* Pods-TopShelf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TopShelf.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TopShelf/Pods-TopShelf.debug.xcconfig"; sourceTree = "<group>"; };
 		4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Locale+Langs.swift"; sourceTree = "<group>"; };
 		4D0E130A1E6709EB0000AD65 /* UICollectionViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewController+Extension.swift"; sourceTree = "<group>"; };
+		4D0E130D1E671E050000AD65 /* TVTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVTabBarController.swift; path = "View Controllers/TVTabBarController.swift"; sourceTree = "<group>"; };
 		4D1178641DC6A7F90077A598 /* TopShelf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TopShelf.entitlements; sourceTree = "<group>"; };
 		4D11C5061E31409100CF9182 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewController.swift; path = "../iOS/Collection View Layouts/CollectionViewController.swift"; sourceTree = "<group>"; };
 		4D1B88A41E3BD42B00DB701D /* ResponsiveCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponsiveCollectionViewController.swift; path = "../iOS/Collection View Controllers/ResponsiveCollectionViewController.swift"; sourceTree = "<group>"; };
@@ -241,7 +243,7 @@
 		4D1B88A81E3BFF4000DB701D /* MovieDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovieDetailViewController.swift; path = "../iOS/Detail View Controllers/MovieDetailViewController.swift"; sourceTree = "<group>"; };
 		4D1B88AA1E3C9BFA00DB701D /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UINavigationController+Extension.swift"; path = "../UI/iOS/Extensions/UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		4D1B88AC1E3CAF6700DB701D /* UIAlertAction+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Extension.swift"; sourceTree = "<group>"; };
-		4D20C02F1E5E2D2500DBFF4F /* TVNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVNavigationController.swift; sourceTree = "<group>"; };
+		4D20C02F1E5E2D2500DBFF4F /* TVNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVNavigationController.swift; path = Extensions/TVNavigationController.swift; sourceTree = "<group>"; };
 		4D2543AD1DACFBFE00149533 /* TopShelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TopShelf.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2543B01DACFBFE00149533 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		4D2543B21DACFBFE00149533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -612,7 +614,6 @@
 				4D784D521E5F4559009E3423 /* ItemViewController+tvOS.swift */,
 				4D99955E1E5CAB98005C432A /* SearchViewController+tvOS.swift */,
 				4D859BB11DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift */,
-				4D20C02F1E5E2D2500DBFF4F /* TVNavigationController.swift */,
 				4D7376011DFDC6F500505CA0 /* NSNotification+Name.swift */,
 				4D3B5E6C1E621B21001A7031 /* UICollectionViewCell+ReactiveCell.swift */,
 				4D859BB41DDFA1C6000E2AA1 /* UIViewController+Extension.swift */,
@@ -676,6 +677,8 @@
 				4D9995751E5CE41C005C432A /* CheckForUpdatesViewController.xib */,
 				4D99954E1E5C7B45005C432A /* TVLoadingViewController.swift */,
 				4D9995771E5DCE7B005C432A /* SeasonPickerViewController.swift */,
+				4D20C02F1E5E2D2500DBFF4F /* TVNavigationController.swift */,
+				4D0E130D1E671E050000AD65 /* TVTabBarController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -1221,6 +1224,7 @@
 				4D784D531E5F4559009E3423 /* ItemViewController+tvOS.swift in Sources */,
 				4D20C0301E5E2D2500DBFF4F /* TVNavigationController.swift in Sources */,
 				4D9995381E5C66E7005C432A /* ResponsiveCollectionViewController.swift in Sources */,
+				4D0E130E1E671E050000AD65 /* TVTabBarController.swift in Sources */,
 				4D784D501E5F3D38009E3423 /* Movie+Extension.swift in Sources */,
 				4D99954F1E5C7B45005C432A /* TVLoadingViewController.swift in Sources */,
 				4D859BB81DDFA1C6000E2AA1 /* UIViewController+Extension.swift in Sources */,
