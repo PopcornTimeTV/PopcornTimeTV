@@ -79,7 +79,7 @@ class ShowDetailViewController: DetailViewController {
         } else if let vc = segue.destination as? DescriptionCollectionViewController, segue.identifier == "embedInformation" {
             vc.headerTitle = "Information"
             
-            vc.dataSource = [("Genre", show.genres.first?.capitalized ?? "Unknown"), ("Released", show.year), ("Run Time", (show.runtime ?? "0") + " min"), ("Network", show.network ?? "TV")]
+            vc.dataSource = [("Genre", show.genres.first?.capitalized ?? "Unknown"), ("Released", show.year), ("Run Time", "\(show.runtime ?? 0) min"), ("Network", show.network ?? "TV")]
             
             informationDescriptionCollectionViewController = vc
         } else if let vc = segue.destination as? CollectionViewController {

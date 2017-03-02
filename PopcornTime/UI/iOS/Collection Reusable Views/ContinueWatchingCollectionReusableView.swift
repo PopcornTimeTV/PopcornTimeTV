@@ -111,7 +111,7 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
             return (media, "showMovie")
         }()
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard.main
         let vc = storyboard.instantiateViewController(withIdentifier: "LoadingViewController")
         
         guard let parent = parent as? CollectionViewController else { return }

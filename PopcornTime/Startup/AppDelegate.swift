@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UI
         #endif
         
         if !UserDefaults.standard.bool(forKey: "tosAccepted") {
-            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TermsOfServiceNavigationController")
+            let vc = UIStoryboard.main.instantiateViewController(withIdentifier: "TermsOfServiceNavigationController")
             window?.makeKeyAndVisible()
             window?.rootViewController?.present(vc, animated: false, completion: nil)
             UserDefaults.standard.set(0.75, forKey: "themeSongVolume")
@@ -88,7 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UI
                 let media: Media = type == "showMovie" ? Mapper<Movie>().map(JSONString: json)! : Mapper<Show>().map(JSONString: json)!
                 
                 if let vc = activeRootViewController {
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let storyboard = UIStoryboard.main
                     let loadingViewController = storyboard.instantiateViewController(withIdentifier: "LoadingViewController")
                     
                     let segue = AutoPlayStoryboardSegue(identifier: type, source: vc, destination: loadingViewController)

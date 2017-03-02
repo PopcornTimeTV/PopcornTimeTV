@@ -126,7 +126,7 @@ extension ItemViewController {
             guard let url = videoUrl else {
                 self.dismiss(animated: true)
                 
-                let vc = UIAlertController(title: "Oops!", message: "Error fetching valid trailer URL from Youtube.", preferredStyle: .alert)
+                let vc = UIAlertController(title: "Error", message: "Error fetching valid trailer URL from Youtube.", preferredStyle: .alert)
                 
                 vc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                 

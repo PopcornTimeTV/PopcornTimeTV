@@ -185,7 +185,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
                 dismiss(animated: false, completion: nil)
             }
             
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let storyboard = UIStoryboard.main
             var media = media
             
             let currentProgress = media is Movie ? WatchedlistManager<Movie>.movie.currentProgress(media.id) : WatchedlistManager<Episode>.episode.currentProgress(media.id)
