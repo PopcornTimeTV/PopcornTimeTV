@@ -151,8 +151,6 @@
 		4DBCCEF71E6815450066F1A7 /* iOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCEF21E6815450066F1A7 /* iOS.storyboard */; };
 		4DBCCEF81E6815450066F1A7 /* tvOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCEF41E6815450066F1A7 /* tvOS.storyboard */; };
 		4DBCCEFF1E68220D0066F1A7 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCEFD1E68220D0066F1A7 /* Launch Screen.storyboard */; };
-		4DBCCF011E68897D0066F1A7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCF001E68897D0066F1A7 /* Localizable.strings */; };
-		4DBCCF021E68897D0066F1A7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCF001E68897D0066F1A7 /* Localizable.strings */; };
 		4DBCCF031E68971C0066F1A7 /* CheckForUpdatesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCF051E68971C0066F1A7 /* CheckForUpdatesViewController.xib */; };
 		4DBCCF081E6897DF0066F1A7 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCF0A1E6897DF0066F1A7 /* LoadingView.xib */; };
 		4DBE608A1E5E49B200C2549B /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60891E5E49B200C2549B /* FileManager+Extension.swift */; };
@@ -194,6 +192,8 @@
 		4DE9E06C1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE9E06B1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift */; };
 		4DF5D8AF1E69D34B000B4A3C /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF5D8AE1E69D34B000B4A3C /* UIDevice+Extension.swift */; };
 		9D791981BEDEC8982B768977 /* Pods_TopShelf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */; };
+		B39FA8BD1E6A1A1600E69CB1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B39FA8C01E6A1A1600E69CB1 /* Localizable.strings */; };
+		B39FA8BE1E6A1A1600E69CB1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B39FA8C01E6A1A1600E69CB1 /* Localizable.strings */; };
 		C13AAE5F5C0B7B2A2EADE6D7 /* Pods_PopcornTimetvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0F58921BC4D7FCD5EA29325 /* Pods_PopcornTimetvOS.framework */; };
 		FBC7CC598DEFD1909064625E /* Pods_PopcornTimeiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C39DBC9A881608E11694A746 /* Pods_PopcornTimeiOS.framework */; };
 /* End PBXBuildFile section */
@@ -350,7 +350,6 @@
 		4DBCCEFB1E6815710066F1A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/iOS.strings; sourceTree = "<group>"; };
 		4DBCCEFC1E6815710066F1A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/tvOS.strings; sourceTree = "<group>"; };
 		4DBCCEFD1E68220D0066F1A7 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		4DBCCF001E68897D0066F1A7 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = "PopcornTime/Supporting Files/Localizable.strings"; sourceTree = SOURCE_ROOT; };
 		4DBCCF041E68971C0066F1A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CheckForUpdatesViewController.xib; sourceTree = "<group>"; };
 		4DBCCF071E6897320066F1A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CheckForUpdatesViewController.strings; sourceTree = "<group>"; };
 		4DBCCF091E6897DF0066F1A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoadingView.xib; sourceTree = "<group>"; };
@@ -389,6 +388,12 @@
 		796C61914EF57FAF09B30DFE /* Pods-PopcornTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.release.xcconfig"; sourceTree = "<group>"; };
 		7AAF4FD5928500951D3D388A /* Pods-PopcornTimetvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTimetvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTimetvOS/Pods-PopcornTimetvOS.release.xcconfig"; sourceTree = "<group>"; };
 		89909111EA7D0BC787417121 /* Pods-PopcornTimeiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTimeiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS.release.xcconfig"; sourceTree = "<group>"; };
+		B39FA8B91E6A172700E69CB1 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/iOS.strings"; sourceTree = "<group>"; };
+		B39FA8BA1E6A172700E69CB1 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/tvOS.strings"; sourceTree = "<group>"; };
+		B39FA8BB1E6A172800E69CB1 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/CheckForUpdatesViewController.strings"; sourceTree = "<group>"; };
+		B39FA8BC1E6A172800E69CB1 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LoadingView.strings"; sourceTree = "<group>"; };
+		B39FA8BF1E6A1A1600E69CB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B39FA8C21E6A1A1A00E69CB1 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TopShelf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C39DBC9A881608E11694A746 /* Pods_PopcornTimeiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopcornTimeiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0F58921BC4D7FCD5EA29325 /* Pods_PopcornTimetvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopcornTimetvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -467,7 +472,7 @@
 				4DC870B51D9EDE58005455B0 /* PopcornTime.entitlements */,
 				4DA42DC41DD8C6D900933A10 /* PopcornTimeiOS-Bridging-Header.h */,
 				4D990E281DC4F00F005CDE34 /* PopcornTimetvOS-Bridging-Header.h */,
-				4DBCCF001E68897D0066F1A7 /* Localizable.strings */,
+				B39FA8C01E6A1A1600E69CB1 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			path = "Supporting FIles";
@@ -1017,6 +1022,7 @@
 			knownRegions = (
 				Base,
 				en,
+				"pt-BR",
 			);
 			mainGroup = 287B852B1C9873A200EEF5C8;
 			productRefGroup = 287B85351C9873A200EEF5C8 /* Products */;
@@ -1040,7 +1046,7 @@
 				4D99955B1E5C81DF005C432A /* ContinueWatchingCollectionViewCell.xib in Resources */,
 				4D990E301DC4F00F005CDE34 /* EncodingTypes.plist in Resources */,
 				4D689A371DD89076001D1318 /* Images.xcassets in Resources */,
-				4DBCCF011E68897D0066F1A7 /* Localizable.strings in Resources */,
+				B39FA8BD1E6A1A1600E69CB1 /* Localizable.strings in Resources */,
 				4D9995531E5C7E68005C432A /* LoadingView.xib in Resources */,
 				4DBCCEF81E6815450066F1A7 /* tvOS.storyboard in Resources */,
 				4D9995581E5C808A005C432A /* ContinueWatchingCollectionReusableView.xib in Resources */,
@@ -1061,7 +1067,7 @@
 			files = (
 				4D689A291DD88EE9001D1318 /* EncodingTypes.plist in Resources */,
 				4D9995741E5CE306005C432A /* CheckForUpdatesViewController.xib in Resources */,
-				4DBCCF021E68897D0066F1A7 /* Localizable.strings in Resources */,
+				B39FA8BE1E6A1A1600E69CB1 /* Localizable.strings in Resources */,
 				4DC2D1331E59FE290019DB7D /* ContinueWatchingCollectionViewCell.xib in Resources */,
 				4D689A361DD8906F001D1318 /* Images.xcassets in Resources */,
 				4DBCCF081E6897DF0066F1A7 /* LoadingView.xib in Resources */,
@@ -1397,6 +1403,7 @@
 			children = (
 				4DBCCEF31E6815450066F1A7 /* Base */,
 				4DBCCEFB1E6815710066F1A7 /* en */,
+				B39FA8B91E6A172700E69CB1 /* pt-BR */,
 			);
 			name = iOS.storyboard;
 			sourceTree = "<group>";
@@ -1406,6 +1413,7 @@
 			children = (
 				4DBCCEF51E6815450066F1A7 /* Base */,
 				4DBCCEFC1E6815710066F1A7 /* en */,
+				B39FA8BA1E6A172700E69CB1 /* pt-BR */,
 			);
 			name = tvOS.storyboard;
 			sourceTree = "<group>";
@@ -1415,6 +1423,7 @@
 			children = (
 				4DBCCF041E68971C0066F1A7 /* Base */,
 				4DBCCF071E6897320066F1A7 /* en */,
+				B39FA8BB1E6A172800E69CB1 /* pt-BR */,
 			);
 			name = CheckForUpdatesViewController.xib;
 			path = UI/tvOS/Views;
@@ -1425,10 +1434,21 @@
 			children = (
 				4DBCCF091E6897DF0066F1A7 /* Base */,
 				4DBCCF0C1E6897EA0066F1A7 /* en */,
+				B39FA8BC1E6A172800E69CB1 /* pt-BR */,
 			);
 			name = LoadingView.xib;
 			path = UI/iOS/Views;
 			sourceTree = "<group>";
+		};
+		B39FA8C01E6A1A1600E69CB1 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B39FA8BF1E6A1A1600E69CB1 /* Base */,
+				B39FA8C21E6A1A1A00E69CB1 /* pt-BR */,
+			);
+			name = Localizable.strings;
+			path = "PopcornTime/Supporting Files";
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXVariantGroup section */
 
@@ -1437,6 +1457,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1478,6 +1499,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
