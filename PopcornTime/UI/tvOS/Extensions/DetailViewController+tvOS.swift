@@ -8,12 +8,16 @@ extension DetailViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(stopTheme), name: .UIApplicationDidEnterBackground, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(startTheme), name: .UIApplicationWillEnterForeground, object: nil)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         startTheme()
         
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        setNeedsFocusUpdate()
+        updateFocusIfNeeded()
     }
     
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
@@ -24,8 +28,6 @@ extension DetailViewController {
         super.viewWillDisappear(animated)
         
         stopTheme()
-        NotificationCenter.default.removeObserver(self)
-        navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {

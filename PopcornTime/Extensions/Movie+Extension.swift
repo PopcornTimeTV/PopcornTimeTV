@@ -12,9 +12,9 @@ extension Movie {
     var formattedRuntime: String {
         let (hours, minutes, _) = secondsToHoursMinutesSeconds(runtime * 60)
         
-        let formatted = "\(hours) h"
+        let formatted = hours > 0 ? "\(hours) h " : ""
 
-        return minutes > 0 ? formatted + " \(minutes) min" : formatted
+        return minutes > 0 ? formatted + "\(minutes) min" : formatted
     }
     
 }
@@ -25,8 +25,8 @@ extension Show {
         
         let (hours, minutes, _) = secondsToHoursMinutesSeconds(runtime * 60)
         
-        let formatted = "\(hours) h"
+        let formatted = hours > 0 ? "\(hours) h " : ""
         
-        return minutes > 0 ? formatted + " \(minutes) min" : formatted
+        return minutes > 0 ? formatted + "\(minutes) min" : formatted
     }
 }

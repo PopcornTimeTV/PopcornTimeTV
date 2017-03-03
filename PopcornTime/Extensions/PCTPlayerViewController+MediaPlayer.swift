@@ -7,24 +7,17 @@ import AlamofireImage
 extension PCTPlayerViewController {
     
     func addRemoteCommandCenterHandlers() {
-        if UIDevice.current.userInterfaceIdiom == .tv { return }
         
         let center = MPRemoteCommandCenter.shared()
             
         center.pauseCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
-            if self.mediaplayer.canPause && self.mediaplayer.isPlaying {
-                self.mediaplayer.pause()
-                return .success
-            }
-            return .commandFailed
+            self.playandPause()
+            return self.mediaplayer.state == .paused ? .success : .commandFailed
         }
         
         center.playCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
-            if self.mediaplayer.willPlay && !self.mediaplayer.isPlaying {
-                self.mediaplayer.play()
-                return .success
-            }
-            return .commandFailed
+            self.playandPause()
+            return self.mediaplayer.state == .playing ? .success : .commandFailed
         }
         
         if #available(iOS 9.1, tvOS 9.1, *) {

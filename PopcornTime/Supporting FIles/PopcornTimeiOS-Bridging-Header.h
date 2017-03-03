@@ -5,5 +5,6 @@
 
 #import <MobileVLCKit/MobileVLCKit.h>
 #import <GoogleCast/GoogleCast.h>
+#import <ifaddrs.h>
 
 #endif

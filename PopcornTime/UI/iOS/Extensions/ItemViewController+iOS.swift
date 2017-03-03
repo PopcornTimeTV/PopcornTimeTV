@@ -20,7 +20,7 @@ extension ItemViewController {
             subtitleLabel.text = movie.formattedRuntime
             genreLabel?.text = movie.genres.first?.capitalized ?? ""
             
-            let info = NSMutableAttributedString(string: "\(movie.year)\t")
+            let info = NSMutableAttributedString(string: "\(movie.year)")
             attributedString(with: 10, between: movie.certification, "HD", "CC").forEach({info.append($0)})
             
             infoLabel.attributedText = info
@@ -31,7 +31,7 @@ extension ItemViewController {
             subtitleLabel.text = show.network ?? "TV"
             genreLabel?.text = show.genres.first?.capitalized ?? ""
             
-            let info = NSMutableAttributedString(string: "\(show.year)\t")
+            let info = NSMutableAttributedString(string: "\(show.year)")
             attributedString(with: 10, between: "HD", "CC").forEach({info.append($0)})
             
             infoLabel.attributedText = info

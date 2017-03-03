@@ -109,7 +109,11 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             gesture.state = .ended
             clickGesture(gesture)
         #elseif os(iOS)
-            mediaplayer.isPlaying ? mediaplayer.pause() : mediaplayer.play()
+            if mediaplayer.isPlaying {
+                mediaplayer.canPause ? mediaplayer.pause() : ()
+            } else {
+                mediaplayer.willPlay ? mediaplayer.play() : ()
+            }
         #endif
     }
     

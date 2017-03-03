@@ -19,8 +19,8 @@ func attributedString(with spacing: Int = 25, between images: String...) -> [NSA
     return images.flatMap({
         guard let attributedString = UIImage(named: $0)?.colored(.white)?.attributed else { return nil }
         
-        let string = NSMutableAttributedString(attributedString: attributedString)
-        string.append(UIImage.from(color: .clear, size: CGSize(width: spacing, height: 1)).attributed)
+        let string = NSMutableAttributedString(attributedString: UIImage.from(color: .clear, size: CGSize(width: spacing, height: 1)).attributed)
+        string.append(attributedString)
         
         return string
     })

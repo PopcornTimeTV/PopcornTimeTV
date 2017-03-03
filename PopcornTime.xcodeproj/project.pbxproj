@@ -192,6 +192,7 @@
 		4DDBD90A1E0EDA2E00CEA1B1 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBD9081E0EDA2E00CEA1B1 /* Array+Extension.swift */; };
 		4DE9E06A1E3D0DC300806522 /* SeparatorCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE9E0691E3D0DC300806522 /* SeparatorCollectionViewLayout.swift */; };
 		4DE9E06C1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE9E06B1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift */; };
+		4DF5D8AF1E69D34B000B4A3C /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF5D8AE1E69D34B000B4A3C /* UIDevice+Extension.swift */; };
 		9D791981BEDEC8982B768977 /* Pods_TopShelf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */; };
 		C13AAE5F5C0B7B2A2EADE6D7 /* Pods_PopcornTimetvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0F58921BC4D7FCD5EA29325 /* Pods_PopcornTimetvOS.framework */; };
 		FBC7CC598DEFD1909064625E /* Pods_PopcornTimeiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C39DBC9A881608E11694A746 /* Pods_PopcornTimeiOS.framework */; };
@@ -381,6 +382,7 @@
 		4DDBD9081E0EDA2E00CEA1B1 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		4DE9E0691E3D0DC300806522 /* SeparatorCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SeparatorCollectionViewLayout.swift; path = "Collection View Layouts/SeparatorCollectionViewLayout.swift"; sourceTree = "<group>"; };
 		4DE9E06B1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewLayoutAttributes+Color.swift"; sourceTree = "<group>"; };
+		4DF5D8AE1E69D34B000B4A3C /* UIDevice+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		4F3B56E351FCF49BA32DCB20 /* Pods-PopcornTimeiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTimeiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		59BE8A67A9D4954F63D16C0E /* Pods-PopcornTime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.debug.xcconfig"; sourceTree = "<group>"; };
 		5AFC393C8DD38442036DFF31 /* Pods-PopcornTimetvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTimetvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTimetvOS/Pods-PopcornTimetvOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -601,6 +603,7 @@
 		4D859B181DDF7373000E2AA1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				4DF5D8AE1E69D34B000B4A3C /* UIDevice+Extension.swift */,
 				4D9995411E5C6FFD005C432A /* CollectionViewController+iOS.swift */,
 				4D784D4D1E5F3AF6009E3423 /* ItemViewController+iOS.swift */,
 				4DBE60971E5E590500C2549B /* MovieDetailViewController+iOS.swift */,
@@ -977,7 +980,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes.appletvos = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Keychain = {
 								enabled = 1;
@@ -1298,6 +1301,7 @@
 				4DBE608B1E5E49B200C2549B /* FileManager+Extension.swift in Sources */,
 				4D859B301DDFA07C000E2AA1 /* PCTPlayerViewController.swift in Sources */,
 				4D99956F1E5CE227005C432A /* UIFont+Style.swift in Sources */,
+				4DF5D8AF1E69D34B000B4A3C /* UIDevice+Extension.swift in Sources */,
 				4DDBD90A1E0EDA2E00CEA1B1 /* Array+Extension.swift in Sources */,
 				4DE9E06C1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift in Sources */,
 				4DC7B6951E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift in Sources */,

@@ -32,7 +32,7 @@ class InfoViewController: UIViewController {
                     imageView.af_setImage(withURL: imageUrl)
                 }
                 
-                let info = NSMutableAttributedString(string: "\(movie.formattedRuntime)\t\(movie.year)\t")
+                let info = NSMutableAttributedString(string: "\(movie.formattedRuntime)\t\(movie.year)")
                 attributedString(between: movie.certification, "HD", "CC").forEach({info.append($0)})
                 
                 infoLabel.attributedText = info
@@ -44,11 +44,11 @@ class InfoViewController: UIViewController {
                 
                 let season = "S\(episode.season):E\(episode.episode)"
                 let date = DateFormatter.localizedString(from: episode.firstAirDate, dateStyle: .medium, timeStyle: .none)
-                let runtime = episode.show.formattedRuntime ?? "0 min"
-                let genre = episode.show.genres.first?.capitalized ?? ""
+                let runtime = episode.show.formattedRuntime
+                let genre = episode.show.genres.first?.capitalized
                 
                 
-                let info = NSMutableAttributedString(string: [season, date, runtime, genre].joined(separator: "\t"))
+                let info = NSMutableAttributedString(string: [season, date, runtime, genre].flatMap({$0}).joined(separator: "\t"))
                 attributedString(between: "HD", "CC").forEach({info.append($0)})
                 
                 infoLabel.attributedText = info
