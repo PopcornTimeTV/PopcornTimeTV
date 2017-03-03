@@ -38,7 +38,7 @@ class WatchlistViewController: MainViewController {
     override func collectionView(_ collectionView: UICollectionView, insetForSectionAt section: Int) -> UIEdgeInsets? {
         let isTv = UIDevice.current.userInterfaceIdiom == .tv
         
-        return isTv ? UIEdgeInsets(top: 20, left: 90, bottom: 60, right: 90) : UIEdgeInsets(top: 5, left: 15, bottom: 15, right: 15)
+        return isTv ? UIEdgeInsets(top: 20, left: 90, bottom: 0, right: 90) : UIEdgeInsets(top: 5, left: 15, bottom: 15, right: 15)
     }
     
     override func collectionView(isEmptyForUnknownReason collectionView: UICollectionView) {

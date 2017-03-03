@@ -7,6 +7,8 @@ import AlamofireImage
 extension PCTPlayerViewController {
     
     func addRemoteCommandCenterHandlers() {
+        if UIDevice.current.userInterfaceIdiom == .tv { return }
+        
         let center = MPRemoteCommandCenter.shared()
             
         center.pauseCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in

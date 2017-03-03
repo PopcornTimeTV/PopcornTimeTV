@@ -33,6 +33,7 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
             
             let completion: ([Media]) -> Void = { media in
                 self.onDeck = media.sorted(by: {$0.0.title < $0.1.title})
+                self.collectionView.reloadData()
                 self.layoutSubviews()
             }
             
@@ -151,19 +152,17 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        collectionView.performBatchUpdates(nil) { [unowned self] _ in
-            if let parentCollectionView = self.superview as? UICollectionView,
-                let layout = parentCollectionView.collectionViewLayout as? CSStickyHeaderFlowLayout {
-                
-                let itemHeight = self.collectionView(self.collectionView, layout: self.collectionView.collectionViewLayout, sizeForItemAt: IndexPath(item: 0, section: 0)).height
-                let section = (self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout).sectionInset
-                let content = self.collectionView.contentInset
-                
-                let size   = CGSize(width: parentCollectionView.bounds.width, height: itemHeight + section.top + section.bottom + content.top + content.bottom)
-                
-                layout.parallaxHeaderMinimumReferenceSize = self.onDeck.isEmpty ? .zero : size
-                layout.parallaxHeaderReferenceSize        = self.onDeck.isEmpty ? .zero : size
-            }
+        if let parentCollectionView = self.superview as? UICollectionView,
+            let layout = parentCollectionView.collectionViewLayout as? CSStickyHeaderFlowLayout {
+            
+            let itemHeight = self.collectionView(self.collectionView, layout: self.collectionView.collectionViewLayout, sizeForItemAt: IndexPath(item: 0, section: 0)).height
+            let section = (self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout).sectionInset
+            let content = self.collectionView.contentInset
+            
+            let size   = CGSize(width: parentCollectionView.bounds.width, height: itemHeight + section.top + section.bottom + content.top + content.bottom)
+            
+            layout.parallaxHeaderMinimumReferenceSize = self.onDeck.isEmpty ? .zero : size
+            layout.parallaxHeaderReferenceSize        = self.onDeck.isEmpty ? .zero : size
         }
     }
     

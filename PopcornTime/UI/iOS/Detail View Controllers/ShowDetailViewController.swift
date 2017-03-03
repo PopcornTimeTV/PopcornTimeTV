@@ -23,13 +23,11 @@ class ShowDetailViewController: DetailViewController {
             
             self.currentSeason = season
             
-            var error: NSError?
             let group = DispatchGroup()
             
             group.enter()
             TraktManager.shared.getRelated(show) {
                 show.related = $0.0
-                error = $0.1
                 
                 group.leave()
             }
@@ -38,7 +36,6 @@ class ShowDetailViewController: DetailViewController {
             TraktManager.shared.getPeople(forMediaOfType: .shows, id: show.id) {
                 show.actors = $0.0
                 show.crew = $0.1
-                error = $0.2
                 
                 group.leave()
             }
@@ -50,7 +47,7 @@ class ShowDetailViewController: DetailViewController {
             }
             
             group.notify(queue: .main) {
-                completion(show, error)
+                completion(show, nil)
             }
         }
     }

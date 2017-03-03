@@ -80,6 +80,9 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     
     override func collectionViewDidReloadData(_ collectionView: UICollectionView) {
         super.collectionViewDidReloadData(collectionView)
+        
+        guard collectionView === self.collectionView else { return }
+        
         continueWatchingCollectionReusableView?.refreshOnDeck()
     }
     
