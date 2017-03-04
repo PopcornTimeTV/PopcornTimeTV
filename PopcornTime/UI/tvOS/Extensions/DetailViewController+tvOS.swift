@@ -14,7 +14,11 @@ extension DetailViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        startTheme()
+        if let movie = currentItem as? Movie {
+            ThemeSongManager.shared.playMovieTheme(movie.title)
+        } else if let show = currentItem as? Show {
+            ThemeSongManager.shared.playShowTheme(Int(show.tvdbId)!)
+        }
         
         setNeedsFocusUpdate()
         updateFocusIfNeeded()
@@ -27,7 +31,8 @@ extension DetailViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        stopTheme()
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        ThemeSongManager.shared.stopTheme()
     }
     
     override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
@@ -36,17 +41,5 @@ extension DetailViewController {
             return false
         }
         return true
-    }
-    
-    func stopTheme() {
-        ThemeSongManager.shared.stopTheme()
-    }
-    
-    func startTheme() {
-        if let movie = currentItem as? Movie {
-            ThemeSongManager.shared.playMovieTheme(movie.title)
-        } else if let show = currentItem as? Show {
-            ThemeSongManager.shared.playShowTheme(Int(show.tvdbId)!)
-        }
     }
 }

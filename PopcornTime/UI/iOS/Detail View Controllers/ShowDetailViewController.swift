@@ -16,7 +16,13 @@ class ShowDetailViewController: DetailViewController {
     override func loadMedia(id: String, completion: @escaping (Media?, NSError?) -> Void) {
         PopcornKit.getShowInfo(id) { (show, error) in
             
+            if let error = error {
+                completion(nil, error)
+                return
+            }
+            
             guard var show = show, let season = show.latestUnwatchedEpisode()?.season ?? show.seasonNumbers.first else {
+                let error = NSError(domain: "com.popcorntimetv.popcorntime.error", code: -243, userInfo: [NSLocalizedDescriptionKey: "There are no seasons available for the selected show. Please try again later"])
                 completion(nil, error)
                 return
             }

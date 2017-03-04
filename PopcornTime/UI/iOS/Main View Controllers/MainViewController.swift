@@ -18,9 +18,9 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
     
     var collectionView: UICollectionView? {
         get {
-            return collectionViewController.collectionView
+            return collectionViewController?.collectionView
         } set(newObject) {
-            collectionViewController.collectionView = newObject
+            collectionViewController?.collectionView = newObject
         }
     }
     
