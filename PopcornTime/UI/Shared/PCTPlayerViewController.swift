@@ -4,7 +4,9 @@ import UIKit
 import MediaPlayer
 import PopcornTorrent
 import PopcornKit
-
+#if os(iOS)
+    import VolumeBar
+#endif
 
 protocol PCTPlayerViewControllerDelegate: class {
     func playNext(_ episode: Episode)
@@ -185,7 +187,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         PTTorrentStreamer.shared().cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
         
         setProgress(status: .finished)
-        
+        #if os(iOS)
+        VolumeBar.sharedInstance.stop()
+        #endif
         dismiss(animated: true, completion: nil)
     }
     
@@ -275,6 +279,12 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        #if os(iOS)
+        VolumeBar.sharedInstance.start()
+        VolumeBar.sharedInstance.tintColor = UIColor(red:0.37, green:0.42, blue:0.90, alpha:1.0)
+        VolumeBar.sharedInstance.backgroundColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
+        VolumeBar.sharedInstance.hide()
+        #endif
         guard mediaplayer.state == .stopped || mediaplayer.state == .opening else { return }
         if startPosition > 0.0 {
             let isRegular = traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular
@@ -431,6 +441,10 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     @IBAction func toggleControlsVisible() {
         shouldHideStatusBar = overlayViews.first!.isHidden
+        #if os(iOS)
+        VolumeBar.sharedInstance.hide()
+        VolumeBar.sharedInstance.stop()
+        #endif
         UIView.animate(withDuration: 0.25, animations: {
             if self.overlayViews.first!.isHidden {
                 self.overlayViews.forEach({
@@ -446,6 +460,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
          }, completion: { finished in
             if self.overlayViews.first!.alpha == 0.0 {
                 self.overlayViews.forEach({ $0.isHidden = true })
+                VolumeBar.sharedInstance.start()
             }
             self.resetIdleTimer()
         }) 

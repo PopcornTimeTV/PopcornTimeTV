@@ -27,7 +27,7 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
     
     func volumeChanged() {
         if overlayViews.first!.isHidden {
-            toggleControlsVisible()
+            //toggleControlsVisible()
         }
         for subview in volumeView.subviews {
             if let slider = subview as? UISlider {
