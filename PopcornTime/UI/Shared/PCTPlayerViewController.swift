@@ -460,7 +460,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
          }, completion: { finished in
             if self.overlayViews.first!.alpha == 0.0 {
                 self.overlayViews.forEach({ $0.isHidden = true })
+                #if os(iOS)
                 VolumeBar.sharedInstance.start()
+                #endif
             }
             self.resetIdleTimer()
         }) 
