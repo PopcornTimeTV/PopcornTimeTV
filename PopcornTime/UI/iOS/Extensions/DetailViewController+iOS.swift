@@ -8,16 +8,15 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        scrollViewDidScroll(scrollView) // Update the hidden status of UINavigationBar.
         NotificationCenter.default.addObserver(self, selector: #selector(updateCastStatus), name: .gckCastStateDidChange, object: nil)
         updateCastStatus()
-        
+        scrollViewDidScroll(scrollView) // Update the hidden status of UINavigationBar.
         
         scrollView.contentInset.bottom = tabBarController?.tabBar.frame.height ?? 0
     
         if transitionCoordinator?.viewController(forKey: .from) is PreloadTorrentViewController {
             self.scrollView.contentOffset.y = -self.view.bounds.height
-            transitionCoordinator?.animate(alongsideTransition: { (context) in
+            transitionCoordinator?.animate(alongsideTransition: { [unowned self] (context) in
                 guard let tabBarFrame = self.tabBarController?.tabBar.frame else { return }
                 
                 let tabBarOffsetY = -tabBarFrame.size.height
@@ -27,7 +26,7 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
                 self.scrollView.contentOffset.y = -self.headerHeight
                 
                 self.view.layoutIfNeeded()
-            }, completion: nil)
+            })
         }
     }
     
@@ -36,8 +35,13 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
         navigationController?.navigationBar.isBackgroundHidden = false
         NotificationCenter.default.removeObserver(self)
         
+        transitionCoordinator?.animate(alongsideTransition: nil) { [weak self] (context) in
+            guard let `self` = self, context.isCancelled else { return }
+            self.scrollViewDidScroll(self.scrollView) // When interactive pop gesture is cancelled, update hidden status of UINavigationBar.
+        }
+        
         if transitionCoordinator?.viewController(forKey: .to) is PreloadTorrentViewController {
-            transitionCoordinator?.animate(alongsideTransition: { (context) in
+            transitionCoordinator?.animate(alongsideTransition: { [unowned self] (context) in
                 guard let tabBarFrame = self.tabBarController?.tabBar.frame, let navigationBarFrame = self.navigationController?.navigationBar.frame else { return }
                 
                 let tabBarOffsetY = tabBarFrame.size.height
@@ -50,7 +54,7 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
                 self.scrollView.contentOffset.y = -self.view.bounds.height
                 
                 self.view.layoutIfNeeded()
-            }, completion: nil)
+            })
         }
     }
     
@@ -76,7 +80,7 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
         let castPlayerViewController = storyboard?.instantiateViewController(withIdentifier: "CastPlayerViewController") as! CastPlayerViewController
         castPlayerViewController.media = media
         castPlayerViewController.directory = videoFilePath.deletingLastPathComponent()
-        present(castPlayerViewController, animated: true, completion: nil)
+        present(castPlayerViewController, animated: true)
     }
     
     override func viewDidLayoutSubviews() {

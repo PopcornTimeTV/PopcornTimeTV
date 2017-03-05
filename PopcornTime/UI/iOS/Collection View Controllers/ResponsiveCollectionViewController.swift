@@ -42,13 +42,13 @@ class ResponsiveCollectionViewController: UICollectionViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         collectionView?.addObserver(self, forKeyPath: "frame", options: .new, context: &classContext)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        do { try collectionView?.removeObserver(self, forKeyPath: "frame") }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        do { try collectionView?.remove(self, for: "frame", in: &classContext) } catch {}
     }
 }

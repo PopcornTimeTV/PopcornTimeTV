@@ -6,5 +6,6 @@
 #import <MobileVLCKit/MobileVLCKit.h>
 #import <GoogleCast/GoogleCast.h>
 #import <ifaddrs.h>
+#import "NSObject+Swift_Observer.h"
 
 #endif
