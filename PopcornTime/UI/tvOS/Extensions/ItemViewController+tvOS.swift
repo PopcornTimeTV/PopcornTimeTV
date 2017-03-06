@@ -5,7 +5,11 @@ import AVKit
 import XCDYouTubeKit
 import PopcornKit
 
-extension ItemViewController {
+extension ItemViewController: UIViewControllerTransitioningDelegate {
+    
+    override var preferredFocusEnvironments: [UIFocusEnvironment] {
+        return [trailerButton, playButton, seasonsButton, watchlistButton, watchedButton].flatMap({$0}).filter({$0.superview != nil})
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,19 +114,31 @@ extension ItemViewController {
     
     @IBAction func playTrailer() {
         guard let id = (media as? Movie)?.trailerCode else { return }
+        
         let playerController = AVPlayerViewController()
+        
+        playerController.transitioningDelegate = self
+        
         present(playerController, animated: true)
+        
         XCDYouTubeClient.default().getVideoWithIdentifier(id) { (video, error) in
-            guard let streamUrls = video?.streamURLs,
-                let qualities = Array(streamUrls.keys) as? [UInt] else { return }
+            guard
+                let streamUrls = video?.streamURLs,
+                let qualities = Array(streamUrls.keys) as? [UInt]
+                else {
+                    return
+            }
+            
             let preferredVideoQualities = [XCDYouTubeVideoQuality.HD720.rawValue, XCDYouTubeVideoQuality.medium360.rawValue, XCDYouTubeVideoQuality.small240.rawValue]
             var videoUrl: URL?
+            
             forLoop: for quality in preferredVideoQualities {
                 if let index = qualities.index(of: quality) {
                     videoUrl = Array(streamUrls.values)[index]
                     break forLoop
                 }
             }
+            
             guard let url = videoUrl else {
                 self.dismiss(animated: true)
                 
@@ -145,5 +161,22 @@ extension ItemViewController {
     func playerDidFinishPlaying() {
         NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: nil)
         dismiss(animated: true)
+    }
+    
+    // MARK: - Presentation
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if presented is AVPlayerViewController {
+            return TVFadeToBlackAnimatedTransitioning(isPresenting: true)
+        }
+        return nil
+        
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if dismissed is AVPlayerViewController {
+            return TVFadeToBlackAnimatedTransitioning(isPresenting: false)
+        }
+        return nil
     }
 }

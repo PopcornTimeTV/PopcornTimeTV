@@ -21,7 +21,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z7z-yU-tDo">
-                    <rect key="frame" x="157" y="401.5" width="100.5" height="23"/>
+                    <rect key="frame" x="142" y="401.5" width="130.5" height="23"/>
                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
                     <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -32,7 +32,7 @@
                 <constraint firstItem="Z7z-yU-tDo" firstAttribute="top" secondItem="VRj-Dk-MSr" secondAttribute="bottom" constant="15" id="0cL-kC-oEx"/>
                 <constraint firstItem="Z7z-yU-tDo" firstAttribute="centerX" secondItem="VRj-Dk-MSr" secondAttribute="centerX" id="4zA-HQ-B7u"/>
                 <constraint firstItem="VRj-Dk-MSr" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="9gk-09-Yqx"/>
-                <constraint firstItem="Z7z-yU-tDo" firstAttribute="width" secondItem="VRj-Dk-MSr" secondAttribute="width" constant="20" id="brF-I3-wOg"/>
+                <constraint firstItem="Z7z-yU-tDo" firstAttribute="width" secondItem="VRj-Dk-MSr" secondAttribute="width" constant="50" id="brF-I3-wOg"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VRj-Dk-MSr" secondAttribute="trailing" constant="15" id="gsr-Kc-6Ee"/>
                 <constraint firstItem="VRj-Dk-MSr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="tE0-8C-lcO"/>
                 <constraint firstItem="VRj-Dk-MSr" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="x49-y4-f6p"/>

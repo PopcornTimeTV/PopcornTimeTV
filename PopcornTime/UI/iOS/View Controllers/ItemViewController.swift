@@ -33,8 +33,6 @@ class ItemViewController: UIViewController {
     
     @IBOutlet var peopleTextView: UITextView?
     
-    
-    
     var media: Media!
     
     @IBAction func play(_ sender: UIButton) {

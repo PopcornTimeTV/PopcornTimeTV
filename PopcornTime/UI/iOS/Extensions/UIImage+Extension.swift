@@ -5,7 +5,7 @@ import UIKit
 
 extension UIImage {
     
-    func rounded(with size: CGSize) -> UIImage? {
+    func rounded(to size: CGSize) -> UIImage? {
         let cornerRadius = size.width/2.0
         let new = copy() as! UIImage
         

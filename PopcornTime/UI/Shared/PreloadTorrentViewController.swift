@@ -2,22 +2,16 @@
 
 import UIKit
 import PopcornTorrent
-import AlamofireImage
 
 class PreloadTorrentViewController: UIViewController {
 
-    @IBOutlet private var progressLabel: UILabel!
-    @IBOutlet private var progressView: UIProgressView!
-    @IBOutlet private var speedLabel: UILabel!
-    @IBOutlet private var seedsLabel: UILabel!
-    @IBOutlet private var backgroundImageView: UIImageView!
+    @IBOutlet var progressView: UIProgressView!
+    @IBOutlet var speedLabel: UILabel!
+    @IBOutlet var seedsLabel: UILabel!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var processingView: UIView!
     
-    // tvOS exclusive
-    @IBOutlet private var mediaTitleLabel: UILabel?
-    @IBOutlet private var streamingStatusLabel: UILabel?
-    
-    // iOS exclusive 
-    @IBOutlet private var processingView: UIView?
+    @IBOutlet var backgroundImageView: UIImageView?
     
     /// If torrent hasn't begun processing, use this variable to make sure processing should still continue.
     var shouldCancelStreaming: Bool = false
@@ -26,11 +20,8 @@ class PreloadTorrentViewController: UIViewController {
     var progress: Float = 0.0 {
         didSet {
             progressView.isHidden = false
-            processingView?.isHidden = true
-            progressLabel.isHidden = false
+            processingView.isHidden = true
             progressView.progress = progress
-            streamingStatusLabel?.text = "Downloading..."
-            progressLabel.text = String(format: "%.0f%%", progress*100)
         }
     }
     
@@ -46,17 +37,6 @@ class PreloadTorrentViewController: UIViewController {
             seedsLabel.isHidden = false
             seedsLabel.text = "\(seeds) seeds"
         }
-    }
-    
-    var backgroundImageString: String?
-    var mediaTitle: String?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if let image = backgroundImageString, let url = URL(string: image) {
-            backgroundImageView.af_setImage(withURL: url)
-        }
-        mediaTitleLabel?.text = mediaTitle
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -76,9 +56,11 @@ class PreloadTorrentViewController: UIViewController {
     }
     
     #if os(iOS)
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
     #endif
     
 }

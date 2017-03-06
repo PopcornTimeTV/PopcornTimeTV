@@ -25,7 +25,7 @@ extension DetailViewController {
     }
     
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
-        return [itemViewController.trailerButton, itemViewController.playButton, itemViewController.seasonsButton, itemViewController.watchlistButton, itemViewController.watchedButton].flatMap({$0}).filter({$0.superview != nil})
+        return itemViewController.preferredFocusEnvironments
     }
     
     override func viewWillDisappear(_ animated: Bool) {

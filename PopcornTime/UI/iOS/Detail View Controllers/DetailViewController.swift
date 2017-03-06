@@ -6,7 +6,7 @@ import AlamofireImage
 import PopcornTorrent
 import PopcornKit
 
-class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, CollectionViewControllerDelegate, UIScrollViewDelegate {
+class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, CollectionViewControllerDelegate, UIScrollViewDelegate, UIViewControllerTransitioningDelegate {
     
     
     #if os(iOS)
@@ -44,6 +44,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     // tvOS Exclusive
     @IBOutlet var titleImageView: UIImageView?
     @IBOutlet var titleLabel: UILabel?
+    @IBOutlet var backgroundVisualEffectView: UIVisualEffectView?
     
     // iOS Exclusive 
     @IBOutlet var gradientView: GradientView?
@@ -87,6 +88,22 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             
             castButton?.button.addTarget(self, action: #selector(showCastDevices), for: .touchUpInside)
             watchlistButton.image = watchlistButtonImage
+            
+        #elseif os(tvOS)
+            
+            let focusButtonsGuide = UIFocusGuide()
+            view.addLayoutGuide(focusButtonsGuide)
+            
+            focusButtonsGuide.topAnchor.constraint(equalTo: itemViewController.view.bottomAnchor).isActive = true
+            focusButtonsGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            focusButtonsGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+            focusButtonsGuide.bottomAnchor.constraint(equalTo: backgroundVisualEffectView!.topAnchor).isActive = true
+            
+            if #available(tvOS 10, *) {
+                focusButtonsGuide.preferredFocusEnvironments = itemViewController.preferredFocusEnvironments
+            } else {
+                focusButtonsGuide.preferredFocusedView = itemViewController.preferredFocusEnvironments.first as? UIView
+            }
             
         #endif
         
@@ -192,17 +209,13 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             var nextEpisode: Episode?
             
             let loadingViewController = storyboard.instantiateViewController(withIdentifier: "PreloadTorrentViewController") as! PreloadTorrentViewController
-            loadingViewController.backgroundImageString = media.largeBackgroundImage
-            loadingViewController.mediaTitle = media.title
+            loadingViewController.transitioningDelegate = self
+            loadingViewController.loadView()
             
-            if let `self` = self as? UIViewControllerTransitioningDelegate {
-                loadingViewController.transitioningDelegate = self
-            }
-            
+            let backgroundImage: String?
             
             if let episode = media as? Episode {
-                
-                loadingViewController.backgroundImageString = episode.show.largeBackgroundImage
+                backgroundImage = episode.show.largeBackgroundImage
                 var episodesLeftInShow = [Episode]()
                 
                 for season in episode.show.seasonNumbers where season >= currentSeason {
@@ -214,7 +227,14 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
                 
                 nextEpisode = !episodesLeftInShow.isEmpty ? episodesLeftInShow.removeFirst() : nil
                 nextEpisode?.show = episode.show
+            } else {
+                backgroundImage = media.largeBackgroundImage
             }
+            
+            if let image = backgroundImage, let url = URL(string: image) {
+                loadingViewController.backgroundImageView?.af_setImage(withURL: url)
+            }
+            loadingViewController.titleLabel.text = media.title
             
             present(loadingViewController, animated: true)
             
@@ -225,8 +245,9 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             }
             
             let finishedLoading: (PreloadTorrentViewController, UIViewController) -> Void = { (loadingVc, playerVc) in
-                self.dismiss(animated: true, completion: nil)
-                self.present(playerVc, animated: true)
+                let flag = UIDevice.current.userInterfaceIdiom != .tv
+                self.dismiss(animated: flag)
+                self.present(playerVc, animated: flag)
             }
             
             media.getSubtitles(forId: media.id) { subtitles in
@@ -317,5 +338,22 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         } else if vc == accessibilityDescriptionCollectionViewController {
             accessibilityContainerViewHeightConstraint.constant = height
         }
+    }
+    
+    // MARK: - Presentation
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if presented is PreloadTorrentViewController {
+            return PreloadTorrentViewControllerAnimatedTransitioning(isPresenting: true)
+        }
+        return nil
+        
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if dismissed is PreloadTorrentViewController {
+            return PreloadTorrentViewControllerAnimatedTransitioning(isPresenting: false)
+        }
+        return nil
     }
 }

@@ -10,12 +10,11 @@ import Foundation
     
     var originalImage: UIImage? {
         didSet {
-            if let image = originalImage?.rounded(with: imageView.bounds.size) {
+            if let image = originalImage?.rounded(to: imageView.bounds.size) {
                 imageView.image = image
                 initialsLabel.isHidden = true
             } else {
-                // TODO: Set placeholder nondynamic blurred image.
-                imageView.image = nil
+                imageView.image = UIImage(named:"Static Light Blur")?.rounded(to: imageView.bounds.size)
                 initialsLabel.isHidden = false
             }
         }

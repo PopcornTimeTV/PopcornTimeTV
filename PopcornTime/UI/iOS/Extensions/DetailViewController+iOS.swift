@@ -3,7 +3,7 @@
 import Foundation
 import PopcornKit
 
-extension DetailViewController: UIViewControllerTransitioningDelegate {
+extension DetailViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,22 +114,5 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
         for constraint in regularConstraints {
             constraint.priority = isCompact ? 240 : 999
         }
-    }
-    
-    // MARK: - Presentation
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if presented is PreloadTorrentViewController {
-            return PreloadTorrentViewControllerAnimatedTransitioning(isPresenting: true)
-        }
-        return nil
-        
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if dismissed is PreloadTorrentViewController {
-            return PreloadTorrentViewControllerAnimatedTransitioning(isPresenting: false)
-        }
-        return nil
     }
 }

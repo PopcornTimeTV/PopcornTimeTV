@@ -225,7 +225,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
                     _cell.originalImage = response.result.value
                 }
             } else {
-                _cell.imageView.image = nil
+                _cell.originalImage = nil
             }
             
             if let actor = person as? Actor {

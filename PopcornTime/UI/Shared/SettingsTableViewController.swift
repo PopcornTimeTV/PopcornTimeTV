@@ -305,7 +305,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 present(controller, animated: true, completion: nil)
             } else if indexPath.row == 1 {
                 let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-                let contentViewController = UIViewController(nibName: "CheckForUpdatesViewController", bundle: nil)
+                let contentViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "CheckForUpdatesViewController")
                 alert.setValue(contentViewController, forKey: "contentViewController")
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 present(alert, animated: true, completion: nil)

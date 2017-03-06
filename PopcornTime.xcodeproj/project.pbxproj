@@ -23,6 +23,7 @@
 		4D2543B11DACFBFE00149533 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2543B01DACFBFE00149533 /* ServiceProvider.swift */; };
 		4D2543B51DACFBFE00149533 /* TopShelf.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4D2543AD1DACFBFE00149533 /* TopShelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4D29072C1E2BA95B00581701 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D29072B1E2BA95B00581701 /* LoadingView.swift */; };
+		4D37C4591E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Gray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D37C4581E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Gray.swift */; };
 		4D3B5E6D1E621B21001A7031 /* UICollectionViewCell+ReactiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3B5E6C1E621B21001A7031 /* UICollectionViewCell+ReactiveCell.swift */; };
 		4D4F90321E33847A0050CA47 /* UIAlertController+BlurStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4F90311E33847A0050CA47 /* UIAlertController+BlurStyle.swift */; };
 		4D4F90341E33AA440050CA47 /* WatchlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4F90331E33AA440050CA47 /* WatchlistViewController.swift */; };
@@ -31,6 +32,7 @@
 		4D5624761E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5624741E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift */; };
 		4D5624781E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5624771E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift */; };
 		4D5624791E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5624771E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift */; };
+		4D66AF231E6DE79700239FE6 /* TVFadeToBlackAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D66AF221E6DE79700239FE6 /* TVFadeToBlackAnimatedTransitioning.swift */; };
 		4D689A291DD88EE9001D1318 /* EncodingTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E2B1DC4F00F005CDE34 /* EncodingTypes.plist */; };
 		4D689A2A1DD88EFC001D1318 /* SubtitleSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */; };
 		4D689A2C1DD88F0A001D1318 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
@@ -58,12 +60,12 @@
 		4D8330BD1E57643A00E1DD41 /* StreamToDevicesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8330BC1E57643A00E1DD41 /* StreamToDevicesTableViewController.swift */; };
 		4D8330BF1E57662D00E1DD41 /* AirPlayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8330BE1E57662D00E1DD41 /* AirPlayTableViewCell.swift */; };
 		4D859B0F1DDE23A3000E2AA1 /* EpisodeDetailPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationDelegate.swift */; };
-		4D859B2A1DDFA079000E2AA1 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B251DDFA079000E2AA1 /* LoadingViewController.swift */; };
+		4D859B2A1DDFA079000E2AA1 /* PreloadTorrentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B251DDFA079000E2AA1 /* PreloadTorrentViewController.swift */; };
 		4D859B2B1DDFA079000E2AA1 /* PCTPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B261DDFA079000E2AA1 /* PCTPlayerViewController.swift */; };
 		4D859B2C1DDFA079000E2AA1 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B271DDFA079000E2AA1 /* SettingsTableViewController.swift */; };
 		4D859B2D1DDFA079000E2AA1 /* UpNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B281DDFA079000E2AA1 /* UpNextView.swift */; };
 		4D859B2E1DDFA079000E2AA1 /* TermsOfServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B291DDFA079000E2AA1 /* TermsOfServiceViewController.swift */; };
-		4D859B2F1DDFA07C000E2AA1 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B251DDFA079000E2AA1 /* LoadingViewController.swift */; };
+		4D859B2F1DDFA07C000E2AA1 /* PreloadTorrentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B251DDFA079000E2AA1 /* PreloadTorrentViewController.swift */; };
 		4D859B301DDFA07C000E2AA1 /* PCTPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B261DDFA079000E2AA1 /* PCTPlayerViewController.swift */; };
 		4D859B311DDFA07C000E2AA1 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B271DDFA079000E2AA1 /* SettingsTableViewController.swift */; };
 		4D859B321DDFA07C000E2AA1 /* UpNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B281DDFA079000E2AA1 /* UpNextView.swift */; };
@@ -100,7 +102,7 @@
 		4D859BB71DDFA1C6000E2AA1 /* Show+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BB31DDFA1C6000E2AA1 /* Show+Extension.swift */; };
 		4D859BB81DDFA1C6000E2AA1 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BB41DDFA1C6000E2AA1 /* UIViewController+Extension.swift */; };
 		4D89A5EB1DF886210063F9E1 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859B901DDFA162000E2AA1 /* UIView+Extension.swift */; };
-		4D8A57451DE109B700CCDF8A /* LoadingViewAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A57441DE109B700CCDF8A /* LoadingViewAnimatedTransitioning.swift */; };
+		4D8A57451DE109B700CCDF8A /* PreloadTorrentViewControllerAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A57441DE109B700CCDF8A /* PreloadTorrentViewControllerAnimatedTransitioning.swift */; };
 		4D8A57471DE10DFE00CCDF8A /* UIViewController+StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A57461DE10DFD00CCDF8A /* UIViewController+StatusBar.swift */; };
 		4D8C4B881E47AD1B004872F8 /* Number+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8C4B871E47AD1A004872F8 /* Number+Extension.swift */; };
 		4D8C4B8A1E47BE78004872F8 /* UIScreen+AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8C4B891E47BE78004872F8 /* UIScreen+AspectRatio.swift */; };
@@ -136,7 +138,6 @@
 		4D9995641E5CDF08005C432A /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B88AA1E3C9BFA00DB701D /* UINavigationController+Extension.swift */; };
 		4D99956E1E5CE227005C432A /* UIFont+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99956D1E5CE227005C432A /* UIFont+Style.swift */; };
 		4D99956F1E5CE227005C432A /* UIFont+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99956D1E5CE227005C432A /* UIFont+Style.swift */; };
-		4D9995741E5CE306005C432A /* CheckForUpdatesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D9995731E5CE306005C432A /* CheckForUpdatesViewController.xib */; };
 		4D9995781E5DCE7B005C432A /* SeasonPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9995771E5DCE7B005C432A /* SeasonPickerViewController.swift */; };
 		4D99957B1E5E007A005C432A /* TVAppDocumentControllerAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99957A1E5E007A005C432A /* TVAppDocumentControllerAnimatedTransitioning.swift */; };
 		4D9BF6B21E632E1D00A33D5F /* TVVisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BF6B11E632E1D00A33D5F /* TVVisualEffectView.swift */; };
@@ -155,7 +156,6 @@
 		4DBCCEFF1E68220D0066F1A7 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCEFD1E68220D0066F1A7 /* Launch Screen.storyboard */; };
 		4DBCCF011E68897D0066F1A7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCF001E68897D0066F1A7 /* Localizable.strings */; };
 		4DBCCF021E68897D0066F1A7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCF001E68897D0066F1A7 /* Localizable.strings */; };
-		4DBCCF031E68971C0066F1A7 /* CheckForUpdatesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCF051E68971C0066F1A7 /* CheckForUpdatesViewController.xib */; };
 		4DBCCF081E6897DF0066F1A7 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCF0A1E6897DF0066F1A7 /* LoadingView.xib */; };
 		4DBE608A1E5E49B200C2549B /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60891E5E49B200C2549B /* FileManager+Extension.swift */; };
 		4DBE608B1E5E49B200C2549B /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60891E5E49B200C2549B /* FileManager+Extension.swift */; };
@@ -255,11 +255,13 @@
 		4D2543B01DACFBFE00149533 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		4D2543B21DACFBFE00149533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D29072B1E2BA95B00581701 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingView.swift; path = ../iOS/Views/LoadingView.swift; sourceTree = "<group>"; };
+		4D37C4581E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Gray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorViewStyle+Gray.swift"; sourceTree = "<group>"; };
 		4D3B5E6C1E621B21001A7031 /* UICollectionViewCell+ReactiveCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UICollectionViewCell+ReactiveCell.swift"; path = "../Collection View Cells/UICollectionViewCell+ReactiveCell.swift"; sourceTree = "<group>"; };
 		4D4F90311E33847A0050CA47 /* UIAlertController+BlurStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIAlertController+BlurStyle.swift"; path = "../UI/iOS/Extensions/UIAlertController+BlurStyle.swift"; sourceTree = "<group>"; };
 		4D4F90331E33AA440050CA47 /* WatchlistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WatchlistViewController.swift; path = "../iOS/Main View Controllers/WatchlistViewController.swift"; sourceTree = "<group>"; };
 		4D5624741E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PCTPlayerViewController+ScreenNotifications.swift"; sourceTree = "<group>"; };
 		4D5624771E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PCTPlayerViewController+MediaPlayer.swift"; sourceTree = "<group>"; };
+		4D66AF221E6DE79700239FE6 /* TVFadeToBlackAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVFadeToBlackAnimatedTransitioning.swift; path = Presentation/TVFadeToBlackAnimatedTransitioning.swift; sourceTree = "<group>"; };
 		4D689A171DD88E17001D1318 /* PopcornTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopcornTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D689A6C1DD8ADFA001D1318 /* CastIconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CastIconButton.swift; path = ../../../Resources/CastIconButton.swift; sourceTree = "<group>"; };
 		4D6A9C911E1302CF002D684C /* ErrorBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorBackgroundView.swift; sourceTree = "<group>"; };
@@ -276,7 +278,7 @@
 		4D8330BC1E57643A00E1DD41 /* StreamToDevicesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamToDevicesTableViewController.swift; sourceTree = "<group>"; };
 		4D8330BE1E57662D00E1DD41 /* AirPlayTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirPlayTableViewCell.swift; sourceTree = "<group>"; };
 		4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodeDetailPresentationDelegate.swift; path = ../../Resources/EpisodeDetailPresentationDelegate.swift; sourceTree = "<group>"; };
-		4D859B251DDFA079000E2AA1 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		4D859B251DDFA079000E2AA1 /* PreloadTorrentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreloadTorrentViewController.swift; sourceTree = "<group>"; };
 		4D859B261DDFA079000E2AA1 /* PCTPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCTPlayerViewController.swift; sourceTree = "<group>"; };
 		4D859B271DDFA079000E2AA1 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4D859B281DDFA079000E2AA1 /* UpNextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpNextView.swift; sourceTree = "<group>"; };
@@ -313,7 +315,7 @@
 		4D859BB11DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PCTPlayerViewController+tvOS.swift"; sourceTree = "<group>"; };
 		4D859BB31DDFA1C6000E2AA1 /* Show+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Show+Extension.swift"; path = "../UI/tvOS/Extensions/Show+Extension.swift"; sourceTree = "<group>"; };
 		4D859BB41DDFA1C6000E2AA1 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
-		4D8A57441DE109B700CCDF8A /* LoadingViewAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingViewAnimatedTransitioning.swift; path = ../../Resources/LoadingViewAnimatedTransitioning.swift; sourceTree = "<group>"; };
+		4D8A57441DE109B700CCDF8A /* PreloadTorrentViewControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreloadTorrentViewControllerAnimatedTransitioning.swift; path = ../../Resources/PreloadTorrentViewControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
 		4D8A57461DE10DFD00CCDF8A /* UIViewController+StatusBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+StatusBar.swift"; sourceTree = "<group>"; };
 		4D8C4B871E47AD1A004872F8 /* Number+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Number+Extension.swift"; sourceTree = "<group>"; };
 		4D8C4B891E47BE78004872F8 /* UIScreen+AspectRatio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScreen+AspectRatio.swift"; sourceTree = "<group>"; };
@@ -335,7 +337,6 @@
 		4D99955E1E5CAB98005C432A /* SearchViewController+tvOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SearchViewController+tvOS.swift"; path = "../View Controllers/SearchViewController+tvOS.swift"; sourceTree = "<group>"; };
 		4D9995611E5CAD51005C432A /* SearchViewController+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SearchViewController+iOS.swift"; sourceTree = "<group>"; };
 		4D99956D1E5CE227005C432A /* UIFont+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Style.swift"; sourceTree = "<group>"; };
-		4D9995731E5CE306005C432A /* CheckForUpdatesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CheckForUpdatesViewController.xib; path = ../Views/CheckForUpdatesViewController.xib; sourceTree = "<group>"; };
 		4D9995771E5DCE7B005C432A /* SeasonPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SeasonPickerViewController.swift; path = "View Controllers/SeasonPickerViewController.swift"; sourceTree = "<group>"; };
 		4D99957A1E5E007A005C432A /* TVAppDocumentControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVAppDocumentControllerAnimatedTransitioning.swift; path = Presentation/TVAppDocumentControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
 		4D9BF6B11E632E1D00A33D5F /* TVVisualEffectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVVisualEffectView.swift; path = ../../../Extensions/TVVisualEffectView.swift; sourceTree = "<group>"; };
@@ -355,8 +356,6 @@
 		4DBCCEFC1E6815710066F1A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/tvOS.strings; sourceTree = "<group>"; };
 		4DBCCEFD1E68220D0066F1A7 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		4DBCCF001E68897D0066F1A7 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = "PopcornTime/Supporting Files/Localizable.strings"; sourceTree = SOURCE_ROOT; };
-		4DBCCF041E68971C0066F1A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CheckForUpdatesViewController.xib; sourceTree = "<group>"; };
-		4DBCCF071E6897320066F1A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CheckForUpdatesViewController.strings; sourceTree = "<group>"; };
 		4DBCCF091E6897DF0066F1A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoadingView.xib; sourceTree = "<group>"; };
 		4DBCCF0C1E6897EA0066F1A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LoadingView.strings; sourceTree = "<group>"; };
 		4DBE60891E5E49B200C2549B /* FileManager+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
@@ -509,7 +508,7 @@
 			children = (
 				4D859B0D1DDE239F000E2AA1 /* EpisodeDetailPresentationDelegate.swift */,
 				4D990E411DC4F0BD005CDE34 /* OptionsViewControllerPresentationDelegate.swift */,
-				4D8A57441DE109B700CCDF8A /* LoadingViewAnimatedTransitioning.swift */,
+				4D8A57441DE109B700CCDF8A /* PreloadTorrentViewControllerAnimatedTransitioning.swift */,
 			);
 			name = "Presentation Controllers";
 			sourceTree = "<group>";
@@ -581,7 +580,6 @@
 		4D689A621DD894EF001D1318 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4D9995731E5CE306005C432A /* CheckForUpdatesViewController.xib */,
 				4D859B641DDFA11A000E2AA1 /* CastPlayerViewController.swift */,
 			);
 			path = "View Controllers";
@@ -638,6 +636,7 @@
 				4D99955E1E5CAB98005C432A /* SearchViewController+tvOS.swift */,
 				4D859BB11DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift */,
 				4D7376011DFDC6F500505CA0 /* NSNotification+Name.swift */,
+				4D37C4581E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Gray.swift */,
 				4D3B5E6C1E621B21001A7031 /* UICollectionViewCell+ReactiveCell.swift */,
 				4D859BB41DDFA1C6000E2AA1 /* UIViewController+Extension.swift */,
 			);
@@ -757,7 +756,7 @@
 			isa = PBXGroup;
 			children = (
 				4DC7B69C1E35295E0098B12E /* ItemViewController.swift */,
-				4D859B251DDFA079000E2AA1 /* LoadingViewController.swift */,
+				4D859B251DDFA079000E2AA1 /* PreloadTorrentViewController.swift */,
 				4D859B261DDFA079000E2AA1 /* PCTPlayerViewController.swift */,
 				4D859B291DDFA079000E2AA1 /* TermsOfServiceViewController.swift */,
 			);
@@ -768,6 +767,7 @@
 			isa = PBXGroup;
 			children = (
 				4D99957A1E5E007A005C432A /* TVAppDocumentControllerAnimatedTransitioning.swift */,
+				4D66AF221E6DE79700239FE6 /* TVFadeToBlackAnimatedTransitioning.swift */,
 			);
 			name = "Presentation Controllers";
 			sourceTree = "<group>";
@@ -822,7 +822,6 @@
 			children = (
 				4DBCCEF21E6815450066F1A7 /* iOS.storyboard */,
 				4DBCCEF41E6815450066F1A7 /* tvOS.storyboard */,
-				4DBCCF051E68971C0066F1A7 /* CheckForUpdatesViewController.xib */,
 				4DBCCF0A1E6897DF0066F1A7 /* LoadingView.xib */,
 			);
 			name = Base.lproj;
@@ -1050,7 +1049,6 @@
 				4D9995531E5C7E68005C432A /* LoadingView.xib in Resources */,
 				4DBCCEF81E6815450066F1A7 /* tvOS.storyboard in Resources */,
 				4D9995581E5C808A005C432A /* ContinueWatchingCollectionReusableView.xib in Resources */,
-				4DBCCF031E68971C0066F1A7 /* CheckForUpdatesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1066,7 +1064,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D689A291DD88EE9001D1318 /* EncodingTypes.plist in Resources */,
-				4D9995741E5CE306005C432A /* CheckForUpdatesViewController.xib in Resources */,
 				4DBCCF021E68897D0066F1A7 /* Localizable.strings in Resources */,
 				4DC2D1331E59FE290019DB7D /* ContinueWatchingCollectionViewCell.xib in Resources */,
 				4D689A361DD8906F001D1318 /* Images.xcassets in Resources */,
@@ -1209,6 +1206,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D66AF231E6DE79700239FE6 /* TVFadeToBlackAnimatedTransitioning.swift in Sources */,
 				4DBE60A11E5E634400C2549B /* EpisodesViewController.swift in Sources */,
 				4D9995601E5CAD3E005C432A /* SearchViewController.swift in Sources */,
 				4D990E471DC4F0F1005CDE34 /* AppDelegate.swift in Sources */,
@@ -1248,11 +1246,12 @@
 				4D9995781E5DCE7B005C432A /* SeasonPickerViewController.swift in Sources */,
 				4D784D581E5F791B009E3423 /* DetailViewController+tvOS.swift in Sources */,
 				4DA42DD21DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */,
+				4D37C4591E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Gray.swift in Sources */,
 				4D859B2B1DDFA079000E2AA1 /* PCTPlayerViewController.swift in Sources */,
 				4DBE60961E5E58B600C2549B /* InfoViewController.swift in Sources */,
 				4D99953D1E5C6CC1005C432A /* BaseCollectionViewCell.swift in Sources */,
 				4DBCCED91E680EBE0066F1A7 /* UIStoryboard+Main.swift in Sources */,
-				4D859B2A1DDFA079000E2AA1 /* LoadingViewController.swift in Sources */,
+				4D859B2A1DDFA079000E2AA1 /* PreloadTorrentViewController.swift in Sources */,
 				4DD6E4D21DFB197E00818A2C /* BufferingBar.swift in Sources */,
 				4D9995431E5C7240005C432A /* MainViewController.swift in Sources */,
 				4DD6E4D71DFB315100818A2C /* SiriRemoteGestureRecogniser.swift in Sources */,
@@ -1322,7 +1321,7 @@
 				4DBCCEDA1E680EBE0066F1A7 /* UIStoryboard+Main.swift in Sources */,
 				4D859B541DDFA0F8000E2AA1 /* ShowsViewController.swift in Sources */,
 				4D689A2E1DD88F12001D1318 /* Locale+Langs.swift in Sources */,
-				4D8A57451DE109B700CCDF8A /* LoadingViewAnimatedTransitioning.swift in Sources */,
+				4D8A57451DE109B700CCDF8A /* PreloadTorrentViewControllerAnimatedTransitioning.swift in Sources */,
 				4DA42DD31DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */,
 				4DAF1A461E2D3BDB00D963BD /* MonogramCollectionViewCell.swift in Sources */,
 				4D0E130C1E6709EB0000AD65 /* UICollectionViewController+Extension.swift in Sources */,
@@ -1356,7 +1355,7 @@
 				4D8A57471DE10DFE00CCDF8A /* UIViewController+StatusBar.swift in Sources */,
 				4D859B8C1DDFA151000E2AA1 /* BarSlider.swift in Sources */,
 				4D859B8D1DDFA151000E2AA1 /* ProgressSlider.swift in Sources */,
-				4D859B2F1DDFA07C000E2AA1 /* LoadingViewController.swift in Sources */,
+				4D859B2F1DDFA07C000E2AA1 /* PreloadTorrentViewController.swift in Sources */,
 				4D689A6F1DD8AF12001D1318 /* AppDelegate.swift in Sources */,
 				4DC7B6A71E391E280098B12E /* EpisodeCollectionViewCell.swift in Sources */,
 				4DE9E06A1E3D0DC300806522 /* SeparatorCollectionViewLayout.swift in Sources */,
@@ -1416,16 +1415,6 @@
 				4DBCCEFC1E6815710066F1A7 /* en */,
 			);
 			name = tvOS.storyboard;
-			sourceTree = "<group>";
-		};
-		4DBCCF051E68971C0066F1A7 /* CheckForUpdatesViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4DBCCF041E68971C0066F1A7 /* Base */,
-				4DBCCF071E6897320066F1A7 /* en */,
-			);
-			name = CheckForUpdatesViewController.xib;
-			path = UI/tvOS/Views;
 			sourceTree = "<group>";
 		};
 		4DBCCF0A1E6897DF0066F1A7 /* LoadingView.xib */ = {
