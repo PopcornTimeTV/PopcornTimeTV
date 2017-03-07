@@ -6,7 +6,6 @@ source 'https://github.com/PopcornTimeTV/Specs'
 
 def pods
     pod 'PopcornTorrent', '~> 1.1.5'
-    pod 'PopcornKit', '~> 3.2.14'
     pod 'XCDYouTubeKit', '~> 2.5.3'
     pod 'Alamofire', '~> 4.2.0'
     pod 'AlamofireImage', '~> 3.2.0'
@@ -15,6 +14,7 @@ def pods
     pod 'FloatRatingView', '~> 2.0.1'
     pod 'Reachability', :git => 'https://github.com/tonymillion/Reachability'
     pod 'MarqueeLabel/Swift', '~> 3.0.0'
+    pod 'ObjectMapper', '~> 2.2.5'
 end
 
 target 'PopcornTimeiOS' do
@@ -35,7 +35,28 @@ target 'PopcornTimetvOS' do
 end
 
 target 'TopShelf' do
-    pod 'PopcornKit', '~> 3.2.14'
+    platform :tvos, '9.0'
+    pod 'ObjectMapper', '~> 2.2.5'
+end
+
+def kitPods
+    pod 'Alamofire', '~> 4.2.0'
+    pod 'ObjectMapper', '~> 2.2.5'
+    pod 'AlamofireXMLRPC', '~> 2.1.0'
+    pod 'SwiftyJSON', '~> 3.1.1'
+    pod 'Locksmith', '~> 3.0.0'
+end
+
+target 'PopcornKit tvOS' do
+    platform :tvos, '9.0'
+    kitPods
+end
+
+target 'PopcornKit iOS' do
+    platform :ios, '9.0'
+    kitPods
+    pod 'google-cast-sdk', '~> 3.3.0'
+    pod 'SRT2VTT', '~> 1.0.1'
 end
 
 post_install do |installer|

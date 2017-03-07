@@ -125,12 +125,10 @@ enum TransportBarHint: String {
             var leftImage: UIImage?
             var rightImage: UIImage?
             
-            switch hint {
-            case _ where hint == .fastForward || hint == .jumpForward30:
+            if hint == .fastForward || hint == .jumpForward30 {
                 rightImage = UIImage(named: hint.rawValue)?.withRenderingMode(.alwaysTemplate)
-            case _ where hint == .jumpBackward30 || hint == .rewind:
+            } else if hint == .jumpBackward30 || hint == .rewind {
                 leftImage = UIImage(named: hint.rawValue)?.withRenderingMode(.alwaysTemplate)
-            default: break
             }
             
             leftHintImageView.image = leftImage
