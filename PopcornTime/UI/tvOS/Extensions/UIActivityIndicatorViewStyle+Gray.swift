@@ -3,5 +3,5 @@
 import Foundation
 
 extension UIActivityIndicatorViewStyle {
-    static let gray = UIActivityIndicatorViewStyle(rawValue: 2)!
+    static let grey = UIActivityIndicatorViewStyle(rawValue: 2)!
 }
