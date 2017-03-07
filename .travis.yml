@@ -9,9 +9,11 @@ env:
     - WORKSPACE=PopcornTime.xcworkspace
     - IOS_SDK=iphonesimulator10.2
     - TVOS_SDK=appletvsimulator10.2
+    - IOS_DESTINATION="platform=iOS Simulator,OS=10.2,name=iPhone 7"
+    - TVOS_DESTINATION="platform=tvOS Simulator,OS=10.2,name=Apple TV 1080p"
 script:
   - set -o pipefail
   - xcodebuild -version
   - xcodebuild -showsdks
-  - xcodebuild -workspace "$WORKSPACE" -scheme "PopcornTime tvOS" -sdk "$TVOS_SDK" -configuration Release | xcpretty -c;
-  #- xcodebuild -workspace "$WORKSPACE" -scheme "PopcornTime iOS" -sdk "$IOS_SDK" -configuration Release | xcpretty -c;
+  - xcodebuild -workspace "$WORKSPACE" -scheme "PopcornTime tvOS" -sdk "$TVOS_SDK" -destination "$DESTINATION" -configuration Release | xcpretty -c;
+  - xcodebuild -workspace "$WORKSPACE" -scheme "PopcornTime iOS" -sdk "$IOS_SDK" -destination "$DESTINATION" -configuration Release | xcpretty -c;
