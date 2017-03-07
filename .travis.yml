@@ -1,7 +1,5 @@
 
 language: objective-c
-notifications:
-  email: false
 osx_image: xcode8.2
 
 env:
@@ -15,7 +13,5 @@ script:
   - set -o pipefail
   - xcodebuild -version
   - xcodebuild -showsdks
-
-
-- xcodebuild -workspace "$WORKSPACE" -scheme "PopcornTime tvOS" -sdk "$TVOS_SDK" -configuration Release | xcpretty -c;
-- xcodebuild -workspace "$WORKSPACE" -scheme "PopcornTime iOS" -sdk "$IOS_SDK" -configuration Release | xcpretty -c;
+  - xcodebuild -workspace "$WORKSPACE" -scheme "PopcornTime tvOS" -sdk "$TVOS_SDK" -configuration Release | xcpretty -c;
+  - xcodebuild -workspace "$WORKSPACE" -scheme "PopcornTime iOS" -sdk "$IOS_SDK" -configuration Release | xcpretty -c;
