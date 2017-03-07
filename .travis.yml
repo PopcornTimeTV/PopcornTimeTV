@@ -17,5 +17,5 @@ script:
   - xcodebuild -showsdks
 
 
-xcodebuild -workspace "$WORKSPACE" -scheme "PopcornTime tvOS" -sdk "$TVOS_SDK" -configuration Release | xcpretty -c;
-xcodebuild -workspace "$WORKSPACE" -scheme "PopcornTime iOS" -sdk "$IOS_SDK" -configuration Release | xcpretty -c;
+- xcodebuild -workspace "$WORKSPACE" -scheme "PopcornTime tvOS" -sdk "$TVOS_SDK" -configuration Release | xcpretty -c;
+- xcodebuild -workspace "$WORKSPACE" -scheme "PopcornTime iOS" -sdk "$IOS_SDK" -configuration Release | xcpretty -c;
