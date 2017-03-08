@@ -1,5 +1,5 @@
 <p align="left " >
-  <img src="http://i.imgur.com/76RElTT.png" alt="Popcorn Time" title="Popcorn Time">
+  <img src="http://i.imgur.com/hNp5Mru.png" alt="Popcorn Time" title="Popcorn Time">
 </p>
 
 ## Popcorn Time for tvOS and iOS
