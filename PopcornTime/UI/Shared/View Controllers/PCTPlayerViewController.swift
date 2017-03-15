@@ -404,7 +404,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     func mediaPlayerStateChanged(_ aNotification: Notification!) {
         resetIdleTimer()
         progressBar.isBuffering = false
-        nowPlayingInfo?[MPNowPlayingInfoPropertyElapsedPlaybackTime] = mediaplayer.time.value.doubleValue/1000
+        nowPlayingInfo?[MPNowPlayingInfoPropertyElapsedPlaybackTime] = (mediaplayer.time.value?.doubleValue ?? 0)/1000
         switch mediaplayer.state {
         case .error:
             fallthrough
