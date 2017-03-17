@@ -41,39 +41,13 @@ public enum Health {
     }
 }
 
-let trackers = [
-    "udp://tracker.opentrackr.org:1337/announce",
-    "udp://glotorrents.pw:6969/announce",
-    "udp://torrent.gresille.org:80/announce",
-    "udp://tracker.openbittorrent.com:80",
-    "udp://tracker.coppersurfer.tk:6969",
-    "udp://tracker.leechers-paradise.org:6969",
-    "udp://p4p.arenabg.ch:1337",
-    "udp://tracker.internetwarriors.net:1337",
-    "udp://open.demonii.com:80",
-    "udp://tracker.coppersurfer.tk:80",
-    "udp://tracker.leechers-paradise.org:6969",
-    "udp://exodus.desync.com:6969"
-]
-
 public struct Torrent: Mappable, Equatable, Comparable {
     
-    /// Magnet link of the torrent. May be `nil` if the url recieved from popcorn-api points directly to a .torrent file to be downloaded.
-    public var magnet: String? {
-        if let hash = hash {
-            return "magnet:?xt=urn:btih:\(hash)&tr=" + trackers.joined(separator: "&tr=")
-        }
-        return nil
-    }
-    
     /// Health of the torrent.
-    public var health: Health
+    public let health: Health
     
     /// Url of the torrent. May be http url or may be a magnet link.
     public let url: String
-    
-    /// Torrent hash if url is magnet link otherwise `nil`.
-    public let hash: String?
     
     /// Quality of the media - 1080p, 720p, 480p etc.
     public var quality: String!
@@ -94,7 +68,6 @@ public struct Torrent: Mappable, Equatable, Comparable {
     
     private init(_ map: Map) throws {
         self.url = try map.value("url")
-        self.hash = url.contains("https://") ? nil : url.slice(from: "magnet:?xt=urn:btih:", to: url.contains("&dn=") ? "&dn=" : "")
         self.seeds = (try? (try? map.value("seeds")) ?? map.value(("seed"))) ?? 0
         self.peers = (try? (try? map.value("peers")) ?? map.value(("peer"))) ?? 0
         self.size = try? map.value("filesize")
@@ -133,10 +106,9 @@ public struct Torrent: Mappable, Equatable, Comparable {
         }
     }
     
-    public init(health: Health = .unknown, url: String = "", hash: String? = nil, quality: String = "0p", seeds: Int = 0, peers: Int = 0, size: String? = nil) {
+    public init(health: Health = .unknown, url: String = "", quality: String = "0p", seeds: Int = 0, peers: Int = 0, size: String? = nil) {
         self.health = health
         self.url = url
-        self.hash = hash
         self.quality = quality
         self.seeds = seeds
         self.peers = peers
@@ -193,5 +165,5 @@ public func <(lhs: Torrent, rhs: Torrent) -> Bool {
 }
 
 public func == (lhs: Torrent, rhs: Torrent) -> Bool {
-    return lhs.hash == rhs.hash
+    return lhs.url == rhs.url
 }

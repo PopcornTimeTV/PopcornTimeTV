@@ -102,17 +102,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UI
             if let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, (sourceApplication == "com.apple.SafariViewService" || sourceApplication == "com.apple.mobilesafari") && url.scheme == "popcorntime" {
                 TraktManager.shared.authenticate(url)
             } else if url.scheme == "magnet" || url.isFileURL {
-                let torrent: Torrent
-                let media: Media
+                let torrentUrl: String
+                let id: String
                 
                 if url.scheme == "magnet" {
-                    let url = url.absoluteString
-                    torrent = Torrent(hash: url.slice(from: "magnet:?xt=urn:btih:", to: url.contains("&dn=") ? "&dn=" : ""))
-                    media = Movie(id: torrent.hash!, torrents: [torrent]) // Type here is arbitrary.
+                    torrentUrl = url.absoluteString
+                    id = torrentUrl
                 } else {
-                    torrent = Torrent(url: url.path)
-                    media = Movie(id: url.lastPathComponent, torrents: [torrent]) // Type here is arbitrary.
+                    torrentUrl = url.path
+                    id = url.lastPathComponent
                 }
+                
+                let torrent = Torrent(url: torrentUrl)
+                let media: Media = Movie(id: id, torrents: [torrent]) // Type here is arbitrary.
                 
                 if let root = window?.rootViewController {
                     let type = type(of: root)
