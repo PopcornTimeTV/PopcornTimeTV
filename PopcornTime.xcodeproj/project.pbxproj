@@ -237,6 +237,9 @@
 		4D9DEF081E705DA0002493B5 /* OptionsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DEF071E705DA0002493B5 /* OptionsPresentationController.swift */; };
 		4DA42DD21DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */; };
 		4DA42DD31DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */; };
+		4DAE33991E7C676A0014B489 /* String+Truncation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE33981E7C676A0014B489 /* String+Truncation.swift */; };
+		4DAE339B1E7C81240014B489 /* TimeInterval+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE339A1E7C81240014B489 /* TimeInterval+Default.swift */; };
+		4DAE339C1E7C81240014B489 /* TimeInterval+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE339A1E7C81240014B489 /* TimeInterval+Default.swift */; };
 		4DAFAA361E0AF4DE00AE0F9A /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFAA351E0AF4DE00AE0F9A /* AudioViewController.swift */; };
 		4DAFAA3B1E0AFDA600AE0F9A /* OptionsStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFAA3A1E0AFDA600AE0F9A /* OptionsStackViewController.swift */; };
 		4DB0477A1E6035860008721A /* ContinueWatchingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB047791E6035860008721A /* ContinueWatchingCollectionViewCell.swift */; };
@@ -507,6 +510,8 @@
 		4D9DEF071E705DA0002493B5 /* OptionsPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsPresentationController.swift; path = "Presentation Controllers/OptionsPresentationController.swift"; sourceTree = "<group>"; };
 		4DA42DC41DD8C6D900933A10 /* PopcornTimeiOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PopcornTimeiOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
+		4DAE33981E7C676A0014B489 /* String+Truncation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Truncation.swift"; sourceTree = "<group>"; };
+		4DAE339A1E7C81240014B489 /* TimeInterval+Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Default.swift"; sourceTree = "<group>"; };
 		4DAFAA351E0AF4DE00AE0F9A /* AudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
 		4DAFAA3A1E0AFDA600AE0F9A /* OptionsStackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsStackViewController.swift; sourceTree = "<group>"; };
 		4DB047791E6035860008721A /* ContinueWatchingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContinueWatchingCollectionViewCell.swift; path = "Collection View Cells/ContinueWatchingCollectionViewCell.swift"; sourceTree = "<group>"; };
@@ -668,6 +673,7 @@
 			isa = PBXGroup;
 			children = (
 				4D0F9D4A1E6F2B1300860852 /* String+Extension.swift */,
+				4DAE339A1E7C81240014B489 /* TimeInterval+Default.swift */,
 				4D0F9E421E705BD100860852 /* UIImage+Extension.swift */,
 				4D0F9E431E705BD100860852 /* UIView+Extension.swift */,
 				4D0F9E441E705BD100860852 /* Show+Extension.swift */,
@@ -885,6 +891,7 @@
 				4DBE60971E5E590500C2549B /* MovieDetailViewController+iOS.swift */,
 				4DBE608E1E5E51C300C2549B /* DetailViewController+iOS.swift */,
 				4DBE60991E5E5F8A00C2549B /* ShowDetailViewController+iOS.swift */,
+				4DAE33981E7C676A0014B489 /* String+Truncation.swift */,
 				4D9995611E5CAD51005C432A /* SearchViewController+iOS.swift */,
 				4D859B8F1DDFA162000E2AA1 /* PCTPlayerViewController+iOS.swift */,
 				4D8C4B871E47AD1A004872F8 /* Number+Extension.swift */,
@@ -1690,6 +1697,7 @@
 				4D9995781E5DCE7B005C432A /* SeasonPickerViewController.swift in Sources */,
 				4D0F9E371E705A3E00860852 /* TVAppDocumentControllerAnimatedTransitioning.swift in Sources */,
 				4D784D581E5F791B009E3423 /* DetailViewController+tvOS.swift in Sources */,
+				4DAE339B1E7C81240014B489 /* TimeInterval+Default.swift in Sources */,
 				4D0F9DCE1E70564900860852 /* DetailViewController.swift in Sources */,
 				4DA42DD21DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */,
 				4D37C4591E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Gray.swift in Sources */,
@@ -1848,6 +1856,7 @@
 				4D689A301DD88F1A001D1318 /* Media+Extension.swift in Sources */,
 				4D0F9DF91E70579F00860852 /* ContinueWatchingCollectionReusableView.swift in Sources */,
 				4D0F9E521E705BD600860852 /* CGSize+Min.swift in Sources */,
+				4DAE339C1E7C81240014B489 /* TimeInterval+Default.swift in Sources */,
 				4D0F9E111E7057F100860852 /* MoviesViewController.swift in Sources */,
 				4DBE608F1E5E51C300C2549B /* DetailViewController+iOS.swift in Sources */,
 				4D8C4B8A1E47BE78004872F8 /* UIScreen+AspectRatio.swift in Sources */,
@@ -1893,6 +1902,7 @@
 				4D0F9E331E7059C300860852 /* BarSlider.swift in Sources */,
 				4D0F9DE21E7056E200860852 /* BaseCollectionViewCell.swift in Sources */,
 				4D689A2C1DD88F0A001D1318 /* UIColor+Extension.swift in Sources */,
+				4DAE33991E7C676A0014B489 /* String+Truncation.swift in Sources */,
 				4D0F9DD31E70564C00860852 /* MovieDetailViewController.swift in Sources */,
 				4D9995421E5C6FFE005C432A /* CollectionViewController+iOS.swift in Sources */,
 				4D859B9D1DDFA164000E2AA1 /* PCTPlayerViewController+iOS.swift in Sources */,

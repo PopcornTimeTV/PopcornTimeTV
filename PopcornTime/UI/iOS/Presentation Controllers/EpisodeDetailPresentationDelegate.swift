@@ -77,7 +77,7 @@ class EpisodeDetailPresentationController: UIPresentationController {
         presentedView?.layer.masksToBounds = true
         
         if presentedView?.frame != frameOfPresentedViewInContainerView {
-            UIView.animate(withDuration: animationLength, animations: { [unowned self] in
+            UIView.animate(withDuration: .default, animations: { [unowned self] in
                 self.presentedView?.frame = self.frameOfPresentedViewInContainerView
             }) 
         }

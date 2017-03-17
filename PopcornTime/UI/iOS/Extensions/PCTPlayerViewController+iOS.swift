@@ -43,7 +43,7 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
         for constraint in regularConstraints {
             constraint.priority = traitCollection.horizontalSizeClass == .compact ? 240 : 999
         }
-        UIView.animate(withDuration: animationLength, animations: {
+        UIView.animate(withDuration: .default, animations: {
             self.view.layoutIfNeeded()
         })
     }
@@ -79,7 +79,7 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
             mediaplayer.pause()
         }
         
-        UIView.animate(withDuration: animationLength, animations: {
+        UIView.animate(withDuration: .default, animations: {
             self.finishedScrubbingConstraints!.isActive = false
             self.duringScrubbingConstraints!.isActive = true
             self.view.layoutIfNeeded()
@@ -103,7 +103,7 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
         
         
         view.layoutIfNeeded()
-        UIView.animate(withDuration: animationLength, animations: {
+        UIView.animate(withDuration: .default, animations: {
             self.duringScrubbingConstraints!.isActive = false
             self.finishedScrubbingConstraints!.isActive = true
             self.view.layoutIfNeeded()

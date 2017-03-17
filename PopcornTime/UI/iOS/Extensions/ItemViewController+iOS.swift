@@ -41,7 +41,6 @@ extension ItemViewController {
             ratingView.rating = show.rating/20.0
             
             trailerButton.isHidden = true
-            playButton.isHidden = show.latestUnwatchedEpisode() == nil
         }
     }
     
@@ -65,7 +64,7 @@ extension ItemViewController {
         
         // Don't animate if when the view is being first presented.
         if previousTraitCollection != nil {
-            UIView.animate(withDuration: animationLength, animations: {
+            UIView.animate(withDuration: .default, animations: {
                 self.view.layoutIfNeeded()
             })
         }

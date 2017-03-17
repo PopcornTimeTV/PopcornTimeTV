@@ -202,7 +202,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
             
             if let image = media.smallCoverImage,
                 let url = URL(string: image) {
-                _cell.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: placeholder), imageTransition: .crossDissolve(animationLength))
+                _cell.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: placeholder), imageTransition: .crossDissolve(.default))
             } else {
                 _cell.imageView.image = UIImage(named: placeholder)
             }

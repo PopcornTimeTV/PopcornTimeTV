@@ -4,33 +4,44 @@ import Foundation
 
 @IBDesignable class UIExpandableTextView: UITextView {
     
-    @IBInspectable var moreButtonText: String = "...more" {
-        didSet {
-            moreButton.setTitle(moreButtonText, for: .normal)
+    @IBInspectable var trailingText: String = "more"
+    @IBInspectable var ellipsesString: String = "..."
+    @IBInspectable var trailingTextColor: UIColor = .app
+    
+    @IBInspectable var maxHeight: CGFloat = 57
+    
+    private var originalText: String!
+    private var _textColor: UIColor?
+    
+    override var textColor: UIColor? {
+        get {
+           return _textColor
+        } set(color) {
+            _textColor = color != .app ? color : _textColor
         }
     }
     
-    @IBInspectable var maxHeight: CGFloat = 57 {
+    override var text: String! {
         didSet {
-            heightConstraint.constant = maxHeight
+            
+            originalText = text
+            truncateAndUpdateText()
         }
     }
     
-    @IBInspectable var moreButtonBackgroundColor: UIColor? {
-        didSet {
-            moreButton.backgroundColor = moreButtonBackgroundColor
-        }
+    private var textAttributes: [String : Any] {
+        return [
+            NSForegroundColorAttributeName: textColor!,
+            NSFontAttributeName: font!
+        ]
     }
     
-    override var font: UIFont? {
-        didSet {
-            moreButton.titleLabel?.font = font
-        }
+    private var trailingTextAttributes: [String : Any] {
+        return [
+            NSForegroundColorAttributeName: trailingTextColor,
+            NSFontAttributeName: font!
+        ]
     }
-    
-    private var heightConstraint: NSLayoutConstraint!
-    
-    let moreButton = UIButton(type: .system)
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -43,46 +54,45 @@ import Foundation
     }
     
     private func sharedSetup() {
-        moreButtonBackgroundColor = backgroundColor
-        heightConstraint = NSLayoutConstraint(item: self, attribute: .height, relatedBy: .lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: maxHeight)
-        textContainer.maximumNumberOfLines = 0
-        textContainer.lineBreakMode = .byWordWrapping
-        moreButton.frame = CGRect(origin: CGPoint.zero, size: CGSize.max)
-        moreButton.setTitle(moreButtonText, for: .normal)
-        moreButton.sizeToFit()
-        insertSubview(moreButton, aboveSubview: self)
-        moreButton.addTarget(self, action: #selector(expandView), for: .touchUpInside)
-        moreButton.isHidden = true
-        addConstraint(heightConstraint)
+        let selectGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(expandView))
+        selectGestureRecognizer.allowedTouchTypes = [NSNumber(value: UITouchType.direct.rawValue)]
+        addGestureRecognizer(selectGestureRecognizer)
+        
+        originalText = text
     }
     
     func expandView() {
-        heightConstraint.isActive = false
+        maxHeight = .greatestFiniteMagnitude
+        
+        
         superview?.setNeedsLayout()
-        UIView.animate(withDuration: animationLength, animations: {
+        UIView.animate(withDuration: .default, animations: {
             self.superview?.layoutIfNeeded()
-        }, completion: { _ in
+        }) { _ in
             self.superview?.parent?.viewDidLayoutSubviews()
-        })
+        }
     }
     
-    
-    var totalNumberOfLines: Int {
-        let font = self.font ?? UIFont.systemFont(ofSize: 17)
-        let maxSize = CGSize(width: frame.size.width, height: CGFloat.greatestFiniteMagnitude)
-        let attributedText = NSAttributedString(string: text, attributes: [NSFontAttributeName: font])
-        return Int(round(attributedText.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, context: nil).size.height / font.lineHeight))
+    override var bounds: CGRect {
+        didSet {
+            guard oldValue != bounds else { return }
+            
+            truncateAndUpdateText()
+        }
     }
     
-    var visibleNumberOfLines: Int {
-        return Int(round(contentSize.height) / (font ?? UIFont.systemFont(ofSize: 17)).lineHeight)
+    private func untruncateAndUpdateText() {
+        attributedText = NSAttributedString(string: originalText, attributes: textAttributes)
     }
     
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        moreButton.frame.origin.x = bounds.width - moreButton.frame.width - 5
-        moreButton.frame.origin.y = bounds.height - moreButton.frame.height
-        moreButton.isHidden = totalNumberOfLines <= visibleNumberOfLines
+    private func truncateAndUpdateText() {
+        guard let text = originalText, !text.isEmpty else { return }
+        
+        let trailingText = " " + self.trailingText
+        attributedText = text.truncateToSize(size: CGSize(width: bounds.size.width, height: maxHeight),
+                                                   ellipsesString: ellipsesString,
+                                                   trailingText: trailingText,
+                                                   attributes: textAttributes,
+                                                   trailingTextAttributes: trailingTextAttributes)
     }
 }

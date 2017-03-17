@@ -96,7 +96,7 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
         
         if let image = media.mediumBackgroundImage,
             let url = URL(string: image) {
-            cell.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: placeholder), imageTransition: .crossDissolve(animationLength))
+            cell.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: placeholder), imageTransition: .crossDissolve(.default))
         } else {
             cell.imageView.image = UIImage(named: placeholder)
         }

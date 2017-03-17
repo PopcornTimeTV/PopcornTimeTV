@@ -119,7 +119,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
         }
         
         if previousTraitCollection != nil {
-            UIView.animate(withDuration: animationLength, animations: {
+            UIView.animate(withDuration: .default, animations: {
                 self.view.layoutIfNeeded()
             })
         }

@@ -37,7 +37,7 @@ class TVExpandableTextView: TvOSMoreButton {
     
     override var font: UIFont {
         get {
-           return  .systemFont(ofSize: 30, weight: UIFontWeightMedium)
+           return .systemFont(ofSize: 30, weight: UIFontWeightMedium)
         } set {}
     }
     

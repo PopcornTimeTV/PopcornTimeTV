@@ -47,8 +47,9 @@ class ItemViewController: UIViewController {
         if let parent = parent as? DetailViewController {
             if let movie = media as? Movie {
                 parent.chooseQuality(sender, media: movie)
-            } else if let show = media as? Show {
-                parent.chooseQuality(sender, media: show.latestUnwatchedEpisode()!)
+            } else if let show = media as? Show,
+                let episode = show.latestUnwatchedEpisode() ?? show.episodes.filter({$0.season == show.seasonNumbers.first}).sorted(by: {$0.0.episode < $0.1.episode}).first {
+                parent.chooseQuality(sender, media: episode)
             }
         }
     }

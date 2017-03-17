@@ -481,7 +481,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     // MARK: Up next view delegate
     
     func constraintsWereUpdated(willHide hide: Bool) {
-        UIView.animate(withDuration: animationLength, animations: {
+        UIView.animate(withDuration: .default, animations: {
             self.view.layoutIfNeeded()
         }, completion: { _ in
             if hide { self.upNextView.isHidden = true }

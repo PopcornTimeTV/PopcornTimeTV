@@ -50,7 +50,7 @@ class EpisodeCollectionViewCell: BaseCollectionViewCell {
     func updateWatchedStatus() {
         watchedButton?.setImage(watchedButtonImage, for: .normal)
         
-        UIView.animate(withDuration: animationLength) { 
+        UIView.animate(withDuration: .default) { 
             self.watchedOverlay?.alpha = WatchedlistManager<Episode>.episode.isAdded(self.id) ? 1.0 : 0.0
         }
         

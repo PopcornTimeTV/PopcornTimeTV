@@ -10,7 +10,6 @@ import ObjectMapper
     import GoogleCast
 #endif
 
-public let animationLength = 0.33
 public let vlcSettingTextEncoding = "subsdec-encoding"
 
 @UIApplicationMain
