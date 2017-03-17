@@ -17,7 +17,7 @@ import Foundation
         get {
            return _textColor
         } set(color) {
-            _textColor = color != .app ? color : _textColor
+            _textColor = color
         }
     }
     
@@ -57,13 +57,11 @@ import Foundation
         let selectGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(expandView))
         selectGestureRecognizer.allowedTouchTypes = [NSNumber(value: UITouchType.direct.rawValue)]
         addGestureRecognizer(selectGestureRecognizer)
-        
-        originalText = text
     }
     
     func expandView() {
         maxHeight = .greatestFiniteMagnitude
-        
+        untruncateAndUpdateText()
         
         superview?.setNeedsLayout()
         UIView.animate(withDuration: .default, animations: {
