@@ -3,6 +3,11 @@
 import Foundation
 
 extension MovieDetailViewController {
+    
+    var watchedButtonImage: UIImage? {
+        return movie.isWatched ? UIImage(named: "Watched On") : UIImage(named: "Watched Off")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -9,6 +9,13 @@ class EpisodesCollectionViewController: ResponsiveCollectionViewController, UICo
     var dataSource: [Episode] = []
     let interactor = EpisodeDetailPercentDrivenInteractiveTransition()
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        collectionView?.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

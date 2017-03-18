@@ -42,10 +42,6 @@ class MovieDetailViewController: DetailViewController {
         }
     }
     
-    var watchedButtonImage: UIImage? {
-        return movie.isWatched ? UIImage(named: "Watched On") : UIImage(named: "Watched Off")
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? DescriptionCollectionViewController, segue.identifier == "embedInformation" {
             vc.headerTitle = "Information"

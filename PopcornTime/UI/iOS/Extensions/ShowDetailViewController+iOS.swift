@@ -14,8 +14,14 @@ extension ShowDetailViewController {
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet, blurStyle: .dark)
         
         let handler: (UIAlertAction) -> Void = { [unowned self] action in
-            guard let title = action.title,
-                let string = title.components(separatedBy: "Season ").last, let season = Int(string) else { return }
+            guard
+                let title = action.title,
+                let string = title.components(separatedBy: "Season ").last,
+                let season = Int(string)
+                else {
+                    return
+            }
+            
             self.change(to: season)
         }
         

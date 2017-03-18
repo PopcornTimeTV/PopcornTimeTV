@@ -5,6 +5,14 @@ import PopcornKit
 
 extension DetailViewController {
     
+    var watchlistButtonImage: UIImage? {
+        return currentItem.isAddedToWatchlist ? UIImage(named: "Watchlist On") : UIImage(named: "Watchlist Off")
+    }
+    
+    @IBAction func toggleWatchlist(_ sender: UIBarButtonItem) {
+        currentItem.isAddedToWatchlist = !currentItem.isAddedToWatchlist
+        sender.image = watchlistButtonImage
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

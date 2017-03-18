@@ -23,12 +23,6 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         }
     }
     
-    @IBAction func toggleWatchlist(_ sender: UIBarButtonItem) {
-        currentItem.isAddedToWatchlist = !currentItem.isAddedToWatchlist
-        sender.image = watchlistButtonImage
-    }
-    
-    
     #elseif os(tvOS)
     
     var seasonsLabel: UILabel {
@@ -76,10 +70,6 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     
     var currentItem: Media!
     var currentSeason = -1
-    
-    var watchlistButtonImage: UIImage? {
-        return currentItem.isAddedToWatchlist ? UIImage(named: "Watchlist On") : UIImage(named: "Watchlist Off")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

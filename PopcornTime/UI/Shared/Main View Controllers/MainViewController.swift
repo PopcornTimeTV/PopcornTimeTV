@@ -121,9 +121,8 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
                     vc.view = view
                     
                     navigationController.pushViewController(vc, animated: false)
-                } else {
-                    vc.currentItem = media
-                    
+                } else if let currentItem = media {
+                    vc.currentItem = currentItem
                     navigationController.pushViewController(vc, animated: false)
                 }
             }
