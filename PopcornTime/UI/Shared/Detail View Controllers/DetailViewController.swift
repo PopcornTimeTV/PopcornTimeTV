@@ -11,10 +11,11 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     
     #if os(iOS)
 
-    @IBOutlet var castButton: CastIconBarButtonItem?
-    @IBOutlet var watchlistButton: UIBarButtonItem!
+    @IBOutlet var castButton: CastIconButton?
+    @IBOutlet var watchlistButton: UIButton?
+    @IBOutlet var watchedButton: UIButton?
     
-    @IBOutlet var moreSeasonsButton: UIButton!
+    @IBOutlet var moreSeasonsButton: UIButton?
     @IBOutlet var seasonsLabel: UILabel!
     
     var headerHeight: CGFloat = 0 {
@@ -76,8 +77,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         
         #if os(iOS)
             
-            castButton?.button.addTarget(self, action: #selector(showCastDevices), for: .touchUpInside)
-            watchlistButton.image = watchlistButtonImage
+            watchlistButton?.setImage(watchlistButtonImage, for: .normal)
             
         #elseif os(tvOS)
             

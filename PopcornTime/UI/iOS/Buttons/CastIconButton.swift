@@ -46,21 +46,3 @@ class CastIconButton: UIButton {
         imageView!.animationDuration = 2
     }
 }
-
-class CastIconBarButtonItem: UIBarButtonItem {
-    
-    var status: GCKCastState {
-        get {
-            return button.status
-        } set {
-            button.status = newValue
-        }
-    }
-    
-    var button = CastIconButton(frame: CGRect(x: 0, y: 0, width: 26, height: 26))
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        customView = button
-    }
-}

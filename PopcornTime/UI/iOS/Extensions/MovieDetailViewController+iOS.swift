@@ -11,13 +11,11 @@ extension MovieDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let watchedButton = UIBarButtonItem(image: watchedButtonImage, style: .plain, target: self, action: #selector(self.toggleWatched(_:)))
-        
-        navigationItem.rightBarButtonItems?.insert(watchedButton, at: 0)
+        watchedButton?.setImage(watchedButtonImage, for: .normal)
     }
     
-    func toggleWatched(_ sender: UIBarButtonItem) {
+    @IBAction func toggleWatched(_ sender: UIButton) {
         movie.isWatched = !movie.isWatched
-        sender.image = watchedButtonImage
+        sender.setImage(watchedButtonImage, for: .normal)
     }
 }

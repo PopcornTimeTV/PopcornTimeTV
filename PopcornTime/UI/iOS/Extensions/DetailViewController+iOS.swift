@@ -9,9 +9,9 @@ extension DetailViewController {
         return currentItem.isAddedToWatchlist ? UIImage(named: "Watchlist On") : UIImage(named: "Watchlist Off")
     }
     
-    @IBAction func toggleWatchlist(_ sender: UIBarButtonItem) {
+    @IBAction func toggleWatchlist(_ sender: UIButton) {
         currentItem.isAddedToWatchlist = !currentItem.isAddedToWatchlist
-        sender.image = watchlistButtonImage
+        sender.setImage(watchlistButtonImage, for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,16 +71,11 @@ extension DetailViewController {
         if scrollView.contentOffset.y < -headerHeight {
             headerRect.size.height = -scrollView.contentOffset.y
         }
-        
         backgroundImageView.frame = headerRect
     }
     
     func updateCastStatus() {
         castButton?.status = GCKCastContext.sharedInstance().castState
-    }
-    
-    func showCastDevices() {
-        performSegue(withIdentifier: "showCasts", sender: castButton)
     }
     
     func presentCastPlayer(_ media: Media, videoFilePath: URL) {

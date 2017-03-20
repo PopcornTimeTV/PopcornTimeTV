@@ -7,7 +7,8 @@ extension ShowDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        moreSeasonsButton.isHidden = show.seasonNumbers.count == 1
+        navigationItem.rightBarButtonItems?.removeFirst()
+        moreSeasonsButton?.isHidden = show.seasonNumbers.count == 1
     }
     
     @IBAction func changeSeason(_ sender: UIButton) {
