@@ -55,6 +55,9 @@ extension PCTPlayerViewController {
     }
     
     func applicationDidConnect(to screen: UIScreen) {
+        // Remove black bars on second display
+        screen.overscanCompensation = .none
+        
         // Create a window and attach it to the screen.
         let screenWindow = UIWindow(frame: screen.bounds)
         screenWindow.screen = screen
@@ -62,6 +65,7 @@ extension PCTPlayerViewController {
         // Instantiate the correct view controller from the storyboard
         let viewController = UIViewController()
         viewController.view.addSubview(movieView)
+        movieView.frame = screen.bounds
         
         // Make sure controls are not hidden and if the user scrubs, a screenshot is not shown.
         progressBar.isHidden ? toggleControlsVisible() : ()
