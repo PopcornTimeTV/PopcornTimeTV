@@ -46,10 +46,6 @@ class EpisodeDetailViewController: UIViewController, UIScrollViewDelegate, UIGes
         preferredContentSize = scrollView.contentSize
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     @IBAction func play(_ sender: UIButton) {
         guard let parent = (transitioningDelegate as? EpisodesCollectionViewController)?.parent as? ShowDetailViewController else { return }
         

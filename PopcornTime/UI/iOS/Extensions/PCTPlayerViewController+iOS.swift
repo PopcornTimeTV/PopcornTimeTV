@@ -132,6 +132,10 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
 
         delegate?.presentCastPlayer(media, videoFilePath: directory)
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
 }
 
 

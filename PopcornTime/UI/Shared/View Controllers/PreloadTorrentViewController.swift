@@ -55,12 +55,4 @@ class PreloadTorrentViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    #if os(iOS)
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
-    #endif
-    
 }

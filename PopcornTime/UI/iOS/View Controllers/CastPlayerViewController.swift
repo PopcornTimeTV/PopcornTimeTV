@@ -198,8 +198,4 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     override var shouldAutorotate: Bool {
         return UIDevice.current.userInterfaceIdiom == .pad
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
 }
