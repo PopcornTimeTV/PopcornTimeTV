@@ -13,7 +13,7 @@ import ObjectMapper
 public let vlcSettingTextEncoding = "subsdec-encoding"
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UITabBarControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
 
     var window: UIWindow?
     
@@ -60,7 +60,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UpdateManagerDelegate, UI
         window?.tintColor = .app
         
         TraktManager.shared.syncUserData()
-        UpdateManager.shared.delegate = self
         
         return true
     }

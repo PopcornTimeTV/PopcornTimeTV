@@ -5,25 +5,6 @@ import Alamofire
 import SwiftyJSON
 
 /**
- `UIApplication.shared` is not accessible from extensions. This delegate is to provide functionality to:
- 
- - isCydiaInstalled:    Check for a valid jailbreak.
- - open:cydiaUrl:       And to open a url in the Cydia.app if installed.
- */
-public protocol UpdateManagerDelegate: class {
-    
-    /// Return `UIApplication.shared.canOpenURL(URL(string: "cydia://")!)`
-    var isCydiaInstalled: Bool { get }
-    
-    /**
-     Use `UIApplication.shared.openURL:` to open.
-     
-     - Parameter cydiaUrl: The cydia url to be opened.
-     */
-    func open(cydiaUrl url: URL)
-}
-
-/**
  A manager class that automatically looks for new releases from github and presents them to the user.
  */
 public final class UpdateManager: NSObject {
@@ -49,9 +30,6 @@ public final class UpdateManager: NSObject {
     
     /// Designated Initialiser.
     public static let shared = UpdateManager()
-    
-    /// Optional delegate for UpdateManager.
-    public weak var delegate: UpdateManagerDelegate?
     
     /// The version that the user does not want installed. If the user has never clicked "Skip this version" this variable will be `nil`, otherwise it will be the last version that the user opted not to install.
     private var skipReleaseVersion: VersionString? {
@@ -116,11 +94,11 @@ public final class UpdateManager: NSObject {
                     self.skipReleaseVersion = latestRelease
                 }))
                 
-                let isCydiaInstalled = self.delegate?.isCydiaInstalled ?? false
+                let isCydiaInstalled = UIApplication.shared.canOpenURL(URL(string: "cydia://")!)
                 
                 alert.addAction(UIAlertAction(title: isCydiaInstalled ? "Update" : "OK", style: .default, handler: { _ in
                     if isCydiaInstalled {
-                        self.delegate?.open(cydiaUrl: URL(string: "cydia://package/\(Bundle.main.bundleIdentifier!)")!)
+                        UIApplication.shared.openURL(URL(string: "cydia://package/\(Bundle.main.bundleIdentifier!)")!)
                     } else {
                         let instructionsAlert = UIAlertController(title: "Sideloading Instructions", message: "Unfortunately, in-app updates are not available for un-jailbroken devices. Please follow the sideloading instructions available in the PopcornTimeTV repo's wiki.", preferredStyle: .alert)
                         instructionsAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -212,15 +190,5 @@ extension Collection {
     /// Returns the element at the specified index if it is within bounds, otherwise nil.
     public subscript (safe index: Index) -> Iterator.Element? {
         return index >= startIndex && index < endIndex ? self[index] : nil
-    }
-}
-
-extension UIAlertController {
-    public func show() {
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = UIViewController()
-        window.windowLevel = UIWindowLevelAlert + 1
-        window.makeKeyAndVisible()
-        window.rootViewController!.present(self, animated: true)
     }
 }

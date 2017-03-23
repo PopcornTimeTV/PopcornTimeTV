@@ -270,6 +270,12 @@
 		4DC7B6951E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */; };
 		4DC7B69B1E3503720098B12E /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B69A1E3503720098B12E /* CircularButton.swift */; };
 		4DC7B6A51E3907CC0098B12E /* DescriptionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DC7B6A41E3907CC0098B12E /* DescriptionCollectionViewCell.xib */; };
+		4DCB39311E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB39301E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift */; };
+		4DCB39321E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB39301E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift */; };
+		4DCB393A1E844D4500388374 /* UIAlertController+Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB39391E844D4500388374 /* UIAlertController+Show.swift */; };
+		4DCB393B1E844D4500388374 /* UIAlertController+Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB39391E844D4500388374 /* UIAlertController+Show.swift */; };
+		4DCB393C1E844D4500388374 /* UIAlertController+Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB39391E844D4500388374 /* UIAlertController+Show.swift */; };
+		4DCB393D1E844D4500388374 /* UIAlertController+Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB39391E844D4500388374 /* UIAlertController+Show.swift */; };
 		4DCCBA5B1DC50D780046C755 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
 		4DD6E4D01DFB17B400818A2C /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6E4CF1DFB17B400818A2C /* ProgressBar.swift */; };
 		4DD6E4D21DFB197E00818A2C /* BufferingBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6E4D11DFB197E00818A2C /* BufferingBar.swift */; };
@@ -543,6 +549,8 @@
 		4DC7B69A1E3503720098B12E /* CircularButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
 		4DC7B6A41E3907CC0098B12E /* DescriptionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DescriptionCollectionViewCell.xib; sourceTree = "<group>"; };
 		4DC870B51D9EDE58005455B0 /* PopcornTime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopcornTime.entitlements; sourceTree = "<group>"; };
+		4DCB39301E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VLCMediaPlayer+VLCFontAppearance.swift"; sourceTree = "<group>"; };
+		4DCB39391E844D4500388374 /* UIAlertController+Show.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Show.swift"; sourceTree = "<group>"; };
 		4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		4DD6E4CF1DFB17B400818A2C /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		4DD6E4D11DFB197E00818A2C /* BufferingBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferingBar.swift; sourceTree = "<group>"; };
@@ -678,6 +686,7 @@
 			isa = PBXGroup;
 			children = (
 				4D0F9D4A1E6F2B1300860852 /* String+Extension.swift */,
+				4DCB39301E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift */,
 				4DB0EA641E7D8C38004B57B1 /* DispatchQueue+Extension.swift */,
 				4DAE339A1E7C81240014B489 /* TimeInterval+Default.swift */,
 				4D0F9E421E705BD100860852 /* UIImage+Extension.swift */,
@@ -686,6 +695,7 @@
 				4D0F9E451E705BD100860852 /* UINavigationController+Extension.swift */,
 				4D0F9E461E705BD100860852 /* CGSize+Min.swift */,
 				4D0F9E471E705BD100860852 /* UIAlertController+BlurStyle.swift */,
+				4DCB39391E844D4500388374 /* UIAlertController+Show.swift */,
 				4D7C7E1E1E6C386C0095D0DF /* NSObject+Swift_Observer.h */,
 				4D7C7E1F1E6C386C0095D0DF /* NSObject+Swift_Observer.m */,
 				4DBCCED81E680EBE0066F1A7 /* UIStoryboard+Main.swift */,
@@ -1676,6 +1686,7 @@
 				4D0F9DDC1E7056DF00860852 /* BaseCollectionViewCell.swift in Sources */,
 				4D0F9E401E705B0800860852 /* TVVisualEffectView.swift in Sources */,
 				4D0F9E051E7057DF00860852 /* SettingsTableViewController.swift in Sources */,
+				4DCB393A1E844D4500388374 /* UIAlertController+Show.swift in Sources */,
 				4D0F9E4A1E705BD100860852 /* Show+Extension.swift in Sources */,
 				4DC2D1371E5B25750019DB7D /* AutoPlayStoryboardSegue.swift in Sources */,
 				4D7376021DFDC6F500505CA0 /* NSNotification+Name.swift in Sources */,
@@ -1690,6 +1701,7 @@
 				4D0E130B1E6709EB0000AD65 /* UICollectionViewController+Extension.swift in Sources */,
 				4D784D5C1E5FA4B9009E3423 /* NSMutableString+Extension.swift in Sources */,
 				4DFA77161E71FECC007DB0E7 /* TVExpandableTextView.swift in Sources */,
+				4DCB39311E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift in Sources */,
 				4D0F9E191E70582A00860852 /* PCTPlayerViewController.swift in Sources */,
 				4D9DEF081E705DA0002493B5 /* OptionsPresentationController.swift in Sources */,
 				4D0F9DDD1E7056DF00860852 /* CoverCollectionViewCell.swift in Sources */,
@@ -1785,6 +1797,7 @@
 				4D0F9D831E6F2EF400860852 /* Show.swift in Sources */,
 				4D0F9D851E6F2EF400860852 /* Movie.swift in Sources */,
 				4D0F9D7F1E6F2EEE00860852 /* WatchlistManager.swift in Sources */,
+				4DCB393C1E844D4500388374 /* UIAlertController+Show.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1799,6 +1812,7 @@
 				4D0F9DB21E6F304600860852 /* GoogleCastManager.swift in Sources */,
 				4D0F9DB91E6F304600860852 /* MovieManager.swift in Sources */,
 				4D0F9DB71E6F304600860852 /* ThemeSongManager.swift in Sources */,
+				4DCB393D1E844D4500388374 /* UIAlertController+Show.swift in Sources */,
 				4D0F9DB51E6F304600860852 /* AnimeManager.swift in Sources */,
 				4D0F9DB81E6F304600860852 /* WatchlistManager.swift in Sources */,
 				4D0F9DAB1E6F300D00860852 /* NSData+GZIP.m in Sources */,
@@ -1881,8 +1895,10 @@
 				4D0F9E261E7058F700860852 /* EpisodeDetailPresentationDelegate.swift in Sources */,
 				4D0F9DE01E7056E200860852 /* MonogramCollectionViewCell.swift in Sources */,
 				4D689A2A1DD88EFC001D1318 /* SubtitleSettings.swift in Sources */,
+				4DCB39321E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift in Sources */,
 				4D859B861DDFA13D000E2AA1 /* BorderButton.swift in Sources */,
 				4D1B88AD1E3CAF6700DB701D /* UIAlertAction+Extension.swift in Sources */,
+				4DCB393B1E844D4500388374 /* UIAlertController+Show.swift in Sources */,
 				4D859B631DDFA10C000E2AA1 /* EpisodeDetailViewController.swift in Sources */,
 				4DC2D1381E5B25750019DB7D /* AutoPlayStoryboardSegue.swift in Sources */,
 				4D859B871DDFA13D000E2AA1 /* BlurButton.swift in Sources */,
