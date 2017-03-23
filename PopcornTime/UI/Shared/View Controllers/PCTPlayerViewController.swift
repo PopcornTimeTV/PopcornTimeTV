@@ -185,6 +185,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         PTTorrentStreamer.shared().cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
         
         setProgress(status: .finished)
+        NotificationCenter.default.removeObserver(self, name: .PTTorrentStatusDidChange, object: nil)
         
         dismiss(animated: true)
     }
@@ -289,11 +290,13 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             
             
             continueWatchingAlert.addAction(UIAlertAction(title: "Resume Playing", style: .default, handler:{ action in
+                UIDevice.current.userInterfaceIdiom == .tv ? NotificationCenter.default.removeObserver(self, name: .UIViewControllerFocusedViewDidChange, object: continueWatchingAlert) : ()
                 self.resumePlayback = true
                 self.loadingActivityIndicatorView.isHidden = false
                 self.mediaplayer.play()
             }))
             continueWatchingAlert.addAction(UIAlertAction(title: "Start from Begining", style: .default, handler: { action in
+                UIDevice.current.userInterfaceIdiom == .tv ? NotificationCenter.default.removeObserver(self, name: .UIViewControllerFocusedViewDidChange, object: continueWatchingAlert) : ()
                 self.loadingActivityIndicatorView.isHidden = false
                 self.mediaplayer.play()
             }))

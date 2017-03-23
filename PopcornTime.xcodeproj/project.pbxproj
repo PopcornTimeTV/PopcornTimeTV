@@ -185,7 +185,7 @@
 		4D689A361DD8906F001D1318 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E321DC4F028005CDE34 /* Images.xcassets */; };
 		4D689A371DD89076001D1318 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E321DC4F028005CDE34 /* Images.xcassets */; };
 		4D689A6F1DD8AF12001D1318 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E451DC4F0F1005CDE34 /* AppDelegate.swift */; };
-		4D7376021DFDC6F500505CA0 /* NSNotification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7376011DFDC6F500505CA0 /* NSNotification+Name.swift */; };
+		4D7376021DFDC6F500505CA0 /* NSNotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7376011DFDC6F500505CA0 /* NSNotificationName+Extension.swift */; };
 		4D77D1F81E47A1B80089242C /* StepperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D77D1F71E47A1B80089242C /* StepperTableViewCell.swift */; };
 		4D784D4E1E5F3AF6009E3423 /* ItemViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D784D4D1E5F3AF6009E3423 /* ItemViewController+iOS.swift */; };
 		4D784D501E5F3D38009E3423 /* Movie+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D784D4F1E5F3D38009E3423 /* Movie+Extension.swift */; };
@@ -276,6 +276,7 @@
 		4DCB393B1E844D4500388374 /* UIAlertController+Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB39391E844D4500388374 /* UIAlertController+Show.swift */; };
 		4DCB393C1E844D4500388374 /* UIAlertController+Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB39391E844D4500388374 /* UIAlertController+Show.swift */; };
 		4DCB393D1E844D4500388374 /* UIAlertController+Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB39391E844D4500388374 /* UIAlertController+Show.swift */; };
+		4DCB393E1E8460FB00388374 /* NSNotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7376011DFDC6F500505CA0 /* NSNotificationName+Extension.swift */; };
 		4DCCBA5B1DC50D780046C755 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
 		4DD6E4D01DFB17B400818A2C /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6E4CF1DFB17B400818A2C /* ProgressBar.swift */; };
 		4DD6E4D21DFB197E00818A2C /* BufferingBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6E4D11DFB197E00818A2C /* BufferingBar.swift */; };
@@ -468,7 +469,7 @@
 		4D5624741E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PCTPlayerViewController+ScreenNotifications.swift"; sourceTree = "<group>"; };
 		4D5624771E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PCTPlayerViewController+MediaPlayer.swift"; sourceTree = "<group>"; };
 		4D689A171DD88E17001D1318 /* PopcornTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopcornTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4D7376011DFDC6F500505CA0 /* NSNotification+Name.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSNotification+Name.swift"; sourceTree = "<group>"; };
+		4D7376011DFDC6F500505CA0 /* NSNotificationName+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSNotificationName+Extension.swift"; path = "../UI/tvOS/Extensions/NSNotificationName+Extension.swift"; sourceTree = "<group>"; };
 		4D77D1F71E47A1B80089242C /* StepperTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepperTableViewCell.swift; sourceTree = "<group>"; };
 		4D784D4D1E5F3AF6009E3423 /* ItemViewController+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ItemViewController+iOS.swift"; sourceTree = "<group>"; };
 		4D784D4F1E5F3D38009E3423 /* Movie+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Movie+Extension.swift"; sourceTree = "<group>"; };
@@ -685,6 +686,7 @@
 		28EB626A1CA3362B00985F78 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				4D7376011DFDC6F500505CA0 /* NSNotificationName+Extension.swift */,
 				4D0F9D4A1E6F2B1300860852 /* String+Extension.swift */,
 				4DCB39301E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift */,
 				4DB0EA641E7D8C38004B57B1 /* DispatchQueue+Extension.swift */,
@@ -930,7 +932,6 @@
 				4DBE609D1E5E629D00C2549B /* ShowDetailViewController+tvOS.swift */,
 				4D784D521E5F4559009E3423 /* ItemViewController+tvOS.swift */,
 				4D859BB11DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift */,
-				4D7376011DFDC6F500505CA0 /* NSNotification+Name.swift */,
 				4D37C4581E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Gray.swift */,
 				4D859BB41DDFA1C6000E2AA1 /* UIViewController+Extension.swift */,
 			);
@@ -1689,7 +1690,7 @@
 				4DCB393A1E844D4500388374 /* UIAlertController+Show.swift in Sources */,
 				4D0F9E4A1E705BD100860852 /* Show+Extension.swift in Sources */,
 				4DC2D1371E5B25750019DB7D /* AutoPlayStoryboardSegue.swift in Sources */,
-				4D7376021DFDC6F500505CA0 /* NSNotification+Name.swift in Sources */,
+				4D7376021DFDC6F500505CA0 /* NSNotificationName+Extension.swift in Sources */,
 				4D0F9DF61E70579C00860852 /* GradientView.swift in Sources */,
 				4D859BB01DDFA1B7000E2AA1 /* OptionsViewController.swift in Sources */,
 				4D0F9E071E7057DF00860852 /* WatchlistViewController.swift in Sources */,
@@ -1850,6 +1851,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D1B88A71E3BEFF300DB701D /* EpisodesCollectionViewController.swift in Sources */,
+				4DCB393E1E8460FB00388374 /* NSNotificationName+Extension.swift in Sources */,
 				4D859B461DDFA0D5000E2AA1 /* GoogleCastTableViewController.swift in Sources */,
 				4D0F9DFA1E70579F00860852 /* UpNextView.swift in Sources */,
 				4D7C7E211E6C386C0095D0DF /* NSObject+Swift_Observer.m in Sources */,
