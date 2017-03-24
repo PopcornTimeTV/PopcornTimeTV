@@ -53,17 +53,18 @@ extension CollectionViewController {
         let height = scrollView.contentSize.height
         let reloadDistance: CGFloat = 10
         if y > height + reloadDistance && !isLoading && hasNextPage {
-            collectionView.contentInset.bottom += paginationIndicatorInset
+            let inset = tabBarController?.tabBar.frame.height ?? 0
+            collectionView.contentInset.bottom = inset + paginationIndicatorInset
             
             let background = UIView(frame: collectionView.bounds)
             let indicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
             
-            indicator.translatesAutoresizingMaskIntoConstraints = false
             indicator.startAnimating()
             background.addSubview(indicator)
             
-            indicator.centerXAnchor.constraint(equalTo: background.centerXAnchor).isActive = true
-            indicator.bottomAnchor.constraint(equalTo: background.bottomAnchor, constant: -55).isActive = true
+            indicator.center = background.center
+            indicator.frame.origin.y = background.frame.height - indicator.frame.height - (inset + 20)
+
             collectionView.backgroundView = background
             
             currentPage += 1

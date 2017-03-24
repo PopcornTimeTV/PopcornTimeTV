@@ -36,7 +36,7 @@ class MoviesViewController: MainViewController {
             
             if movies.isEmpty // If the array passed in is empty, there are no more results so the content inset of the collection view is reset.
             {
-                self.collectionView?.contentInset.bottom -= self.collectionViewController.paginationIndicatorInset
+                self.collectionView?.contentInset.bottom = self.tabBarController?.tabBar.frame.height ?? 0
             } else {
                 self.collectionViewController.hasNextPage = true
             }

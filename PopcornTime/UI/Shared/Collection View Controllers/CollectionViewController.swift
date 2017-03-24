@@ -33,9 +33,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     var dataSources: [[AnyHashable]] = [[]]
     var error: NSError?
     
-    var paginationIndicatorInset: CGFloat {
-        return UIDevice.current.userInterfaceIdiom == .tv ? 0 : 5
-    }
+    let paginationIndicatorInset: CGFloat = 25
     
     func minItemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize {
         if let size = delegate?.minItemSize(forCellIn: collectionView, at: indexPath) {

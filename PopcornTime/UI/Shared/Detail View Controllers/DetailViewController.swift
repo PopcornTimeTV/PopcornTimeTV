@@ -291,6 +291,8 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             vc.dataSource = [(key, value)]
             
             accessibilityDescriptionCollectionViewController = vc
+        } else if segue.identifier == "showCastDevices", let vc = segue.destination as? UINavigationController, vc.viewControllers.first is GoogleCastTableViewController, let sender = sender as? CastIconButton {
+            vc.popoverPresentationController?.sourceRect = sender.bounds
         } else if let vc = segue.destination as? CollectionViewController {
             vc.delegate = self
             
