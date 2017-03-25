@@ -26,6 +26,7 @@ class PersonViewController: MainViewController {
         
         let completion: ([AnyHashable], NSError?) -> Void = { [unowned self] (data, error) in
             self.collectionViewController.dataSources[0] += data
+            self.collectionViewController.dataSources[0].uniqued()
             self.collectionViewController.error = error
             group.leave()
         }
