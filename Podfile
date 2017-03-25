@@ -5,7 +5,7 @@ source 'https://github.com/angryDuck2/CocoaSpecs'
 source 'https://github.com/PopcornTimeTV/Specs'
 
 def pods
-    pod 'PopcornTorrent', '~> 1.1.6'
+    pod 'PopcornTorrent', '~> 1.1.7'
     pod 'XCDYouTubeKit', '~> 2.5.3'
     pod 'Alamofire', '~> 4.2.0'
     pod 'AlamofireImage', '~> 3.2.0'
