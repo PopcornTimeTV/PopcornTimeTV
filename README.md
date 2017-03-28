@@ -10,9 +10,8 @@
 [![Build Status](https://travis-ci.org/PopcornTimeTV/PopcornTimeTV.svg?branch=master)](https://travis-ci.org/PopcornTimeTV/PopcornTimeTV)
 [![Twitter](https://img.shields.io/badge/twitter-@Popcorn%20Time-3299EC.svg?style=flat)](https://twitter.com/popcorntimetv)
 [![Reddit](https://img.shields.io/badge/discussion-reddit-red.svg?style=flat)](https://reddit.com/r/popcorntime)
-[![Facebook](https://img.shields.io/badge/facebook-Popcorn%20Time-354F88.svg?style=flat)](https://www.facebook.com/PopcornTimeTV)
-[![Freenode](https://img.shields.io/badge/IRC-freenode-orange.svg?style=flat)](http://webchat.freenode.net/?channels=popcorntime)
-[![License](https://img.shields.io/cocoapods/l/AFNetworking.svg)](https://github.com/PopcornTimeTV/PopcornTimeTV/blob/master/LICENSE.md)
+[![Facebook](https://img.shields.io/badge/facebook-Popcorn%20Time-354F88.svg?style=flat)](https://www.facebook.com/PopcornTimedotsh)
+[![License](https://img.shields.io/badge/license-GPL_v3-373737.svg?style=flat)](https://github.com/PopcornTimeTV/PopcornTimeTV/blob/master/LICENSE.md)
 
 An ATV, iPhone and iPad application to torrent movies and tv shows for streaming.
 
@@ -47,13 +46,13 @@ $ open PopcornTime.xcworkspace
 
 For transparency and insight into our release cycle, and for striving to maintain backward compatibility, Popcorn Time will be maintained according to the [Semantic Versioning](http://semver.org/) guidelines as much as possible.
 
-###Beta versions
+### Beta versions
 
 Beta releases will be numbered with the following format:
 
 `0.<major>.<minor>-<patch>`
 
-###Stable versions
+### Stable versions
 
 Releases will be numbered with the following format:
 
