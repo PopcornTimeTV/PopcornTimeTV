@@ -17,7 +17,7 @@ extension Show {
         
         let manager = WatchedlistManager<Episode>.episode
         
-        let currentlyWatchingEpisodes = episodes.filter({(manager.currentProgress($0.id) > 0.0) || (manager.isAdded($0.id))}) // Fetch the latest watched/currently watching episodes.
+        let currentlyWatchingEpisodes = episodes.filter({(manager.currentProgress($0.id) > 0.0) || ($0.isWatched)}) // Fetch the latest watched/currently watching episodes.
         var latestCurrentlyWatchingEpisodesBySeason: [Episode] = []
         
         for season in seasonNumbers {
@@ -27,14 +27,19 @@ extension Show {
         
         let latest = latestCurrentlyWatchingEpisodesBySeason.sorted(by: {$0.0.season < $0.1.season}).last
         
-        if let episode = latest, manager.isAdded(episode.id) // If the latest currently watching episode has already been watched, return the next episode available.
+        if let episode = latest, episode.isWatched // If the latest currently watching episode has already been watched, return the next episode available.
         {
             if let next = episodes.filter({episode.season == $0.season}).filter({$0.episode == (episode.episode + 1)}).first {
                 return next
             } else if let next = episodes.filter({$0.season == (episode.season + 1)}).sorted(by: {$0.0.episode < $0.1.episode}).first // If there are no more greater episodes in the season, return the first episode in the next season.
             {
                 return next
+            } else if let first = latestCurrentlyWatchingEpisodesBySeason.sorted(by: {$0.0.season < $0.1.season}).filter({!$0.isWatched}).first, first != latest // If there are no episodes in the next season, return the first unwatched episode.
+            {
+                return first
             }
+            
+            return nil
         }
         
         return latest
