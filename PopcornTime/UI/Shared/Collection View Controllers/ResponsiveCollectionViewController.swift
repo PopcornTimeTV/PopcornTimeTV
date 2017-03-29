@@ -27,7 +27,7 @@ class ResponsiveCollectionViewController: UICollectionViewController {
         preferredContentSize = size
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    override dynamic func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         guard previousTraitCollection != nil else { return }
         collectionView?.performBatchUpdates(nil)
         collectionView?.subviews.filter({$0 is UICollectionReusableView}).forEach({$0.layoutSubviews()})

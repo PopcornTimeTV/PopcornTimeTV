@@ -2,20 +2,16 @@
 
 import Foundation
 
-extension UIViewController {
+extension UIViewController: Object {
     
     var statusBarHeight: CGFloat {
         let statusBarSize = UIApplication.shared.statusBarFrame.size
         return Swift.min(statusBarSize.width, statusBarSize.height)
     }
     
-    open override class func initialize() {
+    class func awake() {
         
-        if self !== UIViewController.self {
-            return
-        }
-        
-        DispatchQueue.once() {
+        DispatchQueue.once {
             exchangeImplementations(originalSelector: #selector(getter: preferredStatusBarStyle), swizzledSelector: #selector(getter: pct_preferredStatusBarStyle))
         }
     }

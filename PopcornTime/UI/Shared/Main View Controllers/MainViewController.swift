@@ -24,15 +24,16 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override dynamic func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         #if os(iOS)
             navigationController?.navigationBar.isBackgroundHidden = false
         #endif
         navigationController?.navigationBar.tintColor = .app
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override dynamic func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         collectionView?.setNeedsFocusUpdate()
@@ -41,7 +42,7 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
         collectionView?.reloadData()
     }
 
-    override func viewDidLoad() {
+    override dynamic func viewDidLoad() {
         super.viewDidLoad()
         
         collectionViewController.paginated = true

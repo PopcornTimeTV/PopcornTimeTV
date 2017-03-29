@@ -9,7 +9,7 @@ extension UICollectionViewController {
     
 }
 
-extension UICollectionView {
+extension UICollectionView: Object {
     
     @objc private func pctReloadData() {
         if let parent = parent as? UICollectionViewController {
@@ -21,13 +21,9 @@ extension UICollectionView {
         }
     }
     
-    open override class func initialize() {
+    class func awake() {
         
-        if self !== UICollectionView.self {
-            return
-        }
-        
-        DispatchQueue.once() {
+        DispatchQueue.once {
             let originalMethod = class_getInstanceMethod(self, #selector(reloadData))
             let swizzledMethod = class_getInstanceMethod(self, #selector(pctReloadData))
             method_exchangeImplementations(originalMethod, swizzledMethod)

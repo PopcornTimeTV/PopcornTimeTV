@@ -2,21 +2,18 @@
 
 import Foundation
 
-extension UIViewController {
+extension UIViewController: Object {
+    
+    
     
     @objc private func pctFocusedViewDidChange() {
         NotificationCenter.default.post(name: .UIViewControllerFocusedViewDidChange, object: self)
         self.pctFocusedViewDidChange()
     }
     
-    open override class func initialize() {
-        
-        
-        if self !== UIViewController.self {
-            return
-        }
-        
-        DispatchQueue.once() {
+    class func awake() {
+
+        DispatchQueue.once {
             exchangeImplementations(originalSelector: Selector(("focusedViewDidChange")), swizzledSelector: #selector(pctFocusedViewDidChange))
         }
     }

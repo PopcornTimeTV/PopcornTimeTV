@@ -24,7 +24,7 @@ import Foundation
         super.layoutSubviews()
         
         if imageView.image?.size != imageView.bounds.size {
-            originalImage = (originalImage) // Refresh image only when bounds change.
+            originalImage = { originalImage }() // Refresh image only when bounds change.
         }
         
         if let highlightView = highlightView {

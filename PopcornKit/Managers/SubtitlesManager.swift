@@ -70,7 +70,7 @@ open class SubtitlesManager: NetworkManager {
             guard let value = response.result.value,
                 let status = value[0]["status"].string?.components(separatedBy: " ").first,
                 response.result.isSuccess && status == "200" else {
-                    completion?(response.result.error as? NSError ?? NSError(domain: "com.popcorntimetv.popcornkit.error", code: -1, userInfo: [NSLocalizedDescriptionKey: "An unknown error occured."]))
+                    completion?(response.result.error as NSError? ?? NSError(domain: "com.popcorntimetv.popcornkit.error", code: -1, userInfo: [NSLocalizedDescriptionKey: "An unknown error occured."]))
                     return
             }
             self.token = value[0]["token"].string

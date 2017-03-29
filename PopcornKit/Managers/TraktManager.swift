@@ -47,9 +47,9 @@ open class TraktManager: NetworkManager {
             } else {
                 parameters = ["episode": ["ids": ["tvdb": Int(id)!]], "progress": progress * 100.0]
             }
-            self.manager.request(Trakt.base + Trakt.scrobble + "/\(status.rawValue)", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON(completionHandler: { response in
+            self.manager.request(Trakt.base + Trakt.scrobble + "/\(status.rawValue)", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON { response in
                 if let error = response.result.error { completion?(error as NSError) }
-            })
+            }
         }
     }
     
@@ -88,7 +88,7 @@ open class TraktManager: NetworkManager {
             }
             let type = type is Movie.Type ? Trakt.movies : Trakt.episodes
             let queue = DispatchQueue(label: "com.popcorntimetv.popcornkit.response.queue", attributes: .concurrent)
-            self.manager.request(Trakt.base + Trakt.sync + Trakt.history + type, parameters: ["extended": "full", "limit": Int.max], headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON(queue: queue, options: .allowFragments, completionHandler: { response in
+            self.manager.request(Trakt.base + Trakt.sync + Trakt.history + type, parameters: ["extended": "full", "limit": Int.max], headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON(queue: queue, options: .allowFragments) { response in
                 guard let value = response.result.value else { completion([T](), response.result.error as NSError?); return }
                 let responseObject = JSON(value)
                 var watchedlist = [T]()
@@ -108,7 +108,7 @@ open class TraktManager: NetworkManager {
                     group.leave()
                 }
                 group.notify(queue: .main, execute: { completion(watchedlist, nil) })
-            })
+            }
         }
     }
     
@@ -139,7 +139,7 @@ open class TraktManager: NetworkManager {
                 fatalError("Only retrieving progress for movies and episode is supported.")
             }
             let queue = DispatchQueue(label: "com.popcorntimetv.popcornkit.response.queue", attributes: .concurrent)
-            self.manager.request(Trakt.base + Trakt.sync + Trakt.playback + mediaType, parameters: Trakt.extended, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON(queue: queue, options: .allowFragments, completionHandler: { response in
+            self.manager.request(Trakt.base + Trakt.sync + Trakt.playback + mediaType, parameters: Trakt.extended, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON(queue: queue, options: .allowFragments) { response in
                 guard let value = response.result.value else { completion([:], response.result.error as NSError?); return }
                 let responseObject = JSON(value)
                 let group = DispatchGroup()
@@ -164,7 +164,7 @@ open class TraktManager: NetworkManager {
                     group.leave()
                 }
                 group.notify(queue: .main, execute: { completion(progressDict, nil) })
-            })
+            }
         }
     }
     
@@ -186,8 +186,13 @@ open class TraktManager: NetworkManager {
                 }
             }
             
-            self.manager.request(Trakt.base + Trakt.sync + Trakt.playback + "/\(type.rawValue)", headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON(completionHandler: { (response) in
-                guard let value = response.result.value else { completion?(response.result.error as! NSError); return }
+            self.manager.request(Trakt.base + Trakt.sync + Trakt.playback + "/\(type.rawValue)", headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON { (response) in
+                guard let value = response.result.value else {
+                    if let error = response.result.error as NSError? {
+                        completion?(error)
+                    }
+                    return
+                }
                 
                 let responseObject = JSON(value)
                 
@@ -206,10 +211,10 @@ open class TraktManager: NetworkManager {
                 
                 guard let id = playbackId else { return }
                 
-                self.manager.request(Trakt.base + Trakt.sync + Trakt.playback + "/\(id)", method: .delete, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON(completionHandler: { response in
+                self.manager.request(Trakt.base + Trakt.sync + Trakt.playback + "/\(id)", method: .delete, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON { response in
                     if let error = response.result.error { completion?(error as NSError) }
-                })
-            })
+                }
+            }
         }
     }
     
@@ -237,9 +242,9 @@ open class TraktManager: NetworkManager {
             } else if type == .episodes {
                 parameters = ["episodes": [["ids": ["tvdb": Int(id)!]]]]
             }
-            self.manager.request(Trakt.base + Trakt.sync + Trakt.history + Trakt.remove, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON(completionHandler: { response in
+            self.manager.request(Trakt.base + Trakt.sync + Trakt.history + Trakt.remove, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON { response in
                 if let error = response.result.error { completion?(error as NSError) }
-            })
+            }
         }
     }
     
@@ -267,9 +272,9 @@ open class TraktManager: NetworkManager {
             } else if type == .episodes {
                 parameters = ["episodes": [["ids": ["tvdb": Int(id)!]]]]
             }
-            self.manager.request(Trakt.base + Trakt.sync + Trakt.history, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON(completionHandler: { response in
+            self.manager.request(Trakt.base + Trakt.sync + Trakt.history, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON { response in
                 if let error = response.result.error { completion?(error as NSError) }
-            })
+            }
         }
     }
     
@@ -291,22 +296,22 @@ open class TraktManager: NetworkManager {
             for (_, actor) in responseObject["cast"] {
                 guard var actor = Mapper<Actor>().map(JSONObject: actor.dictionaryObject) else { continue }
                 group.enter()
-                TMDBManager.shared.getCharacterHeadshots(forPersonWithImdbId: actor.imdbId, orTMDBId: actor.tmdbId, completion: { (_, image, error) in
+                TMDBManager.shared.getCharacterHeadshots(forPersonWithImdbId: actor.imdbId, orTMDBId: actor.tmdbId) { (_, image, error) in
                     if let image = image { actor.largeImage = image }
                     actors.append(actor)
                     group.leave()
-                })
+                }
             }
             for (role, people) in responseObject["crew"] {
                 guard let people = Mapper<Crew>().mapArray(JSONObject: people.arrayObject) else { continue }
                 for var person in people {
                     group.enter()
-                    TMDBManager.shared.getCharacterHeadshots(forPersonWithImdbId: person.imdbId, orTMDBId: person.tmdbId, completion: { (_, image, error) in
+                    TMDBManager.shared.getCharacterHeadshots(forPersonWithImdbId: person.imdbId, orTMDBId: person.tmdbId) { (_, image, error) in
                         if let image = image { person.largeImage = image }
                         person.roleType = Role(rawValue: role) ?? .unknown
                         crew.append(person)
                         group.leave()
-                    })
+                    }
                 }
             }
             group.notify(queue: .main, execute: { completion(actors, crew, nil) })
@@ -341,7 +346,7 @@ open class TraktManager: NetworkManager {
                 mediaType = ""
             }
             let queue = DispatchQueue(label: "com.popcorntimetv.popcornkit.response.queue", attributes: .concurrent)
-            self.manager.request(Trakt.base + Trakt.sync + Trakt.watchlist + mediaType, parameters: Trakt.extended, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON(queue: queue, options: .allowFragments, completionHandler: { response in
+            self.manager.request(Trakt.base + Trakt.sync + Trakt.watchlist + mediaType, parameters: Trakt.extended, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON(queue: queue, options: .allowFragments) { response in
                 guard let value = response.result.value else { completion([T](), response.result.error as NSError?); return }
                 let responseObject = JSON(value)
                 var watchlist = [T]()
@@ -358,7 +363,7 @@ open class TraktManager: NetworkManager {
                     media is Movie ?  MovieManager.shared.getInfo(media.id, completion: completion) : ShowManager.shared.getInfo(media.id, completion: completion)
                 }
                 group.notify(queue: .main, execute: { completion(watchlist, nil) })
-            })
+            }
         }
     }
     
@@ -386,9 +391,9 @@ open class TraktManager: NetworkManager {
             } else {
                 parameters = [type.rawValue: [["ids": ["imdb": id]]]]
             }
-            self.manager.request(Trakt.base + Trakt.sync + Trakt.watchlist, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON(completionHandler: { response in
+            self.manager.request(Trakt.base + Trakt.sync + Trakt.watchlist, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON { response in
                 if let error = response.result.error { completion?(error as NSError) }
-            })
+            }
         }
     }
     
@@ -416,9 +421,9 @@ open class TraktManager: NetworkManager {
             } else {
                 parameters = [type.rawValue: [["ids": ["imdb": id]]]]
             }
-            self.manager.request(Trakt.base + Trakt.sync + Trakt.watchlist + Trakt.remove, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON(completionHandler: { response in
+            self.manager.request(Trakt.base + Trakt.sync + Trakt.watchlist + Trakt.remove, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON { response in
                 if let error = response.result.error { completion?(error as NSError) }
-            })
+            }
         }
     }
     
@@ -614,7 +619,7 @@ extension TraktManager {
      
      - Returns: Boolean value indicating the sucess of the operation.
      */
-    @discardableResult public func logout() throws {
+    public func logout() throws {
         return try OAuthCredential.delete(withIdentifier: "trakt")
     }
     

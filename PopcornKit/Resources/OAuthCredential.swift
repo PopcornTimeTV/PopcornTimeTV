@@ -23,7 +23,7 @@ class OAuthCredential: NSObject, NSCoding {
     
     override var description: String {
         get {
-            return "<\(type(of: self)) accessToken:\"\(self.accessToken)\"\n tokenType:\"\(self.tokenType)\"\n refreshToken:\"\(self.refreshToken)\"\n expiration:\"\(self.expiration)\">"
+            return "<\(type(of: self)) accessToken:\"\(self.accessToken)\"\n tokenType:\"\(self.tokenType)\"\n refreshToken:\"\(self.refreshToken ?? "none")\"\n expiration:\"\(self.expiration ?? Date.distantFuture)\">"
         }
     }
     
@@ -220,7 +220,7 @@ class OAuthCredential: NSObject, NSCoding {
      
      - Throws: Error if storing credential fails.
      */
-    @discardableResult func store(
+    func store(
         withIdentifier identifier: String,
         accessibility: AnyObject = kSecAttrAccessibleWhenUnlocked
         ) throws {

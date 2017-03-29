@@ -3,6 +3,7 @@
 import Foundation
 
 extension ShowDetailViewController: SeasonPickerViewControllerDelegate {
+
     
     override func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if presented is SeasonPickerViewController {
@@ -18,4 +19,5 @@ extension ShowDetailViewController: SeasonPickerViewControllerDelegate {
         }
         return super.animationController(forDismissed: dismissed)
     }
+    
 }

@@ -56,14 +56,14 @@ class SubtitleSettings: NSObject, NSCoding {
         guard let color = aDecoder.decodeObject(of: UIColor.self, forKey: "color"),
             let rawSize = aDecoder.decodeObject(forKey: "size") as? CGFloat,
             let size = Size(rawValue: Float(rawSize)),
-            let encoding = aDecoder.decodeObject(of: NSString.self, forKey: "encoding") as? String,
+            let encoding = aDecoder.decodeObject(of: NSString.self, forKey: "encoding") as String?,
             let descriptor = aDecoder.decodeObject(of: UIFontDescriptor.self, forKey: "font"),
-            let rawValue = aDecoder.decodeObject(of: NSString.self, forKey: "style") as? String,
+            let rawValue = aDecoder.decodeObject(of: NSString.self, forKey: "style") as String?,
             let style = UIFont.Style(rawValue: rawValue) else { return nil }
         self.size = size
         self.color = color
         self.encoding = encoding
-        self.language = aDecoder.decodeObject(of: NSString.self, forKey: "language") as? String
+        self.language = aDecoder.decodeObject(of: NSString.self, forKey: "language") as String?
         self.font = UIFont(descriptor: descriptor, size: CGFloat(size.rawValue))
         self.style = style
     }

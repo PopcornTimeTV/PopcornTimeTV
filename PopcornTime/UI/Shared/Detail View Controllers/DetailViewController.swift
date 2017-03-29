@@ -72,7 +72,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     var currentItem: Media!
     var currentSeason = -1
     
-    override func viewDidLoad() {
+    override dynamic func viewDidLoad() {
         super.viewDidLoad()
         
         #if os(iOS)
@@ -334,7 +334,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     
     // MARK: - Presentation
     
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    dynamic func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if presented is PreloadTorrentViewController {
             return PreloadTorrentViewControllerAnimatedTransitioning(isPresenting: true)
         }
@@ -342,7 +342,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         
     }
     
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    dynamic func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if dismissed is PreloadTorrentViewController {
             return PreloadTorrentViewControllerAnimatedTransitioning(isPresenting: false)
         }

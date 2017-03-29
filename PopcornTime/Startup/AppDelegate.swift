@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         #elseif os(iOS)
             NetworkActivityIndicatorManager.shared.isEnabled = true
             
-            /// Weird SDK throws error if shared instance has already been initialised and doesn't mark function as throwing.
+            // Weird SDK throws error if shared instance has already been initialised and doesn't mark function as throwing.
             do { try GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID)) }
             
             (window?.rootViewController as? UITabBarController)?.delegate = self
@@ -60,6 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         window?.tintColor = .app
         
         TraktManager.shared.syncUserData()
+        awakeObjects()
         
         return true
     }
@@ -151,15 +152,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         SubtitlesManager.shared.logout()
     }
     
-    var isCydiaInstalled: Bool {
-        return UIApplication.shared.canOpenURL(URL(string: "cydia://")!)
-    }
-    
-    func open(cydiaUrl url: URL) {
-        if #available(iOS 10.0, tvOS 10.0, *) {
-            UIApplication.shared.open(url, options: [:])
-        } else {
-            UIApplication.shared.openURL(url)
-        }
+    func awakeObjects() {
+        let typeCount = Int(objc_getClassList(nil, 0))
+        let types = UnsafeMutablePointer<AnyClass?>.allocate(capacity: typeCount)
+        let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyClass?>(types)
+        objc_getClassList(autoreleasingTypes, Int32(typeCount))
+        for index in 0 ..< typeCount { (types[index] as? Object.Type)?.awake() }
+        types.deallocate(capacity: typeCount)
     }
 }

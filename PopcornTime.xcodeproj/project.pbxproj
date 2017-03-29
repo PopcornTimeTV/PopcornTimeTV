@@ -10,6 +10,8 @@
 		04F4209BB78798B2353778E5 /* Pods_PopcornKit_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44441B28B134A26461FAE05C /* Pods_PopcornKit_tvOS.framework */; };
 		1C241A70671F5212AFDB94E3 /* Pods_TopShelf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */; };
 		4D0183A91DC3ACB500AB75B3 /* Locale+Langs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */; };
+		4D07E17C1E8C364F00457FCB /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D07E17B1E8C364F00457FCB /* Object.swift */; };
+		4D07E17D1E8C365200457FCB /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D07E17B1E8C364F00457FCB /* Object.swift */; };
 		4D0E130B1E6709EB0000AD65 /* UICollectionViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E130A1E6709EB0000AD65 /* UICollectionViewController+Extension.swift */; };
 		4D0E130C1E6709EB0000AD65 /* UICollectionViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E130A1E6709EB0000AD65 /* UICollectionViewController+Extension.swift */; };
 		4D0E130E1E671E050000AD65 /* TVTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E130D1E671E050000AD65 /* TVTabBarController.swift */; };
@@ -372,6 +374,7 @@
 		287B85401C9873A200EEF5C8 /* iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = iOS.plist; sourceTree = "<group>"; };
 		44441B28B134A26461FAE05C /* Pods_PopcornKit_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopcornKit_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Locale+Langs.swift"; sourceTree = "<group>"; };
+		4D07E17B1E8C364F00457FCB /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 		4D0E130A1E6709EB0000AD65 /* UICollectionViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewController+Extension.swift"; sourceTree = "<group>"; };
 		4D0E130D1E671E050000AD65 /* TVTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVTabBarController.swift; path = "View Controllers/TVTabBarController.swift"; sourceTree = "<group>"; };
 		4D0F9CFC1E6F296400860852 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = PopcornKit/Managers/NetworkManager.swift; sourceTree = SOURCE_ROOT; };
@@ -952,6 +955,7 @@
 				4D990E2B1DC4F00F005CDE34 /* EncodingTypes.plist */,
 				4D990E321DC4F028005CDE34 /* Images.xcassets */,
 				4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */,
+				4D07E17B1E8C364F00457FCB /* Object.swift */,
 				4DC2D1361E5B25750019DB7D /* AutoPlayStoryboardSegue.swift */,
 			);
 			path = Resources;
@@ -1690,6 +1694,7 @@
 				4DCB393A1E844D4500388374 /* UIAlertController+Show.swift in Sources */,
 				4D0F9E4A1E705BD100860852 /* Show+Extension.swift in Sources */,
 				4DC2D1371E5B25750019DB7D /* AutoPlayStoryboardSegue.swift in Sources */,
+				4D07E17C1E8C364F00457FCB /* Object.swift in Sources */,
 				4D7376021DFDC6F500505CA0 /* NSNotificationName+Extension.swift in Sources */,
 				4D0F9DF61E70579C00860852 /* GradientView.swift in Sources */,
 				4D859BB01DDFA1B7000E2AA1 /* OptionsViewController.swift in Sources */,
@@ -1906,6 +1911,7 @@
 				4D859B871DDFA13D000E2AA1 /* BlurButton.swift in Sources */,
 				4DBE60981E5E590500C2549B /* MovieDetailViewController+iOS.swift in Sources */,
 				4D859B761DDFA12C000E2AA1 /* UIExpandableTextView.swift in Sources */,
+				4D07E17D1E8C365200457FCB /* Object.swift in Sources */,
 				4D8A57471DE10DFE00CCDF8A /* UIViewController+StatusBar.swift in Sources */,
 				4D0F9DD11E70564C00860852 /* DetailViewController.swift in Sources */,
 				4D0F9E121E7057F100860852 /* ShowsViewController.swift in Sources */,
