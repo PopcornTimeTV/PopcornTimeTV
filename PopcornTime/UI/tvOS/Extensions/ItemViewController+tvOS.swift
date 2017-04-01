@@ -3,11 +3,12 @@
 import Foundation
 import AVKit
 import XCDYouTubeKit
-import PopcornKit
+import struct PopcornKit.Show
+import struct PopcornKit.Movie
 
 extension ItemViewController: UIViewControllerTransitioningDelegate {
     
-    private var visibleButtons: [TVButton] {
+    var visibleButtons: [TVButton] {
         return [trailerButton, playButton, seasonsButton, watchlistButton, watchedButton].flatMap({$0}).filter({$0.superview != nil})
     }
     
@@ -50,21 +51,21 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
                 items.forEach({peopleText.append(NSAttributedString(string: $0 + "\n", attributes: itemAttribtues))})
             }
             
-            if let genre = movie.genres.first?.capitalized {
-                appendSection("GENRE", [genre])
+            if let genre = movie.genres.first?.localizedCapitalized {
+                appendSection("Genre".localized.localizedUppercase, [genre])
             }
             
             let directors = movie.crew.filter({$0.roleType == .director}).flatMap({$0.name})
             
             if !directors.isEmpty {
                 let isSingular = directors.count == 1
-                appendSection(isSingular ? "DIRECTOR" : "DIRECTORS", directors)
+                appendSection(isSingular ? "Director".localized.localizedUppercase : "Directors".localized.localizedUppercase, directors)
             }
             
             let actors = movie.actors.flatMap({$0.name})
             
             if !actors.isEmpty {
-                appendSection("STARING", actors)
+                appendSection("Staring".localized.localizedUppercase, actors)
             }
             
             peopleTextView?.attributedText = peopleText
@@ -82,9 +83,9 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             seasonsButton?.removeFromSuperview()
         } else if let show = media as? Show {
             titleLabel.text = ""
-            infoLabel.text = "Watch \(show.title) on \(show.network ?? "TV")"
+            infoLabel.text = "Watch".localized + " \(show.title) " + "On".localized.localizedLowercase + " \(show.network ?? "TV")"
             
-            let subtitle = NSMutableAttributedString(string: "\(show.genres.first?.capitalized ?? "")\t\(show.year)")
+            let subtitle = NSMutableAttributedString(string: "\(show.genres.first?.localizedCapitalized ?? "")\t\(show.year)")
             attributedString(between: "HD", "CC").forEach({subtitle.append($0)})
             
             subtitleLabel.font = UIFont.systemFont(ofSize: 31, weight: UIFontWeightMedium)
@@ -164,9 +165,9 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             guard let url = videoUrl else {
                 self.dismiss(animated: true)
                 
-                let vc = UIAlertController(title: "Error", message: "Error fetching valid trailer URL from Youtube.", preferredStyle: .alert)
+                let vc = UIAlertController(title: "Error".localized, message: "Error fetching valid trailer URL from YouTube.".localized, preferredStyle: .alert)
                 
-                vc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                vc.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: nil))
                 
                 self.present(vc, animated: true)
                 

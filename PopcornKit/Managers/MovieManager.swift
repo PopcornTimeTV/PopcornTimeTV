@@ -87,7 +87,7 @@ open class MovieManager: NetworkManager {
         searchTerm: String?,
         orderBy order: Orders,
         completion: @escaping (_ movies: [Movie]?, _ error: NSError?) -> Void) {
-        var params: [String: Any] = ["sort": filter.rawValue, "order": order.rawValue, "genre": genre.rawValue.replacingOccurrences(of: " ", with: "-").lowercased()]
+        var params: [String: Any] = ["sort": filter.rawValue, "order": order.rawValue, "genre": genre.rawValue.replacingOccurrences(of: " ", with: "-").localizedLowercase]
         if let searchTerm = searchTerm , !searchTerm.isEmpty {
             params["keywords"] = searchTerm
         }

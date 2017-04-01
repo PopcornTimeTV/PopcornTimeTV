@@ -1,7 +1,8 @@
 
 
 import Foundation
-import PopcornKit
+import struct PopcornKit.Episode
+import class PopcornKit.WatchedlistManager
 
 class EpisodeCollectionViewCell: BaseCollectionViewCell {
     

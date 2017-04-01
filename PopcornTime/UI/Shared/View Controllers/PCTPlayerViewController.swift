@@ -289,13 +289,13 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             self.loadingActivityIndicatorView.isHidden = true
             
             
-            continueWatchingAlert.addAction(UIAlertAction(title: "Resume Playing", style: .default, handler:{ action in
+            continueWatchingAlert.addAction(UIAlertAction(title: "Resume Playing".localized, style: .default, handler:{ action in
                 UIDevice.current.userInterfaceIdiom == .tv ? NotificationCenter.default.removeObserver(self, name: .UIViewControllerFocusedViewDidChange, object: continueWatchingAlert) : ()
                 self.resumePlayback = true
                 self.loadingActivityIndicatorView.isHidden = false
                 self.mediaplayer.play()
             }))
-            continueWatchingAlert.addAction(UIAlertAction(title: "Start from Begining", style: .default, handler: { action in
+            continueWatchingAlert.addAction(UIAlertAction(title: "Start from Begining".localized, style: .default, handler: { action in
                 UIDevice.current.userInterfaceIdiom == .tv ? NotificationCenter.default.removeObserver(self, name: .UIViewControllerFocusedViewDidChange, object: continueWatchingAlert) : ()
                 self.loadingActivityIndicatorView.isHidden = false
                 self.mediaplayer.play()
@@ -328,7 +328,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
 
         if let nextEpisode = nextEpisode {
             upNextView.delegate = self
-            upNextView.subtitleLabel.text = "Season \(nextEpisode.season) Episode \(nextEpisode.episode)"
+            upNextView.subtitleLabel.text = "Season".localized + " \(nextEpisode.season) " + "Episode".localized + " \(nextEpisode.episode)"
             upNextView.titleLabel.text = nextEpisode.title
             upNextView.infoLabel.text = UIDevice.current.userInterfaceIdiom == .tv ? nextEpisode.summary : nextEpisode.show.title
             TMDBManager.shared.getEpisodeScreenshots(forShowWithImdbId: nextEpisode.show.id, orTMDBId: nextEpisode.show.tmdbId, season: nextEpisode.season, episode: nextEpisode.episode, completion: { (tmdbId, image, error) in

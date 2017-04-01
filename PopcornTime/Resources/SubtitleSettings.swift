@@ -16,13 +16,13 @@ class SubtitleSettings: NSObject, NSCoding {
         var string: String {
             switch self {
             case .small:
-                return "Small"
+                return "Small".localized
             case .medium:
-                return "Medium"
+                return "Medium".localized
             case .mediumLarge:
-                return "Medium Large"
+                return "Medium Large".localized
             case .large:
-                return "Large"
+                return "Large".localized
             }
         }
         

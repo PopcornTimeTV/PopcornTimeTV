@@ -4,7 +4,7 @@ import Foundation
 
 @IBDesignable class UIExpandableTextView: UITextView {
     
-    @IBInspectable var trailingText: String = "more"
+    @IBInspectable var trailingText: String = "More".localized.localizedLowercase
     @IBInspectable var ellipsesString: String = "..."
     @IBInspectable var trailingTextColor: UIColor = .app
     

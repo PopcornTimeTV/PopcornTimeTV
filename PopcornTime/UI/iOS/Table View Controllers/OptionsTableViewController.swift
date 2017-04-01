@@ -1,7 +1,7 @@
 
 
 import UIKit
-import PopcornKit
+import struct PopcornKit.Subtitle
 
 protocol OptionsViewControllerDelegate: class {
     func didSelectSubtitle(_ subtitle: Subtitle?)
@@ -44,11 +44,11 @@ class OptionsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "Audio Delay"
+            return "Audio Delay".localized
         case 1:
-            return "Subtitle Delay"
+            return "Subtitle Delay".localized
         case 2:
-            return "Subtitle Language"
+            return "Subtitle Language".localized
         default:
             return nil
         }
@@ -79,10 +79,10 @@ class OptionsTableViewController: UITableViewController {
         switch indexPath.section {
         case 0:
             cell = tableView.dequeueReusableCell(withIdentifier: "delayCell", for: indexPath)
-            cell.textLabel?.text = (currentAudioDelay > 0 ? "+" : "") + "\(currentAudioDelay).0"
+            cell.textLabel?.text = (currentAudioDelay > 0 ? "+" : "") + NumberFormatter.localizedString(from: NSNumber(value: currentAudioDelay), number: .decimal)
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: "delayCell", for: indexPath)
-            cell.textLabel?.text = (currentSubtitleDelay > 0 ? "+" : "") + "\(currentSubtitleDelay).0"
+            cell.textLabel?.text = (currentSubtitleDelay > 0 ? "+" : "") + NumberFormatter.localizedString(from: NSNumber(value: currentSubtitleDelay), number: .decimal)
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.textLabel?.text = subtitles[indexPath.row].language

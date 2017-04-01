@@ -1,7 +1,8 @@
 
 
 import Foundation
-import PopcornKit
+import struct PopcornKit.Show
+import class PopcornKit.TMDBManager
 
 protocol SeasonPickerViewControllerDelegate: class {
     func change(to season: Int)
@@ -81,7 +82,7 @@ class SeasonPickerViewController: UIViewController, UICollectionViewDelegate, UI
         
         let season = seasons[indexPath.row]
         
-        cell.titleLabel.text = "Season \(season.number)"
+        cell.titleLabel.text = "Season".localized + " \(season.number)"
         
         if let image = season.image, let url = URL(string: image) {
             cell.imageView.af_setImage(withURL: url)

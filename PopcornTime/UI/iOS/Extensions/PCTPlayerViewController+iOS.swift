@@ -2,7 +2,7 @@
 
 import Foundation
 import UIKit
-import PopcornKit
+import struct PopcornKit.Movie
 
 extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, GoogleCastTableViewControllerDelegate {
     
@@ -56,17 +56,17 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
         var text = ""
         switch progressBar.progressSlider.scrubbingSpeed {
         case 1.0:
-            text = "Hi-Speed"
+            text = "Hi-Speed".localized
         case 0.5:
-            text = "Half-Speed"
+            text = "Half-Speed".localized
         case 0.25:
-            text = "Quarter-Speed"
+            text = "Quarter-Speed".localized
         case 0.1:
-            text = "Fine"
+            text = "Fine".localized
         default:
             break
         }
-        text += " Scrubbing"
+        text += " " + "Scrubbing".localized
         scrubbingSpeedLabel!.text = text
         positionSliderDidDrag()
     }

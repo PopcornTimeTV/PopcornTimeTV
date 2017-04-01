@@ -17,20 +17,20 @@ class ErrorBackgroundView: UIView {
         let title: String
         switch error.code {
         case -1200:
-            title = "SSL Error"
-            helpfulDescription = "It looks like your ISP/Network admin is blocking our servers. You can try again with a VPN to hide your internet traffic from them. Please do so your own risk."
+            title = "SSL Error".localized
+            helpfulDescription = "It looks like your ISP/Network admin is blocking our servers. You can try again with a VPN to hide your internet traffic from them. Please do so your own risk.".localized
         case -404:
-            title = "Not found"
-            helpfulDescription = "Please check your internet connection and try again."
+            title = "Not found".localized
+            helpfulDescription = "Please check your internet connection and try again.".localized
         case -403:
-            title = "Forbidden"
-            helpfulDescription = "Sorry, it looks like you're not on the guest list!"
+            title = "Forbidden".localized
+            helpfulDescription = "Sorry, it looks like you're not on the guest list!".localized
         case -1005, -1009:
-            title = "You're Offline"
-            helpfulDescription = "Please make sure you have a valid internet connection and try again."
+            title = "You're Offline".localized
+            helpfulDescription = "Please make sure you have a valid internet connection and try again.".localized
         default:
-            title = "Unknown Error"
-            helpfulDescription = "Uh Oh! An unknown error has occured (\(error.localizedDescription)). Please try again."
+            title = "Unknown Error".localized
+            helpfulDescription = error.localizedDescription
         }
         setUpView(title: title, description: helpfulDescription)
     }

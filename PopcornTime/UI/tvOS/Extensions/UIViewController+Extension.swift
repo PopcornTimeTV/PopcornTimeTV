@@ -4,12 +4,12 @@ import Foundation
 
 extension UIViewController: Object {
     
-    
-    
     @objc private func pctFocusedViewDidChange() {
         NotificationCenter.default.post(name: .UIViewControllerFocusedViewDidChange, object: self)
         self.pctFocusedViewDidChange()
     }
+    
+    
     
     class func awake() {
 

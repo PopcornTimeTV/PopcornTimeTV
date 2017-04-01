@@ -20,7 +20,7 @@ extension SearchViewController {
         }
         
         searchBar = searchController.searchBar
-        searchBar.scopeButtonTitles = ["Movies", "Shows", "People"]
+        searchBar.scopeButtonTitles = ["Movies".localized, "Shows".localized, "People".localized]
         searchBar.showsScopeBar = true
         searchBar.delegate = self
         searchBar.keyboardAppearance = .dark

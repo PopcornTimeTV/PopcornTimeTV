@@ -37,7 +37,6 @@ class ItemViewController: UIViewController {
     var environmentsToFocus: [UIFocusEnvironment] = []
     
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
-        defer { environmentsToFocus.removeAll() }
         return environmentsToFocus.isEmpty ? super.preferredFocusEnvironments : environmentsToFocus
     }
     

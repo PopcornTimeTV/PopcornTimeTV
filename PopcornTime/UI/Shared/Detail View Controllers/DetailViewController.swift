@@ -89,7 +89,8 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             focusButtonsGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
             focusButtonsGuide.bottomAnchor.constraint(equalTo: backgroundVisualEffectView!.topAnchor).isActive = true
             
-            focusButtonsGuide.preferredFocusEnvironments = itemViewController.preferredFocusEnvironments
+            focusButtonsGuide.preferredFocusEnvironments = itemViewController.visibleButtons
+            
         #endif
         
         navigationItem.title = currentItem.title
@@ -144,18 +145,17 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         
         if let quality = UserDefaults.standard.string(forKey: "autoSelectQuality") {
             let sorted  = media.torrents.sorted(by: <)
-            let torrent = quality == "highest" ? sorted.last! : sorted.first!
+            let torrent = quality == "Highest".localized ? sorted.last! : sorted.first!
             
-            play(media, torrent: torrent)
-            return
+            return play(media, torrent: torrent)
         }
         
         guard media.torrents.count > 1 else {
             if let torrent = media.torrents.first {
                 play(media, torrent: torrent)
             } else {
-                let vc = UIAlertController(title: "No torrents found", message: "Torrents could not be found for the specified media.", preferredStyle: .alert)
-                vc.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                let vc = UIAlertController(title: "No torrents found".localized, message: "Torrents could not be found for the specified media.".localized, preferredStyle: .alert)
+                vc.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: nil))
                 vc.show()
             }
             return
@@ -163,7 +163,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         
         let style: UIAlertControllerStyle = sender == nil ? .alert : .actionSheet
         let blurStyle: UIBlurEffectStyle  = style == .alert ? .extraLight : .dark
-        let vc = UIAlertController(title: "Choose Quality", message: "Choose a quality to stream.", preferredStyle: style, blurStyle: blurStyle)
+        let vc = UIAlertController(title: "Choose Quality".localized, message: "Choose a quality to stream.".localized, preferredStyle: style, blurStyle: blurStyle)
         
         for torrent in media.torrents {
             vc.addAction(UIAlertAction(title: torrent.quality, style: .default, handler: { (action) in
@@ -171,7 +171,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             }))
         }
         
-        vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        vc.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
         
         if let sender = sender as? UIView {
             vc.popoverPresentationController?.sourceView = sender
@@ -226,8 +226,8 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             present(loadingViewController, animated: true)
             
             let error: (String) -> Void = { (errorMessage) in
-                let vc = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
-                vc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                let vc = UIAlertController(title: "Error".localized, message: errorMessage, preferredStyle: .alert)
+                vc.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: nil))
                 self.present(vc, animated: true)
             }
             
@@ -257,12 +257,12 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
                 media.play(fromFileOrMagnetLink: torrent.url, nextEpisodeInSeries: nextEpisode, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
             }
         } else {
-            let errorAlert = UIAlertController(title: "Cellular Data is turned off for streaming", message: nil, preferredStyle: .alert)
-            errorAlert.addAction(UIAlertAction(title: "Turn On", style: .default, handler: { [weak self] _ in
+            let errorAlert = UIAlertController(title: "Cellular Data is turned off for streaming".localized, message: nil, preferredStyle: .alert)
+            errorAlert.addAction(UIAlertAction(title: "Turn On".localized, style: .default, handler: { [weak self] _ in
                 UserDefaults.standard.set(true, forKey: "streamOnCellular")
                 self?.play(media, torrent: torrent)
             }))
-            errorAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            errorAlert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
             errorAlert.show()
         }
     }
@@ -288,10 +288,10 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         } else if segue.identifier == "embedEpisodes", let vc = segue.destination as? EpisodesCollectionViewController {
             episodesCollectionViewController = vc
         } else if let vc = segue.destination as? DescriptionCollectionViewController, segue.identifier == "embedAccessibility" {
-            vc.headerTitle = "Accessibility"
+            vc.headerTitle = "Accessibility".localized
             
             let key = UIImage(named: "SDH")!.colored(.white)!.attributed
-            let value = "Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original lanuage with the addition of relevant non-dialog information."
+            let value = "Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original lanuage with the addition of relevant non-dialog information.".localized
             
             vc.dataSource = [(key, value)]
             

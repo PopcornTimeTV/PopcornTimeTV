@@ -230,7 +230,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
             }
             
             if UIDevice.current.userInterfaceIdiom == .tv {
-                _cell.subtitleLabel.text = _cell.subtitleLabel.text?.uppercased()
+                _cell.subtitleLabel.text = _cell.subtitleLabel.text?.localizedUppercase
             }
             
             cell = _cell

@@ -26,7 +26,7 @@ class PersonViewController: MainViewController {
         
         let completion: ([AnyHashable], NSError?) -> Void = { [unowned self] (data, error) in
             self.collectionViewController.dataSources[0] += data
-            self.collectionViewController.dataSources[0].uniqued()
+            self.collectionViewController.dataSources[0].unique()
             self.collectionViewController.error = error
             group.leave()
         }
@@ -49,7 +49,11 @@ class PersonViewController: MainViewController {
     
     override func collectionView(isEmptyForUnknownReason collectionView: UICollectionView) {
         if let background: ErrorBackgroundView = .fromNib() {
-            background.setUpView(title: "No results", description: "We didn't turn up any movies or tv shows for \"\(currentItem.name)\". Try someone else.")
+            let openQuote = Locale.current.quotationBeginDelimiter ?? "\""
+            let closeQuote = Locale.current.quotationEndDelimiter ?? "\""
+            
+            background.setUpView(title: "No results".localized, description: String.localizedStringWithFormat("We didn't turn anything up for %@. Try something else.", "\(openQuote + currentItem.name + closeQuote)"))
+            
             collectionView.backgroundView = background
         }
     }

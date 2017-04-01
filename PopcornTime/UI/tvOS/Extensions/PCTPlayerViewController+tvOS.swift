@@ -147,9 +147,9 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate {
                 let isHighlighted = view.value(forKey: "isHighlighted") as? Bool,
                 isHighlighted else { continue }
             
-            if title == "Resume Playing" {
+            if title == "Resume Playing".localized {
                 progressBar.progress = startPosition
-            } else if title == "Start from Begining" {
+            } else if title == "Start from Begining".localized {
                 progressBar.progress = 0
             }
             

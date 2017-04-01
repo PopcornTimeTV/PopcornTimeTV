@@ -2,7 +2,7 @@
 
 import UIKit
 import AlamofireImage
-import PopcornKit
+import struct PopcornKit.Episode
 
 class EpisodeDetailViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
@@ -27,7 +27,7 @@ class EpisodeDetailViewController: UIViewController, UIScrollViewDelegate, UIGes
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        subtitleLabel.text = "SEASON \(episode.season) • EPISODE \(episode.episode)"
+        subtitleLabel.text = "Season".localized.localizedUppercase + " \(episode.season) • " + "Episode".localized.localizedUppercase + " \(episode.episode)"
         titleLabel.text = episode.title
         summaryTextView.text = episode.summary
         

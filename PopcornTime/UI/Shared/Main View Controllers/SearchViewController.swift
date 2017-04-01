@@ -92,7 +92,12 @@ class SearchViewController: MainViewController, UISearchBarDelegate {
     override func collectionView(isEmptyForUnknownReason collectionView: UICollectionView) {
         if let background: ErrorBackgroundView = .fromNib(),
             let text = searchBar.text, !text.isEmpty {
-            background.setUpView(title: "No Results", description: "We didn't turn up anything for \"\(text)\". Try something else.")
+            
+            let openQuote = Locale.current.quotationBeginDelimiter ?? "\""
+            let closeQuote = Locale.current.quotationEndDelimiter ?? "\""
+            
+            background.setUpView(title: "No results".localized, description: String.localizedStringWithFormat("We didn't turn anything up for %@. Try something else.", "\(openQuote + text + closeQuote)"))
+            
             collectionView.backgroundView = background
         }
     }

@@ -17,7 +17,7 @@ extension ShowDetailViewController {
         let handler: (UIAlertAction) -> Void = { [unowned self] action in
             guard
                 let title = action.title,
-                let string = title.components(separatedBy: "Season ").last,
+                let string = title.components(separatedBy: "Season".localized + " ").last,
                 let season = Int(string)
                 else {
                     return
@@ -27,11 +27,11 @@ extension ShowDetailViewController {
         }
         
         show.seasonNumbers.forEach({
-            controller.addAction(UIAlertAction(title: "Season \($0)", style: .default, handler: handler))
+            controller.addAction(UIAlertAction(title: "Season".localized + " \($0)", style: .default, handler: handler))
         })
         
-        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        controller.preferredAction = controller.actions.first(where: {$0.title == "Season \(self.currentSeason)"})
+        controller.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
+        controller.preferredAction = controller.actions.first(where: {$0.title == "Season".localized + " \(self.currentSeason)"})
         controller.popoverPresentationController?.sourceView = sender
         
         present(controller, animated: true)

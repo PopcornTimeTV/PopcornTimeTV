@@ -2,7 +2,7 @@
 
 import Foundation
 import MediaPlayer
-import PopcornKit
+import PopcornKit.MPAVRoutingController
 
 class AirPlayTableViewCell: UITableViewCell {
     
@@ -36,13 +36,13 @@ class AirPlayTableViewCell: UITableViewCell {
     
     func activeRouteDidChange() {
         if let picked = routingController.pickedRoute, let video = picked.wirelessDisplay {
-            let alertController = UIAlertController(title: "Mirroring route detected", message: "Would you like to mirror current display to device?", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Mirroring route detected".localized, message: "Would you like to mirror current display to device?".localized, preferredStyle: .alert)
             
-            alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+            alertController.addAction(UIAlertAction(title: "Yes".localized, style: .default, handler: { (_) in
                 self.routingController.pick(video)
             }))
             
-            alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: "No".localized, style: .cancel, handler: nil))
             
             parent?.present(alertController, animated: true)
         }

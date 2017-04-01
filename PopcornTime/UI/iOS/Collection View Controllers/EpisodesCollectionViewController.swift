@@ -2,7 +2,7 @@
 
 import Foundation
 import AlamofireImage
-import PopcornKit
+import struct PopcornKit.Episode
 
 class EpisodesCollectionViewController: ResponsiveCollectionViewController, UICollectionViewDelegateFlowLayout, UIViewControllerTransitioningDelegate {
     

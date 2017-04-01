@@ -1,7 +1,7 @@
 
 
 import UIKit
-import PopcornKit
+import struct PopcornKit.Subtitle
 
 protocol OptionsViewControllerDelegate: class {
     func didSelectSubtitle(_ subtitle: Subtitle?)

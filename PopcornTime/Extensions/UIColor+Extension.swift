@@ -32,36 +32,36 @@ extension UIColor {
         return rgb
     }
     
-    @nonobjc var string: String? {
+    @nonobjc var localizedString: String? {
         switch self {
         case UIColor.black:
-            return "Black"
+            return "Black".localized
         case UIColor.darkGray:
-            return "Dark Gray"
+            return "Dark Gray".localized
         case UIColor.lightGray:
-            return "Light Gray"
+            return "Light Gray".localized
         case UIColor.white:
-            return "White"
+            return "White".localized
         case UIColor.gray:
-            return "Gray"
+            return "Gray".localized
         case UIColor.red:
-            return "Red"
+            return "Red".localized
         case UIColor.green:
-            return "Green"
+            return "Green".localized
         case UIColor.blue:
-            return "Blue"
+            return "Blue".localized
         case UIColor.cyan:
-            return "Cyan"
+            return "Cyan".localized
         case UIColor.yellow:
-            return "Yellow"
+            return "Yellow".localized
         case UIColor.magenta:
-            return "Magenta"
+            return "Magenta".localized
         case UIColor.orange:
-            return "Orange"
+            return "Orange".localized
         case UIColor.purple:
-            return "Purple"
+            return "Purple".localized
         case UIColor.brown:
-            return "Brown"
+            return "Brown".localized
         default:
             return nil
         }

@@ -49,11 +49,16 @@ open class SubtitlesManager: NetworkManager {
                 response.result.isSuccess && status == "200" else { DispatchQueue.main.async(execute: {completion([], response.result.error as NSError?)}); return}
             var subtitles = [Subtitle]()
             for info in data {
-                guard let languageName = info["LanguageName"].string,
+                guard
                     let subDownloadLink = info["SubDownloadLink"].string,
                     let ISO639 = info["ISO639"].string,
-                    !subtitles.contains(where: {$0.language == languageName}) else { continue }
-                subtitles.append(Subtitle(language: languageName, link: subDownloadLink, ISO639: ISO639))
+                    let localizedLanguageName = Locale.current.localizedString(forLanguageCode: ISO639),
+                    !subtitles.contains(where: {$0.language == localizedLanguageName})
+                    else {
+                        continue
+                }
+                
+                subtitles.append(Subtitle(language: localizedLanguageName, link: subDownloadLink, ISO639: ISO639))
             }
             subtitles.sort(by: { $0.language < $1.language })
             DispatchQueue.main.async(execute: { completion(subtitles, nil) })

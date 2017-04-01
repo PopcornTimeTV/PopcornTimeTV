@@ -1,7 +1,7 @@
 
 
 import UIKit
-import PopcornKit
+import struct PopcornKit.Subtitle
 
 class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource {
     
@@ -24,7 +24,7 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
     }()
     let delays: [Int] = {
         var delays = [Int]()
-        for delay in -5...5 {
+        for delay in -60...60 {
             delays.append(delay)
         }
         return delays
@@ -51,7 +51,7 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
             cell.accessoryType = currentSubtitle == subtitles[indexPath.row] ? .checkmark : .none
         case secondTableView:
             let delay = delays[indexPath.row]
-            cell.textLabel?.text = (delay > 0 ? "+" : "") + "\(delay).0"
+            cell.textLabel?.text = (delay > 0 ? "+" : "") + NumberFormatter.localizedString(from: NSNumber(value: delay), number: .decimal)
             cell.accessoryType = currentDelay == delay ? .checkmark : .none
         case thirdTableView:
             cell.textLabel?.text = Array(encodings.keys)[indexPath.row]
@@ -65,11 +65,11 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch tableView {
         case firstTableView:
-            return "Language"
+            return "Language".localized
         case secondTableView:
-            return "Delay"
+            return "Delay".localized
         case thirdTableView:
-            return "Encoding"
+            return "Encoding".localized
         default:
             return nil
         }
@@ -82,7 +82,7 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
         if tableView == firstTableView && subtitles.isEmpty {
             let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 200.0, height: 20)))
             tableView.backgroundView = label
-            label.text = "No subtitles available."
+            label.text = "No subtitles available.".localized
             label.textColor = UIColor(white: 1.0, alpha: 0.5)
             label.textAlignment = .center
             label.font = UIFont.systemFont(ofSize: 35.0, weight: UIFontWeightMedium)

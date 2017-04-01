@@ -45,7 +45,7 @@ class InfoViewController: UIViewController {
                 let season = "S\(episode.season):E\(episode.episode)"
                 let date = DateFormatter.localizedString(from: episode.firstAirDate, dateStyle: .medium, timeStyle: .none)
                 let runtime = episode.show.formattedRuntime
-                let genre = episode.show.genres.first?.capitalized
+                let genre = episode.show.genres.first?.localizedCapitalized
                 
                 
                 let info = NSMutableAttributedString(string: [season, date, runtime, genre].flatMap({$0}).joined(separator: "\t"))

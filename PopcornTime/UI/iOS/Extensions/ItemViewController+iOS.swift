@@ -1,7 +1,8 @@
 
 
 import Foundation
-import PopcornKit
+import struct PopcornKit.Show
+import struct PopcornKit.Movie
 import XCDYouTubeKit
 
 typealias TVExpandableTextView = UIExpandableTextView
@@ -21,7 +22,7 @@ extension ItemViewController {
         
         if let movie = media as? Movie {
             subtitleLabel.text = movie.formattedRuntime
-            genreLabel?.text = movie.genres.first?.capitalized ?? ""
+            genreLabel?.text = movie.genres.first?.localizedCapitalized ?? ""
             
             let info = NSMutableAttributedString(string: "\(movie.year)")
             attributedString(with: 10, between: movie.certification, "HD", "CC").forEach({info.append($0)})
@@ -32,7 +33,7 @@ extension ItemViewController {
             trailerButton.isHidden = movie.trailerCode == nil
         } else if let show = media as? Show {
             subtitleLabel.text = show.network ?? "TV"
-            genreLabel?.text = show.genres.first?.capitalized ?? ""
+            genreLabel?.text = show.genres.first?.localizedCapitalized ?? ""
             
             let info = NSMutableAttributedString(string: "\(show.year)")
             attributedString(with: 10, between: "HD", "CC").forEach({info.append($0)})

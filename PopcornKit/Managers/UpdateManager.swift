@@ -86,7 +86,7 @@ public final class UpdateManager: NSObject {
                 let currentRelease = sortedReleases.filter({$0.buildNumber == self.currentApplicationVersion}).first,
                 latestRelease > currentRelease && self.skipReleaseVersion?.buildNumber != latestRelease.buildNumber {
 
-                let alert = UIAlertController(title: "Update Available", message: "\(latestRelease.releaseType.rawValue.capitalized) version \(latestRelease.buildNumber) of Popcorn Time is now available.", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Update Available", message: "\(latestRelease.releaseType.rawValue.localizedCapitalized) version \(latestRelease.buildNumber) of Popcorn Time is now available.", preferredStyle: .alert)
 
                 alert.addAction(UIAlertAction(title: "Maybe Later", style: .default, handler: nil))
                 

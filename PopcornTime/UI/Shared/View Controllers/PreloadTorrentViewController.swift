@@ -35,7 +35,7 @@ class PreloadTorrentViewController: UIViewController {
     var seeds: Int = 0 {
         didSet {
             seedsLabel.isHidden = false
-            seedsLabel.text = "\(seeds) seeds"
+            seedsLabel.text = "\(seeds) " + "Seeds".localized.localizedLowercase
         }
     }
     

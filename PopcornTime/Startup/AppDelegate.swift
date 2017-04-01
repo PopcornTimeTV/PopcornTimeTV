@@ -52,8 +52,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         if !UserDefaults.standard.bool(forKey: "tosAccepted") {
             let vc = UIStoryboard.main.instantiateViewController(withIdentifier: "TermsOfServiceNavigationController")
             window?.makeKeyAndVisible()
-            window?.rootViewController?.present(vc, animated: false)
-            UserDefaults.standard.set(0.75, forKey: "themeSongVolume")
+            UserDefaults.standard.set(0.25, forKey: "themeSongVolume")
+            OperationQueue.main.addOperation {
+                self.window?.rootViewController?.present(vc, animated: false)
+            }
         }
         
         reachability.startNotifier()

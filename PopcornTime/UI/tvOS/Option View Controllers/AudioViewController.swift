@@ -12,16 +12,16 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource, Ai
     var speakers = [MPAVRoute]()
     let delays: [Int] = {
         var delays = [Int]()
-        for delay in -5...5 {
+        for delay in -60...60 {
             delays.append(delay)
         }
         return delays
     }()
-    let sounds = ["Full Dynamic Range", "Reduce Loud Sounds"]
+    let sounds = ["Full Dynamic Range".localized, "Reduce Loud Sounds".localized]
     
     var currentSpeaker: MPAVRoute?
     var currentDelay = 0
-    var currentSound = "Full Dynamic Range"
+    var currentSound = "Full Dynamic Range".localized
     
     var airPlayManager: AirPlayManager!
     
@@ -63,7 +63,7 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource, Ai
         switch tableView {
         case firstTableView:
             let delay = delays[indexPath.row]
-            cell.textLabel?.text = (delay > 0 ? "+" : "") + "\(delay).0"
+            cell.textLabel?.text = (delay > 0 ? "+" : "") + NumberFormatter.localizedString(from: NSNumber(value: delay), number: .decimal)
             cell.accessoryType = currentDelay == delays[indexPath.row] ? .checkmark : .none
         case secondTableView:
             let sound = sounds[indexPath.row]
@@ -82,11 +82,11 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource, Ai
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch tableView {
         case firstTableView:
-            return "Delay"
+            return "Delay".localized
         case secondTableView:
-            return "Sound"
+            return "Sound".localized
         case thirdTableView:
-            return "Speakers"
+            return "Speakers".localized
         default:
             return nil
         }

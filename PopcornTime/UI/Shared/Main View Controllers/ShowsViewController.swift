@@ -1,7 +1,8 @@
 
 
 import UIKit
-import PopcornKit
+import class PopcornKit.ShowManager
+import func PopcornKit.loadShows
 
 class ShowsViewController: MainViewController {
     
@@ -32,7 +33,7 @@ class ShowsViewController: MainViewController {
             guard let shows = shows else { self.collectionViewController.error = error; self.collectionView?.reloadData(); return }
             
             self.collectionViewController.dataSources[0] += shows as [AnyHashable]
-            self.collectionViewController.dataSources[0].uniqued()
+            self.collectionViewController.dataSources[0].unique()
             
             if shows.isEmpty // If the array passed in is empty, there are no more results so the content inset of the collection view is reset.
             {
@@ -45,7 +46,7 @@ class ShowsViewController: MainViewController {
     }
     
     @IBAction func showFilters(_ sender: Any) {
-        let controller = UIAlertController(title: "Select a filter to sort by", message: nil, preferredStyle: .actionSheet, blurStyle: .dark)
+        let controller = UIAlertController(title: "Select a filter to sort by".localized, message: nil, preferredStyle: .actionSheet, blurStyle: .dark)
         
         let handler: ((UIAlertAction) -> Void) = { (handler) in
             self.currentFilter = ShowManager.Filters.array.first(where: {$0.string == handler.title!})!
@@ -55,7 +56,7 @@ class ShowsViewController: MainViewController {
             controller.addAction(UIAlertAction(title: $0.string, style: .default, handler: handler))
         }
         
-        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        controller.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
         controller.preferredAction = controller.actions.first(where: {$0.title == self.currentFilter.string})
         
         if let barButtonItem = sender as? UIBarButtonItem {
@@ -66,18 +67,18 @@ class ShowsViewController: MainViewController {
     }
     
     @IBAction func showGenres(_ sender: Any) {
-        let controller = UIAlertController(title: "Select a genre to filter by", message: nil, preferredStyle: .actionSheet, blurStyle: .dark)
+        let controller = UIAlertController(title: "Select a genre to filter by".localized, message: nil, preferredStyle: .actionSheet, blurStyle: .dark)
         
         let handler: ((UIAlertAction) -> Void) = { (handler) in
             self.currentGenre = ShowManager.Genres.array.first(where: {$0.rawValue == handler.title!})!
-            self.navigationItem.title = self.currentGenre == .all ? "Shows" : self.currentGenre.rawValue
+            self.navigationItem.title = self.currentGenre == .all ? "Shows".localized : self.currentGenre.rawValue
         }
         
         ShowManager.Genres.array.forEach {
             controller.addAction(UIAlertAction(title: $0.rawValue, style: .default, handler: handler))
         }
         
-        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        controller.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
         controller.preferredAction = controller.actions.first(where: {$0.title == self.currentGenre.rawValue})
         
         if let barButtonItem = sender as? UIBarButtonItem {

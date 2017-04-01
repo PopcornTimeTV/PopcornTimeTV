@@ -80,7 +80,7 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
     override func numberOfSections(in tableView: UITableView) -> Int {
         if dataSource.isEmpty {
             let label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-            label.text = "No devices available"
+            label.text = "No devices available".localized
             label.textColor = .lightGray
             label.numberOfLines = 0
             label.textAlignment = .center

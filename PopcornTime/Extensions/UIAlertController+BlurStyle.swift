@@ -55,7 +55,7 @@ extension UIAlertController {
     }
     
     private var cancelActionView: UIView? {
-        return view.recursiveSubviews.flatMap({$0 as? UILabel}).first(where: {$0.text == "Cancel"})?.superview?.superview
+        return view.recursiveSubviews.flatMap({$0 as? UILabel}).first(where: {$0.text == "Cancel".localized})?.superview?.superview
     }
     
     public convenience init(title: String?, message: String?, preferredStyle: UIAlertControllerStyle, blurStyle: UIBlurEffectStyle) {

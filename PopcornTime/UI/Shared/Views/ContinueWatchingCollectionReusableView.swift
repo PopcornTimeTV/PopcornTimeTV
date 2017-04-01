@@ -103,13 +103,13 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
         
         if let episode = media as? Episode {
             cell.titleLabel?.text = episode.show.title
-            cell.subtitleLabel.text = "Season \(episode.season), Episode \(episode.episode)"
+            cell.subtitleLabel.text = "Season".localized + " \(episode.season), " + "Episode".localized + " \(episode.episode)"
             cell.progressView.progress = WatchedlistManager<Episode>.episode.currentProgress(episode.id)
         } else if let movie = media as? Movie {
             cell.titleLabel?.text = movie.title
             cell.progressView.progress = WatchedlistManager<Movie>.movie.currentProgress(movie.id)
             let runtime = Float(movie.runtime)
-            cell.subtitleLabel.text = "\(Int(runtime - (runtime * cell.progressView.progress))) mins Remaining"
+            cell.subtitleLabel.text = "\(Int(runtime - (runtime * cell.progressView.progress))) mins " + "Remaining".localized
         }
         
         return cell
@@ -143,10 +143,10 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
     func cell(_ cell: ContinueWatchingCollectionViewCell, didDetectLongPressGesture: UILongPressGestureRecognizer) {
         guard let indexPath = collectionView.indexPath(for: cell), let media = onDeck[safe: indexPath.row] else { return }
         
-        let vc = UIAlertController(title: "Remove from on deck", message: "Are you sure you want to remove this item?", preferredStyle: .alert)
+        let vc = UIAlertController(title: "Remove from on deck".localized, message: "Are you sure you want to remove this item?".localized, preferredStyle: .alert)
         
-        vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        vc.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (_) in
+        vc.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
+        vc.addAction(UIAlertAction(title: "Remove".localized, style: .destructive, handler: { (_) in
             if let episode = media as? Episode {
                 WatchedlistManager<Episode>.episode.setCurrentProgress(0, for: episode.id, with: .finished)
             } else if let movie = media as? Movie {

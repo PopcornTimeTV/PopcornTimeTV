@@ -28,9 +28,9 @@ class WatchlistViewController: MainViewController {
     
     override func collectionView(_ collectionView: UICollectionView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "Movies"
+            return "Movies".localized
         } else if section == 1 {
-            return "Shows"
+            return "Shows".localized
         }
         return nil
     }
@@ -43,7 +43,7 @@ class WatchlistViewController: MainViewController {
     
     override func collectionView(isEmptyForUnknownReason collectionView: UICollectionView) {
         if let background: ErrorBackgroundView = .fromNib() {
-            background.setUpView(title: "Watchlist Empty", description: "Try adding movies or shows to your watchlist.")
+            background.setUpView(title: "Watchlist Empty".localized, description: "Try adding movies or shows to your watchlist.".localized)
             collectionView.backgroundView = background
         }
     }

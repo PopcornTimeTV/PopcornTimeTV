@@ -44,9 +44,9 @@ class MovieDetailViewController: DetailViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? DescriptionCollectionViewController, segue.identifier == "embedInformation" {
-            vc.headerTitle = "Information"
+            vc.headerTitle = "Information".localized
             
-            vc.dataSource = [("Genre", movie.genres.first?.capitalized ?? "Unknown"), ("Released", movie.year), ("Run Time", movie.formattedRuntime), ("Rating", movie.certification)]
+            vc.dataSource = [("Genre".localized, movie.genres.first?.localizedCapitalized ?? "Unknown".localized), ("Released".localized, movie.year), ("Run Time".localized, movie.formattedRuntime), ("Rating".localized, movie.certification)]
             
             informationDescriptionCollectionViewController = vc
         } else if let vc = segue.destination as? CollectionViewController {

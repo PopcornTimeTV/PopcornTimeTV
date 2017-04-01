@@ -1,7 +1,7 @@
 
 
 import Foundation
-import PopcornKit
+import protocol PopcornKit.Media
 
 extension DetailViewController {
     

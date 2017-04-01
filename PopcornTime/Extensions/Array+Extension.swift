@@ -9,9 +9,9 @@ extension Array where Element: Hashable {
      
      - Parameter source: The array.
      
-     - Returns: Unique and sorted array.
+     - Returns: A copy of the array, made unique.
      */
-    func unique() -> Array {
+    var uniqued: Array {
         var buffer = [Element]()
         var added = Set<Element>()
         for elem in self {
@@ -23,8 +23,8 @@ extension Array where Element: Hashable {
         return buffer
     }
     
-    mutating func uniqued() {
-        self = unique()
+    mutating func unique() {
+        self = uniqued
     }
     
     /**

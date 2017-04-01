@@ -26,6 +26,6 @@ extension Person {
             let firstLetter = firstName.first,
             let lastLetter = lastName.first else { return ""}
         
-         return "\(firstLetter)\(lastLetter)".uppercased()
+         return "\(firstLetter)\(lastLetter)".localizedUppercase
     }
 }

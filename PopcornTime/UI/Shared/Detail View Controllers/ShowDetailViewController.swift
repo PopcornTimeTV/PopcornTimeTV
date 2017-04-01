@@ -22,7 +22,7 @@ class ShowDetailViewController: DetailViewController {
             }
             
             guard var show = show, let season = show.latestUnwatchedEpisode()?.season ?? show.seasonNumbers.first else {
-                let error = NSError(domain: "com.popcorntimetv.popcorntime.error", code: -243, userInfo: [NSLocalizedDescriptionKey: "There are no seasons available for the selected show. Please try again later"])
+                let error = NSError(domain: "com.popcorntimetv.popcorntime.error", code: -243, userInfo: [NSLocalizedDescriptionKey: "There are no seasons available for the selected show. Please try again later".localized])
                 completion(nil, error)
                 return
             }
@@ -69,9 +69,9 @@ class ShowDetailViewController: DetailViewController {
             super.prepare(for: segue, sender: sender)
             change(to: currentSeason)
         } else if let vc = segue.destination as? DescriptionCollectionViewController, segue.identifier == "embedInformation" {
-            vc.headerTitle = "Information"
+            vc.headerTitle = "Information".localized
             
-            vc.dataSource = [("Genre", show.genres.first?.capitalized ?? "Unknown"), ("Released", show.year), ("Run Time", "\(show.runtime ?? 0) min"), ("Network", show.network ?? "TV")]
+            vc.dataSource = [("Genre".localized, show.genres.first?.localizedCapitalized ?? "Unknown".localized), ("Released".localized, show.year), ("Run Time".localized, "\(show.runtime ?? 0) min"), ("Network".localized, show.network ?? "TV")]
             
             informationDescriptionCollectionViewController = vc
         } else if let vc = segue.destination as? CollectionViewController {
@@ -115,7 +115,7 @@ class ShowDetailViewController: DetailViewController {
 
     
     func change(to season: Int) {
-        seasonsLabel.text = "Season \(season)"
+        seasonsLabel.text = "Season".localized + " \(season)"
         currentSeason = season
         episodesCollectionViewController.dataSource = show.episodes.filter({$0.season == season}).sorted(by: {$0.0.episode < $0.1.episode})
         episodesCollectionViewController.collectionView?.reloadData()
