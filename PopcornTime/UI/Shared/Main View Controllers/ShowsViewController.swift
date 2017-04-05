@@ -65,26 +65,4 @@ class ShowsViewController: MainViewController {
         
         present(controller, animated: true)
     }
-    
-    @IBAction func showGenres(_ sender: Any) {
-        let controller = UIAlertController(title: "Select a genre to filter by".localized, message: nil, preferredStyle: .actionSheet, blurStyle: .dark)
-        
-        let handler: ((UIAlertAction) -> Void) = { (handler) in
-            self.currentGenre = ShowManager.Genres.array.first(where: {$0.rawValue == handler.title!})!
-            self.navigationItem.title = self.currentGenre == .all ? "Shows".localized : self.currentGenre.rawValue
-        }
-        
-        ShowManager.Genres.array.forEach {
-            controller.addAction(UIAlertAction(title: $0.rawValue, style: .default, handler: handler))
-        }
-        
-        controller.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
-        controller.preferredAction = controller.actions.first(where: {$0.title == self.currentGenre.rawValue})
-        
-        if let barButtonItem = sender as? UIBarButtonItem {
-            controller.popoverPresentationController?.barButtonItem = barButtonItem
-        }
-        
-        present(controller, animated: true)
-    }
 }

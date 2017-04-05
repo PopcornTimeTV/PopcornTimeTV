@@ -1,47 +1,11 @@
 
 
 import ObjectMapper
-import SwiftyJSON
 
 open class MovieManager: NetworkManager {
     
     /// Creates new instance of MovieManager class
     open static let shared = MovieManager()
-    
-    /// Possible genres used in API call.
-    public enum Genres: String {
-        case all = "All"
-        case action = "Action"
-        case adventure = "Adventure"
-        case animation = "Animation"
-        case comedy = "Comedy"
-        case crime = "Crime"
-        case disaster = "Disaster"
-        case documentary = "Documentary"
-        case drama = "Drama"
-        case family = "Family"
-        case fanFilm = "Fan Film"
-        case fantasy = "Fantasy"
-        case filmNoir = "Film Noir"
-        case history = "History"
-        case holiday = "Holiday"
-        case horror = "Horror"
-        case indie = "Indie"
-        case music = "Music"
-        case mystery = "Mystery"
-        case road = "Road"
-        case romance = "Romance"
-        case sciFi = "Science Fiction"
-        case short = "Short"
-        case sport = "Sports"
-        case sportingEvent = "Sporting Event"
-        case suspense = "Suspense"
-        case thriller = "Thriller"
-        case war = "War"
-        case western = "Western"
-        
-        public static let array = [all, action, adventure, animation, comedy, crime, disaster, documentary, drama, family, fanFilm, fantasy, filmNoir, history, holiday, horror, indie, music, mystery, road, romance, sciFi, short, sport, sportingEvent, suspense, thriller, war, western]
-    }
     
     /// Possible filters used in API call.
     public enum Filters: String {
@@ -56,15 +20,15 @@ open class MovieManager: NetworkManager {
         public var string: String {
             switch self {
             case .popularity:
-                return "Popular"
+                return "Popular".localized
             case .year:
-                return "New"
+                return "New".localized
             case .date:
-                return "Recently Added"
+                return "Recently Added".localized
             case .rating:
-                return "Top Rated"
+                return "Top Rated".localized
             case .trending:
-                return "Trending"
+                return "Trending".localized
             }
         }
     }
@@ -86,8 +50,8 @@ open class MovieManager: NetworkManager {
         genre: Genres,
         searchTerm: String?,
         orderBy order: Orders,
-        completion: @escaping (_ movies: [Movie]?, _ error: NSError?) -> Void) {
-        var params: [String: Any] = ["sort": filter.rawValue, "order": order.rawValue, "genre": genre.rawValue.replacingOccurrences(of: " ", with: "-").localizedLowercase]
+        completion: @escaping ([Movie]?, NSError?) -> Void) {
+        var params: [String: Any] = ["sort": filter.rawValue, "order": order.rawValue, "genre": genre.rawValue.replacingOccurrences(of: " ", with: "-").lowercased()]
         if let searchTerm = searchTerm , !searchTerm.isEmpty {
             params["keywords"] = searchTerm
         }
@@ -107,7 +71,7 @@ open class MovieManager: NetworkManager {
      
      - Parameter completion:    Completion handler for the request. Returns movie upon success, error upon failure.
      */
-    open func getInfo(_ imdbId: String, completion: @escaping (_ movie: Movie?, _ error: NSError?) -> Void) {
+    open func getInfo(_ imdbId: String, completion: @escaping (Movie?, NSError?) -> Void) {
         self.manager.request(Popcorn.base + Popcorn.movie + "/\(imdbId)").validate().responseJSON { response in
             guard let value = response.result.value else {completion(nil, response.result.error as NSError?); return}
             completion(Mapper<Movie>().map(JSONObject: value), nil)

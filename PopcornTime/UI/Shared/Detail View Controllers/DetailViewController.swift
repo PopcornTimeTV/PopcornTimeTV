@@ -226,6 +226,9 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             present(loadingViewController, animated: true)
             
             let error: (String) -> Void = { (errorMessage) in
+                if self.presentedViewController != nil {
+                    self.dismiss(animated: false)
+                }
                 let vc = UIAlertController(title: "Error".localized, message: errorMessage, preferredStyle: .alert)
                 vc.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: nil))
                 self.present(vc, animated: true)

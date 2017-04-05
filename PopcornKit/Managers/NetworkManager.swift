@@ -114,4 +114,43 @@ open class NetworkManager: NSObject {
         case descending = -1
         
     }
+    
+    /// Possible genres used in API call.
+    public enum Genres: String {
+        case all = "All"
+        case action = "Action"
+        case adventure = "Adventure"
+        case animation = "Animation"
+        case comedy = "Comedy"
+        case crime = "Crime"
+        case disaster = "Disaster"
+        case documentary = "Documentary"
+        case drama = "Drama"
+        case family = "Family"
+        case fanFilm = "Fan Film"
+        case fantasy = "Fantasy"
+        case filmNoir = "Film Noir"
+        case history = "History"
+        case holiday = "Holiday"
+        case horror = "Horror"
+        case indie = "Indie"
+        case music = "Music"
+        case mystery = "Mystery"
+        case road = "Road"
+        case romance = "Romance"
+        case sciFi = "Science Fiction"
+        case short = "Short"
+        case sports = "Sports"
+        case sportingEvent = "Sporting Event"
+        case suspense = "Suspense"
+        case thriller = "Thriller"
+        case war = "War"
+        case western = "Western"
+        
+        public static var array = [all, action, adventure, animation, comedy, crime, disaster, documentary, drama, family, fanFilm, fantasy, filmNoir, history, holiday, horror, indie, music, mystery, road, romance, sciFi, short, sports, sportingEvent, suspense, thriller, war, western]
+        
+        public var string: String {
+            return rawValue.localized
+        }
+    }
 }

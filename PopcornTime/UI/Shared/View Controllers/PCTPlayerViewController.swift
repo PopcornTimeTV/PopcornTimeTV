@@ -371,7 +371,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     func torrentStatusDidChange(_ notification: Notification) {
         let totalProgress = PTTorrentStreamer.shared().torrentStatus.totalProgress
-        progressBar?.bufferProgress = totalProgress == 0.0 ? 1.0 : totalProgress
+        progressBar?.bufferProgress = totalProgress
     }
     
     func mediaPlayerTimeChanged(_ aNotification: Notification!) {

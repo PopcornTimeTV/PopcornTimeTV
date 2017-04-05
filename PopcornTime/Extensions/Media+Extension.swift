@@ -46,8 +46,8 @@ extension Media {
                 }, readyToPlay: { (videoFileURL, videoFilePath) in
                     playBlock(videoFileURL, videoFilePath, self, nextEpisode, progress, playViewController)
                     finishedLoadingBlock(loadingViewController, playViewController)
-                }, failure: { _ in
-                    errorBlock("Error processing torrent.".localized)
+                }, failure: { error in
+                    errorBlock(error.localizedDescription)
             })
         } else {
             PopcornKit.downloadTorrentFile(url, completion: { (url, error) in

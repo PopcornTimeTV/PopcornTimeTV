@@ -12,9 +12,9 @@ public final class UpdateManager: NSObject {
     /**
      Determines the frequency in which the the version check is performed.
      
-     - .Immediately:    Version check performed every time the app is launched.
-     - .Daily:          Version check performedonce a day.
-     - .Weekly:         Version check performed once a week.
+     - .immediately:    Version check performed every time the app is launched.
+     - .daily:          Version check performedonce a day.
+     - .weekly:         Version check performed once a week.
      */
     public enum CheckType: Int {
         /// Version check performed every time the app is launched.
@@ -86,22 +86,23 @@ public final class UpdateManager: NSObject {
                 let currentRelease = sortedReleases.filter({$0.buildNumber == self.currentApplicationVersion}).first,
                 latestRelease > currentRelease && self.skipReleaseVersion?.buildNumber != latestRelease.buildNumber {
 
-                let alert = UIAlertController(title: "Update Available", message: "\(latestRelease.releaseType.rawValue.localizedCapitalized) version \(latestRelease.buildNumber) of Popcorn Time is now available.", preferredStyle: .alert)
-
-                alert.addAction(UIAlertAction(title: "Maybe Later", style: .default, handler: nil))
                 
-                alert.addAction(UIAlertAction(title: "Skip This Version", style: .default, handler: { (action) in
+                let alert = UIAlertController(title: "Update Available".localized, message: .localizedStringWithFormat("%@ version %@ of Popcorn Time is now available.", latestRelease.releaseType.rawValue.localized, latestRelease.buildNumber), preferredStyle: .alert)
+
+                alert.addAction(UIAlertAction(title: "Maybe Later".localized, style: .default, handler: nil))
+                
+                alert.addAction(UIAlertAction(title: "Skip This Version".localized, style: .default, handler: { (action) in
                     self.skipReleaseVersion = latestRelease
                 }))
                 
                 let isCydiaInstalled = UIApplication.shared.canOpenURL(URL(string: "cydia://")!)
                 
-                alert.addAction(UIAlertAction(title: isCydiaInstalled ? "Update" : "OK", style: .default, handler: { _ in
+                alert.addAction(UIAlertAction(title: isCydiaInstalled ? "Update".localized : "OK".localized, style: .default, handler: { _ in
                     if isCydiaInstalled {
                         UIApplication.shared.openURL(URL(string: "cydia://package/\(Bundle.main.bundleIdentifier!)")!)
                     } else {
-                        let instructionsAlert = UIAlertController(title: "Sideloading Instructions", message: "Unfortunately, in-app updates are not available for un-jailbroken devices. Please follow the sideloading instructions available in the PopcornTimeTV repo's wiki.", preferredStyle: .alert)
-                        instructionsAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        let instructionsAlert = UIAlertController(title: "Sideloading Instructions".localized, message: "Unfortunately, in-app updates are not available for un-jailbroken devices. Please follow the sideloading instructions available in the PopcornTimeTV repo's wiki.".localized, preferredStyle: .alert)
+                        instructionsAlert.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: nil))
                         instructionsAlert.show()
                     }
                 }))
@@ -117,8 +118,8 @@ public final class UpdateManager: NSObject {
 internal class VersionString: NSObject, NSCoding {
     
     enum ReleaseType: String {
-        case beta = "beta"
-        case stable = "stable"
+        case beta = "Beta"
+        case stable = "Stable"
     }
     
     let date: Date
@@ -131,7 +132,7 @@ internal class VersionString: NSObject, NSCoding {
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
             return formatter.date(from: dateString)!
-            }()
+        }()
         
         let components = string.components(separatedBy: ".")
         if let first = components.first, let _ = components[safe: 1], let _ = components[safe: 2] {

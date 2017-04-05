@@ -47,13 +47,4 @@ extension String {
         }
         return queryStringDictionary
     }
-    
-    
-    var localized: String {
-        return NSLocalizedString(self, comment: "")
-    }
-    
-    mutating func localize() {
-        self = localized
-    }
 }
