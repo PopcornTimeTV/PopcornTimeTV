@@ -3,13 +3,28 @@
 import Foundation
 import PopcornKit
 
-class AudioViewController: OptionsStackViewController, UITableViewDataSource, AirPlayManagerDelegate {
+enum EqualizerProfiles: UInt32 {
+    case fullDynamicRange = 5
+    case reduceLoudSounds = 15
+    
+    static let array = [fullDynamicRange, reduceLoudSounds]
+    
+    var localizedString: String {
+        switch self {
+        case .fullDynamicRange:
+            return "Full Dynamic Range".localized
+        case .reduceLoudSounds:
+            return "Reduce Loud Sounds".localized
+        }
+    }
+}
+
+class AudioViewController: OptionsStackViewController, UITableViewDataSource {
     
     override var activeTabBarButton: UIView {
         return tabBar.subviews.first(where: {$0 is UIScrollView})?.subviews[safe: 2] ?? UIView()
     }
-    
-    var speakers = [MPAVRoute]()
+
     let delays: [Int] = {
         var delays = [Int]()
         for delay in -60...60 {
@@ -17,43 +32,13 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource, Ai
         }
         return delays
     }()
-    let sounds = ["Full Dynamic Range".localized, "Reduce Loud Sounds".localized]
+    let sounds = EqualizerProfiles.array
     
-    var currentSpeaker: MPAVRoute?
+    var currentSpeaker: AVAudioRoute? = .default
     var currentDelay = 0
-    var currentSound = "Full Dynamic Range".localized
+    var currentSound: EqualizerProfiles = .fullDynamicRange
     
-    var airPlayManager: AirPlayManager!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        airPlayManager = AirPlayManager()
-        airPlayManager.delegate = self
-    }
-    
-    
-    func updateTableView(dataSource newDataSource: [Any], updateType: TableViewUpdates, rows: [Int]?) {
-        thirdTableView.beginUpdates()
-        
-        let indexPaths: [IndexPath]? = rows?.flatMap({IndexPath(row: $0, section: 0)})
-        
-        switch updateType {
-        case .insert:
-            thirdTableView.insertRows(at: indexPaths!, with: .middle)
-            fallthrough
-        case .reload:
-            if let visibleIndexPaths = thirdTableView.indexPathsForVisibleRows {
-                thirdTableView.reloadRows(at: visibleIndexPaths, with: .none)
-            }
-        case .delete:
-            thirdTableView.deleteRows(at: indexPaths!, with: .middle)
-        }
-        
-        speakers = newDataSource as! [MPAVRoute]
-        
-        thirdTableView.endUpdates()
-    }
+    var manager = AVSpeakerManager()
     
     
     // MARK: Table view data source
@@ -67,12 +52,13 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource, Ai
             cell.accessoryType = currentDelay == delays[indexPath.row] ? .checkmark : .none
         case secondTableView:
             let sound = sounds[indexPath.row]
-            cell.textLabel?.text = sound
+            cell.textLabel?.text = sound.localizedString
             cell.accessoryType = currentSound == sound ? .checkmark : .none
         case thirdTableView:
-            let speaker = speakers[indexPath.row]
-            cell.textLabel?.text = speaker.routeName
-            cell.accessoryType = speaker.isPicked ? .checkmark : .none
+            let speaker = manager.speakerRoutes[indexPath.row]
+            cell.textLabel?.text = speaker.name
+            cell.accessoryType = speaker.isSelected ? .checkmark : .none
+            cell.imageView?.image = UIImage(named: "Airplay TV")?.colored(cell.textLabel?.textColor)
         default:
             break
         }
@@ -105,8 +91,9 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource, Ai
         case secondTableView:
             return sounds.count
         case thirdTableView:
-            return speakers.count
-        default: return 0
+            return manager.speakerRoutes.count
+        default:
+            return 0
         }
     }
     
@@ -117,15 +104,13 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource, Ai
             delegate?.didSelectAudioDelay(currentDelay)
         case secondTableView:
             currentSound = sounds[indexPath.row]
+            delegate?.didSelectEqualizerProfile(currentSound)
         case thirdTableView:
-            currentSpeaker = speakers[indexPath.row]
-            airPlayManager.didSelectRoute(currentSpeaker!)
+            currentSpeaker = manager.speakerRoutes[indexPath.row]
+            manager.select(route: currentSpeaker!)
         default:
             break
         }
         tableView.reloadData()
     }
 }
-
-
-

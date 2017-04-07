@@ -6,7 +6,14 @@
     
     public typealias CastMetaData = (title: String, image: URL?, contentType: String, subtitles: [Subtitle]?, url: String, mediaAssetsPath: URL, startPosition: TimeInterval)
     
-    public protocol GoogleCastManagerDelegate: AirPlayManagerDelegate {
+    public enum TableViewUpdates {
+        case reload
+        case insert
+        case delete
+    }
+    
+    public protocol GoogleCastManagerDelegate: class {
+        func updateTableView(dataSource newDataSource: [GCKDevice], updateType: TableViewUpdates, rows: [Int]?)
         func didConnectToDevice()
     }
     

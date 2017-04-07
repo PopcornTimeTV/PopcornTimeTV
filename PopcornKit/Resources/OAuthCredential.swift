@@ -22,9 +22,7 @@ class OAuthCredential: NSObject, NSCoding {
     private static let service = "OAuthCredentialService"
     
     override var description: String {
-        get {
-            return "<\(type(of: self)) accessToken:\"\(self.accessToken)\"\n tokenType:\"\(self.tokenType)\"\n refreshToken:\"\(self.refreshToken ?? "none")\"\n expiration:\"\(self.expiration ?? Date.distantFuture)\">"
-        }
+        return "<\(type(of: self)): \(String(format: "%p", unsafeBitCast(self, to: Int.self))); accessToken = '\(self.accessToken)'; tokenType = '\(self.tokenType)'; refreshToken = '\(self.refreshToken ?? "none")'; expiration = \(self.expiration ?? Date.distantFuture)>"
     }
     
     

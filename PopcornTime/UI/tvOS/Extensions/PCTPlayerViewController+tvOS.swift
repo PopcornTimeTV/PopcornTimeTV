@@ -162,5 +162,10 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate {
             progressBar.layoutIfNeeded()
         }
     }
+    
+    func didSelectEqualizerProfile(_ profile: EqualizerProfiles) {
+        mediaplayer.resetEqualizer(fromProfile: profile.rawValue)
+        mediaplayer.equalizerEnabled = true
+    }
 }
 

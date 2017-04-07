@@ -364,6 +364,8 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             let clickGesture = SiriRemoteGestureRecognizer(target: self, action: #selector(clickGesture(_:)))
             clickGesture.delegate = self
             view.addGestureRecognizer(clickGesture)
+            
+            didSelectEqualizerProfile(.fullDynamicRange)
         #endif
     }
     
@@ -502,5 +504,4 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             self.delegate?.playNext(self.nextEpisode!)
         }
     }
-    
 }

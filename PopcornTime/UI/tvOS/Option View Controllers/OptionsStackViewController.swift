@@ -12,6 +12,13 @@ class OptionsStackViewController: UIViewController, UITableViewDelegate {
     @IBOutlet var secondTableView: UITableView!
     @IBOutlet var thirdTableView: UITableView!
     
+    let topGuide = UIFocusGuide()
+    let leftGuide = UIFocusGuide()
+    let rightGuide = UIFocusGuide()
+    let bottomGuide = UIFocusGuide()
+    let firstSecondGuide = UIFocusGuide()
+    let secondThirdGuide = UIFocusGuide()
+    
     var tabBar: UITabBar! {
         return (parent as? OptionsViewController)?.tabBar
     }
@@ -37,93 +44,82 @@ class OptionsStackViewController: UIViewController, UITableViewDelegate {
         menuGesture.allowedPressTypes = [NSNumber(value: UIPressType.menu.rawValue)]
         
         view.addGestureRecognizer(menuGesture)
+        
+        
+        view.addLayoutGuide(firstSecondGuide)
+        view.addLayoutGuide(secondThirdGuide)
+        
+        topGuide.preferredFocusEnvironments = [firstTableView, secondTableView, thirdTableView]
+        leftGuide.preferredFocusEnvironments = [thirdTableView, secondTableView, firstTableView]
+        rightGuide.preferredFocusEnvironments = [firstTableView, secondTableView, thirdTableView]
+        bottomGuide.preferredFocusEnvironments = [] // Keep focus on the active table view.
+        firstSecondGuide.preferredFocusEnvironments = [secondTableView]
+        secondThirdGuide.preferredFocusEnvironments = [secondTableView]
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let betweenTabBarAndTableViewGuide = UIFocusGuide()
-        activeTabBarButton.addLayoutGuide(betweenTabBarAndTableViewGuide)
-        
-        betweenTabBarAndTableViewGuide.topAnchor.constraint(equalTo: activeTabBarButton.bottomAnchor).isActive = true
-        betweenTabBarAndTableViewGuide.leadingAnchor.constraint(equalTo: activeTabBarButton.leadingAnchor).isActive = true
-        betweenTabBarAndTableViewGuide.trailingAnchor.constraint(equalTo: activeTabBarButton.trailingAnchor).isActive = true
-        betweenTabBarAndTableViewGuide.bottomAnchor.constraint(equalTo: firstTableView.topAnchor).isActive = true
-        betweenTabBarAndTableViewGuide.preferredFocusEnvironments = [firstTableView.cellForRow(at: IndexPath(row: 0, section: 0)) ?? secondTableView.cellForRow(at: IndexPath(row: 0, section: 0))].flatMap({$0})
-        
-        for tableView: UITableView in [firstTableView, secondTableView, thirdTableView] {
-            let betweenTableViewAndTabBarGuide = UIFocusGuide()
-            tableView.addLayoutGuide(betweenTableViewAndTabBarGuide)
-            
-            betweenTableViewAndTabBarGuide.topAnchor.constraint(equalTo: tabBar.bottomAnchor).isActive = true
-            betweenTableViewAndTabBarGuide.leadingAnchor.constraint(equalTo: tableView.leadingAnchor).isActive = true
-            betweenTableViewAndTabBarGuide.trailingAnchor.constraint(equalTo: tableView.trailingAnchor).isActive = true
-            betweenTableViewAndTabBarGuide.bottomAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
-            betweenTableViewAndTabBarGuide.preferredFocusEnvironments = [tabBar]
+        [topGuide, leftGuide, rightGuide, bottomGuide].forEach { (guide) in
+            !self.parent!.view.layoutGuides.contains(guide) ? self.parent!.view.addLayoutGuide(guide) : ()
         }
         
-        let lastRightGuide = UIFocusGuide()
-        thirdTableView.addLayoutGuide(lastRightGuide)
+        topGuide.topAnchor.constraint(equalTo: tabBar.bottomAnchor).isActive = true
+        topGuide.leftAnchor.constraint(equalTo: parent!.view.leftAnchor).isActive = true
+        topGuide.rightAnchor.constraint(equalTo: parent!.view.rightAnchor).isActive = true
+        topGuide.bottomAnchor.constraint(equalTo: firstTableView.topAnchor).isActive = true
         
-        lastRightGuide.leftAnchor.constraint(equalTo: thirdTableView.rightAnchor).isActive = true
-        lastRightGuide.topAnchor.constraint(equalTo: thirdTableView.topAnchor).isActive = true
-        lastRightGuide.heightAnchor.constraint(equalToConstant: thirdTableView.contentSize.height).isActive = true
-        lastRightGuide.widthAnchor.constraint(equalTo: thirdTableView.widthAnchor).isActive = true
-        lastRightGuide.preferredFocusEnvironments = [firstTableView]
+        leftGuide.topAnchor.constraint(equalTo: firstTableView.topAnchor).isActive = true
+        leftGuide.leftAnchor.constraint(equalTo: parent!.view.leftAnchor).isActive = true
+        leftGuide.rightAnchor.constraint(equalTo: firstTableView.leftAnchor).isActive = true
+        leftGuide.bottomAnchor.constraint(equalTo: parent!.view.bottomAnchor).isActive = true
         
-        let lastLeftGuide = UIFocusGuide()
-        firstTableView.addLayoutGuide(lastLeftGuide)
+        rightGuide.topAnchor.constraint(equalTo: thirdTableView.topAnchor).isActive = true
+        rightGuide.leftAnchor.constraint(equalTo: thirdTableView.rightAnchor).isActive = true
+        rightGuide.rightAnchor.constraint(equalTo: parent!.view.rightAnchor).isActive = true
+        rightGuide.bottomAnchor.constraint(equalTo: parent!.view.bottomAnchor).isActive = true
         
-        lastLeftGuide.rightAnchor.constraint(equalTo: firstTableView.leftAnchor).isActive = true
-        lastLeftGuide.topAnchor.constraint(equalTo: firstTableView.topAnchor).isActive = true
-        lastLeftGuide.heightAnchor.constraint(equalToConstant: firstTableView.contentSize.height).isActive = true
-        lastLeftGuide.widthAnchor.constraint(equalTo: firstTableView.widthAnchor).isActive = true
-        lastLeftGuide.preferredFocusEnvironments = [thirdTableView]
+        bottomGuide.topAnchor.constraint(equalTo: firstTableView.bottomAnchor).isActive = true
+        bottomGuide.leftAnchor.constraint(equalTo: parent!.view.leftAnchor).isActive = true
+        bottomGuide.rightAnchor.constraint(equalTo: parent!.view.rightAnchor).isActive = true
+        bottomGuide.bottomAnchor.constraint(equalTo: parent!.view.bottomAnchor).isActive = true
         
-        let betweenFirstAndSecondGuide = UIFocusGuide()
-        firstTableView.addLayoutGuide(betweenFirstAndSecondGuide)
+        firstSecondGuide.topAnchor.constraint(equalTo: firstTableView.topAnchor).isActive = true
+        firstSecondGuide.leftAnchor.constraint(equalTo: firstTableView.rightAnchor).isActive = true
+        firstSecondGuide.rightAnchor.constraint(equalTo: secondTableView.leftAnchor).isActive = true
+        firstSecondGuide.bottomAnchor.constraint(equalTo: parent!.view.bottomAnchor).isActive = true
         
-        betweenFirstAndSecondGuide.leftAnchor.constraint(equalTo: firstTableView.rightAnchor).isActive = true
-        betweenFirstAndSecondGuide.topAnchor.constraint(equalTo: firstTableView.topAnchor).isActive = true
-        betweenFirstAndSecondGuide.heightAnchor.constraint(equalToConstant: firstTableView.contentSize.height).isActive = true
-        betweenFirstAndSecondGuide.rightAnchor.constraint(equalTo: secondTableView.leftAnchor).isActive = true
-        betweenFirstAndSecondGuide.preferredFocusEnvironments = [secondTableView]
-        
-        let betweenSecondAndFirstGuide = UIFocusGuide()
-        secondTableView.addLayoutGuide(betweenSecondAndFirstGuide)
-        
-        betweenSecondAndFirstGuide.rightAnchor.constraint(equalTo: secondTableView.leftAnchor).isActive = true
-        betweenSecondAndFirstGuide.topAnchor.constraint(equalTo: secondTableView.topAnchor).isActive = true
-        betweenSecondAndFirstGuide.heightAnchor.constraint(equalToConstant: secondTableView.contentSize.height).isActive = true
-        betweenSecondAndFirstGuide.leftAnchor.constraint(equalTo: firstTableView.rightAnchor).isActive = true
-        betweenSecondAndFirstGuide.preferredFocusEnvironments = [firstTableView]
-        
-        let betweenThirdAndSecondGuide = UIFocusGuide()
-        thirdTableView.addLayoutGuide(betweenThirdAndSecondGuide)
-        
-        betweenThirdAndSecondGuide.rightAnchor.constraint(equalTo: thirdTableView.leftAnchor).isActive = true
-        betweenThirdAndSecondGuide.topAnchor.constraint(equalTo: thirdTableView.topAnchor).isActive = true
-        betweenThirdAndSecondGuide.heightAnchor.constraint(equalToConstant: thirdTableView.contentSize.height).isActive = true
-        betweenThirdAndSecondGuide.leftAnchor.constraint(equalTo: secondTableView.rightAnchor).isActive = true
-        betweenThirdAndSecondGuide.preferredFocusEnvironments = [secondTableView]
-        
-        let betweenSecondAndThirdGuide = UIFocusGuide()
-        secondTableView.addLayoutGuide(betweenSecondAndThirdGuide)
-        
-        betweenSecondAndThirdGuide.leftAnchor.constraint(equalTo: secondTableView.rightAnchor).isActive = true
-        betweenSecondAndThirdGuide.topAnchor.constraint(equalTo: secondTableView.topAnchor).isActive = true
-        betweenSecondAndThirdGuide.heightAnchor.constraint(equalToConstant: secondTableView.contentSize.height).isActive = true
-        betweenSecondAndThirdGuide.rightAnchor.constraint(equalTo: thirdTableView.leftAnchor).isActive = true
-        betweenSecondAndThirdGuide.preferredFocusEnvironments = [thirdTableView]
+        secondThirdGuide.topAnchor.constraint(equalTo: thirdTableView.topAnchor).isActive = true
+        secondThirdGuide.leftAnchor.constraint(equalTo: secondTableView.rightAnchor).isActive = true
+        secondThirdGuide.rightAnchor.constraint(equalTo: thirdTableView.leftAnchor).isActive = true
+        secondThirdGuide.bottomAnchor.constraint(equalTo: parent!.view.bottomAnchor).isActive = true
     }
     
     func tableView(_ tableView: UITableView, didUpdateFocusIn context: UITableViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         
-        tableView.visibleCells.forEach({ $0.textLabel?.textColor = UIColor(red: 169.0/255.0, green: 169.0/255.0, blue: 169.0/255.0, alpha: 0.7) })
+        tableView.visibleCells.forEach({ $0.textLabel?.textColor = UIColor(white: 1.0, alpha: 0.5) })
+        
+        if let previous = context.previouslyFocusedView, type(of: previous) == NSClassFromString("UITabBarButton")  {
+            topGuide.preferredFocusEnvironments = [tabBar]
+        } else if let next = context.nextFocusedView, type(of: next) == NSClassFromString("UITabBarButton") {
+            topGuide.preferredFocusEnvironments = [firstTableView, secondTableView, thirdTableView]
+        }
         
         if let indexPath = context.nextFocusedIndexPath, let cell = context.nextFocusedView as? UITableViewCell {
             cell.textLabel?.textColor = .white
             tableView.scrollToRow(at: indexPath, at: .none, animated: true)
+            
+            switch cell.tableView {
+            case firstTableView:
+                firstSecondGuide.preferredFocusEnvironments = [secondTableView]
+            case secondTableView:
+                firstSecondGuide.preferredFocusEnvironments = [firstTableView]
+                secondThirdGuide.preferredFocusEnvironments = [thirdTableView]
+            case thirdTableView:
+                secondThirdGuide.preferredFocusEnvironments = [secondTableView]
+            default:
+                break
+            }
         }
         
         if let indexPath = context.previouslyFocusedIndexPath {
@@ -146,7 +142,7 @@ class OptionsStackViewController: UIViewController, UITableViewDelegate {
     }
     
     override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        if let nextFocusedView = context.nextFocusedView, type(of: nextFocusedView) === NSClassFromString("UITabBarButton") {
+        if let nextFocusedView = context.nextFocusedView, type(of: nextFocusedView) == NSClassFromString("UITabBarButton") {
             return canFocusTabBar
         }
         return true
@@ -170,5 +166,4 @@ class OptionsStackViewController: UIViewController, UITableViewDelegate {
            dismiss(animated: true)
         }
     }
-    
 }

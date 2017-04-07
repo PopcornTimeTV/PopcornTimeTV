@@ -50,7 +50,7 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
         dismiss(animated: true)
     }
     
-    func updateTableView(dataSource newDataSource: [Any], updateType: TableViewUpdates, rows: [Int]?) {
+    func updateTableView(dataSource newDataSource: [GCKDevice], updateType: TableViewUpdates, rows: [Int]?) {
         tableView.beginUpdates()
         
         let indexPaths: [IndexPath]? = rows?.flatMap({IndexPath(row: $0, section: 0)})
@@ -67,9 +67,7 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
             tableView.deleteRows(at: indexPaths!, with: .middle)
         }
         
-        if let new = newDataSource as? [GCKDevice] {
-            dataSource = new
-        }
+        dataSource = newDataSource
         
         tableView.endUpdates()
     }

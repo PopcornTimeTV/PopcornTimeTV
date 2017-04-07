@@ -1,6 +1,7 @@
 
 
 import Foundation
+import UIKit.UIAlertController
 
 extension UIAlertController {
     

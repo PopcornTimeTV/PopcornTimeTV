@@ -37,7 +37,6 @@
 		4D0F9D781E6F2EEE00860852 /* TraktManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9CFF1E6F296400860852 /* TraktManager.swift */; };
 		4D0F9D791E6F2EEE00860852 /* GoogleCastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D001E6F296400860852 /* GoogleCastManager.swift */; };
 		4D0F9D7A1E6F2EEE00860852 /* UpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D011E6F296400860852 /* UpdateManager.swift */; };
-		4D0F9D7B1E6F2EEE00860852 /* AirPlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D021E6F296400860852 /* AirPlayManager.swift */; };
 		4D0F9D7C1E6F2EEE00860852 /* AnimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D031E6F296400860852 /* AnimeManager.swift */; };
 		4D0F9D7D1E6F2EEE00860852 /* PopcornKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D041E6F296400860852 /* PopcornKit.swift */; };
 		4D0F9D7E1E6F2EEE00860852 /* ThemeSongManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D051E6F296400860852 /* ThemeSongManager.swift */; };
@@ -70,7 +69,6 @@
 		4D0F9DB11E6F304600860852 /* TraktManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9CFF1E6F296400860852 /* TraktManager.swift */; };
 		4D0F9DB21E6F304600860852 /* GoogleCastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D001E6F296400860852 /* GoogleCastManager.swift */; };
 		4D0F9DB31E6F304600860852 /* UpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D011E6F296400860852 /* UpdateManager.swift */; };
-		4D0F9DB41E6F304600860852 /* AirPlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D021E6F296400860852 /* AirPlayManager.swift */; };
 		4D0F9DB51E6F304600860852 /* AnimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D031E6F296400860852 /* AnimeManager.swift */; };
 		4D0F9DB61E6F304600860852 /* PopcornKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D041E6F296400860852 /* PopcornKit.swift */; };
 		4D0F9DB71E6F304600860852 /* ThemeSongManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D051E6F296400860852 /* ThemeSongManager.swift */; };
@@ -296,6 +294,12 @@
 		4DF110991E9430E40090289A /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF110971E9430E40090289A /* String+Localization.swift */; };
 		4DF1109B1E9431410090289A /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF1109A1E9431410090289A /* String+Localization.swift */; };
 		4DF1109C1E9431410090289A /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF1109A1E9431410090289A /* String+Localization.swift */; };
+		4DF3942F1E96B5B600DFCEC6 /* AVSpeakerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF3942E1E96B5B600DFCEC6 /* AVSpeakerManager.swift */; };
+		4DF394301E96B5B600DFCEC6 /* AVSpeakerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF3942E1E96B5B600DFCEC6 /* AVSpeakerManager.swift */; };
+		4DF394321E96BA3300DFCEC6 /* AVAudioRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF394311E96BA3300DFCEC6 /* AVAudioRoute.swift */; };
+		4DF394331E96BA3300DFCEC6 /* AVAudioRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF394311E96BA3300DFCEC6 /* AVAudioRoute.swift */; };
+		4DF394351E96DF9100DFCEC6 /* UITableViewCell+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF394341E96DF9100DFCEC6 /* UITableViewCell+TableView.swift */; };
+		4DF394361E96DF9100DFCEC6 /* UITableViewCell+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF394341E96DF9100DFCEC6 /* UITableViewCell+TableView.swift */; };
 		4DF5D8AF1E69D34B000B4A3C /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF5D8AE1E69D34B000B4A3C /* UIDevice+Extension.swift */; };
 		4DFA77161E71FECC007DB0E7 /* TVExpandableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFA77151E71FECC007DB0E7 /* TVExpandableTextView.swift */; };
 		4DFA77181E720848007DB0E7 /* TVBlurOverCurrentContextAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFA77171E720848007DB0E7 /* TVBlurOverCurrentContextAnimatedTransitioning.swift */; };
@@ -391,7 +395,6 @@
 		4D0F9CFF1E6F296400860852 /* TraktManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TraktManager.swift; path = PopcornKit/Managers/TraktManager.swift; sourceTree = SOURCE_ROOT; };
 		4D0F9D001E6F296400860852 /* GoogleCastManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoogleCastManager.swift; path = PopcornKit/Managers/GoogleCastManager.swift; sourceTree = SOURCE_ROOT; };
 		4D0F9D011E6F296400860852 /* UpdateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateManager.swift; path = PopcornKit/Managers/UpdateManager.swift; sourceTree = SOURCE_ROOT; };
-		4D0F9D021E6F296400860852 /* AirPlayManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AirPlayManager.swift; path = PopcornKit/Managers/AirPlayManager.swift; sourceTree = SOURCE_ROOT; };
 		4D0F9D031E6F296400860852 /* AnimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimeManager.swift; path = PopcornKit/Managers/AnimeManager.swift; sourceTree = SOURCE_ROOT; };
 		4D0F9D041E6F296400860852 /* PopcornKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopcornKit.swift; path = PopcornKit/Managers/PopcornKit.swift; sourceTree = SOURCE_ROOT; };
 		4D0F9D051E6F296400860852 /* ThemeSongManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeSongManager.swift; path = PopcornKit/Managers/ThemeSongManager.swift; sourceTree = SOURCE_ROOT; };
@@ -575,6 +578,10 @@
 		4DF110941E91042E0090289A /* MediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaViewController.swift; path = "Main View Controllers/MediaViewController.swift"; sourceTree = "<group>"; };
 		4DF110971E9430E40090289A /* String+Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
 		4DF1109A1E9431410090289A /* String+Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Localization.swift"; path = "PopcornKit/Resources/String+Localization.swift"; sourceTree = SOURCE_ROOT; };
+		4DF3942C1E96B10500DFCEC6 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		4DF3942E1E96B5B600DFCEC6 /* AVSpeakerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVSpeakerManager.swift; sourceTree = "<group>"; };
+		4DF394311E96BA3300DFCEC6 /* AVAudioRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAudioRoute.swift; sourceTree = "<group>"; };
+		4DF394341E96DF9100DFCEC6 /* UITableViewCell+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+TableView.swift"; sourceTree = "<group>"; };
 		4DF5D8AE1E69D34B000B4A3C /* UIDevice+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		4DFA77151E71FECC007DB0E7 /* TVExpandableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVExpandableTextView.swift; sourceTree = "<group>"; };
 		4DFA77171E720848007DB0E7 /* TVBlurOverCurrentContextAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVBlurOverCurrentContextAnimatedTransitioning.swift; path = "Presentation Controllers/TVBlurOverCurrentContextAnimatedTransitioning.swift"; sourceTree = "<group>"; };
@@ -709,6 +716,7 @@
 				4DAE339A1E7C81240014B489 /* TimeInterval+Default.swift */,
 				4D0F9E421E705BD100860852 /* UIImage+Extension.swift */,
 				4D0F9E431E705BD100860852 /* UIView+Extension.swift */,
+				4DF394341E96DF9100DFCEC6 /* UITableViewCell+TableView.swift */,
 				4D0F9E441E705BD100860852 /* Show+Extension.swift */,
 				4D0F9E451E705BD100860852 /* UINavigationController+Extension.swift */,
 				4D0F9E461E705BD100860852 /* CGSize+Min.swift */,
@@ -755,7 +763,6 @@
 				4D0F9CFF1E6F296400860852 /* TraktManager.swift */,
 				4D0F9D001E6F296400860852 /* GoogleCastManager.swift */,
 				4D0F9D011E6F296400860852 /* UpdateManager.swift */,
-				4D0F9D021E6F296400860852 /* AirPlayManager.swift */,
 				4D0F9D031E6F296400860852 /* AnimeManager.swift */,
 				4D0F9D041E6F296400860852 /* PopcornKit.swift */,
 				4D0F9D051E6F296400860852 /* ThemeSongManager.swift */,
@@ -970,6 +977,8 @@
 				4D990E2B1DC4F00F005CDE34 /* EncodingTypes.plist */,
 				4D990E321DC4F028005CDE34 /* Images.xcassets */,
 				4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */,
+				4DF3942E1E96B5B600DFCEC6 /* AVSpeakerManager.swift */,
+				4DF394311E96BA3300DFCEC6 /* AVAudioRoute.swift */,
 				4D07E17B1E8C364F00457FCB /* Object.swift */,
 				4DC2D1361E5B25750019DB7D /* AutoPlayStoryboardSegue.swift */,
 			);
@@ -1219,6 +1228,7 @@
 		F1EDDAB5F2E1772C41C22B7A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4DF3942C1E96B10500DFCEC6 /* AVKit.framework */,
 				4D9CED381DD278F1005ABC0A /* libiconv.tbd */,
 				4D9CED361DD278BD005ABC0A /* libc++.tbd */,
 				002682111CD0B76200F51D31 /* TVServices.framework */,
@@ -1413,7 +1423,6 @@
 					};
 					4D689A161DD88E17001D1318 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = BQBJ6NTPEG;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -1756,6 +1765,7 @@
 				4D0F9E4B1E705BD100860852 /* UINavigationController+Extension.swift in Sources */,
 				4D0F9E091E7057DF00860852 /* PersonViewController.swift in Sources */,
 				4DBCCED91E680EBE0066F1A7 /* UIStoryboard+Main.swift in Sources */,
+				4DF394351E96DF9100DFCEC6 /* UITableViewCell+TableView.swift in Sources */,
 				4D0F9DCF1E70564900860852 /* ShowDetailViewController.swift in Sources */,
 				4D0F9E491E705BD100860852 /* UIView+Extension.swift in Sources */,
 				4DFA771C1E731369007DB0E7 /* TVButton.swift in Sources */,
@@ -1771,6 +1781,7 @@
 				4D0F9DDA1E7056DF00860852 /* MonogramCollectionViewCell.swift in Sources */,
 				4D0E130E1E671E050000AD65 /* TVTabBarController.swift in Sources */,
 				4D784D501E5F3D38009E3423 /* Movie+Extension.swift in Sources */,
+				4DF3942F1E96B5B600DFCEC6 /* AVSpeakerManager.swift in Sources */,
 				4D0F9E081E7057DF00860852 /* SearchViewController.swift in Sources */,
 				4D99954F1E5C7B45005C432A /* TVLoadingViewController.swift in Sources */,
 				4D0F9DEA1E70573A00860852 /* ResponsiveCollectionViewController.swift in Sources */,
@@ -1785,6 +1796,7 @@
 				4DD6E4D51DFB2FAA00818A2C /* TapGestureRecogniser.swift in Sources */,
 				4D990E231DC4EFA2005CDE34 /* Media+Extension.swift in Sources */,
 				4DD6E4D01DFB17B400818A2C /* ProgressBar.swift in Sources */,
+				4DF394321E96BA3300DFCEC6 /* AVAudioRoute.swift in Sources */,
 				4D0F9DD01E70564900860852 /* MovieDetailViewController.swift in Sources */,
 				4D5624751E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift in Sources */,
 				4DB0477A1E6035860008721A /* ContinueWatchingCollectionViewCell.swift in Sources */,
@@ -1817,7 +1829,6 @@
 				4D0F9D861E6F2EF400860852 /* Episode.swift in Sources */,
 				4D0F9D891E6F2EF400860852 /* Actor.swift in Sources */,
 				4D0F9D4C1E6F2B2000860852 /* String+Extension.swift in Sources */,
-				4D0F9D7B1E6F2EEE00860852 /* AirPlayManager.swift in Sources */,
 				4D0F9D561E6F2C2400860852 /* TraktAuthenticationViewController.swift in Sources */,
 				4D0F9D671E6F2D1400860852 /* Dictionary+Extension.swift in Sources */,
 				4DB0EA671E7D8C38004B57B1 /* DispatchQueue+Extension.swift in Sources */,
@@ -1856,7 +1867,6 @@
 				4D0F9DC51E6F30ED00860852 /* Dictionary+Extension.swift in Sources */,
 				4D0F9DAF1E6F304600860852 /* SubtitlesManager.swift in Sources */,
 				4D0F9DC61E6F30F000860852 /* String+Extension.swift in Sources */,
-				4D0F9DB41E6F304600860852 /* AirPlayManager.swift in Sources */,
 				4D0F9DC41E6F304B00860852 /* Subtitle.swift in Sources */,
 				4D0F9DBD1E6F304B00860852 /* Media.swift in Sources */,
 				4D0F9DB61E6F304600860852 /* PopcornKit.swift in Sources */,
@@ -1894,6 +1904,7 @@
 				4D0F9DE41E7056E200860852 /* EpisodeCollectionViewCell.swift in Sources */,
 				4D0F9DE31E7056E200860852 /* CoverCollectionViewCell.swift in Sources */,
 				4DC7B6951E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift in Sources */,
+				4DF394361E96DF9100DFCEC6 /* UITableViewCell+TableView.swift in Sources */,
 				4DC2D1351E5A250B0019DB7D /* SnappingCollectionViewLayout.swift in Sources */,
 				4D784D511E5F3D38009E3423 /* Movie+Extension.swift in Sources */,
 				4DBCCEDA1E680EBE0066F1A7 /* UIStoryboard+Main.swift in Sources */,
@@ -1921,6 +1932,7 @@
 				4D0F9DEE1E70573F00860852 /* DescriptionCollectionViewController.swift in Sources */,
 				4D859B471DDFA0D5000E2AA1 /* OptionsTableViewController.swift in Sources */,
 				4D0F9DED1E70573F00860852 /* ResponsiveCollectionViewController.swift in Sources */,
+				4DF394331E96BA3300DFCEC6 /* AVAudioRoute.swift in Sources */,
 				4D5624791E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift in Sources */,
 				4D0F9E261E7058F700860852 /* EpisodeDetailPresentationDelegate.swift in Sources */,
 				4D0F9DE01E7056E200860852 /* MonogramCollectionViewCell.swift in Sources */,
@@ -1945,6 +1957,7 @@
 				4D0F9E0D1E7057F100860852 /* MainViewController.swift in Sources */,
 				4D5624761E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift in Sources */,
 				4D859B751DDFA12C000E2AA1 /* ProgressBar.swift in Sources */,
+				4DF394301E96B5B600DFCEC6 /* AVSpeakerManager.swift in Sources */,
 				4D8330BF1E57662D00E1DD41 /* AirPlayTableViewCell.swift in Sources */,
 				4D859B9F1DDFA164000E2AA1 /* UINavigationBar+Extension.swift in Sources */,
 				4D0F9DE51E7056E200860852 /* DescriptionCollectionViewCell.swift in Sources */,
@@ -2360,7 +2373,7 @@
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = BQBJ6NTPEG;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2369,7 +2382,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting FIles/iOS.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.mourke.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.ios;
 				PRODUCT_NAME = PopcornTime;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -2389,12 +2402,12 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = BQBJ6NTPEG;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting FIles/iOS.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.mourke.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.ios;
 				PRODUCT_NAME = PopcornTime;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Supporting Files/PopcornTimeiOS-Bridging-Header.h";
