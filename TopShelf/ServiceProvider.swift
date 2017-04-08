@@ -33,7 +33,7 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
             let type = media is [Movie] ? "Movie" : "Show"
             
             var mediaItems = [TVContentItem]()
-            for item in media[0..<3] {
+            for item in media[0..<10] {
                 mediaItems.append(
                     self.buildShelfItem(
                         item.title,
