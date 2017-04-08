@@ -314,7 +314,8 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         mediaplayer.drawable = movieView
         mediaplayer.media = VLCMedia(url: url)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(torrentStatusDidChange(_:)), name: .PTTorrentStatusDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(torrentStatusDidChange), name: .PTTorrentStatusDidChange, object: nil)
+        torrentStatusDidChange()
         
         let settings = SubtitleSettings.shared
         (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.size.rawValue))
@@ -371,7 +372,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     // MARK: - Player changes notifications
     
-    func torrentStatusDidChange(_ notification: Notification) {
+    func torrentStatusDidChange() {
         let totalProgress = PTTorrentStreamer.shared().torrentStatus.totalProgress
         progressBar?.bufferProgress = totalProgress
     }

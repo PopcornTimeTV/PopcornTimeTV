@@ -60,6 +60,10 @@ class OptionsStackViewController: UIViewController, UITableViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        [firstTableView, secondTableView, thirdTableView].forEach {
+            $0?.reloadData()
+        }
+        
         [topGuide, leftGuide, rightGuide, bottomGuide].forEach { (guide) in
             !self.parent!.view.layoutGuides.contains(guide) ? self.parent!.view.addLayoutGuide(guide) : ()
         }

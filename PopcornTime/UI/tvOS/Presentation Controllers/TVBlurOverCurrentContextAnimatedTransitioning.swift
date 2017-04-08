@@ -39,26 +39,19 @@ class TVBlurOverCurrentContextAnimatedTransitioning: TVAppDocumentControllerAnim
             else {
                 return
         }
+        
         transitionContext.containerView.addSubview(view)
         transitionContext.containerView.addSubview(presentedControllerView)
-        
-        UIView.animateKeyframes(withDuration: transitionDuration(using: transitionContext), delay: 0.0, options: .beginFromCurrentState, animations: {
             
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0, animations: { 
-                view.blurRadius = 0.0
-                view.contentView.backgroundColor = nil
-                presentedControllerView.transform = self.transformFrom
-                presentedControllerView.alpha = 0.0
-            })
-            
-            UIView.addKeyframe(withRelativeStartTime: 0.95, relativeDuration: 0.05, animations: {
-                view.alpha = 0.0
-            })
-            
-        }) { (_) in
+        UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .curveEaseIn, animations: {
+            view.blurRadius = 0
+            view.contentView.backgroundColor = nil
+            presentedControllerView.transform = self.transformFrom
+            presentedControllerView.alpha = 0.0
+        }, completion: { completed in
             view.removeFromSuperview()
             presentedControllerView.removeFromSuperview()
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        }
+        })
     }
 }

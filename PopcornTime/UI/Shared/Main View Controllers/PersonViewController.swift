@@ -52,7 +52,7 @@ class PersonViewController: MainViewController {
             let openQuote = Locale.current.quotationBeginDelimiter ?? "\""
             let closeQuote = Locale.current.quotationEndDelimiter ?? "\""
             
-            background.setUpView(title: "No results".localized, description: String.localizedStringWithFormat("We didn't turn anything up for %@. Try something else.", "\(openQuote + currentItem.name + closeQuote)"))
+            background.setUpView(title: "No results".localized, description: .localizedStringWithFormat("We didn't turn anything up for %@. Try something else.".localized, "\(openQuote + currentItem.name + closeQuote)"))
             
             collectionView.backgroundView = background
         }

@@ -2174,7 +2174,7 @@
                                             <constraint firstAttribute="width" constant="390" id="FJ7-Ho-EYX"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" misplaced="YES" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="cell" focusStyle="custom" textLabel="Bgz-fM-GuE" style="IBUITableViewCellStyleDefault" id="eUc-ua-lyY">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="cell" focusStyle="custom" textLabel="Bgz-fM-GuE" style="IBUITableViewCellStyleDefault" id="eUc-ua-lyY">
                                                 <rect key="frame" x="0.0" y="66" width="390" height="36"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eUc-ua-lyY" id="DKU-4V-qYv">
@@ -2204,7 +2204,7 @@
                                             <constraint firstAttribute="width" constant="390" id="q8P-sr-5nc"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" misplaced="YES" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="cell" focusStyle="custom" textLabel="O2t-15-u5G" style="IBUITableViewCellStyleDefault" id="6yY-iV-y03">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="cell" focusStyle="custom" textLabel="O2t-15-u5G" style="IBUITableViewCellStyleDefault" id="6yY-iV-y03">
                                                 <rect key="frame" x="0.0" y="66" width="390" height="36"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6yY-iV-y03" id="fnx-UA-OnZ">
@@ -2234,7 +2234,7 @@
                                             <constraint firstAttribute="width" constant="500" id="pfa-lk-m2o"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" misplaced="YES" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="cell" focusStyle="custom" textLabel="pQc-YO-AHL" style="IBUITableViewCellStyleDefault" id="CK0-Yq-LPy">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="cell" focusStyle="custom" textLabel="pQc-YO-AHL" style="IBUITableViewCellStyleDefault" id="CK0-Yq-LPy">
                                                 <rect key="frame" x="0.0" y="66" width="500" height="36"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CK0-Yq-LPy" id="f8I-02-Y3i">
@@ -2541,9 +2541,9 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="1920" height="440"/>
                     <connections>
-                        <outlet property="audioContentView" destination="UZA-7D-dR1" id="ro7-JZ-Isz"/>
-                        <outlet property="infoContentView" destination="JZc-y3-9iE" id="2hU-or-cNC"/>
-                        <outlet property="subtitlesContentView" destination="bX4-2V-xqW" id="l0A-IO-GwR"/>
+                        <outlet property="audioContainerView" destination="UZA-7D-dR1" id="hmR-ys-PBP"/>
+                        <outlet property="infoContainerView" destination="JZc-y3-9iE" id="dhl-81-hQF"/>
+                        <outlet property="subtitlesContainerView" destination="bX4-2V-xqW" id="aJr-Eo-gND"/>
                         <outlet property="swipeGesture" destination="ygj-7N-XDQ" id="YTY-ct-DqF"/>
                         <outlet property="tabBar" destination="VR9-RO-ryD" id="6Jg-mc-usc"/>
                     </connections>
@@ -2664,7 +2664,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                             <constraint firstAttribute="width" constant="390" id="Sfo-pF-RyZ"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" misplaced="YES" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="cell" focusStyle="custom" textLabel="LT6-Lq-1XN" style="IBUITableViewCellStyleDefault" id="liq-Rv-dHe">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="cell" focusStyle="custom" textLabel="LT6-Lq-1XN" style="IBUITableViewCellStyleDefault" id="liq-Rv-dHe">
                                                 <rect key="frame" x="0.0" y="66" width="390" height="36"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="liq-Rv-dHe" id="Huf-pp-RkY">
@@ -2694,7 +2694,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                             <constraint firstAttribute="width" constant="400" id="Y7u-8J-PG4"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" misplaced="YES" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="cell" focusStyle="custom" textLabel="i0W-os-MvN" style="IBUITableViewCellStyleDefault" id="0QM-ng-WBR">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="cell" focusStyle="custom" textLabel="i0W-os-MvN" style="IBUITableViewCellStyleDefault" id="0QM-ng-WBR">
                                                 <rect key="frame" x="0.0" y="66" width="400" height="36"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0QM-ng-WBR" id="hbz-bS-Ppc">
@@ -2725,7 +2725,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                             <constraint firstAttribute="width" constant="500" id="5nx-8F-FSz"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" misplaced="YES" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="cell" focusStyle="custom" textLabel="S9h-ZN-wVY" style="IBUITableViewCellStyleDefault" id="IDs-3q-fag">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="cell" focusStyle="custom" textLabel="S9h-ZN-wVY" style="IBUITableViewCellStyleDefault" id="IDs-3q-fag">
                                                 <rect key="frame" x="0.0" y="66" width="500" height="36"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IDs-3q-fag" id="lBb-3b-Ndg">

@@ -16,9 +16,9 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
     
     weak var delegate: OptionsViewControllerDelegate?
 
-    @IBOutlet var infoContentView: UIView!
-    @IBOutlet var subtitlesContentView: UIView!
-    @IBOutlet var audioContentView: UIView!
+    @IBOutlet var infoContainerView: UIView!
+    @IBOutlet var subtitlesContainerView: UIView!
+    @IBOutlet var audioContainerView: UIView!
 
     @IBOutlet var tabBar: UITabBar!
     @IBOutlet var swipeGesture: UISwipeGestureRecognizer!
@@ -33,22 +33,18 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
 
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         let index = tabBar.items!.index(of: item)!
-        switch index {
-        case 0:
-            subtitlesContentView.isHidden = true
-            audioContentView.isHidden = true
-            infoContentView.isHidden = false
-        case 1:
-            subtitlesContentView.isHidden = false
-            audioContentView.isHidden = true
-            infoContentView.isHidden = true
-        case 2:
-            subtitlesContentView.isHidden = true
-            audioContentView.isHidden = false
-            infoContentView.isHidden = true
-        default:
-            break
-        }
+        
+        updateContainerView(infoContainerView, viewController: infoViewController, hidden: index != 0)
+        updateContainerView(subtitlesContainerView, viewController: subtitlesViewController, hidden: index != 1)
+        updateContainerView(audioContainerView, viewController: audioViewController, hidden: index != 2)
+    }
+    
+    func updateContainerView(_ containerView: UIView, viewController: UIViewController, hidden: Bool) {
+        guard hidden != containerView.isHidden else { return }
+        
+        hidden ? viewController.viewWillDisappear(false) : viewController.viewWillAppear(false)
+        containerView.isHidden = hidden
+        hidden ? viewController.viewDidDisappear(false) : viewController.viewDidAppear(false)
     }
     
     

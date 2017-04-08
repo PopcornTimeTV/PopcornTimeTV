@@ -87,7 +87,7 @@ public final class UpdateManager: NSObject {
                 latestRelease > currentRelease && self.skipReleaseVersion?.buildNumber != latestRelease.buildNumber {
 
                 
-                let alert = UIAlertController(title: "Update Available".localized, message: .localizedStringWithFormat("%@ version %@ of Popcorn Time is now available.", latestRelease.releaseType.rawValue.localized, latestRelease.buildNumber), preferredStyle: .alert)
+                let alert = UIAlertController(title: "Update Available".localized, message: .localizedStringWithFormat("%@ version %@ of Popcorn Time is now available.".localized, latestRelease.releaseType.rawValue.localized, latestRelease.buildNumber), preferredStyle: .alert)
 
                 alert.addAction(UIAlertAction(title: "Maybe Later".localized, style: .default, handler: nil))
                 
