@@ -26,6 +26,25 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
     var infoViewController: InfoViewController!
     var subtitlesViewController: SubtitlesViewController!
     var audioViewController: AudioViewController!
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        setNeedsFocusUpdate()
+        updateFocusIfNeeded()
+        
+        environmentsToFocus.removeAll()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let menuGesture = UITapGestureRecognizer(target: self, action: #selector(menuPressed))
+        menuGesture.allowedTouchTypes = [NSNumber(value: UITouchType.indirect.rawValue)]
+        menuGesture.allowedPressTypes = [NSNumber(value: UIPressType.menu.rawValue)]
+        
+        view.addGestureRecognizer(menuGesture)
+    }
 
     @IBAction func dismissOptionsViewController() {
         dismiss(animated: true)
@@ -49,7 +68,7 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
     
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer == swipeGesture, let focused = tabBar.subviews.first(where: {$0 is UIScrollView})?.subviews.contains(where: { $0.isFocused }) // If gesture is pan gesture and one of the buttons is focused and the user is dragging up, the gesture should be run - otherwise it shouldn't.
+        if gestureRecognizer == swipeGesture, let focused = tabBar.subviews.first(where: {$0 is UIScrollView})?.subviews.contains(where: { $0.isFocused }) // If gesture is swipe gesture and one of the buttons is focused and the user is dragging up, the gesture should be run - otherwise, it shouldn't.
         {
             return focused
         }
@@ -73,6 +92,23 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
             subtitlesViewController = vc
         } else if let vc = segue.destination as? AudioViewController {
             audioViewController = vc
+        }
+    }
+    
+    var environmentsToFocus: [UIFocusEnvironment] = []
+    
+    override var preferredFocusEnvironments: [UIFocusEnvironment] {
+        return environmentsToFocus.isEmpty ? super.preferredFocusEnvironments : environmentsToFocus
+    }
+    
+    func menuPressed() {
+        if tabBar.recursiveSubviews.filter({$0.isFocused}).isEmpty {
+            environmentsToFocus = [tabBar]
+            setNeedsFocusUpdate()
+            updateFocusIfNeeded()
+            environmentsToFocus.removeAll()
+        } else {
+            dismiss(animated: true)
         }
     }
 }

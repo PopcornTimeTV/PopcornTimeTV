@@ -48,7 +48,7 @@ import MarqueeLabel
         titleLabel.layer.shadowOpacity = 0.6
         
         focusedConstraints.append(titleLabel.widthAnchor.constraint(equalTo: imageView.focusedFrameGuide.widthAnchor))
-        focusedConstraints.append(titleLabel.topAnchor.constraint(equalTo: imageView.focusedFrameGuide.bottomAnchor))
+        focusedConstraints.append(titleLabel.topAnchor.constraint(equalTo: imageView.focusedFrameGuide.bottomAnchor, constant: 3))
     }
     
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {

@@ -3,6 +3,15 @@
 import Foundation
 
 extension String {
+    
+    var localized: String {
+        return Bundle.main.localizedString(forKey: self, value: self, table: nil)
+    }
+    
+    mutating func localize() {
+        self = localized
+    }
+    
     func slice(from start: String, to: String) -> String? {
         return (range(of: start)?.upperBound).flatMap { sInd in
             let eInd = range(of: to, range: sInd..<endIndex)

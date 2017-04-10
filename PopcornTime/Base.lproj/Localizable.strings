@@ -1,11 +1,17 @@
 
 
+/* Automatically select the Highest quality */
 "Highest" = "Highest";
+/* Automatically select the Lowest quality */
 "Lowest" = "Lowest";
 
+/* Fastest scrubbing rate */
 "Hi-Speed" = "Hi-Speed";
+/* Middle scrubbing rate */
 "Half-Speed" = "Half-Speed";
+/* Quarter scrubbing rate */
 "Quarter-Speed" = "Quarter-Speed";
+/* Slowest scrubbing rate */
 "Fine" = "Fine";
 "Scrubbing" = "Scrubbing";
 
@@ -29,6 +35,7 @@
 "Purple" = "Purple";
 "Brown" = "Brown";
 
+/* Full range of audio output */
 "Full Dynamic Range" = "Full Dynamic Range";
 "Reduce Loud Sounds" = "Reduce Loud Sounds";
 "No subtitles available." = "No subtitles available.";
@@ -50,6 +57,7 @@
 "Season" = "Season";
 "Episode" = "Episode";
 "Episodes" = "Episodes";
+/* Number of seeds a torrent has */
 "Seeds" = "Seeds";
 
 "Theme Song Volume" = "Theme Song Volume";
@@ -92,7 +100,8 @@
 "No" = "No";
 
 "Choose Quality" = "Choose Quality";
-"Remaining" = "Remaining";
+/* {Time in minutes} {Short hand for the word 'minutes'} Remaining */
+"%d mins Remaining" = "%1$d mins Remaining";
 
 "Successfully authenticated with Trakt" = "Successfully authenticated with Trakt";
 "Failed to authenticate with Trakt" = "Failed to authenticate with Trakt";
@@ -134,9 +143,6 @@
 "Not found" = "Not found";
 "Please check your internet connection and try again." = "Please check your internet connection and try again.";
 
-"Forbidden" = "Forbidden";
-"Sorry, it looks like you're not on the guest list!" = "Sorry, it looks like you're not on the guest list!";
-
 "You're Offline" = "You're Offline";
 "Please make sure you have a valid internet connection and try again." = "Please make sure you have a valid internet connection and try again.";
 
@@ -144,7 +150,8 @@
 "Try adding movies or shows to your watchlist." = "Try adding movies or shows to your watchlist.";
 
 "No results" = "No results";
-"We didn't turn anything up for %@. Try something else." = "We didn't turn anything up for %$1@. Try something else.";
+/* We didn't turn anything up for {User's search result}. Try something else. */
+"We didn't turn anything up for %@. Try something else." = "We didn't turn anything up for %1$@. Try something else.";
 
 "Unknown Error" = "Unknown Error";
 "Error cleaning cache." = "Error cleaning cache.";
@@ -158,4 +165,48 @@
 "Mirroring route detected" = "Mirroring route detected";
 "Would you like to mirror current display to device?" = "Would you like to mirror current display to device?";
 
+"Maybe Later" = "Maybe Later";
+"Update Available" = "Update Available";
+/* {Release type - Beta/Stable} version {Version number} of Popcorn Time is now available. */
+"%@ version %@ of Popcorn Time is now available." = "%1$@ version %2$@ of Popcorn Time is now available.";
+"Skip This Version" = "Skip This Version";
+"Update" = "Update";
+"OK" = "OK";
+"Sideloading Instructions" = "Sideloading Instructions";
+"Unfortunately, in-app updates are not available for un-jailbroken devices. Please follow the sideloading instructions available in the PopcornTimeTV repo's wiki." = "Unfortunately, in-app updates are not available for un-jailbroken devices. Please follow the sideloading instructions available in the PopcornTimeTV repo's wiki.";
 
+"Popular" = "Popular";
+"New" = "New";
+"Recently Added" = "Recently Added";
+"Top Rated" = "Top Rated";
+"Trending" = "Trending";
+
+"All" = "All";
+"Action" = "Action";
+"Adventure" = "Adventure";
+"Animation" = "Animation";
+"Comedy" = "Comedy";
+"Crime" = "Crime";
+"Disaster" = "Disaster";
+"Documentary" = "Documentary";
+"Drama" = "Drama";
+"Family" = "Family";
+"Fan Film" = "Fan Film";
+"Fantasy" = "Fantasy";
+"Film Noir" = "Film Noir";
+"History" = "History";
+"Holiday" = "Holiday";
+"Horror" = "Horror";
+"Indie" = "Indie";
+"Music" = "Music";
+"Mystery" = "Mystery";
+"Road" = "Road";
+"Romance" = "Romance";
+"Science Fiction" = "Science Fiction";
+"Short" = "Short";
+"Sports" = "Sports";
+"Sporting Event" = "Sporting Event";
+"Suspense" = "Suspense";
+"Thriller" = "Thriller";
+"War" = "War";
+"Western" = "Western";

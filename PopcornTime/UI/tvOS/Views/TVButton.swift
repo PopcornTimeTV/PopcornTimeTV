@@ -43,10 +43,6 @@ import Foundation
         
         self.layer.shadowColor = shadowColor
         self.layer.shadowRadius = shadowRadius
-        
-        let selectGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectGestureWasPressed))
-        selectGestureRecognizer.allowedPressTypes = [NSNumber(value: UIPressType.select.rawValue)]
-        addGestureRecognizer(selectGestureRecognizer)
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -79,39 +75,47 @@ import Foundation
     }
     
     override var canBecomeFocused: Bool {
-        return true
+        return isEnabled
     }
     
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         coordinator.addCoordinatedAnimations({
-            self.isFocused ? self.applyFocusedAppearance() : self.applyUnfocusedAppearance()
+            if context.nextFocusedView == self {
+                self.applyFocusedAppearance()
+            } else if context.previouslyFocusedView == self {
+                self.applyUnfocusedAppearance()
+            }
         })
     }
     
     // MARK: - Presses
     
-    override open func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
         super.pressesBegan(presses, with: event)
         for item in presses where item.type == .select {
             applyPressDownAppearance()
+            sendActions(for: .touchDown)
         }
     }
     
-    override open func pressesEnded(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+    override func pressesEnded(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
         super.pressesEnded(presses, with: event)
         for item in presses where item.type == .select {
-            applyPressUpAppearance()
+            if isFocused {
+                applyPressUpAppearance()
+                sendActions(for: .primaryActionTriggered)
+            } else {
+                applyUnfocusedAppearance()
+            }
         }
     }
     
-    override open func pressesCancelled(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+    override func pressesCancelled(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        super.pressesCancelled(presses, with: event)
         for item in presses where item.type == .select {
-            applyPressUpAppearance()
+            isFocused ? applyPressUpAppearance() : applyUnfocusedAppearance()
+            sendActions(for: .touchCancel)
         }
-    }
-    
-    @objc private func selectGestureWasPressed() {
-        sendActions(for: .primaryActionTriggered)
     }
     
     // MARK: - Focus Appearance

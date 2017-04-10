@@ -29,16 +29,10 @@ class TVExpandableTextView: TvOSMoreButton {
         } set {}
     }
     
-    override var trailingTextFont: UIFont {
-        get {
-            return .boldSystemFont(ofSize: 25)
-        } set {}
-    }
-    
-    override var font: UIFont {
-        get {
-           return .systemFont(ofSize: 30, weight: UIFontWeightMedium)
-        } set {}
+    var blurStyle: UIBlurEffectStyle = .dark {
+        didSet {
+            blurredView.effect = UIBlurEffect(style: blurStyle)
+        }
     }
     
     override func layoutSubviews() {
@@ -47,7 +41,7 @@ class TVExpandableTextView: TvOSMoreButton {
         updateUI()
     }
     
-    private var blurredView: UIVisualEffectView {
+    var blurredView: UIVisualEffectView {
         return recursiveSubviews.flatMap({$0 as? UIVisualEffectView}).first!
     }
     
@@ -62,8 +56,10 @@ class TVExpandableTextView: TvOSMoreButton {
     }
     
     func sharedSetup() {
-        blurredView.effect = UIBlurEffect(style: .dark)
+        blurredView.effect = UIBlurEffect(style: blurStyle)
         blurredView.contentView.backgroundColor = UIColor(white: 1.0, alpha: 0.2)
+        font = .systemFont(ofSize: 30, weight: UIFontWeightMedium)
+        trailingTextFont = .boldSystemFont(ofSize: 25)
     }
     
     override func layoutIfNeeded() {

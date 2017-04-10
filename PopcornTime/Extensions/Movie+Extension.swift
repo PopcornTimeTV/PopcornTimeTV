@@ -21,6 +21,7 @@ extension Movie {
 }
 
 extension Show {
+    
     var formattedRuntime: String? {
         guard let runtime = runtime else { return nil }
         

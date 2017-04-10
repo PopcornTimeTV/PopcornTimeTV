@@ -109,7 +109,7 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
             cell.titleLabel?.text = movie.title
             cell.progressView.progress = WatchedlistManager<Movie>.movie.currentProgress(movie.id)
             let runtime = Float(movie.runtime)
-            cell.subtitleLabel.text = "\(Int(runtime - (runtime * cell.progressView.progress))) mins " + "Remaining".localized
+            cell.subtitleLabel.text = .localizedStringWithFormat("%d mins Remaining".localized, Int(runtime - (runtime * cell.progressView.progress)))
         }
         
         return cell

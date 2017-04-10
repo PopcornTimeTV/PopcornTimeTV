@@ -15,10 +15,10 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        environmentsToFocus = visibleButtons
-        
         setNeedsFocusUpdate()
         updateFocusIfNeeded()
+        
+        environmentsToFocus.removeAll()
     }
     
     override func viewDidLoad() {
@@ -29,6 +29,8 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
         
         summaryTextView.buttonWasPressed = moreButtonWasPressed
         summaryTextView.text = media.summary
+        
+        environmentsToFocus = visibleButtons
         
         
         if let movie = media as? Movie {
@@ -174,8 +176,23 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
                 return
             }
             
-            playerController.player = AVPlayer(url: url)
-            playerController.player!.play()
+            let player = AVPlayer(url: url)
+            
+            let title = AVMetadataItem(key: AVMetadataCommonKeyTitle as NSString, value: self.media.title as NSString)
+            let summary = AVMetadataItem(key: AVMetadataCommonKeyDescription as NSString, value: self.media.summary as NSString)
+            
+            player.currentItem?.externalMetadata = [title, summary]
+            
+            if let string = self.media.mediumCoverImage,
+                let url = URL(string: string),
+                let data = try? Data(contentsOf: url) {
+                let image = AVMetadataItem(key: AVMetadataCommonKeyArtwork as NSString, value: data as NSData)
+                player.currentItem?.externalMetadata.append(image)
+            }
+            
+            playerController.player = player
+            player.play()
+            
             
             NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: nil)
         }
@@ -199,6 +216,13 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         if let next = context.nextFocusedView {
             environmentsToFocus = [next]
+            
+            if next is TVButton, let parent = parent as? DetailViewController // Make sure that the scroll view is at the top when buttons are focused. This doesn't happen when expandable text view is focusable.
+            {
+                UIView.animate(withDuration: 2.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 4, options: [.curveEaseOut], animations: {
+                    parent.scrollView.scrollRectToVisible(CGRect(origin: .zero, size: CGSize(width: 1, height: 1)), animated: false)
+                })
+            }
         }
     }
     

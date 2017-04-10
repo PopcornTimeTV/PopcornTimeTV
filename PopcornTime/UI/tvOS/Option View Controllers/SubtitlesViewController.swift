@@ -5,30 +5,9 @@ import struct PopcornKit.Subtitle
 
 class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource {
     
-    override var activeTabBarButton: UIView {
-        return tabBar.subviews.first(where: {$0 is UIScrollView})?.subviews[safe: 1] ?? UIView()
-    }
-    
     var subtitles = [Subtitle]()
-    let encodings: [String: String] = {
-        guard let path = Bundle.main.path(forResource: "EncodingTypes", ofType: "plist"),
-            let labels = NSDictionary(contentsOfFile: path) as? [String: [String]],
-            let titles = labels["Titles"],
-            let values = labels["Values"],
-            titles.count == values.count else { return [String: String]() }
-        var dict = [String: String]()
-        for (index, key) in titles.enumerated() {
-            dict[key] = values[index]
-        }
-        return dict
-    }()
-    let delays: [Int] = {
-        var delays = [Int]()
-        for delay in -60...60 {
-            delays.append(delay)
-        }
-        return delays
-    }()
+    let encodings = SubtitleSettings.encodings
+    let delays = [Int](-60...60)
     
     var currentSubtitle: Subtitle?
     var currentDelay = 0

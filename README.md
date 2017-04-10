@@ -19,10 +19,6 @@ An ATV, iPhone and iPad application to torrent movies and tv shows for streaming
 
 Want to report a bug, request a feature, contribute or translate Popcorn Time? Check out our in-depth guide to [Contributing to Popcorn Time](CONTRIBUTING.md).
 
-## Noob?
-
-Visit our comprehensive [Build Guide](https://github.com/PopcornTimeTV/PopcornTimeTV/wiki/Building-Popcorn-Time) to get started.
-
 ## iPA
 
 Download the [latest .ipa's](https://github.com/PopcornTimeTV/PopcornTimeTV/releases/latest).

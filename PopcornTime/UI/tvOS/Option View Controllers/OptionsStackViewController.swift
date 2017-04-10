@@ -23,8 +23,6 @@ class OptionsStackViewController: UIViewController, UITableViewDelegate {
         return (parent as? OptionsViewController)?.tabBar
     }
     
-    var activeTabBarButton: UIView { fatalError("Must be overridden")  }
-    
     /// Stop the tab bar from being focused.
     var canFocusTabBar = true
     
@@ -39,22 +37,8 @@ class OptionsStackViewController: UIViewController, UITableViewDelegate {
             tableView?.contentInset.top = -10.0
         }
         
-        let menuGesture = UITapGestureRecognizer(target: self, action: #selector(menuPressed))
-        menuGesture.allowedTouchTypes = [NSNumber(value: UITouchType.indirect.rawValue)]
-        menuGesture.allowedPressTypes = [NSNumber(value: UIPressType.menu.rawValue)]
-        
-        view.addGestureRecognizer(menuGesture)
-        
-        
         view.addLayoutGuide(firstSecondGuide)
         view.addLayoutGuide(secondThirdGuide)
-        
-        topGuide.preferredFocusEnvironments = [firstTableView, secondTableView, thirdTableView]
-        leftGuide.preferredFocusEnvironments = [thirdTableView, secondTableView, firstTableView]
-        rightGuide.preferredFocusEnvironments = [firstTableView, secondTableView, thirdTableView]
-        bottomGuide.preferredFocusEnvironments = [] // Keep focus on the active table view.
-        firstSecondGuide.preferredFocusEnvironments = [secondTableView]
-        secondThirdGuide.preferredFocusEnvironments = [secondTableView]
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,8 +48,10 @@ class OptionsStackViewController: UIViewController, UITableViewDelegate {
             $0?.reloadData()
         }
         
+        parent?.view.layoutGuides.forEach({$0.owningView?.removeLayoutGuide($0)})
+        
         [topGuide, leftGuide, rightGuide, bottomGuide].forEach { (guide) in
-            !self.parent!.view.layoutGuides.contains(guide) ? self.parent!.view.addLayoutGuide(guide) : ()
+            self.parent?.view.addLayoutGuide(guide)
         }
         
         topGuide.topAnchor.constraint(equalTo: tabBar.bottomAnchor).isActive = true
@@ -73,30 +59,42 @@ class OptionsStackViewController: UIViewController, UITableViewDelegate {
         topGuide.rightAnchor.constraint(equalTo: parent!.view.rightAnchor).isActive = true
         topGuide.bottomAnchor.constraint(equalTo: firstTableView.topAnchor).isActive = true
         
+        topGuide.preferredFocusEnvironments = [firstTableView, secondTableView, thirdTableView]
+        
         leftGuide.topAnchor.constraint(equalTo: firstTableView.topAnchor).isActive = true
         leftGuide.leftAnchor.constraint(equalTo: parent!.view.leftAnchor).isActive = true
         leftGuide.rightAnchor.constraint(equalTo: firstTableView.leftAnchor).isActive = true
         leftGuide.bottomAnchor.constraint(equalTo: parent!.view.bottomAnchor).isActive = true
+        
+        leftGuide.preferredFocusEnvironments = [thirdTableView, secondTableView, firstTableView]
         
         rightGuide.topAnchor.constraint(equalTo: thirdTableView.topAnchor).isActive = true
         rightGuide.leftAnchor.constraint(equalTo: thirdTableView.rightAnchor).isActive = true
         rightGuide.rightAnchor.constraint(equalTo: parent!.view.rightAnchor).isActive = true
         rightGuide.bottomAnchor.constraint(equalTo: parent!.view.bottomAnchor).isActive = true
         
+        rightGuide.preferredFocusEnvironments = [firstTableView, secondTableView, thirdTableView]
+        
         bottomGuide.topAnchor.constraint(equalTo: firstTableView.bottomAnchor).isActive = true
         bottomGuide.leftAnchor.constraint(equalTo: parent!.view.leftAnchor).isActive = true
         bottomGuide.rightAnchor.constraint(equalTo: parent!.view.rightAnchor).isActive = true
         bottomGuide.bottomAnchor.constraint(equalTo: parent!.view.bottomAnchor).isActive = true
+        
+        bottomGuide.preferredFocusEnvironments = [] // Keep focus on the active table view.
         
         firstSecondGuide.topAnchor.constraint(equalTo: firstTableView.topAnchor).isActive = true
         firstSecondGuide.leftAnchor.constraint(equalTo: firstTableView.rightAnchor).isActive = true
         firstSecondGuide.rightAnchor.constraint(equalTo: secondTableView.leftAnchor).isActive = true
         firstSecondGuide.bottomAnchor.constraint(equalTo: parent!.view.bottomAnchor).isActive = true
         
+        firstSecondGuide.preferredFocusEnvironments = [secondTableView]
+        
         secondThirdGuide.topAnchor.constraint(equalTo: thirdTableView.topAnchor).isActive = true
         secondThirdGuide.leftAnchor.constraint(equalTo: secondTableView.rightAnchor).isActive = true
         secondThirdGuide.rightAnchor.constraint(equalTo: thirdTableView.leftAnchor).isActive = true
         secondThirdGuide.bottomAnchor.constraint(equalTo: parent!.view.bottomAnchor).isActive = true
+        
+        secondThirdGuide.preferredFocusEnvironments = [secondTableView]
     }
     
     func tableView(_ tableView: UITableView, didUpdateFocusIn context: UITableViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
@@ -150,24 +148,5 @@ class OptionsStackViewController: UIViewController, UITableViewDelegate {
             return canFocusTabBar
         }
         return true
-    }
-    
-    var environmentsToFocus: [UIFocusEnvironment] = []
-    
-    override var preferredFocusEnvironments: [UIFocusEnvironment] {
-        defer { environmentsToFocus.removeAll() }
-        return environmentsToFocus.isEmpty ? super.preferredFocusEnvironments : environmentsToFocus
-    }
-    
-    func menuPressed() {
-        if firstTableView.recursiveSubviews.first(where: {$0.isFocused}) != nil || secondTableView.recursiveSubviews.first(where: {$0.isFocused}) != nil || thirdTableView.recursiveSubviews.first(where: {$0.isFocused}) != nil {
-            if let item = tabBar.selectedItem, let index = tabBar.items?.index(of: item) {
-                environmentsToFocus = [tabBar.subviews.first(where: {$0 is UIScrollView})?.subviews[safe: index]].flatMap({$0})
-                setNeedsFocusUpdate()
-                updateFocusIfNeeded()
-            }
-        } else {
-           dismiss(animated: true)
-        }
     }
 }

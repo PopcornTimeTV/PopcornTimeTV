@@ -21,7 +21,6 @@
 		4D0F9D4C1E6F2B2000860852 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D4A1E6F2B1300860852 /* String+Extension.swift */; };
 		4D0F9D4D1E6F2B2000860852 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D4A1E6F2B1300860852 /* String+Extension.swift */; };
 		4D0F9D561E6F2C2400860852 /* TraktAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D4E1E6F2B4C00860852 /* TraktAuthenticationViewController.swift */; };
-		4D0F9D581E6F2C2C00860852 /* TraktAuthenticationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D0F9D5A1E6F2C2C00860852 /* TraktAuthenticationViewController.xib */; };
 		4D0F9D631E6F2CAE00860852 /* PopcornKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D0F9D5F1E6F2CA100860852 /* PopcornKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D0F9D671E6F2D1400860852 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */; };
 		4D0F9D6E1E6F2D7600860852 /* MPAudioDeviceController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D0F9D681E6F2D7600860852 /* MPAudioDeviceController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -167,6 +166,11 @@
 		4D0F9E511E705BD600860852 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9E451E705BD100860852 /* UINavigationController+Extension.swift */; };
 		4D0F9E521E705BD600860852 /* CGSize+Min.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9E461E705BD100860852 /* CGSize+Min.swift */; };
 		4D0F9E531E705BD600860852 /* UIAlertController+BlurStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9E471E705BD100860852 /* UIAlertController+BlurStyle.swift */; };
+		4D1440151E9AF16600B78269 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D1440131E9AF16600B78269 /* Localizable.strings */; };
+		4D1440161E9AF16600B78269 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D1440131E9AF16600B78269 /* Localizable.strings */; };
+		4D1440191E9AF18800B78269 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D1440101E9AF13A00B78269 /* LoadingView.xib */; };
+		4D1440211E9AF3D200B78269 /* TraktAuthenticationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D14401C1E9AF3CA00B78269 /* TraktAuthenticationViewController.xib */; };
+		4D14402C1E9BC61900B78269 /* AVMetadataItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D14402B1E9BC61900B78269 /* AVMetadataItem+Extension.swift */; };
 		4D1B88A71E3BEFF300DB701D /* EpisodesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B88A61E3BEFF300DB701D /* EpisodesCollectionViewController.swift */; };
 		4D1B88AD1E3CAF6700DB701D /* UIAlertAction+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B88AC1E3CAF6700DB701D /* UIAlertAction+Extension.swift */; };
 		4D2543AE1DACFBFE00149533 /* TVServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 002682111CD0B76200F51D31 /* TVServices.framework */; };
@@ -177,7 +181,6 @@
 		4D5624761E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5624741E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift */; };
 		4D5624781E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5624771E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift */; };
 		4D5624791E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5624771E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift */; };
-		4D689A291DD88EE9001D1318 /* EncodingTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E2B1DC4F00F005CDE34 /* EncodingTypes.plist */; };
 		4D689A2A1DD88EFC001D1318 /* SubtitleSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */; };
 		4D689A2C1DD88F0A001D1318 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
 		4D689A2E1DD88F12001D1318 /* Locale+Langs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */; };
@@ -220,7 +223,6 @@
 		4D8C4B8A1E47BE78004872F8 /* UIScreen+AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8C4B891E47BE78004872F8 /* UIScreen+AspectRatio.swift */; };
 		4D990E231DC4EFA2005CDE34 /* Media+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E1D1DC4EFA2005CDE34 /* Media+Extension.swift */; };
 		4D990E2D1DC4F00F005CDE34 /* SubtitleSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */; };
-		4D990E301DC4F00F005CDE34 /* EncodingTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E2B1DC4F00F005CDE34 /* EncodingTypes.plist */; };
 		4D990E471DC4F0F1005CDE34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E451DC4F0F1005CDE34 /* AppDelegate.swift */; };
 		4D9995421E5C6FFE005C432A /* CollectionViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9995411E5C6FFD005C432A /* CollectionViewController+iOS.swift */; };
 		4D99954F1E5C7B45005C432A /* TVLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99954E1E5C7B45005C432A /* TVLoadingViewController.swift */; };
@@ -252,9 +254,6 @@
 		4DBCCEF71E6815450066F1A7 /* iOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCEF21E6815450066F1A7 /* iOS.storyboard */; };
 		4DBCCEF81E6815450066F1A7 /* tvOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCEF41E6815450066F1A7 /* tvOS.storyboard */; };
 		4DBCCEFF1E68220D0066F1A7 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCEFD1E68220D0066F1A7 /* Launch Screen.storyboard */; };
-		4DBCCF011E68897D0066F1A7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCF001E68897D0066F1A7 /* Localizable.strings */; };
-		4DBCCF021E68897D0066F1A7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCF001E68897D0066F1A7 /* Localizable.strings */; };
-		4DBCCF081E6897DF0066F1A7 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCF0A1E6897DF0066F1A7 /* LoadingView.xib */; };
 		4DBE608A1E5E49B200C2549B /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60891E5E49B200C2549B /* FileManager+Extension.swift */; };
 		4DBE608B1E5E49B200C2549B /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60891E5E49B200C2549B /* FileManager+Extension.swift */; };
 		4DBE608F1E5E51C300C2549B /* DetailViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE608E1E5E51C300C2549B /* DetailViewController+iOS.swift */; };
@@ -286,14 +285,8 @@
 		4DDBD90A1E0EDA2E00CEA1B1 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBD9081E0EDA2E00CEA1B1 /* Array+Extension.swift */; };
 		4DE9E06A1E3D0DC300806522 /* SeparatorCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE9E0691E3D0DC300806522 /* SeparatorCollectionViewLayout.swift */; };
 		4DE9E06C1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE9E06B1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift */; };
-		4DF1108C1E90FB4F0090289A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DF1108B1E90FB4F0090289A /* Localizable.strings */; };
-		4DF1108D1E90FB4F0090289A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DF1108B1E90FB4F0090289A /* Localizable.strings */; };
 		4DF110951E91042E0090289A /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF110941E91042E0090289A /* MediaViewController.swift */; };
 		4DF110961E91042E0090289A /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF110941E91042E0090289A /* MediaViewController.swift */; };
-		4DF110981E9430E40090289A /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF110971E9430E40090289A /* String+Localization.swift */; };
-		4DF110991E9430E40090289A /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF110971E9430E40090289A /* String+Localization.swift */; };
-		4DF1109B1E9431410090289A /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF1109A1E9431410090289A /* String+Localization.swift */; };
-		4DF1109C1E9431410090289A /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF1109A1E9431410090289A /* String+Localization.swift */; };
 		4DF3942F1E96B5B600DFCEC6 /* AVSpeakerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF3942E1E96B5B600DFCEC6 /* AVSpeakerManager.swift */; };
 		4DF394301E96B5B600DFCEC6 /* AVSpeakerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF3942E1E96B5B600DFCEC6 /* AVSpeakerManager.swift */; };
 		4DF394321E96BA3300DFCEC6 /* AVAudioRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF394311E96BA3300DFCEC6 /* AVAudioRoute.swift */; };
@@ -414,8 +407,6 @@
 		4D0F9D321E6F29E500860852 /* PopcornKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopcornKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D0F9D4A1E6F2B1300860852 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		4D0F9D4E1E6F2B4C00860852 /* TraktAuthenticationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TraktAuthenticationViewController.swift; path = PopcornKit/Trakt/TraktAuthenticationViewController.swift; sourceTree = SOURCE_ROOT; };
-		4D0F9D591E6F2C2C00860852 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TraktAuthenticationViewController.xib; sourceTree = "<group>"; };
-		4D0F9D5C1E6F2C2F00860852 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TraktAuthenticationViewController.strings; sourceTree = "<group>"; };
 		4D0F9D5E1E6F2CA100860852 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "PopcornKit/Supporting Files/Info.plist"; sourceTree = SOURCE_ROOT; };
 		4D0F9D5F1E6F2CA100860852 /* PopcornKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopcornKit.h; path = "PopcornKit/Supporting Files/PopcornKit.h"; sourceTree = SOURCE_ROOT; };
 		4D0F9D601E6F2CA100860852 /* PopcornKit.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; name = PopcornKit.modulemap; path = "PopcornKit/Supporting Files/PopcornKit.modulemap"; sourceTree = SOURCE_ROOT; };
@@ -474,6 +465,13 @@
 		4D0F9E461E705BD100860852 /* CGSize+Min.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Min.swift"; sourceTree = "<group>"; };
 		4D0F9E471E705BD100860852 /* UIAlertController+BlurStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+BlurStyle.swift"; sourceTree = "<group>"; };
 		4D1178641DC6A7F90077A598 /* TopShelf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TopShelf.entitlements; sourceTree = "<group>"; };
+		4D1440111E9AF13A00B78269 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoadingView.xib; sourceTree = "<group>"; };
+		4D1440141E9AF16600B78269 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4D1440181E9AF17A00B78269 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LoadingView.strings; sourceTree = "<group>"; };
+		4D14401A1E9AF18D00B78269 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4D14401D1E9AF3CA00B78269 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TraktAuthenticationViewController.xib; sourceTree = "<group>"; };
+		4D1440201E9AF3CF00B78269 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TraktAuthenticationViewController.strings; sourceTree = "<group>"; };
+		4D14402B1E9BC61900B78269 /* AVMetadataItem+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVMetadataItem+Extension.swift"; sourceTree = "<group>"; };
 		4D1B88A61E3BEFF300DB701D /* EpisodesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodesCollectionViewController.swift; path = "Collection View Controllers/EpisodesCollectionViewController.swift"; sourceTree = "<group>"; };
 		4D1B88AC1E3CAF6700DB701D /* UIAlertAction+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Extension.swift"; sourceTree = "<group>"; };
 		4D2543AD1DACFBFE00149533 /* TopShelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TopShelf.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -518,7 +516,6 @@
 		4D990E1D1DC4EFA2005CDE34 /* Media+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Media+Extension.swift"; sourceTree = "<group>"; };
 		4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleSettings.swift; sourceTree = "<group>"; };
 		4D990E281DC4F00F005CDE34 /* PopcornTimetvOS-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PopcornTimetvOS-Bridging-Header.h"; sourceTree = "<group>"; };
-		4D990E2B1DC4F00F005CDE34 /* EncodingTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EncodingTypes.plist; sourceTree = "<group>"; };
 		4D990E321DC4F028005CDE34 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4D990E451DC4F0F1005CDE34 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D9995411E5C6FFD005C432A /* CollectionViewController+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CollectionViewController+iOS.swift"; sourceTree = "<group>"; };
@@ -548,9 +545,6 @@
 		4DBCCEFB1E6815710066F1A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/iOS.strings; sourceTree = "<group>"; };
 		4DBCCEFC1E6815710066F1A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/tvOS.strings; sourceTree = "<group>"; };
 		4DBCCEFD1E68220D0066F1A7 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		4DBCCF001E68897D0066F1A7 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = "PopcornTime/Supporting Files/Localizable.strings"; sourceTree = SOURCE_ROOT; };
-		4DBCCF091E6897DF0066F1A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoadingView.xib; sourceTree = "<group>"; };
-		4DBCCF0C1E6897EA0066F1A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LoadingView.strings; sourceTree = "<group>"; };
 		4DBE60891E5E49B200C2549B /* FileManager+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
 		4DBE608E1E5E51C300C2549B /* DetailViewController+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DetailViewController+iOS.swift"; sourceTree = "<group>"; };
 		4DBE60971E5E590500C2549B /* MovieDetailViewController+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MovieDetailViewController+iOS.swift"; sourceTree = "<group>"; };
@@ -574,10 +568,7 @@
 		4DDBD9081E0EDA2E00CEA1B1 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		4DE9E0691E3D0DC300806522 /* SeparatorCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SeparatorCollectionViewLayout.swift; path = "Collection View Layouts/SeparatorCollectionViewLayout.swift"; sourceTree = "<group>"; };
 		4DE9E06B1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewLayoutAttributes+Color.swift"; sourceTree = "<group>"; };
-		4DF1108B1E90FB4F0090289A /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = "PopcornKit/Supporting Files/Localizable.strings"; sourceTree = SOURCE_ROOT; };
 		4DF110941E91042E0090289A /* MediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaViewController.swift; path = "Main View Controllers/MediaViewController.swift"; sourceTree = "<group>"; };
-		4DF110971E9430E40090289A /* String+Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
-		4DF1109A1E9431410090289A /* String+Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Localization.swift"; path = "PopcornKit/Resources/String+Localization.swift"; sourceTree = SOURCE_ROOT; };
 		4DF3942C1E96B10500DFCEC6 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		4DF3942E1E96B5B600DFCEC6 /* AVSpeakerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVSpeakerManager.swift; sourceTree = "<group>"; };
 		4DF394311E96BA3300DFCEC6 /* AVAudioRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAudioRoute.swift; sourceTree = "<group>"; };
@@ -699,7 +690,6 @@
 				4DC870B51D9EDE58005455B0 /* PopcornTime.entitlements */,
 				4DA42DC41DD8C6D900933A10 /* PopcornTimeiOS-Bridging-Header.h */,
 				4D990E281DC4F00F005CDE34 /* PopcornTimetvOS-Bridging-Header.h */,
-				4DBCCF001E68897D0066F1A7 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			path = "Supporting FIles";
@@ -710,7 +700,6 @@
 			children = (
 				4D7376011DFDC6F500505CA0 /* NSNotificationName+Extension.swift */,
 				4D0F9D4A1E6F2B1300860852 /* String+Extension.swift */,
-				4DF110971E9430E40090289A /* String+Localization.swift */,
 				4DCB39301E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift */,
 				4DB0EA641E7D8C38004B57B1 /* DispatchQueue+Extension.swift */,
 				4DAE339A1E7C81240014B489 /* TimeInterval+Default.swift */,
@@ -794,7 +783,6 @@
 			isa = PBXGroup;
 			children = (
 				4D0F9D4E1E6F2B4C00860852 /* TraktAuthenticationViewController.swift */,
-				4D0F9D5A1E6F2C2C00860852 /* TraktAuthenticationViewController.xib */,
 			);
 			name = Trakt;
 			sourceTree = "<group>";
@@ -805,7 +793,6 @@
 				4D0F9D5E1E6F2CA100860852 /* Info.plist */,
 				4D0F9D5F1E6F2CA100860852 /* PopcornKit.h */,
 				4D0F9D601E6F2CA100860852 /* PopcornKit.modulemap */,
-				4DF1108B1E90FB4F0090289A /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -814,7 +801,6 @@
 			isa = PBXGroup;
 			children = (
 				4D0F9D651E6F2CEB00860852 /* OAuthCredential.swift */,
-				4DF1109A1E9431410090289A /* String+Localization.swift */,
 				4D0F9D681E6F2D7600860852 /* MPAudioDeviceController.h */,
 				4D0F9D691E6F2D7600860852 /* MPAVRoute.h */,
 				4D0F9D6A1E6F2D7600860852 /* MPAVRoutingController.h */,
@@ -951,6 +937,7 @@
 			isa = PBXGroup;
 			children = (
 				4D99955C1E5C8F09005C432A /* CollectionViewController+tvOS.swift */,
+				4D14402B1E9BC61900B78269 /* AVMetadataItem+Extension.swift */,
 				4D0F9E3A1E705AA100860852 /* SearchViewController+tvOS.swift */,
 				4D0F9E3B1E705AA100860852 /* UICollectionViewCell+ReactiveCell.swift */,
 				4D784D571E5F791B009E3423 /* DetailViewController+tvOS.swift */,
@@ -974,7 +961,6 @@
 		4D990E261DC4EFF2005CDE34 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4D990E2B1DC4F00F005CDE34 /* EncodingTypes.plist */,
 				4D990E321DC4F028005CDE34 /* Images.xcassets */,
 				4D990E271DC4F00F005CDE34 /* SubtitleSettings.swift */,
 				4DF3942E1E96B5B600DFCEC6 /* AVSpeakerManager.swift */,
@@ -1113,7 +1099,6 @@
 			isa = PBXGroup;
 			children = (
 				4D0F9E2C1E7059BA00860852 /* ContinueWatchingCollectionReusableView.xib */,
-				4DBCCF0A1E6897DF0066F1A7 /* LoadingView.xib */,
 				4D859B691DDFA12A000E2AA1 /* ErrorBackgroundView.xib */,
 				4D0F9E2D1E7059BA00860852 /* BarSlider.swift */,
 				4D859B681DDFA12A000E2AA1 /* UIExpandableTextView.swift */,
@@ -1148,8 +1133,11 @@
 		4DBCCEEB1E6814CA0066F1A7 /* Base.lproj */ = {
 			isa = PBXGroup;
 			children = (
+				4D14401C1E9AF3CA00B78269 /* TraktAuthenticationViewController.xib */,
+				4D1440101E9AF13A00B78269 /* LoadingView.xib */,
 				4DBCCEF21E6815450066F1A7 /* iOS.storyboard */,
 				4DBCCEF41E6815450066F1A7 /* tvOS.storyboard */,
+				4D1440131E9AF16600B78269 /* Localizable.strings */,
 			);
 			name = Base.lproj;
 			sourceTree = "<group>";
@@ -1466,10 +1454,9 @@
 				4D9995551E5C7F81005C432A /* ErrorBackgroundView.xib in Resources */,
 				4D99955B1E5C81DF005C432A /* ContinueWatchingCollectionViewCell.xib in Resources */,
 				4DFA77201E7317B1007DB0E7 /* TVButton.xib in Resources */,
-				4D990E301DC4F00F005CDE34 /* EncodingTypes.plist in Resources */,
 				4D689A371DD89076001D1318 /* Images.xcassets in Resources */,
+				4D1440151E9AF16600B78269 /* Localizable.strings in Resources */,
 				4D0F9E411E705B0800860852 /* ContinueWatchingCollectionReusableView.xib in Resources */,
-				4DBCCF011E68897D0066F1A7 /* Localizable.strings in Resources */,
 				4D9995531E5C7E68005C432A /* LoadingView.xib in Resources */,
 				4DBCCEF81E6815450066F1A7 /* tvOS.storyboard in Resources */,
 			);
@@ -1479,8 +1466,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D0F9D581E6F2C2C00860852 /* TraktAuthenticationViewController.xib in Resources */,
-				4DF1108C1E90FB4F0090289A /* Localizable.strings in Resources */,
+				4D1440211E9AF3D200B78269 /* TraktAuthenticationViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1488,7 +1474,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DF1108D1E90FB4F0090289A /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1503,14 +1488,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D689A291DD88EE9001D1318 /* EncodingTypes.plist in Resources */,
-				4DBCCF021E68897D0066F1A7 /* Localizable.strings in Resources */,
 				4DC2D1331E59FE290019DB7D /* ContinueWatchingCollectionViewCell.xib in Resources */,
 				4D689A361DD8906F001D1318 /* Images.xcassets in Resources */,
-				4DBCCF081E6897DF0066F1A7 /* LoadingView.xib in Resources */,
 				4D0F9E321E7059C000860852 /* ContinueWatchingCollectionReusableView.xib in Resources */,
 				4D859B771DDFA12C000E2AA1 /* ErrorBackgroundView.xib in Resources */,
 				4DBCCEF71E6815450066F1A7 /* iOS.storyboard in Resources */,
+				4D1440161E9AF16600B78269 /* Localizable.strings in Resources */,
+				4D1440191E9AF18800B78269 /* LoadingView.xib in Resources */,
 				4DBCCEFF1E68220D0066F1A7 /* Launch Screen.storyboard in Resources */,
 				4DC7B6A51E3907CC0098B12E /* DescriptionCollectionViewCell.xib in Resources */,
 			);
@@ -1746,7 +1730,6 @@
 				4D5624781E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift in Sources */,
 				4D0F9DF81E70579C00860852 /* ErrorBackgroundView.swift in Sources */,
 				4D0F9E481E705BD100860852 /* UIImage+Extension.swift in Sources */,
-				4DF110981E9430E40090289A /* String+Localization.swift in Sources */,
 				4D99956E1E5CE227005C432A /* UIFont+Style.swift in Sources */,
 				4D9995781E5DCE7B005C432A /* SeasonPickerViewController.swift in Sources */,
 				4D0F9E371E705A3E00860852 /* TVAppDocumentControllerAnimatedTransitioning.swift in Sources */,
@@ -1783,6 +1766,7 @@
 				4D784D501E5F3D38009E3423 /* Movie+Extension.swift in Sources */,
 				4DF3942F1E96B5B600DFCEC6 /* AVSpeakerManager.swift in Sources */,
 				4D0F9E081E7057DF00860852 /* SearchViewController.swift in Sources */,
+				4D14402C1E9BC61900B78269 /* AVMetadataItem+Extension.swift in Sources */,
 				4D99954F1E5C7B45005C432A /* TVLoadingViewController.swift in Sources */,
 				4D0F9DEA1E70573A00860852 /* ResponsiveCollectionViewController.swift in Sources */,
 				4D0F9D4B1E6F2B1300860852 /* String+Extension.swift in Sources */,
@@ -1818,7 +1802,6 @@
 				4D0F9D771E6F2EEE00860852 /* WatchedlistManager.swift in Sources */,
 				4D0F9D871E6F2EF400860852 /* Person.swift in Sources */,
 				4D0F9D791E6F2EEE00860852 /* GoogleCastManager.swift in Sources */,
-				4DF1109B1E9431410090289A /* String+Localization.swift in Sources */,
 				4D0F9D821E6F2EEE00860852 /* TMDBManager.swift in Sources */,
 				4D0F9D7A1E6F2EEE00860852 /* UpdateManager.swift in Sources */,
 				4D0F9D731E6F2D7600860852 /* NSData+GZIP.m in Sources */,
@@ -1853,7 +1836,6 @@
 				4D0F9DB71E6F304600860852 /* ThemeSongManager.swift in Sources */,
 				4DCB393D1E844D4500388374 /* UIAlertController+Show.swift in Sources */,
 				4D0F9DB51E6F304600860852 /* AnimeManager.swift in Sources */,
-				4DF1109C1E9431410090289A /* String+Localization.swift in Sources */,
 				4D0F9DB81E6F304600860852 /* WatchlistManager.swift in Sources */,
 				4D0F9DAB1E6F300D00860852 /* NSData+GZIP.m in Sources */,
 				4D0F9DC21E6F304B00860852 /* Actor.swift in Sources */,
@@ -1953,7 +1935,6 @@
 				4D0F9E121E7057F100860852 /* ShowsViewController.swift in Sources */,
 				4D689A6F1DD8AF12001D1318 /* AppDelegate.swift in Sources */,
 				4DE9E06A1E3D0DC300806522 /* SeparatorCollectionViewLayout.swift in Sources */,
-				4DF110991E9430E40090289A /* String+Localization.swift in Sources */,
 				4D0F9E0D1E7057F100860852 /* MainViewController.swift in Sources */,
 				4D5624761E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift in Sources */,
 				4D859B751DDFA12C000E2AA1 /* ProgressBar.swift in Sources */,
@@ -2016,15 +1997,32 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		4D0F9D5A1E6F2C2C00860852 /* TraktAuthenticationViewController.xib */ = {
+		4D1440101E9AF13A00B78269 /* LoadingView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4D0F9D591E6F2C2C00860852 /* Base */,
-				4D0F9D5C1E6F2C2F00860852 /* en */,
+				4D1440111E9AF13A00B78269 /* Base */,
+				4D1440181E9AF17A00B78269 /* en */,
+			);
+			name = LoadingView.xib;
+			sourceTree = "<group>";
+		};
+		4D1440131E9AF16600B78269 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D1440141E9AF16600B78269 /* Base */,
+				4D14401A1E9AF18D00B78269 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		4D14401C1E9AF3CA00B78269 /* TraktAuthenticationViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D14401D1E9AF3CA00B78269 /* Base */,
+				4D1440201E9AF3CF00B78269 /* en */,
 			);
 			name = TraktAuthenticationViewController.xib;
-			path = PopcornKit/Trakt;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		4DBCCEF21E6815450066F1A7 /* iOS.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -2042,15 +2040,6 @@
 				4DBCCEFC1E6815710066F1A7 /* en */,
 			);
 			name = tvOS.storyboard;
-			sourceTree = "<group>";
-		};
-		4DBCCF0A1E6897DF0066F1A7 /* LoadingView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4DBCCF091E6897DF0066F1A7 /* Base */,
-				4DBCCF0C1E6897EA0066F1A7 /* en */,
-			);
-			name = LoadingView.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

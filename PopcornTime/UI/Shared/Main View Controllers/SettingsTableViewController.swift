@@ -252,27 +252,25 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 alertController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
                 
                 present(alertController, animated: true)
-            } else if indexPath.row == 5,
-                let path = Bundle.main.path(forResource: "EncodingTypes", ofType: "plist"),
-                let labels = NSDictionary(contentsOfFile: path) as? [String: [String]],
-                let titles = labels["Titles"],
-                let values = labels["Values"]  {
+            } else if indexPath.row == 5 {
+                let keys   = Array(SubtitleSettings.encodings.keys)
+                let values = Array(SubtitleSettings.encodings.values)
                 
                 let alertController = UIAlertController(title: "Subtitle Encoding".localized, message: "Choose encoding for the player subtitles.".localized, preferredStyle: .actionSheet, blurStyle: .dark)
                 
                 let handler: (UIAlertAction) -> Void = { action in
-                    subtitleSettings.encoding = values[titles.index(of: action.title!)!]
+                    subtitleSettings.encoding = values[keys.index(of: action.title!)!]
                     subtitleSettings.save()
                     tableView.reloadData()
                 }
                 
                 alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
                 
-                for title in titles {
+                for title in keys {
                     alertController.addAction(UIAlertAction(title: title, style: .default, handler: handler))
                 }
                 
-                alertController.preferredAction = alertController.actions.first(where: { $0.title == titles[values.index(of: subtitleSettings.encoding)!] })
+                alertController.preferredAction = alertController.actions.first(where: { $0.title == keys[values.index(of: subtitleSettings.encoding)!] })
                 
                 alertController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
                 

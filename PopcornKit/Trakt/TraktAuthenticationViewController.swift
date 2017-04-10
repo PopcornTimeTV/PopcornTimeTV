@@ -28,7 +28,7 @@ public class TraktAuthenticationViewController: UIViewController {
                 let expires = expires,
                 let interval = interval,
                 let `self` = self,
-                error == nil else {return}
+                error == nil else { return }
             self.codeLabel.text = displayCode
             self.expiresIn = expires
             self.deviceCode = deviceCode

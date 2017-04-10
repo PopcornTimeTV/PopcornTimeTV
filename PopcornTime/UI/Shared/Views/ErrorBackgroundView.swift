@@ -22,9 +22,6 @@ class ErrorBackgroundView: UIView {
         case -404:
             title = "Not found".localized
             helpfulDescription = "Please check your internet connection and try again.".localized
-        case -403:
-            title = "Forbidden".localized
-            helpfulDescription = "Sorry, it looks like you're not on the guest list!".localized
         case -1005, -1009:
             title = "You're Offline".localized
             helpfulDescription = "Please make sure you have a valid internet connection and try again.".localized

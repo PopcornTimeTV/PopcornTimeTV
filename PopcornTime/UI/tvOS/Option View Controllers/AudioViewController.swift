@@ -21,21 +21,10 @@ enum EqualizerProfiles: UInt32 {
 }
 
 class AudioViewController: OptionsStackViewController, UITableViewDataSource {
-    
-    override var activeTabBarButton: UIView {
-        return tabBar.subviews.first(where: {$0 is UIScrollView})?.subviews[safe: 2] ?? UIView()
-    }
 
-    let delays: [Int] = {
-        var delays = [Int]()
-        for delay in -60...60 {
-            delays.append(delay)
-        }
-        return delays
-    }()
+    let delays = [Int](-60...60)
     let sounds = EqualizerProfiles.array
     
-    var currentSpeaker: AVAudioRoute?
     var currentDelay = 0
     var currentSound: EqualizerProfiles = .fullDynamicRange
     
@@ -43,8 +32,6 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        currentSpeaker = manager.selectedRoute
         
         NotificationCenter.default.addObserver(self, selector: #selector(pickableRoutesDidChange), name: .AVSpeakerManagerPickableRoutesDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pickableRoutesDidChange), name: .AVAudioSessionRouteChange, object: nil)
@@ -120,8 +107,8 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource {
             currentSound = sounds[indexPath.row]
             delegate?.didSelectEqualizerProfile(currentSound)
         case thirdTableView:
-            currentSpeaker = manager.speakerRoutes[indexPath.row]
-            manager.select(route: currentSpeaker!)
+            let route = manager.speakerRoutes[indexPath.row]
+            manager.select(route: route)
         default:
             break
         }
