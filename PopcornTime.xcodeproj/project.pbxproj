@@ -407,7 +407,6 @@
 		4D0F9D321E6F29E500860852 /* PopcornKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopcornKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D0F9D4A1E6F2B1300860852 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		4D0F9D4E1E6F2B4C00860852 /* TraktAuthenticationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TraktAuthenticationViewController.swift; path = PopcornKit/Trakt/TraktAuthenticationViewController.swift; sourceTree = SOURCE_ROOT; };
-		4D0F9D5E1E6F2CA100860852 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "PopcornKit/Supporting Files/Info.plist"; sourceTree = SOURCE_ROOT; };
 		4D0F9D5F1E6F2CA100860852 /* PopcornKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopcornKit.h; path = "PopcornKit/Supporting Files/PopcornKit.h"; sourceTree = SOURCE_ROOT; };
 		4D0F9D601E6F2CA100860852 /* PopcornKit.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; name = PopcornKit.modulemap; path = "PopcornKit/Supporting Files/PopcornKit.modulemap"; sourceTree = SOURCE_ROOT; };
 		4D0F9D651E6F2CEB00860852 /* OAuthCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAuthCredential.swift; path = PopcornKit/Resources/OAuthCredential.swift; sourceTree = SOURCE_ROOT; };
@@ -472,6 +471,8 @@
 		4D14401D1E9AF3CA00B78269 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TraktAuthenticationViewController.xib; sourceTree = "<group>"; };
 		4D1440201E9AF3CF00B78269 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TraktAuthenticationViewController.strings; sourceTree = "<group>"; };
 		4D14402B1E9BC61900B78269 /* AVMetadataItem+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVMetadataItem+Extension.swift"; sourceTree = "<group>"; };
+		4D14402D1E9C1B8000B78269 /* iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = iOS.plist; path = "PopcornKit/Supporting Files/iOS.plist"; sourceTree = SOURCE_ROOT; };
+		4D14402E1E9C1B8000B78269 /* tvOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = tvOS.plist; path = "PopcornKit/Supporting Files/tvOS.plist"; sourceTree = SOURCE_ROOT; };
 		4D1B88A61E3BEFF300DB701D /* EpisodesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodesCollectionViewController.swift; path = "Collection View Controllers/EpisodesCollectionViewController.swift"; sourceTree = "<group>"; };
 		4D1B88AC1E3CAF6700DB701D /* UIAlertAction+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Extension.swift"; sourceTree = "<group>"; };
 		4D2543AD1DACFBFE00149533 /* TopShelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TopShelf.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -790,7 +791,8 @@
 		4D0F9D5D1E6F2C5100860852 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4D0F9D5E1E6F2CA100860852 /* Info.plist */,
+				4D14402D1E9C1B8000B78269 /* iOS.plist */,
+				4D14402E1E9C1B8000B78269 /* tvOS.plist */,
 				4D0F9D5F1E6F2CA100860852 /* PopcornKit.h */,
 				4D0F9D601E6F2CA100860852 /* PopcornKit.modulemap */,
 			);
@@ -2189,7 +2191,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/PopcornKit/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/PopcornKit/Supporting Files/tvOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$(SRCROOT)/PopcornKit/Supporting Files/PopcornKit.modulemap";
@@ -2222,7 +2224,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/PopcornKit/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/PopcornKit/Supporting Files/tvOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$(SRCROOT)/PopcornKit/Supporting Files/PopcornKit.modulemap";
@@ -2257,7 +2259,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/PopcornKit/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/PopcornKit/Supporting Files/iOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -2289,7 +2291,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/PopcornKit/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/PopcornKit/Supporting Files/iOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
