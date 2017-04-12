@@ -99,4 +99,7 @@ extension UIImage {
         return NSAttributedString(attachment: attachment)
     }
     
+    var isDark: Bool {
+        return cgImage?.isDark ?? false
+    }
 }

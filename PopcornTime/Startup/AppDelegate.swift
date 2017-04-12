@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
             // Weird SDK throws error if shared instance has already been initialised and doesn't mark function as throwing.
             do { try GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID)) }
             
-            (window?.rootViewController as? UITabBarController)?.delegate = self
+            tabBarController.delegate = self
 
         #endif
         
@@ -54,7 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
             window?.makeKeyAndVisible()
             UserDefaults.standard.set(0.25, forKey: "themeSongVolume")
             OperationQueue.main.addOperation {
-                self.window?.rootViewController?.present(vc, animated: false)
+                self.activeRootViewController?.present(vc, animated: false) {
+                    self.activeRootViewController?.environmentsToFocus = [self.tabBarController.tabBar]
+                }
             }
         }
         

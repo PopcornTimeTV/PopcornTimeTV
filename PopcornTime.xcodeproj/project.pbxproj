@@ -283,6 +283,8 @@
 		4DD6E4D71DFB315100818A2C /* SiriRemoteGestureRecogniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6E4D61DFB315100818A2C /* SiriRemoteGestureRecogniser.swift */; };
 		4DDBD9091E0EDA2E00CEA1B1 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBD9081E0EDA2E00CEA1B1 /* Array+Extension.swift */; };
 		4DDBD90A1E0EDA2E00CEA1B1 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBD9081E0EDA2E00CEA1B1 /* Array+Extension.swift */; };
+		4DE4AF011E9EA76D00681210 /* CGImage+IsDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4AF001E9EA76D00681210 /* CGImage+IsDark.swift */; };
+		4DE4AF021E9EA76D00681210 /* CGImage+IsDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4AF001E9EA76D00681210 /* CGImage+IsDark.swift */; };
 		4DE9E06A1E3D0DC300806522 /* SeparatorCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE9E0691E3D0DC300806522 /* SeparatorCollectionViewLayout.swift */; };
 		4DE9E06C1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE9E06B1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift */; };
 		4DF110951E91042E0090289A /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF110941E91042E0090289A /* MediaViewController.swift */; };
@@ -567,6 +569,7 @@
 		4DD6E4D41DFB2FAA00818A2C /* TapGestureRecogniser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapGestureRecogniser.swift; sourceTree = "<group>"; };
 		4DD6E4D61DFB315100818A2C /* SiriRemoteGestureRecogniser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiriRemoteGestureRecogniser.swift; sourceTree = "<group>"; };
 		4DDBD9081E0EDA2E00CEA1B1 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		4DE4AF001E9EA76D00681210 /* CGImage+IsDark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+IsDark.swift"; sourceTree = "<group>"; };
 		4DE9E0691E3D0DC300806522 /* SeparatorCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SeparatorCollectionViewLayout.swift; path = "Collection View Layouts/SeparatorCollectionViewLayout.swift"; sourceTree = "<group>"; };
 		4DE9E06B1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewLayoutAttributes+Color.swift"; sourceTree = "<group>"; };
 		4DF110941E91042E0090289A /* MediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaViewController.swift; path = "Main View Controllers/MediaViewController.swift"; sourceTree = "<group>"; };
@@ -705,6 +708,7 @@
 				4DB0EA641E7D8C38004B57B1 /* DispatchQueue+Extension.swift */,
 				4DAE339A1E7C81240014B489 /* TimeInterval+Default.swift */,
 				4D0F9E421E705BD100860852 /* UIImage+Extension.swift */,
+				4DE4AF001E9EA76D00681210 /* CGImage+IsDark.swift */,
 				4D0F9E431E705BD100860852 /* UIView+Extension.swift */,
 				4DF394341E96DF9100DFCEC6 /* UITableViewCell+TableView.swift */,
 				4D0F9E441E705BD100860852 /* Show+Extension.swift */,
@@ -1703,6 +1707,7 @@
 				4D0F9DE91E70573A00860852 /* CollectionViewController.swift in Sources */,
 				4DB0EA651E7D8C38004B57B1 /* DispatchQueue+Extension.swift in Sources */,
 				4D0F9DDC1E7056DF00860852 /* BaseCollectionViewCell.swift in Sources */,
+				4DE4AF011E9EA76D00681210 /* CGImage+IsDark.swift in Sources */,
 				4D0F9E401E705B0800860852 /* TVVisualEffectView.swift in Sources */,
 				4D0F9E051E7057DF00860852 /* SettingsTableViewController.swift in Sources */,
 				4DCB393A1E844D4500388374 /* UIAlertController+Show.swift in Sources */,
@@ -1904,6 +1909,7 @@
 				4D689A301DD88F1A001D1318 /* Media+Extension.swift in Sources */,
 				4D0F9DF91E70579F00860852 /* ContinueWatchingCollectionReusableView.swift in Sources */,
 				4D0F9E521E705BD600860852 /* CGSize+Min.swift in Sources */,
+				4DE4AF021E9EA76D00681210 /* CGImage+IsDark.swift in Sources */,
 				4DAE339C1E7C81240014B489 /* TimeInterval+Default.swift in Sources */,
 				4DB0EA661E7D8C38004B57B1 /* DispatchQueue+Extension.swift in Sources */,
 				4D0F9E111E7057F100860852 /* MoviesViewController.swift in Sources */,

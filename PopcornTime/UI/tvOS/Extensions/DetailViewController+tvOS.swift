@@ -33,7 +33,6 @@ extension DetailViewController {
     }
     
     override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        
         if let nextFocusedView = context.nextFocusedView, type(of: nextFocusedView) === NSClassFromString("UITabBarButton") {
             return false
         }

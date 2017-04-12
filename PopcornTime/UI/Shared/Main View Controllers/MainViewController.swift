@@ -24,6 +24,12 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
         }
     }
     
+    var environmentsToFocus: [UIFocusEnvironment] = []
+    
+    override var preferredFocusEnvironments: [UIFocusEnvironment] {
+        return environmentsToFocus.isEmpty ? super.preferredFocusEnvironments : environmentsToFocus
+    }
+    
     override dynamic func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -35,6 +41,11 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
     
     override dynamic func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        setNeedsFocusUpdate()
+        updateFocusIfNeeded()
+        
+        environmentsToFocus.removeAll()
         
         collectionView?.setNeedsFocusUpdate()
         collectionView?.updateFocusIfNeeded()
