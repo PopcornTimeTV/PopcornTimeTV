@@ -13,7 +13,7 @@ class SubtitleSettings: NSObject, NSCoding {
         
         static let array = [small, medium, mediumLarge, large]
         
-        var string: String {
+        var localizedString: String {
             switch self {
             case .small:
                 return "Small".localized

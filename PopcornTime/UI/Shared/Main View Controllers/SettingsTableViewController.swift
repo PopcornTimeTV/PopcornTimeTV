@@ -54,13 +54,13 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
             if indexPath.row == 0 {
                 cell.detailTextLabel?.text = subtitleSettings.language ?? "None".localized
             } else if indexPath.row == 1 {
-                cell.detailTextLabel?.text = subtitleSettings.size.string
+                cell.detailTextLabel?.text = subtitleSettings.size.localizedString
             } else if indexPath.row == 2 {
                 cell.detailTextLabel?.text = UIColor.systemColors.first(where: {$0 == subtitleSettings.color})?.localizedString ?? ""
             } else if indexPath.row == 3 {
                 cell.detailTextLabel?.text = subtitleSettings.font.familyName
             } else if indexPath.row == 4 {
-                cell.detailTextLabel?.text = subtitleSettings.style.rawValue
+                cell.detailTextLabel?.text = subtitleSettings.style.localizedString
             } else if indexPath.row == 5 {
                 cell.detailTextLabel?.text = subtitleSettings.encoding
             }
@@ -174,16 +174,16 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
                 
                 let handler: (UIAlertAction) -> Void = { action in
-                    subtitleSettings.size = SubtitleSettings.Size.array.first(where: {$0.string == action.title})!
+                    subtitleSettings.size = SubtitleSettings.Size.array.first(where: {$0.localizedString == action.title})!
                     subtitleSettings.save()
                     tableView.reloadData()
                 }
                 
                 for size in SubtitleSettings.Size.array {
-                    alertController.addAction(UIAlertAction(title: size.string, style: .default, handler: handler))
+                    alertController.addAction(UIAlertAction(title: size.localizedString, style: .default, handler: handler))
                 }
                 
-                alertController.preferredAction = alertController.actions.first(where: { $0.title == subtitleSettings.size.string })
+                alertController.preferredAction = alertController.actions.first(where: { $0.title == subtitleSettings.size.localizedString })
                 
                 alertController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
                 
@@ -192,7 +192,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 let alertController = UIAlertController(title: "Subtitle Color".localized, message: "Choose text color for the player subtitles.".localized, preferredStyle: .actionSheet, blurStyle: .dark)
                 
                 let handler: (UIAlertAction) -> Void = { action in
-                    subtitleSettings.color = UIColor.systemColors.first(where: {$0.localizedString == action.title}) ?? .white
+                    subtitleSettings.color = UIColor.systemColors.first(where: {$0.localizedString == action.title})!
                     subtitleSettings.save()
                     tableView.reloadData()
                 }
@@ -235,19 +235,19 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 
                 let alertController = UIAlertController(title: "Subtitle Font Style".localized, message: "Choose a default font style for the player subtitles.".localized, preferredStyle: .actionSheet, blurStyle: .dark)
                 
-                let handler: (UIAlertAction) -> Void = { action in
-                    subtitleSettings.style = UIFont.Style(rawValue: action.title!)!
-                    subtitleSettings.save()
-                    tableView.reloadData()
-                }
-                
                 alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
                 
-                for style in UIFont.Style.arrayValue.map({$0.rawValue}) {
-                    alertController.addAction(UIAlertAction(title: style, style: .default, handler: handler))
+                for style in UIFont.Style.arrayValue {
+                    let action = UIAlertAction(title: style.localizedString, style: .default) { _ in
+                        subtitleSettings.style = style
+                        subtitleSettings.save()
+                        tableView.reloadData()
+                    }
+                    
+                    alertController.addAction(action)
                 }
                 
-                alertController.preferredAction = alertController.actions.first(where: { $0.title == subtitleSettings.style.rawValue })
+                alertController.preferredAction = alertController.actions.first(where: { $0.title == subtitleSettings.style.localizedString })
                 
                 alertController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
                 
@@ -258,16 +258,15 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 
                 let alertController = UIAlertController(title: "Subtitle Encoding".localized, message: "Choose encoding for the player subtitles.".localized, preferredStyle: .actionSheet, blurStyle: .dark)
                 
-                let handler: (UIAlertAction) -> Void = { action in
-                    subtitleSettings.encoding = values[keys.index(of: action.title!)!]
-                    subtitleSettings.save()
-                    tableView.reloadData()
-                }
-                
                 alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
                 
                 for title in keys {
-                    alertController.addAction(UIAlertAction(title: title, style: .default, handler: handler))
+                    let action = UIAlertAction(title: title, style: .default) { _ in
+                        subtitleSettings.encoding = values[keys.index(of: title)!]
+                        subtitleSettings.save()
+                        tableView.reloadData()
+                    }
+                    alertController.addAction(action)
                 }
                 
                 alertController.preferredAction = alertController.actions.first(where: { $0.title == keys[values.index(of: subtitleSettings.encoding)!] })
