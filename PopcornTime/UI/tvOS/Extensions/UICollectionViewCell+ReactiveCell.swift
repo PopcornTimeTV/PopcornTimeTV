@@ -2,8 +2,12 @@
 
 import Foundation
 
-private let UILayoutPriorityDefaultNone: UILayoutPriority = 1 // Lowest possible value. Do not interact with anything
-private let UILayoutPriorityRequired: UILayoutPriority = 999 // Highest possible value when setting constraints programatically.
+fileprivate extension UILayoutPriority {
+    /// Lowest possible value. Do not interact with anything
+    static let `default`: UILayoutPriority = 1
+    /// Highest possible value when setting constraints programatically.
+    static let required: UILayoutPriority = 999
+}
 
 extension UICollectionViewCell {
     
@@ -21,7 +25,7 @@ extension UICollectionViewCell {
     
     open override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         focusedConstraints.forEach({
-            $0.priority = self.isFocused ? UILayoutPriorityRequired : UILayoutPriorityDefaultNone
+            $0.priority = self.isFocused ? .required : .default
             $0.isActive = true
         })
         

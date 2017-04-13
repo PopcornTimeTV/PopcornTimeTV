@@ -384,13 +384,13 @@
                                                             <rect key="frame" x="0.0" y="890" width="1920" height="380"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Viewers Also Watched" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADl-a2-7DG">
-                                                                    <rect key="frame" x="90" y="30" width="382" height="46"/>
-                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                                    <rect key="frame" x="90" y="14" width="313" height="37"/>
+                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                                     <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sqc-iV-JdA">
-                                                                    <rect key="frame" x="0.0" y="146" width="1920" height="234"/>
+                                                                    <rect key="frame" x="0.0" y="59" width="1920" height="321"/>
                                                                     <connections>
                                                                         <segue destination="9uQ-LP-RR8" kind="embed" identifier="embedRelated" id="8VK-Ek-nyW"/>
                                                                     </connections>
@@ -402,8 +402,8 @@
                                                                 <constraint firstItem="Sqc-iV-JdA" firstAttribute="leading" secondItem="VTT-oE-CQs" secondAttribute="leading" id="5FF-GO-Aw6"/>
                                                                 <constraint firstAttribute="bottom" secondItem="Sqc-iV-JdA" secondAttribute="bottom" id="Je8-1v-gAJ"/>
                                                                 <constraint firstAttribute="height" constant="380" id="N5m-sR-LKf"/>
-                                                                <constraint firstItem="Sqc-iV-JdA" firstAttribute="top" secondItem="ADl-a2-7DG" secondAttribute="bottom" constant="70" id="kpu-Ge-aJ8"/>
-                                                                <constraint firstItem="ADl-a2-7DG" firstAttribute="top" secondItem="VTT-oE-CQs" secondAttribute="top" constant="30" id="pm9-2L-8TU"/>
+                                                                <constraint firstItem="Sqc-iV-JdA" firstAttribute="top" secondItem="ADl-a2-7DG" secondAttribute="bottom" constant="8" symbolic="YES" id="kpu-Ge-aJ8"/>
+                                                                <constraint firstItem="ADl-a2-7DG" firstAttribute="top" secondItem="VTT-oE-CQs" secondAttribute="top" constant="14" id="pm9-2L-8TU"/>
                                                                 <constraint firstItem="ADl-a2-7DG" firstAttribute="leading" secondItem="VTT-oE-CQs" secondAttribute="leading" constant="90" id="vXL-w5-Auk"/>
                                                             </constraints>
                                                         </view>
@@ -411,13 +411,13 @@
                                                             <rect key="frame" x="0.0" y="1270" width="1920" height="380"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cast &amp; Crew" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vje-gU-hwQ">
-                                                                    <rect key="frame" x="90" y="30" width="213" height="46"/>
-                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                                    <rect key="frame" x="90" y="14" width="174" height="37"/>
+                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                                     <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="46G-A0-1iY">
-                                                                    <rect key="frame" x="0.0" y="146" width="1920" height="234"/>
+                                                                    <rect key="frame" x="0.0" y="59" width="1920" height="321"/>
                                                                     <connections>
                                                                         <segue destination="9uQ-LP-RR8" kind="embed" identifier="embedPeople" id="E0s-O3-eSm"/>
                                                                     </connections>
@@ -426,8 +426,8 @@
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstItem="46G-A0-1iY" firstAttribute="leading" secondItem="sVq-HX-JcL" secondAttribute="leading" id="Hx2-mU-7PH"/>
-                                                                <constraint firstItem="vje-gU-hwQ" firstAttribute="top" secondItem="sVq-HX-JcL" secondAttribute="top" constant="30" id="IsW-eZ-t9x"/>
-                                                                <constraint firstItem="46G-A0-1iY" firstAttribute="top" secondItem="vje-gU-hwQ" secondAttribute="bottom" constant="70" id="V5V-Xe-zUy"/>
+                                                                <constraint firstItem="vje-gU-hwQ" firstAttribute="top" secondItem="sVq-HX-JcL" secondAttribute="top" constant="14" id="IsW-eZ-t9x"/>
+                                                                <constraint firstItem="46G-A0-1iY" firstAttribute="top" secondItem="vje-gU-hwQ" secondAttribute="bottom" constant="8" symbolic="YES" id="V5V-Xe-zUy"/>
                                                                 <constraint firstAttribute="bottom" secondItem="46G-A0-1iY" secondAttribute="bottom" id="aer-oO-WyD"/>
                                                                 <constraint firstAttribute="height" constant="380" id="cOV-ql-zbJ"/>
                                                                 <constraint firstAttribute="trailing" secondItem="46G-A0-1iY" secondAttribute="trailing" id="mrd-Hy-Vkn"/>
@@ -531,8 +531,14 @@
                         <outlet property="episodesContainerViewHeightConstraint" destination="9RH-I3-Tj3" id="ECB-9u-pgJ"/>
                         <outlet property="infoStackView" destination="WB9-jh-Kq5" id="hUD-Yt-829"/>
                         <outlet property="informationContainerViewHeightConstraint" destination="m4R-Nt-1kc" id="4l8-II-CTc"/>
+                        <outlet property="peopleBottomConstraint" destination="V5V-Xe-zUy" id="kII-Pa-zqU"/>
                         <outlet property="peopleContainerViewHeightConstraint" destination="cOV-ql-zbJ" id="oJR-jZ-duK"/>
+                        <outlet property="peopleHeader" destination="vje-gU-hwQ" id="j8U-I2-8ba"/>
+                        <outlet property="peopleTopConstraint" destination="IsW-eZ-t9x" id="wEW-3D-aeM"/>
+                        <outlet property="relatedBottomConstraint" destination="kpu-Ge-aJ8" id="ZZG-Lh-RC6"/>
                         <outlet property="relatedContainerViewHeightConstraint" destination="N5m-sR-LKf" id="sG8-LE-rgy"/>
+                        <outlet property="relatedHeader" destination="ADl-a2-7DG" id="K1S-WZ-omc"/>
+                        <outlet property="relatedTopConstraint" destination="pm9-2L-8TU" id="Hdh-B0-8FQ"/>
                         <outlet property="scrollView" destination="HFi-wG-0Ku" id="Uim-Ob-9Wz"/>
                         <outlet property="titleImageView" destination="bbe-78-HE7" id="Nj1-d0-mQ6"/>
                         <outlet property="titleLabel" destination="Zkk-Tn-Djt" id="xsU-i1-fUw"/>
@@ -565,25 +571,25 @@
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25c-aU-nsO">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25c-aU-nsO">
                                 <rect key="frame" x="361" y="0.0" width="106" height="52"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="43"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWm-gZ-npz">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWm-gZ-npz">
                                 <rect key="frame" x="361" y="52" width="63" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTE-V9-Wtj">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTE-V9-Wtj">
                                 <rect key="frame" x="361" y="86" width="77" height="37"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="31"/>
                                 <color key="textColor" white="1" alpha="0.80298745598591548" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pKc-6J-X3N" customClass="FloatRatingView" customModule="FloatRatingView">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pKc-6J-X3N" customClass="FloatRatingView" customModule="FloatRatingView">
                                 <rect key="frame" x="449" y="52" width="185" height="33"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -609,6 +615,9 @@
                             <view contentMode="scaleToFill" horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HRY-ro-oJ0" customClass="TVExpandableTextView" customModule="PopcornTime" customModuleProvider="target">
                                 <rect key="frame" x="349" y="103" width="920" height="157"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" summaryElement="YES"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="157" placeholder="YES" id="LPI-s1-vtc"/>
                                     <constraint firstAttribute="width" constant="920" id="NlI-kE-zDz"/>
@@ -620,6 +629,9 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5e7-hi-nqc" customClass="TVButton" customModule="PopcornTime" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="142" height="115"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" button="YES" startsMediaSession="YES"/>
+                                        </accessibility>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="115" id="Dnz-sK-fga"/>
                                             <constraint firstAttribute="width" constant="142" id="z13-sL-rbL"/>
@@ -635,6 +647,9 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipT-OZ-c5M" customClass="TVButton" customModule="PopcornTime" customModuleProvider="target">
                                         <rect key="frame" x="166" y="0.0" width="142" height="115"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" button="YES" startsMediaSession="YES"/>
+                                        </accessibility>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="142" id="x1b-bm-jlu"/>
                                             <constraint firstAttribute="height" constant="115" id="zGh-6U-cLD"/>
@@ -650,6 +665,9 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="th4-V2-ZHU" customClass="TVButton" customModule="PopcornTime" customModuleProvider="target">
                                         <rect key="frame" x="332" y="0.0" width="142" height="115"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" button="YES"/>
+                                        </accessibility>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="115" id="Oko-zo-37z"/>
                                             <constraint firstAttribute="width" constant="142" id="ZgB-jF-qBt"/>
@@ -665,6 +683,9 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KC3-5l-rXZ" customClass="TVButton" customModule="PopcornTime" customModuleProvider="target">
                                         <rect key="frame" x="498" y="0.0" width="142" height="115"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" button="YES"/>
+                                        </accessibility>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="142" id="61s-RS-gg4"/>
                                             <constraint firstAttribute="height" constant="115" id="qVB-36-t89"/>
@@ -680,6 +701,9 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nhD-7v-QlI" customClass="TVButton" customModule="PopcornTime" customModuleProvider="target">
                                         <rect key="frame" x="664" y="0.0" width="142" height="115"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" button="YES"/>
+                                        </accessibility>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="142" id="Wc0-aA-gMA"/>
                                             <constraint firstAttribute="height" constant="115" id="biA-ux-lUZ"/>
@@ -865,6 +889,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UVL-f7-9z0" customClass="TVExpandableTextView" customModule="PopcornTime" customModuleProvider="target">
                                 <rect key="frame" x="652" y="438" width="838" height="180"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" summaryElement="YES"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="180" id="Fh5-TF-YZh"/>
                                 </constraints>
@@ -965,11 +992,11 @@
                         <viewControllerLayoutGuide type="bottom" id="eFf-jt-oBp"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="74d-b2-gZl">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="321"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ky-is-LZ2">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="321"/>
                                 <connections>
                                     <segue destination="9uQ-LP-RR8" kind="embed" identifier="embed" id="qsW-BP-NaD"/>
                                 </connections>
@@ -1109,7 +1136,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Qb-cW-DB9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <collectionViewController storyboardIdentifier="CollectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9uQ-LP-RR8" customClass="CollectionViewController" customModule="PopcornTime" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" id="GGp-VC-hgJ">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="321"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="30" minimumInteritemSpacing="48" id="dAV-Fa-e8x">
                             <size key="itemSize" width="250" height="460"/>
@@ -1131,7 +1158,7 @@
                                                 <constraint firstAttribute="width" secondItem="WXU-Jj-dDk" secondAttribute="height" multiplier="2:3" id="6Wx-YZ-Gzx"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGh-td-JUz" customClass="MarqueeLabel" customModule="MarqueeLabel">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGh-td-JUz" customClass="MarqueeLabel" customModule="MarqueeLabel">
                                             <rect key="frame" x="0.0" y="380" width="250" height="0.0"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1189,7 +1216,7 @@
                                                 <constraint firstAttribute="width" secondItem="w2W-F0-2R6" secondAttribute="height" multiplier="2:3" id="ao9-gz-6KT"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ql8-AW-B2U" customClass="MarqueeLabel" customModule="MarqueeLabel">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ql8-AW-B2U" customClass="MarqueeLabel" customModule="MarqueeLabel">
                                             <rect key="frame" x="0.0" y="380" width="250" height="0.0"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1247,13 +1274,13 @@
                                                 <constraint firstAttribute="width" secondItem="IvQ-PL-W2t" secondAttribute="height" multiplier="1:1" id="uoI-nv-Daa"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="PT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVD-Eg-Mb1">
-                                            <rect key="frame" x="-1" y="1" width="251" height="250"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="PT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.56999999999999995" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qVD-Eg-Mb1">
+                                            <rect key="frame" x="75" y="65" width="100" height="120"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="100"/>
                                             <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" text="" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8d1-bm-LhB" customClass="MarqueeLabel" customModule="MarqueeLabel">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" text="" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8d1-bm-LhB" customClass="MarqueeLabel" customModule="MarqueeLabel">
                                             <rect key="frame" x="-1" y="255" width="251" height="0.0"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="32"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1271,7 +1298,7 @@
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="labelize" value="YES"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42r-KI-eoi">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42r-KI-eoi">
                                             <rect key="frame" x="-1" y="260" width="251" height="0.0"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                             <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
@@ -1282,7 +1309,7 @@
                                 <constraints>
                                     <constraint firstItem="8d1-bm-LhB" firstAttribute="top" secondItem="IvQ-PL-W2t" secondAttribute="bottom" priority="750" constant="5" id="6fx-Sb-XYY"/>
                                     <constraint firstItem="IvQ-PL-W2t" firstAttribute="width" secondItem="dgY-nR-jAJ" secondAttribute="width" id="Gi2-Rw-kyF"/>
-                                    <constraint firstItem="qVD-Eg-Mb1" firstAttribute="width" secondItem="8d1-bm-LhB" secondAttribute="width" multiplier="0.5" id="J4u-Ep-iSB"/>
+                                    <constraint firstItem="qVD-Eg-Mb1" firstAttribute="width" secondItem="8d1-bm-LhB" secondAttribute="width" multiplier="0.4" id="J4u-Ep-iSB"/>
                                     <constraint firstItem="IvQ-PL-W2t" firstAttribute="leading" secondItem="dgY-nR-jAJ" secondAttribute="leading" id="Kau-iT-OUW"/>
                                     <constraint firstItem="IvQ-PL-W2t" firstAttribute="top" secondItem="dgY-nR-jAJ" secondAttribute="top" id="Kli-gC-fnc"/>
                                     <constraint firstItem="qVD-Eg-Mb1" firstAttribute="centerY" secondItem="IvQ-PL-W2t" secondAttribute="centerY" id="SRC-NK-ZlW"/>
@@ -1357,7 +1384,7 @@
                     <navigationItem key="navigationItem" id="5WB-pT-Oa2">
                         <barButtonItem key="leftBarButtonItem" id="rrz-8T-DaG">
                             <view key="customView" contentMode="scaleToFill" id="52R-Vi-e7E">
-                                <rect key="frame" x="0.0" y="44" width="426" height="108"/>
+                                <rect key="frame" x="90" y="44" width="426" height="108"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Watchlist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3WI-KN-P6d">
@@ -1900,6 +1927,9 @@
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GOk-NB-ZjF" customClass="ProgressBar" customModule="PopcornTime" customModuleProvider="target">
                                 <rect key="frame" x="96" y="980" width="1728" height="10"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" updatesFrequently="YES"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="10" id="5Co-sC-AiF"/>
                                 </constraints>
@@ -2288,29 +2318,29 @@
                         <viewControllerLayoutGuide type="bottom" id="DvR-hI-Jc6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="azI-A4-1Ul">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="321"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tOi-zm-Rjl">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="321"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yx5-JC-ZxJ">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="321"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="vbt-Mc-zjR">
-                                    <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1920" height="321"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ogm-Uz-Slq">
-                                            <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1920" height="321"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="NGd-2S-BoP">
-                                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1920" height="321"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ohz-Pg-x0J">
-                                                        <rect key="frame" x="928" y="508" width="64" height="64"/>
+                                                        <rect key="frame" x="928" y="129" width="64" height="64"/>
                                                     </activityIndicatorView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rU-hk-tum">
-                                                        <rect key="frame" x="960" y="498" width="0.0" height="0.0"/>
+                                                        <rect key="frame" x="960" y="119" width="0.0" height="0.0"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -2902,8 +2932,8 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <simulatedScreenMetrics key="destination" type="appleTV.dark"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="fxW-68-0wU"/>
-        <segue reference="J2o-2Q-WCT"/>
         <segue reference="ocL-5j-FkT"/>
+        <segue reference="E0s-O3-eSm"/>
+        <segue reference="J2o-2Q-WCT"/>
     </inferredMetricsTieBreakers>
 </document>

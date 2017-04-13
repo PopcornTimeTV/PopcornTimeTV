@@ -285,6 +285,8 @@
 		4DDBD90A1E0EDA2E00CEA1B1 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBD9081E0EDA2E00CEA1B1 /* Array+Extension.swift */; };
 		4DE4AF011E9EA76D00681210 /* CGImage+IsDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4AF001E9EA76D00681210 /* CGImage+IsDark.swift */; };
 		4DE4AF021E9EA76D00681210 /* CGImage+IsDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4AF001E9EA76D00681210 /* CGImage+IsDark.swift */; };
+		4DE4AF041E9FB0F400681210 /* UICollectionViewCell+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4AF031E9FB0F400681210 /* UICollectionViewCell+CollectionView.swift */; };
+		4DE4AF051E9FB0F400681210 /* UICollectionViewCell+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4AF031E9FB0F400681210 /* UICollectionViewCell+CollectionView.swift */; };
 		4DE9E06A1E3D0DC300806522 /* SeparatorCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE9E0691E3D0DC300806522 /* SeparatorCollectionViewLayout.swift */; };
 		4DE9E06C1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE9E06B1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift */; };
 		4DF110951E91042E0090289A /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF110941E91042E0090289A /* MediaViewController.swift */; };
@@ -570,6 +572,7 @@
 		4DD6E4D61DFB315100818A2C /* SiriRemoteGestureRecogniser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiriRemoteGestureRecogniser.swift; sourceTree = "<group>"; };
 		4DDBD9081E0EDA2E00CEA1B1 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		4DE4AF001E9EA76D00681210 /* CGImage+IsDark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+IsDark.swift"; sourceTree = "<group>"; };
+		4DE4AF031E9FB0F400681210 /* UICollectionViewCell+CollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+CollectionView.swift"; sourceTree = "<group>"; };
 		4DE9E0691E3D0DC300806522 /* SeparatorCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SeparatorCollectionViewLayout.swift; path = "Collection View Layouts/SeparatorCollectionViewLayout.swift"; sourceTree = "<group>"; };
 		4DE9E06B1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewLayoutAttributes+Color.swift"; sourceTree = "<group>"; };
 		4DF110941E91042E0090289A /* MediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaViewController.swift; path = "Main View Controllers/MediaViewController.swift"; sourceTree = "<group>"; };
@@ -711,6 +714,7 @@
 				4DE4AF001E9EA76D00681210 /* CGImage+IsDark.swift */,
 				4D0F9E431E705BD100860852 /* UIView+Extension.swift */,
 				4DF394341E96DF9100DFCEC6 /* UITableViewCell+TableView.swift */,
+				4DE4AF031E9FB0F400681210 /* UICollectionViewCell+CollectionView.swift */,
 				4D0F9E441E705BD100860852 /* Show+Extension.swift */,
 				4D0F9E451E705BD100860852 /* UINavigationController+Extension.swift */,
 				4D0F9E461E705BD100860852 /* CGSize+Min.swift */,
@@ -1723,6 +1727,7 @@
 				4DBE609E1E5E629D00C2549B /* ShowDetailViewController+tvOS.swift in Sources */,
 				4DBE608A1E5E49B200C2549B /* FileManager+Extension.swift in Sources */,
 				4DAFAA3B1E0AFDA600AE0F9A /* OptionsStackViewController.swift in Sources */,
+				4DE4AF041E9FB0F400681210 /* UICollectionViewCell+CollectionView.swift in Sources */,
 				4D0E130B1E6709EB0000AD65 /* UICollectionViewController+Extension.swift in Sources */,
 				4D784D5C1E5FA4B9009E3423 /* NSMutableString+Extension.swift in Sources */,
 				4DFA77161E71FECC007DB0E7 /* TVExpandableTextView.swift in Sources */,
@@ -1936,6 +1941,7 @@
 				4D859B871DDFA13D000E2AA1 /* BlurButton.swift in Sources */,
 				4DBE60981E5E590500C2549B /* MovieDetailViewController+iOS.swift in Sources */,
 				4D859B761DDFA12C000E2AA1 /* UIExpandableTextView.swift in Sources */,
+				4DE4AF051E9FB0F400681210 /* UICollectionViewCell+CollectionView.swift in Sources */,
 				4DF110961E91042E0090289A /* MediaViewController.swift in Sources */,
 				4D07E17D1E8C365200457FCB /* Object.swift in Sources */,
 				4D8A57471DE10DFE00CCDF8A /* UIViewController+StatusBar.swift in Sources */,

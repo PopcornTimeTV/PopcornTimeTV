@@ -55,8 +55,8 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
         
         view.addLayoutGuide(focusGuide)
         
-        focusGuide.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor).isActive = true
-        focusGuide.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor).isActive = true
+        focusGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        focusGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         focusGuide.bottomAnchor.constraint(equalTo: episodeTitleLabel.topAnchor).isActive = true
         focusGuide.topAnchor.constraint(equalTo: collectionView.bottomAnchor).isActive = true
         
@@ -163,7 +163,7 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
             if context.previouslyFocusedIndexPath == nil // Collection view has just gained focus, expand UI
             {
                 episodeTitleLabelTopConstraint.constant = 140
-                numberOfEpisodesLabel.font = .systemFont(ofSize: 43, weight: UIFontWeightMedium)
+                numberOfEpisodesLabel.font = .preferredFont(forTextStyle: .headline)
                 shouldUpdateView = true
                 
                 // View should always be at the centre of the screen.
@@ -178,7 +178,7 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
         } else if let next = context.nextFocusedView, let itemViewController = itemViewController, next == itemViewController.summaryTextView || !itemViewController.visibleButtons.filter({$0 == next}).isEmpty // Collection view is loosing focus, shrink UI
         {
             episodeTitleLabelTopConstraint.constant = 15
-            numberOfEpisodesLabel.font = .systemFont(ofSize: 31, weight: UIFontWeightMedium)
+            numberOfEpisodesLabel.font = .preferredFont(forTextStyle: .callout)
             shouldUpdateView = true
         } else if let next = context.nextFocusedView, let previous = context.previouslyFocusedIndexPath, let cell = collectionView.cellForItem(at: previous), next == episodeSummaryTextView {
             focusGuide.preferredFocusEnvironments = [cell]

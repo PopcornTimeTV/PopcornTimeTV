@@ -48,6 +48,13 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     @IBOutlet var infoStackView: UIStackView!
     @IBOutlet var backgroundImageView: UIImageView!
     
+    @IBOutlet var peopleHeader:  UILabel!
+    @IBOutlet var relatedHeader: UILabel!
+    @IBOutlet var peopleBottomConstraint:  NSLayoutConstraint!
+    @IBOutlet var relatedBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var peopleTopConstraint: NSLayoutConstraint!
+    @IBOutlet var relatedTopConstraint: NSLayoutConstraint!
+    
     @IBOutlet var compactConstraints: [NSLayoutConstraint] = []
     @IBOutlet var regularConstraints: [NSLayoutConstraint] = []
     
@@ -142,7 +149,6 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
     // MARK: - Play media
     
     func chooseQuality(_ sender: Any?, media: Media) {
-        
         if let quality = UserDefaults.standard.string(forKey: "autoSelectQuality") {
             let sorted  = media.torrents.sorted(by: <)
             let torrent = quality == "Highest".localized ? sorted.last! : sorted.first!
@@ -320,10 +326,10 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         let isTv = UIDevice.current.userInterfaceIdiom == .tv
         
         if vc == relatedCollectionViewController {
-            margin = height == 0 ? 0 : isTv ? 90 : 90 // If 0 height is passed in for the collection view, the container view is to be completely hidden.
-            relatedContainerViewHeightConstraint.constant = height + margin
+            margin = height == 0 ? 0 : relatedHeader.frame.height + relatedTopConstraint.constant + relatedBottomConstraint.constant // If 0 height is passed in for the collection view, the container view is to be completely hidden.
+            relatedContainerViewHeightConstraint.constant = height + margin + (isTv ? 0 : 16)
         } else if vc == peopleCollectionViewController {
-            margin = height == 0 ? 0 : isTv ? 90 : 70 // If 0 height is passed in for the collection view, the container view is to be completely hidden.
+            margin = height == 0 ? 0 : peopleHeader.frame.height + peopleTopConstraint.constant + peopleBottomConstraint.constant // If 0 height is passed in for the collection view, the container view is to be completely hidden.
             peopleContainerViewHeightConstraint.constant = height + margin
         } else if vc == episodesCollectionViewController {
              margin = height == 0 ? 0 : isTv ? 0 : 90 // If 0 height is passed in for the collection view, the container view is to be completely hidden.

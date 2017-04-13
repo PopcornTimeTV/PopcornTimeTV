@@ -1763,8 +1763,13 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         <outlet property="infoStackView" destination="jLd-yS-5NW" id="Wbc-xd-4DA"/>
                         <outlet property="informationContainerViewHeightConstraint" destination="27c-SX-bHo" id="33g-YW-h6h"/>
                         <outlet property="moreSeasonsButton" destination="HQv-wQ-JIu" id="3n8-AT-ews"/>
+                        <outlet property="peopleBottomConstraint" destination="FTl-35-WxW" id="SIQ-Ca-E6I"/>
                         <outlet property="peopleContainerViewHeightConstraint" destination="4OJ-q9-D62" id="xuk-rf-Kbx"/>
+                        <outlet property="peopleHeader" destination="AiH-XM-5Pv" id="ykv-0a-O0A"/>
+                        <outlet property="peopleTopConstraint" destination="MLH-qZ-MKb" id="By1-OE-byE"/>
+                        <outlet property="relatedBottomConstraint" destination="AAI-AV-vGt" id="Gwg-gu-qQO"/>
                         <outlet property="relatedContainerViewHeightConstraint" destination="CiN-ff-Ux4" id="ivQ-Ck-kvv"/>
+                        <outlet property="relatedHeader" destination="FjO-E4-LAk" id="WHP-7R-8Fa"/>
                         <outlet property="scrollView" destination="v3a-91-rQb" id="5Wh-Sd-mze"/>
                         <outlet property="seasonsLabel" destination="r0b-Fz-t7J" id="NRW-53-6Un"/>
                         <outlet property="watchedButton" destination="sjC-SA-gKC" id="L4k-xs-Rkw"/>
@@ -1848,7 +1853,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cH6-vX-BEe">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="239.66666666666666"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
                                 <connections>
                                     <segue destination="PQb-9S-L62" kind="embed" identifier="embed" id="0jz-5F-ARv"/>
                                 </connections>

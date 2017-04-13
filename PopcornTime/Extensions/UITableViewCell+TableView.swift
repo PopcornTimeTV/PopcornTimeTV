@@ -4,7 +4,7 @@ import Foundation
 
 extension UITableViewCell {
     
-    /// Locate the associated `UITableView` instance.
+    /// The cell's table view.
     weak var tableView: UITableView! {
         var superview = self.superview
         
