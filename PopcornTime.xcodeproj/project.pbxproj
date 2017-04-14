@@ -249,6 +249,7 @@
 		4DB0EA661E7D8C38004B57B1 /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB0EA641E7D8C38004B57B1 /* DispatchQueue+Extension.swift */; };
 		4DB0EA671E7D8C38004B57B1 /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB0EA641E7D8C38004B57B1 /* DispatchQueue+Extension.swift */; };
 		4DB0EA681E7D8C38004B57B1 /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB0EA641E7D8C38004B57B1 /* DispatchQueue+Extension.swift */; };
+		4DB1E6DB1EA1624C00DC0C7B /* MarqueeLabel+ContentMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1E6DA1EA1624C00DC0C7B /* MarqueeLabel+ContentMode.swift */; };
 		4DBCCED91E680EBE0066F1A7 /* UIStoryboard+Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBCCED81E680EBE0066F1A7 /* UIStoryboard+Main.swift */; };
 		4DBCCEDA1E680EBE0066F1A7 /* UIStoryboard+Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBCCED81E680EBE0066F1A7 /* UIStoryboard+Main.swift */; };
 		4DBCCEF71E6815450066F1A7 /* iOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCEF21E6815450066F1A7 /* iOS.storyboard */; };
@@ -543,6 +544,7 @@
 		4DAFAA3A1E0AFDA600AE0F9A /* OptionsStackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsStackViewController.swift; sourceTree = "<group>"; };
 		4DB047791E6035860008721A /* ContinueWatchingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContinueWatchingCollectionViewCell.swift; path = "Collection View Cells/ContinueWatchingCollectionViewCell.swift"; sourceTree = "<group>"; };
 		4DB0EA641E7D8C38004B57B1 /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
+		4DB1E6DA1EA1624C00DC0C7B /* MarqueeLabel+ContentMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarqueeLabel+ContentMode.swift"; sourceTree = "<group>"; };
 		4DBCCED81E680EBE0066F1A7 /* UIStoryboard+Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Main.swift"; sourceTree = "<group>"; };
 		4DBCCEE31E6811300066F1A7 /* tvOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = tvOS.plist; sourceTree = "<group>"; };
 		4DBCCEF31E6815450066F1A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/iOS.storyboard; sourceTree = "<group>"; };
@@ -956,6 +958,7 @@
 				4D859BB11DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift */,
 				4D37C4581E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Gray.swift */,
 				4D859BB41DDFA1C6000E2AA1 /* UIViewController+Extension.swift */,
+				4DB1E6DA1EA1624C00DC0C7B /* MarqueeLabel+ContentMode.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1786,6 +1789,7 @@
 				4D859BB81DDFA1C6000E2AA1 /* UIViewController+Extension.swift in Sources */,
 				4D859BB51DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift in Sources */,
 				4D0F9E181E70582A00860852 /* PreloadTorrentViewController.swift in Sources */,
+				4DB1E6DB1EA1624C00DC0C7B /* MarqueeLabel+ContentMode.swift in Sources */,
 				4D0F9E0A1E7057DF00860852 /* MoviesViewController.swift in Sources */,
 				4D0F9DDF1E7056DF00860852 /* DescriptionCollectionViewCell.swift in Sources */,
 				4D0F9E4C1E705BD100860852 /* CGSize+Min.swift in Sources */,

@@ -9,7 +9,7 @@ extension UIViewController: Object {
         return Swift.min(statusBarSize.width, statusBarSize.height)
     }
     
-    class func awake() {
+    static func awake() {
         
         DispatchQueue.once {
             exchangeImplementations(originalSelector: #selector(getter: preferredStatusBarStyle), swizzledSelector: #selector(getter: pct_preferredStatusBarStyle))

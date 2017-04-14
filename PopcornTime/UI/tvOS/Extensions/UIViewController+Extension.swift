@@ -11,7 +11,7 @@ extension UIViewController: Object {
     
     
     
-    class func awake() {
+    static func awake() {
 
         DispatchQueue.once {
             exchangeImplementations(originalSelector: Selector(("focusedViewDidChange")), swizzledSelector: #selector(pctFocusedViewDidChange))

@@ -21,7 +21,7 @@ extension UICollectionView: Object {
         }
     }
     
-    class func awake() {
+    static func awake() {
         
         DispatchQueue.once {
             let originalMethod = class_getInstanceMethod(self, #selector(reloadData))

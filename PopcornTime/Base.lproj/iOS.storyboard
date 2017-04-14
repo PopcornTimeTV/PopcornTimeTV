@@ -1593,7 +1593,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nrZ-wl-O1l">
-                                                                <rect key="frame" x="0.0" y="49.333333333333258" width="375" height="239.66666666666674"/>
+                                                                <rect key="frame" x="0.0" y="49.333333333333258" width="375" height="254.66666666666674"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <connections>
                                                                     <segue destination="PQb-9S-L62" kind="embed" identifier="embedPeople" id="vdG-GO-Y3V"/>
@@ -1609,7 +1609,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                             <constraint firstItem="AiH-XM-5Pv" firstAttribute="leading" secondItem="6GA-Am-Iyj" secondAttribute="leading" priority="999" constant="40" id="FPS-WB-Ccj"/>
                                                             <constraint firstItem="nrZ-wl-O1l" firstAttribute="top" secondItem="AiH-XM-5Pv" secondAttribute="bottom" constant="8" symbolic="YES" id="FTl-35-WxW"/>
                                                             <constraint firstItem="AiH-XM-5Pv" firstAttribute="top" secondItem="6GA-Am-Iyj" secondAttribute="top" constant="15" id="MLH-qZ-MKb"/>
-                                                            <constraint firstAttribute="bottom" secondItem="nrZ-wl-O1l" secondAttribute="bottom" priority="750" constant="15" id="bNs-5b-FoZ"/>
+                                                            <constraint firstAttribute="bottom" secondItem="nrZ-wl-O1l" secondAttribute="bottom" id="bNs-5b-FoZ"/>
                                                             <constraint firstItem="AiH-XM-5Pv" firstAttribute="leading" secondItem="6GA-Am-Iyj" secondAttribute="leading" priority="250" constant="28" id="sNQ-JP-h1H"/>
                                                         </constraints>
                                                     </view>
@@ -1770,6 +1770,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         <outlet property="relatedBottomConstraint" destination="AAI-AV-vGt" id="Gwg-gu-qQO"/>
                         <outlet property="relatedContainerViewHeightConstraint" destination="CiN-ff-Ux4" id="ivQ-Ck-kvv"/>
                         <outlet property="relatedHeader" destination="FjO-E4-LAk" id="WHP-7R-8Fa"/>
+                        <outlet property="relatedTopConstraint" destination="2nW-Md-dS4" id="g9c-hY-IDQ"/>
                         <outlet property="scrollView" destination="v3a-91-rQb" id="5Wh-Sd-mze"/>
                         <outlet property="seasonsLabel" destination="r0b-Fz-t7J" id="NRW-53-6Un"/>
                         <outlet property="watchedButton" destination="sjC-SA-gKC" id="L4k-xs-Rkw"/>
@@ -1849,11 +1850,11 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         <viewControllerLayoutGuide type="bottom" id="P4k-0Y-WCX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="q4e-CK-NuK">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="239.66666666666674"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="254.66666666666674"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cH6-vX-BEe">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="255"/>
                                 <connections>
                                     <segue destination="PQb-9S-L62" kind="embed" identifier="embed" id="0jz-5F-ARv"/>
                                 </connections>
@@ -2232,7 +2233,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <scene sceneID="KoH-yB-faY">
             <objects>
                 <collectionViewController id="bd3-Qn-q9Z" customClass="DescriptionCollectionViewController" customModule="PopcornTime" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" id="sOh-NB-hk2">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" dataMode="prototypes" id="sOh-NB-hk2">
                         <rect key="frame" x="0.0" y="0.0" width="132.66666666666666" height="110"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.15102305429999999" alpha="1" colorSpace="calibratedWhite"/>
@@ -2273,8 +2274,8 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <scene sceneID="BVu-kK-jCy">
             <objects>
                 <collectionViewController id="PQb-9S-L62" customClass="CollectionViewController" customModule="PopcornTime" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" prefetchingEnabled="NO" id="hRU-yH-dJG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="239.66666666666674"/>
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" prefetchingEnabled="NO" id="hRU-yH-dJG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="254.66666666666674"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="15" minimumInteritemSpacing="30" id="qut-UB-4YD">
@@ -3116,11 +3117,11 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         <viewControllerLayoutGuide type="bottom" id="aqO-A2-8kE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="a86-MQ-Udm">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="239.66666666666674"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="254.66666666666674"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="TJI-HA-yb0">
-                                <rect key="frame" x="178" y="110" width="20" height="20"/>
+                                <rect key="frame" x="178" y="117.33333333333334" width="20" height="20.000000000000028"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.10980392160000001" green="0.10980392160000001" blue="0.10980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

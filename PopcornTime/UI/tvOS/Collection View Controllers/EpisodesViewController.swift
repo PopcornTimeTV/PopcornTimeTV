@@ -23,7 +23,8 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
     
     @IBOutlet var episodeTitleLabelTopConstraint: NSLayoutConstraint!
     
-    let focusGuide = UIFocusGuide()
+    let summaryFocusGuide = UIFocusGuide()
+    let topFocusGuide = UIFocusGuide()
     var focusIndexPath = IndexPath(row: 0, section: 0)
     
     var itemViewController: ItemViewController? {
@@ -53,14 +54,22 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
         titleLabel.text = dataSource.first?.show.title
         episodeSummaryTextView.buttonWasPressed = moreButtonWasPressed
         
-        view.addLayoutGuide(focusGuide)
+        view.addLayoutGuide(summaryFocusGuide)
+        view.addLayoutGuide(topFocusGuide)
         
-        focusGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        focusGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        focusGuide.bottomAnchor.constraint(equalTo: episodeTitleLabel.topAnchor).isActive = true
-        focusGuide.topAnchor.constraint(equalTo: collectionView.bottomAnchor).isActive = true
+        summaryFocusGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        summaryFocusGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        summaryFocusGuide.bottomAnchor.constraint(equalTo: episodeTitleLabel.topAnchor).isActive = true
+        summaryFocusGuide.topAnchor.constraint(equalTo: collectionView.bottomAnchor).isActive = true
         
-        focusGuide.preferredFocusEnvironments = [episodeSummaryTextView]
+        summaryFocusGuide.preferredFocusEnvironments = [episodeSummaryTextView]
+        
+        topFocusGuide.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        topFocusGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        topFocusGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        topFocusGuide.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        
+        topFocusGuide.preferredFocusEnvironments = [collectionView]
     }
     
     func moreButtonWasPressed(text: String?) {
@@ -142,12 +151,12 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
     func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         
         var shouldUpdateView = false
-        focusGuide.preferredFocusEnvironments = [episodeSummaryTextView]
+        summaryFocusGuide.preferredFocusEnvironments = [episodeSummaryTextView]
+        topFocusGuide.preferredFocusEnvironments = itemViewController?.visibleButtons.flatMap({$0})
         environmentsToFocus = [context.nextFocusedView].flatMap({$0})
         
         
-        if let next = context.nextFocusedIndexPath,
-            let cell = context.nextFocusedView {
+        if let next = context.nextFocusedIndexPath {
             let episode = dataSource[next.row]
             
             focusIndexPath = next
@@ -169,7 +178,7 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
                 // View should always be at the centre of the screen.
                 if let parent = parent as? DetailViewController {
                     let size = parent.scrollView.bounds.size
-                    let origin = parent.scrollView.convert(cell.frame.origin, from: view)
+                    let origin = parent.scrollView.convert(view.frame.origin, from: view)
                     UIView.animate(withDuration: 2.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 4, options: [.curveEaseOut], animations: {
                         parent.scrollView.scrollRectToVisible(CGRect(origin: origin, size: size), animated: false)
                     })
@@ -179,9 +188,10 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
         {
             episodeTitleLabelTopConstraint.constant = 15
             numberOfEpisodesLabel.font = .preferredFont(forTextStyle: .callout)
+            topFocusGuide.preferredFocusEnvironments = [collectionView]
             shouldUpdateView = true
-        } else if let next = context.nextFocusedView, let previous = context.previouslyFocusedIndexPath, let cell = collectionView.cellForItem(at: previous), next == episodeSummaryTextView {
-            focusGuide.preferredFocusEnvironments = [cell]
+        } else if let next = context.nextFocusedView, let cell = context.previouslyFocusedView as? UICollectionViewCell, next == episodeSummaryTextView {
+            summaryFocusGuide.preferredFocusEnvironments = [cell]
         }
         
         if shouldUpdateView {
