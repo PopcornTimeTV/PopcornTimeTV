@@ -320,7 +320,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         let settings = SubtitleSettings.shared
         (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.size.rawValue))
         (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.color.hexInt()))
-        (mediaplayer as VLCFontAppearance).setTextRendererFont!(settings.font.familyName as NSString)
+        (mediaplayer as VLCFontAppearance).setTextRendererFont!(settings.font.fontName as NSString)
         (mediaplayer as VLCFontAppearance).setTextRendererFontForceBold!(NSNumber(booleanLiteral: settings.style == .bold || settings.style == .boldItalic))
         if let preferredLanguage = settings.language {
             currentSubtitle = subtitles.first(where: {$0.language == preferredLanguage})
