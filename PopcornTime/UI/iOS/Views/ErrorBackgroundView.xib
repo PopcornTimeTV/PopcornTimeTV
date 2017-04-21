@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ErrorBackgroundView" customModule="PopcornTime" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRj-Dk-MSr">
+                    <rect key="frame" x="167" y="305.5" width="80.5" height="36"/>
+                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z7z-yU-tDo">
+                    <rect key="frame" x="142" y="356.5" width="130.5" height="23"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                    <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.10980392160000001" green="0.10980392160000001" blue="0.10980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Z7z-yU-tDo" firstAttribute="top" secondItem="VRj-Dk-MSr" secondAttribute="bottom" constant="15" id="0cL-kC-oEx"/>
+                <constraint firstItem="Z7z-yU-tDo" firstAttribute="centerX" secondItem="VRj-Dk-MSr" secondAttribute="centerX" id="4zA-HQ-B7u"/>
+                <constraint firstItem="VRj-Dk-MSr" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="9gk-09-Yqx"/>
+                <constraint firstItem="Z7z-yU-tDo" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="I9T-p1-P5z"/>
+                <constraint firstItem="Z7z-yU-tDo" firstAttribute="width" secondItem="VRj-Dk-MSr" secondAttribute="width" constant="50" id="brF-I3-wOg"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VRj-Dk-MSr" secondAttribute="trailing" constant="15" id="gsr-Kc-6Ee"/>
+                <constraint firstItem="VRj-Dk-MSr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="tE0-8C-lcO"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="descriptionLabel" destination="Z7z-yU-tDo" id="fDm-FD-BPF"/>
+                <outlet property="titleLabel" destination="VRj-Dk-MSr" id="Tjw-jE-0iZ"/>
+            </connections>
+        </view>
+    </objects>
+</document>

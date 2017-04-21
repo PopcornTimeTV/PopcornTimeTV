@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="6hM-ue-UMU" customClass="ContinueWatchingCollectionViewCell" customModule="PopcornTime" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="374" height="215"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="374" height="215"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Episode Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="FRb-As-wVp">
+                        <rect key="frame" x="0.0" y="0.0" width="374" height="166"/>
+                    </imageView>
+                    <progressView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ajz-rz-aCF">
+                        <rect key="frame" x="15" y="145" width="344" height="6"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="6" id="Xf6-yT-GGs"/>
+                        </constraints>
+                        <color key="progressTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="trackTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="3"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </progressView>
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e2z-td-O3M">
+                        <rect key="frame" x="0.0" y="0.0" width="374" height="166"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.39846500880000002" colorSpace="calibratedWhite"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcd-Ga-Vmc">
+                        <rect key="frame" x="0.0" y="174" width="44" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21.5" id="tzm-gK-49t"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kbX-C2-vDd">
+                        <rect key="frame" x="0.0" y="198" width="36" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="zBN-Kz-68U"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="FRb-As-wVp" firstAttribute="top" secondItem="6hM-ue-UMU" secondAttribute="top" id="2yr-1V-N9E"/>
+                <constraint firstItem="e2z-td-O3M" firstAttribute="bottom" secondItem="FRb-As-wVp" secondAttribute="bottom" id="7Kk-IQ-Z5Y"/>
+                <constraint firstItem="FRb-As-wVp" firstAttribute="trailing" secondItem="Ajz-rz-aCF" secondAttribute="trailing" constant="15" id="7dP-hf-JOH"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kbX-C2-vDd" secondAttribute="trailing" id="Bil-5u-HYY"/>
+                <constraint firstItem="e2z-td-O3M" firstAttribute="leading" secondItem="FRb-As-wVp" secondAttribute="leading" id="C6c-FD-5Vc"/>
+                <constraint firstItem="dcd-Ga-Vmc" firstAttribute="leading" secondItem="kbX-C2-vDd" secondAttribute="leading" id="C8U-Bj-5Sk"/>
+                <constraint firstItem="e2z-td-O3M" firstAttribute="top" secondItem="FRb-As-wVp" secondAttribute="top" id="H6s-yk-iKD"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dcd-Ga-Vmc" secondAttribute="trailing" id="HrV-4O-YxC"/>
+                <constraint firstItem="FRb-As-wVp" firstAttribute="leading" secondItem="6hM-ue-UMU" secondAttribute="leading" id="Q9a-EH-acw"/>
+                <constraint firstItem="e2z-td-O3M" firstAttribute="trailing" secondItem="FRb-As-wVp" secondAttribute="trailing" id="YLf-Vj-4BT"/>
+                <constraint firstAttribute="trailing" secondItem="FRb-As-wVp" secondAttribute="trailing" id="YaX-1C-mlp"/>
+                <constraint firstAttribute="bottom" secondItem="kbX-C2-vDd" secondAttribute="bottom" id="fYn-CE-wHh"/>
+                <constraint firstItem="FRb-As-wVp" firstAttribute="bottom" secondItem="Ajz-rz-aCF" secondAttribute="bottom" constant="15" id="hY3-cn-PQ8"/>
+                <constraint firstItem="dcd-Ga-Vmc" firstAttribute="top" secondItem="FRb-As-wVp" secondAttribute="bottom" constant="8" symbolic="YES" id="nWg-ie-U0K"/>
+                <constraint firstItem="Ajz-rz-aCF" firstAttribute="leading" secondItem="FRb-As-wVp" secondAttribute="leading" constant="15" id="oNT-xR-Rgr"/>
+                <constraint firstItem="kbX-C2-vDd" firstAttribute="leading" secondItem="FRb-As-wVp" secondAttribute="leading" id="vEu-Rd-Vru"/>
+                <constraint firstItem="kbX-C2-vDd" firstAttribute="top" secondItem="dcd-Ga-Vmc" secondAttribute="bottom" constant="3" id="zK8-E0-Exd"/>
+            </constraints>
+            <connections>
+                <outlet property="highlightView" destination="e2z-td-O3M" id="mPS-yX-DD1"/>
+                <outlet property="imageView" destination="FRb-As-wVp" id="7pM-2i-6Hz"/>
+                <outlet property="progressView" destination="Ajz-rz-aCF" id="6rA-aA-9jY"/>
+                <outlet property="subtitleLabel" destination="kbX-C2-vDd" id="30P-99-9Gt"/>
+                <outlet property="titleLabel" destination="dcd-Ga-Vmc" id="y3O-Q6-y4d"/>
+            </connections>
+            <point key="canvasLocation" x="34" y="114.5"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="Episode Placeholder" width="600" height="600"/>
+    </resources>
+</document>

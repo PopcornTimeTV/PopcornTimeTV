@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="appleTV" orientation="landscape">
+        <adaptation id="dark"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TraktAuthenticationViewController" customModule="AKTrakt">
+            <connections>
+                <outlet property="codeLabel" destination="wek-Tb-zdS" id="SSZ-0v-g28"/>
+                <outlet property="view" destination="iN0-l3-epB" id="PGy-UJ-GOS"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Navigate to https://trakt.tv/activate and enter code shown below when asked." textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DZd-Dx-iyv">
+                    <rect key="frame" x="384" y="298" width="1152" height="40"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="33"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trakt Pairing Request" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Oy-eR-a2e">
+                    <rect key="frame" x="731" y="220" width="458" height="58"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5055CC52" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wek-Tb-zdS">
+                    <rect key="frame" x="774" y="428" width="372" height="91"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <constraints>
+                <constraint firstItem="5Oy-eR-a2e" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="22V-3C-VG0"/>
+                <constraint firstItem="DZd-Dx-iyv" firstAttribute="top" secondItem="5Oy-eR-a2e" secondAttribute="bottom" constant="20" id="Cq9-fp-pzj"/>
+                <constraint firstItem="wek-Tb-zdS" firstAttribute="top" secondItem="DZd-Dx-iyv" secondAttribute="bottom" constant="90" id="I32-cJ-zhu"/>
+                <constraint firstItem="5Oy-eR-a2e" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="220" id="OwE-0j-2d1"/>
+                <constraint firstItem="DZd-Dx-iyv" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ncW-BH-zLr"/>
+                <constraint firstItem="wek-Tb-zdS" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="opx-a4-3Kx"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+        </view>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <nil key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation" orientation="landscapeRight"/>
+        <simulatedScreenMetrics key="destination" type="appleTV.dark"/>
+    </simulatedMetricsContainer>
+</document>
