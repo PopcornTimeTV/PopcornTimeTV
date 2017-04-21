@@ -21,7 +21,7 @@ Want to report a bug, request a feature, contribute or translate Popcorn Time? C
 
 ## iPA
 
-Download the [latest .ipa's](https://github.com/PopcornTimeTV/PopcornTimeTV/releases/latest).
+Download the [latest .ipas](https://github.com/PopcornTimeTV/PopcornTimeTV/releases/latest).
 
 Alternatively you can [compile one yourself](https://github.com/PopcornTimeTV/PopcornTimeTV/wiki/Archiving-Popcorn-Time).
 
