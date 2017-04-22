@@ -2,7 +2,9 @@
 language: objective-c
 osx_image: xcode8.3
 
-install: pod repo update; pod install
+install:
+  - travis_wait mvn pod repo update
+  - travis_wait mvn pod install
 
 env:
   global:
