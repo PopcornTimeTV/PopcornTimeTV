@@ -33,7 +33,7 @@ public struct Show: Media, Equatable {
     /// Rating percentage of the show.
     public let rating: Float
     
-    /// Summary of the show. Will default to "No summary available." until `getInfo:imdbId:completion` is called on `ShowManager` and shows are updated. **However**, there may not be a summary provided by the api.
+    /// Summary of the show. Will default to "No summary available.".localized until `getInfo:imdbId:completion` is called on `ShowManager` and shows are updated. **However**, there may not be a summary provided by the api.
     public let summary: String
     
     /// Network that the show is officially released on. Will be `nil` until `getInfo:imdbId:completion` is called on `ShowManager` and shows are updated.
@@ -137,9 +137,10 @@ public struct Show: Media, Equatable {
             self.airDay = try? map.value("air_day")
             self.airTime = try? map.value("air_time")
         }
-        self.summary = (try? map.value("synopsis")) ?? "No summary available."
-        self.title = try map.value("title")
-        do { try self.title.removeHtmlEncoding() } catch {}
+        self.summary = ((try? map.value("synopsis")) ?? "No summary available.".localized).removingHtmlEncoding
+        var title: String = try map.value("title")
+        title.removeHtmlEncoding()
+        self.title = title
         self.status = try? map.value("status")
         self.runtime = try? map.value("runtime", using: IntTransform())
         self.genres = (try? map.value("genres")) ?? []
@@ -156,7 +157,7 @@ public struct Show: Media, Equatable {
         self.episodes.sort(by: { $0.episode < $1.episode })
     }
     
-    public init(title: String = "Unknown", id: String = "tt0000000", tmdbId: Int? = nil, slug: String = "unknown", summary: String = "No summary available.", torrents: [Torrent] = [], subtitles: [Subtitle] = [], largeBackgroundImage: String? = nil, largeCoverImage: String? = nil) {
+    public init(title: String = "Unknown".localized, id: String = "tt0000000", tmdbId: Int? = nil, slug: String = "unknown", summary: String = "No summary available.".localized, torrents: [Torrent] = [], subtitles: [Subtitle] = [], largeBackgroundImage: String? = nil, largeCoverImage: String? = nil) {
         self.title = title
         self.id = id
         self.tmdbId = tmdbId

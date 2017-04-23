@@ -247,6 +247,8 @@
 		4D9DEF081E705DA0002493B5 /* OptionsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DEF071E705DA0002493B5 /* OptionsPresentationController.swift */; };
 		4DA42DD21DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */; };
 		4DA42DD31DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */; };
+		4DABD6DB1EACF82E008F7549 /* HtmlDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DABD6DA1EACF82E008F7549 /* HtmlDecoding.swift */; };
+		4DABD6DC1EACF82E008F7549 /* HtmlDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DABD6DA1EACF82E008F7549 /* HtmlDecoding.swift */; };
 		4DAE33991E7C676A0014B489 /* String+Truncation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE33981E7C676A0014B489 /* String+Truncation.swift */; };
 		4DAE339B1E7C81240014B489 /* TimeInterval+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE339A1E7C81240014B489 /* TimeInterval+Default.swift */; };
 		4DAE339C1E7C81240014B489 /* TimeInterval+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE339A1E7C81240014B489 /* TimeInterval+Default.swift */; };
@@ -558,6 +560,7 @@
 		4D9DEF071E705DA0002493B5 /* OptionsPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsPresentationController.swift; path = "Presentation Controllers/OptionsPresentationController.swift"; sourceTree = "<group>"; };
 		4DA42DC41DD8C6D900933A10 /* PopcornTimeiOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PopcornTimeiOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
+		4DABD6DA1EACF82E008F7549 /* HtmlDecoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HtmlDecoding.swift; path = PopcornKit/Resources/HtmlDecoding.swift; sourceTree = SOURCE_ROOT; };
 		4DAE33981E7C676A0014B489 /* String+Truncation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Truncation.swift"; sourceTree = "<group>"; };
 		4DAE339A1E7C81240014B489 /* TimeInterval+Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Default.swift"; sourceTree = "<group>"; };
 		4DAFAA351E0AF4DE00AE0F9A /* AudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
@@ -838,6 +841,7 @@
 			isa = PBXGroup;
 			children = (
 				4D0F9D651E6F2CEB00860852 /* OAuthCredential.swift */,
+				4DABD6DA1EACF82E008F7549 /* HtmlDecoding.swift */,
 				4D0F9D681E6F2D7600860852 /* MPAudioDeviceController.h */,
 				4D0F9D691E6F2D7600860852 /* MPAVRoute.h */,
 				4D0F9D6A1E6F2D7600860852 /* MPAVRoutingController.h */,
@@ -1862,6 +1866,7 @@
 				4D0F9D861E6F2EF400860852 /* Episode.swift in Sources */,
 				4D0F9D891E6F2EF400860852 /* Actor.swift in Sources */,
 				4D0F9D4C1E6F2B2000860852 /* String+Extension.swift in Sources */,
+				4DABD6DB1EACF82E008F7549 /* HtmlDecoding.swift in Sources */,
 				4D0F9D561E6F2C2400860852 /* TraktAuthenticationViewController.swift in Sources */,
 				4D0F9D671E6F2D1400860852 /* Dictionary+Extension.swift in Sources */,
 				4DB0EA671E7D8C38004B57B1 /* DispatchQueue+Extension.swift in Sources */,
@@ -1891,6 +1896,7 @@
 				4D0F9DC21E6F304B00860852 /* Actor.swift in Sources */,
 				4D0F9DB11E6F304600860852 /* TraktManager.swift in Sources */,
 				4D0F9DB31E6F304600860852 /* UpdateManager.swift in Sources */,
+				4DABD6DC1EACF82E008F7549 /* HtmlDecoding.swift in Sources */,
 				4D0F9DB01E6F304600860852 /* WatchedlistManager.swift in Sources */,
 				4D0F9DA51E6F300C00860852 /* OAuthCredential.swift in Sources */,
 				4D0F9DC31E6F304B00860852 /* Torrent.swift in Sources */,

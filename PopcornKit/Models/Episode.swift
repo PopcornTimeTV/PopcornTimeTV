@@ -16,7 +16,7 @@ public struct Episode: Media, Equatable {
     /// The title of the episode. If there is no title, the string "Episode" followed by the episode number will be used.
     public let title: String
     
-    /// The summary of the episode. Will default to "No summary available." if there is no summary available on the popcorn-api.
+    /// The summary of the episode. Will default to "No summary available.".localized if there is no summary available on the popcorn-api.
     public var summary: String
     
     /// The tvdb id of the episode.
@@ -96,16 +96,15 @@ public struct Episode: Media, Equatable {
         self.imdbId = try? map.value("ids.imdb")
         self.show = try? map.value("show") // Will only not be `nil` if object is mapped from JSON array, otherwise this is set in `Show` struct.
         self.firstAirDate =  try map.value("first_aired", using: DateTransform())
-        self.summary = (try? map.value("overview")) ?? "No summary available."
+        self.summary = ((try? map.value("overview")) ?? "No summary available.".localized).removingHtmlEncoding
         self.season = try map.value("season")
         let episode = self.episode // Stop compiler complaining about passing uninitialised variables to closure.
-        self.title = (try? map.value("title")) ?? "Episode \(episode)"
-        do { try self.title.removeHtmlEncoding() } catch {}
+        self.title = ((try? map.value("title")) ?? "Episode \(episode)").removingHtmlEncoding
         self.slug = title.slugged
         self.largeBackgroundImage = try? map.value("images.fanart")
     }
     
-    public init(title: String = "Unknown", id: String = "0000000", tmdbId: Int? = nil, slug: String = "unknown", summary: String = "No summary available.", torrents: [Torrent] = [], subtitles: [Subtitle] = [], largeBackgroundImage: String? = nil, largeCoverImage: String? = nil) {
+    public init(title: String = "Unknown".localized, id: String = "0000000", tmdbId: Int? = nil, slug: String = "unknown", summary: String = "No summary available.".localized, torrents: [Torrent] = [], subtitles: [Subtitle] = [], largeBackgroundImage: String? = nil, largeCoverImage: String? = nil) {
         self.title = title
         self.id = id
         self.tmdbId = tmdbId

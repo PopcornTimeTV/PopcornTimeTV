@@ -57,35 +57,4 @@ extension String {
         }
         return queryStringDictionary
     }
-    
-    init?(htmlEncoded string: String) {
-        self.init()
-        
-        guard let encodedData = string.data(using: .utf8) else {
-            return nil
-        }
-        
-        let attributedOptions: [String : Any] = [
-            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-            NSCharacterEncodingDocumentAttribute: String.Encoding.utf8.rawValue
-        ]
-        
-        if let attributedString = try? NSAttributedString(data: encodedData, options: attributedOptions, documentAttributes: nil) {
-            self = attributedString.string
-        } else {
-            return nil
-        }
-    }
-    
-    var removingHtmlEncoding: String? {
-        return String(htmlEncoded: self)
-    }
-    
-    mutating func removeHtmlEncoding() throws {
-        if let new = removingHtmlEncoding {
-            self = new
-        } else {
-            throw NSError()
-        }
-    }
 }

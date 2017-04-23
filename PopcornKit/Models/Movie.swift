@@ -33,7 +33,7 @@ public struct Movie: Media, Equatable {
     /// The runtime of the movie rounded to the nearest minute.
     public let runtime: Int
     
-    /// The summary of the movie. Will default to "No summary available." if a summary is not provided by the api.
+    /// The summary of the movie. Will default to "No summary available.".localized if a summary is not provided by the api.
     public let summary: String
     
     /// The trailer url of the movie. Will be `nil` if a trailer is not provided by the api.
@@ -125,20 +125,21 @@ public struct Movie: Media, Equatable {
             self.id = try map.value("ids.imdb")
             self.year = try map.value("year", using: StringTransform())
             self.rating = try map.value("rating")
-            self.summary = ((try? map.value("overview")) ?? "No summary available.")
+            self.summary = ((try? map.value("overview")) ?? "No summary available.".localized).removingHtmlEncoding
             self.runtime = try map.value("runtime")
         } else {
             self.id = try map.value("imdb_id")
             self.year = try map.value("year")
             self.rating = try map.value("rating.percentage")
-            self.summary = (try? map.value("synopsis")) ?? "No summary available."
+            self.summary = ((try? map.value("synopsis")) ?? "No summary available.".localized).removingHtmlEncoding
             self.largeCoverImage = try? map.value("images.poster"); largeCoverImage = largeCoverImage?.replacingOccurrences(of: "w500", with: "w1000").replacingOccurrences(of: "SX300", with: "SX1000")
             self.largeBackgroundImage = try? map.value("images.fanart"); largeBackgroundImage = largeBackgroundImage?.replacingOccurrences(of: "w500", with: "w1920").replacingOccurrences(of: "SX300", with: "SX1920")
             self.runtime = try map.value("runtime", using: IntTransform())
 
         }
-        self.title = try map.value("title")
-        do { try self.title.removeHtmlEncoding() } catch {}
+        var title: String = try map.value("title")
+        title.removeHtmlEncoding()
+        self.title = title
         self.tmdbId = try? map.value("ids.tmdb")
         self.slug = title.slugged
         self.trailer = try? map.value("trailer"); trailer == "false" ? trailer = nil : ()
@@ -155,7 +156,7 @@ public struct Movie: Media, Equatable {
         torrents.sort(by: <)
     }
     
-    public init(title: String = "Unknown", id: String = "tt0000000", tmdbId: Int? = nil, slug: String = "unknown", summary: String = "No summary available.", torrents: [Torrent] = [], subtitles: [Subtitle] = [], largeBackgroundImage: String? = nil, largeCoverImage: String? = nil) {
+    public init(title: String = "Unknown".localized, id: String = "tt0000000", tmdbId: Int? = nil, slug: String = "unknown", summary: String = "No summary available.".localized, torrents: [Torrent] = [], subtitles: [Subtitle] = [], largeBackgroundImage: String? = nil, largeCoverImage: String? = nil) {
         self.title = title
         self.id = id
         self.tmdbId = tmdbId
