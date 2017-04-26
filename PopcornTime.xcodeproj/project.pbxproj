@@ -12,6 +12,8 @@
 		4D0183A91DC3ACB500AB75B3 /* Locale+Langs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */; };
 		4D07E17C1E8C364F00457FCB /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D07E17B1E8C364F00457FCB /* Object.swift */; };
 		4D07E17D1E8C365200457FCB /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D07E17B1E8C364F00457FCB /* Object.swift */; };
+		4D0AB55A1EB0D662003D2A3A /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0AB5591EB0D662003D2A3A /* Bundle+Extension.swift */; };
+		4D0AB55B1EB0D662003D2A3A /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0AB5591EB0D662003D2A3A /* Bundle+Extension.swift */; };
 		4D0E130B1E6709EB0000AD65 /* UICollectionViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E130A1E6709EB0000AD65 /* UICollectionViewController+Extension.swift */; };
 		4D0E130C1E6709EB0000AD65 /* UICollectionViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E130A1E6709EB0000AD65 /* UICollectionViewController+Extension.swift */; };
 		4D0E130E1E671E050000AD65 /* TVTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E130D1E671E050000AD65 /* TVTabBarController.swift */; };
@@ -395,6 +397,17 @@
 		44441B28B134A26461FAE05C /* Pods_PopcornKit_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopcornKit_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Locale+Langs.swift"; sourceTree = "<group>"; };
 		4D07E17B1E8C364F00457FCB /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
+		4D0AB54F1EB0D4CA003D2A3A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/iOSPlist.strings; sourceTree = "<group>"; };
+		4D0AB5501EB0D4CA003D2A3A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/TraktAuthenticationViewController.strings; sourceTree = "<group>"; };
+		4D0AB5511EB0D4CA003D2A3A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LoadingView.strings; sourceTree = "<group>"; };
+		4D0AB5521EB0D4CB003D2A3A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4D0AB5531EB0D4CB003D2A3A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/iOS.strings; sourceTree = "<group>"; };
+		4D0AB5541EB0D4CC003D2A3A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/tvOSPlist.strings; sourceTree = "<group>"; };
+		4D0AB5551EB0D4CC003D2A3A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/tvOSPlist.strings; sourceTree = "<group>"; };
+		4D0AB5561EB0D4CC003D2A3A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/tvOS.strings; sourceTree = "<group>"; };
+		4D0AB5571EB0D4CD003D2A3A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4D0AB5581EB0D4CD003D2A3A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/iOSPlist.strings; sourceTree = "<group>"; };
+		4D0AB5591EB0D662003D2A3A /* Bundle+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
 		4D0E130A1E6709EB0000AD65 /* UICollectionViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewController+Extension.swift"; sourceTree = "<group>"; };
 		4D0E130D1E671E050000AD65 /* TVTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVTabBarController.swift; path = "View Controllers/TVTabBarController.swift"; sourceTree = "<group>"; };
 		4D0F9CFC1E6F296400860852 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = PopcornKit/Managers/NetworkManager.swift; sourceTree = SOURCE_ROOT; };
@@ -733,6 +746,7 @@
 			isa = PBXGroup;
 			children = (
 				4D7376011DFDC6F500505CA0 /* NSNotificationName+Extension.swift */,
+				4D0AB5591EB0D662003D2A3A /* Bundle+Extension.swift */,
 				4D8A5DD71EA962B2004CEB53 /* UIControlState+Hashable.swift */,
 				4D0F9D4A1E6F2B1300860852 /* String+Extension.swift */,
 				4DCB39301E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift */,
@@ -1790,6 +1804,7 @@
 				4DA42DD21DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */,
 				4D37C4591E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Gray.swift in Sources */,
 				4D0F9E1A1E70582A00860852 /* TermsOfServiceViewController.swift in Sources */,
+				4D0AB55A1EB0D662003D2A3A /* Bundle+Extension.swift in Sources */,
 				4D8A5DD81EA962B2004CEB53 /* UIControlState+Hashable.swift in Sources */,
 				4D0F9DDE1E7056DF00860852 /* EpisodeCollectionViewCell.swift in Sources */,
 				4D0F9E361E705A3E00860852 /* TVFadeToBlackAnimatedTransitioning.swift in Sources */,
@@ -1927,6 +1942,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D1B88A71E3BEFF300DB701D /* EpisodesCollectionViewController.swift in Sources */,
+				4D0AB55B1EB0D662003D2A3A /* Bundle+Extension.swift in Sources */,
 				4DCB393E1E8460FB00388374 /* NSNotificationName+Extension.swift in Sources */,
 				4D859B461DDFA0D5000E2AA1 /* GoogleCastTableViewController.swift in Sources */,
 				4D0F9DFA1E70579F00860852 /* UpNextView.swift in Sources */,
@@ -2062,6 +2078,7 @@
 				4D1440111E9AF13A00B78269 /* Base */,
 				4D1440181E9AF17A00B78269 /* en */,
 				4D32EBD61EA2D0F600B4361A /* it */,
+				4D0AB5511EB0D4CA003D2A3A /* ar */,
 			);
 			name = LoadingView.xib;
 			sourceTree = "<group>";
@@ -2072,6 +2089,7 @@
 				4D1440141E9AF16600B78269 /* Base */,
 				4D14401A1E9AF18D00B78269 /* en */,
 				4D32EBE91EA2D0FA00B4361A /* it */,
+				4D0AB5571EB0D4CD003D2A3A /* ar */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2082,6 +2100,7 @@
 				4D14401D1E9AF3CA00B78269 /* Base */,
 				4D1440201E9AF3CF00B78269 /* en */,
 				4D32EBD71EA2D0F600B4361A /* it */,
+				4D0AB5501EB0D4CA003D2A3A /* ar */,
 			);
 			name = TraktAuthenticationViewController.xib;
 			sourceTree = "<group>";
@@ -2090,6 +2109,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4D32EBD41EA2D0F500B4361A /* it */,
+				4D0AB54F1EB0D4CA003D2A3A /* ar */,
 			);
 			name = iOSPlist.strings;
 			sourceTree = "<group>";
@@ -2098,6 +2118,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4D32EBDB1EA2D0F700B4361A /* it */,
+				4D0AB5521EB0D4CB003D2A3A /* ar */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -2106,6 +2127,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4D32EBE11EA2D0F900B4361A /* it */,
+				4D0AB5541EB0D4CC003D2A3A /* ar */,
 			);
 			name = tvOSPlist.strings;
 			sourceTree = "<group>";
@@ -2114,6 +2136,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4D32EBE61EA2D0F900B4361A /* it */,
+				4D0AB5551EB0D4CC003D2A3A /* ar */,
 			);
 			name = tvOSPlist.strings;
 			path = "PopcornKit/Supporting Files";
@@ -2123,6 +2146,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4D32EBED1EA2D0FB00B4361A /* it */,
+				4D0AB5581EB0D4CD003D2A3A /* ar */,
 			);
 			name = iOSPlist.strings;
 			path = "PopcornKit/Supporting Files";
@@ -2134,6 +2158,7 @@
 				4DBCCEF31E6815450066F1A7 /* Base */,
 				4DBCCEFB1E6815710066F1A7 /* en */,
 				4D32EBDD1EA2D0F800B4361A /* it */,
+				4D0AB5531EB0D4CB003D2A3A /* ar */,
 			);
 			name = iOS.storyboard;
 			sourceTree = "<group>";
@@ -2144,6 +2169,7 @@
 				4DBCCEF51E6815450066F1A7 /* Base */,
 				4DBCCEFC1E6815710066F1A7 /* en */,
 				4D32EBE81EA2D0FA00B4361A /* it */,
+				4D0AB5561EB0D4CC003D2A3A /* ar */,
 			);
 			name = tvOS.storyboard;
 			sourceTree = "<group>";

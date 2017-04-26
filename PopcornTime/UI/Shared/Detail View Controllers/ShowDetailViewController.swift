@@ -115,7 +115,8 @@ class ShowDetailViewController: DetailViewController {
 
     
     func change(to season: Int) {
-        seasonsLabel.text = "Season".localized + " \(season)"
+        let localizedSeason = NumberFormatter.localizedString(from: NSNumber(value: season), number: .none)
+        seasonsLabel.text = "Season".localized + " \(localizedSeason)"
         currentSeason = season
         episodesCollectionViewController.dataSource = show.episodes.filter({$0.season == season}).sorted(by: {$0.0.episode < $0.1.episode})
         episodesCollectionViewController.collectionView?.reloadData()

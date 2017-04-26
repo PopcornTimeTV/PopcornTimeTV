@@ -27,7 +27,8 @@ class EpisodesCollectionViewController: ResponsiveCollectionViewController, UICo
         
         let episode = dataSource[indexPath.row]
         
-        cell.titleLabel.text = "\(episode.episode). \(episode.title)"
+        let episodeNumber = NumberFormatter.localizedString(from: NSNumber(value: episode.episode), number: .none)
+        cell.titleLabel.text = "\(episodeNumber)\(Locale.current.decimalSeparator ?? ".") \(episode.title)"
         cell.subtitleLabel?.text = DateFormatter.localizedString(from: episode.firstAirDate, dateStyle: .medium, timeStyle: .none)
         cell.id = episode.id
         

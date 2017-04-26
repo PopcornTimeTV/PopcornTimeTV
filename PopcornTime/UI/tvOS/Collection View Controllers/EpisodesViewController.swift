@@ -109,10 +109,10 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let items = dataSource.count
-        let singular = items == 1
-        numberOfEpisodesLabel.text = "\(items) \(singular ? "Episode".localized : "Episodes".localized)"
-        return items
+        let value = dataSource.count
+        let singular = value == 1
+        numberOfEpisodesLabel.text = "\(NumberFormatter.localizedString(from: NSNumber(value: value), number: .none)) \(singular ? "Episode".localized : "Episodes".localized)"
+        return value
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -120,8 +120,8 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
         
         let episode = dataSource[indexPath.row]
         
-        
-        cell.titleLabel.text = "\(episode.episode). \(episode.title)"
+        let episodeNumber = NumberFormatter.localizedString(from: NSNumber(value: episode.episode), number: .none)
+        cell.titleLabel.text = "\(episodeNumber)\(Locale.current.decimalSeparator ?? ".") \(episode.title)"
         cell.id = episode.id
         
         if let image = episode.smallBackgroundImage, let url = URL(string: image) {
