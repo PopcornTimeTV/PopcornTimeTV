@@ -5,7 +5,7 @@ import PopcornKit
 import AVFoundation.AVFAudio.AVAudioSession
 
 enum EqualizerProfiles: UInt32 {
-    case fullDynamicRange = 5
+    case fullDynamicRange = 0
     case reduceLoudSounds = 15
     
     static let array = [fullDynamicRange, reduceLoudSounds]
