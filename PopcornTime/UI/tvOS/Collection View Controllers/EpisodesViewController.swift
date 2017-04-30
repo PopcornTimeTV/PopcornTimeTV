@@ -121,7 +121,7 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
         let episode = dataSource[indexPath.row]
         
         let episodeNumber = NumberFormatter.localizedString(from: NSNumber(value: episode.episode), number: .none)
-        cell.titleLabel.text = "\(episodeNumber)\(Locale.current.decimalSeparator ?? ".") \(episode.title)"
+        cell.titleLabel.text = "\(episodeNumber). \(episode.title)"
         cell.id = episode.id
         
         if let image = episode.smallBackgroundImage, let url = URL(string: image) {

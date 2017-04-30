@@ -9,6 +9,11 @@ extension SearchViewController: UIToolbarDelegate {
         navigationController?.navigationBar.isHairlineHidden = true
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHairlineHidden = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

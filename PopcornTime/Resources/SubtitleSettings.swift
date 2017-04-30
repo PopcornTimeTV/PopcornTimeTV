@@ -75,7 +75,7 @@ class SubtitleSettings: NSObject, NSCoding {
     
     var size: Size = .medium
     var color: UIColor = .white
-    var encoding: String = "Windows-1252"
+    var encoding: String = "UTF-8"
     var language: String? = nil
     var font: UIFont = UIFont.systemFont(ofSize: CGFloat(Size.medium.rawValue))
     var style: UIFont.Style = .normal

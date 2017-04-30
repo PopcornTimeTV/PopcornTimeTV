@@ -141,7 +141,8 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
         elapsedTimeLabel?.text = elapsedTime.stringValue
     }
     
-    func remoteMediaClient(_ client: GCKRemoteMediaClient, didUpdate mediaStatus: GCKMediaStatus) {
+    func remoteMediaClient(_ client: GCKRemoteMediaClient, didUpdate mediaStatus: GCKMediaStatus?) {
+        guard let mediaStatus = mediaStatus else { return }
         switch mediaStatus.playerState {
         case .paused:
             setProgress(status: .paused)
