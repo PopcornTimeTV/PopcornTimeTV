@@ -632,6 +632,16 @@
 		7AAF4FD5928500951D3D388A /* Pods-PopcornTimetvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTimetvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTimetvOS/Pods-PopcornTimetvOS.release.xcconfig"; sourceTree = "<group>"; };
 		89909111EA7D0BC787417121 /* Pods-PopcornTimeiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTimeiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS.release.xcconfig"; sourceTree = "<group>"; };
 		A489B2D54ED62235827C5970 /* Pods-TopShelf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TopShelf.release.xcconfig"; path = "Pods/Target Support Files/Pods-TopShelf/Pods-TopShelf.release.xcconfig"; sourceTree = "<group>"; };
+		B3602D0C1EB8D2050066C9E8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/TraktAuthenticationViewController.strings"; sourceTree = "<group>"; };
+		B3602D0D1EB8D2060066C9E8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LoadingView.strings"; sourceTree = "<group>"; };
+		B3602D0E1EB8D2060066C9E8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/iOS.strings"; sourceTree = "<group>"; };
+		B3602D0F1EB8D2060066C9E8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/tvOS.strings"; sourceTree = "<group>"; };
+		B3602D101EB8D2060066C9E8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		B3602D111EB8D2060066C9E8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/tvOSPlist.strings"; sourceTree = "<group>"; };
+		B3602D121EB8D2060066C9E8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/iOSPlist.strings"; sourceTree = "<group>"; };
+		B3602D131EB8D2060066C9E8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/iOSPlist.strings"; sourceTree = "<group>"; };
+		B3602D141EB8D2060066C9E8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/tvOSPlist.strings"; sourceTree = "<group>"; };
+		B3602D151EB8D2060066C9E8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TopShelf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC752D372F3D49C2DAC0F73F /* Pods-PopcornKit iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornKit iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornKit iOS/Pods-PopcornKit iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		BCA30ED3DF636CC184A659E8 /* Pods-PopcornKit tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornKit tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornKit tvOS/Pods-PopcornKit tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -1488,6 +1498,7 @@
 			knownRegions = (
 				Base,
 				en,
+				"pt-BR",
 			);
 			mainGroup = 287B852B1C9873A200EEF5C8;
 			productRefGroup = 287B85351C9873A200EEF5C8 /* Products */;
@@ -2079,6 +2090,7 @@
 				4D1440181E9AF17A00B78269 /* en */,
 				4D32EBD61EA2D0F600B4361A /* it */,
 				4D0AB5511EB0D4CA003D2A3A /* ar */,
+				B3602D0D1EB8D2060066C9E8 /* pt-BR */,
 			);
 			name = LoadingView.xib;
 			sourceTree = "<group>";
@@ -2090,6 +2102,7 @@
 				4D14401A1E9AF18D00B78269 /* en */,
 				4D32EBE91EA2D0FA00B4361A /* it */,
 				4D0AB5571EB0D4CD003D2A3A /* ar */,
+				B3602D101EB8D2060066C9E8 /* pt-BR */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2101,6 +2114,7 @@
 				4D1440201E9AF3CF00B78269 /* en */,
 				4D32EBD71EA2D0F600B4361A /* it */,
 				4D0AB5501EB0D4CA003D2A3A /* ar */,
+				B3602D0C1EB8D2050066C9E8 /* pt-BR */,
 			);
 			name = TraktAuthenticationViewController.xib;
 			sourceTree = "<group>";
@@ -2110,6 +2124,7 @@
 			children = (
 				4D32EBD41EA2D0F500B4361A /* it */,
 				4D0AB54F1EB0D4CA003D2A3A /* ar */,
+				B3602D121EB8D2060066C9E8 /* pt-BR */,
 			);
 			name = iOSPlist.strings;
 			sourceTree = "<group>";
@@ -2119,6 +2134,7 @@
 			children = (
 				4D32EBDB1EA2D0F700B4361A /* it */,
 				4D0AB5521EB0D4CB003D2A3A /* ar */,
+				B3602D151EB8D2060066C9E8 /* pt-BR */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -2128,6 +2144,7 @@
 			children = (
 				4D32EBE11EA2D0F900B4361A /* it */,
 				4D0AB5541EB0D4CC003D2A3A /* ar */,
+				B3602D111EB8D2060066C9E8 /* pt-BR */,
 			);
 			name = tvOSPlist.strings;
 			sourceTree = "<group>";
@@ -2137,6 +2154,7 @@
 			children = (
 				4D32EBE61EA2D0F900B4361A /* it */,
 				4D0AB5551EB0D4CC003D2A3A /* ar */,
+				B3602D141EB8D2060066C9E8 /* pt-BR */,
 			);
 			name = tvOSPlist.strings;
 			path = "PopcornKit/Supporting Files";
@@ -2147,6 +2165,7 @@
 			children = (
 				4D32EBED1EA2D0FB00B4361A /* it */,
 				4D0AB5581EB0D4CD003D2A3A /* ar */,
+				B3602D131EB8D2060066C9E8 /* pt-BR */,
 			);
 			name = iOSPlist.strings;
 			path = "PopcornKit/Supporting Files";
@@ -2159,6 +2178,7 @@
 				4DBCCEFB1E6815710066F1A7 /* en */,
 				4D32EBDD1EA2D0F800B4361A /* it */,
 				4D0AB5531EB0D4CB003D2A3A /* ar */,
+				B3602D0E1EB8D2060066C9E8 /* pt-BR */,
 			);
 			name = iOS.storyboard;
 			sourceTree = "<group>";
@@ -2170,6 +2190,7 @@
 				4DBCCEFC1E6815710066F1A7 /* en */,
 				4D32EBE81EA2D0FA00B4361A /* it */,
 				4D0AB5561EB0D4CC003D2A3A /* ar */,
+				B3602D0F1EB8D2060066C9E8 /* pt-BR */,
 			);
 			name = tvOS.storyboard;
 			sourceTree = "<group>";
