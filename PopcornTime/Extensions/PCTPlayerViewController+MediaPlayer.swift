@@ -73,4 +73,21 @@ extension PCTPlayerViewController {
             }
         }
     }
+    
+    override func remoteControlReceived(with event: UIEvent?) {
+        guard let event = event else { return }
+        
+        switch event.subtype {
+            case .remoteControlPlay:
+                fallthrough
+            case .remoteControlPause:
+                fallthrough
+            case .remoteControlTogglePlayPause:
+                playandPause()
+            case .remoteControlStop:
+                mediaplayer.stop()
+            default:
+                break
+        }
+    }
 }
