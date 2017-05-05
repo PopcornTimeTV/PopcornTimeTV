@@ -492,6 +492,16 @@
 		4D0F9E461E705BD100860852 /* CGSize+Min.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Min.swift"; sourceTree = "<group>"; };
 		4D0F9E471E705BD100860852 /* UIAlertController+BlurStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+BlurStyle.swift"; sourceTree = "<group>"; };
 		4D1178641DC6A7F90077A598 /* TopShelf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TopShelf.entitlements; sourceTree = "<group>"; };
+		4D122A021EBCE4E10079B3B0 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LoadingView.strings"; sourceTree = "<group>"; };
+		4D122A031EBCE4E20079B3B0 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/TraktAuthenticationViewController.strings"; sourceTree = "<group>"; };
+		4D122A041EBCE4E20079B3B0 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		4D122A051EBCE4E30079B3B0 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		4D122A061EBCE4E30079B3B0 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/iOS.strings"; sourceTree = "<group>"; };
+		4D122A071EBCE4E40079B3B0 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/tvOSPlist.strings"; sourceTree = "<group>"; };
+		4D122A081EBCE4E40079B3B0 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/tvOSPlist.strings"; sourceTree = "<group>"; };
+		4D122A091EBCE4E40079B3B0 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/tvOS.strings"; sourceTree = "<group>"; };
+		4D122A0A1EBCE4E50079B3B0 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/iOSPlist.strings"; sourceTree = "<group>"; };
+		4D122A0B1EBCE4E50079B3B0 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/iOSPlist.strings"; sourceTree = "<group>"; };
 		4D1440111E9AF13A00B78269 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoadingView.xib; sourceTree = "<group>"; };
 		4D1440141E9AF16600B78269 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4D1440181E9AF17A00B78269 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LoadingView.strings; sourceTree = "<group>"; };
@@ -2079,6 +2089,7 @@
 				4D1440181E9AF17A00B78269 /* en */,
 				4D32EBD61EA2D0F600B4361A /* it */,
 				4D0AB5511EB0D4CA003D2A3A /* ar */,
+				4D122A021EBCE4E10079B3B0 /* pt-BR */,
 			);
 			name = LoadingView.xib;
 			sourceTree = "<group>";
@@ -2090,6 +2101,7 @@
 				4D14401A1E9AF18D00B78269 /* en */,
 				4D32EBE91EA2D0FA00B4361A /* it */,
 				4D0AB5571EB0D4CD003D2A3A /* ar */,
+				4D122A041EBCE4E20079B3B0 /* pt-BR */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2101,6 +2113,7 @@
 				4D1440201E9AF3CF00B78269 /* en */,
 				4D32EBD71EA2D0F600B4361A /* it */,
 				4D0AB5501EB0D4CA003D2A3A /* ar */,
+				4D122A031EBCE4E20079B3B0 /* pt-BR */,
 			);
 			name = TraktAuthenticationViewController.xib;
 			sourceTree = "<group>";
@@ -2110,6 +2123,7 @@
 			children = (
 				4D32EBD41EA2D0F500B4361A /* it */,
 				4D0AB54F1EB0D4CA003D2A3A /* ar */,
+				4D122A0B1EBCE4E50079B3B0 /* pt-BR */,
 			);
 			name = iOSPlist.strings;
 			sourceTree = "<group>";
@@ -2119,6 +2133,7 @@
 			children = (
 				4D32EBDB1EA2D0F700B4361A /* it */,
 				4D0AB5521EB0D4CB003D2A3A /* ar */,
+				4D122A051EBCE4E30079B3B0 /* pt-BR */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -2128,6 +2143,7 @@
 			children = (
 				4D32EBE11EA2D0F900B4361A /* it */,
 				4D0AB5541EB0D4CC003D2A3A /* ar */,
+				4D122A071EBCE4E40079B3B0 /* pt-BR */,
 			);
 			name = tvOSPlist.strings;
 			sourceTree = "<group>";
@@ -2137,6 +2153,7 @@
 			children = (
 				4D32EBE61EA2D0F900B4361A /* it */,
 				4D0AB5551EB0D4CC003D2A3A /* ar */,
+				4D122A081EBCE4E40079B3B0 /* pt-BR */,
 			);
 			name = tvOSPlist.strings;
 			path = "PopcornKit/Supporting Files";
@@ -2147,6 +2164,7 @@
 			children = (
 				4D32EBED1EA2D0FB00B4361A /* it */,
 				4D0AB5581EB0D4CD003D2A3A /* ar */,
+				4D122A0A1EBCE4E50079B3B0 /* pt-BR */,
 			);
 			name = iOSPlist.strings;
 			path = "PopcornKit/Supporting Files";
@@ -2159,6 +2177,7 @@
 				4DBCCEFB1E6815710066F1A7 /* en */,
 				4D32EBDD1EA2D0F800B4361A /* it */,
 				4D0AB5531EB0D4CB003D2A3A /* ar */,
+				4D122A061EBCE4E30079B3B0 /* pt-BR */,
 			);
 			name = iOS.storyboard;
 			sourceTree = "<group>";
@@ -2170,6 +2189,7 @@
 				4DBCCEFC1E6815710066F1A7 /* en */,
 				4D32EBE81EA2D0FA00B4361A /* it */,
 				4D0AB5561EB0D4CC003D2A3A /* ar */,
+				4D122A091EBCE4E40079B3B0 /* pt-BR */,
 			);
 			name = tvOS.storyboard;
 			sourceTree = "<group>";
