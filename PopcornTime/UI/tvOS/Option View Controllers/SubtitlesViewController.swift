@@ -2,10 +2,31 @@
 
 import UIKit
 import struct PopcornKit.Subtitle
+import PopcornTorrent
 
 class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource {
-    
-    var subtitles = [Subtitle]()
+    var subtitleLangs = [String]()
+    var sortedSubtitles = [String: [Subtitle]]()
+    var subtitles: [String: [Subtitle]] {
+        get {
+            return sortedSubtitles
+        }
+        set {
+            let name = withUnsafePointer(to: &PTTorrentStreamer.shared().torrentStatus.videoFileName) {
+                $0.withMemoryRebound(to: UInt8.self, capacity: MemoryLayout.size(ofValue: PTTorrentStreamer.shared().torrentStatus.videoFileName)) {
+                    String(cString: $0)
+                }
+            }
+            subtitleLangs = Array(newValue.keys)
+            sortedSubtitles.removeAll()
+
+            for key in newValue.keys {
+                sortedSubtitles[key] = newValue[key]?.sorted(by: { (sub1, sub2) -> Bool in
+                    stringDifference(sub1.name, toString: name) < stringDifference(sub2.name, toString: name)
+                })
+            }
+        }
+    }
     let encodings = SubtitleSettings.encodings
     let delays = [Int](-60...60)
     
@@ -19,6 +40,19 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
         }
     }
     
+    func stringDifference(_ str1: String, toString str2: String) -> Int {
+        let str1Parts = str1.components(separatedBy: CharacterSet.alphanumerics.inverted)
+        let str2Parts = str2.components(separatedBy: CharacterSet.alphanumerics.inverted)
+        
+        var rank = 0
+        for part in str1Parts {
+            if str2Parts.contains(part) {
+                rank += 1
+            }
+        }
+        return str1Parts.count - rank
+    }
+    
 
     // MARK: Table view data source
     
@@ -26,8 +60,10 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         switch tableView {
         case firstTableView:
-            cell.textLabel?.text = subtitles[indexPath.row].language
-            cell.accessoryType = currentSubtitle == subtitles[indexPath.row] ? .checkmark : .none
+            let lang = subtitleLangs[indexPath.section]
+            let subtitle = sortedSubtitles[lang]![indexPath.row]
+            cell.textLabel?.text = subtitle.cleanName
+            cell.accessoryType = currentSubtitle == subtitle ? .checkmark : .none
         case secondTableView:
             let delay = delays[indexPath.row]
             cell.textLabel?.text = (delay > 0 ? "+" : "") + NumberFormatter.localizedString(from: NSNumber(value: delay), number: .decimal)
@@ -44,7 +80,7 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch tableView {
         case firstTableView:
-            return "Language".localized
+            return sortedSubtitles[subtitleLangs[section]]?.first?.language
         case secondTableView:
             return "Delay".localized
         case thirdTableView:
@@ -58,15 +94,19 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
         tableView.backgroundView = nil
-        if tableView == firstTableView && subtitles.isEmpty {
-            let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 200.0, height: 20)))
-            tableView.backgroundView = label
-            label.text = "No subtitles available.".localized
-            label.textColor = UIColor(white: 1.0, alpha: 0.5)
-            label.textAlignment = .center
-            label.font = UIFont.systemFont(ofSize: 35.0, weight: UIFontWeightMedium)
-            label.center = tableView.center
-            label.sizeToFit()
+        if tableView == firstTableView {
+            if subtitles.isEmpty {
+                let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 200.0, height: 20)))
+                tableView.backgroundView = label
+                label.text = "No subtitles available.".localized
+                label.textColor = UIColor(white: 1.0, alpha: 0.5)
+                label.textAlignment = .center
+                label.font = UIFont.systemFont(ofSize: 35.0, weight: UIFontWeightMedium)
+                label.center = tableView.center
+                label.sizeToFit()
+            } else {
+                return subtitleLangs.count
+            }
         }
         return 1
     }
@@ -74,7 +114,8 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case firstTableView:
-            return subtitles.count
+            let lang = subtitleLangs[section]
+            return sortedSubtitles[lang]!.count
         case secondTableView:
             return delays.count
         case thirdTableView:
@@ -87,10 +128,12 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch tableView {
         case firstTableView:
-            if currentSubtitle == subtitles[indexPath.row] { // If row was already selected, user wants to remove the selection.
+            let lang = subtitleLangs[indexPath.section]
+            let subtitle = sortedSubtitles[lang]![indexPath.row]
+            if currentSubtitle == subtitle { // If row was already selected, user wants to remove the selection.
                 currentSubtitle = nil
             } else {
-                currentSubtitle = subtitles[indexPath.row]
+                currentSubtitle = subtitle
             }
             delegate?.didSelectSubtitle(currentSubtitle)
         case secondTableView:

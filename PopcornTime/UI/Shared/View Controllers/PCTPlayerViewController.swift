@@ -193,7 +193,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     // MARK: - Public vars
     
     weak var delegate: PCTPlayerViewControllerDelegate?
-    var subtitles: [Subtitle] {
+    var subtitles: [String: [Subtitle]] {
         return media.subtitles
     }
     var currentSubtitle: Subtitle? {
@@ -323,7 +323,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         (mediaplayer as VLCFontAppearance).setTextRendererFont!(settings.font.fontName as NSString)
         (mediaplayer as VLCFontAppearance).setTextRendererFontForceBold!(NSNumber(booleanLiteral: settings.style == .bold || settings.style == .boldItalic))
         if let preferredLanguage = settings.language {
-            currentSubtitle = subtitles.first(where: {$0.language == preferredLanguage})
+            currentSubtitle = subtitles[preferredLanguage]?.first
         }
         mediaplayer.media.addOptions([vlcSettingTextEncoding: settings.encoding])
 

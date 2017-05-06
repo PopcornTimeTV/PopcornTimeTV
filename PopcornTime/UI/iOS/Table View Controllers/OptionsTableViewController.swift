@@ -15,7 +15,7 @@ class OptionsTableViewController: UITableViewController {
     
     weak var delegate: OptionsViewControllerDelegate?
     
-    var subtitles = [Subtitle]()
+    var subtitles = [String: [Subtitle]]()
     
     var currentSubtitle: Subtitle?
     var currentSubtitleDelay = 0

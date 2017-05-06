@@ -68,7 +68,7 @@ public struct Episode: Media, Equatable {
     public var torrents = [Torrent]()
     
     /// The subtitles associated with the episode. Empty by default. Must be filled by calling `search:episode:imdbId:limit:completion:` on `SubtitlesManager`.
-    public var subtitles = [Subtitle]()
+    public var subtitles = [String: [Subtitle]]()
     
     public init?(map: Map) {
         do { self = try Episode(map) }
@@ -104,7 +104,7 @@ public struct Episode: Media, Equatable {
         self.largeBackgroundImage = try? map.value("images.fanart")
     }
     
-    public init(title: String = "Unknown".localized, id: String = "0000000", tmdbId: Int? = nil, slug: String = "unknown", summary: String = "No summary available.".localized, torrents: [Torrent] = [], subtitles: [Subtitle] = [], largeBackgroundImage: String? = nil, largeCoverImage: String? = nil) {
+    public init(title: String = "Unknown".localized, id: String = "0000000", tmdbId: Int? = nil, slug: String = "unknown", summary: String = "No summary available.".localized, torrents: [Torrent] = [], subtitles: [String: [Subtitle]] = [:], largeBackgroundImage: String? = nil, largeCoverImage: String? = nil) {
         self.title = title
         self.id = id
         self.tmdbId = tmdbId
