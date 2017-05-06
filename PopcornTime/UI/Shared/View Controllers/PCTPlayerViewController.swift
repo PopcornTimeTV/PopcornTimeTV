@@ -322,8 +322,17 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.color.hexInt()))
         (mediaplayer as VLCFontAppearance).setTextRendererFont!(settings.font.fontName as NSString)
         (mediaplayer as VLCFontAppearance).setTextRendererFontForceBold!(NSNumber(booleanLiteral: settings.style == .bold || settings.style == .boldItalic))
+        
         if let preferredLanguage = settings.language {
-            currentSubtitle = subtitles[preferredLanguage]?.first
+            let name = withUnsafePointer(to: &PTTorrentStreamer.shared().torrentStatus.videoFileName) {
+                $0.withMemoryRebound(to: UInt8.self, capacity: MemoryLayout.size(ofValue: PTTorrentStreamer.shared().torrentStatus.videoFileName)) {
+                    String(cString: $0)
+                }
+            }
+            
+            currentSubtitle = subtitles[preferredLanguage]?.sorted(by: { (sub1, sub2) -> Bool in
+                stringDifference(sub1.name, toString: name) < stringDifference(sub2.name, toString: name)
+            }).first
         }
         mediaplayer.media.addOptions([vlcSettingTextEncoding: settings.encoding])
 
@@ -368,6 +377,19 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             
             didSelectEqualizerProfile(.fullDynamicRange)
         #endif
+    }
+    
+    func stringDifference(_ str1: String, toString str2: String) -> Int {
+        let str1Parts = str1.components(separatedBy: CharacterSet.alphanumerics.inverted)
+        let str2Parts = str2.components(separatedBy: CharacterSet.alphanumerics.inverted)
+        
+        var rank = 0
+        for part in str1Parts {
+            if str2Parts.contains(part) {
+                rank += 1
+            }
+        }
+        return str1Parts.count - rank
     }
     
     // MARK: - Player changes notifications
