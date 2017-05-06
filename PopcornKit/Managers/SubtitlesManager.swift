@@ -59,9 +59,9 @@ open class SubtitlesManager: NetworkManager {
                     else {
                         continue
                 }
-                var langSubtitles = subtitles[ISO639] ?? [Subtitle]()
+                var langSubtitles = subtitles[localizedLanguageName] ?? [Subtitle]()
                 langSubtitles.append(Subtitle(language: localizedLanguageName, link: subDownloadLink, name: subFileName, cleanName: subCleanFileName, ISO639: ISO639))
-                subtitles[ISO639] = langSubtitles
+                subtitles[localizedLanguageName] = langSubtitles
             }
             DispatchQueue.main.async(execute: { completion(subtitles, nil) })
         })

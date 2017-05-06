@@ -80,7 +80,7 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch tableView {
         case firstTableView:
-            return sortedSubtitles[subtitleLangs[section]]?.first?.language
+            return subtitleLangs[section]
         case secondTableView:
             return "Delay".localized
         case thirdTableView:
