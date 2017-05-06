@@ -8,11 +8,19 @@ protocol GoogleCastTableViewControllerDelegate: class {
     func didConnectToDevice()
 }
 
-class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerListener, GoogleCastManagerDelegate {
+private enum TableViewUpdates {
+    case reload
+    case insert
+    case delete
+}
+
+class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerListener, GCKSessionManagerListener {
     
     var dataSource = [GCKDevice]()
-    var manager = GoogleCastManager()
-    var castMetadata: CastMetaData?
+    var connectionQueue: GCKDevice?
+    
+    private let deviceScanner = GCKDeviceScanner(filterCriteria: GCKFilterCriteria(forAvailableApplicationWithID: kGCKMediaDefaultReceiverApplicationID))
+    private let sessionManager = GCKCastContext.sharedInstance().sessionManager
     
     weak var delegate: GoogleCastTableViewControllerDelegate?
     
@@ -43,33 +51,84 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset.top = 20
-        manager.delegate = self
+        
+        deviceScanner.add(self)
+        deviceScanner.startScan()
+        sessionManager.add(self)
     }
     
     @IBAction func cancel() {
         dismiss(animated: true)
     }
     
-    func updateTableView(dataSource newDataSource: [GCKDevice], updateType: TableViewUpdates, rows: [Int]?) {
+    private func update(tableView: UITableView, type: TableViewUpdates, rows: [Int]) {
         tableView.beginUpdates()
         
-        let indexPaths: [IndexPath]? = rows?.flatMap({IndexPath(row: $0, section: 0)})
+        let indexPaths: [IndexPath] = rows.flatMap({IndexPath(row: $0, section: 0)})
         
-        switch updateType {
+        switch type {
         case .insert:
-            tableView.insertRows(at: indexPaths!, with: .middle)
+            tableView.insertRows(at: indexPaths, with: .middle)
             fallthrough
         case .reload:
             if let visibleIndexPaths = tableView.indexPathsForVisibleRows {
                 tableView.reloadRows(at: visibleIndexPaths, with: .none)
             }
         case .delete:
-            tableView.deleteRows(at: indexPaths!, with: .middle)
+            tableView.deleteRows(at: indexPaths, with: .middle)
         }
         
-        dataSource = newDataSource
-        
         tableView.endUpdates()
+    }
+    
+    func select(device: GCKDevice) {
+        let connected = sessionManager.hasConnectedSession()
+        
+        if connected {
+            sessionManager.endSession()
+            connectionQueue = device
+        } else {
+            GCKCastContext.sharedInstance().sessionManager.startSession(with: device)
+        }
+    }
+    
+    // MARK: - GCKSessionManagerListener
+    
+    func sessionManager(_ sessionManager: GCKSessionManager, didEnd session: GCKSession, withError error: Error?) {
+        if let device = connectionQueue {
+            select(device: device)
+        }
+        tableView.reloadData()
+    }
+    
+    func sessionManager(_ sessionManager: GCKSessionManager, didStart session: GCKSession) {
+        if session.device == connectionQueue {
+            connectionQueue = nil
+        }
+        delegate?.didConnectToDevice()
+        tableView.reloadData()
+    }
+    
+    // MARK: - GCKDeviceScannerListener
+    
+    public func deviceDidComeOnline(_ device: GCKDevice) {
+        dataSource.append(device)
+        update(tableView: tableView, type: .insert, rows: [dataSource.count - 1])
+    }
+    
+    
+    public func deviceDidGoOffline(_ device: GCKDevice) {
+        for (index, oldDevice) in dataSource.enumerated() where device === oldDevice {
+            dataSource.remove(at: index)
+            update(tableView: tableView, type: .delete, rows: [index])
+        }
+    }
+    
+    public func deviceDidChange(_ device: GCKDevice) {
+        for (index, oldDevice) in dataSource.enumerated() where device === oldDevice  {
+            dataSource[index] = device
+            update(tableView: tableView, type: .reload, rows: [index])
+        }
     }
     
 
@@ -105,7 +164,7 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
         
         cell.textLabel?.text = dataSource[indexPath.row].friendlyName
         cell.imageView?.image = UIImage(named: "CastOff")
-        if let session = GCKCastContext.sharedInstance().sessionManager.currentSession {
+        if let session = sessionManager.currentSession {
             cell.accessoryType = dataSource[indexPath.row] == session.device ? .checkmark : .none
         } else {
             cell.accessoryType = .none
@@ -116,8 +175,16 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        manager.didSelectDevice(dataSource[indexPath.row], castMetadata: castMetadata)
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let device = dataSource[indexPath.row]
+        
+        // If the device is already connected to, the user wants to disconnect from said device.
+        if sessionManager.currentSession?.device == device {
+            sessionManager.endSession()
+        } else {
+            select(device: device)
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -138,9 +205,13 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
         return sizingCell?.contentView.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityFittingSizeLevel).height ?? 44
     }
     
-    func didConnectToDevice() {
-        tableView.reloadData()
-        
-        delegate?.didConnectToDevice()
+    deinit {
+        if deviceScanner.scanning {
+            deviceScanner.stopScan()
+            deviceScanner.remove(self)
+            GCKCastContext.sharedInstance().sessionManager.remove(self)
+        }
+        connectionQueue = nil
     }
+    
 }

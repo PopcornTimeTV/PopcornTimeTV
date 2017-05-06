@@ -31,18 +31,24 @@ class CastIconButton: UIButton {
     let castOn = UIImage(named: "CastOn")
     
     var castConnecting: [UIImage] {
-        return (0...2).flatMap({UIImage(named: "CastOn\($0)")}).appending(UIImage(named: "CastOn1")!)
+        return (0...2).flatMap({UIImage(named: "CastOn\($0)")}).appending(UIImage(named: "CastOn1")!).flatMap({$0.colored(tintColor)})
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        imageView!.animationImages = castConnecting
-        imageView!.animationDuration = 2
+        imageView?.animationImages = castConnecting
+        imageView?.animationDuration = 2
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        imageView!.animationImages = castConnecting
-        imageView!.animationDuration = 2
+        imageView?.animationImages = castConnecting
+        imageView?.animationDuration = 2
+    }
+    
+    override func tintColorDidChange() {
+        super.tintColorDidChange()
+        
+        imageView?.animationImages = castConnecting
     }
 }

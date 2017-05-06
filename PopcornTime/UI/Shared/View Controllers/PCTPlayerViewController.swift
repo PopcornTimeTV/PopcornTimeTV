@@ -10,7 +10,7 @@ protocol PCTPlayerViewControllerDelegate: class {
     func playNext(_ episode: Episode)
     
     #if os(iOS)
-        func presentCastPlayer(_ media: Media, videoFilePath: URL)
+        func playerViewControllerPresentCastPlayer(_ playerViewController: PCTPlayerViewController)
     #endif
 }
 

@@ -10,6 +10,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     @IBOutlet var progressSlider: ProgressSlider!
     @IBOutlet var volumeSlider: UISlider!
     @IBOutlet var closeButton: BlurButton!
+    @IBOutlet var subtitleButton: UIButton!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var elapsedTimeLabel: UILabel!
@@ -23,8 +24,14 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     
     var media: Media!
     var directory: URL!
+    var url: URL!
+    var localPathToMedia: URL!
+    var startPosition: TimeInterval = 0.0
+    var currentSubtitle: Subtitle?
     
-    private var remoteMediaClient = GCKCastContext.sharedInstance().sessionManager.currentCastSession?.remoteMediaClient
+    private var remoteMediaClient: GCKRemoteMediaClient? {
+        return GCKCastContext.sharedInstance().sessionManager.currentCastSession?.remoteMediaClient
+    }
     
     private var timeSinceLastMediaStatusUpdate: TimeInterval {
         if let remoteMediaClient = remoteMediaClient, state == .playing {
@@ -80,9 +87,6 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
     
     @IBAction func fastForward() {
         streamPosition += 30
-    }
-    
-    @IBAction func subtitles(_ sender: UIButton) {
     }
     
     @IBAction func volumeSliderAction() {
@@ -170,8 +174,68 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener {
         }
     }
     
+    @IBAction func chooseSubtitle(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "Subtitle Language".localized, message: nil, preferredStyle: .actionSheet, blurStyle: .dark)
+        
+        let handler: (Subtitle?) -> Void = { [unowned self] (subtitle) in
+            if let subtitle = subtitle,
+                let index = self.media.subtitles.index(of: subtitle),
+                let track = self.remoteMediaClient?.mediaStatus?.mediaInformation?.mediaTrack(withID: index) {
+                
+                PopcornKit.downloadSubtitleFile(subtitle.link, downloadDirectory: self.directory, convertToVTT: true) { (url, error) in
+                    guard let url = url else { return }
+                    
+                    track.setValue(url.absoluteString, forKey: "contentIdentifier")
+                    
+                    self.remoteMediaClient?.setActiveTrackIDs([NSNumber(value: index)])
+                }
+            } else {
+                self.remoteMediaClient?.setActiveTrackIDs(nil)
+            }
+            
+            self.currentSubtitle = subtitle
+        }
+        
+        alertController.addAction(UIAlertAction(title: "None".localized, style: .default) { _ in
+            handler(nil)
+        })
+        alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
+        
+        for subtitle in media.subtitles {
+            alertController.addAction(UIAlertAction(title: subtitle.language, style: .default) { _ in
+                handler(subtitle)
+            })
+        }
+        
+        alertController.preferredAction = alertController.actions.first(where: { $0.title == currentSubtitle?.language }) ?? alertController.actions.first(where: { $0.title == "None".localized })
+        
+        alertController.popoverPresentationController?.sourceView = sender
+        
+        present(alertController, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let metadata = media is Movie ? GCKMediaMetadata(metadataType: .movie) : GCKMediaMetadata(metadataType: .tvShow)
+        
+        metadata.setString(media.title, forKey: kGCKMetadataKeyTitle)
+        if let image = media.smallCoverImage, let url = URL(string: image) {
+            metadata.addImage(GCKImage(url: url, width: 480, height: 720))
+        }
+        
+        let mediaTracks: [GCKMediaTrack] = media.subtitles.flatMap {
+            let index = media.subtitles.index(of: $0)!
+            let contentIdentifier: String? = nil // To be set when we actually download the subtitle file.
+            let track = GCKMediaTrack(identifier: index, contentIdentifier: contentIdentifier, contentType: "text/vtt", type: .text, textSubtype: .captions, name: $0.language, languageCode: $0.ISO639, customData: nil)
+            return track
+        }
+        
+        let mediaInfo = GCKMediaInformation(contentID: url.relativeString, streamType: .buffered, contentType: localPathToMedia.contentType, metadata: metadata, streamDuration: 0, mediaTracks: mediaTracks.isEmpty ? nil : mediaTracks, textTrackStyle: .createDefault(), customData: nil)
+        
+        remoteMediaClient?.loadMedia(mediaInfo, autoplay: true, playPosition: startPosition)
+        
+        subtitleButton.isHidden = media.subtitles.isEmpty
     
         titleLabel.text = media.title
         volumeSlider.setThumbImage(UIImage(named: "Scrubber Image"), for: .normal)

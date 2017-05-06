@@ -10,6 +10,10 @@ typealias TVButton = UIButton
 
 extension ItemViewController {
     
+    var watchlistButtonImage: UIImage? {
+        return media.isAddedToWatchlist ? UIImage(named: "Watchlist On") : UIImage(named: "Watchlist Off")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

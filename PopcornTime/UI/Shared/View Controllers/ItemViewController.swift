@@ -42,10 +42,6 @@ class ItemViewController: UIViewController {
     
     var media: Media!
     
-    var watchlistButtonImage: UIImage? {
-        return media.isAddedToWatchlist ? UIImage(named: "Remove") : UIImage(named: "Add")
-    }
-    
     var watchedButtonImage: UIImage? {
         return media.isWatched ? UIImage(named: "Watched On") : UIImage(named: "Watched Off")
     }

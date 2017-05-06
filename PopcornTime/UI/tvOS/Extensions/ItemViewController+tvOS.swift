@@ -12,6 +12,10 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
         return [trailerButton, playButton, seasonsButton, watchlistButton, watchedButton].flatMap({$0}).filter({$0.superview != nil})
     }
     
+    var watchlistButtonImage: UIImage? {
+        return media.isAddedToWatchlist ? UIImage(named: "Remove") : UIImage(named: "Add")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

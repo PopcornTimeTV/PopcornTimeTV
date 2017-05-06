@@ -36,7 +36,6 @@
 		4D0F9D761E6F2EEE00860852 /* SubtitlesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9CFD1E6F296400860852 /* SubtitlesManager.swift */; };
 		4D0F9D771E6F2EEE00860852 /* WatchedlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9CFE1E6F296400860852 /* WatchedlistManager.swift */; };
 		4D0F9D781E6F2EEE00860852 /* TraktManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9CFF1E6F296400860852 /* TraktManager.swift */; };
-		4D0F9D791E6F2EEE00860852 /* GoogleCastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D001E6F296400860852 /* GoogleCastManager.swift */; };
 		4D0F9D7A1E6F2EEE00860852 /* UpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D011E6F296400860852 /* UpdateManager.swift */; };
 		4D0F9D7C1E6F2EEE00860852 /* AnimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D031E6F296400860852 /* AnimeManager.swift */; };
 		4D0F9D7D1E6F2EEE00860852 /* PopcornKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D041E6F296400860852 /* PopcornKit.swift */; };
@@ -68,7 +67,6 @@
 		4D0F9DAF1E6F304600860852 /* SubtitlesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9CFD1E6F296400860852 /* SubtitlesManager.swift */; };
 		4D0F9DB01E6F304600860852 /* WatchedlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9CFE1E6F296400860852 /* WatchedlistManager.swift */; };
 		4D0F9DB11E6F304600860852 /* TraktManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9CFF1E6F296400860852 /* TraktManager.swift */; };
-		4D0F9DB21E6F304600860852 /* GoogleCastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D001E6F296400860852 /* GoogleCastManager.swift */; };
 		4D0F9DB31E6F304600860852 /* UpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D011E6F296400860852 /* UpdateManager.swift */; };
 		4D0F9DB51E6F304600860852 /* AnimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D031E6F296400860852 /* AnimeManager.swift */; };
 		4D0F9DB61E6F304600860852 /* PopcornKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D041E6F296400860852 /* PopcornKit.swift */; };
@@ -184,6 +182,10 @@
 		4D32EBE51EA2D0F900B4361A /* tvOSPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D32EBE71EA2D0F900B4361A /* tvOSPlist.strings */; };
 		4D32EBEC1EA2D0FB00B4361A /* iOSPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D32EBEE1EA2D0FB00B4361A /* iOSPlist.strings */; };
 		4D37C4591E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Gray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D37C4581E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Gray.swift */; };
+		4D3A401E1EBDEAD1006E7F23 /* URL+MIME.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3A401D1EBDEAD1006E7F23 /* URL+MIME.swift */; };
+		4D3A401F1EBDEAD1006E7F23 /* URL+MIME.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3A401D1EBDEAD1006E7F23 /* URL+MIME.swift */; };
+		4D3A40211EBDEEA5006E7F23 /* GCKMediaTextTrackStyle+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3A40201EBDEEA5006E7F23 /* GCKMediaTextTrackStyle+Default.swift */; };
+		4D3A40231EBE08E5006E7F23 /* GCKDevice+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3A40221EBE08E5006E7F23 /* GCKDevice+Equatable.swift */; };
 		4D3A43481EA9826E00CF3646 /* TVFadedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3A43471EA9826E00CF3646 /* TVFadedTextView.swift */; };
 		4D5624751E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5624741E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift */; };
 		4D5624761E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5624741E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift */; };
@@ -414,7 +416,6 @@
 		4D0F9CFD1E6F296400860852 /* SubtitlesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubtitlesManager.swift; path = PopcornKit/Managers/SubtitlesManager.swift; sourceTree = SOURCE_ROOT; };
 		4D0F9CFE1E6F296400860852 /* WatchedlistManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WatchedlistManager.swift; path = PopcornKit/Managers/WatchedlistManager.swift; sourceTree = SOURCE_ROOT; };
 		4D0F9CFF1E6F296400860852 /* TraktManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TraktManager.swift; path = PopcornKit/Managers/TraktManager.swift; sourceTree = SOURCE_ROOT; };
-		4D0F9D001E6F296400860852 /* GoogleCastManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoogleCastManager.swift; path = PopcornKit/Managers/GoogleCastManager.swift; sourceTree = SOURCE_ROOT; };
 		4D0F9D011E6F296400860852 /* UpdateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateManager.swift; path = PopcornKit/Managers/UpdateManager.swift; sourceTree = SOURCE_ROOT; };
 		4D0F9D031E6F296400860852 /* AnimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimeManager.swift; path = PopcornKit/Managers/AnimeManager.swift; sourceTree = SOURCE_ROOT; };
 		4D0F9D041E6F296400860852 /* PopcornKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopcornKit.swift; path = PopcornKit/Managers/PopcornKit.swift; sourceTree = SOURCE_ROOT; };
@@ -527,6 +528,9 @@
 		4D32EBE91EA2D0FA00B4361A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4D32EBED1EA2D0FB00B4361A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/iOSPlist.strings; sourceTree = "<group>"; };
 		4D37C4581E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Gray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorViewStyle+Gray.swift"; sourceTree = "<group>"; };
+		4D3A401D1EBDEAD1006E7F23 /* URL+MIME.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+MIME.swift"; sourceTree = "<group>"; };
+		4D3A40201EBDEEA5006E7F23 /* GCKMediaTextTrackStyle+Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "GCKMediaTextTrackStyle+Default.swift"; path = "../../../Extensions/GCKMediaTextTrackStyle+Default.swift"; sourceTree = "<group>"; };
+		4D3A40221EBE08E5006E7F23 /* GCKDevice+Equatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GCKDevice+Equatable.swift"; sourceTree = "<group>"; };
 		4D3A43471EA9826E00CF3646 /* TVFadedTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVFadedTextView.swift; sourceTree = "<group>"; };
 		4D5624741E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PCTPlayerViewController+ScreenNotifications.swift"; sourceTree = "<group>"; };
 		4D5624771E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PCTPlayerViewController+MediaPlayer.swift"; sourceTree = "<group>"; };
@@ -795,6 +799,7 @@
 				4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */,
 				4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */,
 				4D990E1D1DC4EFA2005CDE34 /* Media+Extension.swift */,
+				4D3A401D1EBDEAD1006E7F23 /* URL+MIME.swift */,
 				4DBE60891E5E49B200C2549B /* FileManager+Extension.swift */,
 				4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */,
 			);
@@ -821,7 +826,6 @@
 				4D0F9CFD1E6F296400860852 /* SubtitlesManager.swift */,
 				4D0F9CFE1E6F296400860852 /* WatchedlistManager.swift */,
 				4D0F9CFF1E6F296400860852 /* TraktManager.swift */,
-				4D0F9D001E6F296400860852 /* GoogleCastManager.swift */,
 				4D0F9D011E6F296400860852 /* UpdateManager.swift */,
 				4D0F9D031E6F296400860852 /* AnimeManager.swift */,
 				4D0F9D041E6F296400860852 /* PopcornKit.swift */,
@@ -994,6 +998,8 @@
 				4D9995411E5C6FFD005C432A /* CollectionViewController+iOS.swift */,
 				4D784D4D1E5F3AF6009E3423 /* ItemViewController+iOS.swift */,
 				4DBE60971E5E590500C2549B /* MovieDetailViewController+iOS.swift */,
+				4D3A40201EBDEEA5006E7F23 /* GCKMediaTextTrackStyle+Default.swift */,
+				4D3A40221EBE08E5006E7F23 /* GCKDevice+Equatable.swift */,
 				4DBE608E1E5E51C300C2549B /* DetailViewController+iOS.swift */,
 				4DBE60991E5E5F8A00C2549B /* ShowDetailViewController+iOS.swift */,
 				4DAE33981E7C676A0014B489 /* String+Truncation.swift */,
@@ -1856,6 +1862,7 @@
 				4D14402C1E9BC61900B78269 /* AVMetadataItem+Extension.swift in Sources */,
 				4D99954F1E5C7B45005C432A /* TVLoadingViewController.swift in Sources */,
 				4D0F9DEA1E70573A00860852 /* ResponsiveCollectionViewController.swift in Sources */,
+				4D3A401E1EBDEAD1006E7F23 /* URL+MIME.swift in Sources */,
 				4D0F9D4B1E6F2B1300860852 /* String+Extension.swift in Sources */,
 				4D0F9E391E705A7600860852 /* TVNavigationController.swift in Sources */,
 				4D859BB81DDFA1C6000E2AA1 /* UIViewController+Extension.swift in Sources */,
@@ -1890,7 +1897,6 @@
 				4D0F9D7E1E6F2EEE00860852 /* ThemeSongManager.swift in Sources */,
 				4D0F9D771E6F2EEE00860852 /* WatchedlistManager.swift in Sources */,
 				4D0F9D871E6F2EF400860852 /* Person.swift in Sources */,
-				4D0F9D791E6F2EEE00860852 /* GoogleCastManager.swift in Sources */,
 				4D0F9D821E6F2EEE00860852 /* TMDBManager.swift in Sources */,
 				4D0F9D7A1E6F2EEE00860852 /* UpdateManager.swift in Sources */,
 				4D0F9D731E6F2D7600860852 /* NSData+GZIP.m in Sources */,
@@ -1921,7 +1927,6 @@
 				4DB0EA681E7D8C38004B57B1 /* DispatchQueue+Extension.swift in Sources */,
 				4D0F9DAE1E6F304600860852 /* NetworkManager.swift in Sources */,
 				4D0F9DBC1E6F304B00860852 /* Show.swift in Sources */,
-				4D0F9DB21E6F304600860852 /* GoogleCastManager.swift in Sources */,
 				4D0F9DB91E6F304600860852 /* MovieManager.swift in Sources */,
 				4D0F9DB71E6F304600860852 /* ThemeSongManager.swift in Sources */,
 				4DCB393D1E844D4500388374 /* UIAlertController+Show.swift in Sources */,
@@ -1984,10 +1989,12 @@
 				4DBCCEDA1E680EBE0066F1A7 /* UIStoryboard+Main.swift in Sources */,
 				4D0F9DEC1E70573F00860852 /* CollectionViewController.swift in Sources */,
 				4D689A2E1DD88F12001D1318 /* Locale+Langs.swift in Sources */,
+				4D3A40211EBDEEA5006E7F23 /* GCKMediaTextTrackStyle+Default.swift in Sources */,
 				4D0F9E101E7057F100860852 /* PersonViewController.swift in Sources */,
 				4D0F9E0F1E7057F100860852 /* SearchViewController.swift in Sources */,
 				4D0F9E1D1E70582C00860852 /* PCTPlayerViewController.swift in Sources */,
 				4DA42DD31DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */,
+				4D3A401F1EBDEAD1006E7F23 /* URL+MIME.swift in Sources */,
 				4D0E130C1E6709EB0000AD65 /* UICollectionViewController+Extension.swift in Sources */,
 				4D0F9E4E1E705BD600860852 /* UIImage+Extension.swift in Sources */,
 				4D0F9E1E1E70582C00860852 /* TermsOfServiceViewController.swift in Sources */,
@@ -2011,6 +2018,7 @@
 				4D5624791E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift in Sources */,
 				4D8A5DD91EA962B4004CEB53 /* UIControlState+Hashable.swift in Sources */,
 				4D0F9E261E7058F700860852 /* EpisodeDetailPresentationDelegate.swift in Sources */,
+				4D3A40231EBE08E5006E7F23 /* GCKDevice+Equatable.swift in Sources */,
 				4D0F9DE01E7056E200860852 /* MonogramCollectionViewCell.swift in Sources */,
 				4D689A2A1DD88EFC001D1318 /* SubtitleSettings.swift in Sources */,
 				4DCB39321E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift in Sources */,

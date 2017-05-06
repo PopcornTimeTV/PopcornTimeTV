@@ -20,11 +20,11 @@ open class SubtitlesManager: NetworkManager {
      
      - Parameter episode:       The show episode.
      - Parameter imdbId:        The Imdb identification code of the episode or movie.
-     - Parameter limit:         The limit of subtitles to fetch as a `String`. Defaults to 300.
+     - Parameter limit:         The limit of subtitles to fetch as a `String`. Defaults to 500.
      
      - Parameter completion:    Completion handler called with array of subtitles and an optional error.
      */
-    open func search(_ episode: Episode? = nil, imdbId: String? = nil, limit: String = "300", completion:@escaping ([Subtitle], NSError?) -> Void) {
+    open func search(_ episode: Episode? = nil, imdbId: String? = nil, limit: String = "500", completion:@escaping ([Subtitle], NSError?) -> Void) {
         guard let token = token else {
             login() { error in
                 guard error == nil else { completion([], error); return }
@@ -43,23 +43,41 @@ open class SubtitlesManager: NetworkManager {
         let limit = ["limit": limit]
         let queue = DispatchQueue(label: "com.popcorn-time.response.queue", attributes: DispatchQueue.Attributes.concurrent)
         self.manager.requestXMLRPC(secureBaseURL, methodName: "SearchSubtitles", parameters: [token, [params], limit], headers: ["User-Agent": userAgent]).validate().responseXMLRPC(queue: queue, completionHandler: { response in
-            guard let value = response.result.value,
+            guard
+                let value = response.result.value,
                 let status = value[0]["status"].string?.components(separatedBy: " ").first,
                 let data = value[0]["data"].array,
-                response.result.isSuccess && status == "200" else { DispatchQueue.main.async(execute: {completion([], response.result.error as NSError?)}); return}
+                response.result.isSuccess && status == "200"
+                else {
+                    DispatchQueue.main.async {
+                        completion([], response.result.error as NSError?)
+                    }
+                    return
+            }
+            
             var subtitles = [Subtitle]()
             for info in data {
                 guard
                     let subDownloadLink = info["SubDownloadLink"].string,
                     let ISO639 = info["ISO639"].string,
                     let localizedLanguageName = Locale.current.localizedString(forLanguageCode: ISO639)?.localizedCapitalized,
-                    !subtitles.contains(where: {$0.language == localizedLanguageName})
+                    let rating = Double(info["SubRating"].string ?? "")
                     else {
                         continue
                 }
                 
-                subtitles.append(Subtitle(language: localizedLanguageName, link: subDownloadLink, ISO639: ISO639))
+                let subtitle = Subtitle(language: localizedLanguageName, link: subDownloadLink, ISO639: ISO639, rating: rating)
+                
+                if let same = subtitles.first(where: {$0.ISO639 == ISO639}),
+                    let index = subtitles.index(of: same) {
+                    if rating > same.rating {
+                        subtitles[index] = subtitle
+                    }
+                } else {
+                   subtitles.append(subtitle)
+                }
             }
+            
             subtitles.sort(by: { $0.language < $1.language })
             DispatchQueue.main.async(execute: { completion(subtitles, nil) })
         })
