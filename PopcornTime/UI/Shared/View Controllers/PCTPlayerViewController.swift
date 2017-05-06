@@ -295,7 +295,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
                 self.loadingActivityIndicatorView.isHidden = false
                 self.mediaplayer.play()
             }))
-            continueWatchingAlert.addAction(UIAlertAction(title: "Start from Begining".localized, style: .default, handler: { action in
+            continueWatchingAlert.addAction(UIAlertAction(title: "Start from Beginning".localized, style: .default, handler: { action in
                 UIDevice.current.userInterfaceIdiom == .tv ? NotificationCenter.default.removeObserver(self, name: .UIViewControllerFocusedViewDidChange, object: continueWatchingAlert) : ()
                 self.loadingActivityIndicatorView.isHidden = false
                 self.mediaplayer.play()

@@ -149,7 +149,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate {
             
             if title == "Resume Playing".localized {
                 progressBar.progress = startPosition
-            } else if title == "Start from Begining".localized {
+            } else if title == "Start from Beginning".localized {
                 progressBar.progress = 0
             }
             

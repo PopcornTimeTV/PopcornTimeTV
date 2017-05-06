@@ -422,32 +422,6 @@
                 <source>Cast &amp; Crew</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
-            <!-- ItemViewController button titles -->
-            <trans-unit id="5e7-hi-nqc.title">
-                <source>Trailer</source>
-                <target><!-- Translation goes here --></target>
-                <note>Play the movie's trailer</note>
-            </trans-unit>
-            <trans-unit id="ipT-OZ-c5M.title">
-                <source>Play</source>
-                <target><!-- Translation goes here --></target>
-                <note>Play the media</note>
-            </trans-unit>
-            <trans-unit id="th4-V2-ZHU.title">
-                <source>Series</source>
-                <target><!-- Translation goes here --></target>
-                <note>Show other available seasons for the selected show</note>
-            </trans-unit>
-            <trans-unit id="KC3-5l-rXZ.title">
-                <source>Watchlist</source>
-                <target><!-- Translation goes here --></target>
-                <note>Add/Remove the show/movie from the user's watchlist</note>
-            </trans-unit>
-            <trans-unit id="nhD-7v-QlI.title">
-                <source>Watched</source>
-                <target><!-- Translation goes here --></target>
-                <note>Mark the movie as watched</note>
-            </trans-unit>
             <!-- OptionsViewController titles -->
             <trans-unit id="QCl-Ll-Afb.title">
                 <source>Info</source>
@@ -551,8 +525,8 @@
                 <source>Brown</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
-            <trans-unit id="Cache was already empty, no disk space was reclamed.">
-                <source>Cache was already empty, no disk space was reclamed.</source>
+            <trans-unit id="Cache was already empty, no disk space was reclaimed">
+                <source>Cache was already empty, no disk space was reclaimed.</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
             <trans-unit id="Cancel">
@@ -751,8 +725,8 @@
                 <source>Italic</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
-            <trans-unit id="It looks like your ISP/Network admin is blocking our servers. You can try again with a VPN to hide your internet traffic from them. Please do so your own risk.">
-                <source>It looks like your ISP/Network admin is blocking our servers. You can try again with a VPN to hide your internet traffic from them. Please do so your own risk.</source>
+            <trans-unit id="It looks like your ISP/Network admin is blocking our servers. You can try again with a VPN to hide your internet traffic from them. Please do so at your own risk.">
+                <source>It looks like your ISP/Network admin is blocking our servers. You can try again with a VPN to hide your internet traffic from them. Please do so at your own risk.</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
             <trans-unit id="Large">
@@ -875,6 +849,11 @@
                 <source>People</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
+            <trans-unit id="Play">
+                <source>Play</source>
+                <target><!-- Translation goes here --></target>
+                <note>Play the media</note>
+            </trans-unit>
             <trans-unit id="Please check your internet connection and try again.">
                 <source>Please check your internet connection and try again.</source>
                 <target><!-- Translation goes here --></target>
@@ -967,6 +946,11 @@
                 <source>Select a genre to filter by</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
+            <trans-unit id="Series">
+                <source>Series</source>
+                <target><!-- Translation goes here --></target>
+                <note>Show other available seasons for the selected show</note>
+            </trans-unit>
             <trans-unit id="Short">
                 <source>Short</source>
                 <target><!-- Translation goes here --></target>
@@ -1011,12 +995,12 @@
                 <source>Sports</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
-            <trans-unit id="Staring">
-                <source>Staring</source>
+            <trans-unit id="Starring">
+                <source>Starring</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
-            <trans-unit id="Start from Begining">
-                <source>Start from Begining</source>
+            <trans-unit id="Start from Beginning">
+                <source>Start from Beginning</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
             <trans-unit id="Subtitle Color">
@@ -1047,8 +1031,8 @@
                 <source>Subtitle Language</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
-            <trans-unit id="Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original lanuage with the addition of relevant non-dialog information.">
-                <source>Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original lanuage with the addition of relevant non-dialog information.</source>
+            <trans-unit id="Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original language with the addition of relevant non-dialog information.">
+                <source>Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original language with the addition of relevant non-dialog information.</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
             <trans-unit id="Success">
@@ -1087,6 +1071,11 @@
                 <source>Torrents could not be found for the specified media.</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
+            <trans-unit id="Trailer">
+                <source>Trailer</source>
+                <target><!-- Translation goes here --></target>
+                <note>Play the movie's trailer</note>
+            </trans-unit>
             <trans-unit id="Trending">
                 <source>Trending</source>
                 <target><!-- Translation goes here --></target>
@@ -1123,9 +1112,20 @@
                 <source>War</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
-            <trans-unit id="Watch">
-                <source>Watch</source>
+            <trans-unit id="Watched">
+                <source>Watched</source>
                 <target><!-- Translation goes here --></target>
+                <note>Mark the movie as watched</note>
+            </trans-unit>
+            <trans-unit id="Watchlist">
+                <source>Watchlist</source>
+                <target><!-- Translation goes here --></target>
+                <note>Add/Remove the show/movie from the user's watchlist</note>
+            </trans-unit>
+            <trans-unit id="Watch %@ on %@">
+                <source>Watch %1$@ on %2$@</source>
+                <target><!-- Translation goes here --></target>
+                <note>Watch {Show name} on {TV Network}</note>
             </trans-unit>
             <trans-unit id="Watchlist Empty">
                 <source>Watchlist Empty</source>

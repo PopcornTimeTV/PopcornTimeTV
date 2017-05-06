@@ -18,7 +18,7 @@ class ErrorBackgroundView: UIView {
         switch error.code {
         case -1200:
             title = "SSL Error".localized
-            helpfulDescription = "It looks like your ISP/Network admin is blocking our servers. You can try again with a VPN to hide your internet traffic from them. Please do so your own risk.".localized
+            helpfulDescription = "It looks like your ISP/Network admin is blocking our servers. You can try again with a VPN to hide your internet traffic from them. Please do so at your own risk".localized
         case -404:
             title = "Not found".localized
             helpfulDescription = "Please check your internet connection and try again.".localized

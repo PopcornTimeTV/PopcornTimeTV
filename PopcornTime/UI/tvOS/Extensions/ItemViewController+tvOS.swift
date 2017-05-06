@@ -71,7 +71,7 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             let actors = movie.actors.flatMap({$0.name})
             
             if !actors.isEmpty {
-                appendSection("Staring".localized.localizedUppercase, actors)
+                appendSection("Starring".localized.localizedUppercase, actors)
             }
             
             peopleTextView?.attributedText = peopleText
@@ -89,7 +89,8 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             seasonsButton?.removeFromSuperview()
         } else if let show = media as? Show {
             titleLabel.text = ""
-            infoLabel.text = "Watch".localized + " \(show.title) " + "On".localized.localizedLowercase + " \(show.network ?? "TV")"
+            
+            infoLabel.text = .localizedStringWithFormat("Watch %@ on %@".localized, show.title, show.network ?? "TV")
             
             let subtitle = NSMutableAttributedString(string: "\(show.genres.first?.localizedCapitalized ?? "")\t\(show.year)")
             attributedString(between: "HD", "CC").forEach({subtitle.append($0)})

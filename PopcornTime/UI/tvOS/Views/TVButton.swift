@@ -20,12 +20,10 @@ import Foundation
         }
     }
     
-    @IBInspectable var title: String? {
+    @IBInspectable var title: String = "" {
         didSet {
             if titleLabel == nil { loadView() }
-            if let text = title {
-                titleLabel.text = text
-            }
+            titleLabel.text = title.localized
         }
     }
     

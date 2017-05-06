@@ -319,7 +319,7 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
             vc.headerTitle = "Accessibility".localized
             
             let key = UIImage(named: "SDH")!.colored(.white)!.attributed
-            let value = "Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original lanuage with the addition of relevant non-dialog information.".localized
+            let value = "Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original language with the addition of relevant non-dialog information.".localized
             
             vc.dataSource = [(key, value)]
             
