@@ -110,7 +110,7 @@ public struct Movie: Media, Equatable {
     public var torrents = [Torrent]()
     
     /// The subtitles associated with the movie. Empty by default. Must be filled by calling `search:episode:imdbId:limit:completion:` on `SubtitlesManager`.
-    public var subtitles = [Subtitle]()
+    public var subtitles = [String: [Subtitle]]()
     
     /// The genres associated with the movie.
     public var genres = [String]()
@@ -156,7 +156,7 @@ public struct Movie: Media, Equatable {
         torrents.sort(by: <)
     }
     
-    public init(title: String = "Unknown".localized, id: String = "tt0000000", tmdbId: Int? = nil, slug: String = "unknown", summary: String = "No summary available.".localized, torrents: [Torrent] = [], subtitles: [Subtitle] = [], largeBackgroundImage: String? = nil, largeCoverImage: String? = nil) {
+    public init(title: String = "Unknown".localized, id: String = "tt0000000", tmdbId: Int? = nil, slug: String = "unknown", summary: String = "No summary available.".localized, torrents: [Torrent] = [], subtitles: [String: [Subtitle]] = [:], largeBackgroundImage: String? = nil, largeCoverImage: String? = nil) {
         self.title = title
         self.id = id
         self.tmdbId = tmdbId

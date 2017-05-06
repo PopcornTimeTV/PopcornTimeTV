@@ -20,7 +20,7 @@ public protocol Media: Mappable {
     var largeCoverImage: String? { get set }
     
     /// Will be empty if Media is Show.
-    var subtitles: [Subtitle] { get set }
+    var subtitles: [String: [Subtitle]] { get set }
     
     /// Will be empty if Media is Show.
     var torrents: [Torrent] { get set }
@@ -31,13 +31,13 @@ public protocol Media: Mappable {
     /// Will return `false` if Media is Episode.
     var isAddedToWatchlist: Bool { get set }
     
-    init(title: String, id: String, tmdbId: Int?, slug: String, summary: String, torrents: [Torrent], subtitles: [Subtitle], largeBackgroundImage: String?, largeCoverImage: String?)
+    init(title: String, id: String, tmdbId: Int?, slug: String, summary: String, torrents: [Torrent], subtitles: [String: [Subtitle]], largeBackgroundImage: String?, largeCoverImage: String?)
 }
 
 // MARK: - Optional vars
 
 extension Media {
-    public var subtitles: [Subtitle] { get { return [] } set {} }
+    public var subtitles: [String: [Subtitle]] { get { return [:] } set {} }
     public var torrents: [Torrent] { get { return [] } set {} }
     
     public var isWatched: Bool { get { return false } set {} }

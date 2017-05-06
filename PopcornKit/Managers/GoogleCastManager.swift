@@ -4,7 +4,7 @@
     import Foundation
     import GoogleCast
     
-    public typealias CastMetaData = (title: String, image: URL?, contentType: String, subtitles: [Subtitle]?, url: String, mediaAssetsPath: URL, startPosition: TimeInterval)
+    public typealias CastMetaData = (title: String, image: URL?, contentType: String, subtitles: [String: [Subtitle]]?, url: String, mediaAssetsPath: URL, startPosition: TimeInterval)
     
     public enum TableViewUpdates {
         case reload

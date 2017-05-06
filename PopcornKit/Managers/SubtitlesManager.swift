@@ -24,10 +24,10 @@ open class SubtitlesManager: NetworkManager {
      
      - Parameter completion:    Completion handler called with array of subtitles and an optional error.
      */
-    open func search(_ episode: Episode? = nil, imdbId: String? = nil, limit: String = "300", completion:@escaping ([Subtitle], NSError?) -> Void) {
+    open func search(_ episode: Episode? = nil, imdbId: String? = nil, limit: String = "300", completion:@escaping ([String: [Subtitle]], NSError?) -> Void) {
         guard let token = token else {
             login() { error in
-                guard error == nil else { completion([], error); return }
+                guard error == nil else { completion([:], error); return }
                 self.search(episode, imdbId: imdbId, limit: limit, completion: completion)
             }
             return
@@ -46,23 +46,39 @@ open class SubtitlesManager: NetworkManager {
             guard let value = response.result.value,
                 let status = value[0]["status"].string?.components(separatedBy: " ").first,
                 let data = value[0]["data"].array,
-                response.result.isSuccess && status == "200" else { DispatchQueue.main.async(execute: {completion([], response.result.error as NSError?)}); return}
-            var subtitles = [Subtitle]()
+                response.result.isSuccess && status == "200" else { DispatchQueue.main.async(execute: {completion([:], response.result.error as NSError?)}); return}
+            var subtitles = [String: [Subtitle]]()
             for info in data {
                 guard
                     let subDownloadLink = info["SubDownloadLink"].string,
+                    let subFileName = info["MovieReleaseName"].string,
+                    let movieName = info["MovieName"].string,
+                    let subCleanFileName = self.cleanSubName(subFileName, byMovieName: movieName),
                     let ISO639 = info["ISO639"].string,
-                    let localizedLanguageName = Locale.current.localizedString(forLanguageCode: ISO639)?.localizedCapitalized,
-                    !subtitles.contains(where: {$0.language == localizedLanguageName})
+                    let localizedLanguageName = Locale.current.localizedString(forLanguageCode: ISO639)?.localizedCapitalized
                     else {
                         continue
                 }
-                
-                subtitles.append(Subtitle(language: localizedLanguageName, link: subDownloadLink, ISO639: ISO639))
+                var langSubtitles = subtitles[localizedLanguageName] ?? [Subtitle]()
+                langSubtitles.append(Subtitle(language: localizedLanguageName, link: subDownloadLink, name: subFileName, cleanName: subCleanFileName, ISO639: ISO639))
+                subtitles[localizedLanguageName] = langSubtitles
             }
-            subtitles.sort(by: { $0.language < $1.language })
             DispatchQueue.main.async(execute: { completion(subtitles, nil) })
         })
+    }
+    
+    private func cleanSubName(_ subName: String, byMovieName movieName: String) -> String? {
+        let subNameParts = subName.components(separatedBy: CharacterSet.alphanumerics.inverted).filter { (part) -> Bool in
+            part != ""
+        }
+        let movieNameParts = movieName.components(separatedBy: CharacterSet.alphanumerics.inverted).filter { (part) -> Bool in
+            part != ""
+        }
+        var i = 0
+        while subNameParts[i] == movieNameParts[i] {
+            i += 1
+        }
+        return subNameParts[i...subNameParts.count - 1].joined(separator: " ")
     }
     
     /**
