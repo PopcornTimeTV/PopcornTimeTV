@@ -13,6 +13,7 @@ extension GCKMediaTextTrackStyle {
         self.foregroundColor = GCKColor(uiColor: settings.color)
         self.edgeType = .dropShadow
         self.fontFamily = settings.font.familyName
+        self.windowType = .none
         
         switch settings.style {
         case .bold:
@@ -23,6 +24,17 @@ extension GCKMediaTextTrackStyle {
             self.fontStyle = .italic
         case .normal:
             self.fontStyle = .normal
+        }
+        
+        switch settings.size {
+        case .small:
+            self.fontScale = 6
+        case .medium:
+            self.fontScale = 12
+        case .mediumLarge:
+            self.fontScale = 15
+        case .large:
+            self.fontScale = 24
         }
         
         return self
