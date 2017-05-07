@@ -18,18 +18,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="453" height="32"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHG-tv-es1">
-                        <rect key="frame" x="0.0" y="0.0" width="130" height="32"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clasificación" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHG-tv-es1">
+                        <rect key="frame" x="0.0" y="0.0" width="135" height="32"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="JYt-uL-iAv"/>
-                            <constraint firstAttribute="width" constant="130" id="KQ2-TL-sXV"/>
+                            <constraint firstAttribute="width" constant="135" id="KQ2-TL-sXV"/>
                         </constraints>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k82-Lo-38n">
-                        <rect key="frame" x="160" y="0.0" width="293" height="32"/>
+                        <rect key="frame" x="165" y="0.0" width="288" height="32"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="KfK-J5-J3b"/>
                         </constraints>
