@@ -211,7 +211,6 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
             deviceScanner.remove(self)
             GCKCastContext.sharedInstance().sessionManager.remove(self)
         }
-        connectionQueue = nil
     }
     
 }

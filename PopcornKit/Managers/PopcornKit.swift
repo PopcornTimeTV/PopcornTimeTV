@@ -2,10 +2,6 @@
 
 import Alamofire
 
-#if os(iOS)
-    import SRT2VTT
-#endif
-
 /**
  Load TV Shows from API.
  
@@ -118,7 +114,6 @@ public func downloadTorrentFile(_ path: String, completion: @escaping (String?, 
  - Parameter path:              The path to the subtitle file you would like to download.
  - Parameter fileName:          An optional file name you can provide.
  - Parameter downloadDirectory: You can opt to change the download location of the file. Defaults to `NSTemporaryDirectory/Subtitles`.
- - Parameter convertToVTT:      You can opt to convert the downloaded subtitle to VTT format. Defaults to `false`. Not available on tvOS.
  
  - Parameter completion:    Completion handler for the request. Returns downloaded subtitle url upon success, error upon failure.
  */
@@ -126,28 +121,22 @@ public func downloadSubtitleFile(
     _ path: String,
     fileName suggestedName: String? = nil,
     downloadDirectory directory: URL = URL(fileURLWithPath: NSTemporaryDirectory()),
-    convertToVTT: Bool = false,
     completion: @escaping (URL?, NSError?) -> Void) {
-    var downloadDirectory: URL!
-    var zippedFilePath: URL!
-    var fileName: String!
+    var fileUrl: URL!
     Alamofire.download(path) { (temporaryURL, response) -> (destinationURL: URL, options: DownloadRequest.DownloadOptions) in
-        fileName = suggestedName ?? response.suggestedFilename!
-        downloadDirectory = directory.appendingPathComponent("Subtitles")
+        let fileName = suggestedName ?? response.suggestedFilename!
+        let downloadDirectory = directory.appendingPathComponent("Subtitles")
         if !FileManager.default.fileExists(atPath: downloadDirectory.path) {
-            try! FileManager.default.createDirectory(at: downloadDirectory, withIntermediateDirectories: true, attributes: nil)
+            try? FileManager.default.createDirectory(at: downloadDirectory, withIntermediateDirectories: true, attributes: nil)
         }
-        zippedFilePath = downloadDirectory.appendingPathComponent(fileName)
-        return (zippedFilePath, .removePreviousFile)
+        fileUrl = downloadDirectory.appendingPathComponent(fileName)
+        return (fileUrl, .removePreviousFile)
     }.validate().response { response in
-        guard response.error == nil else {completion(nil, response.error as NSError?); return }
-        let filePath = downloadDirectory.appendingPathComponent(fileName.replacingOccurrences(of: ".gz", with: ""))
-        FileManager.default.createFile(atPath: filePath.path, contents: (FileManager.default.contents(atPath: zippedFilePath.path)! as NSData).gunzipped(), attributes: nil)
-         #if os(iOS)
-            completion(convertToVTT ? SRT.sharedConverter().convertFile(toVTT: filePath) : filePath, nil)
-        #else
-            completion(filePath, nil)
-        #endif
+        if let error = response.error as NSError? {
+            completion(nil, error)
+            return
+        }
+        completion(fileUrl, nil)
     }
 }
 

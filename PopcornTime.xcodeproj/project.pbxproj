@@ -29,8 +29,6 @@
 		4D0F9D6F1E6F2D7600860852 /* MPAVRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D0F9D691E6F2D7600860852 /* MPAVRoute.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D0F9D701E6F2D7600860852 /* MPAVRoutingController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D0F9D6A1E6F2D7600860852 /* MPAVRoutingController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D0F9D711E6F2D7600860852 /* MPAVRoutingControllerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D0F9D6B1E6F2D7600860852 /* MPAVRoutingControllerDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D0F9D721E6F2D7600860852 /* NSData+GZIP.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D0F9D6C1E6F2D7600860852 /* NSData+GZIP.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D0F9D731E6F2D7600860852 /* NSData+GZIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D6D1E6F2D7600860852 /* NSData+GZIP.m */; };
 		4D0F9D741E6F2E0F00860852 /* OAuthCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D651E6F2CEB00860852 /* OAuthCredential.swift */; };
 		4D0F9D751E6F2EEE00860852 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9CFC1E6F296400860852 /* NetworkManager.swift */; };
 		4D0F9D761E6F2EEE00860852 /* SubtitlesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9CFD1E6F296400860852 /* SubtitlesManager.swift */; };
@@ -60,8 +58,6 @@
 		4D0F9DA71E6F300C00860852 /* MPAVRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D0F9D691E6F2D7600860852 /* MPAVRoute.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D0F9DA81E6F300C00860852 /* MPAVRoutingController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D0F9D6A1E6F2D7600860852 /* MPAVRoutingController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D0F9DA91E6F300C00860852 /* MPAVRoutingControllerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D0F9D6B1E6F2D7600860852 /* MPAVRoutingControllerDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D0F9DAA1E6F300D00860852 /* NSData+GZIP.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D0F9D6C1E6F2D7600860852 /* NSData+GZIP.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D0F9DAB1E6F300D00860852 /* NSData+GZIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9D6D1E6F2D7600860852 /* NSData+GZIP.m */; };
 		4D0F9DAC1E6F302000860852 /* PopcornKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D0F9D5F1E6F2CA100860852 /* PopcornKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D0F9DAE1E6F304600860852 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9CFC1E6F296400860852 /* NetworkManager.swift */; };
 		4D0F9DAF1E6F304600860852 /* SubtitlesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9CFD1E6F296400860852 /* SubtitlesManager.swift */; };
@@ -443,8 +439,6 @@
 		4D0F9D691E6F2D7600860852 /* MPAVRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPAVRoute.h; path = PopcornKit/Resources/MPAVRoute.h; sourceTree = SOURCE_ROOT; };
 		4D0F9D6A1E6F2D7600860852 /* MPAVRoutingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPAVRoutingController.h; path = PopcornKit/Resources/MPAVRoutingController.h; sourceTree = SOURCE_ROOT; };
 		4D0F9D6B1E6F2D7600860852 /* MPAVRoutingControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPAVRoutingControllerDelegate.h; path = PopcornKit/Resources/MPAVRoutingControllerDelegate.h; sourceTree = SOURCE_ROOT; };
-		4D0F9D6C1E6F2D7600860852 /* NSData+GZIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+GZIP.h"; path = "PopcornKit/Resources/NSData+GZIP.h"; sourceTree = SOURCE_ROOT; };
-		4D0F9D6D1E6F2D7600860852 /* NSData+GZIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+GZIP.m"; path = "PopcornKit/Resources/NSData+GZIP.m"; sourceTree = SOURCE_ROOT; };
 		4D0F9D911E6F2F4D00860852 /* PopcornKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopcornKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D0F9DCB1E70564900860852 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailViewController.swift; path = "Detail View Controllers/DetailViewController.swift"; sourceTree = "<group>"; };
 		4D0F9DCC1E70564900860852 /* ShowDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShowDetailViewController.swift; path = "Detail View Controllers/ShowDetailViewController.swift"; sourceTree = "<group>"; };
@@ -884,8 +878,6 @@
 				4D0F9D691E6F2D7600860852 /* MPAVRoute.h */,
 				4D0F9D6A1E6F2D7600860852 /* MPAVRoutingController.h */,
 				4D0F9D6B1E6F2D7600860852 /* MPAVRoutingControllerDelegate.h */,
-				4D0F9D6C1E6F2D7600860852 /* NSData+GZIP.h */,
-				4D0F9D6D1E6F2D7600860852 /* NSData+GZIP.m */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1321,7 +1313,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D0F9D6F1E6F2D7600860852 /* MPAVRoute.h in Headers */,
-				4D0F9D721E6F2D7600860852 /* NSData+GZIP.h in Headers */,
 				4D0F9D701E6F2D7600860852 /* MPAVRoutingController.h in Headers */,
 				4D0F9D6E1E6F2D7600860852 /* MPAudioDeviceController.h in Headers */,
 				4D0F9D631E6F2CAE00860852 /* PopcornKit.h in Headers */,
@@ -1335,7 +1326,6 @@
 			files = (
 				4D0F9DA91E6F300C00860852 /* MPAVRoutingControllerDelegate.h in Headers */,
 				4D0F9DA71E6F300C00860852 /* MPAVRoute.h in Headers */,
-				4D0F9DAA1E6F300D00860852 /* NSData+GZIP.h in Headers */,
 				4D0F9DA81E6F300C00860852 /* MPAVRoutingController.h in Headers */,
 				4D0F9DA61E6F300C00860852 /* MPAudioDeviceController.h in Headers */,
 				4D0F9DAC1E6F302000860852 /* PopcornKit.h in Headers */,
@@ -1495,6 +1485,7 @@
 					};
 					4D689A161DD88E17001D1318 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = BQBJ6NTPEG;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -1899,7 +1890,6 @@
 				4D0F9D871E6F2EF400860852 /* Person.swift in Sources */,
 				4D0F9D821E6F2EEE00860852 /* TMDBManager.swift in Sources */,
 				4D0F9D7A1E6F2EEE00860852 /* UpdateManager.swift in Sources */,
-				4D0F9D731E6F2D7600860852 /* NSData+GZIP.m in Sources */,
 				4D0F9D811E6F2EEE00860852 /* ShowManager.swift in Sources */,
 				4D0F9D7D1E6F2EEE00860852 /* PopcornKit.swift in Sources */,
 				4D0F9D741E6F2E0F00860852 /* OAuthCredential.swift in Sources */,
@@ -1932,7 +1922,6 @@
 				4DCB393D1E844D4500388374 /* UIAlertController+Show.swift in Sources */,
 				4D0F9DB51E6F304600860852 /* AnimeManager.swift in Sources */,
 				4D0F9DB81E6F304600860852 /* WatchlistManager.swift in Sources */,
-				4D0F9DAB1E6F300D00860852 /* NSData+GZIP.m in Sources */,
 				4D0F9DC21E6F304B00860852 /* Actor.swift in Sources */,
 				4D0F9DB11E6F304600860852 /* TraktManager.swift in Sources */,
 				4D0F9DB31E6F304600860852 /* UpdateManager.swift in Sources */,
@@ -2543,8 +2532,9 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BQBJ6NTPEG;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2553,8 +2543,9 @@
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting Files/iOS.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.mourke.ios;
 				PRODUCT_NAME = PopcornTime;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Supporting Files/PopcornTimeiOS-Bridging-Header.h";
@@ -2573,13 +2564,15 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = BQBJ6NTPEG;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting Files/iOS.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.mourke.ios;
 				PRODUCT_NAME = PopcornTime;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Supporting Files/PopcornTimeiOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

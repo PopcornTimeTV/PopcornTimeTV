@@ -1,11 +1,10 @@
 use_frameworks!
 
 source 'https://github.com/CocoaPods/Specs'
-source 'https://github.com/angryDuck2/CocoaSpecs'
 source 'https://github.com/PopcornTimeTV/Specs'
 
 def pods
-    pod 'PopcornTorrent', '~> 1.1.9'
+    pod 'PopcornTorrent', '~> 1.1.10'
     pod 'XCDYouTubeKit', '~> 2.5.5'
     pod 'Alamofire', '~> 4.4.0'
     pod 'AlamofireImage', '~> 3.2.0'
@@ -56,5 +55,4 @@ target 'PopcornKit iOS' do
     platform :ios, '9.0'
     kitPods
     pod 'google-cast-sdk', '~> 3.4.0'
-    pod 'SRT2VTT', '~> 1.0.1'
 end

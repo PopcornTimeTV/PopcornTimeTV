@@ -1,6 +1,5 @@
 
 
-#import <PopcornKit/NSData+GZip.h>
 #import <PopcornKit/MPAVRoute.h>
 #import <PopcornKit/MPAudioDeviceController.h>
 #import <PopcornKit/MPAVRoutingControllerDelegate.h>

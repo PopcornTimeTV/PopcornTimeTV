@@ -58,7 +58,7 @@ open class SubtitlesManager: NetworkManager {
             var subtitles = [Subtitle]()
             for info in data {
                 guard
-                    let subDownloadLink = info["SubDownloadLink"].string,
+                    let subDownloadLink = info["SubDownloadLink"].string?.replacingOccurrences(of: ".gz", with: ""),
                     let ISO639 = info["ISO639"].string,
                     let localizedLanguageName = Locale.current.localizedString(forLanguageCode: ISO639)?.localizedCapitalized,
                     let rating = Double(info["SubRating"].string ?? "")
