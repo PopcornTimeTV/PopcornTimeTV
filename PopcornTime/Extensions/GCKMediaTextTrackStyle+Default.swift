@@ -28,13 +28,13 @@ extension GCKMediaTextTrackStyle {
         
         switch settings.size {
         case .small:
-            self.fontScale = 6
+            self.fontScale = 0.5
         case .medium:
-            self.fontScale = 12
+            self.fontScale = 1.0
         case .mediumLarge:
-            self.fontScale = 15
+            self.fontScale = 1.5
         case .large:
-            self.fontScale = 24
+            self.fontScale = 2.0
         }
         
         return self

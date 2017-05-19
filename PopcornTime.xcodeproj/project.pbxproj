@@ -247,6 +247,7 @@
 		4D9DEF081E705DA0002493B5 /* OptionsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DEF071E705DA0002493B5 /* OptionsPresentationController.swift */; };
 		4DA42DD21DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */; };
 		4DA42DD31DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */; };
+		4DABD2341ECF693D00C609D1 /* GCKRequest+CustomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DABD2331ECF693D00C609D1 /* GCKRequest+CustomData.swift */; };
 		4DABD6DB1EACF82E008F7549 /* HtmlDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DABD6DA1EACF82E008F7549 /* HtmlDecoding.swift */; };
 		4DABD6DC1EACF82E008F7549 /* HtmlDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DABD6DA1EACF82E008F7549 /* HtmlDecoding.swift */; };
 		4DAE33991E7C676A0014B489 /* String+Truncation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE33981E7C676A0014B489 /* String+Truncation.swift */; };
@@ -581,6 +582,7 @@
 		4D9DEF071E705DA0002493B5 /* OptionsPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsPresentationController.swift; path = "Presentation Controllers/OptionsPresentationController.swift"; sourceTree = "<group>"; };
 		4DA42DC41DD8C6D900933A10 /* PopcornTimeiOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PopcornTimeiOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		4DA42DD11DD8EF7A00933A10 /* Dictionary+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
+		4DABD2331ECF693D00C609D1 /* GCKRequest+CustomData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GCKRequest+CustomData.swift"; sourceTree = "<group>"; };
 		4DABD6DA1EACF82E008F7549 /* HtmlDecoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HtmlDecoding.swift; path = PopcornKit/Resources/HtmlDecoding.swift; sourceTree = SOURCE_ROOT; };
 		4DAE33981E7C676A0014B489 /* String+Truncation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Truncation.swift"; sourceTree = "<group>"; };
 		4DAE339A1E7C81240014B489 /* TimeInterval+Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Default.swift"; sourceTree = "<group>"; };
@@ -992,6 +994,7 @@
 				4DBE60971E5E590500C2549B /* MovieDetailViewController+iOS.swift */,
 				4D3A40201EBDEEA5006E7F23 /* GCKMediaTextTrackStyle+Default.swift */,
 				4D3A40221EBE08E5006E7F23 /* GCKDevice+Equatable.swift */,
+				4DABD2331ECF693D00C609D1 /* GCKRequest+CustomData.swift */,
 				4DBE608E1E5E51C300C2549B /* DetailViewController+iOS.swift */,
 				4DBE60991E5E5F8A00C2549B /* ShowDetailViewController+iOS.swift */,
 				4DAE33981E7C676A0014B489 /* String+Truncation.swift */,
@@ -1485,7 +1488,6 @@
 					};
 					4D689A161DD88E17001D1318 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = BQBJ6NTPEG;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -2043,6 +2045,7 @@
 				4D0F9E531E705BD600860852 /* UIAlertController+BlurStyle.swift in Sources */,
 				4D0F9DFD1E70579F00860852 /* ErrorBackgroundView.swift in Sources */,
 				4DBE609A1E5E5F8A00C2549B /* ShowDetailViewController+iOS.swift in Sources */,
+				4DABD2341ECF693D00C609D1 /* GCKRequest+CustomData.swift in Sources */,
 				4D9995621E5CAD51005C432A /* SearchViewController+iOS.swift in Sources */,
 				4D0F9E331E7059C300860852 /* BarSlider.swift in Sources */,
 				4D0F9DE21E7056E200860852 /* BaseCollectionViewCell.swift in Sources */,
@@ -2534,7 +2537,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = BQBJ6NTPEG;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2543,7 +2546,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting Files/iOS.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.mourke.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.ios;
 				PRODUCT_NAME = PopcornTime;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -2565,12 +2568,12 @@
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = BQBJ6NTPEG;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting Files/iOS.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.mourke.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.ios;
 				PRODUCT_NAME = PopcornTime;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
