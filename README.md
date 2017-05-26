@@ -4,8 +4,6 @@
 
 ## Popcorn Time for tvOS and iOS
 
-**PSA: We are NOT affiliated with AppDB or any other organization - free or otherwise - that provides resigned IPA files and it is not our responsibility if there are bugs in their versions of the app.**
-
 [![Platform](http://img.shields.io/badge/platform-iOS%20%7C%20tvOS-lightgrey.svg?style=flat)](https://github.com/PopcornTimeTV)
 [![Build Status](https://travis-ci.org/PopcornTimeTV/PopcornTimeTV.svg?branch=master)](https://travis-ci.org/PopcornTimeTV/PopcornTimeTV)
 [![Twitter](https://img.shields.io/badge/twitter-@Popcorn%20Time-3299EC.svg?style=flat)](https://twitter.com/popcorntimetv)
@@ -15,11 +13,11 @@
 
 An ATV, iPhone and iPad application to torrent movies and tv shows for streaming.
 
-## Getting Involved
+## Want to contribute?
 
-Want to report a bug, request a feature, contribute or translate Popcorn Time? Check out our in-depth guide to [Contributing to Popcorn Time](CONTRIBUTING.md).
+We need your help to localise Popcorn Time. Visit our [Translating Guide](https://github.com/PopcornTimeTV/PopcornTimeTV/wiki/Translating-Popcorn-Time) to get started.
 
-## iPA
+## Download
 
 Download the [latest .ipas](https://github.com/PopcornTimeTV/PopcornTimeTV/releases/latest).
 

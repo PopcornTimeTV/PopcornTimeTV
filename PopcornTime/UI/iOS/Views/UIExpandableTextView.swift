@@ -22,7 +22,18 @@ import Foundation
     }
     
     override var text: String! {
-        didSet {
+        get {
+            return super.text
+        } set {
+            if ProcessInfo().operatingSystemVersion.majorVersion == 9 // System bug that doesn't respect `isSelectable` after changing the text. Fixed in iOS 10+.
+            {
+                let originalSelectableValue = isSelectable
+                isSelectable = true
+                super.text = newValue
+                isSelectable = originalSelectableValue
+            } else {
+               super.text = newValue
+            }
             
             originalText = text
             truncateAndUpdateText()

@@ -25,6 +25,7 @@ extension UIAlertController {
         
         visualEffectView?.effect = UIBlurEffect(style: blurStyle)
         cancelActionView?.backgroundColor = cancelButtonColor
+        cancelHighlightView?.recursiveSubviews.forEach({$0.backgroundColor = .black})
         preferredAction?.isChecked = true
     }
     
@@ -54,8 +55,16 @@ extension UIAlertController {
         return view.recursiveSubviews.flatMap({$0 as? UIVisualEffectView}).first
     }
     
+    private var cancelBackgroundView: UIView? {
+        return view.recursiveSubviews.first(where: {type(of: $0) == NSClassFromString("_UIAlertControlleriOSActionSheetCancelBackgroundView")})
+    }
+    
     private var cancelActionView: UIView? {
-        return view.recursiveSubviews.flatMap({$0 as? UILabel}).first(where: {$0.text == "Cancel".localized})?.superview?.superview
+        return cancelBackgroundView?.value(forKey: "backgroundView") as? UIView
+    }
+    
+    private var cancelHighlightView: UIView? {
+        return cancelBackgroundView?.value(forKey: "highlightView") as? UIView
     }
     
     public convenience init(title: String?, message: String?, preferredStyle: UIAlertControllerStyle, blurStyle: UIBlurEffectStyle) {
