@@ -12,7 +12,7 @@ def pods
     pod 'FloatRatingView', '~> 2.0.1'
     pod 'Reachability', :git => 'https://github.com/tonymillion/Reachability'
     pod 'MarqueeLabel/Swift', '~> 3.0.3'
-    pod 'ObjectMapper', '~> 2.2.6'
+    pod 'ObjectMapper', '~> 2.2.7'
 end
 
 target 'PopcornTimeiOS' do
@@ -35,12 +35,12 @@ end
 
 target 'TopShelf' do
     platform :tvos, '10.0'
-    pod 'ObjectMapper', '~> 2.2.6'
+    pod 'ObjectMapper', '~> 2.2.7'
 end
 
 def kitPods
     pod 'Alamofire', '~> 4.4.0'
-    pod 'ObjectMapper', '~> 2.2.6'
+    pod 'ObjectMapper', '~> 2.2.7'
     pod 'AlamofireXMLRPC', '~> 2.1.0'
     pod 'SwiftyJSON', '~> 3.1.4'
     pod 'Locksmith', '~> 3.0.0'

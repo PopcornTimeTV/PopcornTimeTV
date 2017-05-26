@@ -71,8 +71,7 @@ open class WatchlistManager<N: Media> {
     open func remove(_ media: N) {
         TraktManager.shared.remove(media.id, fromWatchlistOfType: currentType)
         if var array = UserDefaults.standard.object(forKey: "\(currentType.rawValue)Watchlist") as? jsonArray,
-            let map = Mapper<N>().mapArray(JSONArray: array),
-            let index = map.index(where: { $0.id == media.id }) {
+            let index = Mapper<N>().mapArray(JSONArray: array).index(where: { $0.id == media.id }) {
             array.remove(at: index)
             UserDefaults.standard.set(array, forKey: "\(currentType.rawValue)Watchlist")
         }
@@ -86,8 +85,8 @@ open class WatchlistManager<N: Media> {
      - Returns: Boolean indicating if media is in the users watchlist.
      */
     open func isAdded(_ media: N) -> Bool {
-        if let array = UserDefaults.standard.object(forKey: "\(currentType.rawValue)Watchlist") as? jsonArray, let map = Mapper<N>().mapArray(JSONArray: array) {
-            return map.contains(where: {$0.id == media.id})
+        if let array = UserDefaults.standard.object(forKey: "\(currentType.rawValue)Watchlist") as? jsonArray {
+            return Mapper<N>().mapArray(JSONArray: array).contains(where: {$0.id == media.id})
         }
         return false
     }
@@ -108,6 +107,6 @@ open class WatchlistManager<N: Media> {
             completion?(medias)
         }
         
-        return Mapper<N>().mapArray(JSONArray: array) ?? [N]()
+        return Mapper<N>().mapArray(JSONArray: array)
     }
 }
