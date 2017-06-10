@@ -5,8 +5,8 @@ import Foundation
 /**
  Protocol wrapper for private subtitle appearance API in MobileVLCKit. Can be toll free bridged from VLCMediaPlayer. Example for changing font:
  
- let mediaPlayer = VLCMediaPlayer()
- (mediaPlayer as VLCFontAppearance).setTextRendererFont!("HelveticaNueve")
+        let mediaPlayer = VLCMediaPlayer()
+        (mediaPlayer as VLCFontAppearance).setTextRendererFont!("HelveticaNueve")
  */
 @objc protocol VLCFontAppearance {
     /**

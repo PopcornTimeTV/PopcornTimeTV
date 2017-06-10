@@ -102,14 +102,21 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
         }
         
         if let episode = media as? Episode {
-            cell.titleLabel?.text = episode.show.title
+            cell.titleLabel?.text = episode.show?.title
             cell.subtitleLabel.text = "Season".localized + " \(episode.season), " + "Episode".localized + " \(episode.episode)"
             cell.progressView.progress = WatchedlistManager<Episode>.episode.currentProgress(episode.id)
         } else if let movie = media as? Movie {
             cell.titleLabel?.text = movie.title
             cell.progressView.progress = WatchedlistManager<Movie>.movie.currentProgress(movie.id)
             let runtime = Float(movie.runtime)
-            cell.subtitleLabel.text = .localizedStringWithFormat("%d mins Remaining".localized, Int(runtime - (runtime * cell.progressView.progress)))
+            
+            let formatter = DateComponentsFormatter()
+            formatter.unitsStyle = .full
+            formatter.includesTimeRemainingPhrase = true
+            formatter.allowedUnits = [.minute]
+            
+            let remaining = TimeInterval(runtime - (runtime * cell.progressView.progress))
+            cell.subtitleLabel.text = formatter.string(from: remaining * 60) ?? "\(remaining) minutes remaining"
         }
         
         return cell
@@ -120,8 +127,8 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let info: (sender: Media, identifier: String) = {
             let media = onDeck[indexPath.row]
-            if let episode = media as? Episode {
-                return (episode.show, "showShow")
+            if let episode = media as? Episode, let show = episode.show {
+                return (show, "showShow")
             }
             return (media, "showMovie")
         }()

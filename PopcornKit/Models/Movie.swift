@@ -2,6 +2,7 @@
 
 import Foundation
 import ObjectMapper
+import MediaPlayer.MPMediaItem
 
 /**
  Struct for managing Movie objects.
@@ -192,6 +193,33 @@ public struct Movie: Media, Equatable {
             certification >>> map["certification"]
             genres >>> map["genres"]
         }
+    }
+    
+    public var mediaItemDictionary: [String: Any] {
+        return [MPMediaItemPropertyTitle: title,
+                MPMediaItemPropertyMediaType: NSNumber(value: MPMediaType.movie.rawValue),
+                MPMediaItemPropertyPersistentID: id,
+                MPMediaItemPropertyArtwork: smallBackgroundImage ?? "",
+                MPMediaItemPropertySummary: summary]
+    }
+    
+    public init?(_ mediaItemDictionary: [String: Any]) {
+        guard
+            let rawValue = mediaItemDictionary[MPMediaItemPropertyMediaType] as? NSNumber,
+            let type = MPMediaType(rawValue: rawValue.uintValue) as MPMediaType?,
+            type == MPMediaType.movie,
+            let id = mediaItemDictionary[MPMediaItemPropertyPersistentID] as? String,
+            let title = mediaItemDictionary[MPMediaItemPropertyTitle] as? String,
+            let image = mediaItemDictionary[MPMediaItemPropertyArtwork] as? String,
+            let summary = mediaItemDictionary[MPMediaItemPropertySummary] as? String
+            else {
+                return nil
+        }
+        
+        let amazonUrl = image.isAmazonUrl
+        let largeBackgroundImage = image.replacingOccurrences(of: amazonUrl ? "SX300" : "w300", with: amazonUrl ? "SX1000" : "w1000")
+        
+        self.init(title: title, id: id, slug: title.slugged, summary: summary, largeBackgroundImage: largeBackgroundImage)
     }
 }
 

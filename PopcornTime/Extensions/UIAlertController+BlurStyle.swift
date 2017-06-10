@@ -25,7 +25,7 @@ extension UIAlertController {
         
         visualEffectView?.effect = UIBlurEffect(style: blurStyle)
         cancelActionView?.backgroundColor = cancelButtonColor
-        cancelHighlightView?.recursiveSubviews.forEach({$0.backgroundColor = .black})
+        cancelHighlightView?.recursiveSubviews.forEach({$0.backgroundColor = blurStyle == .dark ? .black : nil})
         preferredAction?.isChecked = true
     }
     

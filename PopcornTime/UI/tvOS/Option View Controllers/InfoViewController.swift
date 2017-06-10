@@ -63,13 +63,17 @@ class InfoViewController: UIViewController, UIViewControllerTransitioningDelegat
             summaryTextView.blurredView.contentView.backgroundColor = nil
             summaryTextView.buttonWasPressed = moreButtonWasPressed
             
+            let formatter = DateComponentsFormatter()
+            formatter.unitsStyle = .short
+            formatter.allowedUnits = [.hour, .minute]
+            
             if let movie = media as? Movie {
                 if let imageString = movie.smallCoverImage,
                     let imageUrl = URL(string: imageString) {
                     imageView.af_setImage(withURL: imageUrl)
                 }
                 
-                let info = NSMutableAttributedString(string: "\(movie.formattedRuntime)\t\(movie.year)")
+                let info = NSMutableAttributedString(string: "\(formatter.string(from: TimeInterval(movie.runtime) * 60) ?? "0 min")\t\(movie.year)")
                 attributedString(between: movie.certification, "HD", "CC").forEach({info.append($0)})
                 
                 infoLabel.attributedText = info
@@ -81,7 +85,7 @@ class InfoViewController: UIViewController, UIViewControllerTransitioningDelegat
                 
                 let season = "S\(episode.season):E\(episode.episode)"
                 let date = DateFormatter.localizedString(from: episode.firstAirDate, dateStyle: .medium, timeStyle: .none)
-                let runtime = episode.show.formattedRuntime
+                let runtime = formatter.string(from: TimeInterval(movie.runtime) * 60) ?? "0 min"
                 let genre = episode.show.genres.first?.localizedCapitalized
                 
                 

@@ -2,6 +2,7 @@
 
 import Foundation
 import ObjectMapper
+import MediaPlayer.MPMediaItem
 
 /**
  Struct for managing episode objects.
@@ -38,7 +39,7 @@ public struct Episode: Media, Equatable {
     public let episode: Int
     
     /// The corresponding show object.
-    public var show: Show!
+    public var show: Show?
     
     /// Convenience variable. Boolean value indicating the watched status of the episode.
     public var isWatched: Bool {
@@ -137,6 +138,33 @@ public struct Episode: Media, Equatable {
             largeBackgroundImage >>> map["images.fanart"]
             title >>> map["title"]
         }
+    }
+    
+    public var mediaItemDictionary: [String: Any] {
+        return [MPMediaItemPropertyTitle: title,
+                MPMediaItemPropertyMediaType: NSNumber(value: MPMediaType.episode.rawValue),
+                MPMediaItemPropertyPersistentID: id,
+                MPMediaItemPropertyArtwork: smallBackgroundImage ?? "",
+                MPMediaItemPropertySummary: summary]
+    }
+    
+    public init?(_ mediaItemDictionary: [String: Any]) {
+        guard
+            let rawValue = mediaItemDictionary[MPMediaItemPropertyMediaType] as? NSNumber,
+            let type = MPMediaType(rawValue: rawValue.uintValue) as MPMediaType?,
+            type == MPMediaType.episode,
+            let id = mediaItemDictionary[MPMediaItemPropertyPersistentID] as? String,
+            let title = mediaItemDictionary[MPMediaItemPropertyTitle] as? String,
+            let image = mediaItemDictionary[MPMediaItemPropertyArtwork] as? String,
+            let summary = mediaItemDictionary[MPMediaItemPropertySummary] as? String
+            else {
+                return nil
+        }
+        
+        let amazonUrl = image.isAmazonUrl
+        let largeBackgroundImage = image.replacingOccurrences(of: amazonUrl ? "SX300" : "w300", with: amazonUrl ? "SX1000" : "w1000")
+        
+        self.init(title: title, id: id, slug: title.slugged, summary: summary, largeBackgroundImage: largeBackgroundImage)
     }
 }
 

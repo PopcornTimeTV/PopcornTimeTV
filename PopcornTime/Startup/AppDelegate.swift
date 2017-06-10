@@ -14,6 +14,8 @@ public let vlcSettingTextEncoding = "subsdec-encoding"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
+    
+    static var shared: AppDelegate = UIApplication.shared.delegate as! AppDelegate
 
     var window: UIWindow?
     
@@ -43,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
             NetworkActivityIndicatorManager.shared.isEnabled = true
             
             // Weird SDK throws error if shared instance has already been initialised and doesn't mark function as throwing.
-            do { try GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID)) }
+            do { try GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID)) } catch {}
             
             tabBarController.delegate = self
 
@@ -119,14 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                 let torrent = Torrent(url: torrentUrl)
                 let media: Media = Movie(id: id, torrents: [torrent]) // Type here is arbitrary.
                 
-                if let root = window?.rootViewController {
-                    let type = type(of: root)
-                    object_setClass(root, DetailViewController.self)
-                    let vc = root as! DetailViewController
-                    object_setIvar(vc, class_getInstanceVariable(DetailViewController.self, NSString(string: "currentItem").utf8String), media)
-                    vc.play(media, torrent: torrent)
-                    object_setClass(root, type)
-                }
+                play(media, torrent: torrent)
             }
         #endif
         

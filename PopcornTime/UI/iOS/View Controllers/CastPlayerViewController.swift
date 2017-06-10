@@ -26,6 +26,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
     var media: Media!
     var directory: URL!
     var url: URL!
+    var streamer: PTTorrentStreamer!
     var localPathToMedia: URL!
     var startPosition: TimeInterval = 0.0
     var currentSubtitle: Subtitle? {
@@ -126,7 +127,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
         elapsedTimer = nil
         remoteMediaClient?.stop()
         setProgress(status: .finished)
-        PTTorrentStreamer.shared().cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
+        streamer.cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
         dismiss(animated: true)
     }
     

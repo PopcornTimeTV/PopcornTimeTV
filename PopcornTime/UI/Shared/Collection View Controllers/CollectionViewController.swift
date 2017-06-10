@@ -50,7 +50,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     var currentPage = 1
     
     var activeRootViewController: MainViewController? {
-        return (UIApplication.shared.delegate as! AppDelegate).activeRootViewController
+        return AppDelegate.shared.activeRootViewController
     }
     
     private var continueWatchingCollectionReusableView: ContinueWatchingCollectionReusableView?

@@ -182,7 +182,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         removeRemoteCommandCenterHandlers()
         endReceivingScreenNotifications()
         
-        PTTorrentStreamer.shared().cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
+        streamer.cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
         
         setProgress(status: .finished)
         NotificationCenter.default.removeObserver(self, name: .PTTorrentStatusDidChange, object: nil)
@@ -216,6 +216,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     private (set) var directory: URL!
     private (set) var localPathToMedia: URL!
     private (set) var media: Media!
+    private (set) var streamer: PTTorrentStreamer!
     internal var nextEpisode: Episode?
     internal var startPosition: Float = 0.0
     private var idleWorkItem: DispatchWorkItem?
@@ -228,7 +229,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         guard let remaining = mediaplayer.remainingTime?.value?.floatValue, let elapsed = mediaplayer.time?.value?.floatValue else { return Float(CMTimeGetSeconds(imageGenerator.asset.duration) * 1000) }
         return fabsf(remaining) + elapsed
     }
-    internal var nowPlayingInfo: [String : Any]? {
+    internal var nowPlayingInfo: [String: Any]? {
         get {
             return MPNowPlayingInfoCenter.default().nowPlayingInfo
         } set {
@@ -238,7 +239,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     // MARK: - Player functions
     
-    func play(_ media: Media, fromURL url: URL, localURL local: URL, progress fromPosition: Float, nextEpisode: Episode? = nil, directory: URL) {
+    func play(_ media: Media, fromURL url: URL, localURL local: URL, progress fromPosition: Float, nextEpisode: Episode? = nil, directory: URL, streamer: PTTorrentStreamer) {
         self.url = url
         self.localPathToMedia = local
         self.media = media
@@ -246,6 +247,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         self.nextEpisode = nextEpisode
         self.directory = directory
         self.imageGenerator = AVAssetImageGenerator(asset: AVAsset(url: local))
+        self.streamer = streamer
     }
     
     // MARK: - Options view controller delegate
@@ -314,8 +316,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         mediaplayer.drawable = movieView
         mediaplayer.media = VLCMedia(url: url)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(torrentStatusDidChange), name: .PTTorrentStatusDidChange, object: nil)
-        torrentStatusDidChange()
+        NotificationCenter.default.addObserver(self, selector: #selector(torrentStatusDidChange(_:)), name: .PTTorrentStatusDidChange, object: streamer)
         
         let settings = SubtitleSettings.shared
         (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.size.rawValue))
@@ -331,15 +332,15 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             upNextView.delegate = self
             upNextView.subtitleLabel.text = "Season".localized + " \(nextEpisode.season) " + "Episode".localized + " \(nextEpisode.episode)"
             upNextView.titleLabel.text = nextEpisode.title
-            upNextView.infoLabel.text = UIDevice.current.userInterfaceIdiom == .tv ? nextEpisode.summary : nextEpisode.show.title
-            TMDBManager.shared.getEpisodeScreenshots(forShowWithImdbId: nextEpisode.show.id, orTMDBId: nextEpisode.show.tmdbId, season: nextEpisode.season, episode: nextEpisode.episode, completion: { (tmdbId, image, error) in
+            upNextView.infoLabel.text = UIDevice.current.userInterfaceIdiom == .tv ? nextEpisode.summary : nextEpisode.show?.title
+            TMDBManager.shared.getEpisodeScreenshots(forShowWithImdbId: nextEpisode.show?.id, orTMDBId: nextEpisode.show?.tmdbId, season: nextEpisode.season, episode: nextEpisode.episode, completion: { (tmdbId, image, error) in
                 self.nextEpisode?.largeBackgroundImage = image
                 
                 if let image = image, let url = URL(string: image) {
                     self.upNextView.imageView.af_setImage(withURL: url)
                 }
                 
-                nextEpisode.getSubtitles(forId: nextEpisode.id) { (subtitles) in
+                nextEpisode.getSubtitles { (subtitles) in
                     self.nextEpisode?.subtitles = subtitles
                 }
             })
@@ -372,9 +373,10 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     // MARK: - Player changes notifications
     
-    func torrentStatusDidChange() {
-        let totalProgress = PTTorrentStreamer.shared().torrentStatus.totalProgress
-        progressBar?.bufferProgress = totalProgress
+    func torrentStatusDidChange(_ aNotification: Notification) {
+        if let streamer = aNotification.object as? PTTorrentStreamer {
+            progressBar?.bufferProgress = streamer.torrentStatus.totalProgress
+        }
     }
     
     func mediaPlayerTimeChanged(_ aNotification: Notification!) {

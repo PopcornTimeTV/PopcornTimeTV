@@ -58,12 +58,6 @@ class ShowDetailViewController: DetailViewController {
         }
     }
     
-    override func chooseQuality(_ sender: Any?, media: Media) {
-        guard media.id == show.id, let episode = show.latestUnwatchedEpisode() else { return super.chooseQuality(sender, media: media) }
-        
-        super.chooseQuality(sender, media: episode)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "embedEpisodes" {
             super.prepare(for: segue, sender: sender)
@@ -101,7 +95,7 @@ class ShowDetailViewController: DetailViewController {
             group.enter()
             TMDBManager.shared.getEpisodeScreenshots(forShowWithImdbId: show.id, orTMDBId: show.tmdbId, season: episode.season, episode: episode.episode, completion: { (tmdbId, image, error) in
                 if let image = image { episode.largeBackgroundImage = image }
-                if let tmdbId = tmdbId { episode.show.tmdbId = tmdbId }
+                if let tmdbId = tmdbId { episode.show?.tmdbId = tmdbId }
                 episodes.append(episode)
                 group.leave()
             })

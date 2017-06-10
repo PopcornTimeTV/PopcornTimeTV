@@ -4,7 +4,7 @@ import Foundation
 
 extension UIDevice {
     
-    /// A Boolean value indicating whether the device has cellular data capabilities (true) or not (false).
+    /// A Boolean value indicating whether the device has cellular data capabilities.
     var hasCellularCapabilites: Bool {
         var addrs: UnsafeMutablePointer<ifaddrs>?
         var cursor: UnsafeMutablePointer<ifaddrs>?

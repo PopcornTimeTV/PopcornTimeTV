@@ -6,7 +6,7 @@ import AlamofireImage
 import PopcornTorrent
 import PopcornKit
 
-class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, CollectionViewControllerDelegate, UIScrollViewDelegate, UIViewControllerTransitioningDelegate {
+class DetailViewController: UIViewController, CollectionViewControllerDelegate, UIScrollViewDelegate {
     
     
     #if os(iOS)
@@ -165,142 +165,6 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         return nil
     }
     
-    // MARK: - Play media
-    
-    func chooseQuality(_ sender: Any?, media: Media) {
-        if let quality = UserDefaults.standard.string(forKey: "autoSelectQuality") {
-            let sorted  = media.torrents.sorted(by: <)
-            let torrent = quality == "Highest".localized ? sorted.last! : sorted.first!
-            
-            return play(media, torrent: torrent)
-        }
-        
-        guard media.torrents.count > 1 else {
-            if let torrent = media.torrents.first {
-                play(media, torrent: torrent)
-            } else {
-                let vc = UIAlertController(title: "No torrents found".localized, message: "Torrents could not be found for the specified media.".localized, preferredStyle: .alert)
-                vc.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: nil))
-                vc.show()
-            }
-            return
-        }
-        
-        let style: UIAlertControllerStyle = sender == nil ? .alert : .actionSheet
-        let blurStyle: UIBlurEffectStyle  = style == .alert ? .extraLight : .dark
-        let vc = UIAlertController(title: "Choose Quality".localized, message: "Choose a quality to stream.".localized, preferredStyle: style, blurStyle: blurStyle)
-        
-        for torrent in media.torrents {
-            vc.addAction(UIAlertAction(title: torrent.quality, style: .default, handler: { (action) in
-                self.play(media, torrent: torrent)
-            }))
-        }
-        
-        vc.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
-        
-        if let sender = sender as? UIView {
-            vc.popoverPresentationController?.sourceView = sender
-        }
-        vc.view.tintColor = .app
-        
-        vc.show()
-    }
-    
-    func play(_ media: Media, torrent: Torrent) {
-        if UserDefaults.standard.bool(forKey: "streamOnCellular") || (UIApplication.shared.delegate as! AppDelegate).reachability.isReachableViaWiFi() {
-            
-            // Make sure we're not already presenting a view controller.
-            if presentedViewController != nil {
-                dismiss(animated: false)
-            }
-            
-            let storyboard = UIStoryboard.main
-            var media = media
-            
-            let currentProgress = media is Movie ? WatchedlistManager<Movie>.movie.currentProgress(media.id) : WatchedlistManager<Episode>.episode.currentProgress(media.id)
-            var nextEpisode: Episode?
-            
-            let loadingViewController = storyboard.instantiateViewController(withIdentifier: "PreloadTorrentViewController") as! PreloadTorrentViewController
-            loadingViewController.transitioningDelegate = self
-            loadingViewController.loadView()
-            
-            let backgroundImage: String?
-            
-            if let episode = media as? Episode {
-                backgroundImage = episode.show.largeBackgroundImage
-                var episodesLeftInShow = [Episode]()
-                
-                for season in episode.show.seasonNumbers where season >= currentSeason {
-                    episodesLeftInShow += episode.show.episodes.filter({$0.season == season}).sorted(by: {$0.0.episode < $0.1.episode})
-                }
-                
-                let index = episodesLeftInShow.index(of: episode)!
-                episodesLeftInShow.removeFirst(index + 1)
-                
-                nextEpisode = !episodesLeftInShow.isEmpty ? episodesLeftInShow.removeFirst() : nil
-                nextEpisode?.show = episode.show
-            } else {
-                backgroundImage = media.largeBackgroundImage
-            }
-            
-            if let image = backgroundImage, let url = URL(string: image) {
-                loadingViewController.backgroundImageView?.af_setImage(withURL: url)
-            }
-            loadingViewController.titleLabel.text = media.title
-            
-            present(loadingViewController, animated: true)
-            
-            let error: (String) -> Void = { (errorMessage) in
-                if self.presentedViewController != nil {
-                    self.dismiss(animated: false)
-                }
-                let vc = UIAlertController(title: "Error".localized, message: errorMessage, preferredStyle: .alert)
-                vc.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: nil))
-                self.present(vc, animated: true)
-            }
-            
-            let finishedLoading: (PreloadTorrentViewController, UIViewController) -> Void = { (loadingVc, playerVc) in
-                let flag = UIDevice.current.userInterfaceIdiom != .tv
-                self.dismiss(animated: flag)
-                self.present(playerVc, animated: flag)
-            }
-            
-            media.getSubtitles(forId: media.id) { subtitles in
-                guard !loadingViewController.shouldCancelStreaming else { return }
-                
-                media.subtitles = subtitles
-                
-                #if os(iOS)
-                    
-                    if GCKCastContext.sharedInstance().castState == .connected {
-                        let playViewController = storyboard.instantiateViewController(withIdentifier: "CastPlayerViewController") as! CastPlayerViewController
-                        media.playOnChromecast(fromFileOrMagnetLink: torrent.url, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
-                        return
-                    }
-                    
-                #endif
-                
-                let playViewController = storyboard.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
-                playViewController.delegate = self
-                media.play(fromFileOrMagnetLink: torrent.url, nextEpisodeInSeries: nextEpisode, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
-            }
-        } else {
-            let errorAlert = UIAlertController(title: "Cellular Data is turned off for streaming".localized, message: nil, preferredStyle: .alert)
-            errorAlert.addAction(UIAlertAction(title: "Turn On".localized, style: .default, handler: { [weak self] _ in
-                UserDefaults.standard.set(true, forKey: "streamOnCellular")
-                self?.play(media, torrent: torrent)
-            }))
-            errorAlert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
-            errorAlert.show()
-        }
-    }
-    
-    // MARK: - PCTPlayerViewControllerDelegate
-    
-    func playNext(_ episode: Episode) {
-        chooseQuality(nil, media: episode)
-    }
-    
     // MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -358,22 +222,5 @@ class DetailViewController: UIViewController, PCTPlayerViewControllerDelegate, C
         } else if vc == accessibilityDescriptionCollectionViewController {
             accessibilityContainerViewHeightConstraint.constant = height
         }
-    }
-    
-    // MARK: - Presentation
-    
-    dynamic func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if presented is PreloadTorrentViewController {
-            return PreloadTorrentViewControllerAnimatedTransitioning(isPresenting: true)
-        }
-        return nil
-        
-    }
-    
-    dynamic func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if dismissed is PreloadTorrentViewController {
-            return PreloadTorrentViewControllerAnimatedTransitioning(isPresenting: false)
-        }
-        return nil
     }
 }

@@ -110,17 +110,4 @@ extension DetailViewController {
             constraint.priority = isCompact ? 240 : 999
         }
     }
-    
-    // MARK: - PCTPlayerViewControllerDelegate
-    
-    func playerViewControllerPresentCastPlayer(_ playerViewController: PCTPlayerViewController) {
-        dismiss(animated: true) // Close player view controller first.
-        let castPlayerViewController = storyboard?.instantiateViewController(withIdentifier: "CastPlayerViewController") as! CastPlayerViewController
-        castPlayerViewController.media = playerViewController.media
-        castPlayerViewController.localPathToMedia = playerViewController.localPathToMedia
-        castPlayerViewController.directory = playerViewController.directory
-        castPlayerViewController.url = playerViewController.url
-        castPlayerViewController.startPosition = TimeInterval(playerViewController.progressBar.progress)
-        present(castPlayerViewController, animated: true)
-    }
 }

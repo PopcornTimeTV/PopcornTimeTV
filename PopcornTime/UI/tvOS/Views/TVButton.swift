@@ -57,17 +57,8 @@ import Foundation
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let keyPath = keyPath, keyPath == "image", context == &classContext {
-            if let copy = imageView.image?.copy() as? UIImage,
-                let image = copy.colored(.black)?.scaled(to: backgroundView.bounds.size).removingTransparency(), // Image has to be a black image on a white background for mask to work.
-                let ciImage = CIImage(image: image),
-                let filter = CIFilter(name:"CIMaskToAlpha") {
-                filter.setValue(ciImage, forKey: "inputImage")
-                let out = filter.outputImage!
-                let image = CIContext().createCGImage(out, from: out.extent)
-                let layer = CALayer()
+            if let layer = imageView.image?.scaled(to: backgroundView.bounds.size).layerMask {
                 layer.frame = focusedView.frame
-                layer.contents = image
-                layer.contentsGravity = kCAGravityCenter
                 focusedView.layer.mask = layer
             }
         } else {

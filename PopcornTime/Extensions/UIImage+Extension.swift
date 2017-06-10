@@ -9,7 +9,7 @@ extension UIImage {
         let cornerRadius = size.width/2.0
         let new = copy() as! UIImage
         
-        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
         let layer = CALayer()
         
         layer.frame = CGRect(origin: .zero, size: size)
@@ -27,7 +27,7 @@ extension UIImage {
     
     func colored(_ color: UIColor?) -> UIImage? {
         let color: UIColor = color ?? .app
-        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
         guard let context = UIGraphicsGetCurrentContext(), let cgImage = cgImage else { return nil }
         color.setFill()
         context.translateBy(x: 0, y: size.height)
@@ -68,18 +68,44 @@ extension UIImage {
     }
     
     func scaled(to size: CGSize) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
-        
-        let context = UIGraphicsGetCurrentContext()!
-        UIGraphicsPushContext(context)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
         
         let origin = CGPoint(x: (size.width - self.size.width) / 2.0, y: (size.height - self.size.height) / 2.0)
         draw(at: origin)
         
-        UIGraphicsPopContext()
-        let new = UIGraphicsGetImageFromCurrentImageContext()!
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-        return new
+        
+        return scaledImage
+    }
+    
+    /**
+     Transforms image to a layer mask.
+     
+     When the layer is returned, set its frame to the view that the mask is being applied to's frame.
+     
+     Example usage:
+     
+         if let layer = imageView.image?.layerMask {
+             layer.frame = view.frame
+             view.layer.mask = layer
+         }
+     */
+    var layerMask: CALayer? {
+        guard
+            let copy = copy() as? UIImage,
+            let image = copy.colored(.black)?.removingTransparency(), // Image has to be a black image on a white background for mask to work.
+            let ciImage = CIImage(image: image),
+            let filter = CIFilter(name:"CIMaskToAlpha")
+            else {
+                return nil
+        }
+        filter.setValue(ciImage, forKey: "inputImage")
+        let out = filter.outputImage!
+        let layer = CALayer()
+        layer.contents = CIContext().createCGImage(out, from: out.extent)
+        layer.contentsGravity = kCAGravityCenter
+        return layer
     }
     
     class func from(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {

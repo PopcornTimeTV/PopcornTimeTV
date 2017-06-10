@@ -44,14 +44,6 @@
                 <source>Watchlist</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
-            <trans-unit id="5w9-0i-qNO.title">
-                <source>Search</source>
-                <target><!-- Translation goes here --></target>
-            </trans-unit>
-            <trans-unit id="dET-XV-Yvi.title">
-                <source>Settings</source>
-                <target><!-- Translation goes here --></target>
-            </trans-unit>
             <!-- UINavigationBar titles -->
             <trans-unit id="5mk-DD-5Sg.title">
                 <source>Movies</source>
@@ -67,23 +59,6 @@
             </trans-unit>
             <trans-unit id="XzR-YZ-bu3.title">
                 <source>Settings</source>
-                <target><!-- Translation goes here --></target>
-            </trans-unit>
-            <!-- UINavigationBarButton titles -->
-            <trans-unit id="1UM-gw-69s.title">
-                <source>Genres</source>
-                <target><!-- Translation goes here --></target>
-            </trans-unit>
-            <trans-unit id="5K8-cB-HGO.title">
-                <source>Sort</source>
-                <target><!-- Translation goes here --></target>
-            </trans-unit>
-            <trans-unit id="Cig-4k-Xcd.title">
-                <source>Genres</source>
-                <target><!-- Translation goes here --></target>
-            </trans-unit>
-            <trans-unit id="T9K-vL-Ors.title">
-                <source>Sort</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
             <!-- SettingsViewController title labels -->
@@ -196,12 +171,33 @@
                 <target><!-- Translation goes here --></target>
                 <note>Deny the Terms of Service and quit the app</note>
             </trans-unit>
-            <!-- DetailViewController header titles -->
-            <trans-unit id="jJ7-G0-hfl.normalTitle">
+            <!-- DownloadTableViewController titles -->
+            <trans-unit id="0z5-df-jt5.segmentTitles[0]">
+                <source>Downloading</source>
+                <target><!-- Translation goes here --></target>
+            </trans-unit>
+            <trans-unit id="0z5-df-jt5.segmentTitles[1]">
+                <source>Downloaded</source>
+                <target><!-- Translation goes here --></target>
+            </trans-unit>
+            <!-- EpisodeDetailViewController titles -->
+            <trans-unit id="kIH-Ll-3AI.normalTitle">
+                <source>DOWNLOAD</source>
+                <target><!-- Translation goes here --></target>
+                <note>Start downloading the episode</note>
+            </trans-unit>
+            <!-- ItemViewController titles -->
+            <trans-unit id="jfc-cE-IJ4.normalTitle">
                 <source>TRAILER</source>
                 <target><!-- Translation goes here --></target>
                 <note>Play the movie's trailer</note>
             </trans-unit>
+            <trans-unit id="zVe-Dm-qdt.normalTitle">
+                <source>DOWNLOAD</source>
+                <target><!-- Translation goes here --></target>
+                <note>Start downloading the movie</note>
+            </trans-unit>
+            <!-- DetailViewController header titles -->
             <trans-unit id="FjO-E4-LAk.text">
                 <source>Related</source>
                 <target><!-- Translation goes here --></target>
@@ -509,10 +505,6 @@
                 <source>%1$@ version %2$@ of Popcorn Time is now available.</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
-            <trans-unit id="%d mins Remaining">
-                <source>%1$d mins Remaining</source>
-                <target><!-- Translation goes here --></target>
-            </trans-unit>
             <trans-unit id="Accessibility">
                 <source>Accessibility</source>
                 <target><!-- Translation goes here --></target>
@@ -539,6 +531,10 @@
             </trans-unit>
             <trans-unit id="Are you sure you want to remove this item?">
                 <source>Are you sure you want to remove this item?</source>
+                <target><!-- Translation goes here --></target>
+            </trans-unit>
+            <trans-unit id="Are you sure you want to stop the download?">
+                <source>Are you sure you want to stop the download?</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
             <trans-unit id="Audio Delay">
@@ -601,10 +597,6 @@
                 <source>Choose a font size for the player subtitles.</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
-            <trans-unit id="Choose a quality to stream.">
-                <source>Choose a quality to stream.</source>
-                <target><!-- Translation goes here --></target>
-            </trans-unit>
             <trans-unit id="Choose a volume for the TV Show and Movie theme songs.">
                 <source>Choose a volume for the TV Show and Movie theme songs.</source>
                 <target><!-- Translation goes here --></target>
@@ -645,6 +637,10 @@
                 <source>Delay</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
+            <trans-unit id="Delete Download">
+                <source>Delete Download</source>
+                <target><!-- Translation goes here --></target>
+            </trans-unit>
             <trans-unit id="Director">
                 <source>Director</source>
                 <target><!-- Translation goes here --></target>
@@ -659,6 +655,14 @@
             </trans-unit>
             <trans-unit id="Documentary">
                 <source>Documentary</source>
+                <target><!-- Translation goes here --></target>
+            </trans-unit>
+            <trans-unit id="Downloads Empty">
+                <source>Downloads Empty</source>
+                <target><!-- Translation goes here --></target>
+            </trans-unit>
+            <trans-unit id="Download Failed">
+                <source>Download Failed</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
             <trans-unit id="Drama">
@@ -821,6 +825,10 @@
                 <source>Movies</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
+            <trans-unit id="Movies and episodes you download will show up here.">
+                <source>Movies and episodes you download will show up here.</source>
+                <target><!-- Translation goes here --></target>
+            </trans-unit>
             <trans-unit id="Music">
                 <source>Music</source>
                 <target><!-- Translation goes here --></target>
@@ -895,6 +903,10 @@
             </trans-unit>
             <trans-unit id="Orange">
                 <source>Orange</source>
+                <target><!-- Translation goes here --></target>
+            </trans-unit>
+            <trans-unit id="Paused">
+                <source>Paused</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
             <trans-unit id="People">
@@ -1053,6 +1065,14 @@
             </trans-unit>
             <trans-unit id="Start from Beginning">
                 <source>Start from Beginning</source>
+                <target><!-- Translation goes here --></target>
+            </trans-unit>
+            <trans-unit id="Stop">
+                <source>Stop</source>
+                <target><!-- Translation goes here --></target>
+            </trans-unit>
+            <trans-unit id="Stop Download">
+                <source>Stop Download</source>
                 <target><!-- Translation goes here --></target>
             </trans-unit>
             <trans-unit id="Subtitle Color">

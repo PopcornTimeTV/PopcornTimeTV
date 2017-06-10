@@ -3,7 +3,7 @@
 import Foundation
 import struct PopcornKit.Show
 import struct PopcornKit.Movie
-import XCDYouTubeKit
+import PopcornTorrent.PTTorrentDownloadManager
 
 typealias TVExpandableTextView = UIExpandableTextView
 typealias TVButton = UIButton
@@ -17,6 +17,9 @@ extension ItemViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        PTTorrentDownloadManager.shared().add(self)
+        downloadButton.addTarget(self, action: #selector(stopDownload(_:)), for: .applicationReserved)
+        
         titleLabel.text = media.title
         summaryTextView.text = media.summary
         
@@ -25,7 +28,11 @@ extension ItemViewController {
         }
         
         if let movie = media as? Movie {
-            subtitleLabel.text = movie.formattedRuntime
+            let formatter = DateComponentsFormatter()
+            formatter.unitsStyle = .short
+            formatter.allowedUnits = [.hour, .minute]
+            
+            subtitleLabel.text = formatter.string(from: TimeInterval(movie.runtime) * 60) ?? "0 min"
             genreLabel?.text = movie.genres.first?.localizedCapitalized ?? ""
             
             let info = NSMutableAttributedString(string: "\(movie.year)")
@@ -34,7 +41,7 @@ extension ItemViewController {
             infoLabel.attributedText = info
             ratingView.rating = movie.rating/20.0
             
-            trailerButton.isHidden = movie.trailerCode == nil
+            movie.trailerCode == nil ? trailerButton.removeFromSuperview() : ()
         } else if let show = media as? Show {
             subtitleLabel.text = show.network ?? "TV"
             genreLabel?.text = show.genres.first?.localizedCapitalized ?? ""
@@ -46,13 +53,8 @@ extension ItemViewController {
             ratingView.rating = show.rating/20.0
             
             trailerButton.isHidden = true
+            downloadButton.isHidden = true
         }
-    }
-    
-    @IBAction func playTrailer() {
-        guard let id = (media as? Movie)?.trailerCode else { return }
-        let vc = XCDYouTubeVideoPlayerViewController(videoIdentifier: id)
-        present(vc, animated: true)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

@@ -7,6 +7,10 @@ import protocol PopcornKit.TraktManagerDelegate
 
 class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
     
+    @IBAction func done() {
+        dismiss(animated: true)
+    }
+    
     func authenticationDidSucceed() {
         dismiss(animated: true) {
             let alert = UIAlertController(title: "Success".localized, message: "Successfully authenticated with Trakt".localized, preferredStyle: .alert)
@@ -303,7 +307,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                     if size == 0 {
                         controller.message = "Cache was already empty, no disk space was reclaimed.".localized
                     } else {
-                        controller.message = "Cleaned".localized + " \(ByteCountFormatter.string(fromByteCount: size, countStyle: .binary))."
+                        controller.message = "Cleaned".localized + " \(ByteCountFormatter.string(fromByteCount: size, countStyle: .file))."
                     }
                 } catch {
                     controller.title = "Failed".localized

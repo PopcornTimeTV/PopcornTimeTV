@@ -2,6 +2,8 @@
 
 import UIKit
 import PopcornKit
+import PopcornTorrent.PTTorrentDownloadManager
+import MediaPlayer.MPMediaItem
 
 class MainViewController: UIViewController, CollectionViewControllerDelegate {
     
@@ -120,7 +122,9 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
                         }
                         
                         if let media = media, segue.shouldAutoPlay {
-                            vc.chooseQuality(nil, media: media)
+                            AppDelegate.shared.chooseQuality(nil, media: media) { torrent in
+                                AppDelegate.shared.play(media, torrent: torrent)
+                            }
                         }
                     }
                 }

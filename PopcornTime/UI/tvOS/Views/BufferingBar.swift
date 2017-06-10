@@ -3,7 +3,8 @@
 import Foundation
 
 class BufferingBar: UIView {
-    var bufferProgress: Float = 0.0 {
+    
+    var bufferProgress: Float = 1.0 {
         didSet {
             setNeedsLayout()
         }

@@ -13,9 +13,6 @@ class PreloadTorrentViewController: UIViewController {
     
     @IBOutlet var backgroundImageView: UIImageView?
     
-    /// If torrent hasn't begun processing, use this variable to make sure processing should still continue.
-    var shouldCancelStreaming: Bool = false
-    
     
     var progress: Float = 0.0 {
         didSet {
@@ -51,7 +48,6 @@ class PreloadTorrentViewController: UIViewController {
     
     @IBAction func cancel() {
         PTTorrentStreamer.shared().cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
-        shouldCancelStreaming = true
         dismiss(animated: true)
     }
     

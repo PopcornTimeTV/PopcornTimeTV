@@ -103,11 +103,11 @@ public final class UpdateManager: NSObject {
                     } else {
                         let instructionsAlert = UIAlertController(title: "Sideloading Instructions".localized, message: "Unfortunately, in-app updates are not available for un-jailbroken devices. Please follow the sideloading instructions available in the PopcornTimeTV repo's wiki.".localized, preferredStyle: .alert)
                         instructionsAlert.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: nil))
-                        instructionsAlert.show()
+                        instructionsAlert.show(animated: true)
                     }
                 }))
                 completion?(true)
-                alert.show()
+                alert.show(animated: true)
             } else {
                 completion?(false)
             }

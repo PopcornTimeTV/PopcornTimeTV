@@ -2,6 +2,7 @@
 
 import Foundation
 import ObjectMapper
+import MediaPlayer.MPMediaItem
 
 /// Generic media protocol.
 public protocol Media: Mappable {
@@ -32,6 +33,10 @@ public protocol Media: Mappable {
     var isAddedToWatchlist: Bool { get set }
     
     init(title: String, id: String, tmdbId: Int?, slug: String, summary: String, torrents: [Torrent], subtitles: [Subtitle], largeBackgroundImage: String?, largeCoverImage: String?)
+    
+    var mediaItemDictionary: [String: Any] { get }
+    
+    init?(_ mediaItemDictionary: [String: Any])
 }
 
 // MARK: - Optional vars

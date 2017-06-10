@@ -1,8 +1,6 @@
 
 
 import Foundation
-import AVKit
-import XCDYouTubeKit
 import struct PopcornKit.Show
 import struct PopcornKit.Movie
 
@@ -80,7 +78,11 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             
             peopleTextView?.attributedText = peopleText
             
-            let subtitle = NSMutableAttributedString(string: "\(movie.formattedRuntime)\t\(movie.year)")
+            let formatter = DateComponentsFormatter()
+            formatter.unitsStyle = .short
+            formatter.allowedUnits = [.hour, .minute]
+            
+            let subtitle = NSMutableAttributedString(string: "\(formatter.string(from: TimeInterval(movie.runtime) * 60) ?? "0 min")\t\(movie.year)")
             attributedString(between: movie.certification, "HD", "CC").forEach({subtitle.append($0)})
             
             subtitleLabel.attributedText = subtitle
@@ -134,72 +136,6 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             vc.modalPresentationStyle = .custom
             parent.present(vc, animated: true)
         }
-    }
-    
-    @IBAction func playTrailer() {
-        guard let id = (media as? Movie)?.trailerCode else { return }
-        
-        let playerController = AVPlayerViewController()
-        
-        playerController.transitioningDelegate = self
-        
-        present(playerController, animated: true)
-        
-        XCDYouTubeClient.default().getVideoWithIdentifier(id) { (video, error) in
-            guard
-                let streamUrls = video?.streamURLs,
-                let qualities = Array(streamUrls.keys) as? [UInt]
-                else {
-                    return
-            }
-            
-            let preferredVideoQualities = [XCDYouTubeVideoQuality.HD720.rawValue, XCDYouTubeVideoQuality.medium360.rawValue, XCDYouTubeVideoQuality.small240.rawValue]
-            var videoUrl: URL?
-            
-            forLoop: for quality in preferredVideoQualities {
-                if let index = qualities.index(of: quality) {
-                    videoUrl = Array(streamUrls.values)[index]
-                    break forLoop
-                }
-            }
-            
-            guard let url = videoUrl else {
-                self.dismiss(animated: true)
-                
-                let vc = UIAlertController(title: "Error".localized, message: "Error fetching valid trailer URL from YouTube.".localized, preferredStyle: .alert)
-                
-                vc.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: nil))
-                
-                self.present(vc, animated: true)
-                
-                return
-            }
-            
-            let player = AVPlayer(url: url)
-            
-            let title = AVMetadataItem(key: AVMetadataCommonKeyTitle as NSString, value: self.media.title as NSString)
-            let summary = AVMetadataItem(key: AVMetadataCommonKeyDescription as NSString, value: self.media.summary as NSString)
-            
-            player.currentItem?.externalMetadata = [title, summary]
-            
-            if let string = self.media.mediumCoverImage,
-                let url = URL(string: string),
-                let data = try? Data(contentsOf: url) {
-                let image = AVMetadataItem(key: AVMetadataCommonKeyArtwork as NSString, value: data as NSData)
-                player.currentItem?.externalMetadata.append(image)
-            }
-            
-            playerController.player = player
-            player.play()
-            
-            
-            NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: nil)
-        }
-    }
-    
-    func playerDidFinishPlaying() {
-        NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: nil)
-        dismiss(animated: true)
     }
     
     func moreButtonWasPressed(text: String?) {

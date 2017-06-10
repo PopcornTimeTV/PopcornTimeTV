@@ -2,6 +2,7 @@
 
 import Foundation
 import ObjectMapper
+import MediaPlayer.MPMediaItem
 
 /**
  Struct for managing show objects. 
@@ -194,6 +195,33 @@ public struct Show: Media, Equatable {
             airDay >>> map["air_day"]
             airTime >>> map["air_time"]
         }
+    }
+    
+    public var mediaItemDictionary: [String: Any] {
+        return [MPMediaItemPropertyTitle: title,
+                MPMediaItemPropertyMediaType: NSNumber(value: MPMediaType.tvShow.rawValue),
+                MPMediaItemPropertyPersistentID: id,
+                MPMediaItemPropertyArtwork: smallBackgroundImage ?? "",
+                MPMediaItemPropertySummary: summary]
+    }
+    
+    public init?(_ mediaItemDictionary: [String: Any]) {
+        guard
+            let rawValue = mediaItemDictionary[MPMediaItemPropertyMediaType] as? NSNumber,
+            let type = MPMediaType(rawValue: rawValue.uintValue) as MPMediaType?,
+            type == MPMediaType.tvShow,
+            let id = mediaItemDictionary[MPMediaItemPropertyPersistentID] as? String,
+            let title = mediaItemDictionary[MPMediaItemPropertyTitle] as? String,
+            let image = mediaItemDictionary[MPMediaItemPropertyArtwork] as? String,
+            let summary = mediaItemDictionary[MPMediaItemPropertySummary] as? String
+            else {
+                return nil
+        }
+        
+        let amazonUrl = image.isAmazonUrl
+        let largeBackgroundImage = image.replacingOccurrences(of: amazonUrl ? "SX300" : "w300", with: amazonUrl ? "SX1000" : "w1000")
+        
+        self.init(title: title, id: id, slug: title.slugged, summary: summary, largeBackgroundImage: largeBackgroundImage)
     }
 }
 

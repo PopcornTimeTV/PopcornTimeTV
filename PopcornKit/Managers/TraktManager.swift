@@ -537,8 +537,8 @@ open class TraktManager: NetworkManager {
             var episode = Mapper<Episode>(context: TraktContext()).map(JSONObject: responseObject["episode"].dictionaryObject)
             episode?.show = Mapper<Show>(context: TraktContext()).map(JSONObject: responseObject["show"].dictionaryObject)
             
-            TMDBManager.shared.getEpisodeScreenshots(forShowWithImdbId: episode?.show.id, orTMDBId: episode?.show.tmdbId, season: episode?.season ?? -1, episode: episode?.episode ?? -1) { (tmdb, image, error) in
-                if let tmdb = tmdb { episode?.show.tmdbId = tmdb }
+            TMDBManager.shared.getEpisodeScreenshots(forShowWithImdbId: episode?.show?.id, orTMDBId: episode?.show?.tmdbId, season: episode?.season ?? -1, episode: episode?.episode ?? -1) { (tmdb, image, error) in
+                if let tmdb = tmdb { episode?.show?.tmdbId = tmdb }
                 if let image = image { episode?.largeBackgroundImage = image }
                 
                 completion(episode, error)
@@ -606,7 +606,7 @@ extension TraktManager {
             state = .random(of: 15)
             
             let vc = SFSafariViewController(url: URL(string: Trakt.base + Trakt.auth + "/authorize?client_id=" + Trakt.apiKey + "&redirect_uri=PopcornTime%3A%2F%2Ftrakt&response_type=code&state=\(state!)")!)
-            vc.modalPresentationStyle = .formSheet
+            vc.modalPresentationStyle = .fullScreen
             
             return vc
         #else

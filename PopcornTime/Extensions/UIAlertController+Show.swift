@@ -5,11 +5,12 @@ import UIKit.UIAlertController
 
 extension UIAlertController {
     
-    func show() {
+    func show(animated flag: Bool, completion: (() -> Void)? = nil) {
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.rootViewController = UIViewController()
-        window.windowLevel = UIWindowLevelAlert + 1
+        window.windowLevel = UIWindowLevelAlert
         window.makeKeyAndVisible()
-        window.rootViewController!.present(self, animated: true)
+        window.tintColor = .app
+        window.rootViewController!.present(self, animated: flag, completion: completion)
     }
 }
