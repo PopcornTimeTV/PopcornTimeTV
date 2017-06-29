@@ -44,6 +44,8 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
     }
     
     func play(_ media: Media, torrent: Torrent) {
+        
+        #if os(iOS)
         if UIDevice.current.hasCellularCapabilites && !reachability.isReachableViaWiFi() && !UserDefaults.standard.bool(forKey: "streamOnCellular")  {
             
             let alertController = UIAlertController(title: "Cellular Data is turned off for streaming".localized, message: nil, preferredStyle: .alert)
@@ -54,6 +56,7 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
             alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
             return alertController.show(animated: true)
         }
+        #endif
         
         let storyboard = UIStoryboard.main
         var media = media

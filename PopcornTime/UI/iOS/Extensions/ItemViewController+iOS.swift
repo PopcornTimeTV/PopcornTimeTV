@@ -18,7 +18,7 @@ extension ItemViewController {
         super.viewDidLoad()
         
         PTTorrentDownloadManager.shared().add(self)
-        downloadButton.addTarget(self, action: #selector(stopDownload(_:)), for: .applicationReserved)
+        downloadButton?.addTarget(self, action: #selector(stopDownload(_:)), for: .applicationReserved)
         
         titleLabel.text = media.title
         summaryTextView.text = media.summary
@@ -53,7 +53,7 @@ extension ItemViewController {
             ratingView.rating = show.rating/20.0
             
             trailerButton.isHidden = true
-            downloadButton.isHidden = true
+            downloadButton?.isHidden = true
         }
     }
     

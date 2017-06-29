@@ -61,7 +61,9 @@ import Foundation
     func sharedSetup() {
         backgroundColor = .clear
         isUserInteractionEnabled = false
+        #if os(iOS)
         isExclusiveTouch = false
+        #endif
     }
     
     init(startAngle: CGFloat = .pi * 1.5, endAngle: CGFloat = (.pi * 1.5) + (.pi * 2), lineWidth: CGFloat = 1, frame: CGRect = .zero) {

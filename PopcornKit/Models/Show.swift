@@ -199,7 +199,7 @@ public struct Show: Media, Equatable {
     
     public var mediaItemDictionary: [String: Any] {
         return [MPMediaItemPropertyTitle: title,
-                MPMediaItemPropertyMediaType: NSNumber(value: MPMediaType.tvShow.rawValue),
+//                MPMediaItemPropertyMediaType: NSNumber(value: MPMediaType.tvShow.rawValue),
                 MPMediaItemPropertyPersistentID: id,
                 MPMediaItemPropertyArtwork: smallBackgroundImage ?? "",
                 MPMediaItemPropertySummary: summary]
@@ -207,9 +207,9 @@ public struct Show: Media, Equatable {
     
     public init?(_ mediaItemDictionary: [String: Any]) {
         guard
-            let rawValue = mediaItemDictionary[MPMediaItemPropertyMediaType] as? NSNumber,
-            let type = MPMediaType(rawValue: rawValue.uintValue) as MPMediaType?,
-            type == MPMediaType.tvShow,
+//            let rawValue = mediaItemDictionary[MPMediaItemPropertyMediaType] as? NSNumber,
+//            let type = MPMediaType(rawValue: rawValue.uintValue) as MPMediaType?,
+//            type == MPMediaType.tvShow,
             let id = mediaItemDictionary[MPMediaItemPropertyPersistentID] as? String,
             let title = mediaItemDictionary[MPMediaItemPropertyTitle] as? String,
             let image = mediaItemDictionary[MPMediaItemPropertyArtwork] as? String,

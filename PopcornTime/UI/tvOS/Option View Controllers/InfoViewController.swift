@@ -78,18 +78,18 @@ class InfoViewController: UIViewController, UIViewControllerTransitioningDelegat
                 
                 infoLabel.attributedText = info
             } else if let episode = media as? Episode {
-                if let imageString = episode.show.smallCoverImage,
+                if let imageString = episode.show?.smallCoverImage,
                     let imageUrl = URL(string: imageString) {
                     imageView.af_setImage(withURL: imageUrl)
                 }
                 
                 let season = "S\(episode.season):E\(episode.episode)"
                 let date = DateFormatter.localizedString(from: episode.firstAirDate, dateStyle: .medium, timeStyle: .none)
-                let runtime = formatter.string(from: TimeInterval(movie.runtime) * 60) ?? "0 min"
-                let genre = episode.show.genres.first?.localizedCapitalized
+//                let runtime = formatter.string(from: TimeInterval(episode.runtime) * 60) ?? "0 min"
+                let genre = episode.show?.genres.first?.localizedCapitalized
                 
                 
-                let info = NSMutableAttributedString(string: [season, date, runtime, genre].flatMap({$0}).joined(separator: "\t"))
+                let info = NSMutableAttributedString(string: [season, date, genre].flatMap({$0}).joined(separator: "\t"))
                 attributedString(between: "HD", "CC").forEach({info.append($0)})
                 
                 infoLabel.attributedText = info
