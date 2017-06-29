@@ -43,9 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
             }
         #elseif os(iOS)
             NetworkActivityIndicatorManager.shared.isEnabled = true
-            
-            // Weird SDK throws error if shared instance has already been initialised and doesn't mark function as throwing.
-            do { try GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID)) } catch {}
+            GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID))
             
             tabBarController.delegate = self
 
