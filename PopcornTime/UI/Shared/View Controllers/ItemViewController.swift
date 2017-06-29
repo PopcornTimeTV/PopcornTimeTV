@@ -18,7 +18,7 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
     @IBOutlet var ratingView: FloatRatingView!
     
     @IBOutlet var trailerButton: BorderButton!
-    @IBOutlet var downloadButton: DownloadButton!
+    @IBOutlet var downloadButton: DownloadButton?
     @IBOutlet var playButton: CircularButton!
     
     // iOS Exclusive
@@ -55,8 +55,12 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
         if let download = media.associatedDownload {
             downloadStatusDidChange(download.downloadStatus, for: download)
         } else {
-            downloadButton.downloadState = .normal
+            downloadButton?.downloadState = .normal
         }
+        
+        watchedButton?.setImage(watchedButtonImage, for: .normal)
+        watchlistButton?.setImage(watchlistButtonImage, for: .normal)
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -173,12 +177,12 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
     
     func torrentStatusDidChange(_ torrentStatus: PTTorrentStatus, for download: PTTorrentDownload) {
         guard download == media.associatedDownload else { return }
-        downloadButton.progress = torrentStatus.totalProgress
+        downloadButton?.progress = torrentStatus.totalProgress
     }
     
     func downloadStatusDidChange(_ downloadStatus: PTTorrentDownloadStatus, for download: PTTorrentDownload) {
         guard download == media.associatedDownload else { return }
-        downloadButton.downloadState = DownloadButton.State(downloadStatus)
+        downloadButton?.downloadState = DownloadButton.State(downloadStatus)
     }
     
     func downloadDidFail(_ download: PTTorrentDownload, withError error: Error) {

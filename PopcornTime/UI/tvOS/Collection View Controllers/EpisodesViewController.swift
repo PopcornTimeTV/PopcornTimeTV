@@ -51,7 +51,7 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleLabel.text = dataSource.first?.show.title
+        titleLabel.text = dataSource.first?.show?.title
         episodeSummaryTextView.buttonWasPressed = moreButtonWasPressed
         
         view.addLayoutGuide(summaryFocusGuide)
@@ -136,10 +136,13 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
     // MARK: - Collection view delegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let parent = parent as? DetailViewController {
-            parent.chooseQuality(nil, media: dataSource[indexPath.row])
+        if parent is DetailViewController {
+            let media = dataSource[indexPath.row]
+            AppDelegate.shared.chooseQuality(nil, media: media) { torrent in
+                AppDelegate.shared.play(media, torrent: torrent)
+            }
         }
-        
+
         focusIndexPath = indexPath
     }
     
@@ -166,7 +169,7 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
             
             let airDateString = DateFormatter.localizedString(from: episode.firstAirDate, dateStyle: .medium, timeStyle: .none)
             
-            let showGenre = episode.show.genres.first?.localizedCapitalized ?? ""
+            let showGenre = episode.show?.genres.first?.localizedCapitalized ?? ""
             episodeInfoTextView.text = "\(airDateString) \n \(showGenre)"
             
             if context.previouslyFocusedIndexPath == nil // Collection view has just gained focus, expand UI

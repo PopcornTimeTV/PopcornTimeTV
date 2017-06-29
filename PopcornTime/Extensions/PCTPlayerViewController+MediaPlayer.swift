@@ -57,8 +57,8 @@ extension PCTPlayerViewController {
         nowPlayingInfo = [MPMediaItemPropertyTitle: media.title,
                           MPMediaItemPropertyPlaybackDuration: TimeInterval(streamDuration/1000),
                           MPNowPlayingInfoPropertyElapsedPlaybackTime: mediaplayer.time.value.doubleValue/1000,
-                          MPNowPlayingInfoPropertyPlaybackRate: Double(mediaplayer.rate),
-                          MPMediaItemPropertyMediaType: MPMediaType.movie.rawValue]
+                          MPNowPlayingInfoPropertyPlaybackRate: Double(mediaplayer.rate)]
+//                          MPMediaItemPropertyMediaType: MPMediaType.movie.rawValue]
         
         if let image = media.mediumCoverImage ?? media.mediumBackgroundImage, let request = try? URLRequest(url: image, method: .get) {
             ImageDownloader.default.download(request) { (response) in

@@ -7,20 +7,13 @@ import struct PopcornKit.Movie
 extension ItemViewController: UIViewControllerTransitioningDelegate {
     
     var visibleButtons: [TVButton] {
-        return [trailerButton, playButton, seasonsButton, watchlistButton, watchedButton].flatMap({$0}).filter({$0.superview != nil})
+        return [trailerButton, playButton, seasonsButton ?? TVButton(), watchlistButton ?? TVButton(), watchedButton ?? TVButton()].flatMap({$0}).filter({($0 as! TVButton).superview != nil}) as! [TVButton]
     }
     
     var watchlistButtonImage: UIImage? {
         return media.isAddedToWatchlist ? UIImage(named: "Remove") : UIImage(named: "Add")
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        watchedButton?.setImage(watchedButtonImage, for: .normal)
-        watchlistButton?.setImage(watchlistButtonImage, for: .normal)
-    }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -132,7 +125,7 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             vc.show = parent.show
             vc.currentSeason = parent.currentSeason
             vc.delegate = parent
-            vc.transitioningDelegate = parent
+            vc.transitioningDelegate = parent as? UIViewControllerTransitioningDelegate
             vc.modalPresentationStyle = .custom
             parent.present(vc, animated: true)
         }
@@ -164,21 +157,36 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
     // MARK: - Presentation
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if presented is AVPlayerViewController {
-            return TVFadeToBlackAnimatedTransitioning(isPresenting: true)
-        } else if presented is TVDescriptionViewController {
-            return TVBlurOverCurrentContextAnimatedTransitioning(isPresenting: true)
-        }
+ 
+        #if os(iOS)
+            if presented is AVPlayerViewController {
+                return TVFadeToBlackAnimatedTransitioning(isPresenting: false)
+            }
+        #endif
+        
+        #if os(tvOS)
+            if presented is TVDescriptionViewController {
+                return TVBlurOverCurrentContextAnimatedTransitioning(isPresenting: false)
+            }
+        #endif
         return nil
         
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        #if os(iOS)
         if dismissed is AVPlayerViewController {
             return TVFadeToBlackAnimatedTransitioning(isPresenting: false)
-        } else if dismissed is TVDescriptionViewController {
+        }
+        #endif
+        
+        #if os(tvOS)
+        if dismissed is TVDescriptionViewController {
             return TVBlurOverCurrentContextAnimatedTransitioning(isPresenting: false)
         }
+        #endif
+
         return nil
     }
 }
