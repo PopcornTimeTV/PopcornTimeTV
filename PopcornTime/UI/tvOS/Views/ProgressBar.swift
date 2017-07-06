@@ -35,7 +35,7 @@ enum TransportBarHint: String {
             layoutIfNeeded()
         }
     }
-    @IBInspectable var bufferProgress: Float = 0.0 {
+    @IBInspectable var bufferProgress: Float = 1.0 {
         didSet {
             bufferingBar.bufferProgress = bufferProgress
             setNeedsLayout()

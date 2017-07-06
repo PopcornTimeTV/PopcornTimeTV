@@ -111,7 +111,7 @@ class OptionsStackViewController: UIViewController, UITableViewDelegate {
             cell.textLabel?.textColor = .white
             tableView.scrollToRow(at: indexPath, at: .none, animated: true)
             
-            switch cell.tableView {
+            switch cell.tableView! {
             case firstTableView:
                 firstSecondGuide.preferredFocusEnvironments = [secondTableView]
             case secondTableView:

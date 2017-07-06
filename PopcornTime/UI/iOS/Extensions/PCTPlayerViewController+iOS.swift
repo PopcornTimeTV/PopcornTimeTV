@@ -2,36 +2,23 @@
 
 import Foundation
 import UIKit
-import struct PopcornKit.Movie
 
-extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, GoogleCastTableViewControllerDelegate {
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        segue.destination.popoverPresentationController?.delegate = self
-        if segue.identifier == "showSubtitles", let vc = (segue.destination as? UINavigationController)?.viewControllers.first as? OptionsTableViewController {
-            vc.subtitles = subtitles
-            vc.currentSubtitle = currentSubtitle
-            vc.currentSubtitleDelay = mediaplayer.currentVideoSubTitleDelay/Int(1e6)
-            vc.currentAudioDelay = mediaplayer.currentAudioPlaybackDelay/Int(1e6)
-            vc.delegate = self
-        } else if segue.identifier == "showDevices", let vc = (segue.destination as? UINavigationController)?.viewControllers.first as? GoogleCastTableViewController {
-            object_setClass(vc, StreamToDevicesTableViewController.self)
-            vc.delegate = self
-        }
-    }
+extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, GoogleCastTableViewControllerDelegate, UIViewControllerTransitioningDelegate {
     
     override var prefersStatusBarHidden: Bool {
         return !shouldHideStatusBar
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
     }
     
     func volumeChanged() {
         if overlayViews.first!.isHidden {
             toggleControlsVisible()
         }
-        for subview in volumeView.subviews {
-            if let slider = subview as? UISlider {
-                volumeSlider.setValue(slider.value, animated: true)
-            }
+        if let slider = volumeView.subviews.flatMap({$0 as? UISlider}).first {
+            volumeSlider.setValue(slider.value, animated: true)
         }
     }
     
@@ -42,9 +29,9 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
         for constraint in regularConstraints {
             constraint.priority = traitCollection.horizontalSizeClass == .compact ? 240 : 999
         }
-        UIView.animate(withDuration: .default, animations: {
+        UIView.animate(withDuration: .default) {
             self.view.layoutIfNeeded()
-        })
+        }
     }
     
     @IBAction func sliderDidDrag() {
@@ -133,8 +120,14 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
         delegate?.playerViewControllerPresentCastPlayer(self)
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+    // MARK: - Navigation
+    
+    override func performSegue(withIdentifier identifier: String, sender: Any?) {
+        guard let container = upNextContainerView, identifier == "showUpNext" else { return super.performSegue(withIdentifier: identifier, sender: sender) }
+        
+        UIView.animate(withDuration: .default) {
+            container.transform = CGAffineTransform(translationX: container.frame.size.width, y: 0)
+        }
     }
 }
 

@@ -3,6 +3,8 @@
 import Foundation
 import struct PopcornKit.Show
 import struct PopcornKit.Movie
+import class AVKit.AVPlayerViewController
+import class PopcornTorrent.PTTorrentDownloadManager
 
 extension ItemViewController: UIViewControllerTransitioningDelegate {
     
@@ -12,13 +14,6 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
     
     var watchlistButtonImage: UIImage? {
         return media.isAddedToWatchlist ? UIImage(named: "Remove") : UIImage(named: "Add")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        watchedButton?.setImage(watchedButtonImage, for: .normal)
-        watchlistButton?.setImage(watchlistButtonImage, for: .normal)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -32,6 +27,9 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        PTTorrentDownloadManager.shared().add(self)
+        downloadButton.addTarget(self, action: #selector(stopDownload(_:)), for: .applicationReserved)
         
         summaryTextView.buttonWasPressed = moreButtonWasPressed
         summaryTextView.text = media.summary
@@ -82,7 +80,10 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             formatter.unitsStyle = .short
             formatter.allowedUnits = [.hour, .minute]
             
-            let subtitle = NSMutableAttributedString(string: "\(formatter.string(from: TimeInterval(movie.runtime) * 60) ?? "0 min")\t\(movie.year)")
+            let runtime = formatter.string(from: TimeInterval(movie.runtime) * 60)
+            let year = movie.year
+            
+            let subtitle = NSMutableAttributedString(string: [runtime, year].flatMap({$0}).joined(separator: "\t"))
             attributedString(between: movie.certification, "HD", "CC").forEach({subtitle.append($0)})
             
             subtitleLabel.attributedText = subtitle
@@ -98,7 +99,10 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             
             infoLabel.text = .localizedStringWithFormat("Watch %@ on %@".localized, show.title, show.network ?? "TV")
             
-            let subtitle = NSMutableAttributedString(string: "\(show.genres.first?.localizedCapitalized ?? "")\t\(show.year)")
+            let genre = show.genres.first?.localizedCapitalized
+            let year = show.year
+            
+            let subtitle = NSMutableAttributedString(string: [genre, year].flatMap({$0}).joined(separator: "\t"))
             attributedString(between: "HD", "CC").forEach({subtitle.append($0)})
             
             subtitleLabel.font = UIFont.systemFont(ofSize: 31, weight: UIFontWeightMedium)
@@ -114,6 +118,7 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             if show.seasonNumbers.count == 1 {
                 seasonsButton?.removeFromSuperview()
             }
+            downloadButton?.removeFromSuperview()
         }
     }
     

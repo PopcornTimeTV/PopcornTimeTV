@@ -2,22 +2,22 @@
 
 import Foundation
 
-extension ShowDetailViewController: SeasonPickerViewControllerDelegate {
+extension ShowDetailViewController: SeasonPickerViewControllerDelegate, UIViewControllerTransitioningDelegate {
 
     
-    override func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if presented is SeasonPickerViewController {
             return TVBlurOverCurrentContextAnimatedTransitioning(isPresenting: true)
         }
-        return super.animationController(forPresented: presented, presenting: presenting, source: source)
+        return nil
         
     }
     
-    override func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if dismissed is SeasonPickerViewController {
             return TVBlurOverCurrentContextAnimatedTransitioning(isPresenting: false)
         }
-        return super.animationController(forDismissed: dismissed)
+        return nil
     }
     
 }

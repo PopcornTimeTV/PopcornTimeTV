@@ -34,6 +34,12 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
         if UIDevice.current.userInterfaceIdiom == .tv {
             tableView.contentInset.bottom = 27
         }
+        
+        tableView.remembersLastFocusedIndexPath = true
+    }
+    
+    override func indexPathForPreferredFocusedView(in tableView: UITableView) -> IndexPath? {
+        return IndexPath(row: 0, section: 0)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

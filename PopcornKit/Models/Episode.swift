@@ -105,7 +105,7 @@ public struct Episode: Media, Equatable {
         self.largeBackgroundImage = try? map.value("images.fanart")
     }
     
-    public init(title: String = "Unknown".localized, id: String = "0000000", tmdbId: Int? = nil, slug: String = "unknown", summary: String = "No summary available.".localized, torrents: [Torrent] = [], subtitles: [Subtitle] = [], largeBackgroundImage: String? = nil, largeCoverImage: String? = nil) {
+    public init(title: String = "Unknown".localized, id: String = "0000000", tmdbId: Int? = nil, slug: String = "unknown", summary: String = "No summary available.".localized, torrents: [Torrent] = [], subtitles: [Subtitle] = [], largeBackgroundImage: String? = nil, largeCoverImage: String? = nil, show: Show? = nil, episode: Int = -1, season: Int = -1) {
         self.title = title
         self.id = id
         self.tmdbId = tmdbId
@@ -115,9 +115,9 @@ public struct Episode: Media, Equatable {
         self.subtitles = subtitles
         self.largeBackgroundImage = largeBackgroundImage
         self.firstAirDate = .distantPast
-        self.season = -1
-        self.episode = -1
-        self.show = Show()
+        self.show = show
+        self.season = season
+        self.episode = episode
     }
     
     public mutating func mapping(map: Map) {
@@ -145,7 +145,11 @@ public struct Episode: Media, Equatable {
                 MPMediaItemPropertyMediaType: NSNumber(value: MPMediaType.episode.rawValue),
                 MPMediaItemPropertyPersistentID: id,
                 MPMediaItemPropertyArtwork: smallBackgroundImage ?? "",
-                MPMediaItemPropertySummary: summary]
+                MPMediaItemPropertyBackgroundArtwork: smallBackgroundImage ?? "",
+                MPMediaItemPropertySummary: summary,
+                MPMediaItemPropertyShow: show?.mediaItemDictionary ?? [:],
+                MPMediaItemPropertyEpisode: episode,
+                MPMediaItemPropertySeason: season]
     }
     
     public init?(_ mediaItemDictionary: [String: Any]) {
@@ -155,16 +159,18 @@ public struct Episode: Media, Equatable {
             type == MPMediaType.episode,
             let id = mediaItemDictionary[MPMediaItemPropertyPersistentID] as? String,
             let title = mediaItemDictionary[MPMediaItemPropertyTitle] as? String,
-            let image = mediaItemDictionary[MPMediaItemPropertyArtwork] as? String,
-            let summary = mediaItemDictionary[MPMediaItemPropertySummary] as? String
+            let backgroundImage = mediaItemDictionary[MPMediaItemPropertyBackgroundArtwork] as? String,
+            let summary = mediaItemDictionary[MPMediaItemPropertySummary] as? String,
+            let showMediaItemDictionary = mediaItemDictionary[MPMediaItemPropertyShow] as? [String: Any],
+            let episode = mediaItemDictionary[MPMediaItemPropertyEpisode] as? Int,
+            let season = mediaItemDictionary[MPMediaItemPropertySeason] as? Int
             else {
                 return nil
         }
         
-        let amazonUrl = image.isAmazonUrl
-        let largeBackgroundImage = image.replacingOccurrences(of: amazonUrl ? "SX300" : "w300", with: amazonUrl ? "SX1000" : "w1000")
+        let largeBackgroundImage = backgroundImage.replacingOccurrences(of: backgroundImage.isAmazonUrl ? "SX300" : "w300", with: backgroundImage.isAmazonUrl ? "SX1000" : "w1000")
         
-        self.init(title: title, id: id, slug: title.slugged, summary: summary, largeBackgroundImage: largeBackgroundImage)
+        self.init(title: title, id: id, slug: title.slugged, summary: summary, largeBackgroundImage: largeBackgroundImage, show: Show(showMediaItemDictionary), episode: episode, season: season)
     }
 }
 

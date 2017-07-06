@@ -2,41 +2,24 @@
 
 import Foundation
 
-@IBDesignable class BlurButton: UIButton {
-    @IBInspectable var cornerRadius: CGFloat = 0.0 {
-        didSet {
-            backgroundView.layer.cornerRadius = cornerRadius
-            backgroundView.layer.masksToBounds = cornerRadius > 0
-        }
-    }
-    @IBInspectable var blurTint: UIColor = .clear {
-        didSet {
-            backgroundView.contentView.backgroundColor = blurTint
-        }
-    }
-    var blurStyle: UIBlurEffectStyle = .light {
-        didSet {
-            backgroundView.effect = UIBlurEffect(style: blurStyle)
-        }
-    }
+class BlurButton: UIButton {
     
-    var imageTransform: CGAffineTransform = CGAffineTransform(scaleX: 0.5, y: 0.5) {
-        didSet {
-            updatedImageView.transform = imageTransform
-        }
-    }
+    let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     
-    var backgroundView: UIVisualEffectView
-    fileprivate var updatedImageView = UIImageView()
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        backgroundView.frame = bounds
+        backgroundView.layer.cornerRadius = frame.width/2
+        backgroundView.layer.masksToBounds = true
+    }
     
     override init(frame: CGRect) {
-        backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
         super.init(frame: frame)
         setUpButton()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
         super.init(coder: aDecoder)
         setUpButton()
     }
@@ -44,29 +27,37 @@ import Foundation
     func setUpButton() {
         backgroundView.frame = bounds
         backgroundView.isUserInteractionEnabled = false
-        insertSubview(backgroundView, at: 0)
         
-        guard let imageView = imageView else { return }
+        addSubview(backgroundView)
+        backgroundColor = .clear
         
-        updatedImageView = UIImageView(image: imageView.image)
-        updatedImageView.frame = imageView.bounds
-        updatedImageView.center = CGPoint(x: bounds.midX, y: bounds.midY)
-        updatedImageView.isUserInteractionEnabled = false
-        imageView.removeFromSuperview()
-        addSubview(updatedImageView)
-        updatedImageView.transform = imageTransform
-        cornerRadius = frame.width/2
+        if let imageView = imageView {
+            let updatedImageView = UIImageView(image: imageView.image)
+            updatedImageView.frame = imageView.bounds
+            updatedImageView.center = CGPoint(x: bounds.midX, y: bounds.midY)
+            updatedImageView.isUserInteractionEnabled = false
+            imageView.removeFromSuperview()
+            addSubview(updatedImageView)
+            updatedImageView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        }
+    }
+    
+    override func tintColorDidChange() {
+        super.tintColorDidChange()
+        invalidateAppearance()
     }
     
     override var isHighlighted: Bool {
         didSet {
-            updateColor(isHighlighted)
+            invalidateAppearance()
         }
     }
     
-    func updateColor(_ tint: Bool) {
+    func invalidateAppearance() {
+        let isDimmed = tintAdjustmentMode == .dimmed
+        let color: UIColor = isDimmed ? tintColor : isHighlighted ? .white : .clear
         UIView.animate(withDuration: 0.25, delay: 0.0, options: [.allowUserInteraction, .curveEaseInOut], animations: { [unowned self] in
-            self.backgroundView.contentView.backgroundColor = tint ? .white : self.blurTint
+            self.backgroundView.contentView.backgroundColor = color
         })
     }
 }

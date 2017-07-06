@@ -3,10 +3,11 @@
 import Foundation
 import struct PopcornKit.Episode
 import AlamofireImage
+import PopcornTorrent
 
 typealias EpisodesCollectionViewController = EpisodesViewController // Keep Xcode happy
 
-class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIViewControllerTransitioningDelegate {
+class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIViewControllerTransitioningDelegate, PTTorrentDownloadManagerListener {
     
     var dataSource: [Episode] = []
     
@@ -20,6 +21,7 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
     @IBOutlet var episodeSummaryTextView: TVExpandableTextView!
     @IBOutlet var episodeTitleLabel: UILabel!
     @IBOutlet var episodeInfoTextView: UITextView!
+    @IBOutlet var downloadButton: DownloadButton!
     
     @IBOutlet var episodeTitleLabelTopConstraint: NSLayoutConstraint!
     
@@ -51,8 +53,10 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleLabel.text = dataSource.first?.show.title
+        titleLabel.text = dataSource.first?.show?.title
         episodeSummaryTextView.buttonWasPressed = moreButtonWasPressed
+        PTTorrentDownloadManager.shared().add(self)
+        downloadButton.addTarget(self, action: #selector(stopDownload(_:)), for: .applicationReserved)
         
         view.addLayoutGuide(summaryFocusGuide)
         view.addLayoutGuide(topFocusGuide)
@@ -62,7 +66,7 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
         summaryFocusGuide.bottomAnchor.constraint(equalTo: episodeTitleLabel.topAnchor).isActive = true
         summaryFocusGuide.topAnchor.constraint(equalTo: collectionView.bottomAnchor).isActive = true
         
-        summaryFocusGuide.preferredFocusEnvironments = [episodeSummaryTextView]
+        summaryFocusGuide.preferredFocusEnvironments = [downloadButton, episodeSummaryTextView]
         
         topFocusGuide.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         topFocusGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -82,6 +86,48 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
         present(viewController, animated: true)
     }
     
+    func stopDownload(_ sender: DownloadButton) {
+        guard let media = dataSource[safe: focusIndexPath.row],
+            let download = media.associatedDownload else { return }
+        AppDelegate.shared.downloadButton(sender, wantsToStop: download)
+    }
+    
+    @IBAction func download(_ sender: DownloadButton) {
+        let media = dataSource[focusIndexPath.row]
+        
+        if sender.downloadState == .normal {
+            AppDelegate.shared.chooseQuality(sender, media: media) { (torrent) in
+                PTTorrentDownloadManager.shared().startDownloading(fromFileOrMagnetLink: torrent.url, mediaMetadata: media.mediaItemDictionary)
+                sender.downloadState = .pending
+            }
+        } else if let download = media.associatedDownload {
+            AppDelegate.shared.downloadButton(sender, wasPressedWith: download)
+        }
+    }
+    
+    // MARK: - PTTorrentDownloadManagerListener
+    
+    func torrentStatusDidChange(_ torrentStatus: PTTorrentStatus, for download: PTTorrentDownload) {
+        guard let media = dataSource[safe: focusIndexPath.row],
+            download == media.associatedDownload else { return }
+        downloadButton.progress = torrentStatus.totalProgress
+    }
+    
+    func downloadStatusDidChange(_ downloadStatus: PTTorrentDownloadStatus, for download: PTTorrentDownload) {
+        guard let media = dataSource[safe: focusIndexPath.row],
+            download == media.associatedDownload else { return }
+        downloadButton.downloadState = DownloadButton.State(downloadStatus)
+    }
+    
+    func downloadDidFail(_ download: PTTorrentDownload, withError error: Error) {
+        guard let media = dataSource[safe: focusIndexPath.row],
+            download == media.associatedDownload else { return }
+        AppDelegate.shared.download(download, failedWith: error)
+    }
+    
+    deinit {
+        PTTorrentDownloadManager.shared().remove(self)
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -136,8 +182,9 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
     // MARK: - Collection view delegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let parent = parent as? DetailViewController {
-            parent.chooseQuality(nil, media: dataSource[indexPath.row])
+        let media = dataSource[indexPath.row]
+        AppDelegate.shared.chooseQuality(nil, media: media) { (torrent) in
+            AppDelegate.shared.play(media, torrent: torrent)
         }
         
         focusIndexPath = indexPath
@@ -151,7 +198,7 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
     func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         
         var shouldUpdateView = false
-        summaryFocusGuide.preferredFocusEnvironments = [episodeSummaryTextView]
+        summaryFocusGuide.preferredFocusEnvironments = [downloadButton, episodeSummaryTextView]
         topFocusGuide.preferredFocusEnvironments = itemViewController?.visibleButtons.flatMap({$0})
         environmentsToFocus = [context.nextFocusedView].flatMap({$0})
         
@@ -161,12 +208,16 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
             
             focusIndexPath = next
             
+            let downloadStatus = episode.associatedDownload?.downloadStatus ?? .failed
+            downloadButton.downloadState = DownloadButton.State(downloadStatus)
+            downloadButton.progress = episode.associatedDownload?.torrentStatus.totalProgress ?? 0
+            
             episodeSummaryTextView.text = episode.summary
             episodeTitleLabel.text = episode.title
             
             let airDateString = DateFormatter.localizedString(from: episode.firstAirDate, dateStyle: .medium, timeStyle: .none)
             
-            let showGenre = episode.show.genres.first?.localizedCapitalized ?? ""
+            let showGenre = episode.show?.genres.first?.localizedCapitalized ?? ""
             episodeInfoTextView.text = "\(airDateString) \n \(showGenre)"
             
             if context.previouslyFocusedIndexPath == nil // Collection view has just gained focus, expand UI
@@ -190,7 +241,7 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
             numberOfEpisodesLabel.font = .preferredFont(forTextStyle: .callout)
             topFocusGuide.preferredFocusEnvironments = [collectionView]
             shouldUpdateView = true
-        } else if let next = context.nextFocusedView, let cell = context.previouslyFocusedView as? UICollectionViewCell, next == episodeSummaryTextView {
+        } else if let next = context.nextFocusedView, let cell = context.previouslyFocusedView as? UICollectionViewCell, (next == episodeSummaryTextView || next == downloadButton) {
             summaryFocusGuide.preferredFocusEnvironments = [cell]
         }
         

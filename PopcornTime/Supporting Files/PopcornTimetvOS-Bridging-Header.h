@@ -5,6 +5,7 @@
 
 #import <TVVLCKit/TVVLCKit.h>
 #import "NSObject+Swift_Observer.h"
+#import <ifaddrs.h>
 
 #endif
 

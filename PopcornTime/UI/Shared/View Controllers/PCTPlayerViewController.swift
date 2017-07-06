@@ -19,12 +19,12 @@ extension PCTPlayerViewControllerDelegate {
     func playNext(_ episode: Episode) {}
 }
 
-class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestureRecognizerDelegate, UpNextViewDelegate, OptionsViewControllerDelegate {
+class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestureRecognizerDelegate, UpNextViewControllerDelegate, OptionsViewControllerDelegate {
     
     // MARK: - IBOutlets
+    
     @IBOutlet var movieView: UIView!
     @IBOutlet var loadingActivityIndicatorView: UIView!
-    @IBOutlet var upNextView: UpNextView!
     @IBOutlet var progressBar: ProgressBar!
     
     @IBOutlet var overlayViews: [UIView] = []
@@ -38,6 +38,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     // iOS exclusive
     @IBOutlet var airPlayingView: UIView?
     @IBOutlet var screenshotImageView: UIImageView?
+    @IBOutlet var upNextContainerView: UIView?
     
     @IBOutlet var playPauseButton: UIButton?
     @IBOutlet var subtitleSwitcherButton: UIButton?
@@ -327,24 +328,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             currentSubtitle = subtitles.first(where: {$0.language == preferredLanguage})
         }
         mediaplayer.media.addOptions([vlcSettingTextEncoding: settings.encoding])
-
-        if let nextEpisode = nextEpisode {
-            upNextView.delegate = self
-            upNextView.subtitleLabel.text = "Season".localized + " \(nextEpisode.season) " + "Episode".localized + " \(nextEpisode.episode)"
-            upNextView.titleLabel.text = nextEpisode.title
-            upNextView.infoLabel.text = UIDevice.current.userInterfaceIdiom == .tv ? nextEpisode.summary : nextEpisode.show?.title
-            TMDBManager.shared.getEpisodeScreenshots(forShowWithImdbId: nextEpisode.show?.id, orTMDBId: nextEpisode.show?.tmdbId, season: nextEpisode.season, episode: nextEpisode.episode, completion: { (tmdbId, image, error) in
-                self.nextEpisode?.largeBackgroundImage = image
-                
-                if let image = image, let url = URL(string: image) {
-                    self.upNextView.imageView.af_setImage(withURL: url)
-                }
-                
-                nextEpisode.getSubtitles { (subtitles) in
-                    self.nextEpisode?.subtitles = subtitles
-                }
-            })
-        }
         
         if let first = tapOnVideoRecognizer, let second = doubleTapToZoomOnVideoRecognizer {
             first.require(toFail: second)
@@ -407,10 +390,10 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         progressBar.elapsedTimeLabel.text = mediaplayer.time.stringValue
         progressBar.progress = mediaplayer.position
         
-        if nextEpisode != nil && (mediaplayer.remainingTime.intValue/1000) == -31 {
-            upNextView.show()
-        } else if (mediaplayer.remainingTime.intValue/1000) < -31 && !upNextView.isHidden {
-            upNextView.hide()
+        if nextEpisode != nil && (mediaplayer.remainingTime.intValue/1000) == -31 && presentedViewController == nil {
+            performSegue(withIdentifier: "showUpNext", sender: nil)
+        } else if (mediaplayer.remainingTime.intValue/1000) < -31, let vc = presentedViewController as? UpNextViewController {
+            vc.dismiss(animated: true)
         }
     }
     
@@ -468,8 +451,8 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     func resetIdleTimer() {
         idleWorkItem?.cancel()
-        idleWorkItem = DispatchWorkItem() {
-            if !self.progressBar.isHidden && self.mediaplayer.isPlaying && !self.progressBar.isScrubbing && !self.progressBar.isBuffering && self.mediaplayer.rate == 1.0  && self.view.subviews.contains(self.movieView) // If paused, scrubbing, fast forwarding, loading or mirroring, cancel work Item so UI doesn't disappear
+        idleWorkItem = DispatchWorkItem() { [unowned self] in
+            if !self.progressBar.isHidden && self.mediaplayer.isPlaying && !self.progressBar.isScrubbing && !self.progressBar.isBuffering && self.mediaplayer.rate == 1.0  && self.movieView.isDescendant(of: self.view) // If paused, scrubbing, fast forwarding, loading or mirroring, cancel work Item so UI doesn't disappear
             {
                 self.toggleControlsVisible()
             }
@@ -491,20 +474,75 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         }
     }
     
-    // MARK: Up next view delegate
+    // MARK: UpNextViewControllerDelegate
     
-    func constraintsWereUpdated(willHide hide: Bool) {
-        UIView.animate(withDuration: .default, animations: {
-            self.view.layoutIfNeeded()
-        }, completion: { _ in
-            if hide { self.upNextView.isHidden = true }
-        })
+    func viewController(_ viewController: UpNextViewController, proceedToNextVideo proceed: Bool) {
+        let completion: (() -> Void) = { [unowned self] in
+            if proceed {
+                self.didFinishPlaying()
+                self.delegate?.playNext(self.nextEpisode!)
+            }
+        }
+        if UIDevice.current.userInterfaceIdiom == .tv {
+            viewController.dismiss(animated: true, completion: completion)
+        } else {
+            UIView.animate(withDuration: .default, animations: { 
+                self.upNextContainerView?.transform = .identity
+            }) { (_) in
+                completion()
+            }
+            
+        }
     }
     
-    func timerFinished() {
-        didFinishPlaying()
-        OperationQueue.main.addOperation {
-            self.delegate?.playNext(self.nextEpisode!)
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showUpNext", let vc = segue.destination as? UpNextViewController, let episode = nextEpisode {
+            vc.delegate = self
+            vc.modalPresentationStyle = .custom
+            
+            vc.loadViewIfNeeded()
+            
+            if UIDevice.current.userInterfaceIdiom == .tv {
+                vc.titleLabel?.text = "Episode".localized + " \(episode.episode) - " + episode.title
+                vc.summaryView?.text = episode.summary
+            } else {
+                vc.titleLabel?.text = episode.title
+                vc.subtitleLabel?.text = "Season".localized + " \(episode.season) " + "Episode".localized + " \(episode.episode)"
+                vc.infoLabel?.text = episode.show?.title
+            }
+            
+            TMDBManager.shared.getEpisodeScreenshots(forShowWithImdbId: episode.show?.id, orTMDBId: episode.show?.tmdbId, season: episode.season, episode: episode.episode) { [weak self, weak vc] (tmdbId, image, error) in
+                self?.nextEpisode?.largeBackgroundImage = image
+                    
+                if let image = image, let url = URL(string: image) {
+                    vc?.imageView.af_setImage(withURL: url)
+                }
+                
+                self?.nextEpisode?.getSubtitles { (subtitles) in
+                    self?.nextEpisode?.subtitles = subtitles
+                }
+            }
         }
+        
+        #if os(iOS)
+            
+            if segue.identifier == "showSubtitles",
+                let navigationController = segue.destination as? UINavigationController,
+                let vc = navigationController.viewControllers.first as? OptionsTableViewController {
+                vc.subtitles = subtitles
+                vc.currentSubtitle = currentSubtitle
+                vc.currentSubtitleDelay = mediaplayer.currentVideoSubTitleDelay/Int(1e6)
+                vc.currentAudioDelay = mediaplayer.currentAudioPlaybackDelay/Int(1e6)
+                vc.delegate = self
+                segue.destination.popoverPresentationController?.delegate = self
+            } else if segue.identifier == "showDevices", let vc = (segue.destination as? UINavigationController)?.viewControllers.first as? GoogleCastTableViewController {
+                object_setClass(vc, StreamToDevicesTableViewController.self)
+                vc.delegate = self
+                segue.destination.popoverPresentationController?.delegate = self
+            }
+            
+        #endif
     }
 }

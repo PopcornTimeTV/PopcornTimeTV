@@ -13,6 +13,8 @@ class PreloadTorrentViewController: UIViewController {
     
     @IBOutlet var backgroundImageView: UIImageView?
     
+    var streamer: PTTorrentStreamer!
+    
     
     var progress: Float = 0.0 {
         didSet {
@@ -36,18 +38,8 @@ class PreloadTorrentViewController: UIViewController {
         }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        UIApplication.shared.isIdleTimerDisabled = false
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        UIApplication.shared.isIdleTimerDisabled = true
-    }
-    
     @IBAction func cancel() {
-        PTTorrentStreamer.shared().cancelStreamingAndDeleteData(UserDefaults.standard.bool(forKey: "removeCacheOnPlayerExit"))
+        streamer.cancelStreamingAndDeleteData(false)
         dismiss(animated: true)
     }
     

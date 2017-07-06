@@ -66,7 +66,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
             }
             return 0.0
         } set {
-            remoteMediaClient?.seek(toTimeInterval: newValue, resumeState: GCKMediaResumeState.play)
+            remoteMediaClient?.seek(toTimeInterval: newValue, resumeState: .play)
         }
     }
     
@@ -83,11 +83,11 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
     }
     
     private var elapsedTime: VLCTime {
-        return VLCTime(number: NSNumber(value: streamPosition * 1000 as Double))
+        return VLCTime(number: NSNumber(value: streamPosition * 1000))
     }
     
     private var remainingTime: VLCTime {
-        return VLCTime(number: NSNumber(value: (streamPosition - streamDuration) * 1000 as Double))
+        return VLCTime(number: NSNumber(value: (streamPosition - streamDuration) * 1000))
     }
     
     // MARK: - IBActions
@@ -292,7 +292,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
         titleLabel.text = media.title
         volumeSlider.setThumbImage(UIImage(named: "Scrubber Image"), for: .normal)
         
-        elapsedTimer = elapsedTimer ?? Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+        elapsedTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
         
         if let image = media.largeCoverImage, let url = URL(string: image) {
             imageView.af_setImage(withURL: url)
@@ -308,10 +308,19 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
         }
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    func sharedSetup() {
         remoteMediaClient?.add(self)
         UIApplication.shared.isIdleTimerDisabled = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        sharedSetup()
+    }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        sharedSetup()
     }
     
     deinit {

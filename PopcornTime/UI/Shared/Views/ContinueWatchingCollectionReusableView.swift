@@ -113,7 +113,7 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
             let formatter = DateComponentsFormatter()
             formatter.unitsStyle = .full
             formatter.includesTimeRemainingPhrase = true
-            formatter.allowedUnits = [.minute]
+            formatter.allowedUnits = [.hour, .minute]
             
             let remaining = TimeInterval(runtime - (runtime * cell.progressView.progress))
             cell.subtitleLabel.text = formatter.string(from: remaining * 60) ?? "\(remaining) minutes remaining"

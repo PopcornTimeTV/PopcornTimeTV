@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="appleTV" orientation="landscape">
         <adaptation id="dark"/>
     </device>
     <dependencies>
         <deployment identifier="tvOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -29,24 +31,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="142" height="80"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Add" translatesAutoresizingMaskIntoConstraints="NO" id="xUA-5w-AZN">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xUA-5w-AZN">
                                 <rect key="frame" x="52" y="21" width="39" height="39"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="39" placeholder="YES" id="9Tm-wb-B9u"/>
+                                    <constraint firstAttribute="width" constant="39" placeholder="YES" id="lnE-Na-KEU"/>
+                                </constraints>
                             </imageView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fYe-5d-TjU">
-                                <rect key="frame" x="0.0" y="0.0" width="142" height="80"/>
+                                <rect key="frame" x="-36" y="-67" width="214" height="214"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="fYe-5d-TjU" secondAttribute="height" multiplier="1:1" id="0s3-7P-Vu1"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="fYe-5d-TjU" firstAttribute="width" secondItem="BWM-f3-qZE" secondAttribute="width" multiplier="1.5" id="DPt-Vz-LeP"/>
                             <constraint firstItem="xUA-5w-AZN" firstAttribute="centerX" secondItem="BWM-f3-qZE" secondAttribute="centerX" id="LVn-o9-9tR"/>
-                            <constraint firstItem="fYe-5d-TjU" firstAttribute="leading" secondItem="BWM-f3-qZE" secondAttribute="leading" id="PhN-SN-QQ2"/>
-                            <constraint firstItem="fYe-5d-TjU" firstAttribute="height" secondItem="BWM-f3-qZE" secondAttribute="height" id="W2S-m1-gpO"/>
-                            <constraint firstAttribute="bottom" secondItem="fYe-5d-TjU" secondAttribute="bottom" id="Z9R-Oi-H1J"/>
-                            <constraint firstAttribute="trailing" secondItem="fYe-5d-TjU" secondAttribute="trailing" id="aQs-qa-4nH"/>
-                            <constraint firstItem="fYe-5d-TjU" firstAttribute="top" secondItem="BWM-f3-qZE" secondAttribute="top" id="iu5-lH-Qip"/>
-                            <constraint firstItem="fYe-5d-TjU" firstAttribute="width" secondItem="BWM-f3-qZE" secondAttribute="width" id="mXI-VV-1cs"/>
+                            <constraint firstItem="fYe-5d-TjU" firstAttribute="centerY" secondItem="BWM-f3-qZE" secondAttribute="centerY" id="iEV-AB-pXb"/>
                             <constraint firstItem="xUA-5w-AZN" firstAttribute="centerY" secondItem="BWM-f3-qZE" secondAttribute="centerY" id="soS-Qv-jdl"/>
+                            <constraint firstItem="fYe-5d-TjU" firstAttribute="centerX" secondItem="BWM-f3-qZE" secondAttribute="centerX" id="urz-dD-LZg"/>
                         </constraints>
                     </view>
                     <constraints>
@@ -82,7 +88,4 @@
             <point key="canvasLocation" x="-804" y="-302"/>
         </view>
     </objects>
-    <resources>
-        <image name="Add" width="39" height="39"/>
-    </resources>
 </document>

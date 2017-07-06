@@ -42,7 +42,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate {
     }
     
     @IBAction func presentOptionsViewController() {
-        if presentedViewController is OptionsViewController || !upNextView.isHidden { return }
+        if presentedViewController is OptionsViewController { return }
         let destinationController = storyboard?.instantiateViewController(withIdentifier: "OptionsViewController") as! OptionsViewController
         destinationController.transitioningDelegate = self
         destinationController.modalPresentationStyle = .custom
@@ -75,7 +75,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate {
     }
     
     func clickGesture(_ gesture: SiriRemoteGestureRecognizer) {
-        guard gesture.touchLocation == .unknown && gesture.isClick && gesture.state == .ended && upNextView.isHidden else {
+        guard gesture.touchLocation == .unknown && gesture.isClick && gesture.state == .ended else {
             progressBar.isHidden ? toggleControlsVisible() : ()
             return
         }
@@ -104,10 +104,6 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate {
     }
     
     @IBAction func menuPressed() {
-        guard upNextView.isHidden else {
-            upNextView.hide()
-            return
-        }
         progressBar.isScrubbing ? endScrubbing() : didFinishPlaying()
     }
     

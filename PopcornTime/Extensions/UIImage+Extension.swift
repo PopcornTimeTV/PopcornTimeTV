@@ -57,7 +57,7 @@ extension UIImage {
             else {
                 return nil
         }
-        
+    
         bitmapContext.setFillColor(UIColor.white.cgColor)
         bitmapContext.fill(CGRect(origin: .zero, size: size))
         
@@ -94,7 +94,7 @@ extension UIImage {
     var layerMask: CALayer? {
         guard
             let copy = copy() as? UIImage,
-            let image = copy.colored(.black)?.removingTransparency(), // Image has to be a black image on a white background for mask to work.
+            let image = copy.colored(.black)?.removingTransparency(), // Image has to have a black foreground on a white background for mask to work.
             let ciImage = CIImage(image: image),
             let filter = CIFilter(name:"CIMaskToAlpha")
             else {

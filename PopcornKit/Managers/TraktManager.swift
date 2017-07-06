@@ -41,7 +41,7 @@ open class TraktManager: NetworkManager {
                     DispatchQueue.main.async(execute: { completion?(error) })
                 }
             }
-            var parameters = [String: Any]()
+            let parameters: [String: Any]
             if type == .movies {
                 parameters = ["movie": ["ids": ["imdb": id]], "progress": progress * 100.0]
             } else {
@@ -236,11 +236,13 @@ open class TraktManager: NetworkManager {
                     DispatchQueue.main.async(execute: {completion?(error) })
                 }
             }
-            var parameters = [String: Any]()
+            let parameters: [String: Any]
             if type == .movies {
                 parameters = ["movies": [["ids": ["imdb": id]]]]
             } else if type == .episodes {
                 parameters = ["episodes": [["ids": ["tvdb": Int(id)!]]]]
+            } else {
+                parameters = [:]
             }
             self.manager.request(Trakt.base + Trakt.sync + Trakt.history + Trakt.remove, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON { response in
                 if let error = response.result.error { completion?(error as NSError) }
@@ -266,11 +268,13 @@ open class TraktManager: NetworkManager {
                     DispatchQueue.main.async(execute: {completion?(error) })
                 }
             }
-            var parameters = [String: Any]()
+            let parameters: [String: Any]
             if type == .movies {
                 parameters = ["movies": [["ids": ["imdb": id]]]]
             } else if type == .episodes {
                 parameters = ["episodes": [["ids": ["tvdb": Int(id)!]]]]
+            } else {
+                parameters = [:]
             }
             self.manager.request(Trakt.base + Trakt.sync + Trakt.history, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON { response in
                 if let error = response.result.error { completion?(error as NSError) }
@@ -385,7 +389,7 @@ open class TraktManager: NetworkManager {
                     DispatchQueue.main.async(execute: { completion?(error) })
                 }
             }
-            var parameters = [String: Any]()
+            let parameters: [String: Any]
             if type == .episodes {
                 parameters = ["episodes": [["ids": ["tvdb": Int(id)!]]]]
             } else {
@@ -415,7 +419,7 @@ open class TraktManager: NetworkManager {
                     DispatchQueue.main.async(execute: { completion?(error) })
                 }
             }
-            var parameters = [String: Any]()
+            let parameters: [String: Any]
             if type == .episodes {
                 parameters = ["episodes": [["ids": ["tvdb": Int(id)!]]]]
             } else {

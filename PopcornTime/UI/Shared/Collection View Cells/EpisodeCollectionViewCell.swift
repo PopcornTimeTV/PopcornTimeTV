@@ -9,6 +9,7 @@ class EpisodeCollectionViewCell: BaseCollectionViewCell {
     // iOS exclusive
     @IBOutlet var watchedButton: UIButton?
     @IBOutlet var subtitleLabel: UILabel?
+    @IBOutlet var accessoryView: UIView?
     
     // tvOS exclusive
     @IBOutlet var watchedOverlay: UIView?
@@ -32,10 +33,17 @@ class EpisodeCollectionViewCell: BaseCollectionViewCell {
         addGestureRecognizer(gestureRecognizer)
     }
     
+    #elseif os(iOS)
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let view = super.hitTest(point, with: event)
+        return view == accessoryView ? watchedButton : view
+    }
+    
     #endif
     
     func didDetectLongPress(_ gesture: UILongPressGestureRecognizer) {
-        guard gesture.state == .ended else { return }
+        guard gesture.state == .began else { return }
         toggleWatched()
     }
     

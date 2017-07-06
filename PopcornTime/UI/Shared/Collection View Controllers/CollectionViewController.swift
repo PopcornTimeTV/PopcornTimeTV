@@ -3,6 +3,8 @@
 import Foundation
 import PopcornKit
 import AlamofireImage
+import class PopcornTorrent.PTTorrentDownload
+import MediaPlayer.MPMediaItem
 
 protocol CollectionViewControllerDelegate: class {
     func load(page: Int)
@@ -14,6 +16,8 @@ protocol CollectionViewControllerDelegate: class {
     
     func minItemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize?
     func collectionView(_ collectionView: UICollectionView, insetForSectionAt section: Int) -> UIEdgeInsets?
+    
+    @discardableResult func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) -> Bool
 }
 
 extension CollectionViewControllerDelegate {
@@ -26,6 +30,8 @@ extension CollectionViewControllerDelegate {
     
     func minItemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize? { return nil }
     func collectionView(_ collectionView: UICollectionView, insetForSectionAt section: Int) -> UIEdgeInsets? { return nil }
+    
+    @discardableResult func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) -> Bool { return false }
 }
 
 class CollectionViewController: ResponsiveCollectionViewController, UICollectionViewDelegateFlowLayout {
@@ -182,58 +188,98 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
         return .zero
     }
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        guard
+            let collectionView = collectionView,
+            let cell = sender as? UICollectionViewCell,
+            let indexPath = collectionView.indexPath(for: cell),
+            let delegate = delegate
+            else {
+                return true
+        }
+        return !delegate.collectionView(collectionView, didSelectItemAt: indexPath)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: UICollectionViewCell
-        let media = dataSources[indexPath.section][indexPath.row]
+        let item = dataSources[indexPath.section][indexPath.row]
         
-        if let media = media as? Media {
+        if let media = item as? Media {
             let identifier  = media is Movie ? "movieCell" : "showCell"
             let placeholder = media is Movie ? "Movie Placeholder" : "Episode Placeholder"
             
-            let _cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CoverCollectionViewCell
-            _cell.titleLabel.text = media.title
-            _cell.watched = media.isWatched
-            
-            #if os(tvOS)
-                _cell.hidesTitleLabelWhenUnfocused = true
-            #endif
-            
-            if let image = media.smallCoverImage,
-                let url = URL(string: image) {
-                _cell.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: placeholder), imageTransition: .crossDissolve(.default))
-            } else {
-                _cell.imageView.image = UIImage(named: placeholder)
-            }
-            
-            cell = _cell
-        } else if let person = media as? Person {
-            let _cell = collectionView.dequeueReusableCell(withReuseIdentifier: "personCell", for: indexPath) as! MonogramCollectionViewCell
-            _cell.titleLabel.text = person.name
-            _cell.initialsLabel.text = person.initials
-            
-            
-            if let image = person.mediumImage,
-                let url = URL(string: image),
-                let request = try? URLRequest(url: url, method: .get) {
-                _cell.originalImage = UIImage(named: "Other Placeholder")
-                ImageDownloader.default.download(request) { (response) in
-                    _cell.originalImage = response.result.value
+            cell = {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CoverCollectionViewCell
+                cell.titleLabel.text = media.title
+                cell.watched = media.isWatched
+                
+                #if os(tvOS)
+                    cell.hidesTitleLabelWhenUnfocused = true
+                #endif
+                
+                if let image = media.smallCoverImage,
+                    let url = URL(string: image) {
+                    cell.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: placeholder), imageTransition: .crossDissolve(.default))
+                } else {
+                    cell.imageView.image = UIImage(named: placeholder)
                 }
-            } else {
-                _cell.originalImage = nil
-            }
+                
+                return cell
+            }()
+        } else if let person = item as? Person {
             
-            if let actor = person as? Actor {
-                _cell.subtitleLabel.text = actor.characterName
-            } else if let crew = person as? Crew {
-                _cell.subtitleLabel.text = crew.job
-            }
-            
-            if UIDevice.current.userInterfaceIdiom == .tv {
-                _cell.subtitleLabel.text = _cell.subtitleLabel.text?.localizedUppercase
-            }
-            
-            cell = _cell
+            cell = {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "personCell", for: indexPath) as! MonogramCollectionViewCell
+                cell.titleLabel.text = person.name
+                cell.initialsLabel.text = person.initials
+                
+                if let image = person.mediumImage,
+                    let url = URL(string: image),
+                    let request = try? URLRequest(url: url, method: .get) {
+                    cell.originalImage = UIImage(named: "Other Placeholder")
+                    ImageDownloader.default.download(request) { (response) in
+                        cell.originalImage = response.result.value
+                    }
+                } else {
+                    cell.originalImage = nil
+                }
+                
+                if let actor = person as? Actor {
+                    cell.subtitleLabel.text = actor.characterName
+                } else if let crew = person as? Crew {
+                    cell.subtitleLabel.text = crew.job
+                }
+                
+                if UIDevice.current.userInterfaceIdiom == .tv {
+                    cell.subtitleLabel.text = cell.subtitleLabel.text?.localizedUppercase
+                }
+                
+                return cell
+            }()
+        } else if let download = item as? PTTorrentDownload {
+            cell = {
+                #if os(tvOS)
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "downloadCell", for: indexPath) as! DownloadCollectionViewCell
+                    
+                    cell.delegate = parent as? DownloadCollectionViewCellDelegate
+                    
+                    cell.progress = download.torrentStatus.totalProgress
+                    cell.downloadState = DownloadButton.State(download.downloadStatus)
+                    
+                    if let image = download.mediaMetadata[MPMediaItemPropertyArtwork] as? String, let url = URL(string: image) {
+                        cell.imageView?.af_setImage(withURL: url)
+                    } else {
+                        cell.imageView?.image = UIImage(named: "Episode Placeholder")
+                    }
+                    
+                    cell.titleLabel?.text = download.mediaMetadata[MPMediaItemPropertyTitle] as? String
+                    cell.blurView.isHidden = download.downloadStatus == .finished
+                    
+                    return cell
+                #elseif os(iOS)
+                    return UICollectionViewCell()
+                #endif
+            }()
         } else {
             fatalError("Unknown type in dataSource.")
         }

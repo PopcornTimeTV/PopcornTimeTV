@@ -19,6 +19,9 @@ extension DetailViewController {
         super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        watchedButton.setImage(watchedButtonImage, for: .normal)
+        watchlistButton.setImage(watchlistButtonImage, for: .normal)
     }
     
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
@@ -86,7 +89,7 @@ extension DetailViewController {
             coordinator.addCoordinatedAnimations({
                 self.view.layoutIfNeeded()
             })
-        } else if let previous = context.previouslyFocusedView as? BaseCollectionViewCell, (previous.collectionView == relatedCollectionViewController.collectionView || previous.collectionView == peopleCollectionViewController.collectionView), !(context.nextFocusedView is UICollectionViewCell) // Top collection view is loosing focus, decrease all header font sizes.
+        } else if let previous = context.previouslyFocusedView as? BaseCollectionViewCell, (previous.collectionView == relatedCollectionViewController.collectionView || previous.collectionView == peopleCollectionViewController.collectionView), !(context.nextFocusedView is UICollectionViewCell), context.nextFocusedView != episodesCollectionViewController.episodeSummaryTextView, context.nextFocusedView != episodesCollectionViewController.downloadButton // Top collection view is loosing focus, decrease all header font sizes.
         {
             let font = UIFont.preferredFont(forTextStyle: .callout)
             peopleHeader.font  = font

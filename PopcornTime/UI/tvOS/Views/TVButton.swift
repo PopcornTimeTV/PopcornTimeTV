@@ -4,30 +4,30 @@ import Foundation
 
 @IBDesignable class TVButton: UIControl {
     
-    @IBOutlet var contentView: UIView!
-    @IBOutlet var backgroundView: UIVisualEffectView!
-    @IBOutlet var focusedView: UIView!
-    @IBOutlet var imageView: UIImageView!
-    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var contentView: UIView?
+    @IBOutlet var backgroundView: UIVisualEffectView?
+    @IBOutlet var focusedView: UIView?
+    @IBOutlet var imageView: UIImageView?
+    @IBOutlet var titleLabel: UILabel?
     
     @IBInspectable private(set) var image: String? {
         didSet {
-            if imageView == nil { loadView() }
+            if imageView == nil { loadViewIfNeeded() }
             if let named = image {
                 setImage(UIImage(named: named), for: .normal)
-                updateImageView()
             }
         }
     }
     
-    @IBInspectable var title: String = "" {
+    @IBInspectable private(set) var title: String = "" {
         didSet {
-            if titleLabel == nil { loadView() }
-            titleLabel.text = title.localized
+            if titleLabel == nil { loadViewIfNeeded() }
+            setTitle(title, for: .normal)
         }
     }
     
     private var images: [UIControlState: UIImage?] = [:]
+    private var titles: [UIControlState: String?]  = [:]
     
     private let pressAnimationDuration = 0.1
     private let shadowRadius: CGFloat = 10
@@ -35,19 +35,27 @@ import Foundation
     private let focusedShadowOffset = CGSize(width: 0, height: 27)
     private let focusedShadowOpacity: Float = 0.3
     
-    private var classContext = 0
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        loadView()
+        loadViewIfNeeded()
         
         self.layer.shadowColor = shadowColor
         self.layer.shadowRadius = shadowRadius
     }
     
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        updateFocusedViewMask()
+    }
+    
     private func updateImageView() {
-        imageView.image = images[state] ?? images[.normal] ?? nil
+        imageView?.image = images[state] ?? images[.normal] ?? nil
+        updateFocusedViewMask()
+    }
+    
+    private func updateTitleLabel() {
+        titleLabel?.text = titles[state] ?? titles[.normal] ?? nil
     }
     
     func setImage(_ image: UIImage?, for state: UIControlState) {
@@ -55,28 +63,24 @@ import Foundation
         updateImageView()
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if let keyPath = keyPath, keyPath == "image", context == &classContext {
-            if let layer = imageView.image?.scaled(to: backgroundView.bounds.size).layerMask {
-                layer.frame = focusedView.frame
-                focusedView.layer.mask = layer
-            }
-        } else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        }
+    func setTitle(_ title: String?, for state: UIControlState) {
+        titles[state] = title
+        updateTitleLabel()
     }
     
-    func loadView() {
+    func loadViewIfNeeded() {
         guard contentView == nil else { return }
-        
-        let _ = Bundle.main.loadNibNamed(String(describing: type(of: self)), owner: self, options: nil)?.first
-        addSubview(contentView)
-        contentView.frame = bounds
-        imageView.addObserver(self, forKeyPath: "image", options: .new, context: &classContext)
+        let _ = Bundle.main.loadNibNamed("TVButton", owner: self, options: nil)!.first
+        addSubview(contentView!)
+        contentView!.frame = bounds
     }
     
     override var canBecomeFocused: Bool {
         return isEnabled
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: 142, height: 115)
     }
     
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
@@ -121,39 +125,65 @@ import Foundation
     
     // MARK: - Focus Appearance
     
-    private func applyFocusedAppearance() {
+    func applyFocusedAppearance() {
         transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
         layer.shadowOffset = focusedShadowOffset
         layer.shadowOpacity = focusedShadowOpacity
-        focusedView.isHidden = false
-        titleLabel.textColor = .white
-        imageView.isHidden = true
+        focusedView?.isHidden = false
+        titleLabel?.textColor = .white
+        imageView?.isHidden = true
     }
     
-    private func applyUnfocusedAppearance() {
+    func applyUnfocusedAppearance() {
         transform = .identity
         layer.shadowOffset = .zero
         layer.shadowOpacity = 0
-        focusedView.isHidden = true
-        titleLabel.textColor = UIColor(white: 1.0, alpha: 0.6)
-        imageView.isHidden = false
+        focusedView?.isHidden = true
+        titleLabel?.textColor = UIColor.white.withAlphaComponent(0.6)
+        imageView?.isHidden = false
     }
     
-    private func applyPressUpAppearance() {
-        UIView.animate(withDuration: pressAnimationDuration, animations: {
+    func applyPressUpAppearance() {
+        UIView.animate(withDuration: pressAnimationDuration) {
             self.applyFocusedAppearance()
-        })
+        }
     }
     
-    private func applyPressDownAppearance() {
-        UIView.animate(withDuration: pressAnimationDuration, animations: {
+    func applyPressDownAppearance() {
+        UIView.animate(withDuration: pressAnimationDuration) {
             self.transform = .identity
             self.layer.shadowOffset = .zero
             self.layer.shadowOpacity = 0
-        })
+        }
     }
     
-    deinit {
-        do { try imageView.remove(self, for: "image", in: &classContext) } catch {}
+    func updateFocusedViewMask() {
+        guard
+            let contentView = backgroundView?.contentView,
+            let focusedView = focusedView,
+            let imageView = imageView
+            else {
+                return
+        }
+        
+        let focusedHidden = focusedView.isHidden
+        let imageHidden   = imageView.isHidden
+        
+        focusedView.isHidden = true
+        imageView.isHidden = false
+        
+        let mask = UIGraphicsImageRenderer(bounds: contentView.bounds, format: .default()).image { context in
+            contentView.layer.render(in: context.cgContext)
+        }.scaled(to: focusedView.bounds.size).layerMask
+        
+        mask?.frame = focusedView.bounds
+        focusedView.layer.mask = mask
+        
+        focusedView.isHidden = focusedHidden
+        imageView.isHidden   = imageHidden
+    }
+    
+    func invalidateAppearance() {
+        updateFocusedViewMask()
     }
 }

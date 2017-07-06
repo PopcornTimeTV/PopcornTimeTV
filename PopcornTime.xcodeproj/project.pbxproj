@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		04F4209BB78798B2353778E5 /* Pods_PopcornKit_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44441B28B134A26461FAE05C /* Pods_PopcornKit_tvOS.framework */; };
 		1C241A70671F5212AFDB94E3 /* Pods_TopShelf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B747D9446AC930A21B6E6E3D /* Pods_TopShelf.framework */; };
-		4D0142851EDC88C200FFB81A /* DownloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0142841EDC88C200FFB81A /* DownloadButton.swift */; };
 		4D0183A91DC3ACB500AB75B3 /* Locale+Langs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */; };
 		4D07E17C1E8C364F00457FCB /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D07E17B1E8C364F00457FCB /* Object.swift */; };
 		4D07E17D1E8C365200457FCB /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D07E17B1E8C364F00457FCB /* Object.swift */; };
@@ -106,12 +105,10 @@
 		4D0F9DED1E70573F00860852 /* ResponsiveCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9DE71E70573A00860852 /* ResponsiveCollectionViewController.swift */; };
 		4D0F9DEE1E70573F00860852 /* DescriptionCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9DE81E70573A00860852 /* DescriptionCollectionViewController.swift */; };
 		4D0F9DF41E70579C00860852 /* ContinueWatchingCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9DEF1E70579C00860852 /* ContinueWatchingCollectionReusableView.swift */; };
-		4D0F9DF51E70579C00860852 /* UpNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9DF01E70579C00860852 /* UpNextView.swift */; };
 		4D0F9DF61E70579C00860852 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9DF11E70579C00860852 /* GradientView.swift */; };
 		4D0F9DF71E70579C00860852 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9DF21E70579C00860852 /* LoadingView.swift */; };
 		4D0F9DF81E70579C00860852 /* ErrorBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9DF31E70579C00860852 /* ErrorBackgroundView.swift */; };
 		4D0F9DF91E70579F00860852 /* ContinueWatchingCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9DEF1E70579C00860852 /* ContinueWatchingCollectionReusableView.swift */; };
-		4D0F9DFA1E70579F00860852 /* UpNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9DF01E70579C00860852 /* UpNextView.swift */; };
 		4D0F9DFB1E70579F00860852 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9DF11E70579C00860852 /* GradientView.swift */; };
 		4D0F9DFC1E70579F00860852 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9DF21E70579C00860852 /* LoadingView.swift */; };
 		4D0F9DFD1E70579F00860852 /* ErrorBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F9DF31E70579C00860852 /* ErrorBackgroundView.swift */; };
@@ -166,6 +163,15 @@
 		4D1440161E9AF16600B78269 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D1440131E9AF16600B78269 /* Localizable.strings */; };
 		4D1440191E9AF18800B78269 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D1440101E9AF13A00B78269 /* LoadingView.xib */; };
 		4D1440211E9AF3D200B78269 /* TraktAuthenticationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D14401C1E9AF3CA00B78269 /* TraktAuthenticationViewController.xib */; };
+		4D15C7E11EF17D3000953E45 /* DownloadDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D15C7E01EF17D3000953E45 /* DownloadDetailTableViewCell.swift */; };
+		4D15C7E31EF194AF00953E45 /* DownloadTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D15C7E21EF194AF00953E45 /* DownloadTableViewHeader.xib */; };
+		4D15C7E91EF1D81600953E45 /* MPMediaItemProperty+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D15C7E81EF1D81600953E45 /* MPMediaItemProperty+Extension.swift */; };
+		4D15C7EA1EF1D81600953E45 /* MPMediaItemProperty+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D15C7E81EF1D81600953E45 /* MPMediaItemProperty+Extension.swift */; };
+		4D15C7EB1EF1D81600953E45 /* MPMediaItemProperty+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D15C7E81EF1D81600953E45 /* MPMediaItemProperty+Extension.swift */; };
+		4D15C7EC1EF1D81600953E45 /* MPMediaItemProperty+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D15C7E81EF1D81600953E45 /* MPMediaItemProperty+Extension.swift */; };
+		4D15C7ED1EF1E58B00953E45 /* DownloadViewController+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D15C7E61EF1D7C700953E45 /* DownloadViewController+tvOS.swift */; };
+		4D15C7F41EF20B3600953E45 /* DownloadViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D15C7F31EF20B3600953E45 /* DownloadViewController+iOS.swift */; };
+		4D15C7F91EF2154400953E45 /* DownloadDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D15C7F71EF2154100953E45 /* DownloadDetailCollectionViewCell.swift */; };
 		4D1B88A71E3BEFF300DB701D /* EpisodesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B88A61E3BEFF300DB701D /* EpisodesCollectionViewController.swift */; };
 		4D1B88AD1E3CAF6700DB701D /* UIAlertAction+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B88AC1E3CAF6700DB701D /* UIAlertAction+Extension.swift */; };
 		4D2543AE1DACFBFE00149533 /* TVServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 002682111CD0B76200F51D31 /* TVServices.framework */; };
@@ -173,8 +179,6 @@
 		4D2543B51DACFBFE00149533 /* TopShelf.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4D2543AD1DACFBFE00149533 /* TopShelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4D29965F1EE35C4100737894 /* UIDownloadProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D29965E1EE35C4100737894 /* UIDownloadProgressView.swift */; };
 		4D2996601EE35C4500737894 /* UIDownloadProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D29965E1EE35C4100737894 /* UIDownloadProgressView.swift */; };
-		4D2996621EE42E5200737894 /* DownloadTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2996611EE42E5200737894 /* DownloadTableViewController.swift */; };
-		4D2996631EE42E5200737894 /* DownloadTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2996611EE42E5200737894 /* DownloadTableViewController.swift */; };
 		4D2996691EE4431800737894 /* DownloadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2996681EE4431800737894 /* DownloadTableViewCell.swift */; };
 		4D2996701EE5E93B00737894 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
 		4D2996711EE5E93C00737894 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
@@ -185,10 +189,9 @@
 		4D32EBE01EA2D0F900B4361A /* tvOSPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D32EBE21EA2D0F900B4361A /* tvOSPlist.strings */; };
 		4D32EBE51EA2D0F900B4361A /* tvOSPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D32EBE71EA2D0F900B4361A /* tvOSPlist.strings */; };
 		4D32EBEC1EA2D0FB00B4361A /* iOSPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D32EBEE1EA2D0FB00B4361A /* iOSPlist.strings */; };
-		4D37C4591E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Gray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D37C4581E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Gray.swift */; };
+		4D37C4591E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Grey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D37C4581E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Grey.swift */; };
 		4D3A401E1EBDEAD1006E7F23 /* URL+MIME.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3A401D1EBDEAD1006E7F23 /* URL+MIME.swift */; };
 		4D3A401F1EBDEAD1006E7F23 /* URL+MIME.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3A401D1EBDEAD1006E7F23 /* URL+MIME.swift */; };
-		4D3A40211EBDEEA5006E7F23 /* GCKMediaTextTrackStyle+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3A40201EBDEEA5006E7F23 /* GCKMediaTextTrackStyle+Default.swift */; };
 		4D3A40231EBE08E5006E7F23 /* GCKDevice+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3A40221EBE08E5006E7F23 /* GCKDevice+Equatable.swift */; };
 		4D3A43481EA9826E00CF3646 /* TVFadedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3A43471EA9826E00CF3646 /* TVFadedTextView.swift */; };
 		4D5624751E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5624741E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift */; };
@@ -202,7 +205,6 @@
 		4D689A361DD8906F001D1318 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E321DC4F028005CDE34 /* Images.xcassets */; };
 		4D689A371DD89076001D1318 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D990E321DC4F028005CDE34 /* Images.xcassets */; };
 		4D689A6F1DD8AF12001D1318 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D990E451DC4F0F1005CDE34 /* AppDelegate.swift */; };
-		4D7376021DFDC6F500505CA0 /* NSNotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7376011DFDC6F500505CA0 /* NSNotificationName+Extension.swift */; };
 		4D77D1F81E47A1B80089242C /* StepperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D77D1F71E47A1B80089242C /* StepperTableViewCell.swift */; };
 		4D784D4E1E5F3AF6009E3423 /* ItemViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D784D4D1E5F3AF6009E3423 /* ItemViewController+iOS.swift */; };
 		4D784D531E5F4559009E3423 /* ItemViewController+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D784D521E5F4559009E3423 /* ItemViewController+tvOS.swift */; };
@@ -289,13 +291,15 @@
 		4DC7B6951E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */; };
 		4DC7B69B1E3503720098B12E /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7B69A1E3503720098B12E /* CircularButton.swift */; };
 		4DC7B6A51E3907CC0098B12E /* DescriptionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DC7B6A41E3907CC0098B12E /* DescriptionCollectionViewCell.xib */; };
+		4DC7FE4C1EF71B79002C638A /* DownloadDetailViewController+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7FE4B1EF71B79002C638A /* DownloadDetailViewController+tvOS.swift */; };
+		4DC7FE4F1EF720D9002C638A /* DownloadDetailViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7FE4E1EF720D9002C638A /* DownloadDetailViewController+iOS.swift */; };
+		4DC7FE521EF724CB002C638A /* DownloadDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7FE511EF724CB002C638A /* DownloadDetailTableViewCell.swift */; };
 		4DCB39311E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB39301E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift */; };
 		4DCB39321E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB39301E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift */; };
 		4DCB393A1E844D4500388374 /* UIAlertController+Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB39391E844D4500388374 /* UIAlertController+Show.swift */; };
 		4DCB393B1E844D4500388374 /* UIAlertController+Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB39391E844D4500388374 /* UIAlertController+Show.swift */; };
 		4DCB393C1E844D4500388374 /* UIAlertController+Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB39391E844D4500388374 /* UIAlertController+Show.swift */; };
 		4DCB393D1E844D4500388374 /* UIAlertController+Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB39391E844D4500388374 /* UIAlertController+Show.swift */; };
-		4DCB393E1E8460FB00388374 /* NSNotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7376011DFDC6F500505CA0 /* NSNotificationName+Extension.swift */; };
 		4DCCBA5B1DC50D780046C755 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCBA5A1DC50D780046C755 /* UIColor+Extension.swift */; };
 		4DD6E4D01DFB17B400818A2C /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6E4CF1DFB17B400818A2C /* ProgressBar.swift */; };
 		4DD6E4D21DFB197E00818A2C /* BufferingBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6E4D11DFB197E00818A2C /* BufferingBar.swift */; };
@@ -307,10 +311,25 @@
 		4DE4AF021E9EA76D00681210 /* CGImage+IsDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4AF001E9EA76D00681210 /* CGImage+IsDark.swift */; };
 		4DE4AF041E9FB0F400681210 /* UICollectionViewCell+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4AF031E9FB0F400681210 /* UICollectionViewCell+CollectionView.swift */; };
 		4DE4AF051E9FB0F400681210 /* UICollectionViewCell+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4AF031E9FB0F400681210 /* UICollectionViewCell+CollectionView.swift */; };
-		4DE7B5681EE77D900056E890 /* MPMediaItem+MPMediaItemPropertySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE7B5671EE77D900056E890 /* MPMediaItem+MPMediaItemPropertySummary.swift */; };
-		4DE7B5691EE77D900056E890 /* MPMediaItem+MPMediaItemPropertySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE7B5671EE77D900056E890 /* MPMediaItem+MPMediaItemPropertySummary.swift */; };
-		4DE7B56A1EE813480056E890 /* MPMediaItem+MPMediaItemPropertySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE7B5671EE77D900056E890 /* MPMediaItem+MPMediaItemPropertySummary.swift */; };
-		4DE7B56B1EE813490056E890 /* MPMediaItem+MPMediaItemPropertySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE7B5671EE77D900056E890 /* MPMediaItem+MPMediaItemPropertySummary.swift */; };
+		4DE6FDD91F0422B000A7F274 /* DownloadDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDD81F0422B000A7F274 /* DownloadDetailViewController.swift */; };
+		4DE6FDDA1F0422B200A7F274 /* DownloadDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDD81F0422B000A7F274 /* DownloadDetailViewController.swift */; };
+		4DE6FDDC1F04230800A7F274 /* DownloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDDB1F04230800A7F274 /* DownloadButton.swift */; };
+		4DE6FDDD1F04230A00A7F274 /* DownloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDDB1F04230800A7F274 /* DownloadButton.swift */; };
+		4DE6FDDF1F04231300A7F274 /* UpNextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDDE1F04231300A7F274 /* UpNextViewController.swift */; };
+		4DE6FDE01F04231700A7F274 /* UpNextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDDE1F04231300A7F274 /* UpNextViewController.swift */; };
+		4DE6FDE21F04234600A7F274 /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDE11F04234600A7F274 /* DownloadViewController.swift */; };
+		4DE6FDE31F04234800A7F274 /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDE11F04234600A7F274 /* DownloadViewController.swift */; };
+		4DE6FDE61F0423F900A7F274 /* MPMediaType+Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDE41F0423F700A7F274 /* MPMediaType+Episode.swift */; };
+		4DE6FDE71F0423FB00A7F274 /* MPMediaType+Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDE41F0423F700A7F274 /* MPMediaType+Episode.swift */; };
+		4DE6FDEA1F04242800A7F274 /* GCKMediaTextTrackStyle+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDE81F04242300A7F274 /* GCKMediaTextTrackStyle+Default.swift */; };
+		4DE6FDEC1F04253900A7F274 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDEB1F04253900A7F274 /* UIDevice+Extension.swift */; };
+		4DE6FDED1F04253B00A7F274 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDEB1F04253900A7F274 /* UIDevice+Extension.swift */; };
+		4DE6FDEF1F04256B00A7F274 /* NSNotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDEE1F04256B00A7F274 /* NSNotificationName+Extension.swift */; };
+		4DE6FDF01F04256D00A7F274 /* NSNotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDEE1F04256B00A7F274 /* NSNotificationName+Extension.swift */; };
+		4DE6FDF21F0823C400A7F274 /* UITableView+FocusedCellIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDF11F0823C300A7F274 /* UITableView+FocusedCellIndexPath.swift */; };
+		4DE6FDF31F0823C400A7F274 /* UITableView+FocusedCellIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDF11F0823C300A7F274 /* UITableView+FocusedCellIndexPath.swift */; };
+		4DE6FDF51F0BD3B000A7F274 /* DummyStoryboardSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDF41F0BD3B000A7F274 /* DummyStoryboardSegue.swift */; };
+		4DE6FDF61F0BD3B000A7F274 /* DummyStoryboardSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6FDF41F0BD3B000A7F274 /* DummyStoryboardSegue.swift */; };
 		4DE9E06A1E3D0DC300806522 /* SeparatorCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE9E0691E3D0DC300806522 /* SeparatorCollectionViewLayout.swift */; };
 		4DE9E06C1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE9E06B1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift */; };
 		4DF110951E91042E0090289A /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF110941E91042E0090289A /* MediaViewController.swift */; };
@@ -321,12 +340,13 @@
 		4DF394331E96BA3300DFCEC6 /* AVAudioRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF394311E96BA3300DFCEC6 /* AVAudioRoute.swift */; };
 		4DF394351E96DF9100DFCEC6 /* UITableViewCell+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF394341E96DF9100DFCEC6 /* UITableViewCell+TableView.swift */; };
 		4DF394361E96DF9100DFCEC6 /* UITableViewCell+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF394341E96DF9100DFCEC6 /* UITableViewCell+TableView.swift */; };
-		4DF5D8AF1E69D34B000B4A3C /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF5D8AE1E69D34B000B4A3C /* UIDevice+Extension.swift */; };
 		4DFA77161E71FECC007DB0E7 /* TVExpandableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFA77151E71FECC007DB0E7 /* TVExpandableTextView.swift */; };
 		4DFA77181E720848007DB0E7 /* TVBlurOverCurrentContextAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFA77171E720848007DB0E7 /* TVBlurOverCurrentContextAnimatedTransitioning.swift */; };
 		4DFA771A1E720BD2007DB0E7 /* TVDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFA77191E720BD2007DB0E7 /* TVDescriptionViewController.swift */; };
 		4DFA771C1E731369007DB0E7 /* TVButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFA771B1E731369007DB0E7 /* TVButton.swift */; };
 		4DFA77201E7317B1007DB0E7 /* TVButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DFA771F1E7317B1007DB0E7 /* TVButton.xib */; };
+		4DFC20941EED7B8200016BA2 /* MPMediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC20931EED7B8200016BA2 /* MPMediaType.swift */; };
+		4DFC20951EED7B8200016BA2 /* MPMediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC20931EED7B8200016BA2 /* MPMediaType.swift */; };
 		C13AAE5F5C0B7B2A2EADE6D7 /* Pods_PopcornTimetvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0F58921BC4D7FCD5EA29325 /* Pods_PopcornTimetvOS.framework */; };
 		EEEA016252AB0C29FBA7B554 /* Pods_PopcornKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA105EEC765A7BAF4B04611 /* Pods_PopcornKit_iOS.framework */; };
 		FBC7CC598DEFD1909064625E /* Pods_PopcornTimeiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C39DBC9A881608E11694A746 /* Pods_PopcornTimeiOS.framework */; };
@@ -406,7 +426,6 @@
 		287B85341C9873A200EEF5C8 /* PopcornTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopcornTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		287B85401C9873A200EEF5C8 /* iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = iOS.plist; sourceTree = "<group>"; };
 		44441B28B134A26461FAE05C /* Pods_PopcornKit_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopcornKit_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4D0142841EDC88C200FFB81A /* DownloadButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadButton.swift; sourceTree = "<group>"; };
 		4D0183A81DC3ACB400AB75B3 /* Locale+Langs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Locale+Langs.swift"; sourceTree = "<group>"; };
 		4D07E17B1E8C364F00457FCB /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 		4D0AB54F1EB0D4CA003D2A3A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/iOSPlist.strings; sourceTree = "<group>"; };
@@ -466,7 +485,6 @@
 		4D0F9DE71E70573A00860852 /* ResponsiveCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponsiveCollectionViewController.swift; path = "Collection View Controllers/ResponsiveCollectionViewController.swift"; sourceTree = "<group>"; };
 		4D0F9DE81E70573A00860852 /* DescriptionCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DescriptionCollectionViewController.swift; path = "Collection View Controllers/DescriptionCollectionViewController.swift"; sourceTree = "<group>"; };
 		4D0F9DEF1E70579C00860852 /* ContinueWatchingCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContinueWatchingCollectionReusableView.swift; path = Views/ContinueWatchingCollectionReusableView.swift; sourceTree = "<group>"; };
-		4D0F9DF01E70579C00860852 /* UpNextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpNextView.swift; path = Views/UpNextView.swift; sourceTree = "<group>"; };
 		4D0F9DF11E70579C00860852 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientView.swift; path = Views/GradientView.swift; sourceTree = "<group>"; };
 		4D0F9DF21E70579C00860852 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingView.swift; path = Views/LoadingView.swift; sourceTree = "<group>"; };
 		4D0F9DF31E70579C00860852 /* ErrorBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorBackgroundView.swift; path = Views/ErrorBackgroundView.swift; sourceTree = "<group>"; };
@@ -519,13 +537,18 @@
 		4D1440201E9AF3CF00B78269 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TraktAuthenticationViewController.strings; sourceTree = "<group>"; };
 		4D14402D1E9C1B8000B78269 /* iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = iOS.plist; path = "PopcornKit/Supporting Files/iOS.plist"; sourceTree = SOURCE_ROOT; };
 		4D14402E1E9C1B8000B78269 /* tvOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = tvOS.plist; path = "PopcornKit/Supporting Files/tvOS.plist"; sourceTree = SOURCE_ROOT; };
+		4D15C7E01EF17D3000953E45 /* DownloadDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadDetailTableViewCell.swift; sourceTree = "<group>"; };
+		4D15C7E21EF194AF00953E45 /* DownloadTableViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadTableViewHeader.xib; sourceTree = "<group>"; };
+		4D15C7E61EF1D7C700953E45 /* DownloadViewController+tvOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "DownloadViewController+tvOS.swift"; path = "../View Controllers/DownloadViewController+tvOS.swift"; sourceTree = "<group>"; };
+		4D15C7E81EF1D81600953E45 /* MPMediaItemProperty+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MPMediaItemProperty+Extension.swift"; sourceTree = "<group>"; };
+		4D15C7F31EF20B3600953E45 /* DownloadViewController+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DownloadViewController+iOS.swift"; sourceTree = "<group>"; };
+		4D15C7F71EF2154100953E45 /* DownloadDetailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDetailCollectionViewCell.swift; path = "Collection View Cells/DownloadDetailCollectionViewCell.swift"; sourceTree = "<group>"; };
 		4D1B88A61E3BEFF300DB701D /* EpisodesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodesCollectionViewController.swift; path = "Collection View Controllers/EpisodesCollectionViewController.swift"; sourceTree = "<group>"; };
 		4D1B88AC1E3CAF6700DB701D /* UIAlertAction+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Extension.swift"; sourceTree = "<group>"; };
 		4D2543AD1DACFBFE00149533 /* TopShelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TopShelf.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2543B01DACFBFE00149533 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		4D2543B21DACFBFE00149533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D29965E1EE35C4100737894 /* UIDownloadProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIDownloadProgressView.swift; path = Views/UIDownloadProgressView.swift; sourceTree = "<group>"; };
-		4D2996611EE42E5200737894 /* DownloadTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadTableViewController.swift; path = "Main View Controllers/DownloadTableViewController.swift"; sourceTree = "<group>"; };
 		4D2996681EE4431800737894 /* DownloadTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadTableViewCell.swift; sourceTree = "<group>"; };
 		4D2996721EE5F9C600737894 /* AppDelegate+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Extension.swift"; sourceTree = "<group>"; };
 		4D32EBD41EA2D0F500B4361A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/iOSPlist.strings; sourceTree = "<group>"; };
@@ -538,15 +561,13 @@
 		4D32EBE81EA2D0FA00B4361A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/tvOS.strings; sourceTree = "<group>"; };
 		4D32EBE91EA2D0FA00B4361A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4D32EBED1EA2D0FB00B4361A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/iOSPlist.strings; sourceTree = "<group>"; };
-		4D37C4581E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Gray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorViewStyle+Gray.swift"; sourceTree = "<group>"; };
+		4D37C4581E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Grey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorViewStyle+Grey.swift"; sourceTree = "<group>"; };
 		4D3A401D1EBDEAD1006E7F23 /* URL+MIME.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+MIME.swift"; sourceTree = "<group>"; };
-		4D3A40201EBDEEA5006E7F23 /* GCKMediaTextTrackStyle+Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "GCKMediaTextTrackStyle+Default.swift"; path = "../../../Extensions/GCKMediaTextTrackStyle+Default.swift"; sourceTree = "<group>"; };
 		4D3A40221EBE08E5006E7F23 /* GCKDevice+Equatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GCKDevice+Equatable.swift"; sourceTree = "<group>"; };
 		4D3A43471EA9826E00CF3646 /* TVFadedTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVFadedTextView.swift; sourceTree = "<group>"; };
 		4D5624741E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PCTPlayerViewController+ScreenNotifications.swift"; sourceTree = "<group>"; };
 		4D5624771E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PCTPlayerViewController+MediaPlayer.swift"; sourceTree = "<group>"; };
 		4D689A171DD88E17001D1318 /* PopcornTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopcornTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4D7376011DFDC6F500505CA0 /* NSNotificationName+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSNotificationName+Extension.swift"; path = "../UI/tvOS/Extensions/NSNotificationName+Extension.swift"; sourceTree = "<group>"; };
 		4D77D1F71E47A1B80089242C /* StepperTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepperTableViewCell.swift; sourceTree = "<group>"; };
 		4D784D4D1E5F3AF6009E3423 /* ItemViewController+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ItemViewController+iOS.swift"; sourceTree = "<group>"; };
 		4D784D521E5F4559009E3423 /* ItemViewController+tvOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ItemViewController+tvOS.swift"; sourceTree = "<group>"; };
@@ -636,6 +657,9 @@
 		4DC7B6941E33EB3A0098B12E /* ContinueWatchingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueWatchingCollectionViewCell.swift; sourceTree = "<group>"; };
 		4DC7B69A1E3503720098B12E /* CircularButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
 		4DC7B6A41E3907CC0098B12E /* DescriptionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DescriptionCollectionViewCell.xib; sourceTree = "<group>"; };
+		4DC7FE4B1EF71B79002C638A /* DownloadDetailViewController+tvOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "DownloadDetailViewController+tvOS.swift"; path = "../View Controllers/DownloadDetailViewController+tvOS.swift"; sourceTree = "<group>"; };
+		4DC7FE4E1EF720D9002C638A /* DownloadDetailViewController+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DownloadDetailViewController+iOS.swift"; sourceTree = "<group>"; };
+		4DC7FE511EF724CB002C638A /* DownloadDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDetailTableViewCell.swift; path = "Table View Cells/DownloadDetailTableViewCell.swift"; sourceTree = "<group>"; };
 		4DC870B51D9EDE58005455B0 /* PopcornTime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopcornTime.entitlements; sourceTree = "<group>"; };
 		4DCB39301E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VLCMediaPlayer+VLCFontAppearance.swift"; sourceTree = "<group>"; };
 		4DCB39391E844D4500388374 /* UIAlertController+Show.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Show.swift"; sourceTree = "<group>"; };
@@ -647,7 +671,16 @@
 		4DDBD9081E0EDA2E00CEA1B1 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		4DE4AF001E9EA76D00681210 /* CGImage+IsDark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+IsDark.swift"; sourceTree = "<group>"; };
 		4DE4AF031E9FB0F400681210 /* UICollectionViewCell+CollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+CollectionView.swift"; sourceTree = "<group>"; };
-		4DE7B5671EE77D900056E890 /* MPMediaItem+MPMediaItemPropertySummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MPMediaItem+MPMediaItemPropertySummary.swift"; sourceTree = "<group>"; };
+		4DE6FDD81F0422B000A7F274 /* DownloadDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDetailViewController.swift; path = "Detail View Controllers/DownloadDetailViewController.swift"; sourceTree = "<group>"; };
+		4DE6FDDB1F04230800A7F274 /* DownloadButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadButton.swift; path = Views/DownloadButton.swift; sourceTree = "<group>"; };
+		4DE6FDDE1F04231300A7F274 /* UpNextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpNextViewController.swift; path = "View Controllers/UpNextViewController.swift"; sourceTree = "<group>"; };
+		4DE6FDE11F04234600A7F274 /* DownloadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadViewController.swift; path = "View Controllers/DownloadViewController.swift"; sourceTree = "<group>"; };
+		4DE6FDE41F0423F700A7F274 /* MPMediaType+Episode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MPMediaType+Episode.swift"; sourceTree = "<group>"; };
+		4DE6FDE81F04242300A7F274 /* GCKMediaTextTrackStyle+Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GCKMediaTextTrackStyle+Default.swift"; sourceTree = "<group>"; };
+		4DE6FDEB1F04253900A7F274 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
+		4DE6FDEE1F04256B00A7F274 /* NSNotificationName+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSNotificationName+Extension.swift"; sourceTree = "<group>"; };
+		4DE6FDF11F0823C300A7F274 /* UITableView+FocusedCellIndexPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+FocusedCellIndexPath.swift"; sourceTree = "<group>"; };
+		4DE6FDF41F0BD3B000A7F274 /* DummyStoryboardSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyStoryboardSegue.swift; sourceTree = "<group>"; };
 		4DE9E0691E3D0DC300806522 /* SeparatorCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SeparatorCollectionViewLayout.swift; path = "Collection View Layouts/SeparatorCollectionViewLayout.swift"; sourceTree = "<group>"; };
 		4DE9E06B1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewLayoutAttributes+Color.swift"; sourceTree = "<group>"; };
 		4DF110941E91042E0090289A /* MediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaViewController.swift; path = "Main View Controllers/MediaViewController.swift"; sourceTree = "<group>"; };
@@ -655,12 +688,12 @@
 		4DF3942E1E96B5B600DFCEC6 /* AVSpeakerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVSpeakerManager.swift; sourceTree = "<group>"; };
 		4DF394311E96BA3300DFCEC6 /* AVAudioRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAudioRoute.swift; sourceTree = "<group>"; };
 		4DF394341E96DF9100DFCEC6 /* UITableViewCell+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+TableView.swift"; sourceTree = "<group>"; };
-		4DF5D8AE1E69D34B000B4A3C /* UIDevice+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		4DFA77151E71FECC007DB0E7 /* TVExpandableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVExpandableTextView.swift; sourceTree = "<group>"; };
 		4DFA77171E720848007DB0E7 /* TVBlurOverCurrentContextAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVBlurOverCurrentContextAnimatedTransitioning.swift; path = "Presentation Controllers/TVBlurOverCurrentContextAnimatedTransitioning.swift"; sourceTree = "<group>"; };
 		4DFA77191E720BD2007DB0E7 /* TVDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVDescriptionViewController.swift; path = "View Controllers/TVDescriptionViewController.swift"; sourceTree = "<group>"; };
 		4DFA771B1E731369007DB0E7 /* TVButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVButton.swift; sourceTree = "<group>"; };
 		4DFA771F1E7317B1007DB0E7 /* TVButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TVButton.xib; sourceTree = "<group>"; };
+		4DFC20931EED7B8200016BA2 /* MPMediaType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPMediaType.swift; sourceTree = "<group>"; };
 		4F3B56E351FCF49BA32DCB20 /* Pods-PopcornTimeiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTimeiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		59BE8A67A9D4954F63D16C0E /* Pods-PopcornTime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTime.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTime/Pods-PopcornTime.debug.xcconfig"; sourceTree = "<group>"; };
 		5AFC393C8DD38442036DFF31 /* Pods-PopcornTimetvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTimetvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornTimetvOS/Pods-PopcornTimetvOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -783,9 +816,10 @@
 			isa = PBXGroup;
 			children = (
 				4D2996721EE5F9C600737894 /* AppDelegate+Extension.swift */,
+				4D15C7E81EF1D81600953E45 /* MPMediaItemProperty+Extension.swift */,
+				4DE6FDEB1F04253900A7F274 /* UIDevice+Extension.swift */,
 				4D9CDFE61EE9DA95004B3F6F /* AVMetadataItem+Extension.swift */,
-				4DE7B5671EE77D900056E890 /* MPMediaItem+MPMediaItemPropertySummary.swift */,
-				4D7376011DFDC6F500505CA0 /* NSNotificationName+Extension.swift */,
+				4DE6FDEE1F04256B00A7F274 /* NSNotificationName+Extension.swift */,
 				4D0AB5591EB0D662003D2A3A /* Bundle+Extension.swift */,
 				4D8A5DD71EA962B2004CEB53 /* UIControlState+Hashable.swift */,
 				4D0F9D4A1E6F2B1300860852 /* String+Extension.swift */,
@@ -796,6 +830,7 @@
 				4DE4AF001E9EA76D00681210 /* CGImage+IsDark.swift */,
 				4D0F9E431E705BD100860852 /* UIView+Extension.swift */,
 				4DF394341E96DF9100DFCEC6 /* UITableViewCell+TableView.swift */,
+				4DE6FDF11F0823C300A7F274 /* UITableView+FocusedCellIndexPath.swift */,
 				4DE4AF031E9FB0F400681210 /* UICollectionViewCell+CollectionView.swift */,
 				4D0F9E441E705BD100860852 /* Show+Extension.swift */,
 				4D0F9E451E705BD100860852 /* UINavigationController+Extension.swift */,
@@ -935,6 +970,7 @@
 			isa = PBXGroup;
 			children = (
 				4D9995791E5E0058005C432A /* Presentation Controllers */,
+				4DC7FE501EF724A6002C638A /* Table View Cells */,
 				4D784D541E5F544F009E3423 /* Collection View Cells */,
 				4DBE609F1E5E632600C2549B /* Collection View Controllers */,
 				4D99954D1E5C7950005C432A /* View Controllers */,
@@ -990,6 +1026,7 @@
 			children = (
 				4D99955A1E5C81DF005C432A /* ContinueWatchingCollectionViewCell.xib */,
 				4DB047791E6035860008721A /* ContinueWatchingCollectionViewCell.swift */,
+				4D15C7F71EF2154100953E45 /* DownloadDetailCollectionViewCell.swift */,
 				4D784D551E5F546E009E3423 /* DescriptionCollectionViewCell.xib */,
 			);
 			name = "Collection View Cells";
@@ -1000,6 +1037,7 @@
 			children = (
 				4D77D1F71E47A1B80089242C /* StepperTableViewCell.swift */,
 				4D2996681EE4431800737894 /* DownloadTableViewCell.swift */,
+				4D15C7E01EF17D3000953E45 /* DownloadDetailTableViewCell.swift */,
 				4D8330BE1E57662D00E1DD41 /* AirPlayTableViewCell.swift */,
 			);
 			path = "Table View Cells";
@@ -1008,12 +1046,14 @@
 		4D859B181DDF7373000E2AA1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				4DF5D8AE1E69D34B000B4A3C /* UIDevice+Extension.swift */,
+				4D15C7F31EF20B3600953E45 /* DownloadViewController+iOS.swift */,
+				4DE6FDE41F0423F700A7F274 /* MPMediaType+Episode.swift */,
+				4DC7FE4E1EF720D9002C638A /* DownloadDetailViewController+iOS.swift */,
 				4D9995411E5C6FFD005C432A /* CollectionViewController+iOS.swift */,
 				4D784D4D1E5F3AF6009E3423 /* ItemViewController+iOS.swift */,
 				4DBE60971E5E590500C2549B /* MovieDetailViewController+iOS.swift */,
-				4D3A40201EBDEEA5006E7F23 /* GCKMediaTextTrackStyle+Default.swift */,
 				4D3A40221EBE08E5006E7F23 /* GCKDevice+Equatable.swift */,
+				4DE6FDE81F04242300A7F274 /* GCKMediaTextTrackStyle+Default.swift */,
 				4DABD2331ECF693D00C609D1 /* GCKRequest+CustomData.swift */,
 				4DBE608E1E5E51C300C2549B /* DetailViewController+iOS.swift */,
 				4DBE60991E5E5F8A00C2549B /* ShowDetailViewController+iOS.swift */,
@@ -1034,13 +1074,16 @@
 			isa = PBXGroup;
 			children = (
 				4D99955C1E5C8F09005C432A /* CollectionViewController+tvOS.swift */,
+				4D15C7E61EF1D7C700953E45 /* DownloadViewController+tvOS.swift */,
+				4DC7FE4B1EF71B79002C638A /* DownloadDetailViewController+tvOS.swift */,
+				4DFC20931EED7B8200016BA2 /* MPMediaType.swift */,
 				4D0F9E3A1E705AA100860852 /* SearchViewController+tvOS.swift */,
 				4D0F9E3B1E705AA100860852 /* UICollectionViewCell+ReactiveCell.swift */,
 				4D784D571E5F791B009E3423 /* DetailViewController+tvOS.swift */,
 				4DBE609D1E5E629D00C2549B /* ShowDetailViewController+tvOS.swift */,
 				4D784D521E5F4559009E3423 /* ItemViewController+tvOS.swift */,
 				4D859BB11DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift */,
-				4D37C4581E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Gray.swift */,
+				4D37C4581E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Grey.swift */,
 				4D859BB41DDFA1C6000E2AA1 /* UIViewController+Extension.swift */,
 				4DB1E6DA1EA1624C00DC0C7B /* MarqueeLabel+ContentMode.swift */,
 			);
@@ -1064,6 +1107,7 @@
 				4DF394311E96BA3300DFCEC6 /* AVAudioRoute.swift */,
 				4D07E17B1E8C364F00457FCB /* Object.swift */,
 				4DC2D1361E5B25750019DB7D /* AutoPlayStoryboardSegue.swift */,
+				4DE6FDF41F0BD3B000A7F274 /* DummyStoryboardSegue.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1115,9 +1159,9 @@
 			isa = PBXGroup;
 			children = (
 				4D0F9DEF1E70579C00860852 /* ContinueWatchingCollectionReusableView.swift */,
-				4D0F9DF01E70579C00860852 /* UpNextView.swift */,
 				4D0F9DF11E70579C00860852 /* GradientView.swift */,
 				4D29965E1EE35C4100737894 /* UIDownloadProgressView.swift */,
+				4DE6FDDB1F04230800A7F274 /* DownloadButton.swift */,
 				4D0F9DF21E70579C00860852 /* LoadingView.swift */,
 				4D0F9DF31E70579C00860852 /* ErrorBackgroundView.swift */,
 			);
@@ -1128,7 +1172,6 @@
 			isa = PBXGroup;
 			children = (
 				4D0F9DFE1E7057DF00860852 /* SettingsTableViewController.swift */,
-				4D2996611EE42E5200737894 /* DownloadTableViewController.swift */,
 				4D0F9DFF1E7057DF00860852 /* MainViewController.swift */,
 				4D0F9E001E7057DF00860852 /* WatchlistViewController.swift */,
 				4D0F9E011E7057DF00860852 /* SearchViewController.swift */,
@@ -1166,8 +1209,10 @@
 			isa = PBXGroup;
 			children = (
 				4D0F9E131E70582A00860852 /* ItemViewController.swift */,
+				4DE6FDDE1F04231300A7F274 /* UpNextViewController.swift */,
 				4D0F9E141E70582A00860852 /* PreloadTorrentViewController.swift */,
 				4D0F9E151E70582A00860852 /* PCTPlayerViewController.swift */,
+				4DE6FDE11F04234600A7F274 /* DownloadViewController.swift */,
 				4D0F9E161E70582A00860852 /* TermsOfServiceViewController.swift */,
 			);
 			name = "View Controllers";
@@ -1199,6 +1244,7 @@
 			children = (
 				4D0F9E2C1E7059BA00860852 /* ContinueWatchingCollectionReusableView.xib */,
 				4D859B691DDFA12A000E2AA1 /* ErrorBackgroundView.xib */,
+				4D15C7E21EF194AF00953E45 /* DownloadTableViewHeader.xib */,
 				4D0F9E2D1E7059BA00860852 /* BarSlider.swift */,
 				4D859B681DDFA12A000E2AA1 /* UIExpandableTextView.swift */,
 				4D859B671DDFA12A000E2AA1 /* ProgressBar.swift */,
@@ -1213,7 +1259,6 @@
 				4D859B7E1DDFA13A000E2AA1 /* BlurButton.swift */,
 				4DC7B69A1E3503720098B12E /* CircularButton.swift */,
 				4D859B7D1DDFA13A000E2AA1 /* BorderButton.swift */,
-				4D0142841EDC88C200FFB81A /* DownloadButton.swift */,
 				4D0F9E281E70593500860852 /* CastIconButton.swift */,
 				4D859B7C1DDFA13A000E2AA1 /* WhiteHighlightButton.swift */,
 			);
@@ -1248,6 +1293,7 @@
 				4D0F9DCB1E70564900860852 /* DetailViewController.swift */,
 				4D0F9DCC1E70564900860852 /* ShowDetailViewController.swift */,
 				4D0F9DCD1E70564900860852 /* MovieDetailViewController.swift */,
+				4DE6FDD81F0422B000A7F274 /* DownloadDetailViewController.swift */,
 			);
 			name = "Detail View Controllers";
 			sourceTree = "<group>";
@@ -1258,6 +1304,14 @@
 				4DBE60A01E5E634400C2549B /* EpisodesViewController.swift */,
 			);
 			name = "Collection View Controllers";
+			sourceTree = "<group>";
+		};
+		4DC7FE501EF724A6002C638A /* Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				4DC7FE511EF724CB002C638A /* DownloadDetailTableViewCell.swift */,
+			);
+			name = "Table View Cells";
 			sourceTree = "<group>";
 		};
 		4DD6E4CE1DFB179700818A2C /* Views */ = {
@@ -1600,6 +1654,7 @@
 				4D1440191E9AF18800B78269 /* LoadingView.xib in Resources */,
 				4D32EBD31EA2D0F500B4361A /* iOSPlist.strings in Resources */,
 				4DBCCEFF1E68220D0066F1A7 /* Launch Screen.storyboard in Resources */,
+				4D15C7E31EF194AF00953E45 /* DownloadTableViewHeader.xib in Resources */,
 				4DC7B6A51E3907CC0098B12E /* DescriptionCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1795,11 +1850,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DBE60A11E5E634400C2549B /* EpisodesViewController.swift in Sources */,
+				4DE6FDF21F0823C400A7F274 /* UITableView+FocusedCellIndexPath.swift in Sources */,
 				4D990E471DC4F0F1005CDE34 /* AppDelegate.swift in Sources */,
 				4DCCBA5B1DC50D780046C755 /* UIColor+Extension.swift in Sources */,
 				4DAFAA361E0AF4DE00AE0F9A /* AudioViewController.swift in Sources */,
 				4D0F9E3D1E705AA100860852 /* UICollectionViewCell+ReactiveCell.swift in Sources */,
-				4DE7B5681EE77D900056E890 /* MPMediaItem+MPMediaItemPropertySummary.swift in Sources */,
 				4D990E2D1DC4F00F005CDE34 /* SubtitleSettings.swift in Sources */,
 				4D859BAF1DDFA1B7000E2AA1 /* SubtitlesViewController.swift in Sources */,
 				4D0F9E0B1E7057DF00860852 /* ShowsViewController.swift in Sources */,
@@ -1813,7 +1868,7 @@
 				4D0F9E4A1E705BD100860852 /* Show+Extension.swift in Sources */,
 				4DC2D1371E5B25750019DB7D /* AutoPlayStoryboardSegue.swift in Sources */,
 				4D07E17C1E8C364F00457FCB /* Object.swift in Sources */,
-				4D7376021DFDC6F500505CA0 /* NSNotificationName+Extension.swift in Sources */,
+				4DE6FDDC1F04230800A7F274 /* DownloadButton.swift in Sources */,
 				4D0F9DF61E70579C00860852 /* GradientView.swift in Sources */,
 				4D859BB01DDFA1B7000E2AA1 /* OptionsViewController.swift in Sources */,
 				4D0F9E071E7057DF00860852 /* WatchlistViewController.swift in Sources */,
@@ -1833,9 +1888,9 @@
 				4D0F9DDD1E7056DF00860852 /* CoverCollectionViewCell.swift in Sources */,
 				4D0F9E171E70582A00860852 /* ItemViewController.swift in Sources */,
 				4D7C7E201E6C386C0095D0DF /* NSObject+Swift_Observer.m in Sources */,
+				4D15C7E91EF1D81600953E45 /* MPMediaItemProperty+Extension.swift in Sources */,
 				4D29965F1EE35C4100737894 /* UIDownloadProgressView.swift in Sources */,
 				4DFA77181E720848007DB0E7 /* TVBlurOverCurrentContextAnimatedTransitioning.swift in Sources */,
-				4D0F9DF51E70579C00860852 /* UpNextView.swift in Sources */,
 				4D5624781E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift in Sources */,
 				4D0F9DF81E70579C00860852 /* ErrorBackgroundView.swift in Sources */,
 				4D0F9E481E705BD100860852 /* UIImage+Extension.swift in Sources */,
@@ -1843,12 +1898,16 @@
 				4D9995781E5DCE7B005C432A /* SeasonPickerViewController.swift in Sources */,
 				4D0F9E371E705A3E00860852 /* TVAppDocumentControllerAnimatedTransitioning.swift in Sources */,
 				4D784D581E5F791B009E3423 /* DetailViewController+tvOS.swift in Sources */,
+				4DE6FDDF1F04231300A7F274 /* UpNextViewController.swift in Sources */,
 				4DAE339B1E7C81240014B489 /* TimeInterval+Default.swift in Sources */,
 				4D0F9DCE1E70564900860852 /* DetailViewController.swift in Sources */,
 				4DA42DD21DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */,
-				4D37C4591E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Gray.swift in Sources */,
+				4DFC20941EED7B8200016BA2 /* MPMediaType.swift in Sources */,
+				4D37C4591E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Grey.swift in Sources */,
 				4D0F9E1A1E70582A00860852 /* TermsOfServiceViewController.swift in Sources */,
+				4DE6FDD91F0422B000A7F274 /* DownloadDetailViewController.swift in Sources */,
 				4D0AB55A1EB0D662003D2A3A /* Bundle+Extension.swift in Sources */,
+				4DC7FE521EF724CB002C638A /* DownloadDetailTableViewCell.swift in Sources */,
 				4D8A5DD81EA962B2004CEB53 /* UIControlState+Hashable.swift in Sources */,
 				4D0F9DDE1E7056DF00860852 /* EpisodeCollectionViewCell.swift in Sources */,
 				4D0F9E361E705A3E00860852 /* TVFadeToBlackAnimatedTransitioning.swift in Sources */,
@@ -1860,7 +1919,6 @@
 				4D0F9E091E7057DF00860852 /* PersonViewController.swift in Sources */,
 				4DBCCED91E680EBE0066F1A7 /* UIStoryboard+Main.swift in Sources */,
 				4DF394351E96DF9100DFCEC6 /* UITableViewCell+TableView.swift in Sources */,
-				4D2996621EE42E5200737894 /* DownloadTableViewController.swift in Sources */,
 				4D0F9DCF1E70564900860852 /* ShowDetailViewController.swift in Sources */,
 				4D0F9E491E705BD100860852 /* UIView+Extension.swift in Sources */,
 				4DFA771C1E731369007DB0E7 /* TVButton.swift in Sources */,
@@ -1872,7 +1930,10 @@
 				4D0F9E3C1E705AA100860852 /* SearchViewController+tvOS.swift in Sources */,
 				4D0F9DF71E70579C00860852 /* LoadingView.swift in Sources */,
 				4D99955D1E5C8F09005C432A /* CollectionViewController+tvOS.swift in Sources */,
+				4DE6FDF51F0BD3B000A7F274 /* DummyStoryboardSegue.swift in Sources */,
+				4DE6FDE21F04234600A7F274 /* DownloadViewController.swift in Sources */,
 				4D784D531E5F4559009E3423 /* ItemViewController+tvOS.swift in Sources */,
+				4D15C7F91EF2154400953E45 /* DownloadDetailCollectionViewCell.swift in Sources */,
 				4D0F9DDA1E7056DF00860852 /* MonogramCollectionViewCell.swift in Sources */,
 				4D0E130E1E671E050000AD65 /* TVTabBarController.swift in Sources */,
 				4DF3942F1E96B5B600DFCEC6 /* AVSpeakerManager.swift in Sources */,
@@ -1884,8 +1945,10 @@
 				4D0F9E391E705A7600860852 /* TVNavigationController.swift in Sources */,
 				4D859BB81DDFA1C6000E2AA1 /* UIViewController+Extension.swift in Sources */,
 				4D859BB51DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift in Sources */,
+				4DE6FDEC1F04253900A7F274 /* UIDevice+Extension.swift in Sources */,
 				4D0F9E181E70582A00860852 /* PreloadTorrentViewController.swift in Sources */,
 				4DB1E6DB1EA1624C00DC0C7B /* MarqueeLabel+ContentMode.swift in Sources */,
+				4D15C7ED1EF1E58B00953E45 /* DownloadViewController+tvOS.swift in Sources */,
 				4D0F9E0A1E7057DF00860852 /* MoviesViewController.swift in Sources */,
 				4D3A43481EA9826E00CF3646 /* TVFadedTextView.swift in Sources */,
 				4D0F9DDF1E7056DF00860852 /* DescriptionCollectionViewCell.swift in Sources */,
@@ -1893,11 +1956,13 @@
 				4DD6E4D51DFB2FAA00818A2C /* TapGestureRecogniser.swift in Sources */,
 				4D990E231DC4EFA2005CDE34 /* Media+Extension.swift in Sources */,
 				4D2996731EE5F9C600737894 /* AppDelegate+Extension.swift in Sources */,
+				4DE6FDEF1F04256B00A7F274 /* NSNotificationName+Extension.swift in Sources */,
 				4DD6E4D01DFB17B400818A2C /* ProgressBar.swift in Sources */,
 				4DF394321E96BA3300DFCEC6 /* AVAudioRoute.swift in Sources */,
 				4D0F9DD01E70564900860852 /* MovieDetailViewController.swift in Sources */,
 				4D5624751E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift in Sources */,
 				4DB0477A1E6035860008721A /* ContinueWatchingCollectionViewCell.swift in Sources */,
+				4DC7FE4C1EF71B79002C638A /* DownloadDetailViewController+tvOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1916,7 +1981,8 @@
 				4D0F9D771E6F2EEE00860852 /* WatchedlistManager.swift in Sources */,
 				4D0F9D871E6F2EF400860852 /* Person.swift in Sources */,
 				4D0F9D821E6F2EEE00860852 /* TMDBManager.swift in Sources */,
-				4DE7B56B1EE813490056E890 /* MPMediaItem+MPMediaItemPropertySummary.swift in Sources */,
+				4DFC20951EED7B8200016BA2 /* MPMediaType.swift in Sources */,
+				4D15C7EB1EF1D81600953E45 /* MPMediaItemProperty+Extension.swift in Sources */,
 				4D0F9D7A1E6F2EEE00860852 /* UpdateManager.swift in Sources */,
 				4D0F9D811E6F2EEE00860852 /* ShowManager.swift in Sources */,
 				4D0F9D7D1E6F2EEE00860852 /* PopcornKit.swift in Sources */,
@@ -1959,10 +2025,11 @@
 				4D0F9DA51E6F300C00860852 /* OAuthCredential.swift in Sources */,
 				4D0F9DC31E6F304B00860852 /* Torrent.swift in Sources */,
 				4D0F9DBF1E6F304B00860852 /* Episode.swift in Sources */,
-				4DE7B56A1EE813480056E890 /* MPMediaItem+MPMediaItemPropertySummary.swift in Sources */,
 				4D0F9DC11E6F304B00860852 /* Crew.swift in Sources */,
 				4D0F9DC51E6F30ED00860852 /* Dictionary+Extension.swift in Sources */,
+				4DE6FDE61F0423F900A7F274 /* MPMediaType+Episode.swift in Sources */,
 				4D0F9DAF1E6F304600860852 /* SubtitlesManager.swift in Sources */,
+				4D15C7EC1EF1D81600953E45 /* MPMediaItemProperty+Extension.swift in Sources */,
 				4D0F9DC61E6F30F000860852 /* String+Extension.swift in Sources */,
 				4D0F9DC41E6F304B00860852 /* Subtitle.swift in Sources */,
 				4D0F9DBD1E6F304B00860852 /* Media.swift in Sources */,
@@ -1986,18 +2053,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D1B88A71E3BEFF300DB701D /* EpisodesCollectionViewController.swift in Sources */,
-				4D2996631EE42E5200737894 /* DownloadTableViewController.swift in Sources */,
 				4D0AB55B1EB0D662003D2A3A /* Bundle+Extension.swift in Sources */,
-				4DCB393E1E8460FB00388374 /* NSNotificationName+Extension.swift in Sources */,
 				4D859B461DDFA0D5000E2AA1 /* GoogleCastTableViewController.swift in Sources */,
-				4D0F9DFA1E70579F00860852 /* UpNextView.swift in Sources */,
 				4D7C7E211E6C386C0095D0DF /* NSObject+Swift_Observer.m in Sources */,
+				4DE6FDE71F0423FB00A7F274 /* MPMediaType+Episode.swift in Sources */,
 				4DBE608B1E5E49B200C2549B /* FileManager+Extension.swift in Sources */,
 				4D0F9E1C1E70582C00860852 /* PreloadTorrentViewController.swift in Sources */,
 				4D99956F1E5CE227005C432A /* UIFont+Style.swift in Sources */,
 				4D0F9E2A1E70593800860852 /* CastIconButton.swift in Sources */,
 				4D0F9DD21E70564C00860852 /* ShowDetailViewController.swift in Sources */,
-				4DF5D8AF1E69D34B000B4A3C /* UIDevice+Extension.swift in Sources */,
 				4DDBD90A1E0EDA2E00CEA1B1 /* Array+Extension.swift in Sources */,
 				4DE9E06C1E3D12E600806522 /* UICollectionViewLayoutAttributes+Color.swift in Sources */,
 				4D0F9DE41E7056E200860852 /* EpisodeCollectionViewCell.swift in Sources */,
@@ -2007,9 +2071,7 @@
 				4DC2D1351E5A250B0019DB7D /* SnappingCollectionViewLayout.swift in Sources */,
 				4DBCCEDA1E680EBE0066F1A7 /* UIStoryboard+Main.swift in Sources */,
 				4D0F9DEC1E70573F00860852 /* CollectionViewController.swift in Sources */,
-				4D0142851EDC88C200FFB81A /* DownloadButton.swift in Sources */,
 				4D689A2E1DD88F12001D1318 /* Locale+Langs.swift in Sources */,
-				4D3A40211EBDEEA5006E7F23 /* GCKMediaTextTrackStyle+Default.swift in Sources */,
 				4D2996601EE35C4500737894 /* UIDownloadProgressView.swift in Sources */,
 				4D0F9E101E7057F100860852 /* PersonViewController.swift in Sources */,
 				4D0F9E0F1E7057F100860852 /* SearchViewController.swift in Sources */,
@@ -2018,6 +2080,7 @@
 				4D3A401F1EBDEAD1006E7F23 /* URL+MIME.swift in Sources */,
 				4D0E130C1E6709EB0000AD65 /* UICollectionViewController+Extension.swift in Sources */,
 				4D0F9E4E1E705BD600860852 /* UIImage+Extension.swift in Sources */,
+				4DE6FDE01F04231700A7F274 /* UpNextViewController.swift in Sources */,
 				4D0F9E1E1E70582C00860852 /* TermsOfServiceViewController.swift in Sources */,
 				4D689A301DD88F1A001D1318 /* Media+Extension.swift in Sources */,
 				4D0F9DF91E70579F00860852 /* ContinueWatchingCollectionReusableView.swift in Sources */,
@@ -2029,13 +2092,16 @@
 				4DBE608F1E5E51C300C2549B /* DetailViewController+iOS.swift in Sources */,
 				4D8C4B8A1E47BE78004872F8 /* UIScreen+AspectRatio.swift in Sources */,
 				4D8C4B881E47AD1B004872F8 /* Number+Extension.swift in Sources */,
+				4DC7FE4F1EF720D9002C638A /* DownloadDetailViewController+iOS.swift in Sources */,
 				4D0F9E311E7059BD00860852 /* ProgressSlider.swift in Sources */,
 				4D784D4E1E5F3AF6009E3423 /* ItemViewController+iOS.swift in Sources */,
 				4D859B851DDFA13D000E2AA1 /* WhiteHighlightButton.swift in Sources */,
 				4D2996691EE4431800737894 /* DownloadTableViewCell.swift in Sources */,
+				4DE6FDDD1F04230A00A7F274 /* DownloadButton.swift in Sources */,
 				4D0F9DEE1E70573F00860852 /* DescriptionCollectionViewController.swift in Sources */,
 				4D859B471DDFA0D5000E2AA1 /* OptionsTableViewController.swift in Sources */,
 				4D0F9DED1E70573F00860852 /* ResponsiveCollectionViewController.swift in Sources */,
+				4DE6FDED1F04253B00A7F274 /* UIDevice+Extension.swift in Sources */,
 				4DF394331E96BA3300DFCEC6 /* AVAudioRoute.swift in Sources */,
 				4D5624791E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift in Sources */,
 				4D8A5DD91EA962B4004CEB53 /* UIControlState+Hashable.swift in Sources */,
@@ -2045,15 +2111,17 @@
 				4D0F9DE01E7056E200860852 /* MonogramCollectionViewCell.swift in Sources */,
 				4D689A2A1DD88EFC001D1318 /* SubtitleSettings.swift in Sources */,
 				4DCB39321E843C0200388374 /* VLCMediaPlayer+VLCFontAppearance.swift in Sources */,
+				4D15C7EA1EF1D81600953E45 /* MPMediaItemProperty+Extension.swift in Sources */,
 				4D859B861DDFA13D000E2AA1 /* BorderButton.swift in Sources */,
 				4D1B88AD1E3CAF6700DB701D /* UIAlertAction+Extension.swift in Sources */,
 				4DCB393B1E844D4500388374 /* UIAlertController+Show.swift in Sources */,
+				4DE6FDF01F04256D00A7F274 /* NSNotificationName+Extension.swift in Sources */,
 				4D859B631DDFA10C000E2AA1 /* EpisodeDetailViewController.swift in Sources */,
+				4DE6FDE31F04234800A7F274 /* DownloadViewController.swift in Sources */,
 				4DC2D1381E5B25750019DB7D /* AutoPlayStoryboardSegue.swift in Sources */,
 				4D859B871DDFA13D000E2AA1 /* BlurButton.swift in Sources */,
 				4DBE60981E5E590500C2549B /* MovieDetailViewController+iOS.swift in Sources */,
 				4D859B761DDFA12C000E2AA1 /* UIExpandableTextView.swift in Sources */,
-				4DE7B5691EE77D900056E890 /* MPMediaItem+MPMediaItemPropertySummary.swift in Sources */,
 				4DE4AF051E9FB0F400681210 /* UICollectionViewCell+CollectionView.swift in Sources */,
 				4DF110961E91042E0090289A /* MediaViewController.swift in Sources */,
 				4D07E17D1E8C365200457FCB /* Object.swift in Sources */,
@@ -2064,6 +2132,7 @@
 				4DE9E06A1E3D0DC300806522 /* SeparatorCollectionViewLayout.swift in Sources */,
 				4D0F9E0D1E7057F100860852 /* MainViewController.swift in Sources */,
 				4D5624761E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift in Sources */,
+				4D15C7E11EF17D3000953E45 /* DownloadDetailTableViewCell.swift in Sources */,
 				4D859B751DDFA12C000E2AA1 /* ProgressBar.swift in Sources */,
 				4DF394301E96B5B600DFCEC6 /* AVSpeakerManager.swift in Sources */,
 				4D8330BF1E57662D00E1DD41 /* AirPlayTableViewCell.swift in Sources */,
@@ -2075,6 +2144,7 @@
 				4D0F9E0E1E7057F100860852 /* WatchlistViewController.swift in Sources */,
 				4D77D1F81E47A1B80089242C /* StepperTableViewCell.swift in Sources */,
 				4D859B661DDFA11B000E2AA1 /* CastPlayerViewController.swift in Sources */,
+				4DE6FDF61F0BD3B000A7F274 /* DummyStoryboardSegue.swift in Sources */,
 				4D0F9E531E705BD600860852 /* UIAlertController+BlurStyle.swift in Sources */,
 				4D0F9DFD1E70579F00860852 /* ErrorBackgroundView.swift in Sources */,
 				4DBE609A1E5E5F8A00C2549B /* ShowDetailViewController+iOS.swift in Sources */,
@@ -2088,13 +2158,17 @@
 				4D0F9DD31E70564C00860852 /* MovieDetailViewController.swift in Sources */,
 				4D9995421E5C6FFE005C432A /* CollectionViewController+iOS.swift in Sources */,
 				4D859B9D1DDFA164000E2AA1 /* PCTPlayerViewController+iOS.swift in Sources */,
+				4DE6FDF31F0823C400A7F274 /* UITableView+FocusedCellIndexPath.swift in Sources */,
 				4DC7B69B1E3503720098B12E /* CircularButton.swift in Sources */,
+				4DE6FDEA1F04242800A7F274 /* GCKMediaTextTrackStyle+Default.swift in Sources */,
 				4D0F9E501E705BD600860852 /* Show+Extension.swift in Sources */,
 				4D0F9E4F1E705BD600860852 /* UIView+Extension.swift in Sources */,
+				4D15C7F41EF20B3600953E45 /* DownloadViewController+iOS.swift in Sources */,
 				4D0F9DFC1E70579F00860852 /* LoadingView.swift in Sources */,
 				4D0F9E0C1E7057F100860852 /* SettingsTableViewController.swift in Sources */,
 				4D0F9D4D1E6F2B2000860852 /* String+Extension.swift in Sources */,
 				4D0F9E511E705BD600860852 /* UINavigationController+Extension.swift in Sources */,
+				4DE6FDDA1F0422B200A7F274 /* DownloadDetailViewController.swift in Sources */,
 				4D0F9E1B1E70582C00860852 /* ItemViewController.swift in Sources */,
 				4D0F9DFB1E70579F00860852 /* GradientView.swift in Sources */,
 			);
@@ -2521,6 +2595,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0C3C041A7CA6B5B76AAA143D /* Pods-TopShelf.debug.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -2539,7 +2614,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 3.0;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
 		};
@@ -2547,6 +2622,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A489B2D54ED62235827C5970 /* Pods-TopShelf.release.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -2559,7 +2635,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};

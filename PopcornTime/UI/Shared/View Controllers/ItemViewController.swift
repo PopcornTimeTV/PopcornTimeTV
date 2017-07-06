@@ -7,6 +7,14 @@ import PopcornTorrent
 import AVKit
 import XCDYouTubeKit
 
+#if os(iOS)
+    typealias ExpandableTextView = UIExpandableTextView
+    typealias Button = UIButton
+#elseif os(tvOS)
+    typealias ExpandableTextView = TVExpandableTextView
+    typealias Button = TVButton
+#endif
+
 class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
     
     @IBOutlet var titleLabel: UILabel!
@@ -14,12 +22,12 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
     @IBOutlet var infoLabel: UILabel!
     
     
-    @IBOutlet var summaryTextView: TVExpandableTextView!
+    @IBOutlet var summaryTextView: ExpandableTextView!
     @IBOutlet var ratingView: FloatRatingView!
     
-    @IBOutlet var trailerButton: BorderButton!
+    @IBOutlet var trailerButton: Button!
     @IBOutlet var downloadButton: DownloadButton!
-    @IBOutlet var playButton: CircularButton!
+    @IBOutlet var playButton: Button!
     
     // iOS Exclusive
     
@@ -31,9 +39,9 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
     
     // tvOS Exclusive
     
-    @IBOutlet var seasonsButton: TVButton?
-    @IBOutlet var watchlistButton: TVButton?
-    @IBOutlet var watchedButton: TVButton?
+    @IBOutlet var seasonsButton: Button?
+    @IBOutlet var watchlistButton: Button?
+    @IBOutlet var watchedButton: Button?
     
     @IBOutlet var peopleTextView: UITextView?
     
@@ -83,10 +91,7 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
         
         let playerController = AVPlayerViewController()
         
-        if let `self` = self as? UIViewControllerTransitioningDelegate // tvOS only
-        {
-            playerController.transitioningDelegate = self
-        }
+        playerController.transitioningDelegate = self as? UIViewControllerTransitioningDelegate // tvOS only
         
         present(playerController, animated: true)
         
@@ -160,7 +165,6 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
         if sender.downloadState == .normal {
             AppDelegate.shared.chooseQuality(sender, media: media) { [unowned self] (torrent) in
                 PTTorrentDownloadManager.shared().startDownloading(fromFileOrMagnetLink: torrent.url, mediaMetadata: self.media.mediaItemDictionary)
-                
                 sender.downloadState = .pending
             }
         } else if let download = media.associatedDownload {

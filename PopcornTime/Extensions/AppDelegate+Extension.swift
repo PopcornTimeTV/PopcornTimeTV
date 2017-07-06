@@ -75,8 +75,9 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
                 episodesLeftInShow += show.episodes.filter({$0.season == season}).sorted(by: {$0.0.episode < $0.1.episode})
             }
             
-            let index = episodesLeftInShow.index(of: episode)!
-            episodesLeftInShow.removeFirst(index + 1)
+            if let index = episodesLeftInShow.index(of: episode) {
+                episodesLeftInShow.removeFirst(index + 1)
+            }
             
             nextEpisode = !episodesLeftInShow.isEmpty ? episodesLeftInShow.removeFirst() : nil
             nextEpisode?.show = episode.show
@@ -131,7 +132,7 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet, blurStyle: .dark)
             
             alertController.addAction(UIAlertAction(title: "Play".localized, style: .default) { _ in
-                AppDelegate.shared.play(Movie(download.mediaMetadata) ?? Show(download.mediaMetadata) ?? Episode(download.mediaMetadata)!, torrent: Torrent()) // No torrent metadata necessary, media is loaded from disk.
+                AppDelegate.shared.play(Movie(download.mediaMetadata) ?? Episode(download.mediaMetadata)!, torrent: Torrent()) // No torrent metadata necessary, media is loaded from disk.
             })
             alertController.addAction(UIAlertAction(title: "Delete Download".localized, style: .destructive) { _ in
                 PTTorrentDownloadManager.shared().delete(download)
@@ -153,14 +154,14 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
         }
     }
     
-    func downloadButton(_ button: DownloadButton, wantsToStop download: PTTorrentDownload, didStopHandler: (() -> Void)? = nil) {
+    func downloadButton(_ button: DownloadButton?, wantsToStop download: PTTorrentDownload, didStopHandler: (() -> Void)? = nil) {
         let alertController = UIAlertController(title: "Stop Download".localized, message: "Are you sure you want to stop the download?".localized, preferredStyle: .alert)
         
         alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
         
         alertController.addAction(UIAlertAction(title: "Stop".localized, style: .destructive) { _ in
             PTTorrentDownloadManager.shared().stop(download)
-            button.downloadState = .normal
+            button?.downloadState = .normal
             didStopHandler?()
         })
         
@@ -210,8 +211,12 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
     
     // MARK: - Presentation
     
+    private var activeViewController: UIViewController? {
+        return (tabBarController.selectedViewController as? UINavigationController)?.viewControllers.last
+    }
+    
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if presented is PreloadTorrentViewController {
+        if presented is PreloadTorrentViewController && activeViewController is DetailViewController {
             return PreloadTorrentViewControllerAnimatedTransitioning(isPresenting: true)
         }
         return nil
@@ -219,7 +224,7 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if dismissed is PreloadTorrentViewController {
+        if dismissed is PreloadTorrentViewController && activeViewController is DetailViewController {
             return PreloadTorrentViewControllerAnimatedTransitioning(isPresenting: false)
         }
         return nil

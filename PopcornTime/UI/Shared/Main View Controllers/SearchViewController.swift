@@ -25,6 +25,10 @@ class SearchViewController: MainViewController, UISearchBarDelegate {
     
     var fetchType: Trakt.MediaType = .movies
     
+    override func load(page: Int) {
+        filterSearchText(searchBar.text ?? "")
+    }
+    
     
     override func minItemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize? {
         if UIDevice.current.userInterfaceIdiom == .tv {

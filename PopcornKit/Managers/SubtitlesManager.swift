@@ -8,11 +8,7 @@ open class SubtitlesManager: NetworkManager {
     /// Creates new instance of SubtitlesManager class
     open static let shared = SubtitlesManager()
     
-    // MARK: - Private Variables.
-    
-    private let baseURL = "http://api.opensubtitles.org:80/xml-rpc"
-    private let secureBaseURL = "https://api.opensubtitles.org:443/xml-rpc"
-    private let userAgent = "Popcorn Time v1"
+    /// The login token obtained by a sucessfull call of the `login` function.
     private var token: String?
     
     /**
@@ -42,17 +38,16 @@ open class SubtitlesManager: NetworkManager {
         }
         let limit = ["limit": limit]
         let queue = DispatchQueue(label: "com.popcorn-time.response.queue", attributes: DispatchQueue.Attributes.concurrent)
-        self.manager.requestXMLRPC(secureBaseURL, methodName: "SearchSubtitles", parameters: [token, [params], limit], headers: ["User-Agent": userAgent]).validate().responseXMLRPC(queue: queue, completionHandler: { response in
+        self.manager.requestXMLRPC(OpenSubtitles.base, methodName: OpenSubtitles.search, parameters: [token, [params], limit], headers: OpenSubtitles.defaultHeaders).validate().responseXMLRPC(queue: queue) { response in
             guard
                 let value = response.result.value,
                 let status = value[0]["status"].string?.components(separatedBy: " ").first,
                 let data = value[0]["data"].array,
                 response.result.isSuccess && status == "200"
                 else {
-                    DispatchQueue.main.async {
+                    return DispatchQueue.main.async {
                         completion([], response.result.error as NSError?)
                     }
-                    return
             }
             
             var subtitles = [Subtitle]()
@@ -80,7 +75,7 @@ open class SubtitlesManager: NetworkManager {
             
             subtitles.sort(by: { $0.language < $1.language })
             DispatchQueue.main.async(execute: { completion(subtitles, nil) })
-        })
+        }
     }
     
     /**
@@ -89,10 +84,12 @@ open class SubtitlesManager: NetworkManager {
      - Parameter completion:    Optional completion handler called when request completes. Contains an optional Error indicating the success of the operation.
      */
     public func login(_ completion: ((NSError?) -> Void)?) {
-        self.manager.requestXMLRPC(secureBaseURL, methodName: "LogIn", parameters: ["", "", "en", userAgent]).validate().responseXMLRPC { response in
-            guard let value = response.result.value,
+        self.manager.requestXMLRPC(OpenSubtitles.base, methodName: OpenSubtitles.logIn, parameters: ["", "", "en", OpenSubtitles.userAgent]).validate().responseXMLRPC { response in
+            guard
+                let value = response.result.value,
                 let status = value[0]["status"].string?.components(separatedBy: " ").first,
-                response.result.isSuccess && status == "200" else {
+                response.result.isSuccess && status == "200"
+                else {
                     completion?(response.result.error as NSError? ?? NSError(domain: "com.popcorntimetv.popcornkit.error", code: -1, userInfo: [NSLocalizedDescriptionKey: "An unknown error occured."]))
                     return
             }
@@ -108,10 +105,12 @@ open class SubtitlesManager: NetworkManager {
      */
     open func logout(completion: ((NSError?) -> Void)? = nil) {
         guard let token = token else { return }
-        self.manager.requestXMLRPC(secureBaseURL, methodName: "LogOut", parameters: [token], headers: ["User-Agent": userAgent]).validate().responseXMLRPC { (response) in
-            guard let value = response.result.value,
-                let status = value[0]["status"].string?.components(separatedBy: " ").first
-                , response.result.isSuccess && status == "200" else {
+        self.manager.requestXMLRPC(OpenSubtitles.base, methodName: OpenSubtitles.logOut, parameters: [token], headers: OpenSubtitles.defaultHeaders).validate().responseXMLRPC { (response) in
+            guard
+                let value = response.result.value,
+                let status = value[0]["status"].string?.components(separatedBy: " ").first,
+                response.result.isSuccess && status == "200"
+                else {
                     completion?(response.result.error as NSError?)
                     return
             }

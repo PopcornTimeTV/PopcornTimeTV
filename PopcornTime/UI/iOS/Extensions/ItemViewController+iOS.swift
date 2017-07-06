@@ -5,9 +5,6 @@ import struct PopcornKit.Show
 import struct PopcornKit.Movie
 import PopcornTorrent.PTTorrentDownloadManager
 
-typealias TVExpandableTextView = UIExpandableTextView
-typealias TVButton = UIButton
-
 extension ItemViewController {
     
     var watchlistButtonImage: UIImage? {

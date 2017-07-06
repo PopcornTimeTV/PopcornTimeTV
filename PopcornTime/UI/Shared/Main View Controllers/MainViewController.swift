@@ -121,7 +121,7 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
                             navigationController.setViewControllers(viewControllers, animated: false)
                         }
                         
-                        if let media = media, segue.shouldAutoPlay {
+                        if let media = (media as? Show)?.latestUnwatchedEpisode() ?? media, segue.shouldAutoPlay {
                             AppDelegate.shared.chooseQuality(nil, media: media) { torrent in
                                 AppDelegate.shared.play(media, torrent: torrent)
                             }

@@ -41,10 +41,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
             if let url = launchOptions?[.url] as? URL {
                 return self.application(.shared, open: url)
             }
+            
+            let font = UIFont.systemFont(ofSize: 38, weight: UIFontWeightHeavy)
+            UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: font], for: .normal)
         #elseif os(iOS)
             NetworkActivityIndicatorManager.shared.isEnabled = true
             
-            // Weird SDK throws error if shared instance has already been initialised and doesn't mark function as throwing.
+            // SDK throws error if shared instance has already been initialised and doesn't mark function as throwing on Swift. Although this produces a compile time warning, it is necessary for the app to not crash while running on an actual device and should not be removed.
             do { try GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID)) } catch {}
             
             tabBarController.delegate = self
@@ -54,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         if !UserDefaults.standard.bool(forKey: "tosAccepted") {
             let vc = UIStoryboard.main.instantiateViewController(withIdentifier: "TermsOfServiceNavigationController")
             window?.makeKeyAndVisible()
-            UserDefaults.standard.set(0.25, forKey: "themeSongVolume")
+            UserDefaults.standard.set(0.75, forKey: "themeSongVolume")
             OperationQueue.main.addOperation {
                 self.activeRootViewController?.present(vc, animated: false) {
                     self.activeRootViewController?.environmentsToFocus = [self.tabBarController.tabBar]

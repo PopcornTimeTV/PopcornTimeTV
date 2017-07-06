@@ -32,8 +32,6 @@ public protocol Media: Mappable {
     /// Will return `false` if Media is Episode.
     var isAddedToWatchlist: Bool { get set }
     
-    init(title: String, id: String, tmdbId: Int?, slug: String, summary: String, torrents: [Torrent], subtitles: [Subtitle], largeBackgroundImage: String?, largeCoverImage: String?)
-    
     var mediaItemDictionary: [String: Any] { get }
     
     init?(_ mediaItemDictionary: [String: Any])

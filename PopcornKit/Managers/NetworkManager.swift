@@ -98,6 +98,17 @@ public struct Fanart {
     static let defaultParameters = ["api_key": Fanart.apiKey]
 }
 
+public struct OpenSubtitles {
+    static let base = "https://api.opensubtitles.org:443/xml-rpc"
+    static let userAgent = "Popcorn Time v1"
+    
+    static let logIn = "LogIn"
+    static let logOut = "LogOut"
+    static let search = "SearchSubtitles"
+    
+    static let defaultHeaders = ["User-Agent": OpenSubtitles.userAgent]
+}
+
 open class NetworkManager: NSObject {
     internal let manager: SessionManager = {
         var configuration = URLSessionConfiguration.default

@@ -41,22 +41,23 @@ class OptionsPresentationController: UIPresentationController {
             })
     }
     
-    override var frameOfPresentedViewInContainerView : CGRect {
+    override var frameOfPresentedViewInContainerView: CGRect {
         let screenSize = UIScreen.main.bounds.size
         if containerContentSize.height < screenSize.height {
             return CGRect(x: 0, y: 0, width: containerView?.bounds.width ?? containerContentSize.width, height: containerContentSize.height)
         }
         return CGRect(origin: CGPoint.zero, size: screenSize)
     }
+    
     override func containerViewDidLayoutSubviews() {
         super.containerViewDidLayoutSubviews()
         if let bounds = containerView?.bounds {
             dimmingView.frame = bounds
         }
         if presentedView?.frame != frameOfPresentedViewInContainerView {
-            UIView.animate(withDuration: 0.37, animations: { [unowned self] in
+            UIView.animate(withDuration: .default) { [unowned self] in
                 self.presentedView?.frame = self.frameOfPresentedViewInContainerView
-            })
+            }
         }
     }
 }

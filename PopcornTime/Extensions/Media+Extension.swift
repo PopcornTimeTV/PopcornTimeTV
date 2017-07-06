@@ -41,6 +41,7 @@ extension Media {
     {
         if hasDownloaded, let download = associatedDownload {
             return download.play { (videoFileURL, videoFilePath) in
+                loadingViewController.streamer = download
                 playBlock(videoFileURL, videoFilePath, self, nextEpisode, progress, playViewController, download)
                 finishedLoadingBlock(loadingViewController, playViewController)
             }
@@ -49,10 +50,11 @@ extension Media {
         PTTorrentStreamer.shared().cancelStreamingAndDeleteData(false) // Make sure we're not already streaming
         
         if url.hasPrefix("magnet") || (url.hasSuffix(".torrent") && !url.hasPrefix("http")) {
+            loadingViewController.streamer = .shared()
             PTTorrentStreamer.shared().startStreaming(fromFileOrMagnetLink: url, progress: { (status) in
                 loadingBlock(status, loadingViewController)
                 }, readyToPlay: { (videoFileURL, videoFilePath) in
-                    playBlock(videoFileURL, videoFilePath, self, nextEpisode, progress, playViewController, PTTorrentStreamer.shared())
+                    playBlock(videoFileURL, videoFilePath, self, nextEpisode, progress, playViewController, .shared())
                     finishedLoadingBlock(loadingViewController, playViewController)
                 }, failure: { error in
                     errorBlock(error.localizedDescription)

@@ -3,5 +3,5 @@
 import Foundation
 
 extension TimeInterval {
-    static var `default` = 0.33
+    static let `default` = 0.33
 }

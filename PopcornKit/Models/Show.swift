@@ -166,7 +166,7 @@ public struct Show: Media, Equatable {
         self.summary = summary
         self.largeBackgroundImage = largeBackgroundImage
         self.largeCoverImage = largeCoverImage
-        self.year = "Unknown"
+        self.year = ""
         self.rating = 0.0
         self.runtime = 0
         self.tvdbId = "0000000"
@@ -201,7 +201,8 @@ public struct Show: Media, Equatable {
         return [MPMediaItemPropertyTitle: title,
                 MPMediaItemPropertyMediaType: NSNumber(value: MPMediaType.tvShow.rawValue),
                 MPMediaItemPropertyPersistentID: id,
-                MPMediaItemPropertyArtwork: smallBackgroundImage ?? "",
+                MPMediaItemPropertyArtwork: smallCoverImage ?? "",
+                MPMediaItemPropertyBackgroundArtwork: smallBackgroundImage ?? "",
                 MPMediaItemPropertySummary: summary]
     }
     
@@ -213,15 +214,16 @@ public struct Show: Media, Equatable {
             let id = mediaItemDictionary[MPMediaItemPropertyPersistentID] as? String,
             let title = mediaItemDictionary[MPMediaItemPropertyTitle] as? String,
             let image = mediaItemDictionary[MPMediaItemPropertyArtwork] as? String,
+            let backgroundImage = mediaItemDictionary[MPMediaItemPropertyBackgroundArtwork] as? String,
             let summary = mediaItemDictionary[MPMediaItemPropertySummary] as? String
             else {
                 return nil
         }
         
-        let amazonUrl = image.isAmazonUrl
-        let largeBackgroundImage = image.replacingOccurrences(of: amazonUrl ? "SX300" : "w300", with: amazonUrl ? "SX1000" : "w1000")
+        let largeBackgroundImage = backgroundImage.replacingOccurrences(of: backgroundImage.isAmazonUrl ? "SX300" : "w300", with: backgroundImage.isAmazonUrl ? "SX1000" : "w1000")
+        let largeCoverImage = image.replacingOccurrences(of: image.isAmazonUrl ? "SX300" : "w300", with: image.isAmazonUrl ? "SX1000" : "w1000")
         
-        self.init(title: title, id: id, slug: title.slugged, summary: summary, largeBackgroundImage: largeBackgroundImage)
+        self.init(title: title, id: id, slug: title.slugged, summary: summary, largeBackgroundImage: largeBackgroundImage, largeCoverImage: largeCoverImage)
     }
 }
 

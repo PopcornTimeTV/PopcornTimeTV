@@ -26,9 +26,9 @@ extension ShowDetailViewController {
             self.change(to: season)
         }
         
-        show.seasonNumbers.forEach({
+        show.seasonNumbers.forEach {
             controller.addAction(UIAlertAction(title: "Season".localized + " \($0)", style: .default, handler: handler))
-        })
+        }
         
         controller.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
         controller.preferredAction = controller.actions.first(where: {$0.title == "Season".localized + " \(self.currentSeason)"})
