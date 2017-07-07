@@ -369,17 +369,17 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             #endif
             loadingActivityIndicatorView.isHidden = true
             
-            if resumePlayback && mediaplayer.isSeekable {
-                resumePlayback = false
-                let time = NSNumber(value: startPosition * streamDuration)
-                mediaplayer.time = VLCTime(number: time)
-            }
-            
             addRemoteCommandCenterHandlers()
             beginReceivingScreenNotifications()
             configureNowPlayingInfo()
             
             resetIdleTimer()
+        }
+        
+        if resumePlayback && mediaplayer.isSeekable {
+            resumePlayback = false
+            let time = NSNumber(value: startPosition * streamDuration)
+            mediaplayer.time = VLCTime(number: time)
         }
         
         playPauseButton?.setImage(UIImage(named: "Pause"), for: .normal)

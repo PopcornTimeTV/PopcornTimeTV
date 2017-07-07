@@ -126,6 +126,6 @@ extension UIImage {
     }
     
     var isDark: Bool {
-        return cgImage?.isDark ?? false
+        return cgImage?.isDark ?? true
     }
 }

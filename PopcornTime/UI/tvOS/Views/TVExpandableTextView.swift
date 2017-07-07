@@ -5,28 +5,15 @@ import TvOSMoreButton
 
 class TVExpandableTextView: TvOSMoreButton {
     
-    override var focusedViewAlpha: CGFloat {
-        get {
-            return 1.0
-        } set {}
-    }
-    
-    override var cornerRadius: CGFloat {
-        get {
-            return 5
-        } set {}
-    }
-    
-    override var trailingTextColor: UIColor {
-        get {
-            return UIColor.white.withAlphaComponent(0.5)
-        } set {}
-    }
-    
-    override var focusedShadowOpacity: Float {
-        get {
-            return 0.5
-        } set {}
+    var isDark: Bool = true {
+        didSet {
+            let colorPallete: ColorPallete = isDark ? .light : .dark
+            
+            trailingTextColor = colorPallete.secondary
+            textColor = colorPallete.primary
+            
+            blurStyle = isDark ? .dark : .extraLight
+        }
     }
     
     var blurStyle: UIBlurEffectStyle = .dark {
@@ -37,7 +24,6 @@ class TVExpandableTextView: TvOSMoreButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         updateUI()
     }
     
@@ -56,10 +42,13 @@ class TVExpandableTextView: TvOSMoreButton {
     }
     
     func sharedSetup() {
-        blurredView.effect = UIBlurEffect(style: blurStyle)
+        isDark = true
         blurredView.contentView.backgroundColor = UIColor(white: 1.0, alpha: 0.2)
         font = .systemFont(ofSize: 30, weight: UIFontWeightMedium)
         trailingTextFont = .boldSystemFont(ofSize: 25)
+        focusedShadowOpacity = 0.5
+        cornerRadius = 5
+        focusedViewAlpha = 1
     }
     
     override func layoutIfNeeded() {

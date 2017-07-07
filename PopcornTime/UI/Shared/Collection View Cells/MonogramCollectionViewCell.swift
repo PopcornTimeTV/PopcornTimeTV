@@ -20,6 +20,18 @@ import Foundation
         }
     }
     
+    override var isDark: Bool {
+        didSet {
+            guard oldValue != isDark else { return }
+            
+            titleLabel.textColor = isFocused ? .white : colorPallete.primary
+            subtitleLabel.textColor = isFocused ? .white : colorPallete.tertiary
+            
+            titleLabel.layer.shadowColor = isDark || isFocused ? UIColor.black.cgColor : UIColor.clear.cgColor
+            subtitleLabel.layer.shadowColor = isDark || isFocused ? UIColor.black.cgColor : UIColor.clear.cgColor
+        }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -36,12 +48,10 @@ import Foundation
     
     #if os(tvOS)
     
-    @IBInspectable var subtitleLabelUnfocusedColor = UIColor(white: 1.0, alpha: 0.3)
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        subtitleLabel.textColor = subtitleLabelUnfocusedColor
+        subtitleLabel.textColor = colorPallete.tertiary
         subtitleLabel.layer.zPosition = 10
         subtitleLabel.layer.shadowColor = UIColor.black.cgColor
         subtitleLabel.layer.shadowOffset = CGSize(width: 0, height: 1)
@@ -52,7 +62,8 @@ import Foundation
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         super.didUpdateFocus(in: context, with: coordinator)
         
-        subtitleLabel.textColor = isFocused ? titleLabelFocusedColor : subtitleLabelUnfocusedColor
+        subtitleLabel.textColor = isFocused ? .white : colorPallete.tertiary
+        subtitleLabel.layer.shadowColor = isDark || isFocused ? UIColor.black.cgColor : UIColor.clear.cgColor
     }
     
     #endif

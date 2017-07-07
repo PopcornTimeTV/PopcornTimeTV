@@ -232,6 +232,8 @@
 		4D859BB01DDFA1B7000E2AA1 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BAE1DDFA1B7000E2AA1 /* OptionsViewController.swift */; };
 		4D859BB51DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BB11DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift */; };
 		4D859BB81DDFA1C6000E2AA1 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D859BB41DDFA1C6000E2AA1 /* UIViewController+Extension.swift */; };
+		4D8795031F10087900F41C6A /* FloatRatingView+TintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8795021F10087900F41C6A /* FloatRatingView+TintColor.swift */; };
+		4D8795041F10087900F41C6A /* FloatRatingView+TintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8795021F10087900F41C6A /* FloatRatingView+TintColor.swift */; };
 		4D8A57471DE10DFE00CCDF8A /* UIViewController+StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A57461DE10DFD00CCDF8A /* UIViewController+StatusBar.swift */; };
 		4D8A5DD81EA962B2004CEB53 /* UIControlState+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A5DD71EA962B2004CEB53 /* UIControlState+Hashable.swift */; };
 		4D8A5DD91EA962B4004CEB53 /* UIControlState+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A5DD71EA962B2004CEB53 /* UIControlState+Hashable.swift */; };
@@ -595,6 +597,7 @@
 		4D859BAE1DDFA1B7000E2AA1 /* OptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		4D859BB11DDFA1C6000E2AA1 /* PCTPlayerViewController+tvOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PCTPlayerViewController+tvOS.swift"; sourceTree = "<group>"; };
 		4D859BB41DDFA1C6000E2AA1 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		4D8795021F10087900F41C6A /* FloatRatingView+TintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FloatRatingView+TintColor.swift"; sourceTree = "<group>"; };
 		4D8A57461DE10DFD00CCDF8A /* UIViewController+StatusBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+StatusBar.swift"; sourceTree = "<group>"; };
 		4D8A5DD71EA962B2004CEB53 /* UIControlState+Hashable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControlState+Hashable.swift"; sourceTree = "<group>"; };
 		4D8C4B871E47AD1A004872F8 /* Number+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Number+Extension.swift"; sourceTree = "<group>"; };
@@ -816,6 +819,7 @@
 			isa = PBXGroup;
 			children = (
 				4D2996721EE5F9C600737894 /* AppDelegate+Extension.swift */,
+				4D8795021F10087900F41C6A /* FloatRatingView+TintColor.swift */,
 				4D15C7E81EF1D81600953E45 /* MPMediaItemProperty+Extension.swift */,
 				4DE6FDEB1F04253900A7F274 /* UIDevice+Extension.swift */,
 				4D9CDFE61EE9DA95004B3F6F /* AVMetadataItem+Extension.swift */,
@@ -1949,6 +1953,7 @@
 				4D0F9E181E70582A00860852 /* PreloadTorrentViewController.swift in Sources */,
 				4DB1E6DB1EA1624C00DC0C7B /* MarqueeLabel+ContentMode.swift in Sources */,
 				4D15C7ED1EF1E58B00953E45 /* DownloadViewController+tvOS.swift in Sources */,
+				4D8795031F10087900F41C6A /* FloatRatingView+TintColor.swift in Sources */,
 				4D0F9E0A1E7057DF00860852 /* MoviesViewController.swift in Sources */,
 				4D3A43481EA9826E00CF3646 /* TVFadedTextView.swift in Sources */,
 				4D0F9DDF1E7056DF00860852 /* DescriptionCollectionViewCell.swift in Sources */,
@@ -2157,6 +2162,7 @@
 				4D2996741EE5F9C600737894 /* AppDelegate+Extension.swift in Sources */,
 				4D0F9DD31E70564C00860852 /* MovieDetailViewController.swift in Sources */,
 				4D9995421E5C6FFE005C432A /* CollectionViewController+iOS.swift in Sources */,
+				4D8795041F10087900F41C6A /* FloatRatingView+TintColor.swift in Sources */,
 				4D859B9D1DDFA164000E2AA1 /* PCTPlayerViewController+iOS.swift in Sources */,
 				4DE6FDF31F0823C400A7F274 /* UITableView+FocusedCellIndexPath.swift in Sources */,
 				4DC7B69B1E3503720098B12E /* CircularButton.swift in Sources */,

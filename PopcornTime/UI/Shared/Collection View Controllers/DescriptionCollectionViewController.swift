@@ -9,6 +9,14 @@ class DescriptionCollectionViewController: ResponsiveCollectionViewController, U
     
     var dataSource: [(key: Any, value: String)] = [("", "")]
     
+    var isDark = true {
+        didSet {
+            guard isDark != oldValue else { return }
+            
+            collectionView?.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,6 +55,7 @@ class DescriptionCollectionViewController: ResponsiveCollectionViewController, U
             cell.keyLabel.attributedText = attributedText
         }
         cell.valueLabel.text = data.value
+        cell.isDark = isDark
         
         return cell
     }
@@ -90,6 +99,7 @@ class DescriptionCollectionViewController: ResponsiveCollectionViewController, U
             
             let titleLabel = view.viewWithTag(1) as? UILabel
             titleLabel?.text = title
+            titleLabel?.textColor = isDark ? .white : .black
             
             return view
         }

@@ -94,6 +94,24 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
     var currentItem: Media!
     var currentSeason = -1
     
+    var isDark = true {
+        didSet {
+            guard isDark != oldValue && UIDevice.current.userInterfaceIdiom == .tv else { return }
+            
+            childViewControllers.forEach {
+                guard $0.responds(to: Selector(("isDark"))) else { return }
+                $0.setValue(isDark, forKey: "isDark")
+            }
+            
+            let colorPallete: ColorPallete = isDark ? .light : .dark
+            
+            peopleHeader.textColor  = colorPallete.secondary
+            relatedHeader.textColor = colorPallete.secondary
+            
+            accessibilityDescriptionCollectionViewController.dataSource[0].key = UIImage(named: "SDH")!.colored(colorPallete.primary)!.attributed
+        }
+    }
+    
     var watchlistButtonImage: UIImage? {
         return itemViewController.watchlistButtonImage
     }
@@ -123,7 +141,16 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
         titleLabel?.text = currentItem.title
         
         if let image = currentItem.largeBackgroundImage, let url = URL(string: image) {
-            backgroundImageView.af_setImage(withURL: url)
+            backgroundImageView.af_setImage(withURL: url) { [weak self] response in
+                guard
+                    let image = response.result.value,
+                    let `self` = self,
+                    response.result.isSuccess
+                    else {
+                        return
+                }
+                self.isDark = image.isDark
+            }
         }
         
         let completion: (String?, NSError?) -> Void = { [weak self] (image, error) in
@@ -182,7 +209,7 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
         } else if let vc = segue.destination as? DescriptionCollectionViewController, segue.identifier == "embedAccessibility" {
             vc.headerTitle = "Accessibility".localized
             
-            let key = UIImage(named: "SDH")!.colored(.white)!.attributed
+            let key = UIImage(named: "SDH")!.colored(isDark ? .white : .black)!.attributed
             let value = "Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original language with the addition of relevant non-dialog information.".localized
             
             vc.dataSource = [(key, value)]

@@ -36,10 +36,26 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
         
         environmentsToFocus = visibleButtons
         
-        
+        reloadData()
+    }
+    
+    func reloadData() {
         if let movie = media as? Movie {
             titleLabel.text = ""
             infoLabel.text = ""
+            
+            let formatter = DateComponentsFormatter()
+            formatter.unitsStyle = .short
+            formatter.allowedUnits = [.hour, .minute]
+            
+            let runtime = formatter.string(from: TimeInterval(movie.runtime) * 60)
+            let year = movie.year
+            
+            let subtitle = NSMutableAttributedString(string: [runtime, year].flatMap({$0}).joined(separator: "\t"))
+            attributedString(colored: isDark ? .white : .black, between: movie.certification, "HD", "CC").forEach({subtitle.append($0)})
+            
+            subtitleLabel.attributedText = subtitle
+            ratingView.rating = movie.rating/20.0
             
             let peopleText = NSMutableAttributedString()
             
@@ -47,12 +63,16 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             paragraphStyle.alignment = .right
             
             let appendSection: (String, [String]) -> Void = { (title, items) in
-                let titleAttributes = [NSParagraphStyleAttributeName: paragraphStyle, NSFontAttributeName: UIFont.systemFont(ofSize: 24, weight: UIFontWeightBold), NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 0.8)]
+                let titleAttributes = [NSParagraphStyleAttributeName: paragraphStyle,
+                                       NSFontAttributeName: UIFont.systemFont(ofSize: 24, weight: UIFontWeightBold),
+                                       NSForegroundColorAttributeName: self.isDark ? UIColor(white: 1, alpha: 0.8) : UIColor(white: 0, alpha: 0.8)]
                 
                 let isFirstSection = peopleText.length == 0
                 peopleText.append(NSAttributedString(string: (!isFirstSection ? "\n" : "") + title + "\n", attributes: titleAttributes))
                 
-                let itemAttribtues = [NSParagraphStyleAttributeName: paragraphStyle, NSFontAttributeName: UIFont.systemFont(ofSize: 31, weight: UIFontWeightMedium), NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 0.5)]
+                let itemAttribtues = [NSParagraphStyleAttributeName: paragraphStyle,
+                                      NSFontAttributeName: UIFont.systemFont(ofSize: 31, weight: UIFontWeightMedium),
+                                      NSForegroundColorAttributeName: self.isDark ? UIColor(white: 1, alpha: 0.5) : UIColor(white: 0, alpha: 0.5)]
                 
                 items.forEach({peopleText.append(NSAttributedString(string: $0 + "\n", attributes: itemAttribtues))})
             }
@@ -76,19 +96,6 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             
             peopleTextView?.attributedText = peopleText
             
-            let formatter = DateComponentsFormatter()
-            formatter.unitsStyle = .short
-            formatter.allowedUnits = [.hour, .minute]
-            
-            let runtime = formatter.string(from: TimeInterval(movie.runtime) * 60)
-            let year = movie.year
-            
-            let subtitle = NSMutableAttributedString(string: [runtime, year].flatMap({$0}).joined(separator: "\t"))
-            attributedString(between: movie.certification, "HD", "CC").forEach({subtitle.append($0)})
-            
-            subtitleLabel.attributedText = subtitle
-            ratingView.rating = movie.rating/20.0
-            
             if movie.trailerCode == nil {
                 trailerButton.removeFromSuperview()
             }
@@ -96,6 +103,7 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             seasonsButton?.removeFromSuperview()
         } else if let show = media as? Show {
             titleLabel.text = ""
+            peopleTextView?.text = ""
             
             infoLabel.text = .localizedStringWithFormat("Watch %@ on %@".localized, show.title, show.network ?? "TV")
             
@@ -103,11 +111,10 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             let year = show.year
             
             let subtitle = NSMutableAttributedString(string: [genre, year].flatMap({$0}).joined(separator: "\t"))
-            attributedString(between: "HD", "CC").forEach({subtitle.append($0)})
+            attributedString(colored: isDark ? .white : .black, between: "HD", "CC").forEach({subtitle.append($0)})
             
             subtitleLabel.font = UIFont.systemFont(ofSize: 31, weight: UIFontWeightMedium)
             subtitleLabel.attributedText = subtitle
-            peopleTextView?.text = ""
             
             ratingView.isHidden = true
             trailerButton.removeFromSuperview()

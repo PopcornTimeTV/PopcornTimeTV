@@ -21,7 +21,6 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
     @IBOutlet var subtitleLabel: UILabel!
     @IBOutlet var infoLabel: UILabel!
     
-    
     @IBOutlet var summaryTextView: ExpandableTextView!
     @IBOutlet var ratingView: FloatRatingView!
     
@@ -57,9 +56,31 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
         return media.isWatched ? UIImage(named: "Watched On") : UIImage(named: "Watched Off")
     }
     
+    #if os(tvOS)
+    
+        var isDark = true {
+            didSet {
+                guard oldValue != isDark else { return }
+    
+                summaryTextView.isDark = isDark
+                view.recursiveSubviews.flatMap({$0 as? TVButton}).forEach {
+                    $0.isDark = self.isDark
+                }
+                let colorPallete: ColorPallete = isDark ? .light : .dark
+                ratingView.tintColor = colorPallete.primary
+                titleLabel.textColor = colorPallete.primary
+                subtitleLabel.textColor = colorPallete.primary
+                infoLabel.textColor = colorPallete.primary
+    
+                reloadData()
+            }
+        }
+    
+    #endif
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+    
         if let download = media.associatedDownload {
             downloadStatusDidChange(download.downloadStatus, for: download)
         } else {

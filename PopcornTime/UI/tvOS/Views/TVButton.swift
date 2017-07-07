@@ -35,6 +35,16 @@ import Foundation
     private let focusedShadowOffset = CGSize(width: 0, height: 27)
     private let focusedShadowOpacity: Float = 0.3
     
+    var isDark = true {
+        didSet {
+            guard oldValue != isDark else { return }
+            
+            let colorPallete: ColorPallete = isDark ? .light : .dark
+            titleLabel?.textColor = isFocused ? .white : colorPallete.secondary
+            backgroundView?.contentView.backgroundColor = isDark ? .clear : colorPallete.tertiary
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -44,9 +54,11 @@ import Foundation
         self.layer.shadowRadius = shadowRadius
     }
     
-    override func didMoveToWindow() {
-        super.didMoveToWindow()
-        updateFocusedViewMask()
+    override func willMove(toWindow newWindow: UIWindow?) {
+        super.willMove(toWindow: newWindow)
+        if newWindow != nil {
+            updateFocusedViewMask()
+        }
     }
     
     private func updateImageView() {
@@ -139,7 +151,7 @@ import Foundation
         layer.shadowOffset = .zero
         layer.shadowOpacity = 0
         focusedView?.isHidden = true
-        titleLabel?.textColor = UIColor.white.withAlphaComponent(0.6)
+        titleLabel?.textColor = (isDark ? ColorPallete.light : ColorPallete.dark).secondary
         imageView?.isHidden = false
     }
     

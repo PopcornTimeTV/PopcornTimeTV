@@ -55,6 +55,14 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     var hasNextPage = false
     var currentPage = 1
     
+    var isDark = true {
+        didSet {
+            guard isDark != oldValue else { return }
+            
+            collectionView?.reloadData()
+        }
+    }
+    
     var activeRootViewController: MainViewController? {
         return AppDelegate.shared.activeRootViewController
     }
@@ -201,7 +209,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: UICollectionViewCell
+        let cell: BaseCollectionViewCell
         let item = dataSources[indexPath.section][indexPath.row]
         
         if let media = item as? Media {
@@ -212,6 +220,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CoverCollectionViewCell
                 cell.titleLabel.text = media.title
                 cell.watched = media.isWatched
+                
                 
                 #if os(tvOS)
                     cell.hidesTitleLabelWhenUnfocused = true
@@ -277,12 +286,14 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
                     
                     return cell
                 #elseif os(iOS)
-                    return UICollectionViewCell()
+                    fatalError("Unknown type in dataSource.")
                 #endif
             }()
         } else {
             fatalError("Unknown type in dataSource.")
         }
+        
+        cell.isDark = isDark
         
         return cell
     }

@@ -12,6 +12,21 @@ import ObjectMapper
 
 public let vlcSettingTextEncoding = "subsdec-encoding"
 
+struct ColorPallete {
+    let primary: UIColor
+    let secondary: UIColor
+    let tertiary: UIColor
+    
+    private init(primary: UIColor, secondary: UIColor, tertiary: UIColor) {
+        self.primary = primary
+        self.secondary = secondary
+        self.tertiary = tertiary
+    }
+    
+    static let light = ColorPallete(primary: .white, secondary: UIColor.white.withAlphaComponent(0.667), tertiary: UIColor.white.withAlphaComponent(0.333))
+    static let dark  = ColorPallete(primary: .black, secondary: UIColor.black.withAlphaComponent(0.667), tertiary: UIColor.black.withAlphaComponent(0.333))
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
     

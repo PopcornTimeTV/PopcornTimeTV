@@ -29,6 +29,24 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
     let topFocusGuide = UIFocusGuide()
     var focusIndexPath = IndexPath(row: 0, section: 0)
     
+    var isDark = true {
+        didSet {
+            guard isDark != oldValue else { return }
+            
+            let colorPallete: ColorPallete = isDark ? .light : .dark
+            
+            episodeTitleLabel.textColor = colorPallete.primary
+            episodeInfoTextView.textColor = colorPallete.primary
+            titleLabel.textColor = colorPallete.primary
+            numberOfEpisodesLabel.textColor = colorPallete.secondary
+            
+            episodeSummaryTextView.isDark = isDark
+            downloadButton.isDark = isDark
+            
+            collectionView?.reloadData()
+        }
+    }
+    
     var itemViewController: ItemViewController? {
         get {
             if let parent = parent as? DetailViewController {
@@ -169,6 +187,7 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
         let episodeNumber = NumberFormatter.localizedString(from: NSNumber(value: episode.episode), number: .none)
         cell.titleLabel.text = "\(episodeNumber). \(episode.title)"
         cell.id = episode.id
+        cell.isDark = isDark
         
         if let image = episode.smallBackgroundImage, let url = URL(string: image) {
             cell.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "Episode Placeholder"), imageTransition: .crossDissolve(.default))
