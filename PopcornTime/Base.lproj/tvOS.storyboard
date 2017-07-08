@@ -1673,7 +1673,7 @@
                         <sections>
                             <tableViewSection headerTitle="Player" id="Lno-U0-R7L">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="vP2-pF-jYW" detailTextLabel="QON-YR-hTX" style="IBUITableViewCellStyleValue1" id="eyK-qA-mhp">
+                                    <tableViewCell contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="vP2-pF-jYW" detailTextLabel="QON-YR-hTX" style="IBUITableViewCellStyleValue1" id="eyK-qA-mhp">
                                         <rect key="frame" x="0.0" y="80" width="860" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eyK-qA-mhp" id="cpB-sH-B8a">
@@ -1687,8 +1687,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="25%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QON-YR-hTX">
-                                                    <rect key="frame" x="751" y="10" width="73" height="46"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="75%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QON-YR-hTX">
+                                                    <rect key="frame" x="753" y="10" width="71" height="46"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                                     <nil key="textColor"/>
@@ -2277,7 +2277,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hKM-pN-TXU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6649" y="3686"/>
+            <point key="canvasLocation" x="3858" y="3041"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="JOY-xh-Gve">
@@ -2595,10 +2595,10 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ohz-Pg-x0J">
-                                                        <rect key="frame" x="928" y="509" width="64" height="64"/>
+                                                        <rect key="frame" x="929" y="508" width="64" height="64"/>
                                                     </activityIndicatorView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rU-hk-tum">
-                                                        <rect key="frame" x="960" y="499" width="0.0" height="0.0"/>
+                                                        <rect key="frame" x="961" y="498" width="0.0" height="0.0"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
