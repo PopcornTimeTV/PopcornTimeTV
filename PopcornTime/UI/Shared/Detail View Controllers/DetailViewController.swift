@@ -107,6 +107,7 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
             
             peopleHeader.textColor  = colorPallete.secondary
             relatedHeader.textColor = colorPallete.secondary
+            titleLabel?.textColor = colorPallete.primary
             
             accessibilityDescriptionCollectionViewController.dataSource[0].key = UIImage(named: "SDH")!.colored(colorPallete.primary)!.attributed
         }

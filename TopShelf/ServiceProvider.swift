@@ -21,7 +21,7 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
     }
 
     var topShelfItems: [TVContentItem] {
-        var items = [TVContentItem]()
+        var items = [TVContentItem?](repeating: nil, count: 2)
         
         let semaphore = DispatchSemaphore(value: 0)
         let group = DispatchGroup()
@@ -30,7 +30,8 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
             defer { group.leave() }
             guard let media = media else { return }
             
-            let type = media is [Movie] ? "Movie" : "Show"
+            let isMovie = media is [Movie]
+            let type = isMovie ? "Movie" : "Show"
             
             var mediaItems = [TVContentItem]()
             for item in media[0..<10] {
@@ -43,11 +44,12 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
                 )
             }
             
-            let latestMediaSectionTitle = "Trending \(type)s"
-            let latestMediaSectionItem = TVContentItem(contentIdentifier: TVContentIdentifier(identifier: latestMediaSectionTitle, container: nil)!)!
-            latestMediaSectionItem.title = latestMediaSectionTitle
-            latestMediaSectionItem.topShelfItems = mediaItems
-            items.append(latestMediaSectionItem)
+            let title = "Trending \(type)s"
+            let item = TVContentItem(contentIdentifier: TVContentIdentifier(identifier: title, container: nil)!)!
+            item.title = title
+            item.topShelfItems = mediaItems
+            
+            items.insert(item, at: isMovie ? 0 : 1)
         }
         group.enter()
         PopcornKit.loadMovies(filterBy: .trending) { (movies, error) in
@@ -63,7 +65,7 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
         }
         
         let _ = semaphore.wait(timeout: .now() + 15.0)
-        return items
+        return items.flatMap({$0})
     }
     
     func buildShelfItem(_ title: String, image: String?, action: String) -> TVContentItem {

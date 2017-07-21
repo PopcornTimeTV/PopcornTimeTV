@@ -13,7 +13,6 @@ extension DownloadViewController: DownloadDetailTableViewCellDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        editButtonItem.isEnabled = false
         navigationItem.rightBarButtonItem = editButtonItem
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: "DownloadTableViewHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "header")
