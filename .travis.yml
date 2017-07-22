@@ -1,0 +1,19 @@
+
+language: objective-c
+osx_image: xcode8.3
+
+before_install:
+  - travis_wait 30 pod repo update > /dev/null
+
+install:
+  - travis_wait 30 pod install
+
+env:
+  global:
+    - WORKSPACE=PopcornTime.xcworkspace
+script:
+  - set -o pipefail
+  - xcodebuild -version
+  - xcodebuild -showsdks
+  - xcodebuild -workspace "$WORKSPACE" -scheme "PopcornTimetvOS" -sdk appletvsimulator10.2 -configuration Release | xcpretty -c;
+  - xcodebuild -workspace "$WORKSPACE" -scheme "PopcornTimeiOS" -sdk iphonesimulator10.3 -configuration Release | xcpretty -c;
