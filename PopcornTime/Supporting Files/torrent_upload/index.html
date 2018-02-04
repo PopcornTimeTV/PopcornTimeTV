@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">
+    <script src="./js/jquery-2.1.0.min.js" type="text/javascript">
+</script>
+    <script src="./js/bootstrap.min.js" type="text/javascript">
+</script>
+    <script src="./js/blocs.min.js" type="text/javascript">
+</script>
+    <script src="./js/jqBootstrapValidation.js" type="text/javascript">
+</script>
+    <script src="./js/formHandler.js" type="text/javascript">
+</script>
+    <script src="./js/lazysizes.min.js" defer type="text/javascript">
+</script>
+
+    <title>Home</title><!-- Google Analytics -->
+    <!-- Google Analytics END -->
+</head>
+
+<body>
+    <!-- Main container -->
+
+    <div class="page-container">
+        <!-- bloc-0 -->
+
+        <div class="bloc l-bloc bgc-white b-divider none full-width-bloc" id="bloc-0">
+            <div class="container bloc-sm">
+                <nav class="navbar nav-center row">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="index.html"><img src="img/logo.png" alt="logo"></a> <button id="nav-toggle" type="button" class="ui-navbar-toggle navbar-toggle" data-toggle="collapse" data-target=".navbar-1"><span class="sr-only">Toggle navigation</span></button>
+                    </div>
+
+                    <div class="collapse navbar-collapse navbar-1">
+                        <h3 class="mg-md ">Popcorn Time</h3>
+
+                        <p>Now you can open your own torrents!<br>
+                        Just paste the link below!</p>
+                    </div>
+                </nav>
+            </div>
+        </div><!-- bloc-0 END -->
+        <!-- bloc-1 -->
+
+        <div class="bloc bgc-white l-bloc magnetupload none" id="bloc-1">
+            <div class="container bloc-md">
+                <div class="row" style="margin: auto;">
+                    <form id="form_48595" novalidate="" success-msg="Your movie will start shortly!" fail-msg="Sorry something went wrong, try again">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <input class="form-control " placeholder="Enter your magnet link here" required="" id="input_942">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <button class="bloc-button btn btn-d btn-lg" type="submit" id="submittorrent">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div><!-- bloc-1 END -->
+        <!-- ScrollToTop Button -->
+        <a class="bloc-button btn btn-d scrollToTop" onclick="scrollToTarget('1')"></a> <!-- ScrollToTop Button END-->
+    </div><!-- Main container END -->
+</body>
+</html>

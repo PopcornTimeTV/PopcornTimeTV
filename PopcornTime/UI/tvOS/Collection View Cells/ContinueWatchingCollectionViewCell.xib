@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="appleTV" orientation="landscape">
+        <adaptation id="light"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" id="P5D-TM-eyU" customClass="ContinueWatchingCollectionViewCell" customModule="PopcornTime" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="850" height="350"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="850" height="350"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Episode Placeholder" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FQ4-yr-6O8">
+                        <rect key="frame" x="0.0" y="0.0" width="850" height="350"/>
+                    </imageView>
+                    <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Qhl-up-czx" customClass="GradientView" customModule="PopcornTime" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="134" width="850" height="216"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="bottomColor">
+                                <color key="value" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="topColor">
+                                <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e32-3P-Tja">
+                        <rect key="frame" x="50" y="204" width="93" height="46"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TTD-ZD-dFA">
+                        <rect key="frame" x="50" y="258" width="77" height="37"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                        <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="3x9-AH-MMg">
+                        <rect key="frame" x="50" y="325" width="750" height="10"/>
+                        <color key="progressTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="trackTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                    </progressView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="e32-3P-Tja" firstAttribute="top" secondItem="Qhl-up-czx" secondAttribute="top" constant="70" id="14z-eO-ptr"/>
+                <constraint firstItem="e32-3P-Tja" firstAttribute="leading" secondItem="TTD-ZD-dFA" secondAttribute="leading" id="2gf-Eg-Qdt"/>
+                <constraint firstAttribute="trailing" secondItem="FQ4-yr-6O8" secondAttribute="trailing" id="3Qb-s5-NMN"/>
+                <constraint firstItem="e32-3P-Tja" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="3x9-AH-MMg" secondAttribute="trailing" id="5z4-g5-fTL"/>
+                <constraint firstItem="FQ4-yr-6O8" firstAttribute="top" secondItem="P5D-TM-eyU" secondAttribute="top" id="9Xe-jO-ljA"/>
+                <constraint firstItem="Qhl-up-czx" firstAttribute="bottom" secondItem="3x9-AH-MMg" secondAttribute="bottom" constant="15" id="DGi-c8-gqj"/>
+                <constraint firstItem="TTD-ZD-dFA" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="3x9-AH-MMg" secondAttribute="trailing" id="Ixc-FM-huQ"/>
+                <constraint firstItem="TTD-ZD-dFA" firstAttribute="leading" secondItem="3x9-AH-MMg" secondAttribute="leading" id="KqJ-5f-ugX"/>
+                <constraint firstItem="FQ4-yr-6O8" firstAttribute="leading" secondItem="P5D-TM-eyU" secondAttribute="leading" id="NjY-2W-Zbw"/>
+                <constraint firstItem="TTD-ZD-dFA" firstAttribute="top" secondItem="e32-3P-Tja" secondAttribute="bottom" constant="8" symbolic="YES" id="PCv-yn-h5m"/>
+                <constraint firstItem="3x9-AH-MMg" firstAttribute="leading" secondItem="Qhl-up-czx" secondAttribute="leading" constant="50" id="Pt8-Jh-q56"/>
+                <constraint firstItem="Qhl-up-czx" firstAttribute="trailing" secondItem="3x9-AH-MMg" secondAttribute="trailing" constant="50" id="Vat-ym-xZl"/>
+                <constraint firstItem="Qhl-up-czx" firstAttribute="leading" secondItem="P5D-TM-eyU" secondAttribute="leading" priority="750" id="aje-k5-Xuq"/>
+                <constraint firstAttribute="bottom" secondItem="Qhl-up-czx" secondAttribute="bottom" priority="750" id="b3a-X2-mvR"/>
+                <constraint firstAttribute="trailing" secondItem="Qhl-up-czx" secondAttribute="trailing" priority="750" id="dJh-o2-Phb"/>
+                <constraint firstItem="3x9-AH-MMg" firstAttribute="top" secondItem="TTD-ZD-dFA" secondAttribute="bottom" constant="30" id="hZ7-MZ-GGJ"/>
+                <constraint firstAttribute="bottom" secondItem="FQ4-yr-6O8" secondAttribute="bottom" id="mal-uv-Yt2"/>
+            </constraints>
+            <size key="customSize" width="345" height="180"/>
+            <connections>
+                <outlet property="dimmingView" destination="Qhl-up-czx" id="8BB-GK-lzN"/>
+                <outlet property="imageView" destination="FQ4-yr-6O8" id="Hn2-cf-yxn"/>
+                <outlet property="progressView" destination="3x9-AH-MMg" id="0I1-Ib-Hyg"/>
+                <outlet property="subtitleLabel" destination="TTD-ZD-dFA" id="qbu-Aq-NR1"/>
+                <outlet property="titleLabel" destination="e32-3P-Tja" id="rn7-Dk-0kV"/>
+            </connections>
+            <point key="canvasLocation" x="217.5" y="-338"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="Episode Placeholder" width="600" height="600"/>
+    </resources>
+</document>
