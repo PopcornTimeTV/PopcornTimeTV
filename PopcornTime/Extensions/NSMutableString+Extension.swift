@@ -9,7 +9,7 @@ extension NSMutableAttributedString {
         
         guard range.location != NSNotFound else { return false }
         
-        addAttribute(NSForegroundColorAttributeName, value: color, range: range)
+        addAttribute(NSAttributedStringKey.foregroundColor, value: color, range: range)
         
         return true
     }

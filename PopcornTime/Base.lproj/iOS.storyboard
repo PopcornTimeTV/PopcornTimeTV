@@ -793,25 +793,25 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                         <viewControllerLayoutGuide type="top" id="2mO-rA-gES"/>
                         <viewControllerLayoutGuide type="bottom" id="gaf-Hg-0hh"/>
                     </layoutGuides>
-                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="JrP-zb-Inc">
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JrP-zb-Inc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aWu-Pj-a6r">
-                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWu-Pj-a6r">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="External Playback Indicator" translatesAutoresizingMaskIntoConstraints="NO" id="fi6-2O-Cai">
-                                        <rect key="frame" x="142" y="263" width="131" height="90"/>
+                                        <rect key="frame" x="142" y="273" width="131" height="90"/>
                                         <color key="tintColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AirPlay" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5U-jL-YOB">
-                                        <rect key="frame" x="177" y="361" width="61" height="24"/>
+                                        <rect key="frame" x="177" y="371" width="61" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This video is playing on a different screen." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GeB-Nu-suA">
-                                        <rect key="frame" x="46" y="393" width="322" height="21"/>
+                                        <rect key="frame" x="46" y="403" width="322" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -829,7 +829,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                     <constraint firstItem="fi6-2O-Cai" firstAttribute="centerX" secondItem="aWu-Pj-a6r" secondAttribute="centerX" id="vY2-h3-my8"/>
                                 </constraints>
                             </view>
-                            <view multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k6H-dM-QeF">
+                            <view multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k6H-dM-QeF">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -838,12 +838,12 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                     <outletCollection property="gestureRecognizers" destination="xbd-Wq-rlE" appends="YES" id="kEW-9t-qww"/>
                                 </connections>
                             </view>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="waL-sG-Ck8">
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="waL-sG-Ck8">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iSA-9B-VgQ">
+                            <containerView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSA-9B-VgQ">
                                 <rect key="frame" x="-337" y="526" width="337" height="101"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="101" placeholder="YES" id="3LE-Zc-Zqm"/>
@@ -853,8 +853,8 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                     <segue destination="nTw-hc-21n" kind="embed" identifier="showUpNext" id="BB8-5S-rfY"/>
                                 </connections>
                             </containerView>
-                            <visualEffectView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5fE-Dm-ASP" customClass="ProgressBar" customModule="PopcornTime" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="414" height="50"/>
+                            <visualEffectView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fE-Dm-ASP" customClass="ProgressBar" customModule="PopcornTime" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gxF-2A-gZB">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1021,7 +1021,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                     <outlet property="remainingTimeLabel" destination="Tq9-AC-tDI" id="mwq-8o-O3O"/>
                                 </connections>
                             </visualEffectView>
-                            <visualEffectView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="39E-ow-QdV">
+                            <visualEffectView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39E-ow-QdV">
                                 <rect key="frame" x="0.0" y="652" width="414" height="84"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="bvl-3I-gwi">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
@@ -3517,8 +3517,8 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <image name="Filter" width="22" height="22"/>
         <image name="List" width="25" height="15"/>
         <image name="Movie Placeholder" width="400" height="600"/>
-        <image name="Movies Off" width="29" height="25"/>
-        <image name="Movies On" width="29" height="25"/>
+        <image name="Movies Off" width="28" height="22"/>
+        <image name="Movies On" width="28" height="22"/>
         <image name="Pause" width="23" height="25"/>
         <image name="Play" width="23" height="25"/>
         <image name="Play Small" width="35" height="35"/>
@@ -3526,8 +3526,8 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <image name="Scale To Fill" width="19" height="14"/>
         <image name="Settings Off" width="32" height="32"/>
         <image name="Settings On" width="32" height="32"/>
-        <image name="Shows Off" width="37" height="25"/>
-        <image name="Shows On" width="37" height="25"/>
+        <image name="Shows Off" width="30" height="22"/>
+        <image name="Shows On" width="30" height="22"/>
         <image name="SkipBack" width="25" height="27"/>
         <image name="SkipForward" width="25" height="27"/>
         <image name="Star Empty" width="40" height="40"/>

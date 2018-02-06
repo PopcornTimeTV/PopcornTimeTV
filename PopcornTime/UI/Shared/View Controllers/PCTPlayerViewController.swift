@@ -356,7 +356,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     // MARK: - Player changes notifications
     
-    func torrentStatusDidChange(_ aNotification: Notification) {
+    @objc func torrentStatusDidChange(_ aNotification: Notification) {
         if let streamer = aNotification.object as? PTTorrentStreamer {
             progressBar?.bufferProgress = streamer.torrentStatus.totalProgress
         }

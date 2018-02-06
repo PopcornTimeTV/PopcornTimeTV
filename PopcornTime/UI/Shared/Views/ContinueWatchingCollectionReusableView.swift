@@ -46,7 +46,7 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
             var media = [Media]()
             
             let completion: ([Media]) -> Void = { media in
-                self.onDeck = media.sorted(by: {$0.0.title < $0.1.title})
+                self.onDeck = media.sorted(by: {$0.title < $1.title})
                 self.collectionView.reloadData()
                 self.layoutSubviews()
             }

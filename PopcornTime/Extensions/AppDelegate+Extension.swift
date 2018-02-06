@@ -72,7 +72,7 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
             var episodesLeftInShow = [Episode]()
             
             for season in show.seasonNumbers where season >= episode.season {
-                episodesLeftInShow += show.episodes.filter({$0.season == season}).sorted(by: {$0.0.episode < $0.1.episode})
+                episodesLeftInShow += show.episodes.filter({$0.season == season}).sorted(by: {$0.episode < $1.episode})
             }
             
             if let index = episodesLeftInShow.index(of: episode) {

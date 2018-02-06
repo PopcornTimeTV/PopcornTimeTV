@@ -27,7 +27,7 @@ class ContinueWatchingCollectionViewCell: UICollectionViewCell {
         focusedConstraints.append(dimmingView.bottomAnchor.constraint(equalTo: imageView.focusedFrameGuide.bottomAnchor))
     }
     
-    func didDetectLongPress(_ gesture: UILongPressGestureRecognizer) {
+    @objc func didDetectLongPress(_ gesture: UILongPressGestureRecognizer) {
         guard gesture.state == .began else { return }
         
         delegate?.cell(self, didDetectLongPressGesture: gesture)

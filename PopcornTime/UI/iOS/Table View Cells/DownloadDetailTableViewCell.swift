@@ -27,7 +27,7 @@ class DownloadDetailTableViewCell: DownloadTableViewCell {
         delegate?.cell(self, accessoryButtonPressed: sender)
     }
     
-    func longPressDetected(_ gesture: UILongPressGestureRecognizer) {
+    @objc func longPressDetected(_ gesture: UILongPressGestureRecognizer) {
         guard downloadButton.downloadState != .downloaded && gesture.state == .began else { return }
         delegate?.cell(self, longPressDetected: gesture)
     }

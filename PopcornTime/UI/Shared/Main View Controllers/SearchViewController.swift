@@ -77,16 +77,16 @@ class SearchViewController: MainViewController, UISearchBarDelegate {
         
         switch fetchType {
         case .movies:
-            PopcornKit.loadMovies(searchTerm: text) {
-                completion($0.0, $0.1)
+            PopcornKit.loadMovies(searchTerm: text) {arg1,arg2 in
+                completion(arg1, arg2)
             }
         case .shows:
-            PopcornKit.loadShows(searchTerm: text) {
-                completion($0.0, $0.1)
+            PopcornKit.loadShows(searchTerm: text) {arg1,arg2 in
+                completion(arg1, arg2)
             }
         case .people:
-            TraktManager.shared.search(forPerson: text) {
-                completion($0.0 as! [Crew], $0.1)
+            TraktManager.shared.search( forPerson: text) {arg1,arg2 in
+                completion(arg1 as! [Crew], arg2)
             }
         default:
             return

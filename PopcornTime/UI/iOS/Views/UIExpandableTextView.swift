@@ -40,17 +40,17 @@ import Foundation
         }
     }
     
-    private var textAttributes: [String : Any] {
+    private var textAttributes: [NSAttributedStringKey : Any] {
         return [
-            NSForegroundColorAttributeName: textColor!,
-            NSFontAttributeName: font!
+            NSAttributedStringKey.foregroundColor: textColor!,
+            NSAttributedStringKey.font: font!
         ]
     }
     
-    private var trailingTextAttributes: [String : Any] {
+    private var trailingTextAttributes: [NSAttributedStringKey : Any] {
         return [
-            NSForegroundColorAttributeName: trailingTextColor,
-            NSFontAttributeName: font!
+            NSAttributedStringKey.foregroundColor: trailingTextColor,
+            NSAttributedStringKey.font: font!
         ]
     }
     
@@ -70,7 +70,7 @@ import Foundation
         addGestureRecognizer(selectGestureRecognizer)
     }
     
-    func expandView() {
+    @objc func expandView() {
         maxHeight = .greatestFiniteMagnitude
         untruncateAndUpdateText()
         

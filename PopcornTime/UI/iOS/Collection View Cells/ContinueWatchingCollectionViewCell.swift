@@ -29,7 +29,7 @@ class ContinueWatchingCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
-    func didDetectLongPress(_ gesture: UILongPressGestureRecognizer) {
+    @objc func didDetectLongPress(_ gesture: UILongPressGestureRecognizer) {
         guard gesture.state == .began else { return }
         
         delegate?.cell(self, didDetectLongPressGesture: gesture)

@@ -202,7 +202,7 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
         let maxWidth   = tableView.bounds.width
         let targetSize = CGSize(width: maxWidth, height: 0)
         
-        return sizingCell?.contentView.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityFittingSizeLevel).height ?? 44
+        return sizingCell?.contentView.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel).height ?? 44
     }
     
     deinit {

@@ -63,16 +63,16 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             paragraphStyle.alignment = .right
             
             let appendSection: (String, [String]) -> Void = { (title, items) in
-                let titleAttributes = [NSParagraphStyleAttributeName: paragraphStyle,
-                                       NSFontAttributeName: UIFont.systemFont(ofSize: 24, weight: UIFontWeightBold),
-                                       NSForegroundColorAttributeName: self.isDark ? UIColor(white: 1, alpha: 0.8) : UIColor(white: 0, alpha: 0.8)]
+                let titleAttributes = [NSAttributedStringKey.paragraphStyle: paragraphStyle,
+                                       NSAttributedStringKey.font: UIFont.systemFont(ofSize: 24, weight: UIFont.Weight.bold),
+                                       NSAttributedStringKey.foregroundColor: self.isDark ? UIColor(white: 1, alpha: 0.8) : UIColor(white: 0, alpha: 0.8)]
                 
                 let isFirstSection = peopleText.length == 0
                 peopleText.append(NSAttributedString(string: (!isFirstSection ? "\n" : "") + title + "\n", attributes: titleAttributes))
                 
-                let itemAttribtues = [NSParagraphStyleAttributeName: paragraphStyle,
-                                      NSFontAttributeName: UIFont.systemFont(ofSize: 31, weight: UIFontWeightMedium),
-                                      NSForegroundColorAttributeName: self.isDark ? UIColor(white: 1, alpha: 0.5) : UIColor(white: 0, alpha: 0.5)]
+                let itemAttribtues = [NSAttributedStringKey.paragraphStyle: paragraphStyle,
+                                      NSAttributedStringKey.font: UIFont.systemFont(ofSize: 31, weight: UIFont.Weight.medium),
+                                      NSAttributedStringKey.foregroundColor: self.isDark ? UIColor(white: 1, alpha: 0.5) : UIColor(white: 0, alpha: 0.5)]
                 
                 items.forEach({peopleText.append(NSAttributedString(string: $0 + "\n", attributes: itemAttribtues))})
             }
@@ -85,13 +85,13 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             
             if !directors.isEmpty {
                 let isSingular = directors.count == 1
-                appendSection(isSingular ? "Director".localized.localizedUppercase : "Directors".localized.localizedUppercase, directors)
+                appendSection(isSingular ? "Director".localized.localizedUppercase : "Directors".localized.localizedUppercase, [String(directors)])
             }
             
             let actors = movie.actors.flatMap({$0.name})
             
             if !actors.isEmpty {
-                appendSection("Starring".localized.localizedUppercase, actors)
+                appendSection("Starring".localized.localizedUppercase, [String(actors)])
             }
             
             peopleTextView?.attributedText = peopleText
@@ -113,7 +113,7 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             let subtitle = NSMutableAttributedString(string: [genre, year].flatMap({$0}).joined(separator: "\t"))
             attributedString(colored: isDark ? .white : .black, between: "HD", "CC").forEach({subtitle.append($0)})
             
-            subtitleLabel.font = UIFont.systemFont(ofSize: 31, weight: UIFontWeightMedium)
+            subtitleLabel.font = UIFont.systemFont(ofSize: 31, weight: UIFont.Weight.medium)
             subtitleLabel.attributedText = subtitle
             
             ratingView.isHidden = true

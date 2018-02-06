@@ -94,12 +94,12 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
     var currentItem: Media!
     var currentSeason = -1
     
-    var isDark = true {
+    @objc var isDark = true {
         didSet {
             guard isDark != oldValue && UIDevice.current.userInterfaceIdiom == .tv else { return }
             
             childViewControllers.forEach {
-                guard $0.responds(to: Selector(("isDark"))) else { return }
+                guard $0.responds(to: #selector(setter: self.isDark)) else { return }
                 $0.setValue(isDark, forKey: "isDark")
             }
             

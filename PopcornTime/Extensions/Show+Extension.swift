@@ -21,20 +21,20 @@ extension Show {
         var latestCurrentlyWatchingEpisodesBySeason: [Episode] = []
         
         for season in seasonNumbers {
-            guard let last = currentlyWatchingEpisodes.filter({$0.season == season}).sorted(by: {$0.0.episode < $0.1.episode}).last else { continue }
+            guard let last = currentlyWatchingEpisodes.filter({$0.season == season}).sorted(by: {$0.episode < $1.episode}).last else { continue }
             latestCurrentlyWatchingEpisodesBySeason.append(last)
         }
         
-        let latest = latestCurrentlyWatchingEpisodesBySeason.sorted(by: {$0.0.season < $0.1.season}).last
+        let latest = latestCurrentlyWatchingEpisodesBySeason.sorted(by: {$0.season < $1.season}).last
         
         if let episode = latest, episode.isWatched // If the latest currently watching episode has already been watched, return the next episode available.
         {
             if let next = episodes.filter({episode.season == $0.season}).filter({$0.episode == (episode.episode + 1)}).first {
                 return next
-            } else if let next = episodes.filter({$0.season == (episode.season + 1)}).sorted(by: {$0.0.episode < $0.1.episode}).first // If there are no more greater episodes in the season, return the first episode in the next season.
+            } else if let next = episodes.filter({$0.season == (episode.season + 1)}).sorted(by: {$0.episode < $1.episode}).first // If there are no more greater episodes in the season, return the first episode in the next season.
             {
                 return next
-            } else if let first = latestCurrentlyWatchingEpisodesBySeason.sorted(by: {$0.0.season < $0.1.season}).filter({!$0.isWatched}).first, first != latest // If there are no episodes in the next season, return the first unwatched episode.
+            } else if let first = latestCurrentlyWatchingEpisodesBySeason.sorted(by: {$0.season < $1.season}).filter({!$0.isWatched}).first, first != latest // If there are no episodes in the next season, return the first unwatched episode.
             {
                 return first
             }

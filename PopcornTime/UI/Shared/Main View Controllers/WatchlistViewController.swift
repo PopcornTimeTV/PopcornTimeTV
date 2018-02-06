@@ -18,12 +18,12 @@ class WatchlistViewController: MainViewController {
     
     override func load(page: Int) {
         collectionViewController.dataSources = [WatchlistManager<Movie>.movie.getWatchlist { [unowned self] (updated) in
-            self.collectionViewController.dataSources[0] = updated.sorted(by: {$0.0.title < $0.1.title})
-        }.sorted(by: {$0.0.title < $0.1.title})]
+            self.collectionViewController.dataSources[0] = updated.sorted(by: {$0.title < $1.title})
+        }.sorted(by: {$0.title < $1.title})]
         
         collectionViewController.dataSources.append(WatchlistManager<Show>.show.getWatchlist { [unowned self] (updated) in
-            self.collectionViewController.dataSources[1] = updated.sorted(by: {$0.0.title < $0.1.title})
-        }.sorted(by: {$0.0.title < $0.1.title}))
+            self.collectionViewController.dataSources[1] = updated.sorted(by: {$0.title < $1.title})
+        }.sorted(by: {$0.title < $1.title}))
     }
     
     override func collectionView(_ collectionView: UICollectionView, titleForHeaderInSection section: Int) -> String? {

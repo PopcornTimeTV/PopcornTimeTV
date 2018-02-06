@@ -40,7 +40,7 @@ public class TraktAuthenticationViewController: UIViewController {
         return Bundle(for: TraktAuthenticationViewController.self)
     }
 
-	public func poll(timer: Timer) {
+	@objc public func poll(timer: Timer) {
         if let expiresIn = expiresIn, expiresIn < Date() {
             timer.invalidate()
             getNewCode()

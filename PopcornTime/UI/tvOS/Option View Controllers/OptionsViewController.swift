@@ -101,7 +101,7 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
         return environmentsToFocus.isEmpty ? super.preferredFocusEnvironments : environmentsToFocus
     }
     
-    func menuPressed() {
+    @objc func menuPressed() {
         if tabBar.recursiveSubviews.filter({$0.isFocused}).isEmpty {
             environmentsToFocus = [tabBar]
             setNeedsFocusUpdate()

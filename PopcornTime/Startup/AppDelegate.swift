@@ -57,13 +57,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                 return self.application(.shared, open: url)
             }
             
-            let font = UIFont.systemFont(ofSize: 38, weight: UIFontWeightHeavy)
-            UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: font], for: .normal)
+            let font = UIFont.systemFont(ofSize: 38, weight: UIFont.Weight.heavy)
+            UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: font], for: .normal)
         #elseif os(iOS)
             NetworkActivityIndicatorManager.shared.isEnabled = true
             
             // SDK throws error if shared instance has already been initialised and doesn't mark function as throwing on Swift. Although this produces a compile time warning, it is necessary for the app to not crash while running on an actual device and should not be removed.
-            do { try GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID)) } catch {}
+             GCKCastContext.setSharedInstanceWith(GCKCastOptions(receiverApplicationID: kGCKMediaDefaultReceiverApplicationID))
             
             tabBarController.delegate = self
 
@@ -172,7 +172,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     func awakeObjects() {
         let typeCount = Int(objc_getClassList(nil, 0))
         let types = UnsafeMutablePointer<AnyClass?>.allocate(capacity: typeCount)
-        let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyClass?>(types)
+        let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyObject.Type>(types)
         objc_getClassList(autoreleasingTypes, Int32(typeCount))
         for index in 0 ..< typeCount { (types[index] as? Object.Type)?.awake() }
         types.deallocate(capacity: typeCount)

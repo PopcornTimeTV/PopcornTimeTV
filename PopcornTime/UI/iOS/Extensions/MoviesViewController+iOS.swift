@@ -23,8 +23,11 @@ extension MoviesViewController:UISearchBarDelegate,PCTPlayerViewControllerDelega
         magnetLink = magnetLink.removingPercentEncoding!
         DispatchQueue.main.async {
             let userTorrent = Torrent.init(health: .excellent, url: magnetLink, quality: "1080p", seeds: 100, peers: 100, size: nil)
-            var title = (magnetLink.substring(from: (magnetLink.range(of: "dn=")?.upperBound)!))
-            title = title.substring(to: (title.range(of: "&tr")?.lowerBound)!)
+            var title = magnetLink
+            if let startIndex = title.range(of: "dn="){
+                title = String(title[startIndex.upperBound...])
+                title = String(title[title.startIndex ... title.range(of: "&tr")!.lowerBound])
+            }
             let magnetTorrentMedia = Movie.init(title: title, id: "34", tmdbId: nil, slug: "magnet-link", summary: "", torrents: [userTorrent], subtitles: [], largeBackgroundImage: nil, largeCoverImage: nil)
             
             let storyboard = UIStoryboard.main

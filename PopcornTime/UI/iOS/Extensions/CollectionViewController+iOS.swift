@@ -41,7 +41,7 @@ extension CollectionViewController {
         }
     }
     
-    func refresh(_ sender: UIRefreshControl) {
+    @objc func refresh(_ sender: UIRefreshControl) {
         currentPage = 1
         sender.endRefreshing()
         delegate?.didRefresh(collectionView: collectionView!)

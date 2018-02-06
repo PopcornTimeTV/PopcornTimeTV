@@ -98,7 +98,7 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
             media = movie
         } else {
             let show = self.media as! Show
-            let episode = show.latestUnwatchedEpisode() ?? show.episodes.filter({$0.season == show.seasonNumbers.first}).sorted(by: {$0.0.episode < $0.1.episode}).first
+            let episode = show.latestUnwatchedEpisode() ?? show.episodes.filter({$0.season == show.seasonNumbers.first}).sorted(by: {$0.episode < $1.episode}).first
             media = episode ?? show
             
         }
@@ -150,15 +150,15 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
             
             #if os(tvOS)
             
-                let title = AVMetadataItem(key: AVMetadataCommonKeyTitle as NSString, value: self.media.title as NSString)
-                let summary = AVMetadataItem(key: AVMetadataCommonKeyDescription as NSString, value: self.media.summary as NSString)
+                let title = AVMetadataItem(key: AVMetadataKey.commonKeyArtwork as NSString, value: self.media.title as NSString)
+                let summary = AVMetadataItem(key: AVMetadataKey.commonKeyDescription as NSString, value: self.media.summary as NSString)
                 
                 player.currentItem?.externalMetadata = [title, summary]
                 
                 if let string = self.media.mediumCoverImage,
                     let url = URL(string: string),
                     let data = try? Data(contentsOf: url) {
-                    let image = AVMetadataItem(key: AVMetadataCommonKeyArtwork as NSString, value: data as NSData)
+                    let image = AVMetadataItem(key: AVMetadataKey.commonKeyArtwork as NSString, value: data as NSData)
                     player.currentItem?.externalMetadata.append(image)
                 }
                 
@@ -172,12 +172,12 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
         }
     }
     
-    func playerDidFinishPlaying() {
+    @objc func playerDidFinishPlaying() {
         NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: nil)
         dismiss(animated: true)
     }
     
-    func stopDownload(_ sender: DownloadButton) {
+    @objc func stopDownload(_ sender: DownloadButton) {
         guard let download = media.associatedDownload else { return }
         AppDelegate.shared.downloadButton(sender, wantsToStop: download)
     }

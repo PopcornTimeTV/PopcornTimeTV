@@ -10,15 +10,15 @@ extension UIAlertController {
     
     #if os(iOS)
     
-    @nonobjc public var preferredAction: UIAlertAction? {
-        get {
-            return perform(Selector("preferredAction"))?.takeUnretainedValue() as? UIAlertAction
-        } set (action) {
-            perform(Selector("setPreferredAction:"), with: action)
-            actions.forEach({$0.isChecked = false})
-            action?.isChecked = true
-        }
-    }
+//    @objc public var preferredAction: UIAlertAction? {
+//        get {
+//            return perform(#selector(getter: UIAlertController.preferredAction))?.takeUnretainedValue() as? UIAlertAction
+//        } set (action) {
+//            perform(#selector(setter:UIAlertController.preferredAction), with: action)
+//            actions.forEach({$0.isChecked = false})
+//            action?.isChecked = true
+//        }
+//    }
     
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()

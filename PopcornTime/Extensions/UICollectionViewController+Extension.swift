@@ -5,7 +5,7 @@ import Foundation
 extension UICollectionViewController {
     
     func collectionViewWillReloadData(_ collectionView: UICollectionView) { }
-    func collectionViewDidReloadData(_ collectionView: UICollectionView) { }
+    @objc func collectionViewDidReloadData(_ collectionView: UICollectionView) { }
     
 }
 
@@ -26,7 +26,7 @@ extension UICollectionView: Object {
         DispatchQueue.once {
             let originalMethod = class_getInstanceMethod(self, #selector(reloadData))
             let swizzledMethod = class_getInstanceMethod(self, #selector(pctReloadData))
-            method_exchangeImplementations(originalMethod, swizzledMethod)
+            method_exchangeImplementations(originalMethod!, swizzledMethod!)
         }
     }
 }

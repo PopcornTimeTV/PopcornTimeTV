@@ -44,7 +44,7 @@ class TVExpandableTextView: TvOSMoreButton {
     func sharedSetup() {
         isDark = true
         blurredView.contentView.backgroundColor = UIColor(white: 1.0, alpha: 0.2)
-        font = .systemFont(ofSize: 30, weight: UIFontWeightMedium)
+        font = .systemFont(ofSize: 30, weight: UIFont.Weight.medium)
         trailingTextFont = .boldSystemFont(ofSize: 25)
         focusedShadowOpacity = 0.5
         cornerRadius = 5

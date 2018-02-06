@@ -34,7 +34,7 @@ class AirPlayTableViewCell: UITableViewCell {
         routeButton.isHidden = true
     }
     
-    func activeRouteDidChange() {
+    @objc func activeRouteDidChange() {
         if let picked = routingController.pickedRoute, let video = picked.wirelessDisplay {
             let alertController = UIAlertController(title: "Mirroring route detected".localized, message: "Would you like to mirror current display to device?".localized, preferredStyle: .alert)
             

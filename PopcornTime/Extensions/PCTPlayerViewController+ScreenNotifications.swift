@@ -42,13 +42,13 @@ extension PCTPlayerViewController {
     }
     
     
-    func didReceiveConnectScreenNotification(_ notification: Notification) {
+    @objc func didReceiveConnectScreenNotification(_ notification: Notification) {
         if let screen = notification.object as? UIScreen {
             applicationDidConnect(to: screen)
         }
     }
     
-    func didReceiveDisconnectScreenNotification(_ notification: Notification) {
+    @objc func didReceiveDisconnectScreenNotification(_ notification: Notification) {
         if let screen = notification.object as? UIScreen {
             applicationDidDisconnect(from: screen)
         }

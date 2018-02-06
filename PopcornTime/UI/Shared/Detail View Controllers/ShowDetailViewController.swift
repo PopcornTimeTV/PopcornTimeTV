@@ -32,16 +32,15 @@ class ShowDetailViewController: DetailViewController {
             let group = DispatchGroup()
             
             group.enter()
-            TraktManager.shared.getRelated(show) {
-                show.related = $0.0
+            TraktManager.shared.getRelated(show) {arg1,_ in
+                show.related = arg1
                 
                 group.leave()
             }
-            
             group.enter()
-            TraktManager.shared.getPeople(forMediaOfType: .shows, id: show.id) {
-                show.actors = $0.0
-                show.crew = $0.1
+            TraktManager.shared.getPeople(forMediaOfType: .shows, id: show.id) {arg1,arg2,_ in
+                show.actors = arg1
+                show.crew = arg2
                 
                 group.leave()
             }
@@ -112,7 +111,7 @@ class ShowDetailViewController: DetailViewController {
         let localizedSeason = NumberFormatter.localizedString(from: NSNumber(value: season), number: .none)
         seasonsLabel.text = "Season".localized + " \(localizedSeason)"
         currentSeason = season
-        episodesCollectionViewController.dataSource = show.episodes.filter({$0.season == season}).sorted(by: {$0.0.episode < $0.1.episode})
+        episodesCollectionViewController.dataSource = show.episodes.filter({$0.season == season}).sorted(by: {$0.episode < $1.episode})
         episodesCollectionViewController.collectionView?.reloadData()
     }
 }

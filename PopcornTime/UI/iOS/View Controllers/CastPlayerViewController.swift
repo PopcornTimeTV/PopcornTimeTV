@@ -135,10 +135,10 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         for constraint in compactConstraints {
-            constraint.priority = traitCollection.horizontalSizeClass == .compact ? 999 : traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular ? 240 : constraint.priority
+            constraint.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(traitCollection.horizontalSizeClass == .compact ? 999 : traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular ? 240 : constraint.priority.hashValue))
         }
         for constraint in regularConstraints {
-            constraint.priority = traitCollection.horizontalSizeClass == .compact ? 240 : traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular ? 999 : constraint.priority
+            constraint.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(traitCollection.horizontalSizeClass == .compact ? 240 : traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular ? 999 : constraint.priority.hashValue))
         }
         
         if previousTraitCollection != nil {
@@ -158,7 +158,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
         }
     }
     
-    func updateTime() {
+    @objc func updateTime() {
         progressSlider?.value = Float(streamPosition/streamDuration)
         remainingTimeLabel?.text = remainingTime.stringValue
         elapsedTimeLabel?.text = elapsedTime.stringValue
