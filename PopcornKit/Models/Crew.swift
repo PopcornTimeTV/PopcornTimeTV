@@ -23,11 +23,11 @@ public struct Crew: Person, Equatable {
     public var largeImage: String?
     /// If headshot image is available, it is returned with size 600*900.
     public var mediumImage: String? {
-        return largeImage?.replacingOccurrences(of: "w1920", with: "w600")
+        return largeImage?.replacingOccurrences(of: "original", with: "w500")
     }
     /// If headshot image is available, it is returned with size 300*450.
     public var smallImage: String? {
-        return largeImage?.replacingOccurrences(of: "w1920", with: "w300")
+        return largeImage?.replacingOccurrences(of: "original", with: "w300")
     }
     
     

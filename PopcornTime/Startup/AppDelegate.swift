@@ -10,6 +10,10 @@ import ObjectMapper
     import GoogleCast
 #endif
 
+#if os(tvOS)
+    import TVServices
+#endif
+
 public let vlcSettingTextEncoding = "subsdec-encoding"
 
 struct ColorPallete {
@@ -51,12 +55,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
         #if os(tvOS)
             if let url = launchOptions?[.url] as? URL {
                 return self.application(.shared, open: url)
             }
-            
+            NotificationCenter.default.post(name: NSNotification.Name.TVTopShelfItemsDidChange, object: nil)
             let font = UIFont.systemFont(ofSize: 38, weight: UIFontWeightHeavy)
             UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: font], for: .normal)
         #elseif os(iOS)

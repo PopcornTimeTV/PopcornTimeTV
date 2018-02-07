@@ -35,7 +35,7 @@ open class TMDBManager: NetworkManager {
             
             var image: String?
             if let poster = responseDict["posters"].first?.1["file_path"].string {
-                image = "https://image.tmdb.org/t/p/w1000" + poster
+                image = "https://image.tmdb.org/t/p/w780" + poster
             }
             completion(id, image, nil)
         }

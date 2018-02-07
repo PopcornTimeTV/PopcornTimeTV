@@ -60,13 +60,13 @@ public struct Show: Media, Equatable {
     /// If fanart image is available, it is returned with size 650*366.
     public var smallBackgroundImage: String? {
         let amazonUrl = largeBackgroundImage?.isAmazonUrl ?? false
-        return largeBackgroundImage?.replacingOccurrences(of: amazonUrl ? "SX1920" : "w1920", with: amazonUrl ? "SX650" : "w650")
+        return largeBackgroundImage?.replacingOccurrences(of: amazonUrl ? "SX1920" : "original", with: amazonUrl ? "SX650" : "w500")
     }
     
     /// If fanart image is available, it is returned with size 1280*720.
     public var mediumBackgroundImage: String? {
         let amazonUrl = largeBackgroundImage?.isAmazonUrl ?? false
-        return largeBackgroundImage?.replacingOccurrences(of: amazonUrl ? "SX1920" : "w1920", with: amazonUrl ? "SX1280" : "w1280")
+        return largeBackgroundImage?.replacingOccurrences(of: amazonUrl ? "SX1920" : "original", with: amazonUrl ? "SX1280" : "w1280")
     }
     
     /// If fanart image is available, it is returned with size 1920*1080.
@@ -75,13 +75,13 @@ public struct Show: Media, Equatable {
     /// If poster image is available, it is returned with size 450*300.
     public var smallCoverImage: String? {
         let amazonUrl = largeCoverImage?.isAmazonUrl ?? false
-        return largeCoverImage?.replacingOccurrences(of: amazonUrl ? "SX1000" : "w1000", with: amazonUrl ? "SX300" : "w300")
+        return largeCoverImage?.replacingOccurrences(of: amazonUrl ? "SX1000" : "w780", with: amazonUrl ? "SX300" : "w342")
     }
     
     /// If poster image is available, it is returned with size 975*650.
     public var mediumCoverImage: String? {
         let amazonUrl = largeCoverImage?.isAmazonUrl ?? false
-        return largeCoverImage?.replacingOccurrences(of: amazonUrl ? "SX1000" : "w1000", with: amazonUrl ? "SX650" : "w650")
+        return largeCoverImage?.replacingOccurrences(of: amazonUrl ? "SX1000" : "w780", with: amazonUrl ? "SX650" : "w500")
     }
     
     /// If poster image is available, it is returned with size 1500*1000
@@ -132,8 +132,8 @@ public struct Show: Media, Equatable {
             self.tvdbId = try map.value("tvdb_id")
             self.year = try map.value("year")
             self.rating = try map.value("rating.percentage")
-            self.largeCoverImage = try? map.value("images.poster"); largeCoverImage = largeCoverImage?.replacingOccurrences(of: "w500", with: "w1000").replacingOccurrences(of: "SX300", with: "SX1000")
-            self.largeBackgroundImage = try? map.value("images.fanart"); largeBackgroundImage = largeBackgroundImage?.replacingOccurrences(of: "w500", with: "w1920").replacingOccurrences(of: "SX300", with: "SX1920")
+            self.largeCoverImage = try? map.value("images.poster"); largeCoverImage = largeCoverImage?.replacingOccurrences(of: "w500", with: "w780").replacingOccurrences(of: "SX300", with: "SX1000")
+            self.largeBackgroundImage = try? map.value("images.fanart"); largeBackgroundImage = largeBackgroundImage?.replacingOccurrences(of: "w500", with: "original").replacingOccurrences(of: "SX300", with: "SX1920")
             self.slug = try map.value("slug")
             self.airDay = try? map.value("air_day")
             self.airTime = try? map.value("air_time")
@@ -220,8 +220,8 @@ public struct Show: Media, Equatable {
                 return nil
         }
         
-        let largeBackgroundImage = backgroundImage.replacingOccurrences(of: backgroundImage.isAmazonUrl ? "SX300" : "w300", with: backgroundImage.isAmazonUrl ? "SX1000" : "w1000")
-        let largeCoverImage = image.replacingOccurrences(of: image.isAmazonUrl ? "SX300" : "w300", with: image.isAmazonUrl ? "SX1000" : "w1000")
+        let largeBackgroundImage = backgroundImage.replacingOccurrences(of: backgroundImage.isAmazonUrl ? "SX300" : "w342", with: backgroundImage.isAmazonUrl ? "SX1000" : "w780")
+        let largeCoverImage = image.replacingOccurrences(of: image.isAmazonUrl ? "SX300" : "w342", with: image.isAmazonUrl ? "SX1000" : "w780")
         
         self.init(title: title, id: id, slug: title.slugged, summary: summary, largeBackgroundImage: largeBackgroundImage, largeCoverImage: largeCoverImage)
     }

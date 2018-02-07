@@ -53,12 +53,12 @@ public struct Episode: Media, Equatable {
     
     /// If fanart image is available, it is returned with size 600*338. Will be `nil` until an image is obtained by calling `getEpisodeMetadata:showId:episodeNumber:seasonNumber:completion:` on `TraktManager`.
     public var smallBackgroundImage: String? {
-        return largeBackgroundImage?.replacingOccurrences(of: "w1920", with: "w600")
+        return largeBackgroundImage?.replacingOccurrences(of: "original", with: "w500")
     }
     
     /// If fanart image is available, it is returned with size 1000*536. Will be `nil` until an image is obtained by calling `getEpisodeMetadata:showId:episodeNumber:seasonNumber:completion:` on `TraktManager`.
     public var mediumBackgroundImage: String? {
-        return largeBackgroundImage?.replacingOccurrences(of: "w1920", with: "w1000")
+        return largeBackgroundImage?.replacingOccurrences(of: "original", with: "w780")
     }
     
     /// If fanart image is available, it is returned with size 1920*1080. Will be `nil` until an image is obtained by calling `getEpisodeMetadata:showId:episodeNumber:seasonNumber:completion:` on `TraktManager`.
@@ -168,7 +168,7 @@ public struct Episode: Media, Equatable {
                 return nil
         }
         
-        let largeBackgroundImage = backgroundImage.replacingOccurrences(of: backgroundImage.isAmazonUrl ? "SX300" : "w300", with: backgroundImage.isAmazonUrl ? "SX1000" : "w1000")
+        let largeBackgroundImage = backgroundImage.replacingOccurrences(of: backgroundImage.isAmazonUrl ? "SX300" : "w300", with: backgroundImage.isAmazonUrl ? "SX1000" : "w780")
         
         self.init(title: title, id: id, slug: title.slugged, summary: summary, largeBackgroundImage: largeBackgroundImage, show: Show(showMediaItemDictionary), episode: episode, season: season)
     }

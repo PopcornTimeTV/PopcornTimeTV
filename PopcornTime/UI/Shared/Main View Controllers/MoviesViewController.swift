@@ -28,6 +28,7 @@ class MoviesViewController: MediaViewController {
                 UIView.animate(withDuration: 0.2, animations: {
                     self.magnetLinkTextField.frame = CGRect(x: self.magnetLinkTextField.frame.origin.x, y: -61, width: self.magnetLinkTextField.frame.size.width, height: self.magnetLinkTextField.frame.size.height)
                 })
+                self.magnetLinkTextField.endEditing(true)
             }
         #else
             let storyboard = UIStoryboard.main

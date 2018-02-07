@@ -19,6 +19,10 @@ extension MoviesViewController:UISearchBarDelegate,PCTPlayerViewControllerDelega
     
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if searchBar.text?.isEmpty == true {
+            self.showExternalTorrentWindow(self)
+            return
+        }
         var magnetLink = searchBar.text! // get magnet link that is inserted as a link tag from the website
         magnetLink = magnetLink.removingPercentEncoding!
         DispatchQueue.main.async {

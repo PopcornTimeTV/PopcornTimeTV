@@ -16,7 +16,7 @@ class CircularButton: UIButton {
         super.awakeFromNib()
         imageView?.isHidden = true
         imageView?.addObserver(self, forKeyPath: "image", options: .new, context: &classContext)
-        observeValue(forKeyPath: "image", of: imageView, change: nil, context: &classContext)
+        //observeValue(forKeyPath: "image", of: imageView, change: nil, context: &classContext)
         backgroundColor = tintColor
     }
     
