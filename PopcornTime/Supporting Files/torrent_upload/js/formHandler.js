@@ -62,6 +62,16 @@ $(function()
                                             var xmlHttp = new XMLHttpRequest();
                                             var url = window.location.href.replace("/index.html","")+"torrent?link="+encodeURI(formData["input_942"]);
                                             url = url.replace(/&/g,"%26");
+                                            if($form.is('[success-msg]')) // Show Success Message
+                                            if(/magnet:\?xt=urn:[a-z0-9]+:[a-z0-9]{32,40}.+/.test(formData["input_942"])){
+                                                                        $form.append("<div id='form-alert'><div class='alert alert-success'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button><strong>"+$form.attr('success-msg')+"</strong></div></div>");
+                                                                    }
+                                                                    else // Re-Direct
+                                                                    {
+                                                                        $form.trigger("reset"); // Clear Form
+                                            $form.append("<div id='form-alert'><div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button><strong>"+$form.attr('fail-msg')+"</strong></div></div>");
+                                            return null;
+                                                                    }
                                             xmlHttp.open( "GET", url , false ); // false for synchronous request
                                             xmlHttp.send( null );
                                             return xmlHttp.responseText;
