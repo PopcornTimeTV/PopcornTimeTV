@@ -62,20 +62,25 @@ extension PCTPlayerViewController {
         let screenWindow = UIWindow(frame: screen.bounds)
         screenWindow.screen = screen
         
+        movieView.removeFromSuperview()
+
         // Instantiate the correct view controller from the storyboard
         let viewController = UIViewController()
+        screenWindow.rootViewController = viewController
+        viewController.view.frame = screen.bounds
         viewController.view.addSubview(movieView)
-        movieView.frame = screen.bounds
+        movieView.frame = screenWindow.frame
+        
         
         // Make sure controls are not hidden and if the user scrubs, a screenshot is not shown.
         progressBar.isHidden ? toggleControlsVisible() : ()
         screenshotImageView?.alpha = 0.0
         
-        screenWindow.rootViewController = viewController
         screenWindow.isHidden = false
-        
+
         // If you do not retain the window, it will go away and you will see nothing.
         windows.append(screenWindow)
+        screenWindow.makeKeyAndVisible()
     }
     
     func applicationDidDisconnect(from screen: UIScreen) {
@@ -86,6 +91,7 @@ extension PCTPlayerViewController {
         if let airPlayingView = airPlayingView {
             view.insertSubview(movieView, aboveSubview: airPlayingView)
             movieView.frame = airPlayingView.bounds
+            mediaplayer.drawable = movieView
         }
         resetIdleTimer()
     }
