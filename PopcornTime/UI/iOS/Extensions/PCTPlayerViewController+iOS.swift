@@ -13,7 +13,7 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
         return .default
     }
     
-    func volumeChanged() {
+    @objc func volumeChanged() {
         if overlayViews.first!.isHidden {
             toggleControlsVisible()
         }
@@ -24,10 +24,10 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         for constraint in compactConstraints {
-            constraint.priority = traitCollection.horizontalSizeClass == .compact ? 999 : 240
+            constraint.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(traitCollection.horizontalSizeClass == .compact ? 999 : 240))
         }
         for constraint in regularConstraints {
-            constraint.priority = traitCollection.horizontalSizeClass == .compact ? 240 : 999
+            constraint.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(traitCollection.horizontalSizeClass == .compact ? 240 : 999))
         }
         UIView.animate(withDuration: .default) {
             self.view.layoutIfNeeded()
@@ -131,4 +131,16 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
     }
 }
 
+extension UIView {
+    
+    @IBInspectable
+    var cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = newValue
+        }
+    }
+}
 

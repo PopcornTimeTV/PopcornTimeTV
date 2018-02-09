@@ -114,7 +114,7 @@ class EpisodeDetailViewController: UIViewController, UIScrollViewDelegate, UIGes
         }
     }
     
-    func stopDownload(_ sender: DownloadButton) {
+    @objc func stopDownload(_ sender: DownloadButton) {
         guard let download = episode.associatedDownload else { return }
         AppDelegate.shared.downloadButton(sender, wantsToStop: download)
     }

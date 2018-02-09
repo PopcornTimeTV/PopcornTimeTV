@@ -7,8 +7,8 @@ extension String {
     func truncateToSize(size: CGSize,
                         ellipsesString: String,
                         trailingText: String,
-                        attributes: [String : Any],
-                        trailingTextAttributes: [String : Any]) -> NSAttributedString {
+                        attributes: [NSAttributedStringKey : Any],
+                        trailingTextAttributes: [NSAttributedStringKey : Any]) -> NSAttributedString {
         
         if !willFit(to: size, attributes: attributes) {
             let indexOfLastCharacterThatFits = indexThatFits(size: size,
@@ -16,9 +16,9 @@ extension String {
                                                              trailingText: trailingText,
                                                              attributes: attributes,
                                                              minIndex: 0,
-                                                             maxIndex: characters.count)
+                                                             maxIndex: count)
             
-            let range = startIndex..<characters.index(startIndex, offsetBy: indexOfLastCharacterThatFits)
+            let range = startIndex..<index(startIndex, offsetBy: indexOfLastCharacterThatFits)
             let substring = self[range]
             let attributedString = NSMutableAttributedString(string: substring + ellipsesString, attributes: attributes)
             let attributedTrailingString = NSAttributedString(string: trailingText, attributes: trailingTextAttributes)
@@ -34,7 +34,7 @@ extension String {
     func willFit(to size: CGSize,
                  ellipsesString: String = "",
                  trailingText: String = "",
-                 attributes: [String : Any]) -> Bool {
+                 attributes: [NSAttributedStringKey : Any]) -> Bool {
         
         let text = (self + ellipsesString + trailingText) as NSString
         let boundedSize = CGSize(width: size.width, height: .greatestFiniteMagnitude)
@@ -48,15 +48,15 @@ extension String {
     private func indexThatFits(size: CGSize,
                                ellipsesString: String,
                                trailingText: String,
-                               attributes: [String : Any],
+                               attributes: [NSAttributedStringKey : Any],
                                minIndex: Int,
                                maxIndex: Int) -> Int {
         
         guard maxIndex - minIndex != 1 else { return minIndex }
         
         let midIndex = (minIndex + maxIndex) / 2
-        let range = startIndex..<characters.index(startIndex, offsetBy: midIndex)
-        let substring = self[range]
+        let range = startIndex..<index(startIndex, offsetBy: midIndex)
+        let substring = String(self[range])
         
         if !substring.willFit(to: size, ellipsesString: ellipsesString, trailingText: trailingText, attributes: attributes) {
             return indexThatFits(size: size,

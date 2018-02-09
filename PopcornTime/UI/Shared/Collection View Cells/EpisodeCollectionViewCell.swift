@@ -42,7 +42,7 @@ class EpisodeCollectionViewCell: BaseCollectionViewCell {
     
     #endif
     
-    func didDetectLongPress(_ gesture: UILongPressGestureRecognizer) {
+    @objc func didDetectLongPress(_ gesture: UILongPressGestureRecognizer) {
         guard gesture.state == .began else { return }
         toggleWatched()
     }

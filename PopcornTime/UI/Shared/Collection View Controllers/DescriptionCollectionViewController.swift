@@ -78,7 +78,7 @@ class DescriptionCollectionViewController: ResponsiveCollectionViewController, U
         let maxWidth   = collectionView.bounds.width
         let targetSize = CGSize(width: maxWidth, height: 0)
         
-        return sizingCell?.contentView.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityFittingSizeLevel) ?? .zero
+        return sizingCell?.contentView.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel) ?? .zero
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

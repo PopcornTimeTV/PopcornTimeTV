@@ -37,7 +37,7 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource {
         NotificationCenter.default.addObserver(self, selector: #selector(pickableRoutesDidChange), name: .AVAudioSessionRouteChange, object: nil)
     }
     
-    func pickableRoutesDidChange() {
+    @objc func pickableRoutesDidChange() {
         thirdTableView?.reloadData()
     }
     

@@ -55,8 +55,8 @@ class DownloadDetailViewController: UIDownloadDetailViewController {
         return episodes.filter {
             guard let lhs = $0.mediaMetadata[MPMediaItemPropertySeason] as? Int else { return false }
             return lhs == season
-        }.sorted {
-            guard let lhs = $0.0.mediaMetadata[MPMediaItemPropertyEpisode] as? Int, let rhs = $0.1.mediaMetadata[MPMediaItemPropertyEpisode] as? Int else { return false }
+            }.sorted {arg1,arg2 in
+            guard let lhs = arg1.mediaMetadata[MPMediaItemPropertyEpisode] as? Int, let rhs = arg2.mediaMetadata[MPMediaItemPropertyEpisode] as? Int else { return false }
             return lhs < rhs
         }
     }

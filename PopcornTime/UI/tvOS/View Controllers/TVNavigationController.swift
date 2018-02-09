@@ -7,7 +7,7 @@ class TVNavigationController: UINavigationController, UINavigationControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.clear]
+        navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.clear]
     }
     
     func sharedSetup() {

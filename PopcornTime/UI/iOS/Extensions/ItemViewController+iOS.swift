@@ -36,7 +36,7 @@ extension ItemViewController {
             attributedString(with: 10, between: movie.certification, "HD", "CC").forEach({info.append($0)})
             
             infoLabel.attributedText = info
-            ratingView.rating = movie.rating/20.0
+            ratingView.rating = Double(movie.rating)/20.0
             
             movie.trailerCode == nil ? trailerButton.removeFromSuperview() : ()
         } else if let show = media as? Show {
@@ -47,7 +47,7 @@ extension ItemViewController {
             attributedString(with: 10, between: "HD", "CC").forEach({info.append($0)})
             
             infoLabel.attributedText = info
-            ratingView.rating = show.rating/20.0
+            ratingView.rating = Double(show.rating)/20.0
             
             trailerButton.isHidden = true
             downloadButton.isHidden = true
@@ -58,13 +58,13 @@ extension ItemViewController {
         let isCompact = traitCollection.horizontalSizeClass == .compact
         
         for constraint in compactConstraints {
-            constraint.priority = isCompact ? 999 : 240
+            constraint.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(isCompact ? 999 : 240))
         }
         for constraint in regularConstraints {
-            constraint.priority = isCompact ? 240 : 999
+            constraint.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(isCompact ? 240 : 999))
         }
         
-        titleLabel.font = isCompact ? UIFont.systemFont(ofSize: 40, weight: UIFontWeightHeavy) : UIFont.systemFont(ofSize: 50, weight: UIFontWeightHeavy)
+        titleLabel.font = isCompact ? UIFont.systemFont(ofSize: 40, weight: UIFont.Weight.heavy) : UIFont.systemFont(ofSize: 50, weight: UIFont.Weight.heavy)
         
         // Don't animate if when the view is being first presented.
         if previousTraitCollection != nil {

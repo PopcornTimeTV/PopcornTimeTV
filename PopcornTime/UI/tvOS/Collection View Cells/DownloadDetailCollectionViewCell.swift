@@ -29,7 +29,7 @@ class DownloadCollectionViewCell: BaseCollectionViewCell {
     
     weak var delegate: DownloadCollectionViewCellDelegate?
     
-    func longPressDetected(_ gesture: UILongPressGestureRecognizer) {
+    @objc func longPressDetected(_ gesture: UILongPressGestureRecognizer) {
         guard gesture.state == .began else { return }
         delegate?.cell(self, longPressDetected: gesture)
     }

@@ -94,7 +94,7 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
     var currentItem: Media!
     var currentSeason = -1
     
-    var isDark = true {
+    @objc var isDark = true {
         didSet {
             guard isDark != oldValue && UIDevice.current.userInterfaceIdiom == .tv else { return }
             

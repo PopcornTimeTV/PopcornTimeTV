@@ -93,14 +93,14 @@ class SiriRemoteGestureRecognizer: UIGestureRecognizer {
     
     // MARK: Timers
     
-    func longPressTimerFired() {
+    @objc func longPressTimerFired() {
         guard isClick && state == .began || state == .changed else { return }
         isLongPress = true
         isClick = false
         state = .changed
     }
     
-    func longTapTimerFired() {
+    @objc func longTapTimerFired() {
         guard state == .began || state == .changed else { return }
         isLongTap = true
         state = .changed

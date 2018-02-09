@@ -14,7 +14,7 @@ class EpisodeDetailPresentationController: UIPresentationController {
         return view
     }()
     
-    func dimmingViewTapped(_ gesture: UIGestureRecognizer) {
+    @objc func dimmingViewTapped(_ gesture: UIGestureRecognizer) {
         if gesture.state == .recognized {
             presentingViewController.dismiss(animated: true)
         }

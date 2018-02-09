@@ -74,7 +74,7 @@ extension DetailViewController {
         backgroundImageView.frame = headerRect
     }
     
-    func updateCastStatus() {
+    @objc func updateCastStatus() {
         castButton?.status = GCKCastContext.sharedInstance().castState
     }
     
@@ -104,10 +104,10 @@ extension DetailViewController {
         episodesCollectionViewController.collectionView?.contentInset.right = isCompact ? 28 : 40
         
         for constraint in compactConstraints {
-            constraint.priority = isCompact ? 999 : 240
+            constraint.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(isCompact ? 999 : 240))
         }
         for constraint in regularConstraints {
-            constraint.priority = isCompact ? 240 : 999
+            constraint.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(isCompact ? 240 : 999))
         }
     }
 }

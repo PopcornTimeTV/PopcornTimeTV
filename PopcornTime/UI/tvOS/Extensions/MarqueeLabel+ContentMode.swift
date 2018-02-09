@@ -9,14 +9,14 @@ extension MarqueeLabel: Object {
         DispatchQueue.once {
             let originalMethod = class_getInstanceMethod(self, #selector(awakeFromNib))
             let swizzledMethod = class_getInstanceMethod(self, #selector(pctAwakeFromNib))
-            method_exchangeImplementations(originalMethod, swizzledMethod)
+            method_exchangeImplementations(originalMethod!, swizzledMethod!)
         }
     }
     
-    func pctAwakeFromNib() {
+    @objc func pctAwakeFromNib() {
         self.pctAwakeFromNib()
         
-        if let iVar = class_getInstanceVariable(type(of: self), NSString(string: "sublabel").utf8String),
+        if let iVar = class_getInstanceVariable(Swift.type(of: self), NSString(string: "sublabel").utf8String!),
             let label = object_getIvar(self, iVar) as? UILabel {
             label.contentMode = contentMode
         }

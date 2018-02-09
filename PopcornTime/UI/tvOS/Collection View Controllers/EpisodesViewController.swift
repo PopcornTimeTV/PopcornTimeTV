@@ -104,7 +104,7 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
         present(viewController, animated: true)
     }
     
-    func stopDownload(_ sender: DownloadButton) {
+    @objc func stopDownload(_ sender: DownloadButton) {
         guard let media = dataSource[safe: focusIndexPath.row],
             let download = media.associatedDownload else { return }
         AppDelegate.shared.downloadButton(sender, wantsToStop: download)

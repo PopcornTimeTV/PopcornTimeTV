@@ -64,7 +64,7 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
             label.text = "No subtitles available.".localized
             label.textColor = UIColor(white: 1.0, alpha: 0.5)
             label.textAlignment = .center
-            label.font = UIFont.systemFont(ofSize: 35.0, weight: UIFontWeightMedium)
+            label.font = UIFont.systemFont(ofSize: 35.0, weight: UIFont.Weight.medium)
             label.center = tableView.center
             label.sizeToFit()
         }

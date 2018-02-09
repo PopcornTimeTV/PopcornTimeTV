@@ -55,7 +55,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate {
         destinationController.infoViewController.media = media
     }
     
-    func touchLocationDidChange(_ gesture: SiriRemoteGestureRecognizer) {
+    @objc func touchLocationDidChange(_ gesture: SiriRemoteGestureRecognizer) {
         if gesture.state == .ended { hideInfoLabel() } else if gesture.isLongTap { showInfoLabel() }
         
         progressBar.hint = .none
@@ -74,7 +74,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate {
         }
     }
     
-    func clickGesture(_ gesture: SiriRemoteGestureRecognizer) {
+    @objc func clickGesture(_ gesture: SiriRemoteGestureRecognizer) {
         guard gesture.touchLocation == .unknown && gesture.isClick && gesture.state == .ended else {
             progressBar.isHidden ? toggleControlsVisible() : ()
             return
@@ -128,7 +128,7 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate {
         }
     }
     
-    func alertFocusDidChange(_ notification: Notification) {
+    @objc func alertFocusDidChange(_ notification: Notification) {
         guard let alertController = notification.object as? UIAlertController,
             let UIAlertControllerActionView = NSClassFromString("_UIAlertControllerActionView"),
             let dimmerView = alertController.value(forKey: "_dimmingView") as? UIView else { return }

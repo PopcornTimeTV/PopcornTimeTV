@@ -4,9 +4,9 @@ import Foundation
 
 fileprivate extension UILayoutPriority {
     /// Lowest possible value. Do not interact with anything
-    static let `default`: UILayoutPriority = 1
+    static let `default`: UILayoutPriority = UILayoutPriority(rawValue: 1)
     /// Highest possible value when setting constraints programatically.
-    static let required: UILayoutPriority = 999
+    static let required: UILayoutPriority = UILayoutPriority(rawValue: 999)
 }
 
 extension UICollectionViewCell {

@@ -173,7 +173,7 @@ enum TransportBarHint: String {
         screenshotImageView.frame = CGRect(origin: .zero, size: CGSize(width: 480, height: 270))
         
         let size = UIFont.preferredFont(forTextStyle: .callout).pointSize
-        let font = UIFont.monospacedDigitSystemFont(ofSize: size, weight: UIFontWeightSemibold)
+        let font = UIFont.monospacedDigitSystemFont(ofSize: size, weight: UIFont.Weight.semibold)
         let text = "--:--"
         let color = UIColor.white
         let frame = CGRect.infinite

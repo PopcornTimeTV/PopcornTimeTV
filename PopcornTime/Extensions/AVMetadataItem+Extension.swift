@@ -9,7 +9,7 @@ extension AVMetadataItem {
         let item = AVMutableMetadataItem()
         item.key = key
         item.locale = .current
-        item.keySpace = AVMetadataKeySpaceCommon
+        item.keySpace = AVMetadataKeySpace.common
         item.value = value
         
         return item

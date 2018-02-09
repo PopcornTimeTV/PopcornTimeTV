@@ -5,7 +5,7 @@ import UIKit.NSAttributedString
 
 extension String {
     
-    var localized: String {
+    public var localized: String {
         return Bundle.main.localizedString(forKey: self, value: self, table: nil)
     }
     
@@ -18,10 +18,10 @@ extension String {
             let eInd = range(of: to, range: sInd..<endIndex)
             if eInd != nil {
                 return (eInd?.lowerBound).map { eInd in
-                    return substring(with: sInd..<eInd)
+                    return "\(self[sInd..<eInd])"
                 }
             }
-            return substring(with: sInd..<endIndex)
+            return "\(self[sInd..<endIndex])"
         }
     }
     

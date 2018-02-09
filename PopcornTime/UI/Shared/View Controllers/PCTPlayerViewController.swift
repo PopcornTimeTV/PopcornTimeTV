@@ -337,6 +337,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         subtitleSwitcherButtonWidthConstraint?.constant = subtitleSwitcherButton?.isHidden == true ? 0 : 24
         
         #if os(iOS)
+            if UIDevice.current.modelName == "iPhone X" {
+                UIApplication.shared.statusBarStyle = .lightContent
+            }
             view.addSubview(volumeView)
             if let slider = volumeView.subviews.flatMap({$0 as? UISlider}).first {
                 slider.addTarget(self, action: #selector(volumeChanged), for: .valueChanged)
@@ -356,7 +359,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     // MARK: - Player changes notifications
     
-    func torrentStatusDidChange(_ aNotification: Notification) {
+    @objc func torrentStatusDidChange(_ aNotification: Notification) {
         if let streamer = aNotification.object as? PTTorrentStreamer {
             progressBar?.bufferProgress = streamer.torrentStatus.totalProgress
         }
