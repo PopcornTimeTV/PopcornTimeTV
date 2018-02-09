@@ -131,4 +131,16 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
     }
 }
 
+extension UIView {
+    
+    @IBInspectable
+    var cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = newValue
+        }
+    }
+}
 

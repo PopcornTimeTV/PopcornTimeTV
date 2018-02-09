@@ -55,7 +55,7 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             attributedString(colored: isDark ? .white : .black, between: movie.certification, "HD", "CC").forEach({subtitle.append($0)})
             
             subtitleLabel.attributedText = subtitle
-            ratingView.rating = movie.rating/20.0
+            ratingView.rating = Double(movie.rating)/20.0
             
             let peopleText = NSMutableAttributedString()
             
