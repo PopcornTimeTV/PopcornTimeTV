@@ -41,7 +41,7 @@ end
 def kitPods
     pod 'Alamofire', '~> 4.4.0'
     pod 'ObjectMapper', '~> 2.2.7'
-    pod 'AlamofireXMLRPC', '~> 2.1.0'
+    pod 'AlamofireXMLRPC', '~> 2.2.0'
     pod 'SwiftyJSON', '~> 3.1.4'
     pod 'Locksmith', '~> 3.0.0'
 end
