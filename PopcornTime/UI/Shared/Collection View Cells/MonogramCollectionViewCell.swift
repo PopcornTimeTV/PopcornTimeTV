@@ -1,6 +1,8 @@
 
 
 import Foundation
+import PopcornKit
+import AlamofireImage
 
 @IBDesignable class MonogramCollectionViewCell: BaseCollectionViewCell {
     
@@ -67,4 +69,38 @@ import Foundation
     }
     
     #endif
+}
+
+extension MonogramCollectionViewCell: CellCustomizing {
+
+    func configureCellWith<T>(_ item: T) {
+
+        guard let person = item as? Person else { print(">>> initializing cell with invalid item"); return }
+
+        self.titleLabel.text = person.name
+        self.initialsLabel.text = person.initials
+
+        if let image = person.mediumImage,
+            let url = URL(string: image),
+            let request = try? URLRequest(url: url, method: .get) {
+
+            self.originalImage = UIImage(named: "Other Placeholder")
+
+            ImageDownloader.default.download(request) { (response) in
+                self.originalImage = response.result.value
+            }
+        } else {
+            self.originalImage = nil
+        }
+
+        if let actor = person as? Actor {
+            self.subtitleLabel.text = actor.characterName
+        } else if let crew = person as? Crew {
+            self.subtitleLabel.text = crew.job
+        }
+
+        if UIDevice.current.userInterfaceIdiom == .tv {
+            self.subtitleLabel.text = self.subtitleLabel.text?.localizedUppercase
+        }
+    }
 }
