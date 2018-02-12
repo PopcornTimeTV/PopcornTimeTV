@@ -5,30 +5,34 @@ import UIKit
 
 extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, GoogleCastTableViewControllerDelegate, UIViewControllerTransitioningDelegate {
     
+    
     override var prefersStatusBarHidden: Bool {
         return !shouldHideStatusBar
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        return .lightContent
     }
     
     @objc func volumeChanged() {
         if overlayViews.first!.isHidden {
             toggleControlsVisible()
         }
-        if let slider = volumeView.subviews.flatMap({$0 as? UISlider}).first {
-            volumeSlider.setValue(slider.value, animated: true)
+//        if let slider = volumeView.subviews.flatMap({$0 as? UISlider}).first {
+//            volumeSlider.setValue(slider.value, animated: true)
+//        }
+    }
+    
+    @IBAction func volumeSingleTap(){
+        for subview in volumeView.subviews {
+            if let slider = subview as? UISlider {
+                slider.setValue(0.0, animated: true)
+            }
         }
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        for constraint in compactConstraints {
-            constraint.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(traitCollection.horizontalSizeClass == .compact ? 999 : 240))
-        }
-        for constraint in regularConstraints {
-            constraint.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(traitCollection.horizontalSizeClass == .compact ? 240 : 999))
-        }
+    @IBAction func volumeLongTap(){
+        showVolumeConstraint?.priority = UILayoutPriority(rawValue: 999)
         UIView.animate(withDuration: .default) {
             self.view.layoutIfNeeded()
         }
@@ -66,19 +70,18 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
         }
         
         UIView.animate(withDuration: .default, animations: {
-            self.finishedScrubbingConstraints!.isActive = false
-            self.duringScrubbingConstraints!.isActive = true
+            self.tooltipView?.isHidden = false
             self.view.layoutIfNeeded()
         })
     }
     
     @IBAction func volumeSliderAction() {
         resetIdleTimer()
-        for subview in volumeView.subviews {
-            if let slider = subview as? UISlider {
-                slider.setValue(volumeSlider.value, animated: true)
-            }
-        }
+//        for subview in volumeView.subviews {
+//            if let slider = subview as? UISlider {
+//                slider.setValue(volumeSlider.value, animated: true)
+//            }
+//        }
     }
     
     @IBAction func scrubbingEnded() {
@@ -90,8 +93,7 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
         
         view.layoutIfNeeded()
         UIView.animate(withDuration: .default, animations: {
-            self.duringScrubbingConstraints!.isActive = false
-            self.finishedScrubbingConstraints!.isActive = true
+            self.tooltipView?.isHidden = true
             self.view.layoutIfNeeded()
         })
     }
@@ -130,17 +132,3 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
         }
     }
 }
-
-extension UIView {
-    
-    @IBInspectable
-    var cornerRadius: CGFloat {
-        get {
-            return layer.cornerRadius
-        }
-        set {
-            layer.cornerRadius = newValue
-        }
-    }
-}
-

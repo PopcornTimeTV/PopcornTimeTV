@@ -49,6 +49,8 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     @IBOutlet var regularConstraints: [NSLayoutConstraint] = []
     @IBOutlet var compactConstraints: [NSLayoutConstraint] = []
+    @IBOutlet var showVolumeConstraint: NSLayoutConstraint?
+    @IBOutlet var tooltipView: UIView?
     @IBOutlet var duringScrubbingConstraints: NSLayoutConstraint?
     @IBOutlet var finishedScrubbingConstraints: NSLayoutConstraint?
     @IBOutlet var subtitleSwitcherButtonWidthConstraint: NSLayoutConstraint?
@@ -56,15 +58,12 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     @IBOutlet var scrubbingSpeedLabel: UILabel?
     
     #if os(iOS)
-        @IBOutlet var volumeSlider: BarSlider! {
-            didSet {
-                volumeSlider.setValue(AVAudioSession.sharedInstance().outputVolume, animated: false)
-            }
-        }
+        @IBOutlet var volumeSliderView: UIView?
     
         internal var volumeView: MPVolumeView = {
-            let view = MPVolumeView(frame: CGRect(x: -1000, y: -1000, width: 100, height: 100))
+            let view = MPVolumeView(frame: CGRect(x: 0, y: 14, width: 118, height: 30))
             view.sizeToFit()
+            view.showsRouteButton = false
             return view
         }()
     #endif
@@ -337,13 +336,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         subtitleSwitcherButtonWidthConstraint?.constant = subtitleSwitcherButton?.isHidden == true ? 0 : 24
         
         #if os(iOS)
-            if UIDevice.current.modelName == "iPhone X" {
-                UIApplication.shared.statusBarStyle = .lightContent
-            }
-            view.addSubview(volumeView)
-            if let slider = volumeView.subviews.flatMap({$0 as? UISlider}).first {
-                slider.addTarget(self, action: #selector(volumeChanged), for: .valueChanged)
-            }
+            volumeSliderView?.addSubview(volumeView)
         #elseif os(tvOS)
             let gesture = SiriRemoteGestureRecognizer(target: self, action: #selector(touchLocationDidChange(_:)))
             gesture.delegate = self
@@ -438,10 +431,11 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
                 })
             } else {
                 self.overlayViews.forEach({ $0.alpha = 0.0 })
+                self.showVolumeConstraint?.priority = UILayoutPriority(500)
             }
-            #if os(iOS)
-            self.setNeedsStatusBarAppearanceUpdate()
-            #endif
+            if UIDevice.current.systemName == "iOS"{
+                self.setNeedsStatusBarAppearanceUpdate()
+            }
          }, completion: { finished in
             if self.overlayViews.first!.alpha == 0.0 {
                 self.overlayViews.forEach({ $0.isHidden = true })
