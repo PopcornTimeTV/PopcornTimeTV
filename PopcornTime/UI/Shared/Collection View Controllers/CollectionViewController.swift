@@ -2,9 +2,12 @@
 
 import Foundation
 import PopcornKit
-import AlamofireImage
 import class PopcornTorrent.PTTorrentDownload
 import MediaPlayer.MPMediaItem
+
+protocol CellCustomizing {
+    func configureCellWith<T>(_ item: T)
+}
 
 protocol CollectionViewControllerDelegate: class {
     func load(page: Int)
@@ -209,90 +212,53 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
         let cell: BaseCollectionViewCell
         let item = dataSources[indexPath.section][indexPath.row]
-        
-        if let media = item as? Media {
-            let identifier  = media is Movie ? "movieCell" : "showCell"
-            let placeholder = media is Movie ? "Movie Placeholder" : "Episode Placeholder"
-            
-            cell = {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CoverCollectionViewCell
-                cell.titleLabel.text = media.title
-                cell.watched = media.isWatched
-                
-                
-                #if os(tvOS)
-                    cell.hidesTitleLabelWhenUnfocused = true
-                #endif
-                
-                if let image = media.smallCoverImage,
-                    let url = URL(string: image) {
-                    cell.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: placeholder), imageTransition: .crossDissolve(.default))
-                } else {
-                    cell.imageView.image = UIImage(named: placeholder)
-                }
-                
-                return cell
-            }()
-        } else if let person = item as? Person {
-            
-            cell = {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "personCell", for: indexPath) as! MonogramCollectionViewCell
-                cell.titleLabel.text = person.name
-                cell.initialsLabel.text = person.initials
-                
-                if let image = person.mediumImage,
-                    let url = URL(string: image),
-                    let request = try? URLRequest(url: url, method: .get) {
-                    cell.originalImage = UIImage(named: "Other Placeholder")
-                    ImageDownloader.default.download(request) { (response) in
-                        cell.originalImage = response.result.value
-                    }
-                } else {
-                    cell.originalImage = nil
-                }
-                
-                if let actor = person as? Actor {
-                    cell.subtitleLabel.text = actor.characterName
-                } else if let crew = person as? Crew {
-                    cell.subtitleLabel.text = crew.job
-                }
-                
-                if UIDevice.current.userInterfaceIdiom == .tv {
-                    cell.subtitleLabel.text = cell.subtitleLabel.text?.localizedUppercase
-                }
-                
-                return cell
-            }()
-        } else if let download = item as? PTTorrentDownload {
-            cell = {
-                #if os(tvOS)
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "downloadCell", for: indexPath) as! DownloadCollectionViewCell
-                    
-                    cell.delegate = parent as? DownloadCollectionViewCellDelegate
-                    
-                    cell.progress = download.torrentStatus.totalProgress
-                    cell.downloadState = DownloadButton.State(download.downloadStatus)
-                    
-                    if let image = download.mediaMetadata[MPMediaItemPropertyArtwork] as? String, let url = URL(string: image) {
-                        cell.imageView?.af_setImage(withURL: url)
-                    } else {
-                        cell.imageView?.image = UIImage(named: "Episode Placeholder")
-                    }
-                    
-                    cell.titleLabel?.text = download.mediaMetadata[MPMediaItemPropertyTitle] as? String
-                    cell.blurView.isHidden = download.downloadStatus == .finished
-                    
+
+        switch item {
+
+            case is Media:
+
+                let identifier  = item is Movie ? "movieCell" : "showCell"
+
+                cell = {
+
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CoverCollectionViewCell
+                    cell.configureCellWith(item)
+
                     return cell
-                #elseif os(iOS)
-                    fatalError("Unknown type in dataSource.")
-                #endif
-            }()
-        } else {
-            fatalError("Unknown type in dataSource.")
+                }()
+
+            case is Person:
+
+                cell = {
+
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "personCell", for: indexPath) as! MonogramCollectionViewCell
+                    cell.configureCellWith(item)
+
+                    return cell
+                }()
+
+            case is PTTorrentDownload:
+
+                cell = {
+
+                    #if os(tvOS)
+
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "downloadCell", for: indexPath) as! DownloadCollectionViewCell
+                        cell.delegate = parent as? DownloadCollectionViewCellDelegate
+                        cell.configureCellWith(item)
+
+                        return cell
+                    #elseif os(iOS)
+                        fatalError("Unknown type in dataSource.")
+                    #endif
+                }()
+
+            default: fatalError("Unknown type in dataSource.")
         }
-        
+
         cell.isDark = isDark
         
         return cell
