@@ -43,6 +43,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     @IBOutlet var playPauseButton: UIButton?
     @IBOutlet var subtitleSwitcherButton: UIButton?
     @IBOutlet var videoDimensionsButton: UIButton?
+    @IBOutlet var volumeButton: UIButton?
     
     @IBOutlet var tapOnVideoRecognizer: UITapGestureRecognizer?
     @IBOutlet var doubleTapToZoomOnVideoRecognizer: UITapGestureRecognizer?
@@ -337,6 +338,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         
         #if os(iOS)
             volumeSliderView?.addSubview(volumeView)
+            if let slider = volumeView.subviews.flatMap({$0 as? UISlider}).first {
+                slider.addTarget(self, action: #selector(volumeChanged(forSlider:)), for: .valueChanged)
+            }
         #elseif os(tvOS)
             let gesture = SiriRemoteGestureRecognizer(target: self, action: #selector(touchLocationDidChange(_:)))
             gesture.delegate = self
@@ -433,9 +437,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
                 self.overlayViews.forEach({ $0.alpha = 0.0 })
                 self.showVolumeConstraint?.priority = UILayoutPriority(500)
             }
-            if UIDevice.current.systemName == "iOS"{
-                self.setNeedsStatusBarAppearanceUpdate()
-            }
+//            #if os(iOS)
+//                self.setNeedsStatusBarAppearanceUpdate()
+//            #endif
          }, completion: { finished in
             if self.overlayViews.first!.alpha == 0.0 {
                 self.overlayViews.forEach({ $0.isHidden = true })

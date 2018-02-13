@@ -14,13 +14,23 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
         return .lightContent
     }
     
-    @objc func volumeChanged() {
+    @objc func volumeChanged(forSlider: UISlider?) {
         if overlayViews.first!.isHidden {
             toggleControlsVisible()
         }
-//        if let slider = volumeView.subviews.flatMap({$0 as? UISlider}).first {
-//            volumeSlider.setValue(slider.value, animated: true)
-//        }
+        if let slider = forSlider as UISlider? {
+            switch(slider.value){
+            case _ where slider.value == 0:
+                volumeButton?.setImage(#imageLiteral(resourceName: "Volume Minimum"), for: .normal)
+            case _ where slider.value <= 0.4:
+                volumeButton?.setImage(#imageLiteral(resourceName: "Volume Maximum"), for: .normal)
+                volumeButton?.imageView?.frame.origin.x = 11
+            case _ where slider.value <= 0.7:
+                volumeButton?.imageView?.frame.origin.x = 6
+            default:
+                volumeButton?.imageView?.frame.origin.x = 0
+            }
+        }
     }
     
     @IBAction func volumeSingleTap(){

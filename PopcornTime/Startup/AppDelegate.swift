@@ -60,8 +60,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                 return self.application(.shared, open: url)
             }
             NotificationCenter.default.post(name: NSNotification.Name.TVTopShelfItemsDidChange, object: nil)
-            let font = UIFont.systemFont(ofSize: 38, weight: UIFontWeightHeavy)
-            UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: font], for: .normal)
+            let font = UIFont.systemFont(ofSize: 38, weight: UIFont.Weight.heavy)
+            UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: font], for: .normal)
         #elseif os(iOS)
             NetworkActivityIndicatorManager.shared.isEnabled = true
             
