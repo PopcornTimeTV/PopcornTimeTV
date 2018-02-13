@@ -3,11 +3,12 @@
 import Foundation
 import UIKit
 
-class ProgressBar: UIVisualEffectView {
+class ProgressBar: UIView {
     
     @IBOutlet var remainingTimeLabel: UILabel!
     @IBOutlet var elapsedTimeLabel: UILabel!
-    @IBOutlet var progressSlider: BarSlider!
+    @IBOutlet weak var progressSlider: BarSlider!
+    
     
     @IBOutlet var bufferProgressView: UIProgressView! {
         didSet {

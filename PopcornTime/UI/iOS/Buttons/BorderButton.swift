@@ -4,11 +4,8 @@ import Foundation
 
 @IBDesignable class BorderButton: UIButton {
     
-    override var cornerRadius: CGFloat {
-        get{
+    var cornerRadius: CGFloat {
             return frame.height/9
-        }
-        set(radius){}
     }
     
     @IBInspectable var borderWidth: CGFloat = 1 {
