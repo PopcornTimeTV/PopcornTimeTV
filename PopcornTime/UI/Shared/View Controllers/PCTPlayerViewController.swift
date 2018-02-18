@@ -377,9 +377,11 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         }
         
         if resumePlayback && mediaplayer.isSeekable {
-            resumePlayback = false
-            let time = NSNumber(value: startPosition * streamDuration)
-            mediaplayer.time = VLCTime(number: time)
+            resumePlayback = streamDuration == 0 ? true:false // check if the current stream length is available if not retry to go to previous position
+            if resumePlayback == false {
+                let time = NSNumber(value: startPosition * streamDuration)
+                mediaplayer.time = VLCTime(number: time)
+            }
         }
         
         playPauseButton?.setImage(UIImage(named: "Pause"), for: .normal)
@@ -437,9 +439,12 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
                 self.overlayViews.forEach({ $0.alpha = 0.0 })
                 self.showVolumeConstraint?.priority = UILayoutPriority(500)
             }
-//            #if os(iOS)
-//                self.setNeedsStatusBarAppearanceUpdate()
-//            #endif
+            if #available(iOS 9.0, *){
+                self.setNeedsStatusBarAppearanceUpdate()
+                if #available(iOS 11.0, *) {
+                    self.setNeedsUpdateOfHomeIndicatorAutoHidden()
+                }
+            }
          }, completion: { finished in
             if self.overlayViews.first!.alpha == 0.0 {
                 self.overlayViews.forEach({ $0.isHidden = true })

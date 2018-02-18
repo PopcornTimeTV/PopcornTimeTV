@@ -81,8 +81,8 @@ public struct Episode: Media, Equatable {
             self.id = try map.value("ids.tvdb", using: StringTransform())
             self.episode = try map.value("number")
         } else {
-            self.episode = try map.value("episode")
-            self.id = try map.value("tvdb_id", using: StringTransform()).replacingOccurrences(of: "-", with: "")
+            self.episode = ((try? map.value("episode")) ?? Int((map.JSON["episode"] as? String)!)!)
+            self.id = ((try? map.value("tvdb_id", using: StringTransform()).replacingOccurrences(of: "-", with: "")) ?? (map.JSON["tvdb_id"] as! String).replacingOccurrences(of: "-", with: ""))
             if let torrents = map["torrents"].currentValue as? [String: [String: Any]] {
                 for (quality, torrent) in torrents {
                     if var torrent = Mapper<Torrent>().map(JSONObject: torrent) , quality != "0" {
@@ -98,7 +98,7 @@ public struct Episode: Media, Equatable {
         self.show = try? map.value("show") // Will only not be `nil` if object is mapped from JSON array, otherwise this is set in `Show` struct.
         self.firstAirDate =  try map.value("first_aired", using: DateTransform())
         self.summary = ((try? map.value("overview")) ?? "No summary available.".localized).removingHtmlEncoding
-        self.season = try map.value("season")
+        self.season = ((try? map.value("season")) ?? Int((map.JSON["season"] as? String)!)!)
         let episode = self.episode // Stop compiler complaining about passing uninitialised variables to closure.
         self.title = ((try? map.value("title")) ?? "Episode \(episode)").removingHtmlEncoding
         self.slug = title.slugged

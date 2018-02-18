@@ -14,6 +14,10 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
         return .lightContent
     }
     
+    override func prefersHomeIndicatorAutoHidden() -> Bool {
+        return !shouldHideStatusBar
+    }
+    
     @objc func volumeChanged(forSlider: UISlider?) {
         if overlayViews.first!.isHidden {
             toggleControlsVisible()
