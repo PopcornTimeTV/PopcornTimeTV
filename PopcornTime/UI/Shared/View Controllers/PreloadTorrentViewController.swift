@@ -13,7 +13,7 @@ class PreloadTorrentViewController: UIViewController {
     
     @IBOutlet var backgroundImageView: UIImageView?
     
-    var streamer: PTTorrentStreamer!
+    var streamer: PTTorrentStreamer?
     
     
     var progress: Float = 0.0 {
@@ -39,7 +39,7 @@ class PreloadTorrentViewController: UIViewController {
     }
     
     @IBAction func cancel() {
-        streamer.cancelStreamingAndDeleteData(false)
+        streamer?.cancelStreamingAndDeleteData(false)
         dismiss(animated: true)
     }
     

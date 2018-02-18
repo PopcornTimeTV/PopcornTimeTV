@@ -439,12 +439,12 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
                 self.overlayViews.forEach({ $0.alpha = 0.0 })
                 self.showVolumeConstraint?.priority = UILayoutPriority(500)
             }
-            if #available(iOS 9.0, *){
+            #if os(iOS)
                 self.setNeedsStatusBarAppearanceUpdate()
                 if #available(iOS 11.0, *) {
                     self.setNeedsUpdateOfHomeIndicatorAutoHidden()
                 }
-            }
+            #endif
          }, completion: { finished in
             if self.overlayViews.first!.alpha == 0.0 {
                 self.overlayViews.forEach({ $0.isHidden = true })

@@ -1,6 +1,8 @@
 
 
 import Foundation
+import class PopcornTorrent.PTTorrentDownload
+import MediaPlayer.MPMediaItem
 
 protocol DownloadCollectionViewCellDelegate: class {
     func cell(_ cell: DownloadCollectionViewCell, longPressDetected gesture: UILongPressGestureRecognizer)
