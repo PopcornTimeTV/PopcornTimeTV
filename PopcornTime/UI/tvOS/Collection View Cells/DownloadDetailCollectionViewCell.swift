@@ -53,3 +53,23 @@ class DownloadCollectionViewCell: BaseCollectionViewCell {
     }
     
 }
+
+extension DownloadCollectionViewCell: CellCustomizing {
+
+    func configureCellWith<T>(_ item: T) {
+
+        guard let download = item as? PTTorrentDownload else { print(">>> initializing cell with invalid item"); return }
+
+        self.progress = download.torrentStatus.totalProgress
+        self.downloadState = DownloadButton.State(download.downloadStatus)
+
+        if let image = download.mediaMetadata[MPMediaItemPropertyArtwork] as? String, let url = URL(string: image) {
+            self.imageView?.af_setImage(withURL: url)
+        } else {
+            self.imageView?.image = UIImage(named: "Episode Placeholder")
+        }
+
+        self.titleLabel?.text = download.mediaMetadata[MPMediaItemPropertyTitle] as? String
+        self.blurView.isHidden = download.downloadStatus == .finished
+    }
+}
