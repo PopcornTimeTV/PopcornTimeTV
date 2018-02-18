@@ -11,6 +11,12 @@ extension DetailViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        // work around for uitabbarcontroller not updating his frame if the view is reorientated during presentation of loadingviewcontroller and subsequent cancellation
+        if self.navigationController?.parent?.view.frame != UIScreen.screens[0].bounds{
+            self.navigationController?.parent?.view.frame = UIScreen.screens[0].bounds
+            self.navigationController?.parent?.view.setNeedsDisplay()
+        }
+        
         super.viewWillAppear(animated)
         
         watchedButton.setImage(watchedButtonImage, for: .normal)
