@@ -360,10 +360,10 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HFi-wG-0Ku">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="2830"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="2890"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAa-ul-Iht">
-                                        <rect key="frame" x="0.0" y="0.0" width="1920" height="2880"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1920" height="2800"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bbe-78-HE7">
                                                 <rect key="frame" x="710" y="70" width="347" height="130"/>
@@ -389,9 +389,9 @@
                                                 </connections>
                                             </containerView>
                                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mnE-Xa-s53" customClass="TVVisualEffectView" customModule="PopcornTime" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="720" width="1920" height="2160"/>
+                                                <rect key="frame" x="0.0" y="720" width="1920" height="2080"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="2Hd-hv-cMf">
-                                                    <rect key="frame" x="0.0" y="0.0" width="1920" height="2160"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="1920" height="2080"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <containerView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GeX-BK-RB0">
@@ -404,7 +404,7 @@
                                                             </connections>
                                                         </containerView>
                                                         <view userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="462-tK-KyK" userLabel="Dimmer View">
-                                                            <rect key="frame" x="0.0" y="890" width="1920" height="1270"/>
+                                                            <rect key="frame" x="0.0" y="890" width="1920" height="1190"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.14999999999999999" colorSpace="calibratedWhite"/>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VTT-oE-CQs">
@@ -464,7 +464,7 @@
                                                         <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" distribution="fillEqually" alignment="top" spacing="250" translatesAutoresizingMaskIntoConstraints="NO" id="WB9-jh-Kq5">
                                                             <rect key="frame" x="90" y="1700" width="1740" height="380"/>
                                                             <subviews>
-                                                                <containerView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQv-zy-NoW">
+                                                                <containerView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQv-zy-NoW">
                                                                     <rect key="frame" x="0.0" y="0.0" width="745" height="380"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="380" id="m4R-Nt-1kc"/>
@@ -473,7 +473,7 @@
                                                                         <segue destination="DA7-H9-B5o" kind="embed" identifier="embedInformation" id="YB3-me-gPC"/>
                                                                     </connections>
                                                                 </containerView>
-                                                                <containerView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MUB-kO-9QJ">
+                                                                <containerView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MUB-kO-9QJ">
                                                                     <rect key="frame" x="995" y="0.0" width="745" height="380"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="380" id="N6F-W0-gf5"/>
@@ -2635,6 +2635,11 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yT7-ti-YNb">
+                                                        <rect key="frame" x="863" y="325" width="195" height="86"/>
+                                                        <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                                        <state key="normal" title="Button"/>
+                                                    </button>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="1rU-hk-tum" firstAttribute="centerX" secondItem="Ohz-Pg-x0J" secondAttribute="centerX" id="TRI-Ys-Vfd"/>
@@ -2643,6 +2648,10 @@
                                                     <constraint firstItem="Ohz-Pg-x0J" firstAttribute="centerY" secondItem="NGd-2S-BoP" secondAttribute="centerY" id="ujE-jP-WLg"/>
                                                 </constraints>
                                             </view>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="yT7-ti-YNb" secondAttribute="bottom" constant="-90" id="N3r-fT-Yvk"/>
+                                                <constraint firstItem="yT7-ti-YNb" firstAttribute="centerX" secondItem="Ogm-Uz-Slq" secondAttribute="centerX" id="hH8-ah-M1R"/>
+                                            </constraints>
                                             <vibrancyEffect>
                                                 <blurEffect style="regular"/>
                                             </vibrancyEffect>
@@ -2672,6 +2681,7 @@
                     <connections>
                         <outlet property="activityIndicatorView" destination="Ohz-Pg-x0J" id="PSl-5a-bTd"/>
                         <outlet property="backgroundImageView" destination="tOi-zm-Rjl" id="wXd-Dw-fgO"/>
+                        <outlet property="focusButton" destination="yT7-ti-YNb" id="6Ay-lF-PFz"/>
                         <outlet property="titleLabel" destination="1rU-hk-tum" id="SNR-wM-xyw"/>
                         <outlet property="visualEffectView" destination="Yx5-JC-ZxJ" id="fDu-LP-CNA"/>
                     </connections>

@@ -27,7 +27,7 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         PTTorrentDownloadManager.shared().add(self)
         downloadButton.addTarget(self, action: #selector(stopDownload(_:)), for: .applicationReserved)
         
@@ -37,6 +37,11 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
         environmentsToFocus = visibleButtons
         
         reloadData()
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1), execute: {
+            self.setNeedsFocusUpdate()
+            self.updateFocusIfNeeded()
+        })
     }
     
     func reloadData() {
