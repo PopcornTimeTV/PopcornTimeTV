@@ -138,12 +138,12 @@ public struct Show: Media, Equatable {
             self.airDay = try? map.value("air_day")
             self.airTime = try? map.value("air_time")
         }
-        self.summary = ((try? map.value("synopsis")) ?? "No summary available.".localized).removingHtmlEncoding
+        self.summary = ((try? map.value("synopsis")) ?? (try? map.value("overview")) ?? "No summary available.".localized).removingHtmlEncoding
         var title: String = try map.value("title")
         title.removeHtmlEncoding()
         self.title = title
         self.status = try? map.value("status")
-        self.runtime = try? map.value("runtime", using: IntTransform())
+        self.runtime = (try? map.value("runtime", using: IntTransform())) ?? map.JSON["runtime"] as? Int
         self.genres = (try? map.value("genres")) ?? []
         self.episodes = (try? map.value("episodes")) ?? []
         self.tmdbId = try? map.value("ids.tmdb")
