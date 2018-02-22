@@ -5,8 +5,6 @@ import UIKit
 
 extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, GoogleCastTableViewControllerDelegate, UIViewControllerTransitioningDelegate {
     
-    private var previousVolumeValue = 0.0
-    
     override var prefersStatusBarHidden: Bool {
         return !shouldHideStatusBar
     }
@@ -42,9 +40,9 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
         for subview in volumeView.subviews {
             if let slider = subview as? UISlider {
                 if(slider.value == 0.0){
-                    slider.setValue(previousVolumeValue, animated: true)
+                    slider.setValue(Float(previousVolumeValue), animated: true)
                 }else{
-                    previousVolumeValue = slider.value
+                    previousVolumeValue = Double(slider.value)
                     slider.setValue(0.0, animated: true)
                 }
                 

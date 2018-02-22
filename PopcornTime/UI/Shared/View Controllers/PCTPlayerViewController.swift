@@ -59,6 +59,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     @IBOutlet var scrubbingSpeedLabel: UILabel?
     
     #if os(iOS)
+        internal var previousVolumeValue = 0.0
         @IBOutlet var volumeSliderView: UIView?
     
         internal var volumeView: MPVolumeView = {
