@@ -55,7 +55,7 @@ open class SubtitlesManager: NetworkManager {
                 guard
                     let subDownloadLink = info["SubDownloadLink"].string?.replacingOccurrences(of: ".gz", with: ""),
                     let ISO639 = info["ISO639"].string,
-                    let localizedLanguageName = Locale.current.localizedString(forLanguageCode: ISO639)?.localizedCapitalized,
+                    let localizedLanguageName = ((Locale.current.localizedString(forLanguageCode: ISO639)?.localizedCapitalized) ?? (Locale.current.localizedString(forLanguageCode: ISO639.replacingOccurrences(of: "pob", with: "pt_BR"))) ?? (Locale.current.localizedString(forLanguageCode: ISO639.replacingOccurrences(of: "pb", with: "pt_BR")))),
                     let rating = Double(info["SubRating"].string ?? "")
                     else {
                         continue
