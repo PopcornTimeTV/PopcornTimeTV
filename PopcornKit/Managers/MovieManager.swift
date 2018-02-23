@@ -74,7 +74,11 @@ open class MovieManager: NetworkManager {
     open func getInfo(_ imdbId: String, completion: @escaping (Movie?, NSError?) -> Void) {
         self.manager.request(Popcorn.base + Popcorn.movie + "/\(imdbId)").validate().responseJSON { response in
             guard let value = response.result.value else {completion(nil, response.result.error as NSError?); return}
-            completion(Mapper<Movie>().map(JSONObject: value), nil)
+            DispatchQueue.global(qos: .background).async {
+                let mappedItem = Mapper<Movie>().map(JSONObject: value)
+                completion(mappedItem, nil)
+            }
+            
         }
     }
     

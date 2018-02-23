@@ -17,13 +17,23 @@ class WatchlistViewController: MainViewController {
     }
     
     override func load(page: Int) {
-        collectionViewController.dataSources = [WatchlistManager<Movie>.movie.getWatchlist { [unowned self] (updated) in
-            self.collectionViewController.dataSources[0] = updated.sorted(by: {$0.title < $1.title})
-        }.sorted(by: {$0.title < $1.title})]
+        let group = DispatchGroup()
         
-        collectionViewController.dataSources.append(WatchlistManager<Show>.show.getWatchlist { [unowned self] (updated) in
-            self.collectionViewController.dataSources[1] = updated.sorted(by: {$0.title < $1.title})
-        }.sorted(by: {$0.title < $1.title}))
+        group.enter()
+            self.collectionViewController.dataSources = [WatchlistManager<Movie>.movie.getWatchlist { [unowned self] (updated) in
+                self.collectionViewController.dataSources[0] = updated.sorted(by: {$0.title < $1.title})
+                self.collectionViewController.collectionView?.reloadData()
+                self.collectionViewController.collectionView?.collectionViewLayout.invalidateLayout()
+            }.sorted(by: {$0.title < $1.title})]
+        self.collectionViewController.dataSources.append(WatchlistManager<Show>.show.getWatchlist { [unowned self] (updated) in
+                self.collectionViewController.dataSources[1] = updated.sorted(by: {$0.title < $1.title})
+                self.collectionViewController.collectionView?.reloadData()
+    self.collectionViewController.collectionView?.collectionViewLayout.invalidateLayout()
+            }.sorted(by: {$0.title < $1.title}))
+        
+            self.collectionViewController.collectionView?.reloadData()
+        self.collectionViewController.collectionView?.collectionViewLayout.invalidateLayout()
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, titleForHeaderInSection section: Int) -> String? {

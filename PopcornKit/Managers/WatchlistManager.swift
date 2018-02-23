@@ -99,12 +99,14 @@ open class WatchlistManager<N: Media> {
      - Returns: Locally stored watchlist (may be out of date if user has authenticated with trakt).
      */
     @discardableResult open func getWatchlist(_ completion: (([N]) -> Void)? = nil) -> [N] {
-        let array = UserDefaults.standard.object(forKey: "\(currentType.rawValue)Watchlist") as? jsonArray ?? jsonArray()
         
-        TraktManager.shared.getWatchlist(forMediaOfType: N.self) { [unowned self] (medias, error) in
-            guard error == nil else {return}
-            UserDefaults.standard.set(Mapper<N>().toJSONArray(medias), forKey: "\(self.currentType.rawValue)Watchlist")
-            completion?(medias)
+            let array = UserDefaults.standard.object(forKey: "\(currentType.rawValue)Watchlist") as? jsonArray ?? jsonArray()
+            DispatchQueue.global(qos: .background).async {
+            TraktManager.shared.getWatchlist(forMediaOfType: N.self) { [unowned self] (medias, error) in
+                guard error == nil else {return}
+                UserDefaults.standard.set(Mapper<N>().toJSONArray(medias), forKey: "\(self.currentType.rawValue)Watchlist")
+                completion?(medias)
+            }
         }
         
         return Mapper<N>().mapArray(JSONArray: array)

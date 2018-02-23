@@ -102,13 +102,15 @@ open class WatchedlistManager<N: Media & Hashable> {
      - Returns: Locally stored watchedlist imdbId's (may be out of date if user has authenticated with trakt).
      */
     @discardableResult open func getWatched(completion: (([N]) -> Void)? = nil) -> [String] {
-        TraktManager.shared.getWatched(forMediaOfType: N.self) { [unowned self] (medias, error) in
-            guard error == nil else { return }
-            
-            let ids = medias.map({ $0.id })
-            UserDefaults.standard.set(ids, forKey: "\(self.currentType.rawValue)Watchedlist")
-            
-            completion?(medias)
+        DispatchQueue.global(qos: .background).async{
+            TraktManager.shared.getWatched(forMediaOfType: N.self) { [unowned self] (medias, error) in
+                guard error == nil else { return }
+                
+                let ids = medias.map({ $0.id })
+                UserDefaults.standard.set(ids, forKey: "\(self.currentType.rawValue)Watchedlist")
+                
+                completion?(medias)
+            }
         }
         
         let watched = UserDefaults.standard.object(forKey: "\(currentType.rawValue)Watchedlist") as? [String] ?? [String]()
@@ -140,16 +142,18 @@ open class WatchedlistManager<N: Media & Hashable> {
      - Returns: Locally stored progress (may be out of date if user has authenticated with trakt).
      */
     @discardableResult open func getProgress(completion: (([N: Float]) -> Void)? = nil) -> [String: Float] {
-        TraktManager.shared.getPlaybackProgress(forMediaOfType: N.self) { (dict, error) in
-            guard error == nil else { return }
-            
-            let media = Array(dict.keys)
-            let ids = media.map({ $0.id })
-            let progress = Array(dict.values)
-            
-            UserDefaults.standard.set(Dictionary<String, Float>(zip(ids, progress)), forKey: "\(self.currentType.rawValue)Progress")
-            
-            completion?(dict)
+        DispatchQueue.global(qos: .background).async{
+            TraktManager.shared.getPlaybackProgress(forMediaOfType: N.self) { (dict, error) in
+                guard error == nil else { return }
+                
+                let media = Array(dict.keys)
+                let ids = media.map({ $0.id })
+                let progress = Array(dict.values)
+                
+                UserDefaults.standard.set(Dictionary<String, Float>(zip(ids, progress)), forKey: "\(self.currentType.rawValue)Progress")
+                
+                completion?(dict)
+            }
         }
         
         let progress = UserDefaults.standard.object(forKey: "\(self.currentType.rawValue)Progress") as? [String: Float] ?? [String: Float]()

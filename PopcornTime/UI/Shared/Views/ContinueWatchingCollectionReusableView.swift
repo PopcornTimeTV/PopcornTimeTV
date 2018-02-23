@@ -73,7 +73,7 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
                 completion(media)
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: workItem)
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.25, execute: workItem)
     }
     
     // MARK: - Collection view data source

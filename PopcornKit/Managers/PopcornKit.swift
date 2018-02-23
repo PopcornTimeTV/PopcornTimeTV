@@ -37,7 +37,9 @@ public func loadShows(
  - Parameter completion:    Completion handler for the request. Returns show upon success, error upon failure.
  */
 public func getShowInfo(_ imdbId: String, completion: @escaping (Show?, NSError?) -> Void) {
-    ShowManager.shared.getInfo(imdbId, completion: completion)
+    DispatchQueue.global(qos: .background).async {
+        ShowManager.shared.getInfo(imdbId, completion: completion)
+    }
 }
 
 /**
@@ -48,7 +50,9 @@ public func getShowInfo(_ imdbId: String, completion: @escaping (Show?, NSError?
  - Parameter completion:    Completion handler for the request. Returns episode upon success, error upon failure.
  */
 public func getEpisodeInfo(_ tvdbId: Int, completion: @escaping (Episode?, NSError?) -> Void) {
-    TraktManager.shared.getEpisodeInfo(forTvdb: tvdbId, completion: completion)
+    DispatchQueue.global(qos: .background).async {
+        TraktManager.shared.getEpisodeInfo(forTvdb: tvdbId, completion: completion)
+    }
 }
 
 
@@ -87,7 +91,9 @@ public func loadMovies(
  - Parameter completion:    Completion handler for the request. Returns movie upon success, error upon failure.
  */
 public func getMovieInfo(_ imdbId: String, completion: @escaping (Movie?, NSError?) -> Void) {
-    MovieManager.shared.getInfo(imdbId, completion: completion)
+    DispatchQueue.global(qos: .background).async {
+        MovieManager.shared.getInfo(imdbId, completion: completion)
+    }
 }
 
 /**

@@ -38,7 +38,7 @@ open class TraktManager: NetworkManager {
                 do {
                     credential = try OAuthCredential(Trakt.base + Trakt.auth + Trakt.token, refreshToken: credential.refreshToken!, clientID: Trakt.apiKey, clientSecret: Trakt.apiSecret, useBasicAuthentication: false)
                 } catch let error as NSError {
-                    DispatchQueue.main.async(execute: { completion?(error) })
+                    DispatchQueue.global(qos: .background).async(execute: { completion?(error) })
                 }
             }
             let parameters: [String: Any]
@@ -83,7 +83,7 @@ open class TraktManager: NetworkManager {
                 do {
                     credential = try OAuthCredential(Trakt.base + Trakt.auth + Trakt.token, refreshToken: credential.refreshToken!, clientID: Trakt.apiKey, clientSecret: Trakt.apiSecret, useBasicAuthentication: false)
                 } catch let error as NSError {
-                    DispatchQueue.main.async(execute: { completion([T](), error) })
+                    DispatchQueue.global(qos: .background).async(execute: { completion([T](), error) })
                 }
             }
             let type = type is Movie.Type ? Trakt.movies : Trakt.episodes
@@ -126,7 +126,7 @@ open class TraktManager: NetworkManager {
                 do {
                     credential = try OAuthCredential(Trakt.base + Trakt.auth + Trakt.token, refreshToken: credential.refreshToken!, clientID: Trakt.apiKey, clientSecret: Trakt.apiSecret, useBasicAuthentication: false)
                 } catch let error as NSError {
-                    DispatchQueue.main.async(execute: { completion([T: Float](), error) })
+                    DispatchQueue.global(qos: .background).async(execute: { completion([T: Float](), error) })
                 }
             }
             let mediaType: String
@@ -182,7 +182,7 @@ open class TraktManager: NetworkManager {
                 do {
                     credential = try OAuthCredential(Trakt.base + Trakt.auth + Trakt.token, refreshToken: credential.refreshToken!, clientID: Trakt.apiKey, clientSecret: Trakt.apiSecret, useBasicAuthentication: false)
                 } catch let error as NSError {
-                    DispatchQueue.main.async(execute: {completion?(error) })
+                    DispatchQueue.global(qos: .background).async(execute: {completion?(error) })
                 }
             }
             
@@ -233,7 +233,7 @@ open class TraktManager: NetworkManager {
                 do {
                     credential = try OAuthCredential(Trakt.base + Trakt.auth + Trakt.token, refreshToken: credential.refreshToken!, clientID: Trakt.apiKey, clientSecret: Trakt.apiSecret, useBasicAuthentication: false)
                 } catch let error as NSError {
-                    DispatchQueue.main.async(execute: {completion?(error) })
+                    DispatchQueue.global(qos: .background).async(execute: {completion?(error) })
                 }
             }
             let parameters: [String: Any]
@@ -265,7 +265,7 @@ open class TraktManager: NetworkManager {
                 do {
                     credential = try OAuthCredential(Trakt.base + Trakt.auth + Trakt.token, refreshToken: credential.refreshToken!, clientID: Trakt.apiKey, clientSecret: Trakt.apiSecret, useBasicAuthentication: false)
                 } catch let error as NSError {
-                    DispatchQueue.main.async(execute: {completion?(error) })
+                    DispatchQueue.global(qos: .background).async(execute: {completion?(error) })
                 }
             }
             let parameters: [String: Any]
@@ -332,7 +332,7 @@ open class TraktManager: NetworkManager {
      */
     open func getWatchlist<T: Media>(forMediaOfType type: T.Type, completion:@escaping ([T], NSError?) -> Void) {
         guard var credential = OAuthCredential(identifier: "trakt") else { return }
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .background).async {
             if credential.expired {
                 do {
                     credential = try OAuthCredential(Trakt.base + Trakt.auth + Trakt.token, refreshToken: credential.refreshToken!, clientID: Trakt.apiKey, clientSecret: Trakt.apiSecret, useBasicAuthentication: false)
@@ -500,12 +500,15 @@ open class TraktManager: NetworkManager {
     
     /// Downloads users latest watchlist and watchedlist from Trakt.
     open func syncUserData() {
-        WatchedlistManager<Movie>.movie.getProgress()
-        WatchedlistManager<Movie>.movie.getWatched()
-        WatchlistManager<Movie>.movie.getWatchlist()
-        WatchedlistManager<Episode>.episode.getProgress()
-        WatchedlistManager<Episode>.episode.getWatched()
-        WatchlistManager<Show>.show.getWatchlist()
+        let queue = DispatchQueue(label: "com.popcorntime.syncData", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: .global())
+        queue.async{
+            WatchedlistManager<Movie>.movie.getProgress()
+            WatchedlistManager<Movie>.movie.getWatched()
+            WatchlistManager<Movie>.movie.getWatchlist()
+            WatchedlistManager<Episode>.episode.getProgress()
+            WatchedlistManager<Episode>.episode.getWatched()
+            WatchlistManager<Show>.show.getWatchlist()
+        }
     }
     
     /**
