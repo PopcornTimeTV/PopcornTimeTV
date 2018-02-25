@@ -106,8 +106,10 @@ extension DetailViewController {
             $0?.contentInset.right = isCompact ? 14 : 26
         })
         
-        episodesCollectionViewController.collectionView?.contentInset.left  = isCompact ? 28 : 40
-        episodesCollectionViewController.collectionView?.contentInset.right = isCompact ? 28 : 40
+        if episodesCollectionViewController != nil{
+            episodesCollectionViewController.collectionView?.contentInset.left  = isCompact ? 28 : 40
+            episodesCollectionViewController.collectionView?.contentInset.right = isCompact ? 28 : 40
+        }
         
         for constraint in compactConstraints {
             constraint.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(isCompact ? 999 : 240))

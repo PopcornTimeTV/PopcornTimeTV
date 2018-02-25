@@ -122,6 +122,13 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
     }
     
     override dynamic func viewDidLoad() {
+        if currentItem is Movie, let stackView = relatedCollectionViewController.view.superview?.superview?.superview! as? UIStackView{
+            let arrangedSubview = stackView.arrangedSubviews[1]
+            stackView.removeArrangedSubview(arrangedSubview)
+            arrangedSubview.removeFromSuperview()
+            
+        }
+        
         super.viewDidLoad()
         
         #if os(tvOS)
@@ -227,6 +234,12 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
         }
     }
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "embedEpisodes", currentItem is Movie{
+            return false
+        }
+        return true
+    }
     
     // MARK: Container view size changes
     
@@ -238,7 +251,7 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
         
         if vc == relatedCollectionViewController {
             margin = height == 0 ? 0 : relatedHeader.frame.height + relatedTopConstraint.constant + relatedBottomConstraint.constant // If 0 height is passed in for the collection view, the container view is to be completely hidden.
-            relatedContainerViewHeightConstraint.constant = height + margin + (isTv ? 0 : 29)
+            relatedContainerViewHeightConstraint.constant = (height + margin + (isTv ? 0 : 29)) > 280.5 ? 280.5 : height + margin + (isTv ? 0 : 29)
         } else if vc == peopleCollectionViewController {
             margin = height == 0 ? 0 : peopleHeader.frame.height + peopleTopConstraint.constant + peopleBottomConstraint.constant // If 0 height is passed in for the collection view, the container view is to be completely hidden.
             peopleContainerViewHeightConstraint.constant = height + margin
