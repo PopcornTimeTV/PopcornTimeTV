@@ -251,7 +251,14 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
         
         if vc == relatedCollectionViewController {
             margin = height == 0 ? 0 : relatedHeader.frame.height + relatedTopConstraint.constant + relatedBottomConstraint.constant // If 0 height is passed in for the collection view, the container view is to be completely hidden.
-            relatedContainerViewHeightConstraint.constant = (height + margin + (isTv ? 0 : 29)) > 280.5 ? 280.5 : height + margin + (isTv ? 0 : 29)
+            if UIDevice.current.orientation.isLandscape{
+                relatedContainerViewHeightConstraint.constant = (height + margin + (isTv ? 0 : 29)) > 280.5 ? 280.5 : height + margin + (isTv ? 0 : 29)
+            }else if UIDevice.current.model == "iPhone"{
+                relatedContainerViewHeightConstraint.constant = height + margin + (isTv ? 0 : 29)
+            }else{
+                relatedContainerViewHeightConstraint.constant = (height + margin + (isTv ? 0 : 29)) > 250 ? 250 : height + margin + (isTv ? 0 : 29)
+            }
+            
         } else if vc == peopleCollectionViewController {
             margin = height == 0 ? 0 : peopleHeader.frame.height + peopleTopConstraint.constant + peopleBottomConstraint.constant // If 0 height is passed in for the collection view, the container view is to be completely hidden.
             peopleContainerViewHeightConstraint.constant = height + margin
