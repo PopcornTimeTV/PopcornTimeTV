@@ -410,7 +410,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         case .ended:
             fallthrough
         case .stopped:
-            setProgress(status: .finished)
             didFinishPlaying()
         case .paused:
             setProgress(status: .paused)
