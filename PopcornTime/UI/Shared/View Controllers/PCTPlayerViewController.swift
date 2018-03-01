@@ -551,4 +551,12 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             
         #endif
     }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        guard identifier == "showUpNext",(mediaplayer.remainingTime.intValue/1000) >= -31
+        else{
+            return true
+        }
+        return false
+    }
 }

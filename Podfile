@@ -22,19 +22,19 @@ target 'PopcornTimeiOS' do
     pod 'google-cast-sdk', '~> 3.4.0'
     pod 'OBSlider', '~> 1.1.1'
     pod '1PasswordExtension', '~> 1.8.4'
-    pod 'MobileVLCKit-unstable', '3.0.0a45'
+    pod 'MobileVLCKit-unstable', '3.0.0a51'
 end
 
 target 'PopcornTimetvOS' do
-    platform :tvos, '10.0'
+    platform :tvos, '10.2'
     pods
     pod 'TvOSMoreButton', '~> 1.1.0'
-    pod 'TVVLCKit-unstable', '3.0.0a45'
+    pod 'TVVLCKit-unstable', '3.0.0a52'
     pod 'MBCircularProgressBar', '~> 0.3.5-1'
 end
 
 target 'TopShelf' do
-    platform :tvos, '10.0'
+    platform :tvos, '10.2'
     pod 'ObjectMapper', '~> 3.1.0'
 end
 
