@@ -86,14 +86,14 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
                 appendSection("Genre".localized.localizedUppercase, [genre])
             }
             
-            let directors = movie.crew.filter({$0.roleType == .director}).flatMap({$0.name})
+            let directors = movie.crew.filter({$0.roleType == .director}).flatMap({$0.name+" "})
             
             if !directors.isEmpty {
                 let isSingular = directors.count == 1
                 appendSection(isSingular ? "Director".localized.localizedUppercase : "Directors".localized.localizedUppercase, [String(directors)])
             }
             
-            let actors = movie.actors.flatMap({$0.name})
+            let actors = movie.actors.flatMap({$0.name+" "})
             
             if !actors.isEmpty {
                 appendSection("Starring".localized.localizedUppercase, [String(actors)])
