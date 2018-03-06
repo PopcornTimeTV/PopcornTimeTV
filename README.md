@@ -1,6 +1,3 @@
-<p style="color: red">
-For now the application cannot stream 1080p quality videos due to an issue with VLCKit, please stream only up to 720p
-</p>
 <p align="left " >
   <img src="http://i.imgur.com/76RElTT.png" alt="Popcorn Time" title="Popcorn Time">
 </p>
