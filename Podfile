@@ -47,7 +47,7 @@ def kitPods
 end
 
 target 'PopcornKit tvOS' do
-    platform :tvos, '10.0'
+    platform :tvos, '10.2'
     kitPods
 end
 
@@ -55,4 +55,14 @@ target 'PopcornKit iOS' do
     platform :ios, '9.0'
     kitPods
     pod 'google-cast-sdk', '~> 3.4.0'
+end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['EXPANDED_CODE_SIGN_IDENTITY'] = ""
+            config.build_settings['CODE_SIGNING_REQUIRED'] = "NO"
+            config.build_settings['CODE_SIGNING_ALLOWED'] = "NO"
+        end
+    end
 end
