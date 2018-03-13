@@ -22,7 +22,7 @@ target 'PopcornTimeiOS' do
     pod 'google-cast-sdk', '~> 3.4.0'
     pod 'OBSlider', '~> 1.1.1'
     pod '1PasswordExtension', '~> 1.8.4'
-    pod 'MobileVLCKit', '3.0.1'
+    pod 'MobileVLCKit', '~> 3.0.1'
 end
 
 target 'PopcornTimetvOS' do
