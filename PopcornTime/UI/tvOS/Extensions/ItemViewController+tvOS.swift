@@ -121,7 +121,7 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             subtitleLabel.font = UIFont.systemFont(ofSize: 31, weight: UIFont.Weight.medium)
             subtitleLabel.attributedText = subtitle
             
-            ratingView.isHidden = true
+            ratingView.rating = Double(show.rating)/20.0
             trailerButton.removeFromSuperview()
             if show.latestUnwatchedEpisode() == nil {
                 playButton.removeFromSuperview()

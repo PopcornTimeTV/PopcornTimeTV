@@ -68,6 +68,7 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
                 }
                 let colorPallete: ColorPallete = isDark ? .light : .dark
                 ratingView.tintColor = colorPallete.primary
+                ratingView.type = .floatRatings
                 titleLabel.textColor = colorPallete.primary
                 subtitleLabel.textColor = colorPallete.primary
                 infoLabel.textColor = colorPallete.primary

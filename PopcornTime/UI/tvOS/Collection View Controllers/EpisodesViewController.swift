@@ -210,6 +210,11 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     func indexPathForPreferredFocusedView(in collectionView: UICollectionView) -> IndexPath? {
+        guard dataSource.count > focusIndexPath.row
+        else {
+            focusIndexPath.row = dataSource.count - 1
+            return focusIndexPath
+        }
         return focusIndexPath
     }
     
