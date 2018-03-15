@@ -121,7 +121,7 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
         resetIdleTimer()
         if mediaplayer.videoCropGeometry == nil // Change to aspect to scale to fill
         {
-            mediaplayer.videoCropGeometry = UIScreen.screens.count > 1 ? UnsafeMutablePointer<Int8>(mutating: (UIScreen.main.aspectRatio as NSString).utf8String) : UnsafeMutablePointer<Int8>(mutating: (UIScreen.screens[1].aspectRatio as NSString).utf8String)
+            mediaplayer.videoCropGeometry = UIScreen.screens.count > 1 ? UnsafeMutablePointer<Int8>(mutating: (UIScreen.screens[1].aspectRatio as NSString).utf8String) : UnsafeMutablePointer<Int8>(mutating: (UIScreen.main.aspectRatio as NSString).utf8String) 
             videoDimensionsButton!.setImage(UIImage(named: "Scale To Fit"), for: .normal)
             screenshotImageView!.contentMode = .scaleAspectFill
         } else // Change aspect ratio to scale to fit
