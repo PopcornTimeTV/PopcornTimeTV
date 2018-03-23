@@ -96,11 +96,6 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
     
     @IBAction func volumeSliderAction() {
         resetIdleTimer()
-//        for subview in volumeView.subviews {
-//            if let slider = subview as? UISlider {
-//                slider.setValue(volumeSlider.value, animated: true)
-//            }
-//        }
     }
     
     @IBAction func scrubbingEnded() {

@@ -38,7 +38,7 @@ open class TraktManager: NetworkManager {
                 do {
                     credential = try OAuthCredential(Trakt.base + Trakt.auth + Trakt.token, refreshToken: credential.refreshToken!, clientID: Trakt.apiKey, clientSecret: Trakt.apiSecret, useBasicAuthentication: false)
                 } catch let error as NSError {
-                    DispatchQueue.global(qos: .background).async(execute: { completion?(error) })
+                    completion?(error)
                 }
             }
             let parameters: [String: Any]

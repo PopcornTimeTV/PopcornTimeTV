@@ -40,15 +40,36 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D9CC9C882064FE38006C1274"
+               BuildableName = "Popcorn TimetvOSUITests.xctest"
+               BlueprintName = "Popcorn TimetvOSUITests"
+               ReferencedContainer = "container:PopcornTime.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D9CC9CB22064FE92006C1274"
+               BuildableName = "Popcorn TimetvOSTests.xctest"
+               BlueprintName = "Popcorn TimetvOSTests"
+               ReferencedContainer = "container:PopcornTime.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4D2543AC1DACFBFE00149533"
-            BuildableName = "TopShelf.appex"
-            BlueprintName = "TopShelf"
+            BlueprintIdentifier = "287B85331C9873A200EEF5C8"
+            BuildableName = "PopcornTime.app"
+            BlueprintName = "PopcornTimetvOS"
             ReferencedContainer = "container:PopcornTime.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -59,6 +80,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = ""
       selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
+      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"

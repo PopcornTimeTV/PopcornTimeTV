@@ -354,6 +354,11 @@
 		D903FA122030D06000180DBD /* iOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCEF21E6815450066F1A7 /* iOS.storyboard */; };
 		D946964720476B7200B4A63B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D946964920476B7200B4A63B /* Localizable.strings */; };
 		D980FEEE2024AA85004827F8 /* torrent_upload in Resources */ = {isa = PBXBuildFile; fileRef = D980FEED2024AA84004827F8 /* torrent_upload */; };
+		D9955D632061220800A2B499 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9955D652061220800A2B499 /* Localizable.strings */; };
+		D9CC9C8C2064FE38006C1274 /* Popcorn_TimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CC9C8B2064FE38006C1274 /* Popcorn_TimeUITests.swift */; };
+		D9CC9C9A2064FE64006C1274 /* Popcorn_TimeiOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CC9C992064FE64006C1274 /* Popcorn_TimeiOSUITests.swift */; };
+		D9CC9CA82064FE81006C1274 /* Popcorn_TimeiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CC9CA72064FE81006C1274 /* Popcorn_TimeiOSTests.swift */; };
+		D9CC9CB62064FE92006C1274 /* Popcorn_TimetvOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CC9CB52064FE92006C1274 /* Popcorn_TimetvOSTests.swift */; };
 		D9D978D22024A7D70014BCB2 /* LoadExternalTorrentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D978D12024A7D70014BCB2 /* LoadExternalTorrentViewController.swift */; };
 		D9E6CD542024C62C00D0DEF4 /* MoviesViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E6CD532024C62C00D0DEF4 /* MoviesViewController+iOS.swift */; };
 		D9E6CD562024C65200D0DEF4 /* ShowsViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E6CD552024C65200D0DEF4 /* ShowsViewController+iOS.swift */; };
@@ -387,6 +392,34 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4D2543AC1DACFBFE00149533;
 			remoteInfo = TopShelf;
+		};
+		D9CC9C8E2064FE38006C1274 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 287B852C1C9873A200EEF5C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 287B85331C9873A200EEF5C8;
+			remoteInfo = PopcornTimetvOS;
+		};
+		D9CC9C9C2064FE64006C1274 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 287B852C1C9873A200EEF5C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D689A161DD88E17001D1318;
+			remoteInfo = PopcornTimeiOS;
+		};
+		D9CC9CAA2064FE81006C1274 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 287B852C1C9873A200EEF5C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D689A161DD88E17001D1318;
+			remoteInfo = PopcornTimeiOS;
+		};
+		D9CC9CB82064FE92006C1274 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 287B852C1C9873A200EEF5C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 287B85331C9873A200EEF5C8;
+			remoteInfo = PopcornTimetvOS;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -725,6 +758,29 @@
 		D946965020476B7500B4A63B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D946965120476B7600B4A63B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LoadingView.strings; sourceTree = "<group>"; };
 		D980FEED2024AA84004827F8 /* torrent_upload */ = {isa = PBXFileReference; lastKnownFileType = folder; path = torrent_upload; sourceTree = "<group>"; };
+		D9955D5E2061220700A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/LoadingView.strings"; sourceTree = "<group>"; };
+		D9955D5F2061220700A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/TraktAuthenticationViewController.strings"; sourceTree = "<group>"; };
+		D9955D602061220700A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D9955D642061220800A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D9955D662061220800A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		D9955D672061220800A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/iOS.strings"; sourceTree = "<group>"; };
+		D9955D682061220900A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/tvOS.strings"; sourceTree = "<group>"; };
+		D9955D692061220900A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/tvOSPlist.strings"; sourceTree = "<group>"; };
+		D9955D6A2061220900A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/tvOSPlist.strings"; sourceTree = "<group>"; };
+		D9955D6B2061220900A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/iOSPlist.strings"; sourceTree = "<group>"; };
+		D9955D6C2061220900A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/iOSPlist.strings"; sourceTree = "<group>"; };
+		D9CC9C892064FE38006C1274 /* Popcorn TimetvOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Popcorn TimetvOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9CC9C8B2064FE38006C1274 /* Popcorn_TimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popcorn_TimeUITests.swift; sourceTree = "<group>"; };
+		D9CC9C8D2064FE38006C1274 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9CC9C972064FE64006C1274 /* Popcorn TimeiOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Popcorn TimeiOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9CC9C992064FE64006C1274 /* Popcorn_TimeiOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popcorn_TimeiOSUITests.swift; sourceTree = "<group>"; };
+		D9CC9C9B2064FE64006C1274 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9CC9CA52064FE81006C1274 /* Popcorn TimeiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Popcorn TimeiOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9CC9CA72064FE81006C1274 /* Popcorn_TimeiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popcorn_TimeiOSTests.swift; sourceTree = "<group>"; };
+		D9CC9CA92064FE81006C1274 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9CC9CB32064FE92006C1274 /* Popcorn TimetvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Popcorn TimetvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9CC9CB52064FE92006C1274 /* Popcorn_TimetvOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popcorn_TimetvOSTests.swift; sourceTree = "<group>"; };
+		D9CC9CB72064FE92006C1274 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9D978D12024A7D70014BCB2 /* LoadExternalTorrentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadExternalTorrentViewController.swift; path = Views/LoadExternalTorrentViewController.swift; sourceTree = "<group>"; };
 		D9E6CD532024C62C00D0DEF4 /* MoviesViewController+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviesViewController+iOS.swift"; sourceTree = "<group>"; };
 		D9E6CD552024C65200D0DEF4 /* ShowsViewController+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShowsViewController+iOS.swift"; sourceTree = "<group>"; };
@@ -778,6 +834,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D9CC9C862064FE38006C1274 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9CC9C942064FE64006C1274 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9CC9CA22064FE81006C1274 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9CC9CB02064FE92006C1274 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -801,6 +885,7 @@
 		287B852B1C9873A200EEF5C8 = {
 			isa = PBXGroup;
 			children = (
+				D9CC9C842064FDF1006C1274 /* Tests */,
 				287B85361C9873A200EEF5C8 /* PopcornTime */,
 				F1EDDAB5F2E1772C41C22B7A /* Frameworks */,
 				287B85351C9873A200EEF5C8 /* Products */,
@@ -818,6 +903,10 @@
 				4D689A171DD88E17001D1318 /* PopcornTime.app */,
 				4D0F9D321E6F29E500860852 /* PopcornKit.framework */,
 				4D0F9D911E6F2F4D00860852 /* PopcornKit.framework */,
+				D9CC9C892064FE38006C1274 /* Popcorn TimetvOSUITests.xctest */,
+				D9CC9C972064FE64006C1274 /* Popcorn TimeiOSUITests.xctest */,
+				D9CC9CA52064FE81006C1274 /* Popcorn TimeiOSTests.xctest */,
+				D9CC9CB32064FE92006C1274 /* Popcorn TimetvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -955,6 +1044,7 @@
 		4D0F9D5D1E6F2C5100860852 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D9955D652061220800A2B499 /* Localizable.strings */,
 				D946964920476B7200B4A63B /* Localizable.strings */,
 				4D32EBEE1EA2D0FB00B4361A /* iOSPlist.strings */,
 				4D32EBE71EA2D0F900B4361A /* tvOSPlist.strings */,
@@ -1393,6 +1483,53 @@
 			name = "Collection View Layouts";
 			sourceTree = "<group>";
 		};
+		D9CC9C842064FDF1006C1274 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				D9CC9CB42064FE92006C1274 /* Popcorn TimetvOSTests */,
+				D9CC9CA62064FE81006C1274 /* Popcorn TimeiOSTests */,
+				D9CC9C982064FE64006C1274 /* Popcorn TimeiOSUITests */,
+				D9CC9C8A2064FE38006C1274 /* Popcorn TimeUITests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		D9CC9C8A2064FE38006C1274 /* Popcorn TimeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D9CC9C8B2064FE38006C1274 /* Popcorn_TimeUITests.swift */,
+				D9CC9C8D2064FE38006C1274 /* Info.plist */,
+			);
+			path = "Popcorn TimeUITests";
+			sourceTree = "<group>";
+		};
+		D9CC9C982064FE64006C1274 /* Popcorn TimeiOSUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D9CC9C992064FE64006C1274 /* Popcorn_TimeiOSUITests.swift */,
+				D9CC9C9B2064FE64006C1274 /* Info.plist */,
+			);
+			path = "Popcorn TimeiOSUITests";
+			sourceTree = "<group>";
+		};
+		D9CC9CA62064FE81006C1274 /* Popcorn TimeiOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				D9CC9CA72064FE81006C1274 /* Popcorn_TimeiOSTests.swift */,
+				D9CC9CA92064FE81006C1274 /* Info.plist */,
+			);
+			path = "Popcorn TimeiOSTests";
+			sourceTree = "<group>";
+		};
+		D9CC9CB42064FE92006C1274 /* Popcorn TimetvOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				D9CC9CB52064FE92006C1274 /* Popcorn_TimetvOSTests.swift */,
+				D9CC9CB72064FE92006C1274 /* Info.plist */,
+			);
+			path = "Popcorn TimetvOSTests";
+			sourceTree = "<group>";
+		};
 		F1EDDAB5F2E1772C41C22B7A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1545,6 +1682,78 @@
 			productReference = 4D689A171DD88E17001D1318 /* PopcornTime.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D9CC9C882064FE38006C1274 /* Popcorn TimetvOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9CC9C902064FE38006C1274 /* Build configuration list for PBXNativeTarget "Popcorn TimetvOSUITests" */;
+			buildPhases = (
+				D9CC9C852064FE38006C1274 /* Sources */,
+				D9CC9C862064FE38006C1274 /* Frameworks */,
+				D9CC9C872064FE38006C1274 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D9CC9C8F2064FE38006C1274 /* PBXTargetDependency */,
+			);
+			name = "Popcorn TimetvOSUITests";
+			productName = "Popcorn TimeUITests";
+			productReference = D9CC9C892064FE38006C1274 /* Popcorn TimetvOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		D9CC9C962064FE64006C1274 /* Popcorn TimeiOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9CC9C9E2064FE64006C1274 /* Build configuration list for PBXNativeTarget "Popcorn TimeiOSUITests" */;
+			buildPhases = (
+				D9CC9C932064FE64006C1274 /* Sources */,
+				D9CC9C942064FE64006C1274 /* Frameworks */,
+				D9CC9C952064FE64006C1274 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D9CC9C9D2064FE64006C1274 /* PBXTargetDependency */,
+			);
+			name = "Popcorn TimeiOSUITests";
+			productName = "Popcorn TimeiOSUITests";
+			productReference = D9CC9C972064FE64006C1274 /* Popcorn TimeiOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		D9CC9CA42064FE81006C1274 /* Popcorn TimeiOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9CC9CAC2064FE81006C1274 /* Build configuration list for PBXNativeTarget "Popcorn TimeiOSTests" */;
+			buildPhases = (
+				D9CC9CA12064FE81006C1274 /* Sources */,
+				D9CC9CA22064FE81006C1274 /* Frameworks */,
+				D9CC9CA32064FE81006C1274 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D9CC9CAB2064FE81006C1274 /* PBXTargetDependency */,
+			);
+			name = "Popcorn TimeiOSTests";
+			productName = "Popcorn TimeiOSTests";
+			productReference = D9CC9CA52064FE81006C1274 /* Popcorn TimeiOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D9CC9CB22064FE92006C1274 /* Popcorn TimetvOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9CC9CBA2064FE92006C1274 /* Build configuration list for PBXNativeTarget "Popcorn TimetvOSTests" */;
+			buildPhases = (
+				D9CC9CAF2064FE92006C1274 /* Sources */,
+				D9CC9CB02064FE92006C1274 /* Frameworks */,
+				D9CC9CB12064FE92006C1274 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D9CC9CB92064FE92006C1274 /* PBXTargetDependency */,
+			);
+			name = "Popcorn TimetvOSTests";
+			productName = "Popcorn TimetvOSTests";
+			productReference = D9CC9CB32064FE92006C1274 /* Popcorn TimetvOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1552,7 +1761,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = PCT;
-				LastSwiftUpdateCheck = 0810;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = PopcornTime;
 				TargetAttributes = {
@@ -1602,6 +1811,26 @@
 							};
 						};
 					};
+					D9CC9C882064FE38006C1274 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 287B85331C9873A200EEF5C8;
+					};
+					D9CC9C962064FE64006C1274 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 4D689A161DD88E17001D1318;
+					};
+					D9CC9CA42064FE81006C1274 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 4D689A161DD88E17001D1318;
+					};
+					D9CC9CB22064FE92006C1274 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 287B85331C9873A200EEF5C8;
+					};
 				};
 			};
 			buildConfigurationList = 287B852F1C9873A200EEF5C8 /* Build configuration list for PBXProject "PopcornTime" */;
@@ -1622,6 +1851,10 @@
 				4D2543AC1DACFBFE00149533 /* TopShelf */,
 				4D0F9D311E6F29E500860852 /* PopcornKit tvOS */,
 				4D0F9D901E6F2F4D00860852 /* PopcornKit iOS */,
+				D9CC9C882064FE38006C1274 /* Popcorn TimetvOSUITests */,
+				D9CC9C962064FE64006C1274 /* Popcorn TimeiOSUITests */,
+				D9CC9CA42064FE81006C1274 /* Popcorn TimeiOSTests */,
+				D9CC9CB22064FE92006C1274 /* Popcorn TimetvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1650,6 +1883,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D1440211E9AF3D200B78269 /* TraktAuthenticationViewController.xib in Resources */,
+				D9955D632061220800A2B499 /* Localizable.strings in Resources */,
 				4D32EBE51EA2D0F900B4361A /* tvOSPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1686,6 +1920,34 @@
 				4DBCCEFF1E68220D0066F1A7 /* Launch Screen.storyboard in Resources */,
 				4D15C7E31EF194AF00953E45 /* DownloadTableViewHeader.xib in Resources */,
 				4DC7B6A51E3907CC0098B12E /* DescriptionCollectionViewCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9CC9C872064FE38006C1274 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9CC9C952064FE64006C1274 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9CC9CA32064FE81006C1274 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9CC9CB12064FE92006C1274 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2294,6 +2556,38 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D9CC9C852064FE38006C1274 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9CC9C8C2064FE38006C1274 /* Popcorn_TimeUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9CC9C932064FE64006C1274 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9CC9C9A2064FE64006C1274 /* Popcorn_TimeiOSUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9CC9CA12064FE81006C1274 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9CC9CA82064FE81006C1274 /* Popcorn_TimeiOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9CC9CAF2064FE92006C1274 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9CC9CB62064FE92006C1274 /* Popcorn_TimetvOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2317,6 +2611,26 @@
 			target = 4D2543AC1DACFBFE00149533 /* TopShelf */;
 			targetProxy = 4D2543B31DACFBFE00149533 /* PBXContainerItemProxy */;
 		};
+		D9CC9C8F2064FE38006C1274 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 287B85331C9873A200EEF5C8 /* PopcornTimetvOS */;
+			targetProxy = D9CC9C8E2064FE38006C1274 /* PBXContainerItemProxy */;
+		};
+		D9CC9C9D2064FE64006C1274 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D689A161DD88E17001D1318 /* PopcornTimeiOS */;
+			targetProxy = D9CC9C9C2064FE64006C1274 /* PBXContainerItemProxy */;
+		};
+		D9CC9CAB2064FE81006C1274 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D689A161DD88E17001D1318 /* PopcornTimeiOS */;
+			targetProxy = D9CC9CAA2064FE81006C1274 /* PBXContainerItemProxy */;
+		};
+		D9CC9CB92064FE92006C1274 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 287B85331C9873A200EEF5C8 /* PopcornTimetvOS */;
+			targetProxy = D9CC9CB82064FE92006C1274 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -2330,6 +2644,7 @@
 				4D122A021EBCE4E10079B3B0 /* pt-BR */,
 				4DB6733C1EBDC73E00048575 /* es */,
 				D946965120476B7600B4A63B /* fr */,
+				D9955D5E2061220700A2B499 /* nl-NL */,
 			);
 			name = LoadingView.xib;
 			sourceTree = "<group>";
@@ -2344,6 +2659,7 @@
 				4D122A041EBCE4E20079B3B0 /* pt-BR */,
 				4DB6733E1EBDC73F00048575 /* es */,
 				D946965020476B7500B4A63B /* fr */,
+				D9955D602061220700A2B499 /* nl-NL */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2358,6 +2674,7 @@
 				4D122A031EBCE4E20079B3B0 /* pt-BR */,
 				4DB6733D1EBDC73E00048575 /* es */,
 				D946964420476B7200B4A63B /* fr */,
+				D9955D5F2061220700A2B499 /* nl-NL */,
 			);
 			name = TraktAuthenticationViewController.xib;
 			sourceTree = "<group>";
@@ -2370,6 +2687,7 @@
 				4D122A0B1EBCE4E50079B3B0 /* pt-BR */,
 				4DB673451EBDC74200048575 /* es */,
 				D946964320476B7100B4A63B /* fr */,
+				D9955D6C2061220900A2B499 /* nl-NL */,
 			);
 			name = iOSPlist.strings;
 			sourceTree = "<group>";
@@ -2382,6 +2700,7 @@
 				4D122A051EBCE4E30079B3B0 /* pt-BR */,
 				4DB6733F1EBDC73F00048575 /* es */,
 				D946964B20476B7300B4A63B /* fr */,
+				D9955D662061220800A2B499 /* nl-NL */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -2394,6 +2713,7 @@
 				4D122A071EBCE4E40079B3B0 /* pt-BR */,
 				4DB673411EBDC74000048575 /* es */,
 				D946964E20476B7400B4A63B /* fr */,
+				D9955D692061220900A2B499 /* nl-NL */,
 			);
 			name = tvOSPlist.strings;
 			sourceTree = "<group>";
@@ -2406,6 +2726,7 @@
 				4D122A081EBCE4E40079B3B0 /* pt-BR */,
 				4DB673421EBDC74100048575 /* es */,
 				D946964F20476B7400B4A63B /* fr */,
+				D9955D6A2061220900A2B499 /* nl-NL */,
 			);
 			name = tvOSPlist.strings;
 			path = "PopcornKit/Supporting Files";
@@ -2419,6 +2740,7 @@
 				4D122A0A1EBCE4E50079B3B0 /* pt-BR */,
 				4DB673441EBDC74100048575 /* es */,
 				D946964A20476B7200B4A63B /* fr */,
+				D9955D6B2061220900A2B499 /* nl-NL */,
 			);
 			name = iOSPlist.strings;
 			path = "PopcornKit/Supporting Files";
@@ -2434,6 +2756,7 @@
 				4D122A061EBCE4E30079B3B0 /* pt-BR */,
 				4DB673401EBDC73F00048575 /* es */,
 				D946964C20476B7300B4A63B /* fr */,
+				D9955D672061220800A2B499 /* nl-NL */,
 			);
 			name = iOS.storyboard;
 			sourceTree = "<group>";
@@ -2448,6 +2771,7 @@
 				4D122A091EBCE4E40079B3B0 /* pt-BR */,
 				4DB673431EBDC74100048575 /* es */,
 				D946964D20476B7400B4A63B /* fr */,
+				D9955D682061220900A2B499 /* nl-NL */,
 			);
 			name = tvOS.storyboard;
 			sourceTree = "<group>";
@@ -2456,6 +2780,15 @@
 			isa = PBXVariantGroup;
 			children = (
 				D946964820476B7200B4A63B /* fr */,
+			);
+			name = Localizable.strings;
+			path = "PopcornKit/Supporting Files";
+			sourceTree = SOURCE_ROOT;
+		};
+		D9955D652061220800A2B499 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D9955D642061220800A2B499 /* nl-NL */,
 			);
 			name = Localizable.strings;
 			path = "PopcornKit/Supporting Files";
@@ -2852,6 +3185,278 @@
 			};
 			name = Release;
 		};
+		D9CC9C912064FE38006C1274 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Popcorn TimeUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimeUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_TARGET_NAME = PopcornTimetvOS;
+				TVOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Debug;
+		};
+		D9CC9C922064FE38006C1274 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Popcorn TimeUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimeUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_TARGET_NAME = PopcornTimetvOS;
+				TVOS_DEPLOYMENT_TARGET = 11.2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D9CC9C9F2064FE64006C1274 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Popcorn TimeiOSUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimeiOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PopcornTimeiOS;
+			};
+			name = Debug;
+		};
+		D9CC9CA02064FE64006C1274 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Popcorn TimeiOSUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimeiOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PopcornTimeiOS;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D9CC9CAD2064FE81006C1274 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Popcorn TimeiOSTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimeiOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PopcornTime.app/PopcornTime";
+			};
+			name = Debug;
+		};
+		D9CC9CAE2064FE81006C1274 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Popcorn TimeiOSTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimeiOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PopcornTime.app/PopcornTime";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D9CC9CBB2064FE92006C1274 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Popcorn TimetvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimetvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PopcornTime.app/PopcornTime";
+				TVOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Debug;
+		};
+		D9CC9CBC2064FE92006C1274 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Popcorn TimetvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimetvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PopcornTime.app/PopcornTime";
+				TVOS_DEPLOYMENT_TARGET = 11.2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2905,6 +3510,42 @@
 			buildConfigurations = (
 				4D689A271DD88E17001D1318 /* Debug */,
 				4D689A281DD88E17001D1318 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9CC9C902064FE38006C1274 /* Build configuration list for PBXNativeTarget "Popcorn TimetvOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9CC9C912064FE38006C1274 /* Debug */,
+				D9CC9C922064FE38006C1274 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9CC9C9E2064FE64006C1274 /* Build configuration list for PBXNativeTarget "Popcorn TimeiOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9CC9C9F2064FE64006C1274 /* Debug */,
+				D9CC9CA02064FE64006C1274 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9CC9CAC2064FE81006C1274 /* Build configuration list for PBXNativeTarget "Popcorn TimeiOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9CC9CAD2064FE81006C1274 /* Debug */,
+				D9CC9CAE2064FE81006C1274 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9CC9CBA2064FE92006C1274 /* Build configuration list for PBXNativeTarget "Popcorn TimetvOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9CC9CBB2064FE92006C1274 /* Debug */,
+				D9CC9CBC2064FE92006C1274 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
