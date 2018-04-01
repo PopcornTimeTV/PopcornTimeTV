@@ -1,0 +1,7 @@
+language: swift
+osx_image: xcode9.3beta
+install:
+  - bundle install
+  - bundle exec pod install --repo-update
+script:
+  - bundle exec fastlane tests
