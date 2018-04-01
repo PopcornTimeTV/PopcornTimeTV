@@ -125,7 +125,7 @@ open class WatchedlistManager<N: Media & Hashable> {
      - Parameter status:    The status of the item.
      */
     open func setCurrentProgress(_ progress: Float, for id: String, with status: Trakt.WatchedStatus) {
-        TraktManager.shared.scrobble(id, progress: progress, type: currentType, status: status)
+        progress <= 0.8 ? TraktManager.shared.scrobble(id, progress: progress, type: currentType, status: status) : ()
         var dict = UserDefaults.standard.object(forKey: "\(currentType.rawValue)Progress") as? [String: Float] ?? [String: Float]()
         let _ = progress == 0 ? dict.removeValue(forKey: id) : dict.updateValue(progress, forKey: id)
         progress >= 0.8 ? add(id) : ()

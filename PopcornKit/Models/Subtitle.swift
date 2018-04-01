@@ -20,13 +20,19 @@ public struct Subtitle: Equatable {
     /// The OpenSubtitles rating for the subtitle.
     internal let rating: Double
     
-    public init(language: String, link: String, ISO639: String, rating: Double) {
+    /// The OpenSubtitles hash for the subtitle.
+    internal var movieHash: OpenSubtitlesHash.VideoHash?
+    
+    public init(language: String, link: String, ISO639: String, rating: Double, movieHash: OpenSubtitlesHash.VideoHash? = nil) {
         self.language = language
+        self.movieHash = movieHash
         self.link = link
         self.ISO639 = ISO639
         self.rating = rating
     }
 }
+
+
 
 public func ==(lhs: Subtitle, rhs: Subtitle) -> Bool {
     return lhs.link == rhs.link
