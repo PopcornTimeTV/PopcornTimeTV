@@ -65,7 +65,7 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
         }
         
         let _ = semaphore.wait(timeout: .now() + 15.0)
-        return items.flatMap({$0})
+        return items.compactMap({$0})
     }
     
     func buildShelfItem(_ title: String, image: String?, action: String) -> TVContentItem {

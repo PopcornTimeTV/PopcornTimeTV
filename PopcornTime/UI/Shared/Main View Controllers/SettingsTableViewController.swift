@@ -209,7 +209,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 
                 alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
                 
-                for title in UIColor.systemColors.flatMap({$0.localizedString}) {
+                for title in UIColor.systemColors.compactMap({$0.localizedString}) {
                     alertController.addAction(UIAlertAction(title: title, style: .default, handler: handler))
                 }
                 

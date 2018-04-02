@@ -321,13 +321,16 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         NotificationCenter.default.addObserver(self, selector: #selector(torrentStatusDidChange(_:)), name: .PTTorrentStatusDidChange, object: streamer)
         
         let settings = SubtitleSettings.shared
+        media.getSubtitles(orWithFilePath: self.localPathToMedia){ subtitles in
+            if let preferredLanguage = settings.language {
+                self.currentSubtitle = subtitles.first(where: {$0.language == preferredLanguage})
+            }
+        }
         (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.size.rawValue))
         (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.color.hexInt()))
         (mediaplayer as VLCFontAppearance).setTextRendererFont!(settings.font.fontName as NSString)
         (mediaplayer as VLCFontAppearance).setTextRendererFontForceBold!(NSNumber(booleanLiteral: settings.style == .bold || settings.style == .boldItalic))
-        if let preferredLanguage = settings.language {
-            currentSubtitle = subtitles.first(where: {$0.language == preferredLanguage})
-        }
+        
         mediaplayer.media.addOptions([vlcSettingTextEncoding: settings.encoding])
         
         if let first = tapOnVideoRecognizer, let second = doubleTapToZoomOnVideoRecognizer {
@@ -339,7 +342,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         
         #if os(iOS)
             volumeSliderView?.addSubview(volumeView)
-            if let slider = volumeView.subviews.flatMap({$0 as? UISlider}).first {
+            if let slider = volumeView.subviews.compactMap({$0 as? UISlider}).first {
                 slider.addTarget(self, action: #selector(volumeChanged(forSlider:)), for: .valueChanged)
             }
         #elseif os(tvOS)
@@ -550,6 +553,43 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             }
             
         #endif
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        if self.isBeingDismissed {
+            media = nil
+            mediaplayer.delegate = nil
+            movieView = nil
+            loadingActivityIndicatorView = nil
+            progressBar = nil
+            
+            // tvOS exclusive
+            dimmerView = nil
+            infoHelperView = nil
+            
+            // iOS exclusive
+            airPlayingView = nil
+            screenshotImageView = nil
+            upNextContainerView = nil
+            
+            playPauseButton = nil
+            subtitleSwitcherButton = nil
+            videoDimensionsButton = nil
+            volumeButton = nil
+            
+            tapOnVideoRecognizer = nil
+            doubleTapToZoomOnVideoRecognizer = nil
+            
+            showVolumeConstraint = nil
+            tooltipView = nil
+            duringScrubbingConstraints = nil
+            finishedScrubbingConstraints = nil
+            subtitleSwitcherButtonWidthConstraint = nil
+            
+            scrubbingSpeedLabel = nil
+        }
+        
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {

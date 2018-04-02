@@ -28,7 +28,7 @@ class TVExpandableTextView: TvOSMoreButton {
     }
     
     var blurredView: UIVisualEffectView {
-        return recursiveSubviews.flatMap({$0 as? UIVisualEffectView}).first!
+        return recursiveSubviews.compactMap({$0 as? UIVisualEffectView}).first!
     }
     
     override init(frame: CGRect) {

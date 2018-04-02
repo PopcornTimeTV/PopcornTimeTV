@@ -122,7 +122,7 @@ extension Media {
      
      - Parameter completion: The completion handler for the request containing an array of subtitles
      */
-    func getSubtitles(forId id: String? = nil, completion: @escaping ([Subtitle]) -> Void) {
+    func getSubtitles(forId id: String? = nil, orWithFilePath: URL? = nil, forLang:String? = nil,completion: @escaping ([Subtitle]) -> Void) {
         let id = id ?? self.id
         if let `self` = self as? Episode, !id.hasPrefix("tt"), let show = self.show {
             TraktManager.shared.getEpisodeMetadata(show.id, episodeNumber: self.episode, seasonNumber: self.season) { (episode, _) in
@@ -131,6 +131,10 @@ extension Media {
                 SubtitlesManager.shared.search(self) { (subtitles, _) in
                     completion(subtitles)
                 }
+            }
+        }else if let filePath = orWithFilePath {
+            SubtitlesManager.shared.search(preferredLang: "el", videoFilePath: filePath){ (subtitles, _) in
+                completion(subtitles)
             }
         } else {
             SubtitlesManager.shared.search(imdbId: id) { (subtitles, _) in

@@ -165,7 +165,7 @@ class DownloadButton: UIDownloadButton, UIGestureRecognizerDelegate {
             layers.append(focusedView?.layer)
         #endif
         
-        layers.flatMap({$0}).forEach {
+        layers.compactMap({$0}).forEach {
             if downloadState != .pending && $0.animation(forKey: "Spin") != nil {
                 $0.removeAnimation(forKey: "Spin")
             }
@@ -215,7 +215,7 @@ class DownloadButton: UIDownloadButton, UIGestureRecognizerDelegate {
             let image = UIImage(named: "Download Progress Indeterminate")
             imageView?.image != image ? setImage(image, for: .normal) : ()
             
-            layers.flatMap({$0}).forEach {
+            layers.compactMap({$0}).forEach {
                 if $0.animation(forKey: "Spin") == nil {
                     $0.add(self.rotationAnimation, forKey: "Spin")
                 }

@@ -27,7 +27,7 @@ class SeasonPickerViewController: UIViewController, UICollectionViewDelegate, UI
         
         showLabel.text = show.title
         
-        seasons = show.seasonNumbers.flatMap({($0, nil)})
+        seasons = show.seasonNumbers.compactMap({($0, nil)})
         
         let group = DispatchGroup()
         

@@ -20,7 +20,7 @@ open class SubtitlesManager: NetworkManager {
      
      - Parameter completion:    Completion handler called with array of subtitles and an optional error.
      */
-    open func search(_ episode: Episode? = nil, imdbId: String? = nil,size: UInt64? = nil,hash: String? = nil, limit: String = "500", completion:@escaping ([Subtitle], NSError?) -> Void) {
+    open func search(_ episode: Episode? = nil, imdbId: String? = nil,preferredLang: String? = nil,videoFilePath: URL? = nil, limit: String = "500", completion:@escaping ([Subtitle], NSError?) -> Void) {
         guard let token = token else {
             login() { error in
                 guard error == nil else { completion([], error); return }
@@ -28,10 +28,11 @@ open class SubtitlesManager: NetworkManager {
             }
             return
         }
-        var params:[String:Any?] = ["sublanguageid": "all"]
-        if let hash = hash, let size = size {
-            params["moviehash"] = hash
-            params["moviebytesize"] = size
+        var params:[String:Any] = ["sublanguageid": preferredLang ?? "all"]
+        if let videoFilePath = videoFilePath {
+            let videohash = OpenSubtitlesHash.hashFor(videoFilePath)
+            params["moviehash"] = videohash.fileHash
+            params["moviebytesize"] = videohash.fileSize
         }else if let imdbId = imdbId {
             params["imdbid"] = imdbId.replacingOccurrences(of: "tt", with: "")
         } else if let episode = episode {

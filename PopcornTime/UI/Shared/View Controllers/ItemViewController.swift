@@ -63,7 +63,7 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
                 guard oldValue != isDark else { return }
     
                 summaryTextView.isDark = isDark
-                view.recursiveSubviews.flatMap({$0 as? TVButton}).forEach {
+                view.recursiveSubviews.compactMap({$0 as? TVButton}).forEach {
                     $0.isDark = self.isDark
                 }
                 let colorPallete: ColorPallete = isDark ? .light : .dark

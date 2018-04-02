@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     var activeRootViewController: MainViewController? {
         guard
             let navigationController = tabBarController.selectedViewController as? UINavigationController,
-            let main = navigationController.viewControllers.flatMap({$0 as? MainViewController}).first
+            let main = navigationController.viewControllers.compactMap({$0 as? MainViewController}).first
             else {
                 return nil
         }
@@ -93,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     }
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        if tabBarController.selectedViewController == viewController, let scrollView = viewController.view.recursiveSubviews.flatMap({$0 as? UIScrollView}).first {
+        if tabBarController.selectedViewController == viewController, let scrollView = viewController.view.recursiveSubviews.compactMap({$0 as? UIScrollView}).first {
             let offset = CGPoint(x: 0, y: -scrollView.contentInset.top)
             scrollView.setContentOffset(offset, animated: true)
         }
@@ -178,6 +178,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyObject.Type>(types)
         objc_getClassList(autoreleasingTypes, Int32(typeCount))
         for index in 0 ..< typeCount { (types[index] as? Object.Type)?.awake() }
-        types.deallocate(capacity: typeCount)
+        types.deallocate()
     }
 }

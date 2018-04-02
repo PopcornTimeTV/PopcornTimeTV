@@ -35,7 +35,7 @@ class TVBlurOverCurrentContextAnimatedTransitioning: TVAppDocumentControllerAnim
     override func animateDismissalWithTransitionContext(_ transitionContext: UIViewControllerContextTransitioning) {
         guard
             let presentedControllerView = transitionContext.view(forKey: .from),
-            let view = presentedControllerView.recursiveSubviews.flatMap({$0 as? TVVisualEffectView}).first
+            let view = presentedControllerView.recursiveSubviews.compactMap({$0 as? TVVisualEffectView}).first
             else {
                 return
         }

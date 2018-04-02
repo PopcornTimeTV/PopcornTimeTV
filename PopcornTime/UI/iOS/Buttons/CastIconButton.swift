@@ -31,7 +31,7 @@ class CastIconButton: UIButton {
     let castOn = UIImage(named: "CastOn")
     
     var castConnecting: [UIImage] {
-        return (0...2).flatMap({UIImage(named: "CastOn\($0)")}).appending(UIImage(named: "CastOn1")!).flatMap({$0.colored(tintColor)})
+        return (0...2).compactMap({UIImage(named: "CastOn\($0)")}).appending(UIImage(named: "CastOn1")!).compactMap({$0.colored(tintColor)})
     }
     
     override init(frame: CGRect) {

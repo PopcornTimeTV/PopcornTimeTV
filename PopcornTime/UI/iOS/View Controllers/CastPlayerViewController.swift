@@ -272,7 +272,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
             metadata.addImage(GCKImage(url: url, width: 480, height: 720))
         }
         
-        let mediaTracks: [GCKMediaTrack] = media.subtitles.flatMap {
+        let mediaTracks: [GCKMediaTrack] = media.subtitles.compactMap {
             let index = media.subtitles.index(of: $0)!
             let track = GCKMediaTrack(identifier: index, contentIdentifier: "\(server.serverURL.relativeString)/Subtitles/\($0.ISO639).vtt", contentType: "text/vtt", type: .text, textSubtype: .captions, name: $0.language, languageCode: $0.ISO639, customData: nil)
             return track

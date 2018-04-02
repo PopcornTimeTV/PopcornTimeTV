@@ -11,7 +11,7 @@ extension Locale {
     
     /// Returns a list of common `Locale` languages.
     static var commonLanguages: [String]  {
-        return Locale.commonISOLanguageCodes.flatMap {
+        return Locale.commonISOLanguageCodes.compactMap {
             guard let language = Locale.current.localizedString(forLanguageCode: $0) else { return nil }
             return language.localizedCapitalized
         }

@@ -170,6 +170,7 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
                 #elseif os(iOS)
                     self.navigationItem.titleView = imageView
                 #endif
+                
             }
         }
         

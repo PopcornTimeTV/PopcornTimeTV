@@ -34,7 +34,9 @@ class EpisodesCollectionViewController: ResponsiveCollectionViewController, UICo
         
         if let image = episode.smallBackgroundImage,
             let url = URL(string: image) {
-            cell.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "Episode Placeholder"), imageTransition: .crossDissolve(.default))
+            cell.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "Episode Placeholder"), imageTransition: .crossDissolve(.default)){ _ in
+                cell.setNeedsDisplay()
+            }
         } else {
             cell.imageView.image = UIImage(named: "Episode Placeholder")
         }

@@ -31,7 +31,7 @@ class TVTabBarController: UITabBarController {
         
         if (previousType === NSClassFromString("UITabBarButton") && nextType is UICollectionViewCell.Type) || (nextType === NSClassFromString("UITabBarButton") && previousType is UICollectionViewCell.Type) // If the tabBarController is about to loose focus to a collectionViewCell or about to gain focus from a collectionViewCell, focus on the tabBarButtons first.
         {
-            environmentsToFocus = items.flatMap({$0.customView}).reversed()
+            environmentsToFocus = items.compactMap({$0.customView}).reversed()
             setNeedsFocusUpdate()
             
             return false

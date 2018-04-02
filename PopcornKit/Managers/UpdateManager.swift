@@ -80,7 +80,7 @@ public final class UpdateManager: NSObject {
         Alamofire.request("https://api.github.com/repos/PopcornTimeTV/PopcornTimeTV/releases").validate().responseJSON { (response) in
             guard let value = response.result.value else { completion?(false); return }
             let responseObject = JSON(value)
-            let sortedReleases = responseObject.flatMap({VersionString($1["tag_name"].string!, $1["published_at"].string!)}).sorted(by: {$0 > $1})
+            let sortedReleases = responseObject.compactMap({VersionString($1["tag_name"].string!, $1["published_at"].string!)}).sorted(by: {$0 > $1})
 
             if let latestRelease = sortedReleases.first,
                 let currentRelease = sortedReleases.filter({$0.buildNumber == self.currentApplicationVersion}).first,

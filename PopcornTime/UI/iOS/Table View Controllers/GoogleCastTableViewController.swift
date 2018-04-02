@@ -64,7 +64,7 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
     private func update(tableView: UITableView, type: TableViewUpdates, rows: [Int]) {
         tableView.beginUpdates()
         
-        let indexPaths: [IndexPath] = rows.flatMap({IndexPath(row: $0, section: 0)})
+        let indexPaths: [IndexPath] = rows.compactMap({IndexPath(row: $0, section: 0)})
         
         switch type {
         case .insert:

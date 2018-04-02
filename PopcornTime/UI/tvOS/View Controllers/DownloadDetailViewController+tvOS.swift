@@ -129,7 +129,7 @@ extension DownloadDetailViewController: UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, didUpdateFocusIn context: UITableViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         
-        tableView.visibleCells.flatMap({$0 as? DownloadDetailTableViewCell}).forEach {
+        tableView.visibleCells.compactMap({$0 as? DownloadDetailTableViewCell}).forEach {
             $0.invalidateAppearance()
         }
         
