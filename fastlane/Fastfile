@@ -1,0 +1,8 @@
+#### Tests ####
+desc "Run all PopcornTimeTV Tests: iOS and tvOS"
+lane :tests do
+  scan(scheme: "Popcorn TimeiOSUITests")
+  scan(scheme: "Popcorn TimetvOSUITests")
+  scan(scheme: "Popcorn TimetvOSTests")
+  scan(scheme: "Popcorn TimeiOSTests")
+end

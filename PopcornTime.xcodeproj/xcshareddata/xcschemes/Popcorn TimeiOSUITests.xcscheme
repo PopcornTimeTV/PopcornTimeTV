@@ -9,14 +9,14 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4D689A161DD88E17001D1318"
-               BuildableName = "PopcornTime.app"
-               BlueprintName = "PopcornTimeiOS"
+               BlueprintIdentifier = "D9CC9C962064FE64006C1274"
+               BuildableName = "Popcorn TimeiOSUITests.xctest"
+               BlueprintName = "Popcorn TimeiOSUITests"
                ReferencedContainer = "container:PopcornTime.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -38,26 +38,7 @@
                ReferencedContainer = "container:PopcornTime.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D9CC9CA42064FE81006C1274"
-               BuildableName = "Popcorn TimeiOSTests.xctest"
-               BlueprintName = "Popcorn TimeiOSTests"
-               ReferencedContainer = "container:PopcornTime.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4D689A161DD88E17001D1318"
-            BuildableName = "PopcornTime.app"
-            BlueprintName = "PopcornTimeiOS"
-            ReferencedContainer = "container:PopcornTime.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -70,25 +51,16 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES"
-      showNonLocalizedStrings = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      allowLocationSimulation = "YES">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4D689A161DD88E17001D1318"
-            BuildableName = "PopcornTime.app"
-            BlueprintName = "PopcornTimeiOS"
+            BlueprintIdentifier = "D9CC9C962064FE64006C1274"
+            BuildableName = "Popcorn TimeiOSUITests.xctest"
+            BlueprintName = "Popcorn TimeiOSUITests"
             ReferencedContainer = "container:PopcornTime.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "OS_ACTIVITY_MODE"
-            value = "disable"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -98,23 +70,21 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4D689A161DD88E17001D1318"
-            BuildableName = "PopcornTime.app"
-            BlueprintName = "PopcornTimeiOS"
+            BlueprintIdentifier = "D9CC9C962064FE64006C1274"
+            BuildableName = "Popcorn TimeiOSUITests.xctest"
+            BlueprintName = "Popcorn TimeiOSUITests"
             ReferencedContainer = "container:PopcornTime.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
-      customArchiveName = "Popcorn Time"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
