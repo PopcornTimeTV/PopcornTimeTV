@@ -52,7 +52,7 @@ class TVExpandableTextView: TvOSMoreButton {
     }
     
     override func layoutIfNeeded() {
-        if let label = recursiveSubviews.flatMap({$0 as? UILabel}).first {
+        if let label = recursiveSubviews.compactMap({$0 as? UILabel}).first {
             label.layoutIfNeeded()
         }
     }

@@ -32,7 +32,7 @@ public struct Show: Media, Equatable {
     public let year: String
     
     /// Rating percentage of the show.
-    public let rating: Float
+    public let rating: Double
     
     /// Summary of the show. Will default to "No summary available.".localized until `getInfo:imdbId:completion` is called on `ShowManager` and shows are updated. **However**, there may not be a summary provided by the api.
     public let summary: String

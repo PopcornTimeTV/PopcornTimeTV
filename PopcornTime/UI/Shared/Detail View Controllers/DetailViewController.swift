@@ -176,6 +176,7 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
         
         if let movie = currentItem as? Movie {
             TMDBManager.shared.getLogo(forMediaOfType: .movies, id: movie.id, completion: completion)
+            episodesContainerViewHeightConstraint.constant = 0
         } else if let show = currentItem as? Show {
             TMDBManager.shared.getLogo(forMediaOfType: .shows, id: show.tvdbId, completion: completion)
         }
@@ -208,6 +209,7 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
             vc.view.translatesAutoresizingMaskIntoConstraints = false
         } else if segue.identifier == "embedEpisodes", let vc = segue.destination as? EpisodesCollectionViewController {
             episodesCollectionViewController = vc
+            episodesCollectionViewController.preferredContentSize = CGSize(width: 0, height: 0)
         } else if let vc = segue.destination as? DescriptionCollectionViewController, segue.identifier == "embedAccessibility" {
             vc.headerTitle = "Accessibility".localized
             

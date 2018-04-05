@@ -9,7 +9,7 @@ import class PopcornTorrent.PTTorrentDownloadManager
 extension ItemViewController: UIViewControllerTransitioningDelegate {
     
     var visibleButtons: [TVButton] {
-        return [trailerButton, playButton, seasonsButton, watchlistButton, watchedButton].flatMap({$0}).filter({$0.superview != nil})
+        return [trailerButton, playButton, seasonsButton, watchlistButton, watchedButton].compactMap({$0}).filter({$0.superview != nil})
     }
     
     var watchlistButtonImage: UIImage? {

@@ -558,6 +558,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
         if self.isBeingDismissed {
+            idleWorkItem?.cancel()
             media = nil
             mediaplayer.delegate = nil
             movieView = nil
