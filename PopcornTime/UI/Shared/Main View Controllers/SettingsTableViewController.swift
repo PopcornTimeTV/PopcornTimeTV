@@ -105,8 +105,10 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
             if indexPath.row == 0 {
                 if UIDevice.current.userInterfaceIdiom == .tv {
                     let handler: (UIAlertAction) -> Void = { action in
-                        guard let title = action.title?.replacingOccurrences(of: "%", with: ""),
-                            let value = Double(title) else { return }
+                        guard let title = action.title?.replacingOccurrences(of: "%", with: "").trimmingCharacters(in: .whitespaces),
+                            let value = Double(title) else {
+                                return
+                        }
                         UserDefaults.standard.set(value/100.0, forKey: "themeSongVolume")
                         tableView.reloadData()
                     }
