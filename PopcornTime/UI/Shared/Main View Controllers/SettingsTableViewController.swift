@@ -84,7 +84,10 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 }
                 cell.detailTextLabel?.text = date
             } else if indexPath.row == 2 {
-                cell.detailTextLabel?.text = Bundle.main.localizedVersion
+                
+                let bundle = Bundle.main
+                let version = [bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString"), bundle.object(forInfoDictionaryKey: "CFBundleVersion")].flatMap({$0 as? String}).joined(separator: ".")
+                cell.detailTextLabel?.text = version
             }
         default:
             break
