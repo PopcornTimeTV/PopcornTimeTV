@@ -89,7 +89,7 @@ class InfoViewController: UIViewController, UIViewControllerTransitioningDelegat
                 let season = "S\(episode.season):E\(episode.episode)"
                 let date = DateFormatter.localizedString(from: episode.firstAirDate, dateStyle: .medium, timeStyle: .none)
                 let runtime = formatter.string(from: TimeInterval(episode.show?.runtime ?? 0) * 60)
-                let genre = episode.show?.genres.first?.localizedCapitalized
+                let genre = episode.show?.genres.first?.localizedCapitalized.localized
                 
                 
                 let info = NSMutableAttributedString(string: [season, date, runtime, genre].compactMap({$0}).joined(separator: "\t"))

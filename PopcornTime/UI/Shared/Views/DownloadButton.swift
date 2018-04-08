@@ -190,7 +190,7 @@ class DownloadButton: UIDownloadButton, UIGestureRecognizerDelegate {
                 setTitle(titleLabel?.text, for: .normal)
             #elseif os(tvOS)
                 setImage(UIImage(named: "Download Progress Start"), for: .normal)
-                setTitle(title, for: .normal)
+                setTitle(title.localized, for: .normal)
             #endif
             [progressView, outlineView].forEach { $0.isHidden = true }
         case .downloading:

@@ -30,7 +30,7 @@ extension ItemViewController {
             formatter.allowedUnits = [.hour, .minute]
             
             subtitleLabel.text = formatter.string(from: TimeInterval(movie.runtime) * 60) ?? "0 min"
-            genreLabel?.text = movie.genres.first?.localizedCapitalized ?? ""
+            genreLabel?.text = movie.genres.first?.localizedCapitalized.localized ?? ""
             
             let info = NSMutableAttributedString(string: "\(movie.year)")
             attributedString(with: 10, between: movie.certification, "HD", "CC").forEach({info.append($0)})
@@ -41,7 +41,7 @@ extension ItemViewController {
             movie.trailerCode == nil ? trailerButton.removeFromSuperview() : ()
         } else if let show = media as? Show {
             subtitleLabel.text = show.network ?? "TV"
-            genreLabel?.text = show.genres.first?.localizedCapitalized ?? ""
+            genreLabel?.text = show.genres.first?.localizedCapitalized.localized ?? ""
             
             let info = NSMutableAttributedString(string: "\(show.year)")
             attributedString(with: 10, between: "HD", "CC").forEach({info.append($0)})
