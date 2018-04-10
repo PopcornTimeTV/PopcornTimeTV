@@ -25,7 +25,9 @@ class MediaViewController: MainViewController {
             
         }
         
-        NetworkManager.Genres.array.forEach {
+        NetworkManager.Genres.array.sorted(by: {
+            $1 != .all && $0.string.localizedStandardCompare($1.string) == .orderedAscending
+        }).forEach {
             controller.addAction(UIAlertAction(title: $0.string, style: .default, handler: handler))
         }
         

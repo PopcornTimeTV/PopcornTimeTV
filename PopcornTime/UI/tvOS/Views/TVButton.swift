@@ -22,7 +22,7 @@ import Foundation
     @IBInspectable private(set) var title: String = "" {
         didSet {
             if titleLabel == nil { loadViewIfNeeded() }
-            setTitle(title, for: .normal)
+            setTitle(title.localized, for: .normal)
         }
     }
     
