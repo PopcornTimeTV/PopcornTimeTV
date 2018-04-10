@@ -96,7 +96,7 @@ public final class UpdateManager: NSObject {
                 
                 let isCydiaInstalled = UIApplication.shared.canOpenURL(URL(string: "cydia://")!)
                 
-                alert.addAction(UIAlertAction(title: isCydiaInstalled ? "Update".localized : "OK".localized, style: .default) { _ in
+                alert.addAction(UIAlertAction(title: "Update".localized, style: .default) { _ in
                     if isCydiaInstalled {
                         let url = URL(string: "cydia://package/\(Bundle.main.bundleIdentifier!)")!
                         if #available(iOS 10.0, tvOS 10.0, *) {

@@ -82,7 +82,7 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
                 items.forEach({peopleText.append(NSAttributedString(string: $0 + "\n", attributes: itemAttribtues))})
             }
             
-            if let genre = movie.genres.first?.localizedCapitalized {
+            if let genre = movie.genres.first?.localizedCapitalized.localized {
                 appendSection("Genre".localized.localizedUppercase, [genre])
             }
             
@@ -112,7 +112,7 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             
             infoLabel.text = .localizedStringWithFormat("Watch %@ on %@".localized, show.title, show.network ?? "TV")
             
-            let genre = show.genres.first?.localizedCapitalized
+            let genre = show.genres.first?.localizedCapitalized.localized
             let year = show.year
             
             let subtitle = NSMutableAttributedString(string: [genre, year].compactMap({$0}).joined(separator: "\t"))

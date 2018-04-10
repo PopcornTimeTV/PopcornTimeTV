@@ -50,7 +50,7 @@ class MovieDetailViewController: DetailViewController {
             formatter.unitsStyle = .short
             formatter.allowedUnits = [.hour, .minute]
             
-            vc.dataSource = [("Genre".localized, movie.genres.first?.localizedCapitalized ?? "Unknown".localized), ("Released".localized, movie.year), ("Run Time".localized, formatter.string(from: TimeInterval(movie.runtime) * 60) ?? "0 min"), ("Rating".localized, movie.certification)]
+            vc.dataSource = [("Genre".localized, movie.genres.first?.localizedCapitalized.localized ?? "Unknown".localized), ("Released".localized, movie.year), ("Run Time".localized, formatter.string(from: TimeInterval(movie.runtime) * 60) ?? "0 min"), ("Rating".localized, movie.certification)]
             
             informationDescriptionCollectionViewController = vc
         } else if let vc = segue.destination as? CollectionViewController {

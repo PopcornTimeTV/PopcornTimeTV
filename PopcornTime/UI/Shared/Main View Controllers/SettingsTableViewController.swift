@@ -84,7 +84,10 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 }
                 cell.detailTextLabel?.text = date
             } else if indexPath.row == 2 {
-                cell.detailTextLabel?.text = Bundle.main.localizedVersion
+                
+                let bundle = Bundle.main
+                let version = [bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString"), bundle.object(forInfoDictionaryKey: "CFBundleVersion")].flatMap({$0 as? String}).joined(separator: ".")
+                cell.detailTextLabel?.text = version
             }
         default:
             break
@@ -102,8 +105,10 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
             if indexPath.row == 0 {
                 if UIDevice.current.userInterfaceIdiom == .tv {
                     let handler: (UIAlertAction) -> Void = { action in
-                        guard let title = action.title?.replacingOccurrences(of: "%", with: ""),
-                            let value = Double(title) else { return }
+                        guard let title = action.title?.replacingOccurrences(of: "%", with: "").trimmingCharacters(in: .whitespaces),
+                            let value = Double(title) else {
+                                return
+                        }
                         UserDefaults.standard.set(value/100.0, forKey: "themeSongVolume")
                         tableView.reloadData()
                     }

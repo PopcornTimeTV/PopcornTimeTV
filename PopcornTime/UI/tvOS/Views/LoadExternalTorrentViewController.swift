@@ -62,8 +62,8 @@ class LoadExternalTorrentViewController:UIViewController,GCDWebServerDelegate,PC
         super.viewWillAppear(true)
         webserver?.start(withPort: 54320, bonjourName: "PopcornLoad")
         
-        infoLabel.text = "Please navigate to the webpage \(webserver?.serverURL.absoluteString ?? "") and insert the magnet link of the torrent you would like to play"
-        
+        infoLabel.text = .localizedStringWithFormat("Please navigate to the webpage %@ and insert the magnet link of the torrent you would like to play".localized,
+                                                    webserver?.serverURL.absoluteString ?? "")
     }
     
     @IBAction func exitView(_ sender: Any) {
