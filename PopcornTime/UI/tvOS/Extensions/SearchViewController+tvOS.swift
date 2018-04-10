@@ -29,15 +29,6 @@ extension SearchViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        /*work-around to get the scopeBar to appear - NOTE: I need to find why it is happening and the
-         parent subview of the scopebar has an alpha of 0!!!!*/
-        for sub in self.view.subviews{
-            for subv in sub.subviews{
-                for subvi in subv.subviews{
-                    subvi.alpha = 1.0
-                }
-            }
-        }
         super.viewDidAppear(animated)
         
         searchContainerViewController = searchContainerViewController ?? {

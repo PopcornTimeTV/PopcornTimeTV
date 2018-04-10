@@ -29,7 +29,7 @@ public struct Movie: Media, Equatable {
     public let year: String
     
     /// Rating percentage for the movie.
-    public let rating: Float
+    public let rating: Double
     
     /// The runtime of the movie rounded to the nearest minute.
     public let runtime: Int

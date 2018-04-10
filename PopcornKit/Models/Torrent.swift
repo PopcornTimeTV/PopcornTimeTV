@@ -39,6 +39,21 @@ public enum Health {
             return UIColor(red: 105.0/255.0, green: 105.0/255.0, blue: 105.0, alpha: 1.0)
         }
     }
+    
+    public var image: UIImage {
+        let rect = CGRect(x: 0.0, y: 0.0, width: 10.0, height: 10.0)
+        UIGraphicsBeginImageContext(rect.size)
+
+        UIBezierPath(roundedRect: rect, cornerRadius: 10.0).addClip()
+        let context = UIGraphicsGetCurrentContext()
+        
+        context?.setFillColor(color.cgColor)
+        context?.fill(rect)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
 }
 
 public struct Torrent: Mappable, Equatable, Comparable {
