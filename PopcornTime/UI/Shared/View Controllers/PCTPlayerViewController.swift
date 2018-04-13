@@ -562,33 +562,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             media = nil
             mediaplayer.delegate = nil
             movieView = nil
-            loadingActivityIndicatorView = nil
-            progressBar = nil
-            
-            // tvOS exclusive
-            dimmerView = nil
-            infoHelperView = nil
-            
-            // iOS exclusive
-            airPlayingView = nil
-            screenshotImageView = nil
-            upNextContainerView = nil
-            
-            playPauseButton = nil
-            subtitleSwitcherButton = nil
-            videoDimensionsButton = nil
-            volumeButton = nil
-            
-            tapOnVideoRecognizer = nil
-            doubleTapToZoomOnVideoRecognizer = nil
-            
-            showVolumeConstraint = nil
-            tooltipView = nil
-            duringScrubbingConstraints = nil
-            finishedScrubbingConstraints = nil
-            subtitleSwitcherButtonWidthConstraint = nil
-            
-            scrubbingSpeedLabel = nil
         }
         
     }
