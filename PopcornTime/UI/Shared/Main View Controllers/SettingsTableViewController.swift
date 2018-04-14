@@ -86,7 +86,7 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
             } else if indexPath.row == 2 {
                 
                 let bundle = Bundle.main
-                let version = [bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString"), bundle.object(forInfoDictionaryKey: "CFBundleVersion")].flatMap({$0 as? String}).joined(separator: ".")
+                let version = [bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString"), bundle.object(forInfoDictionaryKey: "CFBundleVersion")].compactMap({$0 as? String}).joined(separator: ".")
                 cell.detailTextLabel?.text = version
             }
         default:

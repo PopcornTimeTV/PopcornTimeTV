@@ -101,7 +101,7 @@ extension DetailViewController {
         headerHeight = isCompact ? 240 : 315
         infoStackView.axis = isCompact ? .vertical : .horizontal
         infoStackView.alignment = isCompact ? .fill : .top
-        [peopleCollectionViewController.collectionView, relatedCollectionViewController.collectionView].forEach({
+        [peopleCollectionViewController.collectionView, relatedCollectionViewController?.collectionView].forEach({
             $0?.contentInset.left  = isCompact ? 14 : 26
             $0?.contentInset.right = isCompact ? 14 : 26
         })

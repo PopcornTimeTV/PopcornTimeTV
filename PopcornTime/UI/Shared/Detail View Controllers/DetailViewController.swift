@@ -230,6 +230,14 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
         }
     }
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "embedRelated" && ((currentItem as? Movie)?.related.isEmpty ?? (currentItem as! Show).related.isEmpty){
+            relatedContainerViewHeightConstraint.constant = 0
+            return false
+        }
+        return true
+    }
+    
     // MARK: Container view size changes
     
     override func preferredContentSizeDidChange(forChildContentContainer container: UIContentContainer) {
