@@ -34,6 +34,7 @@ class SubtitleSettings: NSObject, NSCoding {
             "Universal (big endian UTF-16)": "UTF-16BE",
             "Universal (little endian UTF-16)": "UTF-16LE",
             "Universal Chinese (GB18030)": "GB18030",
+            "Western European (Latin-1)": "ISO-8859-1",
             "Western European (Latin-9)": "ISO-8859-15",
             "Western European (Windows-1252)": "Windows-1252",
             "Western European (IBM 00850)": "IBM850",
