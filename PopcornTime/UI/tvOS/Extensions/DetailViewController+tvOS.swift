@@ -48,7 +48,7 @@ extension DetailViewController {
             let frame = next.imageView.focusedFrameGuide.layoutFrame
             
             relatedBottomConstraint.constant = {
-                guard next.collectionView === relatedCollectionViewController.collectionView else {
+                guard next.collectionView === relatedCollectionViewController?.collectionView else {
                     return 15
                 }
                 

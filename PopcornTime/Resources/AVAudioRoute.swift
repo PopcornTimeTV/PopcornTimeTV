@@ -12,7 +12,7 @@ class AVAudioRoute: NSObject {
     }
     
     override init() {
-        let AVAudioRoute = NSClassFromString("AVAudioRoute") as! NSObject.Type
+        let AVAudioRoute = NSClassFromString("AVInfoPanelAudioRoute") as! NSObject.Type
         instance = AVAudioRoute.init()
         
         super.init()
@@ -20,7 +20,7 @@ class AVAudioRoute: NSObject {
     
     class var `default`: AVAudioRoute? {
         guard
-            let instance = (NSClassFromString("AVAudioRoute") as! NSObject.Type).perform(Selector(("defaultAudioRoute"))).takeUnretainedValue() as? NSObject,
+            let instance = (NSClassFromString("AVInfoPanelAudioRoute") as! NSObject.Type).perform(Selector(("defaultAudioRoute"))).takeUnretainedValue() as? NSObject,
             let route = AVAudioRoute(from: instance)
             else {
                 return nil
@@ -29,7 +29,7 @@ class AVAudioRoute: NSObject {
     }
     
     init?(from instance: NSObject) {
-        guard type(of: instance) == NSClassFromString("AVAudioRoute") else { return nil }
+        guard type(of: instance) == NSClassFromString("AVInfoPanelAudioRoute") else { return nil }
         self.instance = instance
         
         super.init()

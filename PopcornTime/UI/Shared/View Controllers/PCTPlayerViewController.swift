@@ -340,6 +340,11 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         subtitleSwitcherButton?.isHidden = subtitles.count == 0
         subtitleSwitcherButtonWidthConstraint?.constant = subtitleSwitcherButton?.isHidden == true ? 0 : 24
         
+        if #available(iOS 10.0,tvOS 10.0,*){
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback,mode: AVAudioSessionModeMoviePlayback, options: [.allowBluetoothA2DP,.allowAirPlay])
+        }
+        
+        
         #if os(iOS)
             volumeSliderView?.addSubview(volumeView)
             if let slider = volumeView.subviews.compactMap({$0 as? UISlider}).first {

@@ -18,14 +18,14 @@ class AVSpeakerManager: NSObject {
     }
     
     var selectedRoute: AVAudioRoute? {
-        if let route = instance.value(forKey: "selectedRoute") as? NSObject {
+        if let route = instance.value(forKey: "_selectedRoute") as? NSObject {
             return AVAudioRoute(from: route)
         }
         return nil
     }
     
     var defaultRoute: AVAudioRoute? {
-        if let route = instance.value(forKey: "defaultRoute") as? NSObject {
+        if let route = instance.value(forKey: "_defaultRoute") as? NSObject {
             return AVAudioRoute(from: route)
         }
         return nil
@@ -33,6 +33,13 @@ class AVSpeakerManager: NSObject {
     
     var speakerRoutes: [AVAudioRoute] {
         if let routes = instance.value(forKey: "speakerRoutes") as? [NSObject] {
+            return routes.compactMap({AVAudioRoute(from: $0)})
+        }
+        return []
+    }
+    
+    var allRoutes: [AVAudioRoute] {
+        if let routes = instance.value(forKey: "allRoutes") as? [NSObject] {
             return routes.compactMap({AVAudioRoute(from: $0)})
         }
         return []
