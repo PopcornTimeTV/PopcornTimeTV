@@ -64,9 +64,17 @@ extension DownloadDetailViewController: DownloadDetailTableViewCellDelegate {
         
         let download = dataSource(for: seasons[indexPath.section])[indexPath.row]
         
-        PTTorrentDownloadManager.shared().delete(download)
         
-        tableView.deleteRows(at: [indexPath], with: .fade)
+        
+        tableView.beginUpdates()
+        if dataSource(for: seasons[indexPath.section]).count == 1{
+            tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+            self.navigationController?.pop(animated: true)
+        }else{
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        PTTorrentDownloadManager.shared().delete(download)
+        tableView.endUpdates()
     }
     
     func cell(_ cell: DownloadDetailTableViewCell, accessoryButtonPressed button: DownloadButton) {
@@ -75,6 +83,9 @@ extension DownloadDetailViewController: DownloadDetailTableViewCellDelegate {
         let download = dataSource(for: seasons[indexPath.section])[indexPath.row]
         
         AppDelegate.shared.downloadButton(button, wasPressedWith: download) { [unowned self] in
+            if self.episodes.count == 0 && self.seasons.count == 1{
+                self.tableView.deleteSections(IndexSet(integer: 1), with: .none)
+            }
             self.tableView.reloadData()
         }
     }
