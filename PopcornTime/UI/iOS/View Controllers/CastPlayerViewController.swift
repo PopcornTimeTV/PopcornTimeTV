@@ -304,6 +304,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
         if let isSubtitle = request.customData as? Bool, isSubtitle {
             currentSubtitle = nil
         } else {
+            GCKCastContext.sharedInstance().sessionManager.endSessionAndStopCasting(true)
             close()
         }
     }

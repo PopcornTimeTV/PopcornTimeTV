@@ -14,13 +14,14 @@ private enum TableViewUpdates {
     case delete
 }
 
-class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerListener, GCKSessionManagerListener {
+class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerListener, GCKSessionManagerListener, GCKDeviceManagerDelegate {
     
     var dataSource = [GCKDevice]()
     var connectionQueue: GCKDevice?
     
     private let deviceScanner = GCKDeviceScanner(filterCriteria: GCKFilterCriteria(forAvailableApplicationWithID: kGCKMediaDefaultReceiverApplicationID))
     private let sessionManager = GCKCastContext.sharedInstance().sessionManager
+    private var deviceManager: GCKDeviceManager?
     
     weak var delegate: GoogleCastTableViewControllerDelegate?
     
@@ -89,6 +90,10 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
             connectionQueue = device
         } else {
             GCKCastContext.sharedInstance().sessionManager.startSession(with: device)
+            let info = Bundle.main.infoDictionary
+            let appIdentifier = info!["CFBundleIdentifier"] as! String;
+            deviceManager = GCKDeviceManager.init(device: device, clientPackageName: appIdentifier)
+            deviceManager?.delegate = self
         }
     }
     
@@ -130,8 +135,23 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
             update(tableView: tableView, type: .reload, rows: [index])
         }
     }
-    
 
+    func deviceManager(_ deviceManager: GCKDeviceManager, didDisconnectFromApplicationWithError error: Error?) {
+        print("Received notification that app disconnected")
+        
+        if error != nil{
+            print("Application disconnected with error: \(error.debugDescription)")
+        }
+    }
+    
+    func deviceManager(_ deviceManager: GCKDeviceManager, didDisconnectWithError error: Error?) {
+        print("Received notification that app disconnected")
+        
+        if error != nil{
+            print("Application disconnected with error: \(error.debugDescription)")
+        }
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
