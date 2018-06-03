@@ -32,7 +32,7 @@ class AVSpeakerManager: NSObject {
     }
     
     var speakerRoutes: [AVAudioRoute] {
-        if let routes = instance.value(forKey: "speakerRoutes") as? [NSObject] {
+        if let routes = instance.value(forKey: "_routes") as? [NSObject] {
             return routes.compactMap({AVAudioRoute(from: $0)})
         }
         return []
