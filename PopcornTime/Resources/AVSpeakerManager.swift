@@ -32,10 +32,18 @@ class AVSpeakerManager: NSObject {
     }
     
     var speakerRoutes: [AVAudioRoute] {
-        if let routes = instance.value(forKey: "_routes") as? [NSObject] {
-            return routes.compactMap({AVAudioRoute(from: $0)})
+        if #available(iOS 11.4, tvOS 11.4, *) {
+            if let routes = instance.value(forKey: "_routes") as? [NSObject] {
+                return routes.compactMap({AVAudioRoute(from: $0)})
+            }
+            return []
+        } else {
+            if let routes = instance.value(forKey: "speakerRoutes") as? [NSObject] {
+                return routes.compactMap({AVAudioRoute(from: $0)})
+            }
+            return []
         }
-        return []
+        
     }
     
     var allRoutes: [AVAudioRoute] {
