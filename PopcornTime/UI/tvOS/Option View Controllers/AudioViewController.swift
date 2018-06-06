@@ -4,6 +4,9 @@ import Foundation
 import PopcornKit
 import AVFoundation.AVFAudio.AVAudioSession
 
+public var audioDelayPersistanceKey = "kAudioDelayPersistanceKey"
+let userDefaults = UserDefaults.standard
+
 enum EqualizerProfiles: UInt32 {
     case fullDynamicRange = 0
     case reduceLoudSounds = 15
@@ -25,16 +28,27 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource {
     let delays = [Int](-60...60)
     let sounds = EqualizerProfiles.array
     
-    var currentDelay = 0
+    
     var currentSound: EqualizerProfiles = .fullDynamicRange
     
     var manager = AVSpeakerManager()
+    
+    var currentDelay = 0
+    
+    var persistantDelay : Int {
+        guard let persistantDelay = userDefaults.value(forKey: audioDelayPersistanceKey) as? Int else {return 0}
+        return persistantDelay
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(pickableRoutesDidChange), name: .AVSpeakerManagerPickableRoutesDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pickableRoutesDidChange), name: .AVAudioSessionRouteChange, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        currentDelay = persistantDelay
     }
     
     @objc func pickableRoutesDidChange() {
@@ -50,6 +64,7 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource {
         case firstTableView:
             let delay = delays[indexPath.row]
             cell.textLabel?.text = (delay > 0 ? "+" : "") + NumberFormatter.localizedString(from: NSNumber(value: delay), number: .decimal)
+            print(delays[indexPath.row], currentDelay)
             cell.accessoryType = currentDelay == delays[indexPath.row] ? .checkmark : .none
         case secondTableView:
             let sound = sounds[indexPath.row]
@@ -102,6 +117,7 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource {
         switch tableView {
         case firstTableView:
             currentDelay = delays[indexPath.row]
+            userDefaults.set(currentDelay, forKey: audioDelayPersistanceKey)
             delegate?.didSelectAudioDelay(currentDelay)
         case secondTableView:
             currentSound = sounds[indexPath.row]
