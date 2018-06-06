@@ -19,7 +19,7 @@ class OptionsTableViewController: UITableViewController {
     
     var currentSubtitle: Subtitle?
     var currentSubtitleDelay = 0
-    var currentAudioDelay = 0
+    var currentAudioDelay = persistentDelay
     
     @IBAction func cancel() {
         dismiss(animated: true)
