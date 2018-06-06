@@ -4,8 +4,12 @@ import Foundation
 import PopcornKit
 import AVFoundation.AVFAudio.AVAudioSession
 
-public var audioDelayPersistanceKey = "kAudioDelayPersistanceKey"
+public var audioDelayPersistenceKey = "kAudioDelayPersistenceKey"
 let userDefaults = UserDefaults.standard
+public var persistentDelay : Int {
+    guard let persistentDelay = userDefaults.value(forKey: audioDelayPersistenceKey) as? Int else {return 0}
+    return persistentDelay
+}
 
 enum EqualizerProfiles: UInt32 {
     case fullDynamicRange = 0
@@ -35,11 +39,6 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource {
     
     var currentDelay = 0
     
-    var persistantDelay : Int {
-        guard let persistantDelay = userDefaults.value(forKey: audioDelayPersistanceKey) as? Int else {return 0}
-        return persistantDelay
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,7 +47,7 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        currentDelay = persistantDelay
+        currentDelay = persistentDelay
     }
     
     @objc func pickableRoutesDidChange() {
@@ -117,7 +116,7 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource {
         switch tableView {
         case firstTableView:
             currentDelay = delays[indexPath.row]
-            userDefaults.set(currentDelay, forKey: audioDelayPersistanceKey)
+            userDefaults.set(currentDelay, forKey: audioDelayPersistenceKey)
             delegate?.didSelectAudioDelay(currentDelay)
         case secondTableView:
             currentSound = sounds[indexPath.row]
