@@ -64,8 +64,15 @@ open class SubtitlesManager: NetworkManager {
                     else {
                         continue
                 }
+                var tmpLanguage = localizedLanguageName
                 
-                let subtitle = Subtitle(language: localizedLanguageName, link: subDownloadLink, ISO639: ISO639, rating: rating)
+                //append BR at the end
+                if ISO639 == "pb" || ISO639 == "pob" {
+                    tmpLanguage = NSString(format: "%@ BR", localizedLanguageName) as String
+                }
+                
+                // also use capitalized string for sorting correctly
+                let subtitle = Subtitle(language: tmpLanguage.capitalized, link: subDownloadLink, ISO639: ISO639, rating: rating)
                 
                 if let same = subtitles.first(where: {$0.ISO639 == ISO639}),
                     let index = subtitles.index(of: same) {
