@@ -17,17 +17,17 @@ PODS:
     - google-cast-sdk/Core (= 3.4.0)
   - google-cast-sdk/Core (3.4.0)
   - Locksmith (4.0.0)
-  - MarqueeLabel/Swift (3.1.4)
+  - MarqueeLabel/Swift (3.1.6)
   - MBCircularProgressBar (0.3.5)
   - MobileVLCKit (3.0.2)
   - ObjectMapper (3.1.0)
   - OBSlider (1.1.1)
-  - PopcornTorrent (1.3.6):
+  - PopcornTorrent (1.3.7):
     - GCDWebServer (~> 3.3.3)
   - Reachability (3.2)
   - SwiftyJSON (4.0.0)
   - SwiftyTimer (2.0.0)
-  - TvOSMoreButton (1.1.1)
+  - TvOSMoreButton (1.1.2)
   - TVVLCKit (3.0.2)
   - XCDYouTubeKit (2.5.6)
 
@@ -53,31 +53,6 @@ DEPENDENCIES:
   - TVVLCKit (~> 3.0.1)
   - XCDYouTubeKit (~> 2.5.5)
 
-SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - 1PasswordExtension
-    - AEXML
-    - Alamofire
-    - AlamofireImage
-    - AlamofireNetworkActivityIndicator
-    - AlamofireXMLRPC
-    - GCDWebServer
-    - google-cast-sdk
-    - Locksmith
-    - MarqueeLabel
-    - MobileVLCKit
-    - ObjectMapper
-    - OBSlider
-    - SwiftyJSON
-    - SwiftyTimer
-    - TvOSMoreButton
-    - TVVLCKit
-    - XCDYouTubeKit
-  https://github.com/PopcornTimeTV/Specs:
-    - FloatRatingView
-    - MBCircularProgressBar
-    - PopcornTorrent
-
 EXTERNAL SOURCES:
   Reachability:
     :git: https://github.com/tonymillion/Reachability
@@ -98,19 +73,19 @@ SPEC CHECKSUMS:
   GCDWebServer: 1c39a1f0763e4eb492bee021e4270fce097d3555
   google-cast-sdk: 35da95f568b50d72628014f3320e2f3240bf2a7a
   Locksmith: e9bebbaaa4cee3c511bc358a44f843c3fe00e21f
-  MarqueeLabel: bf768455fe88d427f71476ebb23f9092b660f40b
+  MarqueeLabel: 0c41f08ef5773e29c0f71064a8fa788a2fd8b365
   MBCircularProgressBar: 29e6df5e8683ff2375a291792a5988a16dd78c8e
   MobileVLCKit: a9e06de53e7a7fd43d7b04bcab4f2e68868f768a
   ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
   OBSlider: 38853ebbb9cc6978a9b7ddc0d4f525588e8bb294
-  PopcornTorrent: 185038df34b26b1bc748dbd562450cea4a82dc31
+  PopcornTorrent: 294d6f7d814dd296b3b8548d713ec0b434e9102f
   Reachability: a439150119232b740e0b708aed6760a5965b858d
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
   SwiftyTimer: 2efd74b060d69ad4f1496baf5bbedbe132125fcf
-  TvOSMoreButton: 57d29cc4734847893072c305b8758fb875d07b96
+  TvOSMoreButton: b2b3e822c8a46315974ab4ed236d40fd50c8269b
   TVVLCKit: 178e4f82f8b57320774821384e42eaac403d2faa
   XCDYouTubeKit: dccfe0c17dd5c5187969ec27e93069573badb08f
 
 PODFILE CHECKSUM: 5d3c26a868d9f274db7c4241425bceab48723bd9
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.4.0

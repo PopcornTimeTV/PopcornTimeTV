@@ -99,12 +99,12 @@ public struct Fanart {
 }
 
 public struct OpenSubtitles {
-    static let base = "https://api.opensubtitles.org:443/xml-rpc"
+    static let base = "https://rest.opensubtitles.org/"
     static let userAgent = "Popcorn Time v1"
     
-    static let logIn = "LogIn"
-    static let logOut = "LogOut"
-    static let search = "SearchSubtitles"
+//    static let logIn = "LogIn"
+//    static let logOut = "LogOut"
+    static let search = "search/"
     
     static let defaultHeaders = ["User-Agent": OpenSubtitles.userAgent]
 }

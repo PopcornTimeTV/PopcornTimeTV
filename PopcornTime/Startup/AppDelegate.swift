@@ -168,10 +168,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         UpdateManager.shared.checkVersion(.daily)
     }
     
-    func applicationWillTerminate(_ application: UIApplication) {
-        SubtitlesManager.shared.logout()
-    }
-    
     func awakeObjects() {
         let typeCount = Int(objc_getClassList(nil, 0))
         let types = UnsafeMutablePointer<AnyClass?>.allocate(capacity: typeCount)

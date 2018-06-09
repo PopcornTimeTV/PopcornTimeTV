@@ -1587,6 +1587,7 @@
 				0026821D1CD0B76300F51D31 /* Embed App Extensions */,
 				92CF49871CE668A100D666A8 /* Embed Frameworks */,
 				C6EBA42C93D7E41E8A1F4431 /* [CP] Embed Pods Frameworks */,
+				EB2B352DCFDF5FA4FF989A65 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1608,6 +1609,7 @@
 				4D0F9D2E1E6F29E500860852 /* Frameworks */,
 				4D0F9D2F1E6F29E500860852 /* Headers */,
 				4D0F9D301E6F29E500860852 /* Resources */,
+				426AF3ADFFAEA9075DB541AC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1627,6 +1629,7 @@
 				4D0F9D8D1E6F2F4D00860852 /* Frameworks */,
 				4D0F9D8E1E6F2F4D00860852 /* Headers */,
 				4D0F9D8F1E6F2F4D00860852 /* Resources */,
+				2254BAD7556F8D2374EF7D99 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1645,6 +1648,7 @@
 				4D2543A91DACFBFE00149533 /* Sources */,
 				4D2543AA1DACFBFE00149533 /* Frameworks */,
 				4D2543AB1DACFBFE00149533 /* Resources */,
+				EB2E53CEBB7A02AEBE8018D1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1666,6 +1670,7 @@
 				4D689A151DD88E17001D1318 /* Resources */,
 				4D0F9D9D1E6F2F4D00860852 /* Embed Frameworks */,
 				F5A74390D0EB973963758D5D /* [CP] Embed Pods Frameworks */,
+				5C4A797ECD01BB92B97967F5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1949,6 +1954,51 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2254BAD7556F8D2374EF7D99 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornKit iOS/Pods-PopcornKit iOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		426AF3ADFFAEA9075DB541AC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornKit tvOS/Pods-PopcornKit tvOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5C4A797ECD01BB92B97967F5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		79657A40F98E3CE019188987 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2085,6 +2135,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimetvOS/Pods-PopcornTimetvOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EB2B352DCFDF5FA4FF989A65 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimetvOS/Pods-PopcornTimetvOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EB2E53CEBB7A02AEBE8018D1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TopShelf/Pods-TopShelf-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F5A74390D0EB973963758D5D /* [CP] Embed Pods Frameworks */ = {
