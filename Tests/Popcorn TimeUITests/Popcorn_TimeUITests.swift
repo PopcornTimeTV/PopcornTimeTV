@@ -1,10 +1,4 @@
-//
-//  Popcorn_TimeUITests.swift
-//  Popcorn TimeUITests
-//
-//  Created by Aggelos Papageorgiou on 23/03/2018.
-//  Copyright © 2018 PopcornTime. All rights reserved.
-//
+
 
 import XCTest
 
