@@ -350,6 +350,10 @@
 		D903FA102030CB1400180DBD /* PCTPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903FA0F2030CB1400180DBD /* PCTPlayerViewController.swift */; };
 		D903FA112030CB1400180DBD /* PCTPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903FA0F2030CB1400180DBD /* PCTPlayerViewController.swift */; };
 		D903FA122030D06000180DBD /* iOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCEF21E6815450066F1A7 /* iOS.storyboard */; };
+		D918FA1D20D309E500590190 /* MPAVLightweightRoutingController.h in Headers */ = {isa = PBXBuildFile; fileRef = D918FA1C20D309E400590190 /* MPAVLightweightRoutingController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D918FA1E20D309E500590190 /* MPAVLightweightRoutingController.h in Headers */ = {isa = PBXBuildFile; fileRef = D918FA1C20D309E400590190 /* MPAVLightweightRoutingController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D918FA2020D30AC300590190 /* MPAVLightweightRoutingControllerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = D918FA1F20D30AC300590190 /* MPAVLightweightRoutingControllerDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D918FA2120D30AC300590190 /* MPAVLightweightRoutingControllerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = D918FA1F20D30AC300590190 /* MPAVLightweightRoutingControllerDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D946964720476B7200B4A63B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D946964920476B7200B4A63B /* Localizable.strings */; };
 		D95647DE206D8B810027E615 /* SubtitleHashGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AAC99206C2F3C003DA002 /* SubtitleHashGenerator.swift */; };
 		D95647DF206D8B820027E615 /* SubtitleHashGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AAC99206C2F3C003DA002 /* SubtitleHashGenerator.swift */; };
@@ -745,6 +749,8 @@
 		C3DB4532FA5814CCF3582292 /* Pods_PopcornTimeiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopcornTimeiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D02ADE0EA5D9764BEB9EF588 /* Pods-PopcornKit iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornKit iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornKit iOS/Pods-PopcornKit iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		D903FA0F2030CB1400180DBD /* PCTPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PCTPlayerViewController.swift; path = "View Controllers/PCTPlayerViewController.swift"; sourceTree = "<group>"; };
+		D918FA1C20D309E400590190 /* MPAVLightweightRoutingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPAVLightweightRoutingController.h; path = PopcornKit/Resources/MPAVLightweightRoutingController.h; sourceTree = SOURCE_ROOT; };
+		D918FA1F20D30AC300590190 /* MPAVLightweightRoutingControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPAVLightweightRoutingControllerDelegate.h; path = PopcornKit/Resources/MPAVLightweightRoutingControllerDelegate.h; sourceTree = SOURCE_ROOT; };
 		D91AAC99206C2F3C003DA002 /* SubtitleHashGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubtitleHashGenerator.swift; path = ../../PopcornKit/Resources/SubtitleHashGenerator.swift; sourceTree = "<group>"; };
 		D946964320476B7100B4A63B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/iOSPlist.strings; sourceTree = "<group>"; };
 		D946964420476B7200B4A63B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/TraktAuthenticationViewController.strings; sourceTree = "<group>"; };
@@ -1065,6 +1071,8 @@
 				4D0F9D691E6F2D7600860852 /* MPAVRoute.h */,
 				4D0F9D6A1E6F2D7600860852 /* MPAVRoutingController.h */,
 				4D0F9D6B1E6F2D7600860852 /* MPAVRoutingControllerDelegate.h */,
+				D918FA1C20D309E400590190 /* MPAVLightweightRoutingController.h */,
+				D918FA1F20D30AC300590190 /* MPAVLightweightRoutingControllerDelegate.h */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1553,6 +1561,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D918FA1D20D309E500590190 /* MPAVLightweightRoutingController.h in Headers */,
+				D918FA2020D30AC300590190 /* MPAVLightweightRoutingControllerDelegate.h in Headers */,
 				4D0F9D6F1E6F2D7600860852 /* MPAVRoute.h in Headers */,
 				4D0F9D701E6F2D7600860852 /* MPAVRoutingController.h in Headers */,
 				4D0F9D6E1E6F2D7600860852 /* MPAudioDeviceController.h in Headers */,
@@ -1565,6 +1575,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D918FA1E20D309E500590190 /* MPAVLightweightRoutingController.h in Headers */,
+				D918FA2120D30AC300590190 /* MPAVLightweightRoutingControllerDelegate.h in Headers */,
 				4D0F9DA91E6F300C00860852 /* MPAVRoutingControllerDelegate.h in Headers */,
 				4D0F9DA71E6F300C00860852 /* MPAVRoute.h in Headers */,
 				4D0F9DA81E6F300C00860852 /* MPAVRoutingController.h in Headers */,
@@ -1780,12 +1792,12 @@
 					};
 					4D0F9D311E6F29E500860852 = {
 						CreatedOnToolsVersion = 8.2.1;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 0940;
 						ProvisioningStyle = Automatic;
 					};
 					4D0F9D901E6F2F4D00860852 = {
 						CreatedOnToolsVersion = 8.2.1;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 0940;
 						ProvisioningStyle = Automatic;
 					};
 					4D2543AC1DACFBFE00149533 = {
@@ -1800,7 +1812,6 @@
 					};
 					4D689A161DD88E17001D1318 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = LSMKHW6LLV;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -3008,6 +3019,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -3033,6 +3045,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3047,6 +3060,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -3139,7 +3153,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = LSMKHW6LLV;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -3148,7 +3162,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting Files/iOS.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime81.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.ios;
 				PRODUCT_NAME = PopcornTime;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -3172,12 +3186,12 @@
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEVELOPMENT_TEAM = LSMKHW6LLV;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting Files/iOS.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime81.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.ios;
 				PRODUCT_NAME = PopcornTime;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;

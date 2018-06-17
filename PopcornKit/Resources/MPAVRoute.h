@@ -29,7 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// If the route has an option to mirror the devices display to it, a corresponding route will be returned, otherwise `nil`.
 @property (nonatomic, readonly, nullable) MPAVRoute *wirelessDisplayRoute;
 
-
+/// If the route supports to be used for a wireless display
+@property(readonly, nonatomic) BOOL supportsWirelessDisplay;
 
 /// If the `wirelessDisplayRoute` is selected.
 @property (nonatomic, readonly) BOOL displayIsPicked;
