@@ -351,7 +351,6 @@
 		D903FA112030CB1400180DBD /* PCTPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903FA0F2030CB1400180DBD /* PCTPlayerViewController.swift */; };
 		D903FA122030D06000180DBD /* iOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCEF21E6815450066F1A7 /* iOS.storyboard */; };
 		D90FB5FD20D670B200CD141F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D90FB5FC20D670B200CD141F /* MediaPlayer.framework */; };
-		D90FB5FF20D671F600CD141F /* MPAVLightweightRoutingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90FB5FE20D671F600CD141F /* MPAVLightweightRoutingController.swift */; };
 		D946964720476B7200B4A63B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D946964920476B7200B4A63B /* Localizable.strings */; };
 		D95647DE206D8B810027E615 /* SubtitleHashGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AAC99206C2F3C003DA002 /* SubtitleHashGenerator.swift */; };
 		D95647DF206D8B820027E615 /* SubtitleHashGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AAC99206C2F3C003DA002 /* SubtitleHashGenerator.swift */; };
@@ -748,7 +747,6 @@
 		D02ADE0EA5D9764BEB9EF588 /* Pods-PopcornKit iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornKit iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornKit iOS/Pods-PopcornKit iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		D903FA0F2030CB1400180DBD /* PCTPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PCTPlayerViewController.swift; path = "View Controllers/PCTPlayerViewController.swift"; sourceTree = "<group>"; };
 		D90FB5FC20D670B200CD141F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
-		D90FB5FE20D671F600CD141F /* MPAVLightweightRoutingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPAVLightweightRoutingController.swift; sourceTree = "<group>"; };
 		D91AAC99206C2F3C003DA002 /* SubtitleHashGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubtitleHashGenerator.swift; path = ../../PopcornKit/Resources/SubtitleHashGenerator.swift; sourceTree = "<group>"; };
 		D946964320476B7100B4A63B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/iOSPlist.strings; sourceTree = "<group>"; };
 		D946964420476B7200B4A63B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/TraktAuthenticationViewController.strings; sourceTree = "<group>"; };
@@ -1246,7 +1244,6 @@
 				4D07E17B1E8C364F00457FCB /* Object.swift */,
 				4DC2D1361E5B25750019DB7D /* AutoPlayStoryboardSegue.swift */,
 				4DE6FDF41F0BD3B000A7F274 /* DummyStoryboardSegue.swift */,
-				D90FB5FE20D671F600CD141F /* MPAVLightweightRoutingController.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2460,7 +2457,6 @@
 				4D689A2E1DD88F12001D1318 /* Locale+Langs.swift in Sources */,
 				4D2996601EE35C4500737894 /* UIDownloadProgressView.swift in Sources */,
 				4D0F9E101E7057F100860852 /* PersonViewController.swift in Sources */,
-				D90FB5FF20D671F600CD141F /* MPAVLightweightRoutingController.swift in Sources */,
 				4D0F9E0F1E7057F100860852 /* SearchViewController.swift in Sources */,
 				4DA42DD31DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */,
 				4D3A401F1EBDEAD1006E7F23 /* URL+MIME.swift in Sources */,
