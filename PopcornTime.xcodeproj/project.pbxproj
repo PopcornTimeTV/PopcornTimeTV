@@ -350,10 +350,8 @@
 		D903FA102030CB1400180DBD /* PCTPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903FA0F2030CB1400180DBD /* PCTPlayerViewController.swift */; };
 		D903FA112030CB1400180DBD /* PCTPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903FA0F2030CB1400180DBD /* PCTPlayerViewController.swift */; };
 		D903FA122030D06000180DBD /* iOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCEF21E6815450066F1A7 /* iOS.storyboard */; };
-		D918FA1D20D309E500590190 /* MPAVLightweightRoutingController.h in Headers */ = {isa = PBXBuildFile; fileRef = D918FA1C20D309E400590190 /* MPAVLightweightRoutingController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D918FA1E20D309E500590190 /* MPAVLightweightRoutingController.h in Headers */ = {isa = PBXBuildFile; fileRef = D918FA1C20D309E400590190 /* MPAVLightweightRoutingController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D918FA2020D30AC300590190 /* MPAVLightweightRoutingControllerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = D918FA1F20D30AC300590190 /* MPAVLightweightRoutingControllerDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D918FA2120D30AC300590190 /* MPAVLightweightRoutingControllerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = D918FA1F20D30AC300590190 /* MPAVLightweightRoutingControllerDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D90FB5FD20D670B200CD141F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D90FB5FC20D670B200CD141F /* MediaPlayer.framework */; };
+		D90FB5FF20D671F600CD141F /* MPAVLightweightRoutingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90FB5FE20D671F600CD141F /* MPAVLightweightRoutingController.swift */; };
 		D946964720476B7200B4A63B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D946964920476B7200B4A63B /* Localizable.strings */; };
 		D95647DE206D8B810027E615 /* SubtitleHashGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AAC99206C2F3C003DA002 /* SubtitleHashGenerator.swift */; };
 		D95647DF206D8B820027E615 /* SubtitleHashGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AAC99206C2F3C003DA002 /* SubtitleHashGenerator.swift */; };
@@ -749,8 +747,8 @@
 		C3DB4532FA5814CCF3582292 /* Pods_PopcornTimeiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopcornTimeiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D02ADE0EA5D9764BEB9EF588 /* Pods-PopcornKit iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornKit iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopcornKit iOS/Pods-PopcornKit iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		D903FA0F2030CB1400180DBD /* PCTPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PCTPlayerViewController.swift; path = "View Controllers/PCTPlayerViewController.swift"; sourceTree = "<group>"; };
-		D918FA1C20D309E400590190 /* MPAVLightweightRoutingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPAVLightweightRoutingController.h; path = PopcornKit/Resources/MPAVLightweightRoutingController.h; sourceTree = SOURCE_ROOT; };
-		D918FA1F20D30AC300590190 /* MPAVLightweightRoutingControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPAVLightweightRoutingControllerDelegate.h; path = PopcornKit/Resources/MPAVLightweightRoutingControllerDelegate.h; sourceTree = SOURCE_ROOT; };
+		D90FB5FC20D670B200CD141F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
+		D90FB5FE20D671F600CD141F /* MPAVLightweightRoutingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPAVLightweightRoutingController.swift; sourceTree = "<group>"; };
 		D91AAC99206C2F3C003DA002 /* SubtitleHashGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubtitleHashGenerator.swift; path = ../../PopcornKit/Resources/SubtitleHashGenerator.swift; sourceTree = "<group>"; };
 		D946964320476B7100B4A63B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/iOSPlist.strings; sourceTree = "<group>"; };
 		D946964420476B7200B4A63B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/TraktAuthenticationViewController.strings; sourceTree = "<group>"; };
@@ -817,6 +815,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D90FB5FD20D670B200CD141F /* MediaPlayer.framework in Frameworks */,
 				0620CD649E90156C0BEB6C23 /* Pods_PopcornKit_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1071,8 +1070,6 @@
 				4D0F9D691E6F2D7600860852 /* MPAVRoute.h */,
 				4D0F9D6A1E6F2D7600860852 /* MPAVRoutingController.h */,
 				4D0F9D6B1E6F2D7600860852 /* MPAVRoutingControllerDelegate.h */,
-				D918FA1C20D309E400590190 /* MPAVLightweightRoutingController.h */,
-				D918FA1F20D30AC300590190 /* MPAVLightweightRoutingControllerDelegate.h */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1249,6 +1246,7 @@
 				4D07E17B1E8C364F00457FCB /* Object.swift */,
 				4DC2D1361E5B25750019DB7D /* AutoPlayStoryboardSegue.swift */,
 				4DE6FDF41F0BD3B000A7F274 /* DummyStoryboardSegue.swift */,
+				D90FB5FE20D671F600CD141F /* MPAVLightweightRoutingController.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1541,6 +1539,7 @@
 		F1EDDAB5F2E1772C41C22B7A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D90FB5FC20D670B200CD141F /* MediaPlayer.framework */,
 				4DF3942C1E96B10500DFCEC6 /* AVKit.framework */,
 				4D9CED381DD278F1005ABC0A /* libiconv.tbd */,
 				4D9CED361DD278BD005ABC0A /* libc++.tbd */,
@@ -1561,8 +1560,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D918FA1D20D309E500590190 /* MPAVLightweightRoutingController.h in Headers */,
-				D918FA2020D30AC300590190 /* MPAVLightweightRoutingControllerDelegate.h in Headers */,
 				4D0F9D6F1E6F2D7600860852 /* MPAVRoute.h in Headers */,
 				4D0F9D701E6F2D7600860852 /* MPAVRoutingController.h in Headers */,
 				4D0F9D6E1E6F2D7600860852 /* MPAudioDeviceController.h in Headers */,
@@ -1575,8 +1572,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D918FA1E20D309E500590190 /* MPAVLightweightRoutingController.h in Headers */,
-				D918FA2120D30AC300590190 /* MPAVLightweightRoutingControllerDelegate.h in Headers */,
 				4D0F9DA91E6F300C00860852 /* MPAVRoutingControllerDelegate.h in Headers */,
 				4D0F9DA71E6F300C00860852 /* MPAVRoute.h in Headers */,
 				4D0F9DA81E6F300C00860852 /* MPAVRoutingController.h in Headers */,
@@ -2465,6 +2460,7 @@
 				4D689A2E1DD88F12001D1318 /* Locale+Langs.swift in Sources */,
 				4D2996601EE35C4500737894 /* UIDownloadProgressView.swift in Sources */,
 				4D0F9E101E7057F100860852 /* PersonViewController.swift in Sources */,
+				D90FB5FF20D671F600CD141F /* MPAVLightweightRoutingController.swift in Sources */,
 				4D0F9E0F1E7057F100860852 /* SearchViewController.swift in Sources */,
 				4DA42DD31DD8EF7A00933A10 /* Dictionary+Extension.swift in Sources */,
 				4D3A401F1EBDEAD1006E7F23 /* URL+MIME.swift in Sources */,
