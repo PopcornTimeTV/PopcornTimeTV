@@ -351,6 +351,8 @@
 		D903FA112030CB1400180DBD /* PCTPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903FA0F2030CB1400180DBD /* PCTPlayerViewController.swift */; };
 		D903FA122030D06000180DBD /* iOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCEF21E6815450066F1A7 /* iOS.storyboard */; };
 		D90FB5FD20D670B200CD141F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D90FB5FC20D670B200CD141F /* MediaPlayer.framework */; };
+		D92610A020F4B13A00BA8C44 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D926109E20F4B13A00BA8C44 /* InfoPlist.strings */; };
+		D92610A320F4B13A00BA8C44 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D92610A120F4B13A00BA8C44 /* InfoPlist.strings */; };
 		D946964720476B7200B4A63B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D946964920476B7200B4A63B /* Localizable.strings */; };
 		D95647DE206D8B810027E615 /* SubtitleHashGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AAC99206C2F3C003DA002 /* SubtitleHashGenerator.swift */; };
 		D95647DF206D8B820027E615 /* SubtitleHashGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AAC99206C2F3C003DA002 /* SubtitleHashGenerator.swift */; };
@@ -748,6 +750,9 @@
 		D903FA0F2030CB1400180DBD /* PCTPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PCTPlayerViewController.swift; path = "View Controllers/PCTPlayerViewController.swift"; sourceTree = "<group>"; };
 		D90FB5FC20D670B200CD141F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		D91AAC99206C2F3C003DA002 /* SubtitleHashGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubtitleHashGenerator.swift; path = ../../PopcornKit/Resources/SubtitleHashGenerator.swift; sourceTree = "<group>"; };
+		D926109D20F4B13A00BA8C44 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D926109F20F4B13A00BA8C44 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D92610A220F4B13A00BA8C44 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D946964320476B7100B4A63B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/iOSPlist.strings; sourceTree = "<group>"; };
 		D946964420476B7200B4A63B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/TraktAuthenticationViewController.strings; sourceTree = "<group>"; };
 		D946964820476B7200B4A63B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -935,6 +940,7 @@
 				4D32EBD51EA2D0F500B4361A /* iOSPlist.strings */,
 				287B85401C9873A200EEF5C8 /* iOS.plist */,
 				4DBCCEE31E6811300066F1A7 /* tvOS.plist */,
+				D92610A120F4B13A00BA8C44 /* InfoPlist.strings */,
 				4DC870B51D9EDE58005455B0 /* PopcornTime.entitlements */,
 				4DA42DC41DD8C6D900933A10 /* PopcornTimeiOS-Bridging-Header.h */,
 				4D990E281DC4F00F005CDE34 /* PopcornTimetvOS-Bridging-Header.h */,
@@ -1052,6 +1058,7 @@
 				4D32EBE71EA2D0F900B4361A /* tvOSPlist.strings */,
 				4D14402D1E9C1B8000B78269 /* iOS.plist */,
 				4D14402E1E9C1B8000B78269 /* tvOS.plist */,
+				D926109E20F4B13A00BA8C44 /* InfoPlist.strings */,
 				4D0F9D5F1E6F2CA100860852 /* PopcornKit.h */,
 				4D0F9D601E6F2CA100860852 /* PopcornKit.modulemap */,
 			);
@@ -1844,6 +1851,7 @@
 			knownRegions = (
 				Base,
 				en,
+				es,
 			);
 			mainGroup = 287B852B1C9873A200EEF5C8;
 			productRefGroup = 287B85351C9873A200EEF5C8 /* Products */;
@@ -1887,6 +1895,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D1440211E9AF3D200B78269 /* TraktAuthenticationViewController.xib in Resources */,
+				D92610A020F4B13A00BA8C44 /* InfoPlist.strings in Resources */,
 				D9955D632061220800A2B499 /* Localizable.strings in Resources */,
 				4D32EBE51EA2D0F900B4361A /* tvOSPlist.strings in Resources */,
 			);
@@ -1914,6 +1923,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DC2D1331E59FE290019DB7D /* ContinueWatchingCollectionViewCell.xib in Resources */,
+				D92610A320F4B13A00BA8C44 /* InfoPlist.strings in Resources */,
 				4D689A361DD8906F001D1318 /* Images.xcassets in Resources */,
 				4D0F9E321E7059C000860852 /* ContinueWatchingCollectionReusableView.xib in Resources */,
 				4D859B771DDFA12C000E2AA1 /* ErrorBackgroundView.xib in Resources */,
@@ -2780,6 +2790,24 @@
 			name = tvOS.storyboard;
 			sourceTree = "<group>";
 		};
+		D926109E20F4B13A00BA8C44 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D926109F20F4B13A00BA8C44 /* es */,
+			);
+			name = InfoPlist.strings;
+			path = "../../PopcornKit/Supporting Files";
+			sourceTree = "<group>";
+		};
+		D92610A120F4B13A00BA8C44 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D92610A220F4B13A00BA8C44 /* es */,
+			);
+			name = InfoPlist.strings;
+			path = "../Supporting Files";
+			sourceTree = "<group>";
+		};
 		D946964920476B7200B4A63B /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2793,6 +2821,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				D9955D642061220800A2B499 /* nl-NL */,
+				D926109D20F4B13A00BA8C44 /* es */,
 			);
 			name = Localizable.strings;
 			path = "PopcornKit/Supporting Files";
