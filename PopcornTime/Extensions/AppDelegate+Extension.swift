@@ -110,6 +110,19 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
             }
         }
         
+        let selectTorrent: (Array<String>) -> Int32 = { (torrents) in
+            var selected = -1
+            let torrentSelection = UIAlertController(title: "Select file to play", message: nil, preferredStyle: .actionSheet)
+            for torrent in torrents{
+                torrentSelection.addAction(UIAlertAction(title: torrent, style: .default, handler: { _ in
+                    selected = torrents.distance(from: torrents.startIndex, to: torrents.index(of: torrent)!)
+                }))
+            }
+            loadingViewController.present(torrentSelection, animated: true)
+            while selected == -1{ }
+            return Int32(selected)
+        }
+        
         media.getSubtitles { [unowned self] subtitles in
             guard self.window?.rootViewController?.presentedViewController === loadingViewController else { return } // Make sure the user is still loading.
             
@@ -127,7 +140,7 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
             
             let playViewController = storyboard.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
             playViewController.delegate = self
-            media.play(fromFileOrMagnetLink: torrent.url, nextEpisodeInSeries: nextEpisode, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading)
+            media.play(fromFileOrMagnetLink: torrent.url, nextEpisodeInSeries: nextEpisode, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading, selectingTorrentBlock: media.title == "Unknown" ? selectTorrent : nil)
         }
     }
     
