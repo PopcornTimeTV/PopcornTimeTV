@@ -56,11 +56,24 @@ extension ShowsViewController:UISearchBarDelegate,PCTPlayerViewControllerDelegat
             self.present(playerVc, animated: flag)
         }
         
+        let selectTorrent: (Array<String>) -> Int32 = { (torrents) in
+            var selected = -1
+            let torrentSelection = UIAlertController(title: "Select file to play", message: nil, preferredStyle: .actionSheet)
+            for torrent in torrents{
+                torrentSelection.addAction(UIAlertAction(title: torrent, style: .default, handler: { _ in
+                    selected = torrents.distance(from: torrents.startIndex, to: torrents.index(of: torrent)!)
+                }))
+            }
+            loadingViewController.present(torrentSelection, animated: true)
+            while selected == -1{ }
+            return Int32(selected)
+        }
+        
         //Movie player view controller calls
         
         let playViewController = storyboard.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
         playViewController.delegate = self
-        magnetTorrentMedia.play(fromFileOrMagnetLink: magnetLink, nextEpisodeInSeries: nil, loadingViewController: loadingViewController, playViewController: playViewController, progress: 0, errorBlock: error, finishedLoadingBlock: finishedLoading)
+        magnetTorrentMedia.play(fromFileOrMagnetLink: magnetLink, nextEpisodeInSeries: nil, loadingViewController: loadingViewController, playViewController: playViewController, progress: 0, errorBlock: error, finishedLoadingBlock: finishedLoading, selectingTorrentBlock: selectTorrent)
     }
     
     override func viewDidLoad() {

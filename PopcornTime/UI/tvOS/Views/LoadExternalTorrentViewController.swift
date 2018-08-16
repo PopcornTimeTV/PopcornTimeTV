@@ -50,11 +50,24 @@ class LoadExternalTorrentViewController:UIViewController,GCDWebServerDelegate,PC
                         self.present(playerVc, animated: flag)
                     }
                     
+                    let selectTorrent: (Array<String>) -> Int32 = { (torrents) in
+                        var selected = -1
+                        let torrentSelection = UIAlertController(title: "Select file to play", message: nil, preferredStyle: .actionSheet)
+                        for torrent in torrents{
+                            torrentSelection.addAction(UIAlertAction(title: torrent, style: .default, handler: { _ in
+                                selected = torrents.distance(from: torrents.startIndex, to: torrents.index(of: torrent)!)
+                            }))
+                        }
+                        loadingViewController.present(torrentSelection, animated: true)
+                        while selected == -1{ }
+                        return Int32(selected)
+                    }
+                    
                     //Movie player view controller calls
                     
                     let playViewController = storyboard.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
                     playViewController.delegate = self
-                    magnetTorrentMedia.play(fromFileOrMagnetLink: magnetLink, nextEpisodeInSeries: nil, loadingViewController: loadingViewController, playViewController: playViewController, progress: 0, errorBlock: error, finishedLoadingBlock: finishedLoading)
+                    magnetTorrentMedia.play(fromFileOrMagnetLink: magnetLink, nextEpisodeInSeries: nil, loadingViewController: loadingViewController, playViewController: playViewController, progress: 0, errorBlock: error, finishedLoadingBlock: finishedLoading, selectingTorrentBlock: selectTorrent)
                 }// start to stream the new movie asynchronously as we do not want to mess the web server response
                 return GCDWebServerDataResponse(statusCode:200)
             })//handle the request that returns the magnet link
@@ -62,8 +75,7 @@ class LoadExternalTorrentViewController:UIViewController,GCDWebServerDelegate,PC
         super.viewWillAppear(true)
         webserver?.start(withPort: 54320, bonjourName: "PopcornLoad")
         
-        infoLabel.text = .localizedStringWithFormat("Please navigate to the webpage %@ and insert the magnet link of the torrent you would like to play".localized,
-                                                    webserver?.serverURL.absoluteString ?? "")
+        infoLabel.text = .localizedStringWithFormat("Please navigate to the webpage %@ and insert the magnet link of the torrent you would like to play".localized, webserver?.serverURL.absoluteString ?? "")
     }
     
     @IBAction func exitView(_ sender: Any) {
