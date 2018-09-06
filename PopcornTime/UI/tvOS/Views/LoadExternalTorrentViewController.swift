@@ -67,7 +67,7 @@ class LoadExternalTorrentViewController:UIViewController,GCDWebServerDelegate,PC
                     
                     let playViewController = storyboard.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
                     playViewController.delegate = self
-                    magnetTorrentMedia.play(fromFileOrMagnetLink: magnetLink, nextEpisodeInSeries: nil, loadingViewController: loadingViewController, playViewController: playViewController, progress: 0, errorBlock: error, finishedLoadingBlock: finishedLoading, selectingTorrentBlock: selectTorrent)
+                    magnetTorrentMedia.play(fromFileOrMagnetLink: magnetLink, nextEpisodeInSeries: nil, loadingViewController: loadingViewController, playViewController: playViewController, progress: 0, errorBlock: error, finishedLoadingBlock: finishedLoading)
                 }// start to stream the new movie asynchronously as we do not want to mess the web server response
                 return GCDWebServerDataResponse(statusCode:200)
             })//handle the request that returns the magnet link
