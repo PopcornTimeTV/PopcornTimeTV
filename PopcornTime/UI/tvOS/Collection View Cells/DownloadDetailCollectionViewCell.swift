@@ -15,7 +15,7 @@ class DownloadCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet var pausedImageView: UIImageView!
     
     
-    var downloadState: DownloadButton.State = .normal {
+    var downloadState: DownloadButton.Status = .normal {
         didSet {
             guard downloadState != oldValue else { return }
             
@@ -63,7 +63,7 @@ extension DownloadCollectionViewCell: CellCustomizing {
         guard let download = item as? PTTorrentDownload else { print(">>> initializing cell with invalid item"); return }
 
         self.progress = download.torrentStatus.totalProgress
-        self.downloadState = DownloadButton.State(download.downloadStatus)
+        self.downloadState = DownloadButton.Status(download.downloadStatus)
 
         if let image = download.mediaMetadata[MPMediaItemPropertyArtwork] as? String, let url = URL(string: image) {
             self.imageView?.af_setImage(withURL: url)
