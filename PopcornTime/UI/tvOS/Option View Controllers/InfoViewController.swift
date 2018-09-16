@@ -38,7 +38,9 @@ class InfoViewController: UIViewController, UIViewControllerTransitioningDelegat
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        parent?.view.layoutGuides.forEach({$0.owningView?.removeLayoutGuide($0)})
+        if (parent?.view.layoutGuides.contains(topGuide))! {
+            parent?.view.removeLayoutGuide(topGuide)
+        }
         parent?.view.addLayoutGuide(topGuide)
         
         topGuide.topAnchor.constraint(equalTo: tabBar.bottomAnchor).isActive = true

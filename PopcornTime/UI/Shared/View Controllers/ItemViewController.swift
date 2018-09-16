@@ -150,19 +150,15 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
             let player = AVPlayer(url: url)
             
             #if os(tvOS)
-            
-                //let title = AVMetadataItem(key: AVMetadataKey.commonKeyArtwork as NSString, value: self.media.title as NSString)
-                //let summary = AVMetadataItem(key: AVMetadataKey.commonKeyDescription as NSString, value: self.media.summary as NSString)
-            
-                let titleItem = self.makeMetadataItem(AVMetadataKey.commonKeyArtwork.rawValue, value: self.media.title)
-                let summaryItem = self.makeMetadataItem(AVMetadataKey.commonKeyDescription.rawValue, value: self.media.summary)
+
+                let titleItem = self.makeMetadataItem(AVMetadataKey.commonKeyTitle, value: self.media.title)
+                let summaryItem = self.makeMetadataItem(AVMetadataKey.commonKeyDescription, value: self.media.summary)
                 player.currentItem?.externalMetadata = [titleItem, summaryItem]
                 
                 if let string = self.media.mediumCoverImage,
                     let url = URL(string: string),
                     let data = try? Data(contentsOf: url) {
-                    let imageItem = self.makeMetadataItem(AVMetadataKey.commonKeyArtwork.rawValue, value: data)
-                    //let image = AVMetadataItem(key: AVMetadataKey.commonKeyArtwork as NSString, value: data as NSData)
+                    let imageItem = self.makeMetadataItem(AVMetadataKey.commonKeyArtwork, value: data)
                     player.currentItem?.externalMetadata.append(imageItem)
                 }
                 
@@ -220,12 +216,21 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
     }
     
     // MARK: - Metadata Helper
-    private func makeMetadataItem(_ identifier: String,
+    private func makeMetadataItem(_ identifier: AVMetadataKey,
                                   value: Any) -> AVMetadataItem {
         let item = AVMutableMetadataItem()
-        item.identifier = AVMetadataIdentifier(rawValue: identifier)
+        switch identifier {
+            case AVMetadataKey.commonKeyTitle:
+                item.identifier = AVMetadataIdentifier.commonIdentifierTitle
+            case AVMetadataKey.commonKeyArtwork:
+                item.identifier = AVMetadataIdentifier.commonIdentifierArtwork
+            case AVMetadataKey.commonKeyDescription:
+                item.identifier = AVMetadataIdentifier.commonIdentifierDescription
+            default:
+                item.identifier = nil
+        }
         item.value = value as? NSCopying & NSObjectProtocol
-        item.extendedLanguageTag = "und"
+        item.extendedLanguageTag = "and"
         return item.copy() as! AVMetadataItem
     }
 }
