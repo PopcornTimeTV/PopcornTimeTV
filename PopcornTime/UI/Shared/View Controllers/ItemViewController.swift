@@ -151,15 +151,23 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
             
             #if os(tvOS)
             
-                let title = AVMetadataItem(key: AVMetadataKey.commonKeyArtwork as NSString, value: self.media.title as NSString)
-                let summary = AVMetadataItem(key: AVMetadataKey.commonKeyDescription as NSString, value: self.media.summary as NSString)
-                
+                let title = AVMutableMetadataItem()
+                title.key = AVMetadataKey.commonKeyArtwork as NSString
+                title.value = self.media.title as NSString
+            
+                let summary = AVMutableMetadataItem()
+                summary.key = AVMetadataKey.commonKeyDescription as NSString
+                summary.value = self.media.summary as NSString
+            
                 player.currentItem?.externalMetadata = [title, summary]
                 
                 if let string = self.media.mediumCoverImage,
                     let url = URL(string: string),
                     let data = try? Data(contentsOf: url) {
-                    let image = AVMetadataItem(key: AVMetadataKey.commonKeyArtwork as NSString, value: data as NSData)
+                    let image = AVMutableMetadataItem()
+                    image.key = AVMetadataKey.commonKeyArtwork as NSString
+                    image.value = data as NSData
+                    
                     player.currentItem?.externalMetadata.append(image)
                 }
                 
