@@ -204,7 +204,7 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
     
     func downloadStatusDidChange(_ downloadStatus: PTTorrentDownloadStatus, for download: PTTorrentDownload) {
         guard download == media.associatedDownload else { return }
-        downloadButton.downloadState = DownloadButton.State(downloadStatus)
+        downloadButton.downloadState = DownloadButton.ButtonState(downloadStatus)
     }
     
     func downloadDidFail(_ download: PTTorrentDownload, withError error: Error) {

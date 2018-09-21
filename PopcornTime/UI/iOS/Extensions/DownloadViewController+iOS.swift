@@ -101,7 +101,7 @@ extension DownloadViewController: DownloadDetailTableViewCellDelegate {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "downloadDetailCell") as! DownloadDetailTableViewCell
                 cell.delegate = self
                 cell.downloadButton.progress = download.torrentStatus.totalProgress
-                cell.downloadButton.downloadState = DownloadButton.State(download.downloadStatus)
+                cell.downloadButton.downloadState = DownloadButton.ButtonState(download.downloadStatus)
                 cell.downloadButton.invalidateAppearance()
                 return cell
             }()

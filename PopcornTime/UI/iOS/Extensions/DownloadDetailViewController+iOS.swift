@@ -27,7 +27,7 @@ extension DownloadDetailViewController: DownloadDetailTableViewCellDelegate {
         let download = dataSource(for: seasons[indexPath.section])[indexPath.row]
         
         cell.delegate = self
-        cell.downloadButton.downloadState = DownloadButton.State(download.downloadStatus)
+        cell.downloadButton.downloadState = DownloadButton.ButtonState(download.downloadStatus)
         cell.downloadButton.invalidateAppearance()
         
         let episodeNumber = NumberFormatter.localizedString(from: NSNumber(value: download.mediaMetadata[MPMediaItemPropertyEpisode] as? Int ?? 0), number: .none)

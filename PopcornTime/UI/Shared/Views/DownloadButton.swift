@@ -11,7 +11,7 @@ import enum PopcornTorrent.PTTorrentDownloadStatus
     
 class DownloadButton: UIDownloadButton, UIGestureRecognizerDelegate {
     
-    enum State {
+    enum ButtonState {
         case downloading
         case paused
         case pending
@@ -34,7 +34,7 @@ class DownloadButton: UIDownloadButton, UIGestureRecognizerDelegate {
         }
     }
     
-    var downloadState: State = .normal {
+    var downloadState: ButtonState = .normal {
         didSet {
             guard downloadState != oldValue else { return }
             
