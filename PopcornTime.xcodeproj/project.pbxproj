@@ -1598,7 +1598,6 @@
 				0026821D1CD0B76300F51D31 /* Embed App Extensions */,
 				92CF49871CE668A100D666A8 /* Embed Frameworks */,
 				C6EBA42C93D7E41E8A1F4431 /* [CP] Embed Pods Frameworks */,
-				EB2B352DCFDF5FA4FF989A65 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1620,7 +1619,6 @@
 				4D0F9D2E1E6F29E500860852 /* Frameworks */,
 				4D0F9D2F1E6F29E500860852 /* Headers */,
 				4D0F9D301E6F29E500860852 /* Resources */,
-				426AF3ADFFAEA9075DB541AC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1640,7 +1638,6 @@
 				4D0F9D8D1E6F2F4D00860852 /* Frameworks */,
 				4D0F9D8E1E6F2F4D00860852 /* Headers */,
 				4D0F9D8F1E6F2F4D00860852 /* Resources */,
-				2254BAD7556F8D2374EF7D99 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1659,7 +1656,6 @@
 				4D2543A91DACFBFE00149533 /* Sources */,
 				4D2543AA1DACFBFE00149533 /* Frameworks */,
 				4D2543AB1DACFBFE00149533 /* Resources */,
-				EB2E53CEBB7A02AEBE8018D1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1681,7 +1677,6 @@
 				4D689A151DD88E17001D1318 /* Resources */,
 				4D0F9D9D1E6F2F4D00860852 /* Embed Frameworks */,
 				F5A74390D0EB973963758D5D /* [CP] Embed Pods Frameworks */,
-				5C4A797ECD01BB92B97967F5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1773,11 +1768,12 @@
 			attributes = {
 				CLASSPREFIX = PCT;
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = PopcornTime;
 				TargetAttributes = {
 					287B85331C9873A200EEF5C8 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 9UKYMVL752;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1791,16 +1787,19 @@
 					};
 					4D0F9D311E6F29E500860852 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 9UKYMVL752;
 						LastSwiftMigration = 0940;
 						ProvisioningStyle = Automatic;
 					};
 					4D0F9D901E6F2F4D00860852 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 9UKYMVL752;
 						LastSwiftMigration = 0940;
 						ProvisioningStyle = Automatic;
 					};
 					4D2543AC1DACFBFE00149533 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 9UKYMVL752;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1811,6 +1810,7 @@
 					};
 					4D689A161DD88E17001D1318 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 9UKYMVL752;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1824,21 +1824,25 @@
 					};
 					D9CC9C882064FE38006C1274 = {
 						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = 9UKYMVL752;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 287B85331C9873A200EEF5C8;
 					};
 					D9CC9C962064FE64006C1274 = {
 						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = 9UKYMVL752;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 4D689A161DD88E17001D1318;
 					};
 					D9CC9CA42064FE81006C1274 = {
 						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = 9UKYMVL752;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 4D689A161DD88E17001D1318;
 					};
 					D9CC9CB22064FE92006C1274 = {
 						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = 9UKYMVL752;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 287B85331C9873A200EEF5C8;
 					};
@@ -1968,51 +1972,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2254BAD7556F8D2374EF7D99 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornKit iOS/Pods-PopcornKit iOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		426AF3ADFFAEA9075DB541AC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornKit tvOS/Pods-PopcornKit tvOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5C4A797ECD01BB92B97967F5 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		79657A40F98E3CE019188987 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2149,36 +2108,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimetvOS/Pods-PopcornTimetvOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EB2B352DCFDF5FA4FF989A65 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimetvOS/Pods-PopcornTimetvOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EB2E53CEBB7A02AEBE8018D1 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TopShelf/Pods-TopShelf-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F5A74390D0EB973963758D5D /* [CP] Embed Pods Frameworks */ = {
@@ -2838,14 +2767,22 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -2880,14 +2817,22 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -2923,7 +2868,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting Files/tvOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.tvos;
@@ -2947,7 +2892,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
 				CODE_SIGN_IDENTITY = "";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting Files/tvOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.tvos;
@@ -2970,12 +2915,12 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3014,7 +2959,7 @@
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3047,7 +2992,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3087,7 +3032,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3119,7 +3064,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = TopShelf/TopShelf.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -3148,7 +3093,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = TopShelf/TopShelf.entitlements;
 				CODE_SIGN_IDENTITY = "";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = TopShelf/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -3174,7 +3119,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -3207,7 +3152,7 @@
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting Files/iOS.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3242,6 +3187,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -3277,6 +3223,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "Popcorn TimeUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -3308,6 +3255,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -3345,6 +3293,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "Popcorn TimeiOSUITests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
@@ -3378,6 +3327,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -3416,6 +3366,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "Popcorn TimeiOSTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
@@ -3448,6 +3399,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -3484,6 +3436,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 9UKYMVL752;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "Popcorn TimetvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
