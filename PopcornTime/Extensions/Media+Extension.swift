@@ -52,27 +52,14 @@ extension Media {
         
         if url.hasPrefix("magnet") || (url.hasSuffix(".torrent") && !url.hasPrefix("http")) {
             loadingViewController.streamer = .shared()
-            if selectingTorrentBlock != nil {
-                PTTorrentStreamer.shared().startStreaming(fromMultiTorrentFileOrMagnetLink: url, progress: { (status) in
-                    loadingBlock(status, loadingViewController)
-                }, readyToPlay: { (videoFileURL, videoFilePath) in
-                    playBlock(videoFileURL, videoFilePath, self, nextEpisode, progress, playViewController, .shared())
-                    finishedLoadingBlock(loadingViewController, playViewController)
-                }, failure: { error in
-                    errorBlock(error.localizedDescription)
-                }, selectFileToStream: { torrents in
-                    return selectingTorrentBlock!(torrents)
-                })
-            }else{
-                PTTorrentStreamer.shared().startStreaming(fromFileOrMagnetLink: url, progress: { (status) in
-                    loadingBlock(status, loadingViewController)
-                }, readyToPlay: { (videoFileURL, videoFilePath) in
-                    playBlock(videoFileURL, videoFilePath, self, nextEpisode, progress, playViewController, .shared())
-                    finishedLoadingBlock(loadingViewController, playViewController)
-                }, failure: { error in
-                    errorBlock(error.localizedDescription)
-                })
-            }
+            PTTorrentStreamer.shared().startStreaming(fromFileOrMagnetLink: url, progress: { (status) in
+                loadingBlock(status, loadingViewController)
+            }, readyToPlay: { (videoFileURL, videoFilePath) in
+                playBlock(videoFileURL, videoFilePath, self, nextEpisode, progress, playViewController, .shared())
+                finishedLoadingBlock(loadingViewController, playViewController)
+            }, failure: { error in
+                errorBlock(error.localizedDescription)
+            })
         } else {
             PopcornKit.downloadTorrentFile(url, completion: { (url, error) in
                 guard let url = url, error == nil else { errorBlock(error!.localizedDescription); return }
