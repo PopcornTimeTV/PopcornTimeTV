@@ -77,7 +77,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
         
         if let collectionView = collectionView,
             let nib = delegate?.collectionView(nibForHeaderInCollectionView: collectionView) {
-            collectionView.register(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "stickyHeader")
+            collectionView.register(nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "stickyHeader")
         }
     }
     
@@ -155,7 +155,7 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionElementKindSectionHeader {
+        if kind == UICollectionView.elementKindSectionHeader {
             if let title = delegate?.collectionView(collectionView, titleForHeaderInSection: indexPath.section) {
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "sectionHeader", for: indexPath)
                 

@@ -11,7 +11,7 @@ import enum PopcornTorrent.PTTorrentDownloadStatus
     
 class DownloadButton: UIDownloadButton, UIGestureRecognizerDelegate {
     
-    enum State {
+    enum buttonState {
         case downloading
         case paused
         case pending
@@ -34,7 +34,7 @@ class DownloadButton: UIDownloadButton, UIGestureRecognizerDelegate {
         }
     }
     
-    var downloadState: State = .normal {
+    var downloadState: buttonState = .normal {
         didSet {
             guard downloadState != oldValue else { return }
             
@@ -75,7 +75,7 @@ class DownloadButton: UIDownloadButton, UIGestureRecognizerDelegate {
         #endif
         
         let image  = UIImageView(image: UIImage(named: "Download Progress Indeterminate"))
-        let size   = image.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        let size   = image.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         let center = CGPoint(x: bounds.width/2, y: bounds.height/2)
         let origin = CGPoint(x: center.x - size.width/2, y: center.y - size.height/2)
         let frame  = CGRect(origin: origin, size: size)
@@ -115,7 +115,7 @@ class DownloadButton: UIDownloadButton, UIGestureRecognizerDelegate {
         guard downloadState != .normal, let imageView = imageView, UIDevice.current.userInterfaceIdiom != .tv else {
             return super.intrinsicContentSize
         }
-        let size = imageView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        let size = imageView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         let common = Swift.max(size.width, size.height)
         
         return CGSize(width: common, height: common)

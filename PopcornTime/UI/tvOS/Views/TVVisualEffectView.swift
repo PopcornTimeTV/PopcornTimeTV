@@ -41,7 +41,7 @@ import UIKit
     private func sharedSetup(effect: UIBlurEffect, radius: CGFloat = 90) {
         let UICustomBlurEffect = NSClassFromString("_UICustomBlurEffect") as! UIBlurEffect.Type
         let raw = effect.value(forKey: "_style") as! Int
-        let style = UIBlurEffectStyle(rawValue: raw)!
+        let style = UIBlurEffect.Style(rawValue: raw)!
 
         let effect = UICustomBlurEffect.init(style: style)
         effect.setValue(1.0, forKey: "scale")

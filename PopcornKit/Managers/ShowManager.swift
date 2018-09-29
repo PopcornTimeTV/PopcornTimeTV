@@ -5,7 +5,7 @@ import ObjectMapper
 open class ShowManager: NetworkManager {
     
     /// Creates new instance of ShowManager class
-    open static let shared = ShowManager()
+    public static let shared = ShowManager()
     
     /// Possible filters used in API call.
     public enum Filters: String {

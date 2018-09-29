@@ -272,7 +272,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     }
     
     func screenshotAtTime(_ time: NSNumber) -> UIImage? {
-        guard let image = try? imageGenerator.copyCGImage(at: CMTimeMakeWithSeconds(time.doubleValue/1000.0, 1000), actualTime: nil) else { return nil }
+        guard let image = try? imageGenerator.copyCGImage(at: CMTimeMakeWithSeconds(time.doubleValue/1000.0, preferredTimescale: 1000), actualTime: nil) else { return nil }
         return UIImage(cgImage: image)
     }
     
@@ -283,7 +283,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         guard mediaplayer.state == .stopped || mediaplayer.state == .opening else { return }
         if startPosition > 0.0 {
             let isRegular = traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular
-            let style: UIAlertControllerStyle = isRegular ? .alert : .actionSheet
+            let style: UIAlertController.Style = isRegular ? .alert : .actionSheet
             let continueWatchingAlert = UIAlertController(title: nil, message: nil, preferredStyle: style)
             
             #if os(tvOS)
@@ -341,7 +341,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         subtitleSwitcherButtonWidthConstraint?.constant = subtitleSwitcherButton?.isHidden == true ? 0 : 24
         
         if #available(iOS 10.0,tvOS 10.0,*){
-            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback,mode: AVAudioSessionModeMoviePlayback, options: [.allowBluetoothA2DP,.allowAirPlay])
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback,mode: AVAudioSession.Mode(rawValue: convertFromAVAudioSessionMode(AVAudioSession.Mode.moviePlayback)), options: [.allowBluetoothA2DP,.allowAirPlay])
         }
         
         
@@ -578,4 +578,11 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         }
         return false
     }
+}
+
+
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionMode(_ input: AVAudioSession.Mode) -> String {
+	return input.rawValue
 }

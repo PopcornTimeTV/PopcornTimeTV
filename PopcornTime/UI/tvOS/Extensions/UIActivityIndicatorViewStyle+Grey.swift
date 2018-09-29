@@ -2,6 +2,6 @@
 
 import Foundation
 
-extension UIActivityIndicatorViewStyle {
-    static let grey = UIActivityIndicatorViewStyle(rawValue: 2)!
+extension UIActivityIndicatorView.Style {
+    static let grey = UIActivityIndicatorView.Style(rawValue: 2)!
 }

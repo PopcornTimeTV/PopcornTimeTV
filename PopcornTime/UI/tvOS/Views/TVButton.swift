@@ -26,8 +26,8 @@ import Foundation
         }
     }
     
-    private var images: [UIControlState: UIImage?] = [:]
-    private var titles: [UIControlState: String?]  = [:]
+    private var images: [UIControl.State: UIImage?] = [:]
+    private var titles: [UIControl.State: String?]  = [:]
     
     private let pressAnimationDuration = 0.1
     private let shadowRadius: CGFloat = 10
@@ -70,12 +70,12 @@ import Foundation
         titleLabel?.text = titles[state] ?? titles[.normal] ?? nil
     }
     
-    func setImage(_ image: UIImage?, for state: UIControlState) {
+    func setImage(_ image: UIImage?, for state: UIControl.State) {
         images[state] = image
         updateImageView()
     }
     
-    func setTitle(_ title: String?, for state: UIControlState) {
+    func setTitle(_ title: String?, for state: UIControl.State) {
         titles[state] = title
         updateTitleLabel()
     }

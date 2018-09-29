@@ -134,7 +134,7 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
     func downloadStatusDidChange(_ downloadStatus: PTTorrentDownloadStatus, for download: PTTorrentDownload) {
         guard let media = dataSource[safe: focusIndexPath.row],
             download == media.associatedDownload else { return }
-        downloadButton.downloadState = DownloadButton.State(downloadStatus)
+        downloadButton.downloadState = DownloadButton.buttonState(downloadStatus)
     }
     
     func downloadDidFail(_ download: PTTorrentDownload, withError error: Error) {
@@ -235,7 +235,7 @@ class EpisodesViewController: UIViewController, UICollectionViewDataSource, UICo
             focusIndexPath = next
             
             let downloadStatus = episode.associatedDownload?.downloadStatus ?? .failed
-            downloadButton.downloadState = DownloadButton.State(downloadStatus)
+            downloadButton.downloadState = DownloadButton.buttonState(downloadStatus)
             downloadButton.progress = episode.associatedDownload?.torrentStatus.totalProgress ?? 0
             
             episodeSummaryTextView.text = episode.summary

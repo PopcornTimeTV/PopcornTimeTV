@@ -31,9 +31,9 @@ extension UIAlertController {
     
     #endif
     
-    public var blurStyle: UIBlurEffectStyle {
+    public var blurStyle: UIBlurEffect.Style {
         get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.blurStyleKey) as? UIBlurEffectStyle ?? .extraLight
+            return objc_getAssociatedObject(self, &AssociatedKeys.blurStyleKey) as? UIBlurEffect.Style ?? .extraLight
         } set (style) {
             objc_setAssociatedObject(self, &AssociatedKeys.blurStyleKey, style, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
@@ -67,7 +67,7 @@ extension UIAlertController {
         return cancelBackgroundView?.value(forKey: "highlightView") as? UIView
     }
     
-    public convenience init(title: String?, message: String?, preferredStyle: UIAlertControllerStyle, blurStyle: UIBlurEffectStyle) {
+    public convenience init(title: String?, message: String?, preferredStyle: UIAlertController.Style, blurStyle: UIBlurEffect.Style) {
         self.init(title: title, message: message, preferredStyle: preferredStyle)
         self.blurStyle = blurStyle
     }

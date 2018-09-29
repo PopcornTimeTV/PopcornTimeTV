@@ -12,7 +12,7 @@ open class TraktManager: NetworkManager {
     
     
     /// Creates new instance of TraktManager class
-    open static let shared = TraktManager()
+    public static let shared = TraktManager()
     
     /// OAuth state parameter added for extra security against cross site forgery.
     fileprivate var state: String!

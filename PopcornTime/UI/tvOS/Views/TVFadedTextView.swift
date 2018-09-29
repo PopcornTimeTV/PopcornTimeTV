@@ -27,6 +27,6 @@ class TVFadedTextView: UITextView {
         
         isSelectable = true
         isUserInteractionEnabled = true
-        panGestureRecognizer.allowedTouchTypes = [NSNumber(integerLiteral: UITouchType.indirect.rawValue)]
+        panGestureRecognizer.allowedTouchTypes = [NSNumber(integerLiteral: UITouch.TouchType.indirect.rawValue)]
     }
 }

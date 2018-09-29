@@ -94,7 +94,7 @@ class DescriptionCollectionViewController: ResponsiveCollectionViewController, U
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionElementKindSectionHeader, let title = headerTitle {
+        if kind == UICollectionView.elementKindSectionHeader, let title = headerTitle {
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath)
             
             let titleLabel = view.viewWithTag(1) as? UILabel

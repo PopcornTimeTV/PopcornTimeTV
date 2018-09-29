@@ -16,7 +16,7 @@ extension UIImage {
         layer.cornerRadius = cornerRadius
         layer.masksToBounds = true
         
-        layer.contentsGravity = kCAGravityResizeAspectFill
+        layer.contentsGravity = CALayerContentsGravity.resizeAspectFill
         layer.contents = new.cgImage
         layer.render(in: UIGraphicsGetCurrentContext()!)
         
@@ -104,7 +104,7 @@ extension UIImage {
         let out = filter.outputImage!
         let layer = CALayer()
         layer.contents = CIContext().createCGImage(out, from: out.extent)
-        layer.contentsGravity = kCAGravityCenter
+        layer.contentsGravity = CALayerContentsGravity.center
         return layer
     }
     

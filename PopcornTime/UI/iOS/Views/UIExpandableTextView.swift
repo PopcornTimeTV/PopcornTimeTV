@@ -40,17 +40,17 @@ import Foundation
         }
     }
     
-    private var textAttributes: [NSAttributedStringKey : Any] {
+    private var textAttributes: [NSAttributedString.Key : Any] {
         return [
-            NSAttributedStringKey.foregroundColor: textColor!,
-            NSAttributedStringKey.font: font!
+            NSAttributedString.Key.foregroundColor: textColor!,
+            NSAttributedString.Key.font: font!
         ]
     }
     
-    private var trailingTextAttributes: [NSAttributedStringKey : Any] {
+    private var trailingTextAttributes: [NSAttributedString.Key : Any] {
         return [
-            NSAttributedStringKey.foregroundColor: trailingTextColor,
-            NSAttributedStringKey.font: font!
+            NSAttributedString.Key.foregroundColor: trailingTextColor,
+            NSAttributedString.Key.font: font!
         ]
     }
     
@@ -66,7 +66,7 @@ import Foundation
     
     private func sharedSetup() {
         let selectGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(expandView))
-        selectGestureRecognizer.allowedTouchTypes = [NSNumber(value: UITouchType.direct.rawValue)]
+        selectGestureRecognizer.allowedTouchTypes = [NSNumber(value: UITouch.TouchType.direct.rawValue)]
         addGestureRecognizer(selectGestureRecognizer)
     }
     

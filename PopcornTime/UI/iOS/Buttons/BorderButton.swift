@@ -35,7 +35,7 @@ import Foundation
     override var intrinsicContentSize: CGSize {
         guard let label = titleLabel else { return super.intrinsicContentSize }
         
-        let size = label.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        let size = label.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         
         let height = size.height + 10
         let width  = size.width + 15

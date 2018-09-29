@@ -13,7 +13,7 @@ extension PCTPlayerViewController: UIPopoverPresentationControllerDelegate, Goog
         return .lightContent
     }
     
-    override func prefersHomeIndicatorAutoHidden() -> Bool {
+    override var prefersHomeIndicatorAutoHidden: Bool {
         return !shouldHideStatusBar
     }
     

@@ -45,7 +45,7 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
             }
             
             let title = "Trending \(type)s"
-            let item = TVContentItem(contentIdentifier: TVContentIdentifier(identifier: title, container: nil)!)!
+            let item = TVContentItem(contentIdentifier: TVContentIdentifier(identifier: title, container: nil))
             item.title = title
             item.topShelfItems = mediaItems
             
@@ -69,7 +69,7 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
     }
     
     func buildShelfItem(_ title: String, image: String?, action: String) -> TVContentItem {
-        let item = TVContentItem(contentIdentifier: TVContentIdentifier(identifier: title, container: nil)!)!
+        let item = TVContentItem(contentIdentifier: TVContentIdentifier(identifier: title, container: nil))
         if let image = image { item.imageURL = URL(string: image) }
         item.imageShape = .poster
         var components = URLComponents()

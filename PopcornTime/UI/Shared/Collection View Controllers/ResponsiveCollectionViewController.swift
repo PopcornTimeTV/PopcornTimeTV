@@ -9,9 +9,9 @@ class ResponsiveCollectionViewController: UICollectionViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+
         if let collectionView = collectionView, let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            self.collectionView(collectionView, layout: layout, didChangeToSize: collectionView.systemLayoutSizeFitting(UILayoutFittingCompressedSize))
+            self.collectionView(collectionView, layout: layout, didChangeToSize: collectionView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize))
         }
     }
     

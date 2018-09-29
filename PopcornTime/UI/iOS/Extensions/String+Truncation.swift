@@ -7,8 +7,8 @@ extension String {
     func truncateToSize(size: CGSize,
                         ellipsesString: String,
                         trailingText: String,
-                        attributes: [NSAttributedStringKey : Any],
-                        trailingTextAttributes: [NSAttributedStringKey : Any]) -> NSAttributedString {
+                        attributes: [NSAttributedString.Key : Any],
+                        trailingTextAttributes: [NSAttributedString.Key : Any]) -> NSAttributedString {
         
         if !willFit(to: size, attributes: attributes) {
             let indexOfLastCharacterThatFits = indexThatFits(size: size,
@@ -34,7 +34,7 @@ extension String {
     func willFit(to size: CGSize,
                  ellipsesString: String = "",
                  trailingText: String = "",
-                 attributes: [NSAttributedStringKey : Any]) -> Bool {
+                 attributes: [NSAttributedString.Key : Any]) -> Bool {
         
         let text = (self + ellipsesString + trailingText) as NSString
         let boundedSize = CGSize(width: size.width, height: .greatestFiniteMagnitude)
@@ -48,7 +48,7 @@ extension String {
     private func indexThatFits(size: CGSize,
                                ellipsesString: String,
                                trailingText: String,
-                               attributes: [NSAttributedStringKey : Any],
+                               attributes: [NSAttributedString.Key : Any],
                                minIndex: Int,
                                maxIndex: Int) -> Int {
         

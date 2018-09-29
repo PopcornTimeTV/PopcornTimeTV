@@ -140,7 +140,7 @@ class EpisodeDetailViewController: UIViewController, UIScrollViewDelegate, UIGes
     
     func downloadStatusDidChange(_ downloadStatus: PTTorrentDownloadStatus, for download: PTTorrentDownload) {
         guard download == episode.associatedDownload else { return }
-        downloadButton.downloadState = DownloadButton.State(downloadStatus)
+        downloadButton.downloadState = DownloadButton.buttonState(downloadStatus)
     }
     
     func downloadDidFail(_ download: PTTorrentDownload, withError error: Error) {

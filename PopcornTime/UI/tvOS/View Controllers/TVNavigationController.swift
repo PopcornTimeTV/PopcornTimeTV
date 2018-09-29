@@ -7,7 +7,7 @@ class TVNavigationController: UINavigationController, UINavigationControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.clear]
+        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
     }
     
     func sharedSetup() {
@@ -34,7 +34,7 @@ class TVNavigationController: UINavigationController, UINavigationControllerDele
         sharedSetup()
     }
     
-    public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
         if operation == .push {
             return TVAppDocumentControllerAnimatedTransitioning(isPresenting: true)

@@ -16,7 +16,7 @@ class TVExpandableTextView: TvOSMoreButton {
         }
     }
     
-    var blurStyle: UIBlurEffectStyle = .dark {
+    var blurStyle: UIBlurEffect.Style = .dark {
         didSet {
             blurredView.effect = UIBlurEffect(style: blurStyle)
         }

@@ -5,7 +5,7 @@ import ObjectMapper
 open class MovieManager: NetworkManager {
     
     /// Creates new instance of MovieManager class
-    open static let shared = MovieManager()
+    public static let shared = MovieManager()
     
     /// Possible filters used in API call.
     public enum Filters: String {

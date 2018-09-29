@@ -57,7 +57,7 @@ extension CollectionViewController {
             collectionView.contentInset.bottom = inset + paginationIndicatorInset
             
             let background = UIView(frame: collectionView.bounds)
-            let indicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+            let indicator = UIActivityIndicatorView(style: .white)
             
             indicator.startAnimating()
             background.addSubview(indicator)

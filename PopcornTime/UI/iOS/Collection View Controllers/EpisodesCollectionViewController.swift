@@ -19,7 +19,7 @@ class EpisodesCollectionViewController: ResponsiveCollectionViewController, UICo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView?.decelerationRate = UIScrollViewDecelerationRateFast
+        collectionView?.decelerationRate = UIScrollView.DecelerationRate.fast
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

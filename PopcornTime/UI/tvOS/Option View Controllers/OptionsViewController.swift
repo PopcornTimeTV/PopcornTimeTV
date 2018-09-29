@@ -40,8 +40,8 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
         super.viewDidLoad()
         
         let menuGesture = UITapGestureRecognizer(target: self, action: #selector(menuPressed))
-        menuGesture.allowedTouchTypes = [NSNumber(value: UITouchType.indirect.rawValue)]
-        menuGesture.allowedPressTypes = [NSNumber(value: UIPressType.menu.rawValue)]
+        menuGesture.allowedTouchTypes = [NSNumber(value: UITouch.TouchType.indirect.rawValue)]
+        menuGesture.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)]
         
         view.addGestureRecognizer(menuGesture)
     }

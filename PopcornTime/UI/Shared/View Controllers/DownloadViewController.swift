@@ -88,7 +88,7 @@ class DownloadViewController: UIDownloadViewController, PTTorrentDownloadManager
     
     #if os(iOS)
     
-    override init(style: UITableViewStyle) {
+    override init(style: UITableView.Style) {
         super.init(style: style)
         sharedSetup()
     }

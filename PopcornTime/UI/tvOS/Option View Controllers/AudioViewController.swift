@@ -34,7 +34,7 @@ class AudioViewController: OptionsStackViewController, UITableViewDataSource {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(pickableRoutesDidChange), name: .AVSpeakerManagerPickableRoutesDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(pickableRoutesDidChange), name: .AVAudioSessionRouteChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(pickableRoutesDidChange), name: AVAudioSession.routeChangeNotification, object: nil)
     }
     
     @objc func pickableRoutesDidChange() {

@@ -27,7 +27,7 @@ extension DownloadDetailViewController: DownloadDetailTableViewCellDelegate {
         let download = dataSource(for: seasons[indexPath.section])[indexPath.row]
         
         cell.delegate = self
-        cell.downloadButton.downloadState = DownloadButton.State(download.downloadStatus)
+        cell.downloadButton.downloadState = DownloadButton.buttonState(download.downloadStatus)
         cell.downloadButton.invalidateAppearance()
         
         let episodeNumber = NumberFormatter.localizedString(from: NSNumber(value: download.mediaMetadata[MPMediaItemPropertyEpisode] as? Int ?? 0), number: .none)
@@ -59,7 +59,7 @@ extension DownloadDetailViewController: DownloadDetailTableViewCellDelegate {
         return 40
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         
         let download = dataSource(for: seasons[indexPath.section])[indexPath.row]

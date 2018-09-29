@@ -6,7 +6,7 @@ import ObjectMapper
 open class SubtitlesManager: NetworkManager {
     
     /// Creates new instance of SubtitlesManager class
-    open static let shared = SubtitlesManager()
+    public static let shared = SubtitlesManager()
     
     /**
      Load subtitles from API. Use episode or ImdbId not both. Using ImdbId rewards better results.

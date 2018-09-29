@@ -26,8 +26,8 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
             return
         }
         
-        let style: UIAlertControllerStyle = sender == nil ? .alert : .actionSheet
-        let blurStyle: UIBlurEffectStyle  = style == .alert ? .extraLight : .dark
+        let style: UIAlertController.Style = sender == nil ? .alert : .actionSheet
+        let blurStyle: UIBlurEffect.Style  = style == .alert ? .extraLight : .dark
         let alertController = UIAlertController(title: "Choose Quality".localized, message: nil, preferredStyle: style, blurStyle: blurStyle)
         
         for torrent in media.torrents {

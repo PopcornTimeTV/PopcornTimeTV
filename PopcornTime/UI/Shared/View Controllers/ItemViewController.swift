@@ -151,15 +151,15 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
             
             #if os(tvOS)
             
-                let title = AVMetadataItem(key: AVMetadataKey.commonKeyArtwork as NSString, value: self.media.title as NSString)
-                let summary = AVMetadataItem(key: AVMetadataKey.commonKeyDescription as NSString, value: self.media.summary as NSString)
+                let title = AVMetadataItem.init(key: AVMetadataKey.commonKeyArtwork as NSString, value: self.media.title as NSString)
+                let summary = AVMetadataItem.init(key: AVMetadataKey.commonKeyDescription as NSString, value: self.media.summary as NSString)
                 
                 player.currentItem?.externalMetadata = [title, summary]
                 
                 if let string = self.media.mediumCoverImage,
                     let url = URL(string: string),
                     let data = try? Data(contentsOf: url) {
-                    let image = AVMetadataItem(key: AVMetadataKey.commonKeyArtwork as NSString, value: data as NSData)
+                    let image = AVMetadataItem.init(key: AVMetadataKey.commonKeyArtwork as NSString, value: data as NSData)
                     player.currentItem?.externalMetadata.append(image)
                 }
                 
@@ -204,7 +204,7 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
     
     func downloadStatusDidChange(_ downloadStatus: PTTorrentDownloadStatus, for download: PTTorrentDownload) {
         guard download == media.associatedDownload else { return }
-        downloadButton.downloadState = DownloadButton.State(downloadStatus)
+        downloadButton.downloadState = DownloadButton.buttonState(downloadStatus)
     }
     
     func downloadDidFail(_ download: PTTorrentDownload, withError error: Error) {

@@ -22,7 +22,7 @@ class CircularButton: UIButton {
     override var intrinsicContentSize: CGSize {
         guard let imageView = imageView else { return super.intrinsicContentSize }
         
-        let size = imageView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        let size = imageView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         let common = Swift.max(size.width, size.height)
         let padding: CGFloat = 10
         

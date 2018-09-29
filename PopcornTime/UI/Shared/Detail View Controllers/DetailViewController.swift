@@ -98,7 +98,7 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
         didSet {
             guard isDark != oldValue && UIDevice.current.userInterfaceIdiom == .tv else { return }
             
-            childViewControllers.forEach {
+            children.forEach {
                 guard $0.responds(to: #selector(getter:DetailViewController.isDark)) else { return }
                 $0.setValue(isDark, forKey: "isDark")
             }

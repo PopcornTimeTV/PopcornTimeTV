@@ -945,8 +945,7 @@
 				4DA42DC41DD8C6D900933A10 /* PopcornTimeiOS-Bridging-Header.h */,
 				4D990E281DC4F00F005CDE34 /* PopcornTimetvOS-Bridging-Header.h */,
 			);
-			name = "Supporting Files";
-			path = "Supporting FIles";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		28EB626A1CA3362B00985F78 /* Extensions */ = {
@@ -1598,7 +1597,6 @@
 				0026821D1CD0B76300F51D31 /* Embed App Extensions */,
 				92CF49871CE668A100D666A8 /* Embed Frameworks */,
 				C6EBA42C93D7E41E8A1F4431 /* [CP] Embed Pods Frameworks */,
-				EB2B352DCFDF5FA4FF989A65 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1620,7 +1618,6 @@
 				4D0F9D2E1E6F29E500860852 /* Frameworks */,
 				4D0F9D2F1E6F29E500860852 /* Headers */,
 				4D0F9D301E6F29E500860852 /* Resources */,
-				426AF3ADFFAEA9075DB541AC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1640,7 +1637,6 @@
 				4D0F9D8D1E6F2F4D00860852 /* Frameworks */,
 				4D0F9D8E1E6F2F4D00860852 /* Headers */,
 				4D0F9D8F1E6F2F4D00860852 /* Resources */,
-				2254BAD7556F8D2374EF7D99 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1659,7 +1655,6 @@
 				4D2543A91DACFBFE00149533 /* Sources */,
 				4D2543AA1DACFBFE00149533 /* Frameworks */,
 				4D2543AB1DACFBFE00149533 /* Resources */,
-				EB2E53CEBB7A02AEBE8018D1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1681,7 +1676,6 @@
 				4D689A151DD88E17001D1318 /* Resources */,
 				4D0F9D9D1E6F2F4D00860852 /* Embed Frameworks */,
 				F5A74390D0EB973963758D5D /* [CP] Embed Pods Frameworks */,
-				5C4A797ECD01BB92B97967F5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1773,12 +1767,12 @@
 			attributes = {
 				CLASSPREFIX = PCT;
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = PopcornTime;
 				TargetAttributes = {
 					287B85331C9873A200EEF5C8 = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes.appletvos = {
@@ -1791,17 +1785,17 @@
 					};
 					4D0F9D311E6F29E500860852 = {
 						CreatedOnToolsVersion = 8.2.1;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					4D0F9D901E6F2F4D00860852 = {
 						CreatedOnToolsVersion = 8.2.1;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					4D2543AC1DACFBFE00149533 = {
 						CreatedOnToolsVersion = 8.0;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -1811,7 +1805,7 @@
 					};
 					4D689A161DD88E17001D1318 = {
 						CreatedOnToolsVersion = 8.1;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -1824,21 +1818,25 @@
 					};
 					D9CC9C882064FE38006C1274 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 287B85331C9873A200EEF5C8;
 					};
 					D9CC9C962064FE64006C1274 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 4D689A161DD88E17001D1318;
 					};
 					D9CC9CA42064FE81006C1274 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 4D689A161DD88E17001D1318;
 					};
 					D9CC9CB22064FE92006C1274 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 287B85331C9873A200EEF5C8;
 					};
@@ -1968,51 +1966,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2254BAD7556F8D2374EF7D99 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornKit iOS/Pods-PopcornKit iOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		426AF3ADFFAEA9075DB541AC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornKit tvOS/Pods-PopcornKit tvOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5C4A797ECD01BB92B97967F5 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		79657A40F98E3CE019188987 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2149,36 +2102,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimetvOS/Pods-PopcornTimetvOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EB2B352DCFDF5FA4FF989A65 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimetvOS/Pods-PopcornTimetvOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EB2E53CEBB7A02AEBE8018D1 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TopShelf/Pods-TopShelf-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F5A74390D0EB973963758D5D /* [CP] Embed Pods Frameworks */ = {
@@ -2838,14 +2761,22 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -2880,14 +2811,22 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -2932,8 +2871,7 @@
 				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = "compile-time";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Supporting Files/PopcornTimetvOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 			};
 			name = Debug;
@@ -2954,8 +2892,7 @@
 				PRODUCT_NAME = PopcornTime;
 				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = "compile-time";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Supporting Files/PopcornTimetvOS-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2993,8 +2930,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -3025,8 +2961,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcornkit;
 				PRODUCT_NAME = PopcornKit;
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -3067,8 +3002,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -3100,8 +3034,7 @@
 				PRODUCT_NAME = PopcornKit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -3132,8 +3065,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 			};
 			name = Debug;
@@ -3155,8 +3087,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.tvos.TopShelf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 			};
 			name = Release;
@@ -3190,8 +3121,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = "compile-time";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Supporting Files/PopcornTimeiOS-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -3218,8 +3148,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = "compile-time";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Supporting Files/PopcornTimeiOS-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3248,12 +3177,12 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Popcorn TimeUITests/Info.plist";
+				INFOPLIST_FILE = "Tests/Popcorn TimeUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimeUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 3;
 				TEST_TARGET_NAME = PopcornTimetvOS;
 				TVOS_DEPLOYMENT_TARGET = 11.2;
@@ -3278,11 +3207,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "Popcorn TimeUITests/Info.plist";
+				INFOPLIST_FILE = "Tests/Popcorn TimeUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimeUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 3;
 				TEST_TARGET_NAME = PopcornTimetvOS;
 				TVOS_DEPLOYMENT_TARGET = 11.2;
@@ -3314,14 +3243,14 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Popcorn TimeiOSUITests/Info.plist";
+				INFOPLIST_FILE = "Tests/Popcorn TimeiOSUITests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimeiOSUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = PopcornTimeiOS;
 			};
@@ -3346,13 +3275,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "Popcorn TimeiOSUITests/Info.plist";
+				INFOPLIST_FILE = "Tests/Popcorn TimeiOSUITests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimeiOSUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = PopcornTimeiOS;
 				VALIDATE_PRODUCT = YES;
@@ -3384,14 +3313,14 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Popcorn TimeiOSTests/Info.plist";
+				INFOPLIST_FILE = "Tests/Popcorn TimeiOSTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimeiOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PopcornTime.app/PopcornTime";
 			};
@@ -3417,13 +3346,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "Popcorn TimeiOSTests/Info.plist";
+				INFOPLIST_FILE = "Tests/Popcorn TimeiOSTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimeiOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PopcornTime.app/PopcornTime";
 				VALIDATE_PRODUCT = YES;
@@ -3454,12 +3383,12 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Popcorn TimetvOSTests/Info.plist";
+				INFOPLIST_FILE = "Tests/Popcorn TimetvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimetvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PopcornTime.app/PopcornTime";
 				TVOS_DEPLOYMENT_TARGET = 11.2;
@@ -3485,11 +3414,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "Popcorn TimetvOSTests/Info.plist";
+				INFOPLIST_FILE = "Tests/Popcorn TimetvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimetvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PopcornTime.app/PopcornTime";
 				TVOS_DEPLOYMENT_TARGET = 11.2;

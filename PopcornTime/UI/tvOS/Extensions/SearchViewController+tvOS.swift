@@ -45,9 +45,9 @@ extension SearchViewController {
         searchContainerViewController = searchContainerViewController ?? {
             let container = UISearchContainerViewController(searchController: searchController)
             
-            addChildViewController(container)
+            addChild(container)
             view.addSubview(container.view)
-            container.didMove(toParentViewController: self)
+            container.didMove(toParent: self)
             
             return container
         }()

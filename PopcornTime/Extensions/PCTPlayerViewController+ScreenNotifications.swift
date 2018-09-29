@@ -30,15 +30,15 @@ extension PCTPlayerViewController {
             }
         }
         
-        center.addObserver(self, selector: #selector(didReceiveConnectScreenNotification(_:)), name: .UIScreenDidConnect, object: nil)
-        center.addObserver(self, selector: #selector(didReceiveDisconnectScreenNotification(_:)), name: .UIScreenDidDisconnect, object: nil)
+        center.addObserver(self, selector: #selector(didReceiveConnectScreenNotification(_:)), name: UIScreen.didConnectNotification, object: nil)
+        center.addObserver(self, selector: #selector(didReceiveDisconnectScreenNotification(_:)), name: UIScreen.didDisconnectNotification, object: nil)
     }
     
     func endReceivingScreenNotifications() {
         let center = NotificationCenter.default
         
-        center.removeObserver(self, name: .UIScreenDidConnect, object: nil)
-        center.removeObserver(self, name: .UIScreenDidDisconnect, object: nil)
+        center.removeObserver(self, name: UIScreen.didConnectNotification, object: nil)
+        center.removeObserver(self, name: UIScreen.didDisconnectNotification, object: nil)
     }
     
     

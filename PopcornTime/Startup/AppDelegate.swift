@@ -54,14 +54,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         return main
     }
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         #if os(tvOS)
             if let url = launchOptions?[.url] as? URL {
                 return self.application(.shared, open: url)
             }
             NotificationCenter.default.post(name: NSNotification.Name.TVTopShelfItemsDidChange, object: nil)
             let font = UIFont.systemFont(ofSize: 38, weight: UIFont.Weight.heavy)
-            UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: font], for: .normal)
+            UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
         #elseif os(iOS)
             NetworkActivityIndicatorManager.shared.isEnabled = true
             
@@ -101,7 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     }
     
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         #if os(tvOS)
             if url.scheme == "PopcornTime" {
                 guard
@@ -125,7 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                 }
             }
         #elseif os(iOS)
-            if let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, (sourceApplication == "com.apple.SafariViewService" || sourceApplication == "com.apple.mobilesafari") && url.scheme == "popcorntime" {
+            if let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, (sourceApplication == "com.apple.SafariViewService" || sourceApplication == "com.apple.mobilesafari") && url.scheme == "popcorntime" {
                 TraktManager.shared.authenticate(url)
             } else if url.scheme == "magnet" || url.isFileURL {
                 let torrentUrl: String

@@ -7,7 +7,7 @@ import SwiftyJSON
 open class TMDBManager: NetworkManager {
     
     /// Creates new instance of TMDBManager class
-    open static let shared = TMDBManager()
+    public static let shared = TMDBManager()
     
     /**
      Load movie posters from TMDB. Either a tmdb id or an imdb id must be passed in.

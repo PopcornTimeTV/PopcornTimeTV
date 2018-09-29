@@ -54,7 +54,7 @@ extension DownloadViewController: DownloadDetailTableViewCellDelegate {
         return activeDataSource(in: section).count == 0 ? 0 : 40
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete && segmentedControl.selectedSegmentIndex == 1 else { return }
         
         let downloads: [PTTorrentDownload]
@@ -101,7 +101,7 @@ extension DownloadViewController: DownloadDetailTableViewCellDelegate {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "downloadDetailCell") as! DownloadDetailTableViewCell
                 cell.delegate = self
                 cell.downloadButton.progress = download.torrentStatus.totalProgress
-                cell.downloadButton.downloadState = DownloadButton.State(download.downloadStatus)
+                cell.downloadButton.downloadState = DownloadButton.buttonState(download.downloadStatus)
                 cell.downloadButton.invalidateAppearance()
                 return cell
             }()

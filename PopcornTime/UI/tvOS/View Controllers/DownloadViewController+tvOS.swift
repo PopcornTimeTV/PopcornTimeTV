@@ -166,7 +166,7 @@ extension DownloadViewController: CollectionViewControllerDelegate, DownloadColl
         
         if let download = item as? PTTorrentDownload {
             let button = DownloadButton()
-            button.downloadState = DownloadButton.State(download.downloadStatus)
+            button.downloadState = DownloadButton.buttonState(download.downloadStatus)
             
             AppDelegate.shared.downloadButton(button, wasPressedWith: download) { [unowned self] in
                 self.reloadData()

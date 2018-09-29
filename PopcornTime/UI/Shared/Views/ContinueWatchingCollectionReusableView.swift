@@ -34,7 +34,7 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
+        collectionView.decelerationRate = UIScrollView.DecelerationRate.fast
         collectionView.contentInset.left = 15
         collectionView.register(UINib(nibName: String(describing: ContinueWatchingCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: "cell")
     }

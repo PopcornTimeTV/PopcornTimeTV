@@ -68,16 +68,16 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             paragraphStyle.alignment = .right
             
             let appendSection: (String, [String]) -> Void = { (title, items) in
-                let titleAttributes = [NSAttributedStringKey.paragraphStyle: paragraphStyle,
-                                       NSAttributedStringKey.font: UIFont.systemFont(ofSize: 24, weight: UIFont.Weight.bold),
-                                       NSAttributedStringKey.foregroundColor: self.isDark ? UIColor(white: 1, alpha: 0.8) : UIColor(white: 0, alpha: 0.8)]
+                let titleAttributes = [NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                                       NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24, weight: UIFont.Weight.bold),
+                                       NSAttributedString.Key.foregroundColor: self.isDark ? UIColor(white: 1, alpha: 0.8) : UIColor(white: 0, alpha: 0.8)]
                 
                 let isFirstSection = peopleText.length == 0
                 peopleText.append(NSAttributedString(string: (!isFirstSection ? "\n" : "") + title + "\n", attributes: titleAttributes))
                 
-                let itemAttribtues = [NSAttributedStringKey.paragraphStyle: paragraphStyle,
-                                      NSAttributedStringKey.font: UIFont.systemFont(ofSize: 31, weight: UIFont.Weight.medium),
-                                      NSAttributedStringKey.foregroundColor: self.isDark ? UIColor(white: 1, alpha: 0.5) : UIColor(white: 0, alpha: 0.5)]
+                let itemAttribtues = [NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                                      NSAttributedString.Key.font: UIFont.systemFont(ofSize: 31, weight: UIFont.Weight.medium),
+                                      NSAttributedString.Key.foregroundColor: self.isDark ? UIColor(white: 1, alpha: 0.5) : UIColor(white: 0, alpha: 0.5)]
                 
                 items.forEach({peopleText.append(NSAttributedString(string: $0 + "\n", attributes: itemAttribtues))})
             }
