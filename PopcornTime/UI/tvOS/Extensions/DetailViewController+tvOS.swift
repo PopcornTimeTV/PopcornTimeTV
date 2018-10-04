@@ -36,6 +36,9 @@ extension DetailViewController {
     }
     
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        guard relatedCollectionViewController != nil else {
+            return
+        }
         
         if let next = context.nextFocusedView as? BaseCollectionViewCell // Collection view is gaining focus, increase all header font sizes.
         {
