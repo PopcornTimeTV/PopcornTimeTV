@@ -83,13 +83,13 @@ extension DetailViewController {
                 peopleTopConstraint.constant = 43
             }
             
-            preferredContentSizeDidChange(forChildContentContainer: relatedCollectionViewController)
+            relatedCollectionViewController != nil ? preferredContentSizeDidChange(forChildContentContainer: relatedCollectionViewController) : ()
             preferredContentSizeDidChange(forChildContentContainer: peopleCollectionViewController)
             
             coordinator.addCoordinatedAnimations({
                 self.view.layoutIfNeeded()
             })
-        } else if let previous = context.previouslyFocusedView as? BaseCollectionViewCell, (previous.collectionView == relatedCollectionViewController.collectionView || previous.collectionView == peopleCollectionViewController.collectionView), !(context.nextFocusedView is UICollectionViewCell), context.nextFocusedView != episodesCollectionViewController.episodeSummaryTextView, context.nextFocusedView != episodesCollectionViewController.downloadButton // Top collection view is loosing focus, decrease all header font sizes.
+        } else if let previous = context.previouslyFocusedView as? BaseCollectionViewCell, ((relatedCollectionViewController != nil && previous.collectionView == relatedCollectionViewController.collectionView) || previous.collectionView == peopleCollectionViewController.collectionView), !(context.nextFocusedView is UICollectionViewCell), context.nextFocusedView != episodesCollectionViewController.episodeSummaryTextView, context.nextFocusedView != episodesCollectionViewController.downloadButton // Top collection view is loosing focus, decrease all header font sizes.
         {
             let font = UIFont.preferredFont(forTextStyle: .callout)
             peopleHeader.font  = font
@@ -101,7 +101,7 @@ extension DetailViewController {
             relatedTopConstraint.constant = 14
             peopleTopConstraint.constant = 14
             
-            preferredContentSizeDidChange(forChildContentContainer: relatedCollectionViewController)
+            relatedCollectionViewController != nil ? preferredContentSizeDidChange(forChildContentContainer: relatedCollectionViewController) : ()
             preferredContentSizeDidChange(forChildContentContainer: peopleCollectionViewController)
             
             coordinator.addCoordinatedAnimations({
