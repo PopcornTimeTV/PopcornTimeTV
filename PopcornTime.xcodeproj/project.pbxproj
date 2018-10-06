@@ -2859,14 +2859,18 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
+				EXPANDED_CODE_SIGN_IDENTITY = "-";
+				EXPANDED_CODE_SIGN_IDENTITY_NAME = "-";
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting Files/tvOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.tvos;
 				PRODUCT_NAME = PopcornTime;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = "compile-time";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Supporting Files/PopcornTimetvOS-Bridging-Header.h";
@@ -2885,11 +2889,15 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
 				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				EXPANDED_CODE_SIGN_IDENTITY = "-";
+				EXPANDED_CODE_SIGN_IDENTITY_NAME = "-";
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting Files/tvOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.tvos;
 				PRODUCT_NAME = PopcornTime;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = "compile-time";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Supporting Files/PopcornTimetvOS-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
@@ -3051,8 +3059,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = TopShelf/TopShelf.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				DEVELOPMENT_TEAM = "";
+				EXPANDED_CODE_SIGN_IDENTITY = "-";
+				EXPANDED_CODE_SIGN_IDENTITY_NAME = "-";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -3081,6 +3091,8 @@
 				CODE_SIGN_ENTITLEMENTS = TopShelf/TopShelf.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				DEVELOPMENT_TEAM = "";
+				EXPANDED_CODE_SIGN_IDENTITY = "-";
+				EXPANDED_CODE_SIGN_IDENTITY_NAME = "-";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = TopShelf/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -3103,10 +3115,13 @@
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
+				EXPANDED_CODE_SIGN_IDENTITY = "-";
+				EXPANDED_CODE_SIGN_IDENTITY_NAME = "-";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -3123,6 +3138,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Supporting Files/PopcornTimeiOS-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7s";
 			};
 			name = Debug;
 		};
@@ -3135,10 +3151,14 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
+				EXPANDED_CODE_SIGN_IDENTITY = "-";
+				EXPANDED_CODE_SIGN_IDENTITY_NAME = "-";
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting Files/iOS.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3151,6 +3171,7 @@
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7s";
 			};
 			name = Release;
 		};
