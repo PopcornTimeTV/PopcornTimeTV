@@ -19,6 +19,39 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
         }
     }
     
+    // MARK: Long press gesture set up
+    
+    override func viewDidLoad() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressDetected))
+        longPressGesture.minimumPressDuration = 2.0
+        self.firstTableView.addGestureRecognizer(longPressGesture)
+        super.viewDidLoad()
+    }
+    
+    
+    @objc func longPressDetected(gestureRecognizer: UILongPressGestureRecognizer){
+        if gestureRecognizer.state == .began{
+            let p = gestureRecognizer.location(in: self.firstTableView)
+            
+            let indexPath = self.firstTableView.indexPathForRow(at: p)
+            if indexPath != nil{
+                print("Hello cell ",subtitles[indexPath!.row].language)
+                if currentSubtitle != subtitles[indexPath!.row]{
+                    self.firstTableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                }
+                let alertController = UIAlertController(title: "Select Subtitle", message: nil, preferredStyle: .actionSheet)
+                for subtitle in subtitles{
+                    // subtitles api needs to be updated for this to work
+                    let action = UIAlertAction(title: subtitle.link, style: .default) { _ in
+                        // subtitles api needs to be updated for this to work
+                        self.delegate?.didSelectSubtitle(subtitle)
+                    }
+                    alertController.addAction(action)
+                }
+                alertController.show(animated: true)
+            }
+        }
+    }
 
     // MARK: Table view data source
     
