@@ -248,24 +248,7 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
         
         if vc == relatedCollectionViewController {
             margin = height == 0 ? 0 : relatedHeader.frame.height + relatedTopConstraint.constant + relatedBottomConstraint.constant // If 0 height is passed in for the collection view, the container view is to be completely hidden.
-            #if os(iOS)
-                if UIDevice.current.model == "iPhone"{
-                    relatedContainerViewHeightConstraint.constant = height + margin + (isTv ? 0 : 29)
-                }else if UIApplication.shared.keyWindow!.bounds.size.height < UIApplication.shared.keyWindow!.bounds.size.width{
-                    relatedContainerViewHeightConstraint.constant = (height + margin + (isTv ? 0 : 29)) > 280.5 ? 280.5 : height + margin + (isTv ? 0 : 29)// full screen
-                }else{
-                    switch (height + margin + (isTv ? 0 : 29)){
-                    case let x where x < 265:
-                        relatedContainerViewHeightConstraint.constant = 280.5// 2/3 screen
-                    case let x where x > 275 && x < 314:
-                        relatedContainerViewHeightConstraint.constant = 275// 1/2 screen
-                    case let x where x > 314:
-                        relatedContainerViewHeightConstraint.constant = 314// 1/3 screen
-                    default:
-                        relatedContainerViewHeightConstraint.constant = height + margin + (isTv ? 0 : 29)
-                    }
-                }
-            #else
+            #if os(tvOS)
                 relatedContainerViewHeightConstraint.constant = height + margin + (isTv ? 0 : 29)
             #endif
             

@@ -64,10 +64,10 @@ post_install do |installer|
             config.build_settings['CODE_SIGNING_REQUIRED'] = "NO"
             config.build_settings['CODE_SIGNING_ALLOWED'] = "NO"
         end
-        if ['TvOSMoreButton', 'SwiftyTimer-iOS', 'SwiftyTimer-tvOS', 'FloatRatingView-iOS', 'FloatRatingView-tvOS'].include? target.name
-            target.build_configurations.each do |config|
-                config.build_settings['SWIFT_VERSION'] = '4.0'
-            end
-        end
+#        if ['TvOSMoreButton', 'SwiftyTimer-iOS', 'SwiftyTimer-tvOS', 'FloatRatingView-iOS', 'FloatRatingView-tvOS'].include? target.name
+#            target.build_configurations.each do |config|
+#                config.build_settings['SWIFT_VERSION'] = '4.0'
+#            end
+#        end
     end
 end
