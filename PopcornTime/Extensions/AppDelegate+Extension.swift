@@ -126,6 +126,7 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
         media.getSubtitles { [unowned self] subtitles in
             guard self.window?.rootViewController?.presentedViewController === loadingViewController else { return } // Make sure the user is still loading.
             
+            media.subtitles = subtitles
             media.getAllSubtitles() { [unowned self] allSubtitles in
                 media.allSubtitles = allSubtitles
                 

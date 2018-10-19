@@ -36,18 +36,24 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
             
             let indexPath = self.firstTableView.indexPathForRow(at: p)
             if indexPath != nil{
-                print("Hello cell ",subtitles[indexPath!.row].language)
-                if currentSubtitle != subtitles[indexPath!.row]{
+                //grab the subtitle language from the selected cell
+                let cell = self.firstTableView.cellForRow(at: indexPath!)
+                
+                if currentSubtitle?.language != cell?.textLabel?.text ?? ""{
                     self.firstTableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
                 }
-                let alertController = UIAlertController(title: "Select Subtitle", message: nil, preferredStyle: .actionSheet)
-                for subtitle in subtitles{
-                    // subtitles api needs to be updated for this to work
-                    let action = UIAlertAction(title: subtitle.link, style: .default) { _ in
-                        // subtitles api needs to be updated for this to work
-                        self.delegate?.didSelectSubtitle(subtitle)
+                let alertController = UIAlertController(title: "Select Alternate Subtitle", message: nil, preferredStyle: .actionSheet)
+                for (language,alternateSubtiles) in allSubtitles{
+                    if language == cell?.textLabel?.text{
+                        for subtitle in alternateSubtiles{
+                            let action = UIAlertAction(title: subtitle.name, style: .default) { _ in
+                                // subtitles api needs to be updated for this to work
+                                self.currentSubtitle = subtitle
+                                self.delegate?.didSelectSubtitle(subtitle)
+                            }
+                            alertController.addAction(action)
+                        }
                     }
-                    alertController.addAction(action)
                 }
                 alertController.show(animated: true)
             }
@@ -60,8 +66,8 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         switch tableView {
         case firstTableView:
-            cell.textLabel?.text = subtitles[indexPath.row].language
-            cell.accessoryType = currentSubtitle == subtitles[indexPath.row] ? .checkmark : .none
+            cell.textLabel?.text = Array(allSubtitles.keys)[indexPath.row]
+            cell.accessoryType = currentSubtitle?.language == cell.textLabel?.text ? .checkmark : .none
         case secondTableView:
             let delay = delays[indexPath.row]
             cell.textLabel?.text = (delay > 0 ? "+" : "") + NumberFormatter.localizedString(from: NSNumber(value: delay), number: .decimal)
@@ -92,7 +98,7 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
         tableView.backgroundView = nil
-        if tableView == firstTableView && subtitles.isEmpty {
+        if tableView == firstTableView && allSubtitles.isEmpty {
             let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 200.0, height: 20)))
             tableView.backgroundView = label
             label.text = "No subtitles available.".localized
@@ -108,7 +114,7 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case firstTableView:
-            return subtitles.count
+            return allSubtitles.keys.count
         case secondTableView:
             return delays.count
         case thirdTableView:
@@ -121,10 +127,11 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch tableView {
         case firstTableView:
-            if currentSubtitle == subtitles[indexPath.row] { // If row was already selected, user wants to remove the selection.
+            let cell = firstTableView.cellForRow(at: indexPath)
+            if currentSubtitle?.language == cell?.textLabel?.text && currentSubtitle == allSubtitles[cell?.textLabel?.text ?? ""]?.first{ // If row was already selected, user wants to remove the selection.
                 currentSubtitle = nil
-            } else {
-                currentSubtitle = subtitles[indexPath.row]
+            } else if currentSubtitle?.language != cell?.textLabel?.text {
+                currentSubtitle = allSubtitles[cell?.textLabel?.text ?? ""]?.first
             }
             delegate?.didSelectSubtitle(currentSubtitle)
         case secondTableView:

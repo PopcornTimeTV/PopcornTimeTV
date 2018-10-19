@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14113" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="vnN-Md-ybv">
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14313.18" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="vnN-Md-ybv">
     <device id="appleTV" orientation="landscape">
         <adaptation id="dark"/>
     </device>
     <dependencies>
         <deployment identifier="tvOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -346,7 +341,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U9L-Nz-zNt">
                                 <rect key="frame" x="0.0" y="0.0" width="1920" height="2830"/>
                             </imageView>
-                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="uk0-YG-86A" userLabel="Dimmer View" customClass="GradientView" customModule="PopcornTime" customModuleProvider="target">
+                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uk0-YG-86A" userLabel="Dimmer View" customClass="GradientView" customModule="PopcornTime" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1560" height="720"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
@@ -588,7 +583,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="right" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Abn-cm-wmU">
-                                <rect key="frame" x="0.0" y="-18" width="340" height="471"/>
+                                <rect key="frame" x="0.0" y="-18" width="338" height="471"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="340" id="TSq-fL-812"/>
@@ -599,25 +594,25 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25c-aU-nsO">
-                                <rect key="frame" x="363" y="60" width="104" height="52"/>
+                                <rect key="frame" x="361" y="60" width="104" height="52"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="43"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWm-gZ-npz">
-                                <rect key="frame" x="363" y="112" width="63" height="32"/>
+                                <rect key="frame" x="361" y="112" width="63" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTE-V9-Wtj">
-                                <rect key="frame" x="363" y="146" width="77" height="37"/>
+                                <rect key="frame" x="361" y="146" width="77" height="37"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="31"/>
                                 <color key="textColor" white="1" alpha="0.80298745598591548" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pKc-6J-X3N" customClass="FloatRatingView" customModule="FloatRatingView">
-                                <rect key="frame" x="451" y="112" width="185" height="33"/>
+                                <rect key="frame" x="449" y="112" width="185" height="33"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="33" id="CFP-X4-QOw"/>
@@ -640,7 +635,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HRY-ro-oJ0" customClass="TVExpandableTextView" customModule="PopcornTime" customModuleProvider="target">
-                                <rect key="frame" x="351" y="198" width="920" height="157"/>
+                                <rect key="frame" x="349" y="198" width="920" height="157"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" summaryElement="YES"/>
@@ -651,9 +646,9 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="equalSpacing" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="fzp-40-kz2">
-                                <rect key="frame" x="363" y="300" width="922" height="115"/>
+                                <rect key="frame" x="361" y="300" width="922" height="115"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5e7-hi-nqc" customClass="TVButton" customModule="PopcornTime" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5e7-hi-nqc" customClass="TVButton" customModule="PopcornTime" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="92" height="115"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration">
@@ -667,7 +662,7 @@
                                             <action selector="playTrailer" destination="vQY-b7-ZL1" eventType="primaryActionTriggered" id="42R-cb-O52"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ipT-OZ-c5M" customClass="TVButton" customModule="PopcornTime" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipT-OZ-c5M" customClass="TVButton" customModule="PopcornTime" customModuleProvider="target">
                                         <rect key="frame" x="116" y="0.0" width="142" height="115"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration">
@@ -681,7 +676,7 @@
                                             <action selector="play:" destination="vQY-b7-ZL1" eventType="primaryActionTriggered" id="Kz3-OB-IpH"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="th4-V2-ZHU" customClass="TVButton" customModule="PopcornTime" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="th4-V2-ZHU" customClass="TVButton" customModule="PopcornTime" customModuleProvider="target">
                                         <rect key="frame" x="282" y="0.0" width="142" height="115"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration">
@@ -695,7 +690,7 @@
                                             <action selector="showSeasons" destination="vQY-b7-ZL1" eventType="primaryActionTriggered" id="Vgt-fR-6z1"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KC3-5l-rXZ" customClass="TVButton" customModule="PopcornTime" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KC3-5l-rXZ" customClass="TVButton" customModule="PopcornTime" customModuleProvider="target">
                                         <rect key="frame" x="448" y="0.0" width="142" height="115"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration">
@@ -709,7 +704,7 @@
                                             <action selector="toggleWatchlist:" destination="vQY-b7-ZL1" eventType="primaryActionTriggered" id="b46-CW-E0S"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nhD-7v-QlI" customClass="TVButton" customModule="PopcornTime" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nhD-7v-QlI" customClass="TVButton" customModule="PopcornTime" customModuleProvider="target">
                                         <rect key="frame" x="614" y="0.0" width="142" height="115"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration">
@@ -723,7 +718,7 @@
                                             <action selector="toggleWatched:" destination="vQY-b7-ZL1" eventType="primaryActionTriggered" id="ysi-GY-he6"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RZR-0J-eLQ" customClass="DownloadButton" customModule="PopcornTime" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RZR-0J-eLQ" customClass="DownloadButton" customModule="PopcornTime" customModuleProvider="target">
                                         <rect key="frame" x="780" y="0.0" width="142" height="115"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration">
@@ -919,7 +914,7 @@
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="250" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="right" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6A1-eO-P3U">
-                                <rect key="frame" x="402" y="497" width="250" height="181"/>
+                                <rect key="frame" x="402" y="498" width="250" height="180"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="250" id="65c-Hz-5SH"/>
@@ -1322,7 +1317,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" text="" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8d1-bm-LhB" customClass="MarqueeLabel" customModule="MarqueeLabel">
-                                            <rect key="frame" x="-1" y="255" width="251" height="0.0"/>
+                                            <rect key="frame" x="0.0" y="255" width="250" height="0.0"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="32"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -1340,7 +1335,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42r-KI-eoi">
-                                            <rect key="frame" x="-1" y="260" width="251" height="0.0"/>
+                                            <rect key="frame" x="0.0" y="260" width="250" height="0.0"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                             <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -1986,7 +1981,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Check for Updates" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fpb-Vv-rCp">
-                                                    <rect key="frame" x="20" y="10" width="314" height="46"/>
+                                                    <rect key="frame" x="20" y="10" width="313" height="46"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                                     <nil key="textColor"/>
@@ -2399,7 +2394,7 @@
                                 <rect key="frame" x="928" y="508" width="64" height="64"/>
                             </activityIndicatorView>
                             <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="Now Playing Info" translatesAutoresizingMaskIntoConstraints="NO" id="2T2-lB-K0d">
-                                <rect key="frame" x="834" y="40" width="251" height="85"/>
+                                <rect key="frame" x="835" y="40" width="251" height="85"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2706,13 +2701,13 @@
                                 <rect key="frame" x="40" y="60" width="1456" height="80"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="Movie Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="lMz-Lv-c0X">
-                                        <rect key="frame" x="8" y="-521" width="400" height="601"/>
+                                        <rect key="frame" x="8" y="-520" width="400" height="600"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="lMz-Lv-c0X" secondAttribute="height" multiplier="2:3" id="nWH-hG-949"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="04f-Xz-12y">
-                                        <rect key="frame" x="448" y="-521" width="0.0" height="39"/>
+                                        <rect key="frame" x="448" y="-520" width="0.0" height="39"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="39" id="7YM-uZ-CVN"/>
                                         </constraints>
@@ -2721,7 +2716,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTG-rY-pvf">
-                                        <rect key="frame" x="448" y="-472" width="0.0" height="34"/>
+                                        <rect key="frame" x="448" y="-471" width="0.0" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="LLh-ce-KWh"/>
                                         </constraints>
@@ -2730,7 +2725,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f1c-3f-FGy" customClass="TVExpandableTextView" customModule="PopcornTime" customModuleProvider="target">
-                                        <rect key="frame" x="443" y="-434" width="1008" height="140"/>
+                                        <rect key="frame" x="443" y="-433" width="1008" height="140"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="140" placeholder="YES" id="lWx-7D-geK"/>
@@ -2818,6 +2813,15 @@
                                     <segue destination="KXb-HM-bmT" kind="embed" id="E0L-ma-WfQ"/>
                                 </connections>
                             </containerView>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IS2-JV-ekO">
+                                <rect key="frame" x="142" y="380" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="g5x-m5-UUG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="25"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tabBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="VR9-RO-ryD">
                                 <rect key="frame" x="0.0" y="0.0" width="1920" height="140"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2845,6 +2849,7 @@
                             <constraint firstItem="s10-hE-6SZ" firstAttribute="bottom" secondItem="VR9-RO-ryD" secondAttribute="bottom" id="4kd-Tp-fXW"/>
                             <constraint firstItem="UZA-7D-dR1" firstAttribute="top" secondItem="VR9-RO-ryD" secondAttribute="bottom" constant="20" id="6kn-3F-MuM"/>
                             <constraint firstItem="UZA-7D-dR1" firstAttribute="width" secondItem="j6l-o7-1n4" secondAttribute="width" multiplier="0.8" id="9YC-ua-hwg"/>
+                            <constraint firstItem="IS2-JV-ekO" firstAttribute="top" secondItem="mxK-vp-adm" secondAttribute="top" id="AgW-X3-r7Y"/>
                             <constraint firstAttribute="bottomMargin" secondItem="Ejw-R3-Oci" secondAttribute="bottom" id="DcK-g6-18c"/>
                             <constraint firstItem="mxK-vp-adm" firstAttribute="top" secondItem="UZA-7D-dR1" secondAttribute="bottom" constant="20" id="MZu-Nx-EgJ"/>
                             <constraint firstItem="JZc-y3-9iE" firstAttribute="centerX" secondItem="j6l-o7-1n4" secondAttribute="centerX" id="Olq-8V-sNt"/>
@@ -2864,6 +2869,7 @@
                             <constraint firstItem="UZA-7D-dR1" firstAttribute="centerX" secondItem="j6l-o7-1n4" secondAttribute="centerX" id="ups-jh-6He"/>
                             <constraint firstItem="Ejw-R3-Oci" firstAttribute="leading" secondItem="j6l-o7-1n4" secondAttribute="leading" id="wVb-Hp-9a9"/>
                             <constraint firstItem="VR9-RO-ryD" firstAttribute="leading" secondItem="j6l-o7-1n4" secondAttribute="leading" id="ynv-5F-81q"/>
+                            <constraint firstItem="IS2-JV-ekO" firstAttribute="leading" secondItem="j6l-o7-1n4" secondAttribute="leading" constant="142" id="zLM-Xe-lME"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="ygj-7N-XDQ" appends="YES" id="elo-2D-4dB"/>
@@ -2875,6 +2881,7 @@
                     <connections>
                         <outlet property="audioContainerView" destination="UZA-7D-dR1" id="hmR-ys-PBP"/>
                         <outlet property="infoContainerView" destination="JZc-y3-9iE" id="dhl-81-hQF"/>
+                        <outlet property="longPressSuggestionLabel" destination="IS2-JV-ekO" id="cfC-7x-1AI"/>
                         <outlet property="subtitlesContainerView" destination="bX4-2V-xqW" id="aJr-Eo-gND"/>
                         <outlet property="swipeGesture" destination="ygj-7N-XDQ" id="YTY-ct-DqF"/>
                         <outlet property="tabBar" destination="VR9-RO-ryD" id="6Jg-mc-usc"/>
@@ -3122,7 +3129,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LQK-Bl-kV9" customClass="MBCircularProgressBarView">
-                                <rect key="frame" x="305" y="707" width="170" height="170"/>
+                                <rect key="frame" x="305" y="706" width="170" height="170"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.357146786971831" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="170" id="9nb-fF-Fus"/>
@@ -3408,7 +3415,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <image name="Download Progress Pause" width="60" height="60"/>
         <image name="Episode Placeholder" width="600" height="600"/>
         <image name="Episode Watched Indicator" width="308" height="174"/>
-        <image name="Icon" width="600" height="600"/>
+        <image name="Icon" width="144" height="144"/>
         <image name="Movie Placeholder" width="400" height="600"/>
         <image name="Now Playing Info" width="251" height="85"/>
         <image name="Other Placeholder" width="820" height="460"/>
