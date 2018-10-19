@@ -21,6 +21,9 @@ public protocol Media: Mappable {
     var largeCoverImage: String? { get set }
     
     /// Will be empty if Media is Show.
+    var allSubtitles: Dictionary<String, [Subtitle]> { get set }
+    
+    /// Will be empty if Media is Show.
     var subtitles: [Subtitle] { get set }
     
     /// Will be empty if Media is Show.
@@ -41,6 +44,7 @@ public protocol Media: Mappable {
 
 extension Media {
     public var subtitles: [Subtitle] { get { return [] } set {} }
+    public var allSubtitles: Dictionary<String, [Subtitle]> { get { return [:] } set {} }
     public var torrents: [Torrent] { get { return [] } set {} }
     
     public var isWatched: Bool { get { return false } set {} }

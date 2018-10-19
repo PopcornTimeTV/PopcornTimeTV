@@ -6,6 +6,7 @@ import struct PopcornKit.Subtitle
 class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource {
     
     var subtitles = [Subtitle]()
+    var allSubtitles = Dictionary<String, [Subtitle]>()
     let encodings = SubtitleSettings.encodings
     let delays = [Int](-60...60)
     

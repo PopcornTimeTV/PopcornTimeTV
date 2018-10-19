@@ -198,6 +198,9 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     var subtitles: [Subtitle] {
         return media.subtitles
     }
+    var allSubtitles: Dictionary<String, [Subtitle]> {
+        return media.allSubtitles
+    }
     var currentSubtitle: Subtitle? {
         didSet {
             if let subtitle = currentSubtitle {

@@ -12,6 +12,9 @@ public struct Subtitle: Equatable,Mappable {
     public let language: String
     static let defaultLang = "Unknown"
     
+    /// Subtitles Name
+    public let name: String
+    
     /// Link to the subtitle zip.
     public let link: String
     
@@ -30,6 +33,7 @@ public struct Subtitle: Equatable,Mappable {
     }
     
     private init(_ map: Map) throws{
+        self.name = try map.value("MovieReleaseName") ?? ""
         let initialLink = try map.value("SubDownloadLink") ?? ""
         self.link = initialLink[initialLink.startIndex..<initialLink.range(of: "download/")!.upperBound] + "subencoding-utf8/" + initialLink[initialLink.range(of: "download/")!.upperBound...]
         let ISOname = try map.value("ISO639") ?? ""
@@ -47,6 +51,7 @@ public struct Subtitle: Equatable,Mappable {
                 self = subtitle
             }
         case .toJSON:
+            name >>> map["MovieReleaseName"]
             language >>> map["language"]
             link >>> map["link"]
             ISO639 >>> map["ISO639"]
@@ -55,7 +60,8 @@ public struct Subtitle: Equatable,Mappable {
         }
     }
     
-    public init(language: String, link: String, ISO639: String, rating: Double, movieHash: OpenSubtitlesHash.VideoHash? = nil) {
+    public init(name: String, language: String, link: String, ISO639: String, rating: Double, movieHash: OpenSubtitlesHash.VideoHash? = nil) {
+        self.name = name
         self.language = language
         self.movieHash = movieHash
         self.link = link

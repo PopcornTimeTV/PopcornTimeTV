@@ -113,6 +113,9 @@ public struct Movie: Media, Equatable {
     /// The subtitles associated with the movie. Empty by default. Must be filled by calling `search:episode:imdbId:limit:completion:` on `SubtitlesManager`.
     public var subtitles = [Subtitle]()
     
+    /// The subtitles associated with the movie. Empty by default. Must be filled by calling `getAllSubtitles:episode:imdbId:limit:completion:` on `SubtitlesManager`.
+    public var allSubtitles = Dictionary<String, [Subtitle]>()
+    
     /// The genres associated with the movie.
     public var genres = [String]()
     
