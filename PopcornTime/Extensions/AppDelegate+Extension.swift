@@ -126,9 +126,10 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
         media.getSubtitles { [unowned self] subtitles in
             guard self.window?.rootViewController?.presentedViewController === loadingViewController else { return } // Make sure the user is still loading.
             
-            media.subtitles = subtitles
-            
-            #if os(iOS)
+            media.getAllSubtitles() { [unowned self] allSubtitles in
+                media.allSubtitles = allSubtitles
+                
+                #if os(iOS)
                 
                 if GCKCastContext.sharedInstance().castState == .connected {
                     let playViewController = storyboard.instantiateViewController(withIdentifier: "CastPlayerViewController") as! CastPlayerViewController
@@ -136,11 +137,12 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
                     return
                 }
                 
-            #endif
-            
-            let playViewController = storyboard.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
-            playViewController.delegate = self
-            media.play(fromFileOrMagnetLink: torrent.url, nextEpisodeInSeries: nextEpisode, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading, selectingTorrentBlock: media.title == "Unknown" ? selectTorrent : nil)
+                #endif
+                
+                let playViewController = storyboard.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
+                playViewController.delegate = self
+                media.play(fromFileOrMagnetLink: torrent.url, nextEpisodeInSeries: nextEpisode, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading, selectingTorrentBlock: media.title == "Unknown" ? selectTorrent : nil)
+            }
         }
     }
     

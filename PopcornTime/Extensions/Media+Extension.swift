@@ -157,6 +157,27 @@ extension Media {
         }
     }
     
+    func getAllSubtitles(forId id: String? = nil, orWithFilePath: URL? = nil, forLang:String? = nil,completion: @escaping (Dictionary<String, [Subtitle]>) -> Void) {
+        let id = id ?? self.id
+        if let filePath = orWithFilePath {
+            SubtitlesManager.shared.getAllSubtitles(preferredLang: "el", videoFilePath: filePath){ (subtitles, _) in
+                completion(subtitles)
+            }
+        } else if let `self` = self as? Episode, !id.hasPrefix("tt"), let show = self.show {
+            TraktManager.shared.getEpisodeMetadata(show.id, episodeNumber: self.episode, seasonNumber: self.season) { (episode, _) in
+                if let imdb = episode?.imdbId { return self.getAllSubtitles(forId: imdb, completion: completion) }
+                
+                SubtitlesManager.shared.getAllSubtitles(self) { (subtitles, _) in
+                    completion(subtitles)
+                }
+            }
+        } else {
+            SubtitlesManager.shared.getAllSubtitles(imdbId: id) { (subtitles, _) in
+                completion(subtitles)
+            }
+        }
+    }
+    
     /// The download, either completed or downloading, that is associated with this media object.
     var associatedDownload: PTTorrentDownload? {
         let array = PTTorrentDownloadManager.shared().activeDownloads + PTTorrentDownloadManager.shared().completedDownloads
