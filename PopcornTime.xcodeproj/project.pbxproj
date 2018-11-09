@@ -357,6 +357,9 @@
 		D95647DF206D8B820027E615 /* SubtitleHashGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AAC99206C2F3C003DA002 /* SubtitleHashGenerator.swift */; };
 		D980FEEE2024AA85004827F8 /* torrent_upload in Resources */ = {isa = PBXBuildFile; fileRef = D980FEED2024AA84004827F8 /* torrent_upload */; };
 		D9955D632061220800A2B499 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9955D652061220800A2B499 /* Localizable.strings */; };
+		D9974073218CDC1100B0D6AF /* ExtendedSubtitleSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9974072218CDC1100B0D6AF /* ExtendedSubtitleSelectionViewController.xib */; };
+		D9B9F67A21958A4300803463 /* ExtendedSubtitleSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B9F67921958A4300803463 /* ExtendedSubtitleSelectionTableViewController.swift */; };
+		D9B9F67C219599CE00803463 /* ExtendedSubtitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B9F67B219599CE00803463 /* ExtendedSubtitleViewController.swift */; };
 		D9CC9C8C2064FE38006C1274 /* Popcorn_TimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CC9C8B2064FE38006C1274 /* Popcorn_TimeUITests.swift */; };
 		D9CC9C9A2064FE64006C1274 /* Popcorn_TimeiOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CC9C992064FE64006C1274 /* Popcorn_TimeiOSUITests.swift */; };
 		D9CC9CA82064FE81006C1274 /* Popcorn_TimeiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CC9CA72064FE81006C1274 /* Popcorn_TimeiOSTests.swift */; };
@@ -777,6 +780,9 @@
 		D9955D6A2061220900A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/tvOSPlist.strings"; sourceTree = "<group>"; };
 		D9955D6B2061220900A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/iOSPlist.strings"; sourceTree = "<group>"; };
 		D9955D6C2061220900A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/iOSPlist.strings"; sourceTree = "<group>"; };
+		D9974072218CDC1100B0D6AF /* ExtendedSubtitleSelectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExtendedSubtitleSelectionViewController.xib; sourceTree = "<group>"; };
+		D9B9F67921958A4300803463 /* ExtendedSubtitleSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExtendedSubtitleSelectionTableViewController.swift; path = "View Controllers/ExtendedSubtitleSelectionTableViewController.swift"; sourceTree = "<group>"; };
+		D9B9F67B219599CE00803463 /* ExtendedSubtitleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExtendedSubtitleViewController.swift; path = "View Controllers/ExtendedSubtitleViewController.swift"; sourceTree = "<group>"; };
 		D9CC9C892064FE38006C1274 /* Popcorn TimetvOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Popcorn TimetvOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9CC9C8B2064FE38006C1274 /* Popcorn_TimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popcorn_TimeUITests.swift; sourceTree = "<group>"; };
 		D9CC9C8D2064FE38006C1274 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1294,6 +1300,8 @@
 				4D0E130D1E671E050000AD65 /* TVTabBarController.swift */,
 				4D0F9E381E705A7600860852 /* TVNavigationController.swift */,
 				D9D978D12024A7D70014BCB2 /* LoadExternalTorrentViewController.swift */,
+				D9B9F67921958A4300803463 /* ExtendedSubtitleSelectionTableViewController.swift */,
+				D9B9F67B219599CE00803463 /* ExtendedSubtitleViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -1470,6 +1478,7 @@
 				4D9995521E5C7E68005C432A /* LoadingView.xib */,
 				4D0F9E3F1E705B0800860852 /* ContinueWatchingCollectionReusableView.xib */,
 				4D9995541E5C7F81005C432A /* ErrorBackgroundView.xib */,
+				D9974072218CDC1100B0D6AF /* ExtendedSubtitleSelectionViewController.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1876,6 +1885,7 @@
 			files = (
 				4D784D561E5F546E009E3423 /* DescriptionCollectionViewCell.xib in Resources */,
 				4D9995551E5C7F81005C432A /* ErrorBackgroundView.xib in Resources */,
+				D9974073218CDC1100B0D6AF /* ExtendedSubtitleSelectionViewController.xib in Resources */,
 				4D99955B1E5C81DF005C432A /* ContinueWatchingCollectionViewCell.xib in Resources */,
 				4D32EBE01EA2D0F900B4361A /* tvOSPlist.strings in Resources */,
 				D980FEEE2024AA85004827F8 /* torrent_upload in Resources */,
@@ -2194,6 +2204,7 @@
 				4DBE60A11E5E634400C2549B /* EpisodesViewController.swift in Sources */,
 				4DE6FDF21F0823C400A7F274 /* UITableView+FocusedCellIndexPath.swift in Sources */,
 				4D990E471DC4F0F1005CDE34 /* AppDelegate.swift in Sources */,
+				D9B9F67C219599CE00803463 /* ExtendedSubtitleViewController.swift in Sources */,
 				4DCCBA5B1DC50D780046C755 /* UIColor+Extension.swift in Sources */,
 				4DAFAA361E0AF4DE00AE0F9A /* AudioViewController.swift in Sources */,
 				4D0F9E3D1E705AA100860852 /* UICollectionViewCell+ReactiveCell.swift in Sources */,
@@ -2302,6 +2313,7 @@
 				4DE6FDEF1F04256B00A7F274 /* NSNotificationName+Extension.swift in Sources */,
 				4DD6E4D01DFB17B400818A2C /* ProgressBar.swift in Sources */,
 				4DF394321E96BA3300DFCEC6 /* AVAudioRoute.swift in Sources */,
+				D9B9F67A21958A4300803463 /* ExtendedSubtitleSelectionTableViewController.swift in Sources */,
 				4D0F9DD01E70564900860852 /* MovieDetailViewController.swift in Sources */,
 				4D5624751E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift in Sources */,
 				4DB0477A1E6035860008721A /* ContinueWatchingCollectionViewCell.swift in Sources */,
@@ -2887,7 +2899,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -2916,8 +2928,9 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
 				EXPANDED_CODE_SIGN_IDENTITY = "-";
 				EXPANDED_CODE_SIGN_IDENTITY_NAME = "-";
@@ -3087,7 +3100,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = TopShelf/TopShelf.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				EXPANDED_CODE_SIGN_IDENTITY = "-";
@@ -3119,7 +3132,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = TopShelf/TopShelf.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				EXPANDED_CODE_SIGN_IDENTITY = "-";

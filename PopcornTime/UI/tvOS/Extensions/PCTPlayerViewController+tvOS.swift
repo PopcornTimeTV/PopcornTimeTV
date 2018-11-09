@@ -48,7 +48,6 @@ extension PCTPlayerViewController: UIViewControllerTransitioningDelegate {
         destinationController.modalPresentationStyle = .custom
         destinationController.delegate = self
         present(destinationController, animated: true)
-        destinationController.subtitlesViewController.subtitles = subtitles
         destinationController.subtitlesViewController.allSubtitles = allSubtitles
         destinationController.subtitlesViewController.currentSubtitle = currentSubtitle
         destinationController.subtitlesViewController.currentDelay = mediaplayer.currentVideoSubTitleDelay/Int(1e6)

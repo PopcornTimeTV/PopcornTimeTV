@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="appleTV" orientation="landscape">
+        <adaptation id="light"/>
+    </device>
+    <dependencies>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="66" sectionFooterHeight="66" translatesAutoresizingMaskIntoConstraints="NO" id="X81-XX-rOC">
+                    <rect key="frame" x="390" y="360" width="1140" height="610"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fAu-b3-fdY">
+                    <rect key="frame" x="858" y="140" width="204" height="86"/>
+                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                    <state key="normal" title="English"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Pmt-tb-8Ig" firstAttribute="trailing" secondItem="X81-XX-rOC" secondAttribute="trailing" constant="300" id="4fR-kL-zoU"/>
+                <constraint firstItem="fAu-b3-fdY" firstAttribute="centerX" secondItem="X81-XX-rOC" secondAttribute="centerX" id="FnJ-hS-r6L"/>
+                <constraint firstItem="X81-XX-rOC" firstAttribute="leading" secondItem="Pmt-tb-8Ig" secondAttribute="leading" constant="300" id="LhJ-rd-3Vk"/>
+                <constraint firstItem="Pmt-tb-8Ig" firstAttribute="bottom" secondItem="X81-XX-rOC" secondAttribute="bottom" constant="50" id="h6r-th-gzh"/>
+                <constraint firstItem="fAu-b3-fdY" firstAttribute="top" secondItem="Pmt-tb-8Ig" secondAttribute="top" constant="80" id="sn9-uG-pGl"/>
+                <constraint firstItem="X81-XX-rOC" firstAttribute="top" secondItem="Pmt-tb-8Ig" secondAttribute="top" constant="300" id="ucM-Ad-z0B"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Pmt-tb-8Ig"/>
+        </view>
+    </objects>
+</document>

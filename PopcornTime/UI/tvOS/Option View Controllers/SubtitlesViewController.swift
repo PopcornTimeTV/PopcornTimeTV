@@ -5,12 +5,16 @@ import struct PopcornKit.Subtitle
 
 class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource {
     
-    var subtitles = [Subtitle]()
     var allSubtitles = Dictionary<String, [Subtitle]>()
     let encodings = SubtitleSettings.encodings
     let delays = [Int](-60...60)
     
-    var currentSubtitle: Subtitle?
+    var currentSubtitle: Subtitle? {
+        didSet {
+            currentSubtitle != nil ? newSubtitleAppend() : ()
+        }
+    }
+    
     var currentDelay = 0
     var currentEncoding = SubtitleSettings.shared.encoding {
         didSet {
@@ -20,12 +24,15 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
         }
     }
     
+    private var subtitlesInView:[String] = Array()
+    
     // MARK: Long press gesture set up
     
     override func viewDidLoad() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressDetected))
         longPressGesture.minimumPressDuration = 2.0
         self.firstTableView.addGestureRecognizer(longPressGesture)
+        
         super.viewDidLoad()
     }
     
@@ -66,8 +73,14 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         switch tableView {
         case firstTableView:
-            cell.textLabel?.text = Array(allSubtitles.keys)[indexPath.row]
-            cell.accessoryType = currentSubtitle?.language == cell.textLabel?.text ? .checkmark : .none
+            if indexPath.row == 0{
+                cell.textLabel?.text = currentSubtitle?.language ?? "English"
+                subtitlesInView.append(cell.textLabel?.text ?? "English")
+                cell.accessoryType = currentSubtitle?.language == cell.textLabel?.text ? .checkmark : .none
+            }else{
+                cell.textLabel?.text = "Select Other".localized
+                cell.accessoryType = .none
+            }
         case secondTableView:
             let delay = delays[indexPath.row]
             cell.textLabel?.text = (delay > 0 ? "+" : "") + NumberFormatter.localizedString(from: NSNumber(value: delay), number: .decimal)
@@ -114,7 +127,7 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case firstTableView:
-            return allSubtitles.keys.count
+            return 2
         case secondTableView:
             return delays.count
         case thirdTableView:
@@ -127,13 +140,32 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch tableView {
         case firstTableView:
-            let cell = firstTableView.cellForRow(at: indexPath)
-            if currentSubtitle?.language == cell?.textLabel?.text && currentSubtitle == allSubtitles[cell?.textLabel?.text ?? ""]?.first{ // If row was already selected, user wants to remove the selection.
-                currentSubtitle = nil
-            } else if currentSubtitle?.language != cell?.textLabel?.text {
-                currentSubtitle = allSubtitles[cell?.textLabel?.text ?? ""]?.first
+            if indexPath.row != (tableView.numberOfRows(inSection: 0) - 1) {
+                let cell = firstTableView.cellForRow(at: indexPath)
+                if currentSubtitle?.language == cell?.textLabel?.text && currentSubtitle == allSubtitles[cell?.textLabel?.text ?? ""]?.first{ // If row was already selected, user wants to remove the selection.
+                    currentSubtitle = nil
+                }else if currentSubtitle?.language != cell?.textLabel?.text {
+                    currentSubtitle = allSubtitles[cell?.textLabel?.text ?? ""]?.first
+                }
+            }else{
+                guard let extendedView = storyboard?.instantiateViewController(withIdentifier: "ExtendedSubtitleSelectionView") as? ExtendedSubtitleViewController
+                    else{
+                        return
+                }
+                extendedView.delegate = delegate
+                extendedView.allSubtitles = allSubtitles
+                extendedView.currentSubtitle = currentSubtitle
+                present(extendedView, animated: true)
             }
-            delegate?.didSelectSubtitle(currentSubtitle)
+            
+            
+//            let cell = firstTableView.cellForRow(at: indexPath)
+//            if currentSubtitle?.language == cell?.textLabel?.text && currentSubtitle == allSubtitles[cell?.textLabel?.text ?? ""]?.first{ // If row was already selected, user wants to remove the selection.
+//                currentSubtitle = nil
+//            } else if currentSubtitle?.language != cell?.textLabel?.text {
+//                currentSubtitle = allSubtitles[cell?.textLabel?.text ?? ""]?.first
+//            }
+//            delegate?.didSelectSubtitle(currentSubtitle)
         case secondTableView:
             currentDelay = delays[indexPath.row]
             delegate?.didSelectSubtitleDelay(currentDelay)
@@ -144,5 +176,17 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
             break
         }
         tableView.reloadData()
+    }
+    
+    func newSubtitleAppend(){
+//        if !subtitlesInView.contains(currentSubtitle!.language){
+//            let cell = self.firstTableView.dequeueReusableCell(withIdentifier: "cell")
+//            cell?.textLabel?.text = currentSubtitle?.language
+//            cell?.accessoryType = .checkmark
+//            self.firstTableView.beginUpdates()
+//            self.firstTableView.insertRows(at: [IndexPath(row: self.firstTableView.numberOfRows(inSection: 0)-2, section: 0)], with: .automatic)
+//            self.firstTableView.endUpdates()
+//            subtitlesInView.append(currentSubtitle!.language)
+//        }
     }
 }
