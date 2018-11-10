@@ -79,8 +79,26 @@ open class SubtitlesManager: NetworkManager {
                 allSubtitles[language] = languageSubtitles
             }
             
-            DispatchQueue.main.async(execute: { completion(allSubtitles, nil) })
+            DispatchQueue.main.async(execute: { completion(self.removeDuplicates(sourceSubtitles: allSubtitles), nil) })
         }
+    }
+    
+    private func removeDuplicates(sourceSubtitles: Dictionary<String, [Subtitle]>) -> Dictionary<String, [Subtitle]> {
+        var allSubtitlesWithoutDuplicates = Dictionary<String, [Subtitle]>()
+        
+        for (languageName, languageSubtitles) in sourceSubtitles {
+            var seenSubtitles = Set<String>()
+            var uniqueSubtitles = [Subtitle]()
+            for subtitle in languageSubtitles {
+                if !seenSubtitles.contains(subtitle.name) {
+                    uniqueSubtitles.append(subtitle)
+                    seenSubtitles.insert(subtitle.name)
+                }
+            }
+            allSubtitlesWithoutDuplicates[languageName] = uniqueSubtitles
+        }
+        
+        return allSubtitlesWithoutDuplicates
     }
     
     private func getParams(_ episode: Episode? = nil, imdbId: String? = nil,preferredLang: String? = nil,videoFilePath: URL? = nil, limit: String = "500") -> [String:Any] {
