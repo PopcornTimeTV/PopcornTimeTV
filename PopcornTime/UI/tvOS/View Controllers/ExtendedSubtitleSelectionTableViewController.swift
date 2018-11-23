@@ -22,8 +22,6 @@ class ExtendedSubtitleSelectionTableViewController: UITableViewController {
 
 //         Uncomment the following line to preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
-
-        
     }
 
     // MARK: - Table view data source
@@ -41,7 +39,6 @@ class ExtendedSubtitleSelectionTableViewController: UITableViewController {
         }
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell:UITableViewCell
         
@@ -61,10 +58,14 @@ class ExtendedSubtitleSelectionTableViewController: UITableViewController {
         let cell = tableView.cellForRow(at: indexPath)
         if indexPath.section == 0 {
             let alertController = UIAlertController(title: "Select Language".localized, message: nil, preferredStyle: .actionSheet)
-            for (language,alternateSubtiles) in allSubtitles{
+            
+            var allLanguages = Array(allSubtitles.keys)
+            allLanguages.sort()
+            for (language) in allLanguages{
                         let action = UIAlertAction(title: language, style: .default) { _ in
                             // subtitles api needs to be updated for this to work
-                            self.currentSubtitle = alternateSubtiles.first
+                            let alternateSubtiles = self.allSubtitles[language]
+                            self.currentSubtitle = alternateSubtiles?.first
                             cell?.detailTextLabel?.text = self.currentSubtitle?.language
                             tableView.reloadSections(IndexSet(arrayLiteral: 1), with: .fade)
                         }
@@ -86,15 +87,4 @@ class ExtendedSubtitleSelectionTableViewController: UITableViewController {
         }
         return ""
     }
-    
-    // MARK: - Navigation
-
-    /*
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

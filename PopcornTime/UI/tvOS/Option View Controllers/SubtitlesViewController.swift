@@ -26,47 +26,6 @@ class SubtitlesViewController: OptionsStackViewController, UITableViewDataSource
     
     private var subtitlesInView:[String] = Array()
     
-    // MARK: Long press gesture set up
-    
-    override func viewDidLoad() {
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressDetected))
-        longPressGesture.minimumPressDuration = 2.0
-        self.firstTableView.addGestureRecognizer(longPressGesture)
-        
-        super.viewDidLoad()
-    }
-    
-    
-    @objc func longPressDetected(gestureRecognizer: UILongPressGestureRecognizer){
-        if gestureRecognizer.state == .began{
-            let p = gestureRecognizer.location(in: self.firstTableView)
-            
-            let indexPath = self.firstTableView.indexPathForRow(at: p)
-            if indexPath != nil{
-                //grab the subtitle language from the selected cell
-                let cell = self.firstTableView.cellForRow(at: indexPath!)
-                
-                if currentSubtitle?.language != cell?.textLabel?.text ?? ""{
-                    self.firstTableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-                }
-                let alertController = UIAlertController(title: "Select Alternate Subtitle", message: nil, preferredStyle: .actionSheet)
-                for (language,alternateSubtiles) in allSubtitles{
-                    if language == cell?.textLabel?.text{
-                        for subtitle in alternateSubtiles{
-                            let action = UIAlertAction(title: subtitle.name, style: .default) { _ in
-                                // subtitles api needs to be updated for this to work
-                                self.currentSubtitle = subtitle
-                                self.delegate?.didSelectSubtitle(subtitle)
-                            }
-                            alertController.addAction(action)
-                        }
-                    }
-                }
-                alertController.show(animated: true)
-            }
-        }
-    }
-
     // MARK: Table view data source
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

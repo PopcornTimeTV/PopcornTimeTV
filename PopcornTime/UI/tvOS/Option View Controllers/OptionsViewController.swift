@@ -20,7 +20,6 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
     @IBOutlet var subtitlesContainerView: UIView!
     @IBOutlet var audioContainerView: UIView!
 
-    @IBOutlet var longPressSuggestionLabel: UILabel!
     @IBOutlet var tabBar: UITabBar!
     @IBOutlet var swipeGesture: UISwipeGestureRecognizer!
 
@@ -55,10 +54,7 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
         let index = tabBar.items!.index(of: item)!
         
         updateContainerView(infoContainerView, viewController: infoViewController, hidden: index != 0)
-        updateContainerView(subtitlesContainerView, viewController: subtitlesViewController, hidden: index != 1)
-        longPressSuggestionLabel.isHidden = index != 1
-        longPressSuggestionLabel.text = "Long press to select an alternative subtitle".localized
-        
+        updateContainerView(subtitlesContainerView, viewController: subtitlesViewController, hidden: index != 1)        
         updateContainerView(audioContainerView, viewController: audioViewController, hidden: index != 2)
     }
     

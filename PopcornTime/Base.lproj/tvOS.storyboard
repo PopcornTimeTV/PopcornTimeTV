@@ -2933,15 +2933,6 @@
                                     <segue destination="KXb-HM-bmT" kind="embed" id="E0L-ma-WfQ"/>
                                 </connections>
                             </containerView>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IS2-JV-ekO">
-                                <rect key="frame" x="142" y="380" width="200" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="g5x-m5-UUG"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="25"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tabBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="VR9-RO-ryD">
                                 <rect key="frame" x="0.0" y="0.0" width="1920" height="140"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2969,7 +2960,6 @@
                             <constraint firstItem="s10-hE-6SZ" firstAttribute="bottom" secondItem="VR9-RO-ryD" secondAttribute="bottom" id="4kd-Tp-fXW"/>
                             <constraint firstItem="UZA-7D-dR1" firstAttribute="top" secondItem="VR9-RO-ryD" secondAttribute="bottom" constant="20" id="6kn-3F-MuM"/>
                             <constraint firstItem="UZA-7D-dR1" firstAttribute="width" secondItem="j6l-o7-1n4" secondAttribute="width" multiplier="0.8" id="9YC-ua-hwg"/>
-                            <constraint firstItem="IS2-JV-ekO" firstAttribute="top" secondItem="mxK-vp-adm" secondAttribute="top" id="AgW-X3-r7Y"/>
                             <constraint firstAttribute="bottomMargin" secondItem="Ejw-R3-Oci" secondAttribute="bottom" id="DcK-g6-18c"/>
                             <constraint firstItem="mxK-vp-adm" firstAttribute="top" secondItem="UZA-7D-dR1" secondAttribute="bottom" constant="20" id="MZu-Nx-EgJ"/>
                             <constraint firstItem="JZc-y3-9iE" firstAttribute="centerX" secondItem="j6l-o7-1n4" secondAttribute="centerX" id="Olq-8V-sNt"/>
@@ -2989,7 +2979,6 @@
                             <constraint firstItem="UZA-7D-dR1" firstAttribute="centerX" secondItem="j6l-o7-1n4" secondAttribute="centerX" id="ups-jh-6He"/>
                             <constraint firstItem="Ejw-R3-Oci" firstAttribute="leading" secondItem="j6l-o7-1n4" secondAttribute="leading" id="wVb-Hp-9a9"/>
                             <constraint firstItem="VR9-RO-ryD" firstAttribute="leading" secondItem="j6l-o7-1n4" secondAttribute="leading" id="ynv-5F-81q"/>
-                            <constraint firstItem="IS2-JV-ekO" firstAttribute="leading" secondItem="j6l-o7-1n4" secondAttribute="leading" constant="142" id="zLM-Xe-lME"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="ygj-7N-XDQ" appends="YES" id="elo-2D-4dB"/>
@@ -3001,7 +2990,6 @@
                     <connections>
                         <outlet property="audioContainerView" destination="UZA-7D-dR1" id="hmR-ys-PBP"/>
                         <outlet property="infoContainerView" destination="JZc-y3-9iE" id="dhl-81-hQF"/>
-                        <outlet property="longPressSuggestionLabel" destination="IS2-JV-ekO" id="cfC-7x-1AI"/>
                         <outlet property="subtitlesContainerView" destination="bX4-2V-xqW" id="aJr-Eo-gND"/>
                         <outlet property="swipeGesture" destination="ygj-7N-XDQ" id="YTY-ct-DqF"/>
                         <outlet property="tabBar" destination="VR9-RO-ryD" id="6Jg-mc-usc"/>
@@ -3534,6 +3522,10 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <scene sceneID="s0v-PN-dW4">
             <objects>
                 <viewController id="Ape-TT-27p" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OPz-zd-XsA"/>
+                        <viewControllerLayoutGuide type="bottom" id="SKl-vj-Ze2"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="QmJ-rd-eDc">
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3547,7 +3539,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         <image name="Download Progress Pause" width="60" height="60"/>
         <image name="Episode Placeholder" width="600" height="600"/>
         <image name="Episode Watched Indicator" width="308" height="174"/>
-        <image name="Icon" width="144" height="144"/>
+        <image name="Icon" width="600" height="600"/>
         <image name="Movie Placeholder" width="400" height="600"/>
         <image name="Now Playing Info" width="251" height="85"/>
         <image name="Other Placeholder" width="820" height="460"/>
