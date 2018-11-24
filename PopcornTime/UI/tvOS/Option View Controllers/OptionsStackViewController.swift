@@ -47,8 +47,10 @@ class OptionsStackViewController: UIViewController, UITableViewDelegate {
         [firstTableView, secondTableView, thirdTableView].forEach {
             $0?.reloadData()
         }
-        var counter = 0
-        parent?.view.layoutGuides.forEach({counter+=1;if counter < 3 {return};$0.owningView?.removeLayoutGuide($0)})
+        
+        parent?.view.layoutGuides.forEach({
+            $0.isKind(of: UIFocusGuide.self) ? $0.owningView?.removeLayoutGuide($0) : ()
+        })
         
         [topGuide, leftGuide, rightGuide, bottomGuide].forEach { (guide) in
             self.parent?.view.addLayoutGuide(guide)

@@ -350,6 +350,9 @@
 		D903FA112030CB1400180DBD /* PCTPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903FA0F2030CB1400180DBD /* PCTPlayerViewController.swift */; };
 		D903FA122030D06000180DBD /* iOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCEF21E6815450066F1A7 /* iOS.storyboard */; };
 		D90FB5FD20D670B200CD141F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D90FB5FC20D670B200CD141F /* MediaPlayer.framework */; };
+		D91B3A4E21A56AF60076B083 /* String+Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91B3A4D21A56AF60076B083 /* String+Emoji.swift */; };
+		D91B3A5321A5A8990076B083 /* ExtendedSubtitleSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91B3A5221A5A8980076B083 /* ExtendedSubtitleSelectionTableViewController.swift */; };
+		D91B3A5521A5A8E80076B083 /* ExtendedSubtitleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91B3A5421A5A8E80076B083 /* ExtendedSubtitleTableViewController.swift */; };
 		D92610A020F4B13A00BA8C44 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D926109E20F4B13A00BA8C44 /* InfoPlist.strings */; };
 		D92610A320F4B13A00BA8C44 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D92610A120F4B13A00BA8C44 /* InfoPlist.strings */; };
 		D946964720476B7200B4A63B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D946964920476B7200B4A63B /* Localizable.strings */; };
@@ -358,7 +361,6 @@
 		D980FEEE2024AA85004827F8 /* torrent_upload in Resources */ = {isa = PBXBuildFile; fileRef = D980FEED2024AA84004827F8 /* torrent_upload */; };
 		D9955D632061220800A2B499 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9955D652061220800A2B499 /* Localizable.strings */; };
 		D9974073218CDC1100B0D6AF /* ExtendedSubtitleSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9974072218CDC1100B0D6AF /* ExtendedSubtitleSelectionViewController.xib */; };
-		D9B9F67A21958A4300803463 /* ExtendedSubtitleSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B9F67921958A4300803463 /* ExtendedSubtitleSelectionTableViewController.swift */; };
 		D9B9F67C219599CE00803463 /* ExtendedSubtitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B9F67B219599CE00803463 /* ExtendedSubtitleViewController.swift */; };
 		D9CC9C8C2064FE38006C1274 /* Popcorn_TimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CC9C8B2064FE38006C1274 /* Popcorn_TimeUITests.swift */; };
 		D9CC9C9A2064FE64006C1274 /* Popcorn_TimeiOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CC9C992064FE64006C1274 /* Popcorn_TimeiOSUITests.swift */; };
@@ -754,6 +756,9 @@
 		D903FA0F2030CB1400180DBD /* PCTPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PCTPlayerViewController.swift; path = "View Controllers/PCTPlayerViewController.swift"; sourceTree = "<group>"; };
 		D90FB5FC20D670B200CD141F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		D91AAC99206C2F3C003DA002 /* SubtitleHashGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubtitleHashGenerator.swift; path = ../../PopcornKit/Resources/SubtitleHashGenerator.swift; sourceTree = "<group>"; };
+		D91B3A4D21A56AF60076B083 /* String+Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Emoji.swift"; sourceTree = "<group>"; };
+		D91B3A5221A5A8980076B083 /* ExtendedSubtitleSelectionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtendedSubtitleSelectionTableViewController.swift; path = "View Controllers/ExtendedSubtitleSelectionTableViewController.swift"; sourceTree = "<group>"; };
+		D91B3A5421A5A8E80076B083 /* ExtendedSubtitleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedSubtitleTableViewController.swift; sourceTree = "<group>"; };
 		D926109D20F4B13A00BA8C44 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D926109F20F4B13A00BA8C44 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D92610A220F4B13A00BA8C44 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -781,7 +786,6 @@
 		D9955D6B2061220900A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/iOSPlist.strings"; sourceTree = "<group>"; };
 		D9955D6C2061220900A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/iOSPlist.strings"; sourceTree = "<group>"; };
 		D9974072218CDC1100B0D6AF /* ExtendedSubtitleSelectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExtendedSubtitleSelectionViewController.xib; sourceTree = "<group>"; };
-		D9B9F67921958A4300803463 /* ExtendedSubtitleSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExtendedSubtitleSelectionTableViewController.swift; path = "View Controllers/ExtendedSubtitleSelectionTableViewController.swift"; sourceTree = "<group>"; };
 		D9B9F67B219599CE00803463 /* ExtendedSubtitleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExtendedSubtitleViewController.swift; path = "View Controllers/ExtendedSubtitleViewController.swift"; sourceTree = "<group>"; };
 		D9CC9C892064FE38006C1274 /* Popcorn TimetvOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Popcorn TimetvOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9CC9C8B2064FE38006C1274 /* Popcorn_TimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popcorn_TimeUITests.swift; sourceTree = "<group>"; };
@@ -1214,6 +1218,7 @@
 				4D8A57461DE10DFD00CCDF8A /* UIViewController+StatusBar.swift */,
 				D9E6CD532024C62C00D0DEF4 /* MoviesViewController+iOS.swift */,
 				D9E6CD552024C65200D0DEF4 /* ShowsViewController+iOS.swift */,
+				D91B3A4D21A56AF60076B083 /* String+Emoji.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1300,8 +1305,8 @@
 				4D0E130D1E671E050000AD65 /* TVTabBarController.swift */,
 				4D0F9E381E705A7600860852 /* TVNavigationController.swift */,
 				D9D978D12024A7D70014BCB2 /* LoadExternalTorrentViewController.swift */,
-				D9B9F67921958A4300803463 /* ExtendedSubtitleSelectionTableViewController.swift */,
 				D9B9F67B219599CE00803463 /* ExtendedSubtitleViewController.swift */,
+				D91B3A5221A5A8980076B083 /* ExtendedSubtitleSelectionTableViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -1422,6 +1427,7 @@
 				4D859B401DDFA0D2000E2AA1 /* GoogleCastTableViewController.swift */,
 				4D8330BC1E57643A00E1DD41 /* StreamToDevicesTableViewController.swift */,
 				4D859B411DDFA0D2000E2AA1 /* OptionsTableViewController.swift */,
+				D91B3A5421A5A8E80076B083 /* ExtendedSubtitleTableViewController.swift */,
 			);
 			path = "Table View Controllers";
 			sourceTree = "<group>";
@@ -2204,6 +2210,7 @@
 				4DBE60A11E5E634400C2549B /* EpisodesViewController.swift in Sources */,
 				4DE6FDF21F0823C400A7F274 /* UITableView+FocusedCellIndexPath.swift in Sources */,
 				4D990E471DC4F0F1005CDE34 /* AppDelegate.swift in Sources */,
+				D91B3A5321A5A8990076B083 /* ExtendedSubtitleSelectionTableViewController.swift in Sources */,
 				D9B9F67C219599CE00803463 /* ExtendedSubtitleViewController.swift in Sources */,
 				4DCCBA5B1DC50D780046C755 /* UIColor+Extension.swift in Sources */,
 				4DAFAA361E0AF4DE00AE0F9A /* AudioViewController.swift in Sources */,
@@ -2313,7 +2320,6 @@
 				4DE6FDEF1F04256B00A7F274 /* NSNotificationName+Extension.swift in Sources */,
 				4DD6E4D01DFB17B400818A2C /* ProgressBar.swift in Sources */,
 				4DF394321E96BA3300DFCEC6 /* AVAudioRoute.swift in Sources */,
-				D9B9F67A21958A4300803463 /* ExtendedSubtitleSelectionTableViewController.swift in Sources */,
 				4D0F9DD01E70564900860852 /* MovieDetailViewController.swift in Sources */,
 				4D5624751E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift in Sources */,
 				4DB0477A1E6035860008721A /* ContinueWatchingCollectionViewCell.swift in Sources */,
@@ -2484,10 +2490,12 @@
 				4D8A57471DE10DFE00CCDF8A /* UIViewController+StatusBar.swift in Sources */,
 				4D0F9DD11E70564C00860852 /* DetailViewController.swift in Sources */,
 				4D0F9E121E7057F100860852 /* ShowsViewController.swift in Sources */,
+				D91B3A4E21A56AF60076B083 /* String+Emoji.swift in Sources */,
 				4D689A6F1DD8AF12001D1318 /* AppDelegate.swift in Sources */,
 				4DE9E06A1E3D0DC300806522 /* SeparatorCollectionViewLayout.swift in Sources */,
 				4D0F9E0D1E7057F100860852 /* MainViewController.swift in Sources */,
 				4D5624761E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift in Sources */,
+				D91B3A5521A5A8E80076B083 /* ExtendedSubtitleTableViewController.swift in Sources */,
 				4D15C7E11EF17D3000953E45 /* DownloadDetailTableViewCell.swift in Sources */,
 				4D859B751DDFA12C000E2AA1 /* ProgressBar.swift in Sources */,
 				4DF394301E96B5B600DFCEC6 /* AVSpeakerManager.swift in Sources */,

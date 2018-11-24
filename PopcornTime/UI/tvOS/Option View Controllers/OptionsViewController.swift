@@ -54,7 +54,7 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
         let index = tabBar.items!.index(of: item)!
         
         updateContainerView(infoContainerView, viewController: infoViewController, hidden: index != 0)
-        updateContainerView(subtitlesContainerView, viewController: subtitlesViewController, hidden: index != 1)        
+        updateContainerView(subtitlesContainerView, viewController: subtitlesViewController, hidden: index != 1)
         updateContainerView(audioContainerView, viewController: audioViewController, hidden: index != 2)
     }
     

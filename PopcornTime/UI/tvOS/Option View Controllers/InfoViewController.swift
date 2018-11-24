@@ -37,9 +37,8 @@ class InfoViewController: UIViewController, UIViewControllerTransitioningDelegat
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        var repeatCount = 0
         parent?.view.layoutGuides.forEach({
-            repeatCount+=1;if repeatCount == 1 {return};$0.owningView?.removeLayoutGuide($0)
+            $0.isKind(of: UIFocusGuide.self) ? $0.owningView?.removeLayoutGuide($0) : ()
         })
         parent?.view.addLayoutGuide(topGuide)
         

@@ -548,7 +548,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
             if segue.identifier == "showSubtitles",
                 let navigationController = segue.destination as? UINavigationController,
                 let vc = navigationController.viewControllers.first as? OptionsTableViewController {
-                vc.subtitles = subtitles
+                vc.allSubtitles = allSubtitles
                 vc.currentSubtitle = currentSubtitle
                 vc.currentSubtitleDelay = mediaplayer.currentVideoSubTitleDelay/Int(1e6)
                 vc.currentAudioDelay = mediaplayer.currentAudioPlaybackDelay/Int(1e6)
