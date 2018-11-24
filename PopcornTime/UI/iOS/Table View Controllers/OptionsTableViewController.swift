@@ -15,7 +15,7 @@ class OptionsTableViewController: UITableViewController {
     
     weak var delegate: OptionsViewControllerDelegate?
     
-    var subtitles = [Subtitle]()
+    var allSubtitles = Dictionary<String, [Subtitle]>()
     
     var currentSubtitle: Subtitle?
     var currentSubtitleDelay = 0
@@ -29,11 +29,11 @@ class OptionsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)!
-        if cell.accessoryType == .checkmark // If selected cell is already the current subtitle, the user wants to remove subtitles
+        if cell.imageView?.image != nil // If selected cell is already the current subtitle, the user wants to remove subtitles
         {
             currentSubtitle = nil
         } else {
-            currentSubtitle = subtitles[indexPath.row]
+            currentSubtitle = Array(allSubtitles[cell.textLabel?.text ?? "English"]!).first
         }
        
         delegate?.didSelectSubtitle(currentSubtitle)
@@ -63,7 +63,7 @@ class OptionsTableViewController: UITableViewController {
         case 1:
             return 1
         case 2:
-            return subtitles.count
+            return allSubtitles.keys.count
         default:
             return 0
         }
@@ -85,16 +85,28 @@ class OptionsTableViewController: UITableViewController {
             cell.textLabel?.text = (currentSubtitleDelay > 0 ? "+" : "") + NumberFormatter.localizedString(from: NSNumber(value: currentSubtitleDelay), number: .decimal)
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell.textLabel?.text = subtitles[indexPath.row].language
-            if let currentSubtitle = currentSubtitle, currentSubtitle.link == subtitles[indexPath.row].link {
-                cell.accessoryType = .checkmark
+            cell.textLabel?.text = Array(allSubtitles.keys)[indexPath.row]
+            if let currentSubtitle = currentSubtitle, currentSubtitle.link == Array(allSubtitles[cell.textLabel!.text!]!).first!.link {
+                cell.accessoryType = .detailButton
+                cell.imageView?.image = "✔️".image()
             } else {
                 cell.accessoryType = .none
+                cell.imageView?.image = nil
             }
         default:
             return UITableViewCell()
         }
         
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showExtendedSubtitles"{
+            if let destination = segue.destination as? ExtendedSubtitleTableViewController{
+                destination.allSubtitles = allSubtitles
+                destination.currentSubtitle = currentSubtitle
+                destination.delegate = delegate
+            }
+        }
     }
 }

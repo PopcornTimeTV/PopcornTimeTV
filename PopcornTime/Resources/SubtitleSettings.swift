@@ -80,6 +80,7 @@ class SubtitleSettings: NSObject, NSCoding {
     var language: String? = nil
     var font: UIFont = UIFont.systemFont(ofSize: CGFloat(Size.medium.rawValue))
     var style: UIFont.Style = .normal
+    var subtitlesSelectedForVideo: [Any] = Array()
     
     static let shared = SubtitleSettings()
     
@@ -94,6 +95,7 @@ class SubtitleSettings: NSObject, NSCoding {
     }
     
     func save() {
+        subtitlesSelectedForVideo.removeAll()
         UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: self), forKey: "subtitleSettings")
         UserDefaults.standard.synchronize()
     }

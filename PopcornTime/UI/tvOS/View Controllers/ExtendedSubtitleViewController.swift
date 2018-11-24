@@ -13,7 +13,7 @@ class ExtendedSubtitleViewController: UIViewController {
     
     var allSubtitles = Dictionary<String, [Subtitle]>()
     var currentSubtitle:Subtitle?
-    var delegate:OptionsViewControllerDelegate?
+    var delegate:SubtitlesViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

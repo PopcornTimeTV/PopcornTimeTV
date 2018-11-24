@@ -13,17 +13,12 @@ class ExtendedSubtitleSelectionTableViewController: UITableViewController {
 
     var allSubtitles = Dictionary<String, [Subtitle]>()
     var currentSubtitle:Subtitle?
-    var delegate:OptionsViewControllerDelegate?
+    var delegate:SubtitlesViewControllerDelegate?
     
     private var previousCell:UITableViewCell?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//         Uncomment the following line to preserve selection between presentations
-        self.clearsSelectionOnViewWillAppear = false
-
-        
     }
 
     // MARK: - Table view data source
@@ -53,6 +48,8 @@ class ExtendedSubtitleSelectionTableViewController: UITableViewController {
             let subtitle = Array(allSubtitles[currentSubtitle?.language ?? "English"]!)[indexPath.row]
             cell.detailTextLabel?.text = subtitle.language
             cell.textLabel?.text = subtitle.name
+            cell.accessoryType = currentSubtitle?.name == subtitle.name ? .checkmark : .none
+            currentSubtitle?.name == subtitle.name ? previousCell = cell : ()
         }
         return cell
     }
@@ -65,8 +62,9 @@ class ExtendedSubtitleSelectionTableViewController: UITableViewController {
                         let action = UIAlertAction(title: language, style: .default) { _ in
                             // subtitles api needs to be updated for this to work
                             self.currentSubtitle = alternateSubtiles.first
-                            cell?.detailTextLabel?.text = self.currentSubtitle?.language
+                            cell?.detailTextLabel?.text = language
                             tableView.reloadSections(IndexSet(arrayLiteral: 1), with: .fade)
+                            self.delegate?.didSelectSubtitle(self.currentSubtitle)
                         }
                         alertController.addAction(action)
             }
