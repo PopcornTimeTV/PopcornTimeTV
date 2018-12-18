@@ -29,7 +29,7 @@ extension ShowsViewController:UISearchBarDelegate,PCTPlayerViewControllerDelegat
             title = String(title[title.startIndex ... title.range(of: "&tr")!.lowerBound])
         }
         
-        let magnetTorrentMedia = Movie.init(title: title, id: "34", tmdbId: nil, slug: "magnet-link", summary: "", torrents: [userTorrent], subtitles: [], largeBackgroundImage: nil, largeCoverImage: nil)
+        let magnetTorrentMedia = Movie.init(title: title, id: "34", tmdbId: nil, slug: "magnet-link", summary: "", torrents: [userTorrent], subtitles: [:], largeBackgroundImage: nil, largeCoverImage: nil)
         
         let storyboard = UIStoryboard.main
         let loadingViewController = storyboard.instantiateViewController(withIdentifier: "PreloadTorrentViewController") as! PreloadTorrentViewController
