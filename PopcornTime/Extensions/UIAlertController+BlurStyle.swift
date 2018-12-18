@@ -1,0 +1,74 @@
+
+
+import Foundation
+
+extension UIAlertController {
+    
+    private struct AssociatedKeys {
+        static var blurStyleKey = "UIAlertController.blurStyleKey"
+    }
+    
+    #if os(iOS)
+    
+//    @objc public var preferredAction: UIAlertAction? {
+//        get {
+//            return perform(#selector(getter: UIAlertController.preferredAction))?.takeUnretainedValue() as? UIAlertAction
+//        } set (action) {
+//            perform(#selector(setter:UIAlertController.preferredAction), with: action)
+//            actions.forEach({$0.isChecked = false})
+//            action?.isChecked = true
+//        }
+//    }
+    
+    open override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        visualEffectView?.effect = UIBlurEffect(style: blurStyle)
+        cancelActionView?.backgroundColor = cancelButtonColor
+        cancelHighlightView?.recursiveSubviews.forEach({$0.backgroundColor = blurStyle == .dark ? .black : nil})
+        preferredAction?.isChecked = true
+    }
+    
+    #endif
+    
+    public var blurStyle: UIBlurEffect.Style {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.blurStyleKey) as? UIBlurEffect.Style ?? .extraLight
+        } set (style) {
+            objc_setAssociatedObject(self, &AssociatedKeys.blurStyleKey, style, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            
+            view.setNeedsLayout()
+            view.layoutIfNeeded()
+        }
+    }
+    
+    public var cancelButtonColor: UIColor? {
+        return blurStyle == .dark ? .dark : nil
+    }
+    
+    private var visualEffectView: UIVisualEffectView? {
+        if let presentationController = presentationController, presentationController.responds(to: Selector(("popoverView"))), let view = presentationController.value(forKey: "popoverView") as? UIView // We're on an iPad and visual effect view is in a different place.
+        {
+            return view.recursiveSubviews.compactMap({$0 as? UIVisualEffectView}).first
+        }
+        
+        return view.recursiveSubviews.compactMap({$0 as? UIVisualEffectView}).first
+    }
+    
+    private var cancelBackgroundView: UIView? {
+        return view.recursiveSubviews.first(where: {type(of: $0) == NSClassFromString("_UIAlertControlleriOSActionSheetCancelBackgroundView")})
+    }
+    
+    private var cancelActionView: UIView? {
+        return cancelBackgroundView?.value(forKey: "backgroundView") as? UIView
+    }
+    
+    private var cancelHighlightView: UIView? {
+        return cancelBackgroundView?.value(forKey: "highlightView") as? UIView
+    }
+    
+    public convenience init(title: String?, message: String?, preferredStyle: UIAlertController.Style, blurStyle: UIBlurEffect.Style) {
+        self.init(title: title, message: message, preferredStyle: preferredStyle)
+        self.blurStyle = blurStyle
+    }
+}

@@ -1,0 +1,116 @@
+PODS:
+  - 1PasswordExtension (1.8.5)
+  - AEXML (4.3.3)
+  - Alamofire (4.7.3)
+  - AlamofireImage (3.4.1):
+    - Alamofire (~> 4.7)
+  - AlamofireNetworkActivityIndicator (2.3.0):
+    - Alamofire (~> 4.7)
+  - AlamofireXMLRPC (2.2.0):
+    - AEXML
+    - Alamofire
+  - FloatRatingView (3.0.1)
+  - GCDWebServer (3.3.3):
+    - GCDWebServer/Core (= 3.3.3)
+  - GCDWebServer/Core (3.3.3)
+  - google-cast-sdk (3.4.0):
+    - google-cast-sdk/Core (= 3.4.0)
+  - google-cast-sdk/Core (3.4.0)
+  - Locksmith (4.0.0)
+  - MarqueeLabel/Swift (3.2.0)
+  - MBCircularProgressBar (0.3.5)
+  - MobileVLCKit (3.1.5)
+  - ObjectMapper (3.3.0)
+  - OBSlider (1.1.1)
+  - PopcornTorrent (1.3.10):
+    - GCDWebServer (~> 3.3.3)
+  - Reachability (3.2)
+  - SwiftyJSON (4.1.0)
+  - SwiftyTimer (2.0.0)
+  - TvOSMoreButton (1.1.4)
+  - TVVLCKit (3.1.5)
+  - XCDYouTubeKit (2.5.6)
+
+DEPENDENCIES:
+  - 1PasswordExtension (~> 1.8.4)
+  - Alamofire (~> 4.7.0)
+  - AlamofireImage (~> 3.4.0)
+  - AlamofireNetworkActivityIndicator (~> 2.3.0)
+  - AlamofireXMLRPC (~> 2.2.0)
+  - FloatRatingView (~> 3.0.1)
+  - google-cast-sdk (~> 3.4.0)
+  - Locksmith (~> 4.0.0)
+  - MarqueeLabel/Swift (~> 3.2.0)
+  - MBCircularProgressBar (~> 0.3.5-1)
+  - MobileVLCKit (~> 3.1.1)
+  - ObjectMapper (~> 3.3.0)
+  - OBSlider (~> 1.1.1)
+  - PopcornTorrent (~> 1.3.0)
+  - Reachability (from `https://github.com/tonymillion/Reachability`)
+  - SwiftyJSON (~> 4.1.0)
+  - SwiftyTimer (~> 2.0.0)
+  - TvOSMoreButton (~> 1.1.0)
+  - TVVLCKit (~> 3.1.1)
+  - XCDYouTubeKit (~> 2.5.5)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - 1PasswordExtension
+    - AEXML
+    - Alamofire
+    - AlamofireImage
+    - AlamofireNetworkActivityIndicator
+    - AlamofireXMLRPC
+    - GCDWebServer
+    - google-cast-sdk
+    - Locksmith
+    - MarqueeLabel
+    - MobileVLCKit
+    - ObjectMapper
+    - OBSlider
+    - SwiftyJSON
+    - SwiftyTimer
+    - TvOSMoreButton
+    - TVVLCKit
+    - XCDYouTubeKit
+  https://github.com/PopcornTimeTV/Specs:
+    - FloatRatingView
+    - MBCircularProgressBar
+    - PopcornTorrent
+
+EXTERNAL SOURCES:
+  Reachability:
+    :git: https://github.com/tonymillion/Reachability
+
+CHECKOUT OPTIONS:
+  Reachability:
+    :commit: 184d6d44f0f21b6428d833d265f5d0cfa1ed88d8
+    :git: https://github.com/tonymillion/Reachability
+
+SPEC CHECKSUMS:
+  1PasswordExtension: 0e95bdea64ec8ff2f4f693be5467a09fac42a83d
+  AEXML: 601f41fcaa7bda7605cad153b0f43db9ec006c0f
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  AlamofireImage: 78d67ccbb763d87ba44b21583d2153500a195630
+  AlamofireNetworkActivityIndicator: 18346ff6d770d9513d0ac6f2d99706f40f93dbaa
+  AlamofireXMLRPC: c43e200a5956d345481a81f28abf843798f348ed
+  FloatRatingView: 5b31eb72798ca3531df5243959f7cfe03d0b7ac9
+  GCDWebServer: 1c39a1f0763e4eb492bee021e4270fce097d3555
+  google-cast-sdk: 35da95f568b50d72628014f3320e2f3240bf2a7a
+  Locksmith: e9bebbaaa4cee3c511bc358a44f843c3fe00e21f
+  MarqueeLabel: 440a502b91a9179bd98f9fff00ba1150650a1c0e
+  MBCircularProgressBar: 29e6df5e8683ff2375a291792a5988a16dd78c8e
+  MobileVLCKit: 4d44e56380d0ee41c76f9ec7015d3a4b62a963a3
+  ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
+  OBSlider: 38853ebbb9cc6978a9b7ddc0d4f525588e8bb294
+  PopcornTorrent: 61dc59d25cab3c5b52e95397e6bd10898ba2b87d
+  Reachability: a439150119232b740e0b708aed6760a5965b858d
+  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
+  SwiftyTimer: 2efd74b060d69ad4f1496baf5bbedbe132125fcf
+  TvOSMoreButton: c77899c3294d8dbb357473ab0defadff3c166239
+  TVVLCKit: 3449ff8cbf37946c53aa6240788842657456fc6e
+  XCDYouTubeKit: dccfe0c17dd5c5187969ec27e93069573badb08f
+
+PODFILE CHECKSUM: 37687acddc53566276d9a7496a42ff96250cef56
+
+COCOAPODS: 1.5.3

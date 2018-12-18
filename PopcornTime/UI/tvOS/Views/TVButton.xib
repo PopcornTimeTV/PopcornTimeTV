@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="appleTV" orientation="landscape">
+        <adaptation id="dark"/>
+    </device>
+    <dependencies>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TVButton" customModule="PopcornTime" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundView" destination="div-20-XcU" id="O7S-vG-rXJ"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="r1h-Ml-kbE"/>
+                <outlet property="focusedView" destination="fYe-5d-TjU" id="n0P-WY-0bU"/>
+                <outlet property="imageView" destination="xUA-5w-AZN" id="RP2-ox-Y4M"/>
+                <outlet property="titleLabel" destination="xCt-cf-cF2" id="Tm3-zD-FcO"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="142" height="115"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="div-20-XcU">
+                    <rect key="frame" x="0.0" y="0.0" width="142" height="80"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="BWM-f3-qZE">
+                        <rect key="frame" x="0.0" y="0.0" width="142" height="80"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xUA-5w-AZN">
+                                <rect key="frame" x="52" y="21" width="39" height="39"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="39" placeholder="YES" id="9Tm-wb-B9u"/>
+                                    <constraint firstAttribute="width" constant="39" placeholder="YES" id="lnE-Na-KEU"/>
+                                </constraints>
+                            </imageView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fYe-5d-TjU">
+                                <rect key="frame" x="-36" y="-67" width="214" height="214"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="fYe-5d-TjU" secondAttribute="height" multiplier="1:1" id="0s3-7P-Vu1"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="fYe-5d-TjU" firstAttribute="width" secondItem="BWM-f3-qZE" secondAttribute="width" multiplier="1.5" id="DPt-Vz-LeP"/>
+                            <constraint firstItem="xUA-5w-AZN" firstAttribute="centerX" secondItem="BWM-f3-qZE" secondAttribute="centerX" id="LVn-o9-9tR"/>
+                            <constraint firstItem="fYe-5d-TjU" firstAttribute="centerY" secondItem="BWM-f3-qZE" secondAttribute="centerY" id="iEV-AB-pXb"/>
+                            <constraint firstItem="xUA-5w-AZN" firstAttribute="centerY" secondItem="BWM-f3-qZE" secondAttribute="centerY" id="soS-Qv-jdl"/>
+                            <constraint firstItem="fYe-5d-TjU" firstAttribute="centerX" secondItem="BWM-f3-qZE" secondAttribute="centerX" id="urz-dD-LZg"/>
+                        </constraints>
+                    </view>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="jLY-lj-Ane"/>
+                    </constraints>
+                    <blurEffect style="light"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </visualEffectView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCt-cf-cF2">
+                    <rect key="frame" x="0.0" y="88" width="142" height="28"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="23"/>
+                    <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="xCt-cf-cF2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="1ec-el-QlF"/>
+                <constraint firstAttribute="trailing" secondItem="xCt-cf-cF2" secondAttribute="trailing" id="Edo-rD-l43"/>
+                <constraint firstItem="xCt-cf-cF2" firstAttribute="top" secondItem="div-20-XcU" secondAttribute="bottom" constant="8" symbolic="YES" id="U0X-yt-hrf"/>
+                <constraint firstAttribute="trailing" secondItem="div-20-XcU" secondAttribute="trailing" id="af2-Pk-gSJ"/>
+                <constraint firstItem="xCt-cf-cF2" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="etR-QF-Q6o"/>
+                <constraint firstItem="div-20-XcU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="uKC-Aw-kuC"/>
+                <constraint firstItem="div-20-XcU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="yFU-7a-a8U"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-804" y="-302"/>
+        </view>
+    </objects>
+</document>
