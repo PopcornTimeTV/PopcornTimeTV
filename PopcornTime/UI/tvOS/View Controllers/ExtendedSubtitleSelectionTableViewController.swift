@@ -37,7 +37,7 @@ class ExtendedSubtitleSelectionTableViewController: UITableViewController {
             cell.detailTextLabel?.text = currentSubtitle?.language ?? "None".localized
         }else{
             cell = tableView.dequeueReusableCell(withIdentifier: "SubCell")!
-            let subtitle = Array(subtitles[currentSubtitle?.language ?? "English"]!)[indexPath.row]
+            let subtitle = Array(subtitles[currentSubtitle?.language ?? Locale.current.localizedString(forLanguageCode: "en")!]!)[indexPath.row]
             cell.detailTextLabel?.text = subtitle.language
             cell.textLabel?.text = subtitle.name
             cell.accessoryType = currentSubtitle?.name == subtitle.name ? .checkmark : .none

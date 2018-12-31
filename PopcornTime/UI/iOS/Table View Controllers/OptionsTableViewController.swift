@@ -33,7 +33,7 @@ class OptionsTableViewController: UITableViewController {
         {
             currentSubtitle = nil
         } else {
-            currentSubtitle = Array(subtitles[cell.textLabel?.text ?? "English"]!).first
+            currentSubtitle = Array(subtitles[cell.textLabel?.text ?? Locale.current.localizedString(forLanguageCode: "en")!]!).first
         }
        
         delegate?.didSelectSubtitle(currentSubtitle)
