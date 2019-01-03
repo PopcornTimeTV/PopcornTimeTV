@@ -188,7 +188,6 @@
 		4D37C4591E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Grey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D37C4581E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Grey.swift */; };
 		4D3A401E1EBDEAD1006E7F23 /* URL+MIME.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3A401D1EBDEAD1006E7F23 /* URL+MIME.swift */; };
 		4D3A401F1EBDEAD1006E7F23 /* URL+MIME.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3A401D1EBDEAD1006E7F23 /* URL+MIME.swift */; };
-		4D3A40231EBE08E5006E7F23 /* GCKDevice+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3A40221EBE08E5006E7F23 /* GCKDevice+Equatable.swift */; };
 		4D3A43481EA9826E00CF3646 /* TVFadedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3A43471EA9826E00CF3646 /* TVFadedTextView.swift */; };
 		4D5624751E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5624741E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift */; };
 		4D5624761E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5624741E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift */; };
@@ -613,7 +612,6 @@
 		4D32EBED1EA2D0FB00B4361A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/iOSPlist.strings; sourceTree = "<group>"; };
 		4D37C4581E6DC9BD00845665 /* UIActivityIndicatorViewStyle+Grey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorViewStyle+Grey.swift"; sourceTree = "<group>"; };
 		4D3A401D1EBDEAD1006E7F23 /* URL+MIME.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+MIME.swift"; sourceTree = "<group>"; };
-		4D3A40221EBE08E5006E7F23 /* GCKDevice+Equatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GCKDevice+Equatable.swift"; sourceTree = "<group>"; };
 		4D3A43471EA9826E00CF3646 /* TVFadedTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVFadedTextView.swift; sourceTree = "<group>"; };
 		4D5624741E58603900488712 /* PCTPlayerViewController+ScreenNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PCTPlayerViewController+ScreenNotifications.swift"; sourceTree = "<group>"; };
 		4D5624771E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PCTPlayerViewController+MediaPlayer.swift"; sourceTree = "<group>"; };
@@ -1202,7 +1200,6 @@
 				4D9995411E5C6FFD005C432A /* CollectionViewController+iOS.swift */,
 				4D784D4D1E5F3AF6009E3423 /* ItemViewController+iOS.swift */,
 				4DBE60971E5E590500C2549B /* MovieDetailViewController+iOS.swift */,
-				4D3A40221EBE08E5006E7F23 /* GCKDevice+Equatable.swift */,
 				4DE6FDE81F04242300A7F274 /* GCKMediaTextTrackStyle+Default.swift */,
 				4DABD2331ECF693D00C609D1 /* GCKRequest+CustomData.swift */,
 				4DBE608E1E5E51C300C2549B /* DetailViewController+iOS.swift */,
@@ -1652,6 +1649,7 @@
 				4D0F9D8D1E6F2F4D00860852 /* Frameworks */,
 				4D0F9D8E1E6F2F4D00860852 /* Headers */,
 				4D0F9D8F1E6F2F4D00860852 /* Resources */,
+				4FAE1D1BED7ECF96C7C70FC5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1691,6 +1689,7 @@
 				4D689A151DD88E17001D1318 /* Resources */,
 				4D0F9D9D1E6F2F4D00860852 /* Embed Frameworks */,
 				32EA7C440C5E676C79CC8B43 /* [CP] Embed Pods Frameworks */,
+				EAFD3F0A52B7F46C1521F144 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2001,10 +2000,10 @@
 				"${BUILT_PRODUCTS_DIR}/OBSlider/OBSlider.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper-iOS/ObjectMapper.framework",
 				"${PODS_ROOT}/PopcornTorrent/Build/iOS/PopcornTorrent.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/Reachability-iOS/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyTimer-iOS/SwiftyTimer.framework",
 				"${BUILT_PRODUCTS_DIR}/XCDYouTubeKit-iOS/XCDYouTubeKit.framework",
-				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-Public-3.4.0-Release/GoogleCast.framework",
 				"${BUILT_PRODUCTS_DIR}/AEXML-iOS/AEXML.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireXMLRPC-iOS/AlamofireXMLRPC.framework",
 				"${BUILT_PRODUCTS_DIR}/Locksmith-iOS/Locksmith.framework",
@@ -2024,10 +2023,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OBSlider.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopcornTorrent.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyTimer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCDYouTubeKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleCast.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEXML.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireXMLRPC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Locksmith.framework",
@@ -2036,6 +2035,30 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4FAE1D1BED7ECF96C7C70FC5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PopcornKit iOS/Pods-PopcornKit iOS-resources.sh",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.4_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.4_static/GoogleCast.framework/GoogleCastUIResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornKit iOS/Pods-PopcornKit iOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5B3ABEBD998E9EE7ACDF64F1 /* [CP] Embed Pods Frameworks */ = {
@@ -2176,6 +2199,30 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EAFD3F0A52B7F46C1521F144 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS-resources.sh",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.4_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.4_static/GoogleCast.framework/GoogleCastUIResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FBB7CE8F6A44F576C033AC84 /* [CP] Check Pods Manifest.lock */ = {
@@ -2467,7 +2514,6 @@
 				4D5624791E58680A00488712 /* PCTPlayerViewController+MediaPlayer.swift in Sources */,
 				4D8A5DD91EA962B4004CEB53 /* UIControlState+Hashable.swift in Sources */,
 				4D0F9E261E7058F700860852 /* EpisodeDetailPresentationDelegate.swift in Sources */,
-				4D3A40231EBE08E5006E7F23 /* GCKDevice+Equatable.swift in Sources */,
 				4D9CDFE81EE9DA98004B3F6F /* AVMetadataItem+Extension.swift in Sources */,
 				4D0F9DE01E7056E200860852 /* MonogramCollectionViewCell.swift in Sources */,
 				D9E6CD562024C65200D0DEF4 /* ShowsViewController+iOS.swift in Sources */,

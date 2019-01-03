@@ -14,14 +14,13 @@ private enum TableViewUpdates {
     case delete
 }
 
-class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerListener, GCKSessionManagerListener, GCKDeviceManagerDelegate {
+class GoogleCastTableViewController: UITableViewController, GCKDiscoveryManagerListener, GCKSessionManagerListener{//}, GCKDeviceManagerDelegate {
     
     var dataSource = [GCKDevice]()
     var connectionQueue: GCKDevice?
     
-    private let deviceScanner = GCKDeviceScanner(filterCriteria: GCKFilterCriteria(forAvailableApplicationWithID: kGCKMediaDefaultReceiverApplicationID))
     private let sessionManager = GCKCastContext.sharedInstance().sessionManager
-    private var deviceManager: GCKDeviceManager?
+    private var deviceManager = GCKCastContext.sharedInstance().discoveryManager
     
     weak var delegate: GoogleCastTableViewControllerDelegate?
     
@@ -53,8 +52,14 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
         super.viewDidLoad()
         tableView.contentInset.top = 20
         
-        deviceScanner.add(self)
-        deviceScanner.startScan()
+        deviceManager.add(self)
+        deviceManager.startDiscovery()
+        
+        if deviceManager.hasDiscoveredDevices{
+            for i in 0...deviceManager.deviceCount - 1{
+                dataSource.append(deviceManager.device(at: i))
+            }
+        }
         sessionManager.add(self)
     }
     
@@ -89,11 +94,13 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
             sessionManager.endSession()
             connectionQueue = device
         } else {
-            GCKCastContext.sharedInstance().sessionManager.startSession(with: device)
             let info = Bundle.main.infoDictionary
             let appIdentifier = info!["CFBundleIdentifier"] as! String;
-            deviceManager = GCKDeviceManager.init(device: device, clientPackageName: appIdentifier)
-            deviceManager?.delegate = self
+            GCKCastContext.setSharedInstanceWith(GCKCastOptions(discoveryCriteria: GCKDiscoveryCriteria(applicationID: appIdentifier)))
+            GCKCastContext.sharedInstance().sessionManager.startSession(with: device)
+            
+            deviceManager = GCKCastContext.sharedInstance().discoveryManager
+            deviceManager.add(self)
         }
     }
     
@@ -114,42 +121,32 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
         tableView.reloadData()
     }
     
-    // MARK: - GCKDeviceScannerListener
+    // MARK: - GCKDiscoveryManagerListener
     
-    public func deviceDidComeOnline(_ device: GCKDevice) {
-        dataSource.append(device)
-        update(tableView: tableView, type: .insert, rows: [dataSource.count - 1])
-    }
-    
-    
-    public func deviceDidGoOffline(_ device: GCKDevice) {
+    func didRemove(_ device: GCKDevice, at index: UInt) {
         for (index, oldDevice) in dataSource.enumerated() where device === oldDevice {
             dataSource.remove(at: index)
             update(tableView: tableView, type: .delete, rows: [index])
         }
     }
     
-    public func deviceDidChange(_ device: GCKDevice) {
-        for (index, oldDevice) in dataSource.enumerated() where device === oldDevice  {
-            dataSource[index] = device
+    func didInsert(_ device: GCKDevice, at index: UInt) {
+        dataSource.append(device)
+        update(tableView: tableView, type: .insert, rows: [dataSource.count - 1])
+    }
+    
+    func didUpdate(_ device: GCKDevice, at index: UInt) {
+        for (index, oldDevice) in dataSource.enumerated() where device === oldDevice  {                        dataSource[index] = device
             update(tableView: tableView, type: .reload, rows: [index])
         }
     }
-
-    func deviceManager(_ deviceManager: GCKDeviceManager, didDisconnectFromApplicationWithError error: Error?) {
-        print("Received notification that app disconnected")
-        
-        if error != nil{
-            print("Application disconnected with error: \(error.debugDescription)")
-        }
-    }
     
-    func deviceManager(_ deviceManager: GCKDeviceManager, didDisconnectWithError error: Error?) {
+
+    func sessionManager(_ sessionManager: GCKSessionManager, didFailToStart session: GCKSession, withError error: Error) {
         print("Received notification that app disconnected")
         
-        if error != nil{
-            print("Application disconnected with error: \(error.debugDescription)")
-        }
+        
+        print("Application disconnected with error: \(error.localizedDescription)")
     }
     
     // MARK: - Table view data source
@@ -226,9 +223,9 @@ class GoogleCastTableViewController: UITableViewController, GCKDeviceScannerList
     }
     
     deinit {
-        if deviceScanner.scanning {
-            deviceScanner.stopScan()
-            deviceScanner.remove(self)
+        if deviceManager.discoveryState == GCKDiscoveryState.running {
+            deviceManager.stopDiscovery()
+            deviceManager.remove(self)
             GCKCastContext.sharedInstance().sessionManager.remove(self)
         }
     }

@@ -29,14 +29,16 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
     var streamer: PTTorrentStreamer!
     var localPathToMedia: URL!
     var startPosition: TimeInterval = 0.0
+    var updatedQueue = false
     var currentSubtitle: Subtitle? {
         didSet {
             guard oldValue != currentSubtitle else { return }
             
             let request: GCKRequest?
+            let subtitleArrays = Array(media.subtitles.values).flatMap({$0})
             
             if let subtitle = currentSubtitle,
-                let index = media.subtitles[subtitle.language]!.index(of: subtitle) {
+                let index = subtitleArrays.index(of: subtitle) {
                 request = remoteMediaClient?.setActiveTrackIDs([NSNumber(value: index)])
             } else {
                 request = remoteMediaClient?.setActiveTrackIDs(nil)
@@ -66,7 +68,10 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
             }
             return 0.0
         } set {
-            remoteMediaClient?.seek(toTimeInterval: newValue, resumeState: .play)
+            let seekOptions = GCKMediaSeekOptions()
+            seekOptions.resumeState = .play
+            seekOptions.interval = newValue
+            remoteMediaClient?.seek(with: seekOptions)
         }
     }
     
@@ -226,9 +231,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
         server.addDefaultHandler(forMethod: "GET", request: GCDWebServerRequest.self) { [weak self] (request, completion) in
             guard
                 let `self` = self,
-                let path = request?.path,
-                let language = request?.url.deletingLastPathComponent().lastPathComponent,
-                let subtitle = self.media.subtitles[language]!.first(where: {$0.name == request?.url.lastPathComponent.replacingOccurrences(of: ".vtt", with: "")})
+                let path = request?.path
             else {
                 let response = GCDWebServerFileResponse(statusCode: 204)
                 completion?(response)
@@ -249,20 +252,6 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
             {
                 let response: GCDWebServerFileResponse = GCDWebServerFileResponse(file: url.relativePath)
                 completion(response)
-            } else {
-                let link = subtitle.link.replacingOccurrences(of: "/download/", with: "/download/subformat-vtt/") // Google cast only supports web vtt
-                
-                PopcornKit.downloadSubtitleFile(link, fileName: "\(subtitle.name).vtt", downloadDirectory: self.directory) { (url, error) in
-                    let response: GCDWebServerFileResponse
-                    
-                    if let url = url {
-                        response = GCDWebServerFileResponse(file: url.relativePath)
-                    } else {
-                        response = GCDWebServerFileResponse(statusCode: error?.code ?? 204)
-                    }
-                    
-                    completion(response)
-                }
             }
         }
         
@@ -275,23 +264,35 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
             metadata.addImage(GCKImage(url: url, width: 480, height: 720))
         }
         
-        let mediaTracks: [GCKMediaTrack] = Array(media.subtitles.values).compactMap { subtitles in
-            for subtitle in subtitles{
-                let index = subtitles.index(of: subtitle)!
-                let track = GCKMediaTrack(identifier: index, contentIdentifier: "\(server.serverURL.relativeString)/Subtitles/\(subtitle.language)/\(subtitle.name).vtt", contentType: "text/vtt", type: .text, textSubtype: .captions, name: subtitle.language, languageCode: subtitle.ISO639, customData: nil)
+        let subtitleArrays = Array(media.subtitles.values).flatMap({$0})
+        
+        let mediaTracks: [GCKMediaTrack] = subtitleArrays.compactMap { subtitle in
+                let index = subtitleArrays.index(of: subtitle)!
+                let link = subtitle.link.replacingOccurrences(of: "/download/", with: "/download/subformat-vtt/").replacingOccurrences(of: ".gz", with: "")
+                let track = GCKMediaTrack(identifier: index, contentIdentifier: link, contentType: "text/vtt", type: .text, textSubtype: .captions, name: subtitle.language, languageCode: subtitle.ISO639, customData: nil)
                 return track
-            }
-            return nil
         }
         
         
-        let mediaInfo = GCKMediaInformation(contentID: url.relativeString, streamType: .buffered, contentType: localPathToMedia.contentType, metadata: metadata, streamDuration: 0, mediaTracks: mediaTracks.isEmpty ? nil : mediaTracks, textTrackStyle: .default, customData: nil)
+        let mediaInfo = GCKMediaInformationBuilder(contentURL:url)
+        mediaInfo.contentID = url.relativeString
+        mediaInfo.streamType = .buffered
+        mediaInfo.contentType = localPathToMedia.contentType
+        mediaInfo.metadata = metadata
+        mediaInfo.streamDuration = 0
+        mediaInfo.mediaTracks = mediaTracks.isEmpty ? nil : mediaTracks
+        mediaInfo.textTrackStyle = GCKMediaTextTrackStyle.createDefault()
         
         let activeTrackIDs: [NSNumber]? = SubtitleSettings.shared.language.flatMap { preferredLanguage in
             return media.subtitles[preferredLanguage]!.index(where: {$0.language == preferredLanguage})
         }.flatMap{ [NSNumber(value: $0)] }
         
-        remoteMediaClient?.loadMedia(mediaInfo, autoplay: true, playPosition: startPosition, activeTrackIDs: activeTrackIDs).delegate = self
+        let loadOptions = GCKMediaLoadOptions()
+        loadOptions.autoplay = true
+        loadOptions.playPosition = startPosition
+        loadOptions.activeTrackIDs = activeTrackIDs
+        
+        remoteMediaClient?.loadMedia(mediaInfo.build(), with:loadOptions).delegate = self
         
         subtitleButton.isHidden = media.subtitles.isEmpty
     
@@ -306,10 +307,16 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
         }
     }
     
+    func remoteMediaClientDidUpdateQueue(_ client: GCKRemoteMediaClient) {
+        updatedQueue = true
+    }
+    
     func request(_ request: GCKRequest, didFailWithError error: GCKError) {
         if let isSubtitle = request.customData as? Bool, isSubtitle {
             currentSubtitle = nil
-        } else {
+        } else if updatedQueue  {
+            updatedQueue = false
+        }else{
             GCKCastContext.sharedInstance().sessionManager.endSessionAndStopCasting(true)
             close()
         }
