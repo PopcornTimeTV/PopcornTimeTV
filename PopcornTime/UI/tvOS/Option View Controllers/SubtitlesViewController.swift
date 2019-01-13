@@ -74,7 +74,12 @@ class SubtitlesViewController: OptionsStackViewController,SubtitlesViewControlle
             label.center = tableView.center
             label.sizeToFit()
         }else if tableView == firstTableView && subtitlesInView.isEmpty{
-            subtitlesInView = [currentSubtitle ?? subtitles[Locale.current.localizedString(forLanguageCode: "en")!.localizedCapitalized]!.first ?? subtitles[subtitles.keys.first!]!.first!,Subtitle(name: "", language: "Select Other".localized, link: "", ISO639: "", rating: 0.0)]//insert predetermined subtitle or english or first available whichever exists
+            if subtitles.count > 0 {
+                let englishLang = Locale.current.localizedString(forLanguageCode: "en")!.localizedCapitalized
+                subtitlesInView = [currentSubtitle ?? subtitles[englishLang]?.first ?? subtitles[subtitles.keys.first!]!.first!,Subtitle(name: "", language: "Select Other".localized, link: "", ISO639: "", rating: 0.0)]
+            }
+            
+            //insert predetermined subtitle or english or first available whichever exists
             for unknownSubtitle in SubtitleSettings.shared.subtitlesSelectedForVideo{
                 if let subtitle = unknownSubtitle as? Subtitle{
                     if !subtitlesInView.contains(subtitle){
