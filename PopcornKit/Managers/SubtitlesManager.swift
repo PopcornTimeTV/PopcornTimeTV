@@ -75,17 +75,20 @@ open class SubtitlesManager: NetworkManager {
     }
     
     private func getParams(_ episode: Episode? = nil, imdbId: String? = nil,preferredLang: String? = nil,videoFilePath: URL? = nil, limit: String = "500") -> [String:Any] {
-        var params = [String:Any]()
-        if let videoFilePath = videoFilePath {
+        if let episode = episode {
+            if let id = episode.show?.id {
+                params["imdbid"] = String(id)
+            } else {
+                params["query"] = episode.title
+            }
+            params["episode"] = String(episode.episode)
+            params["season"] = String(episode.season)
+        } else if let imdbId = imdbId {
+            params["imdbid"] = imdbId.replacingOccurrences(of: "tt", with: "")
+        } else if let videoFilePath = videoFilePath {
             let videohash = OpenSubtitlesHash.hashFor(videoFilePath)
             params["moviehash"] = videohash.fileHash
             params["moviebytesize"] = videohash.fileSize
-        }else if let imdbId = imdbId {
-            params["imdbid"] = imdbId.replacingOccurrences(of: "tt", with: "")
-        } else if let episode = episode {
-            params["episode"] = String(episode.episode)
-            params["query"] = episode.title
-            params["season"] = String(episode.season)
         }
         params["sublanguageid"] = preferredLang ?? "all"
         return params
