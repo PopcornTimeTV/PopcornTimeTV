@@ -96,7 +96,9 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
         
         let error: (String) -> Void = { (errorMessage) in
             let alertController = UIAlertController(title: "Error".localized, message: errorMessage, preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: { _ in
+                self.dismiss(animated: true, completion: nil)
+            }))
             alertController.show(animated: true)
         }
         
@@ -111,16 +113,19 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
         }
         
         let selectTorrent: (Array<String>) -> Int32 = { (torrents) in
-            var selected = -1
-            let torrentSelection = UIAlertController(title: "Select file to play", message: nil, preferredStyle: .actionSheet)
+            var selected:Int32! = -1
+            let torrentSelection = UIAlertController(title: "Select file to play", message: nil, preferredStyle: .alert)
             for torrent in torrents{
                 torrentSelection.addAction(UIAlertAction(title: torrent, style: .default, handler: { _ in
-                    selected = torrents.distance(from: torrents.startIndex, to: torrents.index(of: torrent)!)
+                    selected = Int32(torrents.index(of:torrent) ?? -1)
                 }))
             }
-            loadingViewController.present(torrentSelection, animated: true)
-            while selected == -1{ }
-            return Int32(selected)
+            DispatchQueue.main.sync{
+                torrentSelection.show(animated: true)
+            }
+
+            while selected == -1{ print("hold")}
+            return selected
         }
         
         media.getSubtitles { [unowned self] subtitles in

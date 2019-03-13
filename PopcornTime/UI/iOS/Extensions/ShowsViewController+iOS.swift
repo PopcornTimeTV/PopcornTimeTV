@@ -64,8 +64,10 @@ extension ShowsViewController:UISearchBarDelegate,PCTPlayerViewControllerDelegat
                     selected = torrents.distance(from: torrents.startIndex, to: torrents.index(of: torrent)!)
                 }))
             }
-            loadingViewController.present(torrentSelection, animated: true)
-            while selected == -1{ }
+            DispatchQueue.main.sync{
+                loadingViewController.present(torrentSelection, animated: true)
+            }
+            while selected == -1{print("hold") }
             return Int32(selected)
         }
         

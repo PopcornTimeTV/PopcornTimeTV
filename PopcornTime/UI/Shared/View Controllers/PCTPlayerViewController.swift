@@ -316,16 +316,14 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         
         mediaplayer.delegate = self
         mediaplayer.drawable = movieView
+        mediaplayer.audio.passthrough = true
         mediaplayer.media = VLCMedia(url: url)
         
         NotificationCenter.default.addObserver(self, selector: #selector(torrentStatusDidChange(_:)), name: .PTTorrentStatusDidChange, object: streamer)
         
         let settings = SubtitleSettings.shared
-        media.getSubtitles(orWithFilePath: self.localPathToMedia){ subtitles in
-            self.media.subtitles = subtitles
-            if let preferredLanguage = settings.language {
-                self.currentSubtitle = subtitles[preferredLanguage]?.first
-            }
+        if let preferredLanguage = settings.language {
+            self.currentSubtitle = subtitles[preferredLanguage]?.first
         }
         (mediaplayer as VLCFontAppearance).setTextRendererFontSize!(NSNumber(value: settings.size.rawValue))
         (mediaplayer as VLCFontAppearance).setTextRendererFontColor!(NSNumber(value: settings.color.hexInt()))
