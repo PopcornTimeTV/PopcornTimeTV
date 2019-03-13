@@ -52,17 +52,19 @@ class LoadExternalTorrentViewController:UIViewController,GCDWebServerDelegate,PC
                     
                     let selectTorrent: (Array<String>) -> Int32 = { (torrents) in
                         var selected = -1
-                        let torrentSelection = UIAlertController(title: "Select file to play", message: nil, preferredStyle: .actionSheet)
+                        let torrentSelection = UIAlertController(title: "Select file to play".localized, message: nil, preferredStyle: .alert)
                         for torrent in torrents{
                             torrentSelection.addAction(UIAlertAction(title: torrent, style: .default, handler: { _ in
                                 selected = torrents.firstIndex(of: torrent) ?? -1
                             }))
                         }
-                        loadingViewController.present(torrentSelection, animated: true)
-                        
-                        while selected == -1{ }
+                        DispatchQueue.main.sync{
+                            torrentSelection.show(animated: true)
+                        }
+                        while selected == -1{ print("hold") }
                         return Int32(selected)
                     }
+                    
                     
                     //Movie player view controller calls
                     
@@ -74,7 +76,7 @@ class LoadExternalTorrentViewController:UIViewController,GCDWebServerDelegate,PC
             })//handle the request that returns the magnet link
         }
         super.viewWillAppear(true)
-        webserver?.start(withPort: 54320, bonjourName: "PopcornLoad")
+        webserver?.start(withPort: 54320, bonjourName: "popcorn")
         
         infoLabel.text = .localizedStringWithFormat("Please navigate to the webpage %@ and insert the magnet link of the torrent you would like to play".localized, webserver?.serverURL.absoluteString ?? "")
     }

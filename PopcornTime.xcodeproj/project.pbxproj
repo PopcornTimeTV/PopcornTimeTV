@@ -349,6 +349,8 @@
 		D903FA112030CB1400180DBD /* PCTPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903FA0F2030CB1400180DBD /* PCTPlayerViewController.swift */; };
 		D903FA122030D06000180DBD /* iOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCEF21E6815450066F1A7 /* iOS.storyboard */; };
 		D90FB5FD20D670B200CD141F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D90FB5FC20D670B200CD141F /* MediaPlayer.framework */; };
+		D91A6D1321FD171100535D6C /* Downloads.plist in Resources */ = {isa = PBXBuildFile; fileRef = D91A6D1221FD171100535D6C /* Downloads.plist */; };
+		D91A6D1421FD171100535D6C /* Downloads.plist in Resources */ = {isa = PBXBuildFile; fileRef = D91A6D1221FD171100535D6C /* Downloads.plist */; };
 		D91B3A4E21A56AF60076B083 /* String+Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91B3A4D21A56AF60076B083 /* String+Emoji.swift */; };
 		D91B3A5321A5A8990076B083 /* ExtendedSubtitleSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91B3A5221A5A8980076B083 /* ExtendedSubtitleSelectionTableViewController.swift */; };
 		D91B3A5521A5A8E80076B083 /* ExtendedSubtitleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91B3A5421A5A8E80076B083 /* ExtendedSubtitleTableViewController.swift */; };
@@ -753,6 +755,7 @@
 		CA80370986F9AFED490AD537 /* Pods_PopcornKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopcornKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D903FA0F2030CB1400180DBD /* PCTPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PCTPlayerViewController.swift; path = "View Controllers/PCTPlayerViewController.swift"; sourceTree = "<group>"; };
 		D90FB5FC20D670B200CD141F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
+		D91A6D1221FD171100535D6C /* Downloads.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Downloads.plist; sourceTree = "<group>"; };
 		D91AAC99206C2F3C003DA002 /* SubtitleHashGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubtitleHashGenerator.swift; path = ../../PopcornKit/Resources/SubtitleHashGenerator.swift; sourceTree = "<group>"; };
 		D91B3A4D21A56AF60076B083 /* String+Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Emoji.swift"; sourceTree = "<group>"; };
 		D91B3A5221A5A8980076B083 /* ExtendedSubtitleSelectionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtendedSubtitleSelectionTableViewController.swift; path = "View Controllers/ExtendedSubtitleSelectionTableViewController.swift"; sourceTree = "<group>"; };
@@ -1068,6 +1071,7 @@
 				D926109E20F4B13A00BA8C44 /* InfoPlist.strings */,
 				4D0F9D5F1E6F2CA100860852 /* PopcornKit.h */,
 				4D0F9D601E6F2CA100860852 /* PopcornKit.modulemap */,
+				D91A6D1221FD171100535D6C /* Downloads.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1649,7 +1653,7 @@
 				4D0F9D8D1E6F2F4D00860852 /* Frameworks */,
 				4D0F9D8E1E6F2F4D00860852 /* Headers */,
 				4D0F9D8F1E6F2F4D00860852 /* Resources */,
-				4FAE1D1BED7ECF96C7C70FC5 /* [CP] Copy Pods Resources */,
+				249FC5DC6C1E7154F41F8C5B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1689,7 +1693,7 @@
 				4D689A151DD88E17001D1318 /* Resources */,
 				4D0F9D9D1E6F2F4D00860852 /* Embed Frameworks */,
 				32EA7C440C5E676C79CC8B43 /* [CP] Embed Pods Frameworks */,
-				EAFD3F0A52B7F46C1521F144 /* [CP] Copy Pods Resources */,
+				2ADCE11CDBFED967A07AC3BB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1786,6 +1790,7 @@
 				TargetAttributes = {
 					287B85331C9873A200EEF5C8 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = LSMKHW6LLV;
 						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1809,6 +1814,7 @@
 					};
 					4D2543AC1DACFBFE00149533 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = LSMKHW6LLV;
 						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1899,6 +1905,7 @@
 				4D1440151E9AF16600B78269 /* Localizable.strings in Resources */,
 				4D0F9E411E705B0800860852 /* ContinueWatchingCollectionReusableView.xib in Resources */,
 				4D9995531E5C7E68005C432A /* LoadingView.xib in Resources */,
+				D91A6D1321FD171100535D6C /* Downloads.plist in Resources */,
 				4DBCCEF81E6815450066F1A7 /* tvOS.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1946,6 +1953,7 @@
 				4D32EBD31EA2D0F500B4361A /* iOSPlist.strings in Resources */,
 				4DBCCEFF1E68220D0066F1A7 /* Launch Screen.storyboard in Resources */,
 				4D15C7E31EF194AF00953E45 /* DownloadTableViewHeader.xib in Resources */,
+				D91A6D1421FD171100535D6C /* Downloads.plist in Resources */,
 				4DC7B6A51E3907CC0098B12E /* DescriptionCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1981,6 +1989,54 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		249FC5DC6C1E7154F41F8C5B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PopcornKit iOS/Pods-PopcornKit iOS-resources.sh",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.5_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.5_static/GoogleCast.framework/GoogleCastUIResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornKit iOS/Pods-PopcornKit iOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2ADCE11CDBFED967A07AC3BB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS-resources.sh",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.5_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.5_static/GoogleCast.framework/GoogleCastUIResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		32EA7C440C5E676C79CC8B43 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2035,30 +2091,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4FAE1D1BED7ECF96C7C70FC5 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PopcornKit iOS/Pods-PopcornKit iOS-resources.sh",
-				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.4_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
-				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.4_static/GoogleCast.framework/GoogleCastUIResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornKit iOS/Pods-PopcornKit iOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5B3ABEBD998E9EE7ACDF64F1 /* [CP] Embed Pods Frameworks */ = {
@@ -2199,30 +2231,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EAFD3F0A52B7F46C1521F144 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS-resources.sh",
-				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.4_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
-				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.4_static/GoogleCast.framework/GoogleCastUIResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FBB7CE8F6A44F576C033AC84 /* [CP] Check Pods Manifest.lock */ = {
@@ -2957,13 +2965,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LSMKHW6LLV;
 				EXPANDED_CODE_SIGN_IDENTITY = "-";
 				EXPANDED_CODE_SIGN_IDENTITY_NAME = "-";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting Files/tvOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.tvos;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime81.tvos;
 				PRODUCT_NAME = PopcornTime;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
@@ -2986,12 +2994,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LSMKHW6LLV;
 				EXPANDED_CODE_SIGN_IDENTITY = "-";
 				EXPANDED_CODE_SIGN_IDENTITY_NAME = "-";
 				INFOPLIST_FILE = "$(SRCROOT)/PopcornTime/Supporting Files/tvOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.tvos;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime81.tvos;
 				PRODUCT_NAME = PopcornTime;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = "compile-time";
@@ -3157,7 +3165,7 @@
 				CODE_SIGN_ENTITLEMENTS = TopShelf/TopShelf.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LSMKHW6LLV;
 				EXPANDED_CODE_SIGN_IDENTITY = "-";
 				EXPANDED_CODE_SIGN_IDENTITY_NAME = "-";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -3167,7 +3175,7 @@
 				);
 				INFOPLIST_FILE = TopShelf/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.tvos.TopShelf;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime81.tvos.TopShelf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -3190,13 +3198,13 @@
 				CODE_SIGN_ENTITLEMENTS = TopShelf/TopShelf.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LSMKHW6LLV;
 				EXPANDED_CODE_SIGN_IDENTITY = "-";
 				EXPANDED_CODE_SIGN_IDENTITY_NAME = "-";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = TopShelf/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime.tvos.TopShelf;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcorntimetv.popcorntime81.tvos.TopShelf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -3255,10 +3263,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = "PopcornTime/Supporting Files/PopcornTime.entitlements";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				EXPANDED_CODE_SIGN_IDENTITY = "-";
