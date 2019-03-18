@@ -1,9 +1,9 @@
 PODS:
   - 1PasswordExtension (1.8.5)
   - AEXML (4.3.3)
-  - Alamofire (4.7.3)
-  - AlamofireImage (3.4.1):
-    - Alamofire (~> 4.7)
+  - Alamofire (4.8.1)
+  - AlamofireImage (3.5.0):
+    - Alamofire (~> 4.8)
   - AlamofireNetworkActivityIndicator (2.3.0):
     - Alamofire (~> 4.7)
   - AlamofireXMLRPC (2.2.0):
@@ -26,7 +26,7 @@ PODS:
   - OBSlider (1.1.1)
   - PopcornTorrent (1.3.10):
     - GCDWebServer (~> 3.3.3)
-  - Protobuf (3.6.1)
+  - Protobuf (3.7.0)
   - Reachability (3.2)
   - SwiftyJSON (4.1.0)
   - SwiftyTimer (2.0.0)
@@ -36,8 +36,8 @@ PODS:
 
 DEPENDENCIES:
   - 1PasswordExtension (~> 1.8.4)
-  - Alamofire (~> 4.7.0)
-  - AlamofireImage (~> 3.4.0)
+  - Alamofire (~> 4.8.0)
+  - AlamofireImage (~> 3.5.0)
   - AlamofireNetworkActivityIndicator (~> 2.3.0)
   - AlamofireXMLRPC (~> 2.2.0)
   - FloatRatingView (~> 3.0.1)
@@ -94,8 +94,8 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   1PasswordExtension: 0e95bdea64ec8ff2f4f693be5467a09fac42a83d
   AEXML: 601f41fcaa7bda7605cad153b0f43db9ec006c0f
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  AlamofireImage: 78d67ccbb763d87ba44b21583d2153500a195630
+  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  AlamofireImage: 1aea346f4dda2f6c67622fa5a89fcbb80d79cc16
   AlamofireNetworkActivityIndicator: 18346ff6d770d9513d0ac6f2d99706f40f93dbaa
   AlamofireXMLRPC: c43e200a5956d345481a81f28abf843798f348ed
   FloatRatingView: 5b31eb72798ca3531df5243959f7cfe03d0b7ac9
@@ -108,7 +108,7 @@ SPEC CHECKSUMS:
   ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
   OBSlider: 38853ebbb9cc6978a9b7ddc0d4f525588e8bb294
   PopcornTorrent: 61dc59d25cab3c5b52e95397e6bd10898ba2b87d
-  Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+  Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   Reachability: a439150119232b740e0b708aed6760a5965b858d
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
   SwiftyTimer: 2efd74b060d69ad4f1496baf5bbedbe132125fcf
@@ -116,6 +116,6 @@ SPEC CHECKSUMS:
   TVVLCKit: 981de7bab2b086a6cf574e64edc74ee53d79795a
   XCDYouTubeKit: dccfe0c17dd5c5187969ec27e93069573badb08f
 
-PODFILE CHECKSUM: f366f8ef0a20d8170cb67d3f93838f1b5db58cb5
+PODFILE CHECKSUM: 99f6bb4117ebe770020969f75c6386e4c8ed8fde
 
 COCOAPODS: 1.5.3

@@ -16,8 +16,6 @@ extension DownloadViewController: DownloadDetailTableViewCellDelegate {
         navigationItem.rightBarButtonItem = editButtonItem
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: "DownloadTableViewHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "header")
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.saveDownloadsBeforeExitingApp), name: UIApplication.willTerminateNotification, object: nil)
     }
     
     func torrentStatusDidChange(_ torrentStatus: PTTorrentStatus, for download: PTTorrentDownload) {
@@ -167,27 +165,6 @@ extension DownloadViewController: DownloadDetailTableViewCellDelegate {
         AppDelegate.shared.downloadButton(cell.downloadButton, wantsToStop: download) { [unowned self] in
             self.tableView.reloadData()
         }
-    }
-    
-    @objc func saveDownloadsBeforeExitingApp(){
-        guard let bundlePath = Bundle.main.path(forResource: "Downloads", ofType: "plist"),
-            var dict = NSDictionary(contentsOfFile: bundlePath) as? [String : AnyObject],
-            var movieDict = dict["Movies"] as? Dictionary<String,PTTorrentDownload>,
-            var showDict = dict["Shows"] as? Dictionary<String,PTTorrentDownload>
-        else{
-                return
-        }
-        print("save location: \(bundlePath)")
-        downloadingMovies.forEach({
-            movieDict[(Movie($0.mediaMetadata)?.title)!] = $0
-        })
-        downloadingEpisodes.forEach({
-            let episode = Episode($0.mediaMetadata)
-            showDict[(episode?.title)!] = $0
-        })
-        dict["Movies"] = movieDict as AnyObject
-        dict["Shows"] = showDict as AnyObject
-        NSDictionary(dictionary: dict).write(toFile: bundlePath, atomically: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -6,8 +6,8 @@ source 'https://github.com/PopcornTimeTV/Specs'
 def pods
     pod 'PopcornTorrent', '~> 1.3.0'
     pod 'XCDYouTubeKit', '~> 2.5.5'
-    pod 'Alamofire', '~> 4.7.0'
-    pod 'AlamofireImage', '~> 3.4.0'
+    pod 'Alamofire', '~> 4.8.0'
+    pod 'AlamofireImage', '~> 3.5.0'
     pod 'SwiftyTimer', '~> 2.0.0'
     pod 'FloatRatingView', '~> 3.0.1'
     pod 'Reachability', :git => 'https://github.com/tonymillion/Reachability'
@@ -39,7 +39,7 @@ target 'TopShelf' do
 end
 
 def kitPods
-    pod 'Alamofire', '~> 4.7.0'
+    pod 'Alamofire', '~> 4.8.0'
     pod 'ObjectMapper', '~> 3.3.0'
     pod 'AlamofireXMLRPC', '~> 2.2.0'
     pod 'SwiftyJSON', '~> 4.1.0'
