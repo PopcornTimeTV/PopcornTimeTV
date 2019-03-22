@@ -1,7 +1,8 @@
 
 
 import Foundation
-import PopcornTorrent
+import class PopcornTorrent.PTTorrentDownload
+import class PopcornTorrent.PTTorrentDownloadManager
 import PopcornKit
 import MediaPlayer.MPMediaItem
 

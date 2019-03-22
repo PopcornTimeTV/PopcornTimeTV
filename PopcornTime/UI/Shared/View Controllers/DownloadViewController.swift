@@ -1,7 +1,10 @@
 
 
 import Foundation
-import PopcornTorrent
+import class PopcornTorrent.PTTorrentDownloadManager
+import enum PopcornTorrent.PTTorrentDownloadStatus
+import class PopcornTorrent.PTTorrentDownload
+import protocol PopcornTorrent.PTTorrentDownloadManagerListener
 import PopcornKit
 import MediaPlayer.MPMediaItem
 

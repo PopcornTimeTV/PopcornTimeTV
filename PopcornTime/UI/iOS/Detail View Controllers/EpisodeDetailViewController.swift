@@ -3,7 +3,11 @@
 import UIKit
 import AlamofireImage
 import struct PopcornKit.Episode
-import PopcornTorrent
+import class PopcornTorrent.PTTorrentDownloadManager
+import class PopcornTorrent.PTTorrentDownload
+import enum PopcornTorrent.PTTorrentDownloadStatus
+import struct PopcornTorrent.PTTorrentStatus
+import protocol PopcornTorrent.PTTorrentDownloadManagerListener
 
 class EpisodeDetailViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate, PTTorrentDownloadManagerListener {
     

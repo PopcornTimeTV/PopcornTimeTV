@@ -3,7 +3,6 @@
 import Foundation
 import UIKit
 import AlamofireImage
-import PopcornTorrent
 import PopcornKit
 
 class DetailViewController: UIViewController, CollectionViewControllerDelegate, UIScrollViewDelegate {
