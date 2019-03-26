@@ -84,7 +84,7 @@ extension PCTPlayerViewController {
     }
     
     func applicationDidDisconnect(from screen: UIScreen) {
-        if let index = windows.index(where: {$0.screen == screen}) {
+        if let index = windows.firstIndex(where: {$0.screen == screen}) {
             windows.remove(at: index)
         }
         screenshotImageView?.alpha = 1.0

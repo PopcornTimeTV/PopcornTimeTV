@@ -38,7 +38,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
             let subtitleArrays = Array(media.subtitles.values).flatMap({$0})
             
             if let subtitle = currentSubtitle,
-                let index = subtitleArrays.index(of: subtitle) {
+                let index = subtitleArrays.firstIndex(of: subtitle) {
                 request = remoteMediaClient?.setActiveTrackIDs([NSNumber(value: index)])
             } else {
                 request = remoteMediaClient?.setActiveTrackIDs(nil)
@@ -267,7 +267,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
         let subtitleArrays = Array(media.subtitles.values).flatMap({$0})
         
         let mediaTracks: [GCKMediaTrack] = subtitleArrays.compactMap { subtitle in
-                let index = subtitleArrays.index(of: subtitle)!
+                let index = subtitleArrays.firstIndex(of: subtitle)!
                 let link = subtitle.link.replacingOccurrences(of: "/download/", with: "/download/subformat-vtt/").replacingOccurrences(of: ".gz", with: "")
                 let track = GCKMediaTrack(identifier: index, contentIdentifier: link, contentType: "text/vtt", type: .text, textSubtype: .captions, name: subtitle.language, languageCode: subtitle.ISO639, customData: nil)
                 return track
@@ -284,7 +284,7 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
         mediaInfo.textTrackStyle = GCKMediaTextTrackStyle.createDefault()
         
         let activeTrackIDs: [NSNumber]? = SubtitleSettings.shared.language.flatMap { preferredLanguage in
-            return media.subtitles[preferredLanguage]!.index(where: {$0.language == preferredLanguage})
+            return media.subtitles[preferredLanguage]!.firstIndex(where: {$0.language == preferredLanguage})
         }.flatMap{ [NSNumber(value: $0)] }
         
         let loadOptions = GCKMediaLoadOptions()

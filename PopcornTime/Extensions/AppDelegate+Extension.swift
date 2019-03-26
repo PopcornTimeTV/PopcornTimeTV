@@ -77,7 +77,7 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
                 episodesLeftInShow += show.episodes.filter({$0.season == season}).sorted(by: {$0.episode < $1.episode})
             }
             
-            if let index = episodesLeftInShow.index(of: episode) {
+            if let index = episodesLeftInShow.firstIndex(of: episode) {
                 episodesLeftInShow.removeFirst(index + 1)
             }
             
@@ -117,7 +117,7 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
             let torrentSelection = UIAlertController(title: "Select file to play", message: nil, preferredStyle: .alert)
             for torrent in torrents{
                 torrentSelection.addAction(UIAlertAction(title: torrent, style: .default, handler: { _ in
-                    selected = Int32(torrents.index(of:torrent) ?? -1)
+                    selected = Int32(torrents.firstIndex(of:torrent) ?? -1)
                 }))
             }
             DispatchQueue.main.sync{

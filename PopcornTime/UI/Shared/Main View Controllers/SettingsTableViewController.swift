@@ -277,14 +277,14 @@ class SettingsTableViewController: UITableViewController, TraktManagerDelegate {
                 
                 for title in keys {
                     let action = UIAlertAction(title: title, style: .default) { _ in
-                        subtitleSettings.encoding = values[keys.index(of: title)!]
+                        subtitleSettings.encoding = values[keys.firstIndex(of: title)!]
                         subtitleSettings.save()
                         tableView.reloadData()
                     }
                     alertController.addAction(action)
                 }
                 
-                alertController.preferredAction = alertController.actions.first(where: { $0.title == keys[values.index(of: subtitleSettings.encoding)!] })
+                alertController.preferredAction = alertController.actions.first(where: { $0.title == keys[values.firstIndex(of: subtitleSettings.encoding)!] })
                 
                 alertController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
                 

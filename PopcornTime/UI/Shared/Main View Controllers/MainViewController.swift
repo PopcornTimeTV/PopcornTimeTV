@@ -119,7 +119,7 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
                 defer {
                     DispatchQueue.main.asyncAfter(deadline: .now() + transition.duration) {
                         var viewControllers = navigationController.viewControllers
-                        if let index = viewControllers.index(where: {$0 === segue.destination}) {
+                        if let index = viewControllers.firstIndex(where: {$0 === segue.destination}) {
                             viewControllers.remove(at: index)
                             navigationController.setViewControllers(viewControllers, animated: false)
                         }

@@ -71,7 +71,7 @@ open class WatchedlistManager<N: Media & Hashable> {
         TraktManager.shared.scrobble(id, progress: 0, type: currentType, status: .finished)
         var array = UserDefaults.standard.object(forKey: "\(currentType.rawValue)Watchedlist") as? [String] ?? []
         var dict = UserDefaults.standard.object(forKey: "\(currentType.rawValue)Progress") as? [String: Float] ?? [:]
-        if let index = array.index(of: id) {
+        if let index = array.firstIndex(of: id) {
             array.remove(at: index)
         }
         dict.removeValue(forKey: id)
@@ -193,13 +193,17 @@ open class WatchedlistManager<N: Media & Hashable> {
             updatedWatched = updated
             group.leave()
         }
-        
+        if !TraktManager.shared.isSignedIn(){
+            group.leave()
+        }
         group.enter()
         let progress = Array(getProgress() { updated in
             updatedProgress = Array(updated.keys)
             group.leave()
             }.keys)
-        
+        if !TraktManager.shared.isSignedIn(){
+            group.leave()
+        }
         group.notify(queue: .main) {
             completion?(Array(Set(updatedProgress).subtracting(updatedWatched)))
         }

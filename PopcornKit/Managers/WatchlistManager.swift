@@ -71,7 +71,7 @@ open class WatchlistManager<N: Media> {
     open func remove(_ media: N) {
         TraktManager.shared.remove(media.id, fromWatchlistOfType: currentType)
         if var array = UserDefaults.standard.object(forKey: "\(currentType.rawValue)Watchlist") as? jsonArray,
-            let index = Mapper<N>().mapArray(JSONArray: array).index(where: { $0.id == media.id }) {
+            let index = Mapper<N>().mapArray(JSONArray: array).firstIndex(where: { $0.id == media.id }) {
             array.remove(at: index)
             UserDefaults.standard.set(array, forKey: "\(currentType.rawValue)Watchlist")
         }

@@ -1804,7 +1804,7 @@
 					};
 					4D0F9D901E6F2F4D00860852 = {
 						CreatedOnToolsVersion = 8.2.1;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					4D2543AC1DACFBFE00149533 = {
@@ -1841,13 +1841,13 @@
 					};
 					D9CC9C962064FE64006C1274 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 4D689A161DD88E17001D1318;
 					};
 					D9CC9CA42064FE81006C1274 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 4D689A161DD88E17001D1318;
 					};
@@ -1864,9 +1864,15 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				Base,
 				en,
 				es,
+				it,
+				ar,
+				"pt-BR",
+				fr,
+				"nl-NL",
 			);
 			mainGroup = 287B852B1C9873A200EEF5C8;
 			productRefGroup = 287B85351C9873A200EEF5C8 /* Products */;
@@ -2055,8 +2061,6 @@
 				"${BUILT_PRODUCTS_DIR}/Reachability-iOS/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyTimer-iOS/SwiftyTimer.framework",
 				"${BUILT_PRODUCTS_DIR}/XCDYouTubeKit-iOS/XCDYouTubeKit.framework",
-				"${BUILT_PRODUCTS_DIR}/AEXML-iOS/AEXML.framework",
-				"${BUILT_PRODUCTS_DIR}/AlamofireXMLRPC-iOS/AlamofireXMLRPC.framework",
 				"${BUILT_PRODUCTS_DIR}/Locksmith-iOS/Locksmith.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-iOS/SwiftyJSON.framework",
 			);
@@ -2078,8 +2082,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyTimer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCDYouTubeKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEXML.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireXMLRPC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Locksmith.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -2109,8 +2111,6 @@
 				"${BUILT_PRODUCTS_DIR}/XCDYouTubeKit-tvOS/XCDYouTubeKit.framework",
 				"${BUILT_PRODUCTS_DIR}/MBCircularProgressBar/MBCircularProgressBar.framework",
 				"${BUILT_PRODUCTS_DIR}/TvOSMoreButton/TvOSMoreButton.framework",
-				"${BUILT_PRODUCTS_DIR}/AEXML-tvOS/AEXML.framework",
-				"${BUILT_PRODUCTS_DIR}/AlamofireXMLRPC-tvOS/AlamofireXMLRPC.framework",
 				"${BUILT_PRODUCTS_DIR}/Locksmith-tvOS/Locksmith.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-tvOS/SwiftyJSON.framework",
 			);
@@ -2130,8 +2130,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCDYouTubeKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBCircularProgressBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TvOSMoreButton.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEXML.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireXMLRPC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Locksmith.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -3109,7 +3107,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -3141,7 +3139,7 @@
 				PRODUCT_NAME = PopcornKit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -3242,7 +3240,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = "compile-time";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Supporting Files/PopcornTimeiOS-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7s";
 			};
@@ -3275,7 +3273,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = "compile-time";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/PopcornTime/Supporting Files/PopcornTimeiOS-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 armv7s";
@@ -3378,7 +3376,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = PopcornTimeiOS;
 			};
@@ -3409,7 +3407,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimeiOSUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = PopcornTimeiOS;
 				VALIDATE_PRODUCT = YES;
@@ -3448,7 +3446,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PopcornTime.app/PopcornTime";
 			};
@@ -3480,7 +3478,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.popcorntimetv.Popcorn-TimeiOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PopcornTime.app/PopcornTime";
 				VALIDATE_PRODUCT = YES;

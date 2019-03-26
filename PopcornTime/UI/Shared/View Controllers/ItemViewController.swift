@@ -129,7 +129,7 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
             var videoUrl: URL?
             
             for quality in preferredVideoQualities {
-                if let index = qualities.index(of: quality) {
+                if let index = qualities.firstIndex(of: quality) {
                     videoUrl = Array(streamUrls.values)[index]
                     break
                 }
