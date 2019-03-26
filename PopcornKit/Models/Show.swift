@@ -145,7 +145,7 @@ public struct Show: Media, Equatable {
         self.status = try? map.value("status")
         self.runtime = (try? map.value("runtime", using: IntTransform())) ?? map.JSON["runtime"] as? Int
         self.genres = (try? map.value("genres")) ?? []
-        self.episodes = (try? map.value("episodes")) ?? []
+        self.episodes = (try? map.value("episodes") as [Episode]) ?? []
         self.tmdbId = try? map.value("ids.tmdb")
         self.network = try? map.value("network")
         

@@ -38,6 +38,7 @@ open class TMDBManager: NetworkManager {
                 image = "https://image.tmdb.org/t/p/w780" + poster
             }
             completion(id, image, nil)
+            image = nil
         }
     }
     

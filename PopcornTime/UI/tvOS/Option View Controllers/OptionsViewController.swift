@@ -51,7 +51,7 @@ class OptionsViewController: UIViewController, UIGestureRecognizerDelegate, UITa
     }
 
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        let index = tabBar.items!.index(of: item)!
+        let index = tabBar.items!.firstIndex(of: item)!
         
         updateContainerView(infoContainerView, viewController: infoViewController, hidden: index != 0)
         updateContainerView(subtitlesContainerView, viewController: subtitlesViewController, hidden: index != 1)

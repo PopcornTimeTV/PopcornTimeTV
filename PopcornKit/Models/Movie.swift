@@ -138,11 +138,11 @@ public struct Movie: Media, Equatable {
             self.runtime = try map.value("runtime", using: IntTransform())
 
         }
-        var title: String = try map.value("title")
-        title.removeHtmlEncoding()
-        self.title = title
+        var title: String? = try map.value("title")
+        title?.removeHtmlEncoding()
+        self.title = title ?? ""
         self.tmdbId = try? map.value("ids.tmdb")
-        self.slug = title.slugged
+        self.slug = title?.slugged ?? ""
         self.trailer = try? map.value("trailer"); trailer == "false" ? trailer = nil : ()
         self.certification = try map.value("certification")
         self.genres = (try? map.value("genres")) ?? [String]()

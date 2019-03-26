@@ -28,10 +28,10 @@ extension String {
     var slugged: String {
         let allowedCharacters = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-")
         
-        let cocoaString = NSMutableString(string: self) as CFMutableString
-        CFStringTransform(cocoaString, nil, kCFStringTransformToLatin, false)
-        CFStringTransform(cocoaString, nil, kCFStringTransformStripCombiningMarks, false)
-        CFStringLowercase(cocoaString, .none)
+        var cocoaString = String(self)
+        cocoaString = cocoaString.applyingTransform(.toLatin, reverse: false) ?? ""
+        cocoaString = cocoaString.applyingTransform(.stripCombiningMarks, reverse: false) ?? ""
+        cocoaString = cocoaString.lowercased()
         
         return String(cocoaString)
             .components(separatedBy: allowedCharacters.inverted)

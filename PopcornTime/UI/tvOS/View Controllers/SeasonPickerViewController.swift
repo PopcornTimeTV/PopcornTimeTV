@@ -63,7 +63,7 @@ class SeasonPickerViewController: UIViewController, UICollectionViewDelegate, UI
     }
     
     func indexPathForPreferredFocusedView(in collectionView: UICollectionView) -> IndexPath? {
-        if let item = seasons.index(where: {$0.number == currentSeason}) {
+        if let item = seasons.firstIndex(where: {$0.number == currentSeason}) {
             return IndexPath(item: item, section: 0)
         }
         return nil

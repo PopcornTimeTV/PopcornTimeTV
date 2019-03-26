@@ -74,7 +74,9 @@ open class ShowManager: NetworkManager {
                 guard let value = response.result.value else {completion(nil, response.result.error as NSError?); return}
                 DispatchQueue.global(qos:.background).async{
                     let mappedItem = Mapper<Show>().map(JSONObject: value)
-                    completion(mappedItem, nil)
+                    DispatchQueue.main.sync{
+                        completion(mappedItem, nil)
+                    }
                 }
             }
         }
