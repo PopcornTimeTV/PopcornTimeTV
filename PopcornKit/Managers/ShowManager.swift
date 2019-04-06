@@ -69,7 +69,6 @@ open class ShowManager: NetworkManager {
      - Parameter completion:    Completion handler for the request. Returns show upon success, error upon failure.
      */
     open func getInfo(_ imdbId: String, completion: @escaping (Show?, NSError?) -> Void) {
-        DispatchQueue.global(qos: .background).async {
             self.manager.request(Popcorn.base + Popcorn.show + "/\(imdbId)", method: .get).validate().responseJSON { response in
                 guard let value = response.result.value else {completion(nil, response.result.error as NSError?); return}
                 DispatchQueue.global(qos:.background).async{
@@ -79,6 +78,5 @@ open class ShowManager: NetworkManager {
                     }
                 }
             }
-        }
     }
 }

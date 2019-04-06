@@ -150,18 +150,15 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
             let player = AVPlayer(url: url)
             
             #if os(tvOS)
-                let title = AVMetadataItem()
-                title.setValue(self.media.title as NSString, forKey: AVMetadataKey.commonKeyArtwork.rawValue)
-                let summary = AVMetadataItem()
-                summary.setValue(self.media.summary as NSString, forKey: AVMetadataKey.commonKeyDescription.rawValue)
+                let title = self.makeMetadataItem(AVMetadataIdentifier.commonIdentifierArtwork.rawValue, value: self.media.title)
+                let summary = self.makeMetadataItem(AVMetadataIdentifier.commonIdentifierDescription.rawValue, value: self.media.summary)
                 
                 player.currentItem?.externalMetadata = [title, summary]
                 
                 if let string = self.media.mediumCoverImage,
                     let url = URL(string: string),
                     let data = try? Data(contentsOf: url) {
-                    let image = AVMetadataItem()
-                    image.setValue(data as NSData, forKey: AVMetadataKey.commonKeyArtwork.rawValue)
+                    let image = self.makeMetadataItem(AVMetadataIdentifier.commonIdentifierArtwork.rawValue, value: data as NSData)
                     player.currentItem?.externalMetadata.append(image)
                 }
                 
@@ -216,5 +213,14 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
     
     deinit {
         PTTorrentDownloadManager.shared().remove(self)
+    }
+    
+    private func makeMetadataItem(_ identifier: String,
+                                  value: Any) -> AVMetadataItem {
+        let item = AVMutableMetadataItem()
+        item.identifier = AVMetadataIdentifier(rawValue: identifier)
+        item.value = value as? NSCopying & NSObjectProtocol
+        item.extendedLanguageTag = "und"
+        return item.copy() as! AVMetadataItem
     }
 }

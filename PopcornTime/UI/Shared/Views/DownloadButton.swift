@@ -30,6 +30,8 @@ class DownloadButton: UIDownloadButton, UIGestureRecognizerDelegate {
                 self = .downloaded
             case .failed:
                 self = .normal
+            @unknown default:
+                fatalError()
             }
         }
     }

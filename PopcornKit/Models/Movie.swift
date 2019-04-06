@@ -42,7 +42,8 @@ public struct Movie: Media, Equatable {
     
     /// The youtube code (part of the url after `?v=`) of the trailer. Will be `nil` if trailer url is `nil`.
     public var trailerCode: String? {
-        return trailer?.slice(from: "?v=", to: "")
+        if let trailer = trailer { return trailer.slice(from: "?v=", to: "") }
+        return nil
     }
     
     /// The certification type according to the Motion picture rating system.
@@ -228,8 +229,8 @@ public struct Movie: Media, Equatable {
 // MARK: - Hashable
 
 extension Movie: Hashable {
-    public var hashValue: Int {
-        return id.hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id.hashValue)
     }
 }
 

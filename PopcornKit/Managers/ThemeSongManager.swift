@@ -52,17 +52,22 @@ public class ThemeSongManager: NSObject, AVAudioPlayerDelegate {
                 if let data = data {
                     try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.default)
                     
-                    let player = try AVAudioPlayer(data: data)
-                    player.volume = 0
-                    player.numberOfLoops = NSNotFound
-                    player.delegate = self
-                    player.prepareToPlay()
-                    player.play()
-                    
                     let adjustedVolume = UserDefaults.standard.float(forKey: "themeSongVolume") * 0.25
-                    player.setVolume(adjustedVolume, fadeDuration: 3.0)
                     
-                    self.player = player
+                    if adjustedVolume > 0 {
+                    let player = try AVAudioPlayer(data: data)
+                        player.volume = 0
+                        player.numberOfLoops = NSNotFound
+                        player.delegate = self
+                        player.prepareToPlay()
+                        player.play()
+                        
+                        player.setVolume(adjustedVolume, fadeDuration: 3.0)
+                        
+                        self.player = player
+                    }
+                    
+                    
                 }
             } catch let error {
                 print(error)

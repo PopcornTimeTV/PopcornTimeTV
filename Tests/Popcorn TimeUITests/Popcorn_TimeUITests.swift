@@ -25,6 +25,49 @@ class Popcorn_TimeUITests: XCTestCase {
     func testExample() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        let app = XCUIApplication()
+        let moviesCount = app.collectionViews.element.children(matching: .cell)
+        let count = NSPredicate(format: "count > 0")
+        
+        expectation(for: count, evaluatedWith: moviesCount, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
+        
+        XCUIRemote.shared.press(.down)
+        XCUIRemote.shared.press(.down)
+        XCUIRemote.shared.press(.up)
+        XCUIRemote.shared.press(.right)
+        
+        
+        XCTAssert(app.navigationBars["PopcornTime.MoviesView"].buttons["Sort"].hasFocus)
+        XCUIRemote.shared.press(.select)
+        
+        let sortDialog = app.sheets["Select a filter to sort by"]
+        let exists = NSPredicate(format: "exists == 1")
+        
+        expectation(for: exists, evaluatedWith: sortDialog, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
+        
+        XCUIRemote.shared.press(.down)
+        XCUIRemote.shared.press(.down)
+        XCUIRemote.shared.press(.down)
+        XCTAssert(app.sheets["Select a filter to sort by"].otherElements["Recently Added"].hasFocus)
+        XCUIRemote.shared.press(.select)
+        
+        expectation(for: count, evaluatedWith: moviesCount, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
+        XCUIRemote.shared.press(.down)
+        XCUIRemote.shared.press(.down)
+        XCUIRemote.shared.press(.down)
+        XCUIRemote.shared.press(.down)
+        XCUIRemote.shared.press(.down)
+        XCUIRemote.shared.press(.down)
+        XCUIRemote.shared.press(.up)
+        XCUIRemote.shared.press(.up)
+        XCUIRemote.shared.press(.up)
+        XCUIRemote.shared.press(.up)
+        XCUIRemote.shared.press(.up)
+        XCUIRemote.shared.press(.up)
     }
     
 }

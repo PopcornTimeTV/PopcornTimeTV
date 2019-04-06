@@ -69,8 +69,8 @@ public struct Actor: Person, Equatable {
 // MARK: - Hashable
 
 extension Actor: Hashable {
-    public var hashValue: Int {
-        return imdbId.hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(imdbId.hashValue)
     }
 }
 

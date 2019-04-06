@@ -177,8 +177,8 @@ public struct Episode: Media, Equatable {
 // MARK: - Hashable
 
 extension Episode: Hashable {
-    public var hashValue: Int {
-        return id.hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id.hashValue)
     }
 }
 
