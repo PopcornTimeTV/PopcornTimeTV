@@ -1999,8 +1999,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-PopcornKit iOS/Pods-PopcornKit iOS-resources.sh",
-				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.5_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
-				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.5_static/GoogleCast.framework/GoogleCastUIResources.bundle",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.4.1_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.4.1_static/GoogleCast.framework/GoogleCastUIResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
@@ -2023,8 +2023,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-PopcornTimeiOS/Pods-PopcornTimeiOS-resources.sh",
-				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.5_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
-				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.5_static/GoogleCast.framework/GoogleCastUIResources.bundle",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.4.1_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.4.1_static/GoogleCast.framework/GoogleCastUIResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
@@ -3176,7 +3176,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 10.2;
-				VALID_ARCHS = $ARCHS_STANDARD;
+				VALID_ARCHS = "$ARCHS_STANDARD";
 			};
 			name = Debug;
 		};
@@ -3203,7 +3203,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 10.2;
-				VALID_ARCHS = $ARCHS_STANDARD;
+				VALID_ARCHS = "$ARCHS_STANDARD";
 			};
 			name = Release;
 		};

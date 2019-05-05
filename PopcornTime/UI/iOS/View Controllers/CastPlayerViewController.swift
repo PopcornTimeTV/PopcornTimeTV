@@ -230,27 +230,26 @@ class CastPlayerViewController: UIViewController, GCKRemoteMediaClientListener, 
         
         server.addDefaultHandler(forMethod: "GET", request: GCDWebServerRequest.self) { [weak self] (request, completion) in
             guard
-                let `self` = self,
-                let path = request?.path
+                let `self` = self
             else {
                 let response = GCDWebServerFileResponse(statusCode: 204)
-                completion?(response)
+                completion(response)
                 return
             }
-            
+            let path = request.path
             let completion: (GCDWebServerResponse) -> () = { response in
                 response.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
                 response.setValue("public", forAdditionalHeader: "Cache-Control")
                 response.setValue("Content-Type", forAdditionalHeader: "Access-Control-Expose-Headers")
                 
-                completion?(response)
+                completion(response)
             }
                 
                 
             if let url = self.directory?.appendingPathComponent(path),
                 FileManager.default.fileExists(atPath: url.path)
             {
-                let response: GCDWebServerFileResponse = GCDWebServerFileResponse(file: url.relativePath)
+                let response: GCDWebServerFileResponse = GCDWebServerFileResponse(file: url.relativePath)!
                 completion(response)
             }
         }

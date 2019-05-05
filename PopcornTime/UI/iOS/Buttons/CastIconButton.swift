@@ -23,7 +23,10 @@ class CastIconButton: UIButton {
                 isHidden = false
                 imageView!.stopAnimating()
                 setImage(castOn, for: .normal)
+            @unknown default:
+                break;
             }
+            
         }
     }
     

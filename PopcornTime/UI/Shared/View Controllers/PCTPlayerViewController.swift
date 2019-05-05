@@ -320,7 +320,11 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         mediaplayer.media = VLCMedia(url: url)
         
         NotificationCenter.default.addObserver(self, selector: #selector(torrentStatusDidChange(_:)), name: .PTTorrentStatusDidChange, object: streamer)
-        
+        if media.subtitles.count == 0 {
+            media.getSubtitles(orWithFilePath: localPathToMedia, completion: { [unowned self] (subtitles) in
+                    return self.media.subtitles = subtitles
+                })
+        }
         let settings = SubtitleSettings.shared
         if let preferredLanguage = settings.language {
             self.currentSubtitle = subtitles[preferredLanguage]?.first

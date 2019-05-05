@@ -50,18 +50,11 @@ open class SubtitlesManager: NetworkManager {
     }
     
     /**
-     Load subtitles from API. Use episode or ImdbId not both. Using ImdbId rewards better results.
+     Remove duplicates from subtitles
      
-     - Parameter episode:       The show episode.
-     - Parameter imdbId:        The Imdb identification code of the episode or movie.
-     - Parameter limit:         The limit of subtitles to fetch as a `String`. Defaults to 500.
-     - Parameter videoFilePath: The path of the video for subtitle retrieval `URL`. Defaults to nil.
-     
-     - Parameter completion:    Completion handler called with array of subtitles and an optional error.
+     - Parameter sourceSubtitles:   The subtitles that may contain duplicate subtitles arranged per language in a Dictionary
+     - Returns: A new dictionary with the duplicate subtitles removed
      */
-    open func getAllSubtitles(_ episode: Episode? = nil, imdbId: String? = nil,preferredLang: String? = nil,videoFilePath: URL? = nil, limit: String = "500", completion:@escaping (Dictionary<String, [Subtitle]>, NSError?) -> Void) {
-        
-    }
     
     private func removeDuplicates(sourceSubtitles: Dictionary<String, [Subtitle]>) -> Dictionary<String, [Subtitle]> {
         var subtitlesWithoutDuplicates = Dictionary<String, [Subtitle]>()

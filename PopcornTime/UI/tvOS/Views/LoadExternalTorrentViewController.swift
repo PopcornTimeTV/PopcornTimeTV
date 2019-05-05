@@ -13,9 +13,9 @@ class LoadExternalTorrentViewController:UIViewController,GCDWebServerDelegate,PC
         self.navigationController?.tabBarController?.tabBar.isHidden = true
         if webserver == nil {
             webserver=GCDWebServer()
-            webserver?.addGETHandler(forBasePath: "/", directoryPath: Bundle.main.path(forResource: "torrent_upload", ofType: ""), indexFilename: "index.html", cacheAge: 3600, allowRangeRequests: false) // serve the website located in Supporting Files/torrent_upload when we receive a GET request for /
+            webserver?.addGETHandler(forBasePath: "/", directoryPath: Bundle.main.path(forResource: "torrent_upload", ofType: "")!, indexFilename: "index.html", cacheAge: 3600, allowRangeRequests: false) // serve the website located in Supporting Files/torrent_upload when we receive a GET request for /
             webserver?.addHandler(forMethod: "GET", path: "/torrent", request: GCDWebServerRequest.self, processBlock: {request in
-                let magnetLink = (request?.query["link"] as! String).removingPercentEncoding ?? ""// get magnet link that is inserted as a link tag from the website
+                let magnetLink = request.query?["link"]!.removingPercentEncoding ?? ""// get magnet link that is inserted as a link tag from the website
                 DispatchQueue.main.async {
                     let userTorrent = Torrent.init(health: .excellent, url: magnetLink, quality: "1080p", seeds: 100, peers: 100, size: nil)
                     var title = magnetLink
@@ -78,7 +78,7 @@ class LoadExternalTorrentViewController:UIViewController,GCDWebServerDelegate,PC
         super.viewWillAppear(true)
         webserver?.start(withPort: 54320, bonjourName: "popcorn")
         
-        infoLabel.text = .localizedStringWithFormat("Please navigate to the webpage %@ and insert the magnet link of the torrent you would like to play".localized, webserver?.serverURL.absoluteString ?? "")
+        infoLabel.text = .localizedStringWithFormat("Please navigate to the webpage %@ and insert the magnet link of the torrent you would like to play".localized, webserver?.serverURL?.absoluteString ?? "")
     }
     
     @IBAction func exitView(_ sender: Any) {
