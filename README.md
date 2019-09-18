@@ -33,12 +33,18 @@ Once downloaded, follow our [Installing Guide](https://github.com/PopcornTimeTV/
 
 ## Know what you're doing?
 
-This project uses  [CocoaPods](http://cocoapods.org/). Build instructions:
+First, you need to install [bundler](https://bundler.io) to your computer with the `gem install bundler` command.
+
+Then you can use [CocoaPods](http://cocoapods.org/) to install dependencies.
+
+Build instructions:
 
 ``` bash
 $ git clone https://github.com/PopcornTimeTV/PopcornTimeTV.git
 $ cd PopcornTimeTV/
-$ pod repo update; pod install
+$ bundle install
+$ bundle exec pod repo update
+$ bundle exec pod install
 $ open PopcornTime.xcworkspace
 ```
 
