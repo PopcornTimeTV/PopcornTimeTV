@@ -55,7 +55,7 @@ open class ShowManager: NetworkManager {
         if let searchTerm = searchTerm , !searchTerm.isEmpty {
             params["keywords"] = searchTerm
         }
-        self.manager.request(Popcorn.base + Popcorn.shows + "/\(page)", method: .get, parameters: params).validate().responseJSON { response in
+        self.manager.request(PopcornShows.base + PopcornShows.shows + "/\(page)", method: .get, parameters: params).validate().responseJSON { response in
             guard let value = response.result.value else {completion(nil, response.result.error as NSError?); return}
             completion(Mapper<Show>().mapArray(JSONObject: value), nil)
         }
@@ -69,7 +69,7 @@ open class ShowManager: NetworkManager {
      - Parameter completion:    Completion handler for the request. Returns show upon success, error upon failure.
      */
     open func getInfo(_ imdbId: String, completion: @escaping (Show?, NSError?) -> Void) {
-            self.manager.request(Popcorn.base + Popcorn.show + "/\(imdbId)", method: .get).validate().responseJSON { response in
+            self.manager.request(PopcornShows.base + PopcornShows.show + "/\(imdbId)", method: .get).validate().responseJSON { response in
                 guard let value = response.result.value else {completion(nil, response.result.error as NSError?); return}
                 DispatchQueue.global(qos:.background).async{
                     let mappedItem = Mapper<Show>().map(JSONObject: value)

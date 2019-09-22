@@ -63,13 +63,16 @@ public struct Trakt {
     }
 }
 
-public struct Popcorn {
+public struct PopcornShows {
     static let base = "https://tv-v2.api-fetch.website"
     static let shows = "/shows"
-    static let movies = "/movies"
-
-    static let movie = "/movie"
     static let show = "/show"
+}
+
+public struct PopcornMovies {
+    static let base = "https://movies-v2.api-fetch.website"
+    static let movies = "/movies"
+    static let movie = "/movie"
 }
 
 public struct TMDB {
@@ -112,10 +115,10 @@ public struct OpenSubtitles {
 open class NetworkManager: NSObject {
     internal let manager: SessionManager = {
         var configuration = URLSessionConfiguration.default
-        configuration.httpCookieAcceptPolicy = .always
-        configuration.httpShouldSetCookies = true
+        configuration.httpCookieAcceptPolicy = .never
+        configuration.httpShouldSetCookies = false
         configuration.urlCache = nil
-        configuration.requestCachePolicy = .useProtocolCachePolicy
+        configuration.requestCachePolicy = .reloadIgnoringCacheData
         return Alamofire.SessionManager(configuration: configuration)
     }()
     
