@@ -41,8 +41,7 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
         alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
         
         alertController.popoverPresentationController?.sourceView = sender
-        
-        alertController.show(animated: true)
+        present(alertController, animated:true, completion: nil)
     }
     
     func play(_ media: Media, torrent: Torrent) {
