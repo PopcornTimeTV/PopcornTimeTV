@@ -139,7 +139,7 @@ extension DownloadViewController: CollectionViewControllerDelegate, DownloadColl
                 self.reloadData()
             })
             
-            alertController.show(animated: true)
+            present(alertController, animated:true, completion: nil)
         } else {
             AppDelegate.shared.downloadButton(nil, wantsToStop: download) { [unowned self] in
                 self.reloadData()

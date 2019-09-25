@@ -138,17 +138,22 @@ extension Media {
      */
     func getSubtitles(forId id: String? = nil, orWithFilePath: URL? = nil, forLang:String? = nil,completion: @escaping (Dictionary<String, [Subtitle]>) -> Void) {
         let id = id ?? self.id
-        if let filePath = orWithFilePath {
-            SubtitlesManager.shared.search(preferredLang: "el", videoFilePath: filePath){ (subtitles, _) in
-                completion(subtitles)
-            }
-        } else if let `self` = self as? Episode, !id.hasPrefix("tt"), let show = self.show {
+//        if let filePath = orWithFilePath {
+//            SubtitlesManager.shared.search(preferredLang: "el", videoFilePath: filePath){ (subtitles, _) in
+//                completion(subtitles)
+//            }
+//        } else if let `self` = self as? Episode, !id.hasPrefix("tt"), let show = self.show {
+        if let `self` = self as? Episode, !id.hasPrefix("tt"), let show = self.show {
             TraktManager.shared.getEpisodeMetadata(show.id, episodeNumber: self.episode, seasonNumber: self.season) { (episode, _) in
                 if let imdb = episode?.imdbId { return self.getSubtitles(forId: imdb, completion: completion) }
                 
                 SubtitlesManager.shared.search(self) { (subtitles, _) in
                     completion(subtitles)
                 }
+            }
+        } else if let filePath = orWithFilePath {
+                   SubtitlesManager.shared.search(videoFilePath: filePath){ (subtitles, _) in
+                       completion(subtitles)
             }
         } else {
             SubtitlesManager.shared.search(imdbId: id) { (subtitles, _) in

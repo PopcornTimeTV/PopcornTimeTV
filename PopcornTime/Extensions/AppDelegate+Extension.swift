@@ -21,7 +21,7 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
             } else {
                 let alertController = UIAlertController(title: "No torrents found".localized, message: "Torrents could not be found for the specified media.".localized, preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: nil))
-                alertController.show(animated: true)
+                present(alertController, animated:true, completion: nil)
             }
             return
         }
@@ -41,8 +41,7 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
         alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
         
         alertController.popoverPresentationController?.sourceView = sender
-        
-        alertController.show(animated: true)
+        present(alertController, animated:true, completion: nil)
     }
     
     func play(_ media: Media, torrent: Torrent) {
@@ -54,7 +53,7 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
                 self.play(media, torrent: torrent)
             })
             alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
-            return alertController.show(animated: true)
+            return present(alertController, animated:true, completion: nil)
         }
         
         let storyboard = UIStoryboard.main
@@ -99,7 +98,7 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
             alertController.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: { _ in
                 self.dismiss(animated: true, completion: nil)
             }))
-            alertController.show(animated: true)
+            self.present(alertController, animated:true, completion: nil)
         }
         
         UIApplication.shared.isIdleTimerDisabled = true
@@ -163,7 +162,7 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
             alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
             
             alertController.popoverPresentationController?.sourceView = button
-            alertController.show(animated: true)
+            present(alertController, animated:true, completion: nil)
         case .downloading:
             download.pause()
             button.downloadState = .paused
@@ -186,13 +185,13 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
             didStopHandler?()
         })
         
-        alertController.show(animated: true)
+        present(alertController, animated:true, completion: nil)
     }
     
     func download(_ download: PTTorrentDownload, failedWith error: Error) {
         let alertController = UIAlertController(title: "Download Failed".localized, message: error.localizedDescription, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: nil))
-        alertController.show(animated: true)
+        present(alertController, animated:true, completion: nil)
     }
     
     // MARK: - PCTPlayerViewControllerDelegate
