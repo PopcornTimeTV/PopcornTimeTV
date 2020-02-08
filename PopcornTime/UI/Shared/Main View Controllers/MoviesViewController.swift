@@ -77,6 +77,28 @@ class MoviesViewController: MediaViewController {
                 self.collectionViewController.hasNextPage = true
             }
             self.collectionView?.reloadData()
+            self.setNeedsFocusUpdate()
         }
     }
+    #if os(tvOS)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !UserDefaults.standard.bool(forKey: "informedForViewChanges") {
+            guard let informationNib = Bundle.main.loadNibNamed("SidePanelIntroduction", owner: self, options: nil)?.first as? SidePanelIntroduction, let textView = informationNib.subviews[0].subviews[2].subviews[0].subviews[0].subviews.first as? UITextView
+                else{
+                    return
+                }
+            (tabBarController as? TVTabBarController)?.environmentsToFocus = informationNib.subviews
+            textView.isUserInteractionEnabled = true
+            view.addSubview(informationNib)
+            self.setNeedsFocusUpdate()
+            if self.sidePanelConstraint?.constant == 0 {
+                UIView.animate(withDuration: 0.4) {
+                    self.sidePanelConstraint?.constant += self.view.frame.size.width/4
+                    self.view.layoutIfNeeded()
+                }
+            }
+        }
+    }
+    #endif
 }

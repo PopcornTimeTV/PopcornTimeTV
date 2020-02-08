@@ -114,6 +114,7 @@ class LeftSidePaneViewController: UIViewController, UITableViewDelegate, UITable
                     mainController.view.layoutIfNeeded()
                     
                 }
+                self.setNeedsFocusUpdate()
             }
             return true
 

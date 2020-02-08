@@ -356,6 +356,8 @@
 		D946964720476B7200B4A63B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D946964920476B7200B4A63B /* Localizable.strings */; };
 		D95647DE206D8B810027E615 /* SubtitleHashGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AAC99206C2F3C003DA002 /* SubtitleHashGenerator.swift */; };
 		D95647DF206D8B820027E615 /* SubtitleHashGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AAC99206C2F3C003DA002 /* SubtitleHashGenerator.swift */; };
+		D968D47923EF2CB000622859 /* SidePanelIntroduction.xib in Resources */ = {isa = PBXBuildFile; fileRef = D968D47823EF2CB000622859 /* SidePanelIntroduction.xib */; };
+		D968D47B23EF32BF00622859 /* SidePanelIntroduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D968D47A23EF32BF00622859 /* SidePanelIntroduction.swift */; };
 		D980FEEE2024AA85004827F8 /* torrent_upload in Resources */ = {isa = PBXBuildFile; fileRef = D980FEED2024AA84004827F8 /* torrent_upload */; };
 		D9955D632061220800A2B499 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9955D652061220800A2B499 /* Localizable.strings */; };
 		D9974073218CDC1100B0D6AF /* ExtendedSubtitleSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9974072218CDC1100B0D6AF /* ExtendedSubtitleSelectionViewController.xib */; };
@@ -772,6 +774,8 @@
 		D946964F20476B7400B4A63B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/tvOSPlist.strings; sourceTree = "<group>"; };
 		D946965020476B7500B4A63B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D946965120476B7600B4A63B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LoadingView.strings; sourceTree = "<group>"; };
+		D968D47823EF2CB000622859 /* SidePanelIntroduction.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SidePanelIntroduction.xib; sourceTree = "<group>"; };
+		D968D47A23EF32BF00622859 /* SidePanelIntroduction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidePanelIntroduction.swift; sourceTree = "<group>"; };
 		D980FEED2024AA84004827F8 /* torrent_upload */ = {isa = PBXFileReference; lastKnownFileType = folder; path = torrent_upload; sourceTree = "<group>"; };
 		D9955D5E2061220700A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/LoadingView.strings"; sourceTree = "<group>"; };
 		D9955D5F2061220700A2B499 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/TraktAuthenticationViewController.strings"; sourceTree = "<group>"; };
@@ -1474,6 +1478,7 @@
 		4DD6E4CE1DFB179700818A2C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D968D47823EF2CB000622859 /* SidePanelIntroduction.xib */,
 				4D0F9E3E1E705B0800860852 /* TVVisualEffectView.swift */,
 				4D3A43471EA9826E00CF3646 /* TVFadedTextView.swift */,
 				4DFA771B1E731369007DB0E7 /* TVButton.swift */,
@@ -1485,6 +1490,7 @@
 				4D0F9E3F1E705B0800860852 /* ContinueWatchingCollectionReusableView.xib */,
 				4D9995541E5C7F81005C432A /* ErrorBackgroundView.xib */,
 				D9974072218CDC1100B0D6AF /* ExtendedSubtitleSelectionViewController.xib */,
+				D968D47A23EF32BF00622859 /* SidePanelIntroduction.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1901,6 +1907,7 @@
 			files = (
 				4D784D561E5F546E009E3423 /* DescriptionCollectionViewCell.xib in Resources */,
 				4D9995551E5C7F81005C432A /* ErrorBackgroundView.xib in Resources */,
+				D968D47923EF2CB000622859 /* SidePanelIntroduction.xib in Resources */,
 				D9974073218CDC1100B0D6AF /* ExtendedSubtitleSelectionViewController.xib in Resources */,
 				4D99955B1E5C81DF005C432A /* ContinueWatchingCollectionViewCell.xib in Resources */,
 				4D32EBE01EA2D0F900B4361A /* tvOSPlist.strings in Resources */,
@@ -2320,6 +2327,7 @@
 				4DF110951E91042E0090289A /* MediaViewController.swift in Sources */,
 				4D0F9DEB1E70573A00860852 /* DescriptionCollectionViewController.swift in Sources */,
 				4DD6E4D21DFB197E00818A2C /* BufferingBar.swift in Sources */,
+				D968D47B23EF32BF00622859 /* SidePanelIntroduction.swift in Sources */,
 				4DFA771A1E720BD2007DB0E7 /* TVDescriptionViewController.swift in Sources */,
 				4DD6E4D71DFB315100818A2C /* SiriRemoteGestureRecogniser.swift in Sources */,
 				4D0F9E3C1E705AA100860852 /* SearchViewController+tvOS.swift in Sources */,
@@ -3164,7 +3172,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 10.2;
-				VALID_ARCHS = "$ARCHS_STANDARD";
+				VALID_ARCHS = $ARCHS_STANDARD;
 			};
 			name = Debug;
 		};
@@ -3192,7 +3200,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 10.2;
-				VALID_ARCHS = "$ARCHS_STANDARD";
+				VALID_ARCHS = $ARCHS_STANDARD;
 			};
 			name = Release;
 		};
