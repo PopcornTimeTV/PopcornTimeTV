@@ -38,7 +38,7 @@ extension CollectionViewControllerDelegate {
 }
 
 class CollectionViewController: ResponsiveCollectionViewController, UICollectionViewDelegateFlowLayout {
-    
+    var window:UIWindow?
     var dataSources: [[AnyHashable]] = [[]]
     var error: NSError?
     
@@ -276,4 +276,20 @@ class CollectionViewController: ResponsiveCollectionViewController, UICollection
             activeRootViewController?.prepare(for: segue, sender: sender)
         }
     }
+    #if os(tvOS)
+    @IBAction func showLeftPane(_ gestureRecognizer: UISwipeGestureRecognizer){
+        if gestureRecognizer.state == .ended {
+            
+            if gestureRecognizer.direction == .left && self.focusIndexPath.row == 0 {
+                let leftPane = storyboard?.instantiateViewController(withIdentifier: "leftPaneView") as! LeftSidePaneViewController
+                leftPane.view.backgroundColor = .clear
+                window = UIWindow(frame: CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width * 0.25, height: view.frame.size.height))
+                window?.rootViewController = UIViewController()
+                window!.makeKeyAndVisible()
+                window?.rootViewController!.present(leftPane, animated:  true)
+            }
+            
+        }
+    }
+    #endif
 }
