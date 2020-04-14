@@ -5,7 +5,7 @@ PODS:
     - Alamofire (~> 4.9)
   - AlamofireNetworkActivityIndicator (2.4.0):
     - Alamofire (~> 4.8)
-  - FloatRatingView (4.0)
+  - FloatRatingView (3.0.1)
   - GCDWebServer (3.5.4):
     - GCDWebServer/Core (= 3.5.4)
   - GCDWebServer/Core (3.5.4)
@@ -36,7 +36,7 @@ DEPENDENCIES:
   - Alamofire (~> 4.9.1)
   - AlamofireImage (~> 3.6.0)
   - AlamofireNetworkActivityIndicator (~> 2.4.0)
-  - FloatRatingView (~> 4)
+  - FloatRatingView (~> 3.0.1)
   - GCDWebServer (~> 3.5.4)
   - google-cast-sdk-no-bluetooth (~> 4.4.7)
   - Locksmith (~> 4.0.0)
@@ -60,7 +60,6 @@ SPEC REPOS:
     - Alamofire
     - AlamofireImage
     - AlamofireNetworkActivityIndicator
-    - FloatRatingView
     - GCDWebServer
     - google-cast-sdk-no-bluetooth
     - Locksmith
@@ -76,6 +75,7 @@ SPEC REPOS:
     - TVVLCKit
     - XCDYouTubeKit
   https://github.com/PopcornTimeTV/Specs:
+    - FloatRatingView
     - MBCircularProgressBar
     - PopcornTorrent
 
@@ -93,7 +93,7 @@ SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AlamofireImage: be9963c6582d68b39e89191f64c82a7d7bf40fdd
   AlamofireNetworkActivityIndicator: 9acc3de3ca6645bf0efed462396b0df13dd3e7b8
-  FloatRatingView: bb6bdddfbeec51b1d387b4bd50abc27b4dfccd48
+  FloatRatingView: 5b31eb72798ca3531df5243959f7cfe03d0b7ac9
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   google-cast-sdk-no-bluetooth: 197acace9d5a78380bdaef8d45439b2250fa050b
   Locksmith: e9bebbaaa4cee3c511bc358a44f843c3fe00e21f
@@ -112,6 +112,6 @@ SPEC CHECKSUMS:
   TVVLCKit: f638dcaf37a6ba4027161cbc27be86f0cb02d2f7
   XCDYouTubeKit: cdad9e696f991aac2739c5b25586c81f1301ba30
 
-PODFILE CHECKSUM: 6c482383fbee3e891fd14e0c7e0927596a0aea6a
+PODFILE CHECKSUM: 36ac87d817da8c54f93d610a373e893bac86312a
 
 COCOAPODS: 1.9.1

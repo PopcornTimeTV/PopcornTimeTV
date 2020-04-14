@@ -13,12 +13,12 @@ def pods
     pod 'Reachability', :git => 'https://github.com/tonymillion/Reachability'
     pod 'MarqueeLabel/Swift', '~> 3.2.0'
     pod 'ObjectMapper', '~> 3.5.2'
+    pod 'FloatRatingView', '~> 3.0.1'
 end
 
 target 'PopcornTimeiOS' do
     platform :ios, '13.0'
     pods
-	pod 'FloatRatingView', '~> 4'
     pod 'AlamofireNetworkActivityIndicator', '~> 2.4.0'
     pod 'google-cast-sdk-no-bluetooth', '~> 4.4.7'
     pod 'OBSlider', '~> 1.1.1'
