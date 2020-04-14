@@ -40,9 +40,14 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
         
         alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
         
-        alertController.popoverPresentationController?.sourceView = sender
         
-        alertController.show(animated: true)
+        
+        alertController.popoverPresentationController?.sourceView = sender
+        self.activeRootViewController?.present(alertController, animated: true, completion: {
+            
+        })
+//        alertController.show(self.window., sender: sender)
+//        alertController.show(animated: true)
     }
     
     func play(_ media: Media, torrent: Torrent) {
@@ -91,8 +96,9 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
             loadingViewController.backgroundImageView?.af_setImage(withURL: url)
         }
         loadingViewController.titleLabel.text = media.title
+        loadingViewController.modalPresentationStyle = .fullScreen
         
-        present(loadingViewController, animated: true)
+        self.activeRootViewController?.present(loadingViewController, animated: true)
         
         let error: (String) -> Void = { (errorMessage) in
             let alertController = UIAlertController(title: "Error".localized, message: errorMessage, preferredStyle: .alert)
@@ -106,10 +112,12 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
         let finishedLoading: (PreloadTorrentViewController, UIViewController) -> Void = { (loadingVc, playerVc) in
             // Enable here, so playerVc behavior is unchanged.
             UIApplication.shared.isIdleTimerDisabled = false
-            let flag = UIDevice.current.userInterfaceIdiom != .tv
-            self.dismiss(animated: flag) {
-                self.present(playerVc, animated: flag)
+            loadingVc.dismiss(animated: false) {
+//              self.activeRootViewController?.present(playerVc, animated: true)
+                self.present(playerVc, animated: true, completion: nil)
             }
+
+            
         }
         
         let selectTorrent: (Array<String>) -> Int32 = { (torrents) in
@@ -143,6 +151,7 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
                 
             let playViewController = storyboard.instantiateViewController(withIdentifier: "PCTPlayerViewController") as! PCTPlayerViewController
             playViewController.delegate = self
+            playViewController.modalPresentationStyle = .fullScreen
             media.play(fromFileOrMagnetLink: torrent.url, nextEpisodeInSeries: nextEpisode, loadingViewController: loadingViewController, playViewController: playViewController, progress: currentProgress, errorBlock: error, finishedLoadingBlock: finishedLoading, selectingTorrentBlock: media.title == "Unknown" ? selectTorrent : nil)
         }
     }
@@ -150,8 +159,11 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
     func downloadButton(_ button: DownloadButton, wasPressedWith download: PTTorrentDownload, didDeleteHandler: (() -> Void)? = nil) {
         switch button.downloadState {
         case .downloaded:
-            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet, blurStyle: .dark)
             
+            AppDelegate.shared.play(Movie(download.mediaMetadata) ?? Episode(download.mediaMetadata)!, torrent: Torrent()) // No torrent metadata necessary, media is loaded from disk.
+            
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet, blurStyle: .dark)
+
             alertController.addAction(UIAlertAction(title: "Play".localized, style: .default) { _ in
                 AppDelegate.shared.play(Movie(download.mediaMetadata) ?? Episode(download.mediaMetadata)!, torrent: Torrent()) // No torrent metadata necessary, media is loaded from disk.
             })
@@ -161,9 +173,12 @@ extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransiti
                 didDeleteHandler?()
             })
             alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
-            
+
             alertController.popoverPresentationController?.sourceView = button
-            alertController.show(animated: true)
+            self.activeRootViewController?.present(alertController, animated: true, completion: {
+                
+            })
+//            alertController.show(animated: true)
         case .downloading:
             download.pause()
             button.downloadState = .paused

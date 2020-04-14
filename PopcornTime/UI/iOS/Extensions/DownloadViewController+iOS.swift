@@ -172,7 +172,7 @@ extension DownloadViewController: DownloadDetailTableViewCellDelegate {
             segue.identifier == "showDetail",
             let cell = sender as? UITableViewCell,
             let indexPath = tableView.indexPath(for: cell) {
-            destination.show = activeDataSource(in: indexPath.section)[indexPath.row] as! Show
+            destination.show = activeDataSource(in: indexPath.section)[indexPath.row] as? Show
         }
     }
 }

@@ -40,7 +40,7 @@ class PreloadTorrentViewController: UIViewController {
     
     @IBAction func cancel() {
         streamer?.cancelStreamingAndDeleteData(true)
-        dismiss(animated: true)
+        dismiss(animated: false)
     }
     
 }
