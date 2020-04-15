@@ -1053,7 +1053,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ky-is-LZ2">
-                                <rect key="frame" x="0.0" y="205" width="1920" height="730"/>
+                                <rect key="frame" x="0.0" y="205" width="1920" height="513"/>
                                 <connections>
                                     <segue destination="9uQ-LP-RR8" kind="embed" identifier="embed" id="qsW-BP-NaD"/>
                                 </connections>
@@ -2633,31 +2633,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tOi-zm-Rjl">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="935"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="718"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yx5-JC-ZxJ">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="935"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="718"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="vbt-Mc-zjR">
-                                    <rect key="frame" x="0.0" y="0.0" width="1920" height="935"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1920" height="718"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ogm-Uz-Slq">
-                                            <rect key="frame" x="0.0" y="0.0" width="1920" height="935"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1920" height="718"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="NGd-2S-BoP">
-                                                <rect key="frame" x="0.0" y="0.0" width="1920" height="935"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1920" height="718"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ohz-Pg-x0J">
-                                                        <rect key="frame" x="928" y="435.5" width="64" height="64"/>
+                                                        <rect key="frame" x="928" y="327" width="64" height="64"/>
                                                     </activityIndicatorView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rU-hk-tum">
-                                                        <rect key="frame" x="960" y="425.5" width="0.0" height="0.0"/>
+                                                        <rect key="frame" x="960" y="317" width="0.0" height="0.0"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yT7-ti-YNb">
-                                                        <rect key="frame" x="864" y="939" width="192" height="86"/>
+                                                        <rect key="frame" x="864" y="722" width="192" height="86"/>
                                                         <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
                                                         <state key="normal" title="Button"/>
                                                     </button>
@@ -3076,39 +3076,42 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="32"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gtp-dd-iDN">
-                                <rect key="frame" x="980" y="880" width="400" height="80"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="400" id="K9K-8V-rPG"/>
-                                    <constraint firstAttribute="height" constant="80" id="Nu6-mA-f15"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="38"/>
-                                <state key="normal" title="Accept"/>
-                                <connections>
-                                    <action selector="accepted:" destination="952-eC-QHk" eventType="primaryActionTriggered" id="SkN-XR-Uj5"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEK-Im-j6y">
-                                <rect key="frame" x="540" y="880" width="400" height="80"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="ohv-X6-S8m"/>
-                                    <constraint firstAttribute="width" constant="400" id="rDK-I1-wKx"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="38"/>
-                                <state key="normal" title="Leave"/>
-                                <connections>
-                                    <action selector="canceled:" destination="952-eC-QHk" eventType="primaryActionTriggered" id="JRS-yY-7No"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="X79-Sc-E2L">
+                                <rect key="frame" x="540" y="880" width="840" height="80"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEK-Im-j6y">
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="ohv-X6-S8m"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="rDK-I1-wKx"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="38"/>
+                                        <state key="normal" title="Leave"/>
+                                        <connections>
+                                            <action selector="canceled:" destination="952-eC-QHk" eventType="primaryActionTriggered" id="JRS-yY-7No"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gtp-dd-iDN">
+                                        <rect key="frame" x="440" y="0.0" width="400" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="K9K-8V-rPG"/>
+                                            <constraint firstAttribute="height" constant="80" id="Nu6-mA-f15"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="38"/>
+                                        <state key="normal" title="Accept"/>
+                                        <connections>
+                                            <action selector="accepted:" destination="952-eC-QHk" eventType="primaryActionTriggered" id="SkN-XR-Uj5"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Gtp-dd-iDN" firstAttribute="top" secondItem="mCv-nM-JOY" secondAttribute="bottom" constant="50" id="30o-PO-Hky"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="Gtp-dd-iDN" secondAttribute="bottom" constant="60" id="4FT-gk-Ge0"/>
-                            <constraint firstItem="Gtp-dd-iDN" firstAttribute="leading" secondItem="yEr-kW-bGu" secondAttribute="centerX" constant="20" id="51f-0t-yo5"/>
+                            <constraint firstItem="X79-Sc-E2L" firstAttribute="centerX" secondItem="yEr-kW-bGu" secondAttribute="centerX" id="55I-g9-ENa"/>
+                            <constraint firstItem="zGY-uB-NAL" firstAttribute="top" secondItem="X79-Sc-E2L" secondAttribute="bottom" constant="60" id="ACZ-a4-wbS"/>
                             <constraint firstItem="mCv-nM-JOY" firstAttribute="centerX" secondItem="yEr-kW-bGu" secondAttribute="centerX" id="TIA-Ok-2t2"/>
+                            <constraint firstItem="X79-Sc-E2L" firstAttribute="top" secondItem="mCv-nM-JOY" secondAttribute="bottom" constant="50" id="TX0-DK-3A0"/>
                             <constraint firstItem="mCv-nM-JOY" firstAttribute="top" secondItem="ZHu-Qy-Z8t" secondAttribute="bottom" constant="50" id="VLd-QA-fhw"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="bEK-Im-j6y" secondAttribute="bottom" constant="60" id="Yhq-B4-fqG"/>
-                            <constraint firstAttribute="centerX" secondItem="bEK-Im-j6y" secondAttribute="trailing" constant="20" id="k6T-57-uxP"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Terms Of Service" id="Rhk-vo-XmQ"/>
@@ -3571,7 +3574,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                     <action selector="showExternalTorrentWindow:" destination="aUi-6B-5qP" eventType="primaryActionTriggered" id="AuH-4R-NDu"/>
                                                 </connections>
                                             </button>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PSh-8c-Gmi">
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PSh-8c-Gmi">
                                                 <rect key="frame" x="92" y="245" width="296" height="70"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
                                                 <segments>
@@ -3650,7 +3653,7 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="r7i-sj-JtW"/>
+        <segue reference="zqF-KZ-EJ2"/>
         <segue reference="frE-FE-cwN"/>
         <segue reference="KnT-1J-TaD"/>
         <segue reference="ocL-5j-FkT"/>
