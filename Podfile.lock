@@ -1,55 +1,58 @@
 PODS:
-  - 1PasswordExtension (1.8.5)
+  - 1PasswordExtension (1.8.6)
   - Alamofire (4.9.1)
-  - AlamofireImage (3.5.2):
-    - Alamofire (~> 4.8)
+  - AlamofireImage (3.6.0):
+    - Alamofire (~> 4.9)
   - AlamofireNetworkActivityIndicator (2.4.0):
     - Alamofire (~> 4.8)
   - FloatRatingView (3.0.1)
-  - GCDWebServer (3.5.3):
-    - GCDWebServer/Core (= 3.5.3)
-  - GCDWebServer/Core (3.5.3)
-  - google-cast-sdk (4.4.6):
-    - google-cast-sdk/Core (= 4.4.6)
+  - GCDWebServer (3.5.4):
+    - GCDWebServer/Core (= 3.5.4)
+  - GCDWebServer/Core (3.5.4)
+  - google-cast-sdk-no-bluetooth (4.4.7):
+    - google-cast-sdk-no-bluetooth/Core (= 4.4.7)
     - Protobuf (~> 3.0)
-  - google-cast-sdk/Core (4.4.6):
+  - google-cast-sdk-no-bluetooth/Core (4.4.7):
     - Protobuf (~> 3.0)
   - Locksmith (4.0.0)
-  - MarqueeLabel (4.0.2)
+  - MarqueeLabel/Swift (3.2.1)
   - MBCircularProgressBar (0.3.5)
-  - MobileVLCKit (3.3.9)
-  - ObjectMapper (3.5.1)
+  - MobileVLCKit (3.3.10)
+  - ObjectMapper (3.5.2)
   - OBSlider (1.1.1)
+  - Player (0.13.2)
   - PopcornTorrent (1.3.15):
     - GCDWebServer (~> 3.5.0)
-  - Protobuf (3.11.3)
+  - Protobuf (3.11.4)
   - Reachability (3.2)
-  - SwiftyJSON (5.0.0)
+  - SwiftyJSON (4.2.0)
   - SwiftyTimer (2.1.0)
   - TvOSMoreButton (1.2.3)
-  - TVVLCKit (3.3.9)
-  - XCDYouTubeKit (2.8.3)
+  - TVVLCKit (3.3.10)
+  - XCDYouTubeKit (2.12.0)
 
 DEPENDENCIES:
-  - 1PasswordExtension (~> 1.8.4)
-  - Alamofire (~> 4.9.0)
-  - AlamofireImage (~> 3.5.0)
+  - 1PasswordExtension (~> 1.8.6)
+  - Alamofire (~> 4.9.1)
+  - AlamofireImage (~> 3.6.0)
   - AlamofireNetworkActivityIndicator (~> 2.4.0)
   - FloatRatingView (~> 3.0.1)
-  - google-cast-sdk (~> 4.4)
+  - GCDWebServer (~> 3.5.4)
+  - google-cast-sdk-no-bluetooth (~> 4.4.7)
   - Locksmith (~> 4.0.0)
-  - MarqueeLabel (~> 4.0.0)
+  - MarqueeLabel/Swift (~> 3.2.0)
   - MBCircularProgressBar (~> 0.3.5-1)
-  - MobileVLCKit (~> 3.3.0)
-  - ObjectMapper (~> 3.5.0)
+  - MobileVLCKit (~> 3.3.10)
+  - ObjectMapper (~> 3.5.2)
   - OBSlider (~> 1.1.1)
-  - PopcornTorrent (~> 1.3.0)
+  - Player (~> 0.13.2)
+  - PopcornTorrent (~> 1.3.15)
   - Reachability (from `https://github.com/tonymillion/Reachability`)
-  - SwiftyJSON (~> 5.0.0)
+  - SwiftyJSON (~> 4.2.0)
   - SwiftyTimer (~> 2.1.0)
   - TvOSMoreButton (~> 1.2.0)
-  - TVVLCKit (~> 3.3.0)
-  - XCDYouTubeKit (~> 2.8.0)
+  - TVVLCKit (~> 3.3.10)
+  - XCDYouTubeKit (~> 2.12.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -58,12 +61,13 @@ SPEC REPOS:
     - AlamofireImage
     - AlamofireNetworkActivityIndicator
     - GCDWebServer
-    - google-cast-sdk
+    - google-cast-sdk-no-bluetooth
     - Locksmith
     - MarqueeLabel
     - MobileVLCKit
     - ObjectMapper
     - OBSlider
+    - Player
     - Protobuf
     - SwiftyJSON
     - SwiftyTimer
@@ -85,28 +89,29 @@ CHECKOUT OPTIONS:
     :git: https://github.com/tonymillion/Reachability
 
 SPEC CHECKSUMS:
-  1PasswordExtension: 0e95bdea64ec8ff2f4f693be5467a09fac42a83d
+  1PasswordExtension: f97cc80ae58053c331b2b6dc8843ba7103b33794
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
-  AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
+  AlamofireImage: be9963c6582d68b39e89191f64c82a7d7bf40fdd
   AlamofireNetworkActivityIndicator: 9acc3de3ca6645bf0efed462396b0df13dd3e7b8
   FloatRatingView: 5b31eb72798ca3531df5243959f7cfe03d0b7ac9
-  GCDWebServer: c0ab22c73e1b84f358d1e2f74bf6afd1c60829f2
-  google-cast-sdk: df8b7421e35c6f9f54fc89e437d847b56d4a7885
+  GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
+  google-cast-sdk-no-bluetooth: 197acace9d5a78380bdaef8d45439b2250fa050b
   Locksmith: e9bebbaaa4cee3c511bc358a44f843c3fe00e21f
-  MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
+  MarqueeLabel: 2daf039bf916937c8a4c9adfc13577cc5e51b4ce
   MBCircularProgressBar: 29e6df5e8683ff2375a291792a5988a16dd78c8e
-  MobileVLCKit: cf10c4a138d89f3843b6290f94823609b34215a1
-  ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
+  MobileVLCKit: 34a4d22c48ea48a36c2a6fdf290d4ea094869ac0
+  ObjectMapper: b53ae947d370bf89423e86be7d4e2d2b2a8d3f40
   OBSlider: 38853ebbb9cc6978a9b7ddc0d4f525588e8bb294
+  Player: 7a2bcad3631034fa47d4b6fdedf7c4075fc236fe
   PopcornTorrent: 343ff0e04ba370764a9cf27c35685463f7428b90
-  Protobuf: 0e94afe3b47cb11876eb6aee296638711a24bf75
+  Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   Reachability: 07e976fb63651163096e04b1528d4d29a4a212aa
-  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   SwiftyTimer: 02dd6cf10cbc71cbf67cec494f6e5eb782102543
   TvOSMoreButton: 41fab9ceec49f0806e822ed4c78ac0634e16ff4e
-  TVVLCKit: 14fd438326828e1681e11d809c9592f190e82552
-  XCDYouTubeKit: 46df93c4dc4d48763ad720d997704384635c4335
+  TVVLCKit: f638dcaf37a6ba4027161cbc27be86f0cb02d2f7
+  XCDYouTubeKit: cdad9e696f991aac2739c5b25586c81f1301ba30
 
-PODFILE CHECKSUM: 576356af21d50656749768b82a4a28a2452d72dd
+PODFILE CHECKSUM: 0b0bbdcf120f5b405dc1ce6c6d162c3130fc182f
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.9.1
