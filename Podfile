@@ -1,7 +1,8 @@
-use_frameworks!
-
 source 'https://github.com/CocoaPods/Specs'
 source 'https://github.com/PopcornTimeTV/Specs'
+
+use_frameworks!
+inhibit_all_warnings!
 
 def pods
     pod 'PopcornTorrent', '~> 1.3.15'

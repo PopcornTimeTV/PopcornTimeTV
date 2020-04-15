@@ -113,7 +113,7 @@ class ItemViewController: UIViewController, PTTorrentDownloadManagerListener {
         
         let playerController = AVPlayerViewController()
         
-        playerController.transitioningDelegate = self as? UIViewControllerTransitioningDelegate// tvOS only
+        playerController.transitioningDelegate = self as UIViewControllerTransitioningDelegate// tvOS only
         
         present(playerController, animated: true)
         
