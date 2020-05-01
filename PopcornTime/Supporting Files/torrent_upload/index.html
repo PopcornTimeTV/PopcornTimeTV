@@ -7,6 +7,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" type="text/css" href="./css/t2m/style.css">
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">
@@ -22,6 +23,8 @@
 </script>
     <script src="./js/lazysizes.min.js" defer type="text/javascript">
 </script>
+
+<script src="./js/t2m/t2m.loader.js"></script>
 
     <title>Home</title><!-- Google Analytics -->
     <!-- Google Analytics END -->
@@ -70,6 +73,30 @@
                 </div>
             </div>
         </div><!-- bloc-1 END -->
+                    <div class="converter">
+                <div class="converter_container">
+                    <div class="converter_table">
+
+                        <div class="converter_cell converter_cell_left">
+                            <div class="converter_svg_container">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" class="converter_svg_graphic">
+                                    <polygon points="0.7,0 0.7,0.5 1,0.5 0.5,1 0,0.5 0.3,0.5 0.3,0" class="converter_svg_graphic_poly"></polygon>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="converter_cell converter_cell_right">
+                            <div class="converter_info">
+                                <div class="converter_info_line1">Drop <span class="light_underline">.torrent</span> files here</div>
+                                <div class="converter_info_line2">to convert them to <span class="link_external light_underline"><span>magnet URI</span>s</div>
+                                <div class="converter_info_line3">Or click to open the file browser</div>
+                                <input type="file" class="converter_files_input" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        <div class="converted"></div>
         <!-- ScrollToTop Button -->
         <a class="bloc-button btn btn-d scrollToTop" onclick="scrollToTarget('1')"></a> <!-- ScrollToTop Button END-->
     </div><!-- Main container END -->
