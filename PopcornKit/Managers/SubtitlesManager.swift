@@ -75,6 +75,7 @@ open class SubtitlesManager: NetworkManager {
     }
     
     private func getParams(_ episode: Episode? = nil, imdbId: String? = nil,preferredLang: String? = nil,videoFilePath: URL? = nil, limit: String = "500") -> [String:Any] {
+        var params = [String:Any]()
         if let episode = episode {
             if let id = episode.show?.id {
                 params["imdbid"] = id.replacingOccurrences(of: "tt", with: "")
