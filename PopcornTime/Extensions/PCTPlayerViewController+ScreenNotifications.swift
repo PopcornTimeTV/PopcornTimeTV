@@ -60,7 +60,7 @@ extension PCTPlayerViewController {
         
         // Create a window and attach it to the screen.
         let screenWindow = UIWindow(frame: screen.bounds)
-        screenWindow.screen = screen
+        //screenWindow.screen = screen
         
         movieView.removeFromSuperview()
 

@@ -27,8 +27,9 @@ extension UIColor {
         let hex = hexString()
         var rgb: UInt32 = 0
         let s = Scanner(string: hex)
-        s.scanLocation = 1
-        s.scanHexInt32(&rgb)
+//        s.scanLocation = 1
+//        s.scanHexInt32(&rgb)
+        //deprecated in tvos 13.0
         return rgb
     }
     
