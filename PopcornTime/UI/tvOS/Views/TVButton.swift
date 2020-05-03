@@ -184,7 +184,7 @@ import Foundation
         focusedView.isHidden = true
         imageView.isHidden = false
         
-        let mask = UIGraphicsImageRenderer(bounds: contentView.bounds, format: .default()).image { context in
+        let mask = UIGraphicsImageRenderer(bounds: contentView.bounds, format: .preferred()).image { context in
             contentView.layer.render(in: context.cgContext)
         }.scaled(to: focusedView.bounds.size).layerMask
         
