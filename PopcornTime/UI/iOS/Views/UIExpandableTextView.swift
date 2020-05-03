@@ -42,7 +42,7 @@ import Foundation
     
     private var textAttributes: [NSAttributedString.Key : Any] {
         return [
-            NSAttributedString.Key.foregroundColor: textColor!,
+            NSAttributedString.Key.foregroundColor: "Black",
             NSAttributedString.Key.font: font!
         ]
     }

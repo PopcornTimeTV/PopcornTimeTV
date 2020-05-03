@@ -2,7 +2,12 @@
 
 import UIKit
 import GoogleCast
-import PopcornKit
+
+#if TARGET_OS_MACCATALYST
+    import PopcornKit
+#endif
+
+
 
 protocol GoogleCastTableViewControllerDelegate: class {
     func didConnectToDevice()

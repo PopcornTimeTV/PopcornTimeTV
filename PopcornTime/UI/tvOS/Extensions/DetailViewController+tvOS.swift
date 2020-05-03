@@ -18,9 +18,6 @@ extension DetailViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if #available(tvOS 13, *){
-            tabBarController?.tabBar.isHidden = true
-        }
         navigationController?.setNavigationBarHidden(true, animated: false)
         
         watchedButton.setImage(watchedButtonImage, for: .normal)
@@ -33,9 +30,7 @@ extension DetailViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if #available(tvOS 13, *){
-            tabBarController?.tabBar.isHidden = false
-        }
+        
         navigationController?.setNavigationBarHidden(false, animated: false)
         ThemeSongManager.shared.stopTheme()
     }

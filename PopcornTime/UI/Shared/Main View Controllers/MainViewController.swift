@@ -15,7 +15,7 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
     func minItemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize? { return nil }
     func collectionView(_ collectionView: UICollectionView, insetForSectionAt section: Int) -> UIEdgeInsets? { return nil }
     
-    @IBOutlet weak var sidePanelConstraint: NSLayoutConstraint?
+    
     var collectionViewController: CollectionViewController!
     
     var collectionView: UICollectionView? {
@@ -40,20 +40,6 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
         
         #if os(iOS)
             navigationController?.navigationBar.isBackgroundHidden = false
-        #else
-            if #available(tvOS 13, *){
-                if (self.navigationItem.leftBarButtonItems?.count ?? 0 > 0){
-                    (self.navigationItem.leftBarButtonItems?[0].customView?.subviews[0] as? UILabel)?.removeFromSuperview()
-                    self.navigationItem.leftBarButtonItems?.removeLast()
-                }
-                if (self.navigationItem.rightBarButtonItems?.count ?? 0 > 0){
-                    for buttonItem in (self.navigationItem.rightBarButtonItems)! {
-                        buttonItem.customView?.subviews[0].removeFromSuperview()
-                        self.navigationItem.rightBarButtonItems?.removeFirst()
-                    }
-                        
-                }
-            }
         #endif
         navigationController?.navigationBar.tintColor = .app
     }
@@ -141,7 +127,7 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
                         }
                         
                         if let media = (media as? Show)?.latestUnwatchedEpisode() ?? media, segue.shouldAutoPlay {
-                            AppDelegate.shared.chooseQuality(nil, media: media) { torrent in
+                            AppDelegate.shared.chooseQuality(self.view, media: media) { torrent in
                                 AppDelegate.shared.play(media, torrent: torrent)
                             }
                         }
@@ -166,17 +152,5 @@ class MainViewController: UIViewController, CollectionViewControllerDelegate {
             let person: Person = sender as? Crew ?? sender as? Actor {
             vc.currentItem = person
         }
-    }
-    
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "showLeftPane", #available(tvOS 13, *){
-            return true
-        }
-        
-        if identifier == "showLeftPane"{
-            return false
-        }
-        
-        return true
     }
 }

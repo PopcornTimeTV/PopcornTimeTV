@@ -62,7 +62,7 @@ class ExtendedSubtitleSelectionTableViewController: UITableViewController {
                         alertController.addAction(action)
             }
             alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
-            alertController.show(animated: true)
+            present(alertController, animated:true, completion: nil)
         }else{
             self.currentSubtitle = Array(subtitles[currentSubtitle!.language]!)[indexPath.row]
             previousCell?.accessoryType = .none
