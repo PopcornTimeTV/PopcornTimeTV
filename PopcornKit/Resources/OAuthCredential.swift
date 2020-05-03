@@ -56,7 +56,7 @@ class OAuthCredential: NSObject, NSCoding {
     }
     
     /**
-     Creates an OAuth credential from the specified URL string, username, password and scope. 
+     Creates an OAuth credential from the specified URL string, username, password and scope.
      
      - Important: It is recommended that this function would be run on a background thread to stop UI from locking up..
      
@@ -87,7 +87,7 @@ class OAuthCredential: NSObject, NSCoding {
     }
     
     /**
-     Refreshes the OAuth token for the specified URL string, username, password and scope. 
+     Refreshes the OAuth token for the specified URL string, username, password and scope.
      
      - Important: It is recommended that this function would be run on a background thread to stop UI from locking up..
      
@@ -111,7 +111,7 @@ class OAuthCredential: NSObject, NSCoding {
     }
     
     /**
-     Creates an OAuth credential from the specified URL string, code. 
+     Creates an OAuth credential from the specified URL string, code.
      
      - Important: It is recommended that this function would be run on a background thread to stop UI from locking up..
      
@@ -222,7 +222,7 @@ class OAuthCredential: NSObject, NSCoding {
         withIdentifier identifier: String,
         accessibility: AnyObject = kSecAttrAccessibleWhenUnlocked
         ) throws {
-        return try Locksmith.updateData(data: ["credential": NSKeyedArchiver.archivedData(withRootObject: self)], forUserAccount: identifier, inService: OAuthCredential.service)
+        return try Locksmith.updateData(data: ["credential": NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false)], forUserAccount: identifier, inService: OAuthCredential.service)
     }
     
     /**
@@ -233,13 +233,19 @@ class OAuthCredential: NSObject, NSCoding {
      - Returns: The OAuthCredential if it existed, `nil` otherwise.
      */
     init?(identifier: String) {
-        
-        guard let result = Locksmith.loadDataForUserAccount(userAccount: identifier, inService: OAuthCredential.service)?["credential"] as? Data, let credential = NSKeyedUnarchiver.unarchiveObject(with: result) as? OAuthCredential else { return nil }
-        
-        self.accessToken = credential.accessToken
-        self.expiration = credential.expiration
-        self.refreshToken = credential.refreshToken
-        self.tokenType = credential.tokenType
+        do {
+            guard let result = Locksmith.loadDataForUserAccount(userAccount: identifier, inService: OAuthCredential.service)?["credential"] as? Data,let credential = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(result) as? OAuthCredential else { return nil }
+            self.accessToken = credential.accessToken
+            self.expiration = credential.expiration
+            self.refreshToken = credential.refreshToken
+            self.tokenType = credential.tokenType
+        }
+        catch {
+            print("catch error")
+            self.accessToken = ""
+            self.refreshToken = ""
+            self.tokenType = ""
+        }
         super.init()
     }
     
