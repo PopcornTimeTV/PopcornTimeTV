@@ -91,18 +91,18 @@ open class SubtitlesManager: NetworkManager {
             params["moviehash"] = videohash.fileHash
             params["moviebytesize"] = videohash.fileSize
         }
-//        if let videoFilePath = videoFilePath {
-//            let videohash = OpenSubtitlesHash.hashFor(videoFilePath)
-//            params["moviehash"] = videohash.fileHash
-//            params["moviebytesize"] = videohash.fileSize
-//        }else if let imdbId = imdbId {
-//            params["imdbid"] = imdbId.replacingOccurrences(of: "tt", with: "")
-//        } else if let episode = episode {
-//            params["episode"] = String(episode.episode)
-//            params["query"] = episode.title
-//            params["season"] = String(episode.season)
-//        }
-//        params["sublanguageid"] = preferredLang ?? "all"
+        if let videoFilePath = videoFilePath {
+            let videohash = OpenSubtitlesHash.hashFor(videoFilePath)
+            params["moviehash"] = videohash.fileHash
+            params["moviebytesize"] = videohash.fileSize
+        }else if let imdbId = imdbId {
+            params["imdbid"] = imdbId.replacingOccurrences(of: "tt", with: "")
+        } else if let episode = episode {
+            params["episode"] = String(episode.episode)
+            params["query"] = episode.title
+            params["season"] = String(episode.season)
+        }
+        params["sublanguageid"] = preferredLang ?? "all"
         return params
     }
 }
