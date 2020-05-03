@@ -38,7 +38,12 @@ public final class UpdateManager: NSObject {
             return VersionString.unarchive(data)
         } set {
             if let newValue = newValue {
-                UserDefaults.standard.set(newValue.archived(), forKey: "skipReleaseVersion")
+                do{
+                        try UserDefaults.standard.set(newValue.archived(), forKey: "skipReleaseVersion")
+                }
+                catch {
+                    print("error")
+                }
             } else {
                 UserDefaults.standard.removeObject(forKey: "skipReleaseVersion")
             }
@@ -168,8 +173,8 @@ internal class VersionString: NSObject, NSCoding {
         self.releaseType = releaseType
     }
     
-    func archived() -> Data {
-        return NSKeyedArchiver.archivedData(withRootObject: self)
+    func archived() throws -> Data {
+        return try NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false)
     }
     
     class func unarchive(_ data: Data) -> VersionString? {

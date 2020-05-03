@@ -34,6 +34,10 @@ struct ColorPallete {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
     
+    
+
+    
+    
     static var shared: AppDelegate = UIApplication.shared.delegate as! AppDelegate
 
     var window: UIWindow?
@@ -55,6 +59,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        NSSetUncaughtExceptionHandler { exception in
+            print("Error Handling: ", exception)
+            print("Error Handling callStackSymbols: ", exception.callStackSymbols)
+
+            UserDefaults.standard.set(exception.callStackSymbols, forKey: "ExceptionHandler")
+            UserDefaults.standard.synchronize()
+        }
+        
         #if os(tvOS)
             if let url = launchOptions?[.url] as? URL {
                 return self.application(.shared, open: url)
