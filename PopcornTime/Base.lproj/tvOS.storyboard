@@ -3562,28 +3562,27 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mkD-8u-lCP">
-                                                <rect key="frame" x="65.5" y="150" width="349" height="75"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                                <rect key="frame" x="35" y="150" width="410" height="79"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="32"/>
                                                 <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                                                <state key="normal" title="Open External Torrent"/>
+                                                <state key="normal" title="Open External Torrent">
+                                                    <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
+                                                </state>
+                                                <state key="selected">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <state key="focused">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="showExternalTorrentWindow:" destination="aUi-6B-5qP" eventType="primaryActionTriggered" id="AuH-4R-NDu"/>
                                                 </connections>
                                             </button>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PSh-8c-Gmi">
-                                                <rect key="frame" x="92" y="245" width="296" height="70"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
-                                                <segments>
-                                                    <segment title="Sort"/>
-                                                    <segment title="Genre"/>
-                                                </segments>
-                                                <connections>
-                                                    <action selector="selectedDifferentFilter:" destination="aUi-6B-5qP" eventType="valueChanged" id="TzB-TZ-BIX"/>
-                                                </connections>
-                                            </segmentedControl>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="66" sectionFooterHeight="66" translatesAutoresizingMaskIntoConstraints="NO" id="xLP-fY-bg2">
-                                                <rect key="frame" x="35" y="344" width="410" height="706"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <rect key="frame" x="35" y="348" width="410" height="702"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sideWindowTableCell" textLabel="b3r-8q-Nt7" style="IBUITableViewCellStyleDefault" id="4uA-OH-uhc">
                                                         <rect key="frame" x="55" y="66" width="355" height="66"/>
@@ -3609,9 +3608,21 @@ By using 'Popcorn Time' or accessing this site you affirm that you are either mo
                                                     <outlet property="delegate" destination="aUi-6B-5qP" id="tiN-uB-kUA"/>
                                                 </connections>
                                             </tableView>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PSh-8c-Gmi">
+                                                <rect key="frame" x="92" y="249" width="296" height="70"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
+                                                <segments>
+                                                    <segment title="Sort"/>
+                                                    <segment title="Genre"/>
+                                                </segments>
+                                                <connections>
+                                                    <action selector="selectedDifferentFilter:" destination="aUi-6B-5qP" eventType="valueChanged" id="TzB-TZ-BIX"/>
+                                                </connections>
+                                            </segmentedControl>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="xLP-fY-bg2" secondAttribute="bottom" constant="30" id="1Bl-Dd-dtF"/>
+                                            <constraint firstItem="xLP-fY-bg2" firstAttribute="width" secondItem="mkD-8u-lCP" secondAttribute="width" id="1UN-dL-FVd"/>
                                             <constraint firstItem="xLP-fY-bg2" firstAttribute="leading" secondItem="YOZ-RB-Lso" secondAttribute="leading" constant="35" id="KqB-Q8-tzY"/>
                                             <constraint firstItem="mkD-8u-lCP" firstAttribute="top" secondItem="YOZ-RB-Lso" secondAttribute="top" constant="150" id="aZH-lJ-ST1"/>
                                             <constraint firstAttribute="trailing" secondItem="xLP-fY-bg2" secondAttribute="trailing" constant="35" id="cvL-Wa-tpB"/>
