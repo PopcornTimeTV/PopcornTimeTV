@@ -1,0 +1,46 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+
+    - name: xcode-select
+      run: sudo xcode-select -s /Applications/Xcode_11.4.1.app
+
+    - name: use cache
+      id: cache
+      uses: actions/cache@v2
+      with:
+        path: Frameworks
+        key: ${{ runner.os }}-${{ hashFiles('Podfile') }}-${{ hashFiles('Gemfile') }}
+
+    - name: get dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: |
+        gem install bundler
+        bundle install
+        bundle exec pod repo update
+        bundle exec pod install
+
+    - name: actual build
+      run: set -o pipefail && xcodebuild archive -project PopcornTime.xcodeproj -scheme PopcornTime -sdk iphoneos -configuration Debug clean build CODE_SIGN_IDENTITY='' CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=NO | tee build.log | xcpretty
+
+    - name: generate unsigned debug ipa
+      run: |
+        cd ~
+        mkdir Payload
+        mv ~/Library/Developer/Xcode/Archives/*/*/Products/Applications/*.app ~/Payload/
+        zip -r PopcornTime.ipa Payload
+    - name: upload ipa
+      uses: actions/upload-artifact@v2.2.0
+      with:
+        name: 'PopcornTimeTV'
+        path: ~/PopcornTime.ipa
