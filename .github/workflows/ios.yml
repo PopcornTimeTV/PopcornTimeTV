@@ -31,7 +31,7 @@ jobs:
         bundle exec pod install
 
     - name: actual build
-      run: set -o pipefail && xcodebuild archive -project PopcornTime.xcodeproj -scheme PopcornTime -sdk iphoneos -configuration Debug clean build CODE_SIGN_IDENTITY='' CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=NO | tee build.log | xcpretty
+      run: set -o pipefail && xcodebuild archive -project PopcornTime.xcodeproj -scheme PopcornTimeiOS -sdk iphoneos -configuration Debug clean build CODE_SIGN_IDENTITY='' CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=NO | tee build.log | xcpretty
 
     - name: generate unsigned debug ipa
       run: |
