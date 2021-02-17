@@ -70,7 +70,8 @@ public struct PopcornShows {
 }
 
 public struct PopcornMovies {
-    static let base = "https://movies-v2.api-fetch.sh"
+//    static let base = "https://movies-v2.api-fetch.sh"
+    static let base = "http://popcorn-ru.tk"
     static let movies = "/movies"
     static let movie = "/movie"
 }
