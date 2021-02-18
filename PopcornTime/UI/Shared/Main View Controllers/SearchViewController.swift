@@ -13,7 +13,7 @@ class SearchViewController: MainViewController, UISearchBarDelegate {
     @IBOutlet var segmentedControl: UISegmentedControl!
     
     #elseif os(tvOS)
-    
+
     var searchBar: UISearchBar!
     var searchController: UISearchController!
     var searchContainerViewController: UISearchContainerViewController?
@@ -28,11 +28,12 @@ class SearchViewController: MainViewController, UISearchBarDelegate {
     override func load(page: Int) {
         filterSearchText(searchBar?.text ?? "")
     }
-    
-    
+        
     override func minItemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize? {
+        // Tweaked the cell size, to prevent the inability to reach the searchViewController
         if UIDevice.current.userInterfaceIdiom == .tv {
-            return CGSize(width: 250, height: fetchType == .people ? 400 : 460)
+//            return CGSize(width: 250, height: fetchType == .people ? 400 : 460)
+            return CGSize(width: 250, height: fetchType == .people ? 400 : 445) // Decreasing to 445 from 460 seems to do the trick!?
         } else {
             return CGSize(width: 108, height: fetchType == .people ? 160 : 185)
         }
@@ -69,7 +70,17 @@ class SearchViewController: MainViewController, UISearchBarDelegate {
         if text.isEmpty { return }
         
         let completion: ([AnyHashable]?, NSError?) -> Void = { [unowned self] (data, error) in
-            self.collectionViewController.dataSources = [data ?? []]
+            if data!.count > 0 && data!.count < 3 {
+                var newData = data
+                // Add dummy results as a hack - Needs at least three items to allow selction
+                for _ in 1...3 - data!.count {
+                    newData?.append(PopcornKit.Movie(title: "DON'T OPEN!", id: "tt4654462", tmdbId: nil, slug: "dummyCell", summary: "Dummy provider - do not select!", torrents: [], subtitles: [:], largeBackgroundImage: nil, largeCoverImage: "https://www.freeiconspng.com/uploads/do-not-sign-icon-png-4.png"))
+                }
+                self.collectionViewController.dataSources = [newData!]
+
+            } else {
+                self.collectionViewController.dataSources = [data ?? []]
+            }
             self.collectionViewController.error = error
             self.collectionViewController.isLoading = false
             self.collectionView?.reloadData()
