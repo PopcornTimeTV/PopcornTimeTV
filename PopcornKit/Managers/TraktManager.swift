@@ -45,7 +45,7 @@ open class TraktManager: NetworkManager {
             if type == .movies {
                 parameters = ["movie": ["ids": ["imdb": id]], "progress": progress * 100.0]
             } else {
-                parameters = ["episode": ["ids": ["tvdb": Int(id)!]], "progress": progress * 100.0]
+                parameters = ["episode": ["ids": ["tvdb": Int(id) ?? 0]], "progress": progress * 100.0]
             }
             self.manager.request(Trakt.base + Trakt.scrobble + "/\(status.rawValue)", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: Trakt.Headers.Authorization(credential.accessToken)).validate().responseJSON { response in
                 if let error = response.result.error { completion?(error as NSError) }
@@ -240,7 +240,7 @@ open class TraktManager: NetworkManager {
             if type == .movies {
                 parameters = ["movies": [["ids": ["imdb": id]]]]
             } else if type == .episodes {
-                parameters = ["episodes": [["ids": ["tvdb": Int(id)!]]]]
+                parameters = ["episodes": [["ids": ["tvdb": Int(id) ?? 0]]]]
             } else {
                 parameters = [:]
             }
@@ -272,7 +272,7 @@ open class TraktManager: NetworkManager {
             if type == .movies {
                 parameters = ["movies": [["ids": ["imdb": id]]]]
             } else if type == .episodes {
-                parameters = ["episodes": [["ids": ["tvdb": Int(id)!]]]]
+                parameters = ["episodes": [["ids": ["tvdb": Int(id) ?? 0]]]]
             } else {
                 parameters = [:]
             }
@@ -391,7 +391,7 @@ open class TraktManager: NetworkManager {
             }
             let parameters: [String: Any]
             if type == .episodes {
-                parameters = ["episodes": [["ids": ["tvdb": Int(id)!]]]]
+                parameters = ["episodes": [["ids": ["tvdb": Int(id) ?? 0]]]]
             } else {
                 parameters = [type.rawValue: [["ids": ["imdb": id]]]]
             }
@@ -421,7 +421,7 @@ open class TraktManager: NetworkManager {
             }
             let parameters: [String: Any]
             if type == .episodes {
-                parameters = ["episodes": [["ids": ["tvdb": Int(id)!]]]]
+                parameters = ["episodes": [["ids": ["tvdb": Int(id) ?? 0]]]]
             } else {
                 parameters = [type.rawValue: [["ids": ["imdb": id]]]]
             }
