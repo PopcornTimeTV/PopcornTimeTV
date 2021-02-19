@@ -62,7 +62,7 @@ class ContinueWatchingCollectionReusableView: UICollectionReusableView, UICollec
             } else if self.type == .episodes {
                 WatchedlistManager<Episode>.episode.getOnDeck().forEach { (id) in
                     group.enter()
-                    PopcornKit.getEpisodeInfo(Int(id)!) { (episode, error) in
+                    PopcornKit.getEpisodeInfo(Int(id) ?? 0) { (episode, error) in
                         if let episode = episode { media.append(episode) }
                         group.leave()
                     }
