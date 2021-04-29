@@ -47,7 +47,7 @@ extension Media {
                 finishedLoadingBlock(loadingViewController, playViewController)
             }
         }
-        
+
         PTTorrentStreamer.shared().cancelStreamingAndDeleteData(false) // Make sure we're not already streaming
         
         if url.hasPrefix("magnet") || (url.hasSuffix(".torrent") && !url.hasPrefix("http")) {

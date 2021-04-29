@@ -4,7 +4,7 @@ import Foundation
 
 extension FileManager {
     func fileSize(atPath path: String) -> Int64 {
-        return (try? attributesOfItem(atPath: path)[.size] as! Int64) ?? 0
+        return (try? attributesOfItem(atPath: path)[.size] as? Int64) ?? 0
     }
     
     func folderSize(atPath path: String) -> Int64 {

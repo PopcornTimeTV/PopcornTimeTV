@@ -1,13 +1,11 @@
-
-
 import Foundation
 
 extension SearchViewController {
     
     override func viewDidLoad() {
         // Make sure we set this before calling super as it is not being loaded from storyboard.
-        collectionViewController = storyboard?.instantiateViewController(withIdentifier: "CollectionViewController") as! CollectionViewController
-        
+        collectionViewController = storyboard?.instantiateViewController(withIdentifier: "CollectionViewController") as? CollectionViewController
+
         super.viewDidLoad()
         
         collectionViewController.delegate = self

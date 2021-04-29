@@ -141,7 +141,7 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
         titleLabel?.text = currentItem.title
         
         if let image = currentItem.largeBackgroundImage, let url = URL(string: image) {
-            backgroundImageView.af_setImage(withURL: url) { [weak self] response in
+            backgroundImageView.af_setImage(withURL: url, completion: { [weak self] response in
                 guard
                     let image = response.result.value,
                     let `self` = self,
@@ -150,7 +150,7 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
                         return
                 }
                 self.isDark = image.isDark
-            }
+            })
         }
         
         let completion: (String?, NSError?) -> Void = { [weak self] (image, error) in
@@ -158,7 +158,7 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
             let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: .max, height: 40)))
             imageView.clipsToBounds = true
             imageView.contentMode = .scaleAspectFit
-            imageView.af_setImage(withURL: url) { response in
+            imageView.af_setImage(withURL: url, completion: { response in
                 guard response.result.isSuccess else { return }
                 #if os(tvOS)
                     self.titleImageView?.image = response.result.value
@@ -170,7 +170,7 @@ class DetailViewController: UIViewController, CollectionViewControllerDelegate, 
                     self.navigationItem.titleView = imageView
                 #endif
                 
-            }
+            })
         }
         
         if let movie = currentItem as? Movie {
