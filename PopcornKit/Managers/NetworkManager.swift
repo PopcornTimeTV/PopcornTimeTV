@@ -64,15 +64,17 @@ public struct Trakt {
 }
 
 public struct PopcornShows {
-    static let base = "https://tv-v2.api-fetch.sh"
+//    static let base = "https://tv-v2.api-fetch.sh"
+    static let base = "http://api.pctapi.com"
     static let shows = "/shows"
     static let show = "/show"
 }
 
 public struct PopcornMovies {
 //    static let base = "https://movies-v2.api-fetch.sh"
-    static let base = "http://popcorn-ru.tk"
-    static let movies = "/movies"
+//    static let base = "http://popcorn-ru.tk"
+    static let base = "http://api.pctapi.com"
+    static let movies = "/list"
     static let movie = "/movie"
 }
 

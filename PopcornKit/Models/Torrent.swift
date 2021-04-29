@@ -74,20 +74,34 @@ public struct Torrent: Mappable, Equatable, Comparable {
     public let peers: Int
     
     /// Size of the torrent. Will be `nil` if object is episode.
-    public let size: String?
+    public let size: Int?
     
     public init?(map: Map) {
         do { self = try Torrent(map) }
         catch { return nil }
     }
     
+    enum MyError: Error {
+        case runtimeError(String)
+    }
+
     private init(_ map: Map) throws {
-        self.url = try map.value("url")
-        self.seeds = (try? (try? map.value("seeds")) ?? map.value(("seed"))) ?? 0
-        self.peers = (try? (try? map.value("peers")) ?? map.value(("peer"))) ?? 0
-        self.size = try? map.value("filesize")
+        let torrent: String = try map.value("torrent_url")
+        let magnet: String = try map.value("torrent_magnet")
+        if magnet != "" {
+            self.url = magnet
+        } else if torrent.prefix(2) == "//" {
+            self.url = "http:\(torrent)"
+        } else if torrent.prefix(4) == "http" {
+            self.url = torrent
+        } else {
+            self.url = try map.value("fail")
+        }
+        self.seeds = (try? (try? map.value("torrent_seeds")) ?? map.value(("seeds"))) ?? 0
+        self.peers = (try? (try? map.value("torrent_peers")) ?? map.value(("peers"))) ?? 0
+        self.size = try? map.value("size_bytes")
         self.quality = try? map.value("quality") // Will only not be `nil` if object is mapped from JSON array, otherwise this is set in `Show or Movie` struct.
-        
+
         // First calculate the seed/peer ratio
         let ratio = peers > 0 ? (seeds / peers) : seeds
         
@@ -96,7 +110,7 @@ public struct Torrent: Mappable, Equatable, Comparable {
         let normalizedRatio = min(ratio / 5 * 100, 100)
         // Seeds: Anything above 30 seeds is good
         let normalizedSeeds = min(seeds / 30 * 100, 100)
-        
+
         // Weight the above metrics differently
         // Ratio is weighted 60% whilst seeders is 40%
         let weightedRatio = Double(normalizedRatio) * 0.6
@@ -106,7 +120,7 @@ public struct Torrent: Mappable, Equatable, Comparable {
         // Scale from [0, 100] to [0, 3]. Drops the decimal places
         var scaledTotal = ((weightedTotal * 3.0) / 100.0)// | 0.0
         if scaledTotal < 0 { scaledTotal = 0 }
-        
+
         switch floor(scaledTotal) {
         case 0:
             health = .bad
@@ -121,7 +135,7 @@ public struct Torrent: Mappable, Equatable, Comparable {
         }
     }
     
-    public init(health: Health = .unknown, url: String = "", quality: String = "0p", seeds: Int = 0, peers: Int = 0, size: String? = nil) {
+    public init(health: Health = .unknown, url: String = "", quality: String = "0p", seeds: Int = 0, peers: Int = 0, size: Int? = nil) {
         self.health = health
         self.url = url
         self.quality = quality

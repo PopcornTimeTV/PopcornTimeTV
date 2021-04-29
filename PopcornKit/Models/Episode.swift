@@ -82,27 +82,27 @@ public struct Episode: Media, Equatable {
             self.episode = try map.value("number")
         } else {
             self.episode = ((try? map.value("episode")) ?? Int((map.JSON["episode"] as? String)!)!)
-            self.id = (((try? map.value("tvdb_id", using: StringTransform()).replacingOccurrences(of: "-", with: "")) ?? (map.JSON["tvdb_id"] as? String)?.replacingOccurrences(of: "-", with: "")) ?? "" )
-            if let torrents = map["torrents"].currentValue as? [String: [String: Any]] {
-                for (quality, torrent) in torrents {
-                    if var torrent = Mapper<Torrent>().map(JSONObject: torrent) , quality != "0" {
-                        torrent.quality = quality
+            self.id = (((try? map.value("id", using: StringTransform()).replacingOccurrences(of: "-", with: "")) ?? (map.JSON["imdb"] as? String)?.replacingOccurrences(of: "-", with: "")) ?? "" )
+            if let torrents = map["items"].currentValue as? NSArray {
+                for torrent in torrents {
+                    if let torrent = Mapper<Torrent>().map(JSONObject: torrent) , torrent.quality != "0" {
                         self.torrents.append(torrent)
                     }
                 }
             }
             torrents.sort(by: <)
         }
-        self.tmdbId = try? map.value("ids.tmdb")
+        self.tmdbId = nil//try? map.value("ids.tmdb")
         self.imdbId = try? map.value("ids.imdb")
         self.show = try? map.value("show") // Will only not be `nil` if object is mapped from JSON array, otherwise this is set in `Show` struct.
-        self.firstAirDate =  try map.value("first_aired", using: DateTransform())
-        self.summary = ((try? map.value("overview")) ?? "No summary available.".localized).removingHtmlEncoding
+        self.firstAirDate =  try map.value("air_time", using: DateTransform())
+        self.summary = ((try? map.value("synopsis")) ?? "No summary available.".localized).removingHtmlEncoding
         self.season = ((try? map.value("season")) ?? Int((map.JSON["season"] as? String)!)!)
         let episode = self.episode // Stop compiler complaining about passing uninitialised variables to closure.
         self.title = ((try? map.value("title")) ?? "Episode \(episode)").removingHtmlEncoding
         self.slug = title.slugged
         self.largeBackgroundImage = try? map.value("images.fanart")
+print("Episode init'd with \(torrents.count) torrents")
     }
     
     public init(title: String = NSLocalizedString("Unknown", comment: ""), id: String = "0000000", tmdbId: Int? = nil, slug: String = "unknown", summary: String = "No summary available.".localized, torrents: [Torrent] = [], subtitles: Dictionary<String, [Subtitle]> = [:], largeBackgroundImage: String? = nil, largeCoverImage: String? = nil, show: Show? = nil, episode: Int = -1, season: Int = -1) {

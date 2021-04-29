@@ -11,7 +11,7 @@ extension DetailViewController {
         if let movie = currentItem as? Movie {
             ThemeSongManager.shared.playMovieTheme(movie.title)
         } else if let show = currentItem as? Show {
-            ThemeSongManager.shared.playShowTheme(Int(show.tvdbId)!)
+            ThemeSongManager.shared.playShowTheme(Int(show.tvdbId) ?? 0)
         }
     }
     

@@ -51,16 +51,21 @@ open class MovieManager: NetworkManager {
         searchTerm: String?,
         orderBy order: Orders,
         completion: @escaping ([Movie]?, NSError?) -> Void) {
-        var params: [String: Any] = ["sort": filter.rawValue, "order": order.rawValue, "genre": genre.rawValue.replacingOccurrences(of: " ", with: "-").lowercased()]
+        var params: [String: Any] = [
+            "page": page,
+            "sort": filter.rawValue,
+            "order": order.rawValue,
+            "genre": genre.rawValue.replacingOccurrences(of: " ", with: "-").lowercased()
+        ]
         if let searchTerm = searchTerm , !searchTerm.isEmpty {
             params["keywords"] = searchTerm
         }
-        self.manager.request(PopcornMovies.base + PopcornMovies.movies + "/\(page)", parameters: params).validate().responseJSON { response in
-            guard let value = response.result.value else {
+        self.manager.request(PopcornMovies.base + PopcornMovies.movies, parameters: params).validate().responseJSON { response in
+            guard let value = response.result.value as? NSDictionary else {
                 completion(nil, response.result.error as NSError?)
                 return
             }
-            completion(Mapper<Movie>().mapArray(JSONObject: value), nil)
+            completion(Mapper<Movie>().mapArray(JSONObject: value["MovieList"]), nil)
         }
     }
     
@@ -72,9 +77,13 @@ open class MovieManager: NetworkManager {
      - Parameter completion:    Completion handler for the request. Returns movie upon success, error upon failure.
      */
     open func getInfo(_ imdbId: String, completion: @escaping (Movie?, NSError?) -> Void) {
-        self.manager.request(PopcornMovies.base + PopcornMovies.movie + "/\(imdbId)").validate().responseJSON { response in
-            guard let value = response.result.value else {completion(nil, response.result.error as NSError?); return}
+        var params: [String: Any] = [
+            "imdb": imdbId
+        ]
+        self.manager.request(PopcornMovies.base + PopcornMovies.movie, parameters: params).validate().responseJSON { response in
+            guard let value = response.result.value as? NSDictionary else {completion(nil, response.result.error as NSError?); return}
             DispatchQueue.global(qos: .background).async {
+                print(value)
                 let mappedItem = Mapper<Movie>().map(JSONObject: value)
                 DispatchQueue.main.sync{completion(mappedItem, nil)}
             }
