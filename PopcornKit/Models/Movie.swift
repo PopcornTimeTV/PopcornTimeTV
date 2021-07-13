@@ -26,7 +26,7 @@ public struct Movie: Media, Equatable {
     public let title: String
     
     /// Release date of the movie.
-    public let year: String
+    public let year: Int
     
     /// Rating percentage for the movie.
     public let rating: Double
@@ -125,38 +125,38 @@ public struct Movie: Media, Equatable {
     private init(_ map: Map) throws {
         if map.context is TraktContext {
             self.id = try map.value("ids.imdb")
-            self.year = try map.value("year", using: StringTransform())
+            self.year = try map.value("year")
             self.rating = try map.value("rating")
             self.summary = ((try? map.value("overview")) ?? "No summary available.".localized).removingHtmlEncoding
             self.runtime = try map.value("runtime")
         } else {
-            self.id = try map.value("imdb_id")
+            self.id = try map.value("imdb")
             self.year = try map.value("year")
-            self.rating = try map.value("rating.percentage")
+            self.rating = try map.value("rating")
             self.summary = ((try? map.value("synopsis")) ?? "No summary available.".localized).removingHtmlEncoding
-            self.largeCoverImage = try? map.value("images.poster"); self.largeCoverImage = self.largeCoverImage?.replacingOccurrences(of: "w500", with: "w780").replacingOccurrences(of: "SX300", with: "SX1000")
-            self.largeBackgroundImage = try? map.value("images.fanart"); self.largeBackgroundImage = self.largeBackgroundImage?.replacingOccurrences(of: "w500", with: "original").replacingOccurrences(of: "SX300", with: "SX1920")
-            self.runtime = try map.value("runtime", using: IntTransform())
-
+            self.largeCoverImage = try? map.value("poster_big"); self.largeCoverImage = self.largeCoverImage?.replacingOccurrences(of: "w500", with: "w780").replacingOccurrences(of: "SX300", with: "SX1000")
+            self.largeBackgroundImage = try? map.value("poster_big"); self.largeBackgroundImage = self.largeBackgroundImage?.replacingOccurrences(of: "w500", with: "original").replacingOccurrences(of: "SX300", with: "SX1920")
+            self.runtime = try map.value("runtime")
         }
         let title: String? = (try map.value("title") as String).removingHtmlEncoding
         self.title = title ?? ""
-        self.tmdbId = try? map.value("ids.tmdb")
+        self.tmdbId = try? map.value("id")
         self.slug = title?.slugged ?? ""
         self.trailer = try? map.value("trailer"); trailer == "false" ? trailer = nil : ()
-        self.certification = try map.value("certification")
+        self.certification = try map.value("certification") ?? "" //////////////////////////////////////////////////////////////////////////
         self.genres = (try? map.value("genres")) ?? [String]()
-        if let torrents = map["torrents.en"].currentValue as? [String: [String: Any]] {
-            for (quality, torrent) in torrents {
-                if var torrent = Mapper<Torrent>().map(JSONObject: torrent) , quality != "0" {
-                    torrent.quality = quality
+
+        if let torrents = map["items"].currentValue as? NSArray {
+            for torrent in torrents {
+                if let torrent = Mapper<Torrent>().map(JSONObject: torrent), torrent.quality != "0" {
                     self.torrents.append(torrent)
                 }
             }
         }
         torrents.sort(by: <)
+        print("Movie \(self.title ) has \(torrents.count) torrents")
     }
-    
+
     public init(title: String = "Unknown".localized, id: String = "tt0000000", tmdbId: Int? = nil, slug: String = "unknown", summary: String = "No summary available.".localized, torrents: [Torrent] = [], subtitles: Dictionary<String, [Subtitle]> = [:], largeBackgroundImage: String? = nil, largeCoverImage: String? = nil) {
         self.title = title
         self.id = id
@@ -167,7 +167,7 @@ public struct Movie: Media, Equatable {
         self.subtitles = subtitles
         self.largeBackgroundImage = largeBackgroundImage
         self.largeCoverImage = largeCoverImage
-        self.year = ""
+        self.year = 0
         self.certification = "Unrated"
         self.rating = 0.0
         self.runtime = 0

@@ -8,7 +8,7 @@ import MediaPlayer.MPMediaItem
 extension AppDelegate: PCTPlayerViewControllerDelegate, UIViewControllerTransitioningDelegate {
     
     func chooseQuality(_ sender: UIView?, media: Media, completion: @escaping (Torrent) -> Void) {
-        if let quality = UserDefaults.standard.string(forKey: "autoSelectQuality") {
+        if let quality = UserDefaults.standard.string(forKey: "autoSelectQuality"), media.torrents.count > 1 {
             let sorted  = media.torrents.sorted(by: <)
             let torrent = quality == "Highest".localized ? sorted.last! : sorted.first!
             

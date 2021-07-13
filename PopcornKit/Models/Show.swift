@@ -29,7 +29,7 @@ public struct Show: Media, Equatable {
     public let title: String
     
     /// Release date of the show.
-    public let year: String
+    public let year: Int
     
     /// Rating percentage of the show.
     public let rating: Double
@@ -123,20 +123,20 @@ public struct Show: Media, Equatable {
             self.id = try map.value("ids.imdb")
             self.tvdbId = try map.value("ids.tvdb", using: StringTransform())
             self.slug = try map.value("ids.slug")
-            self.year = try map.value("year", using: StringTransform())
+            self.year = try map.value("year")
             self.airDay = try? map.value("airs.day")
             self.airTime = try? map.value("airs.time")
             self.rating = try map.value("rating")
         } else {
-            self.id = try (try? map.value("imdb_id")) ?? map.value("_id")
-            self.tvdbId = try map.value("tvdb_id")
+            self.id = try (try? map.value("imdb")) ?? map.value("id")
+            self.tvdbId = ""//try map.value("id")
             self.year = try map.value("year")
-            self.rating = try map.value("rating.percentage")
-            self.largeCoverImage = try? map.value("images.poster"); largeCoverImage = largeCoverImage?.replacingOccurrences(of: "w500", with: "w780").replacingOccurrences(of: "SX300", with: "SX1000")
-            self.largeBackgroundImage = try? map.value("images.fanart"); largeBackgroundImage = largeBackgroundImage?.replacingOccurrences(of: "w500", with: "original").replacingOccurrences(of: "SX300", with: "SX1920")
-            self.slug = try map.value("slug")
-            self.airDay = try? map.value("air_day")
-            self.airTime = try? map.value("air_time")
+            self.rating = try map.value("rating")
+            self.largeCoverImage = try? map.value("poster_big"); largeCoverImage = largeCoverImage?.replacingOccurrences(of: "w500", with: "w780").replacingOccurrences(of: "SX300", with: "SX1000")
+            self.largeBackgroundImage = try? map.value("poster_big"); largeBackgroundImage = largeBackgroundImage?.replacingOccurrences(of: "w500", with: "original").replacingOccurrences(of: "SX300", with: "SX1920")
+            self.slug = try map.value("description")
+            self.airDay = nil//try? map.value("air_day")
+            self.airTime = nil//try? map.value("air_time")
         }
         self.summary = ((try? map.value("synopsis")) ?? (try? map.value("overview")) ?? "No summary available.".localized).removingHtmlEncoding
         var title: String = try map.value("title")
@@ -156,6 +156,7 @@ public struct Show: Media, Equatable {
         }
         self.episodes = episodes
         self.episodes.sort(by: { $0.episode < $1.episode })
+        print("Show \(self.title) init'd with \(episodes.count) episodes")
     }
     
     public init(title: String = "Unknown".localized, id: String = "tt0000000", tmdbId: Int? = nil, slug: String = "unknown", summary: String = "No summary available.".localized, torrents: [Torrent] = [], subtitles: [Subtitle] = [], largeBackgroundImage: String? = nil, largeCoverImage: String? = nil) {
@@ -166,7 +167,7 @@ public struct Show: Media, Equatable {
         self.summary = summary
         self.largeBackgroundImage = largeBackgroundImage
         self.largeCoverImage = largeCoverImage
-        self.year = ""
+        self.year = 0
         self.rating = 0.0
         self.runtime = 0
         self.tvdbId = "0000000"

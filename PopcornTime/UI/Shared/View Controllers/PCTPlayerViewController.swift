@@ -5,8 +5,7 @@ import MediaPlayer
 import PopcornTorrent
 import PopcornKit
 
-
-protocol PCTPlayerViewControllerDelegate: class {
+protocol PCTPlayerViewControllerDelegate: AnyObject {
     func playNext(_ episode: Episode)
     
     #if os(iOS)
@@ -280,6 +279,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
         guard mediaplayer.state == .stopped || mediaplayer.state == .opening else { return }
         if startPosition > 0.0 {
             let isRegular = traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular
@@ -318,6 +318,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         mediaplayer.drawable = movieView
         mediaplayer.audio.passthrough = true
         mediaplayer.media = VLCMedia(url: url)
+print("URL->", url)
         
         NotificationCenter.default.addObserver(self, selector: #selector(torrentStatusDidChange(_:)), name: .PTTorrentStatusDidChange, object: streamer)
         if media.subtitles.count == 0 {
@@ -346,7 +347,6 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
         if #available(iOS 10.0,tvOS 10.0,*){
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback,mode: AVAudioSession.Mode(rawValue: convertFromAVAudioSessionMode(AVAudioSession.Mode.moviePlayback)), options: [.allowBluetoothA2DP,.allowAirPlay])
         }
-        
         
         #if os(iOS)
             volumeSliderView?.addSubview(volumeView)
@@ -515,6 +515,7 @@ class PCTPlayerViewController: UIViewController, VLCMediaPlayerDelegate, UIGestu
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+print("MOVING ON")
         if segue.identifier == "showUpNext", let vc = segue.destination as? UpNextViewController, let episode = nextEpisode {
             vc.delegate = self
             vc.modalPresentationStyle = .custom

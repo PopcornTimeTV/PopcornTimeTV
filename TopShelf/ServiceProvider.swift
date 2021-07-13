@@ -70,7 +70,7 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
     
     func buildShelfItem(_ title: String, image: String?, action: String) -> TVContentItem {
         let item = TVContentItem(contentIdentifier: TVContentIdentifier(identifier: title, container: nil))
-        if let image = image { item.imageURL = URL(string: image) }
+        if let image = image { item.setImageURL(URL(string: image), forTraits: TVContentItemImageTrait.screenScale1x) }
         item.imageShape = .poster
         var components = URLComponents()
         components.scheme = "PopcornTime"

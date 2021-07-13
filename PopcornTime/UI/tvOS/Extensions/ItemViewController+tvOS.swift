@@ -56,7 +56,7 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             let runtime = formatter.string(from: TimeInterval(movie.runtime) * 60)
             let year = movie.year
             
-            let subtitle = NSMutableAttributedString(string: [runtime, year].compactMap({$0}).joined(separator: "\t"))
+            let subtitle = NSMutableAttributedString(string: [runtime, "\(year)"].compactMap({$0}).joined(separator: "\t"))
             attributedString(colored: isDark ? .white : .black, between: movie.certification, "HD", "CC").forEach({subtitle.append($0)})
             
             subtitleLabel.attributedText = subtitle
@@ -115,7 +115,7 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
             let genre = show.genres.first?.localizedCapitalized.localized
             let year = show.year
             
-            let subtitle = NSMutableAttributedString(string: [genre, year].compactMap({$0}).joined(separator: "\t"))
+            let subtitle = NSMutableAttributedString(string: [genre, "\(year)"].compactMap({$0}).joined(separator: "\t"))
             attributedString(colored: isDark ? .white : .black, between: "HD", "CC").forEach({subtitle.append($0)})
             
             subtitleLabel.font = UIFont.systemFont(ofSize: 31, weight: UIFont.Weight.medium)
@@ -164,7 +164,7 @@ extension ItemViewController: UIViewControllerTransitioningDelegate {
         viewController.modalPresentationStyle = .custom
         present(viewController, animated: true)
     }
-    
+
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         if let next = context.nextFocusedView {
             environmentsToFocus = [next]

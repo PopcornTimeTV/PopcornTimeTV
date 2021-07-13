@@ -77,7 +77,7 @@ class InfoViewController: UIViewController, UIViewControllerTransitioningDelegat
                 let runtime = formatter.string(from: TimeInterval(movie.runtime) * 60)
                 let year = movie.year
                 
-                let info = NSMutableAttributedString(string: [runtime, year].compactMap({$0}).joined(separator: "\t"))
+                let info = NSMutableAttributedString(string: [runtime, "\(year)"].compactMap({$0}).joined(separator: "\t"))
                 attributedString(between: movie.certification, "HD", "CC").forEach({info.append($0)})
                 
                 infoLabel.attributedText = info
