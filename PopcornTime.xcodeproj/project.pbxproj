@@ -3146,7 +3146,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6D6B36DCDACFFF36F3CFD9F2 /* Pods-TopShelf.debug.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -3180,7 +3180,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1A61E463CD7628D200CEB803 /* Pods-TopShelf.release.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;

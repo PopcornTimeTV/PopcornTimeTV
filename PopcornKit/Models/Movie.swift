@@ -148,7 +148,7 @@ public struct Movie: Media, Equatable {
 
         if let torrents = map["items"].currentValue as? NSArray {
             for torrent in torrents {
-                if let torrent = Mapper<Torrent>().map(JSONObject: torrent) , torrent.quality != "0" {
+                if let torrent = Mapper<Torrent>().map(JSONObject: torrent), torrent.quality != "0" {
                     self.torrents.append(torrent)
                 }
             }

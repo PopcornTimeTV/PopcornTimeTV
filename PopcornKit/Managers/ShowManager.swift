@@ -58,7 +58,9 @@ open class ShowManager: NetworkManager {
             "page": page,
             "sort": filter.rawValue,
             "genre": genre.rawValue.replacingOccurrences(of: " ", with: "-").lowercased(),
-            "order": order.rawValue
+            "order": order.rawValue,
+            "ver": "6.1.2",
+            "os": "mac"
         ]
         if let searchTerm = searchTerm , !searchTerm.isEmpty {
             params["keywords"] = searchTerm
@@ -89,7 +91,10 @@ open class ShowManager: NetworkManager {
      */
     open func getInfo(_ imdbId: String, completion: @escaping (Show?, NSError?) -> Void) {
         let params: [String: Any] = [
-            "imdb": imdbId
+            "imdb": imdbId,
+            "quality": "720p,1080p,2160p,2160,4k,4K,3d,3D,h265",
+            "os": "mac",
+            "ver": "6.1.2"
         ]
         self.manager.request(PopcornShows.base + PopcornShows.show, method: .get, parameters: params).validate().responseJSON { response in
             guard let value = response.result.value as? NSDictionary, var cachedShow = self.cache.show(imdbId) else {completion(nil, response.result.error as NSError?); return}
@@ -100,7 +105,6 @@ open class ShowManager: NetworkManager {
                     for ep in episodes {
                         if var episode = Mapper<Episode>().map(JSONObject: ep) {
                             if episode.torrents.count > 0 {
-//                                print(episode)
                                 episode.show = cachedShow
                                 cachedShow.episodes.append(episode)
                             }

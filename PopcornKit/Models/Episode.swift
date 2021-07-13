@@ -102,7 +102,6 @@ public struct Episode: Media, Equatable {
         self.title = ((try? map.value("title")) ?? "Episode \(episode)").removingHtmlEncoding
         self.slug = title.slugged
         self.largeBackgroundImage = try? map.value("images.fanart")
-print("Episode init'd with \(torrents.count) torrents")
     }
     
     public init(title: String = NSLocalizedString("Unknown", comment: ""), id: String = "0000000", tmdbId: Int? = nil, slug: String = "unknown", summary: String = "No summary available.".localized, torrents: [Torrent] = [], subtitles: Dictionary<String, [Subtitle]> = [:], largeBackgroundImage: String? = nil, largeCoverImage: String? = nil, show: Show? = nil, episode: Int = -1, season: Int = -1) {

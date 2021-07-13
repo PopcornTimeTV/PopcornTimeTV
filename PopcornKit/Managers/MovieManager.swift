@@ -41,6 +41,8 @@ open class MovieManager: NetworkManager {
      - Parameter genre:      Only return movies that match the provided genre.
      - Parameter searchTerm: Only return movies that match the provided string.
      - Parameter orderBy:    Ascending or descending.
+     - Parameter ver:        Try to keep this in line with PopcornTime Desktop
+     - Parameter os:         For now, hardcoded to "mac"
      
      - Parameter completion: Completion handler for the request. Returns array of movies upon success, error upon failure.
      */
@@ -55,7 +57,9 @@ open class MovieManager: NetworkManager {
             "page": page,
             "sort": filter.rawValue,
             "order": order.rawValue,
-            "genre": genre.rawValue.replacingOccurrences(of: " ", with: "-").lowercased()
+            "genre": genre.rawValue.replacingOccurrences(of: " ", with: "-").lowercased(),
+            "ver": "6.1.2",
+            "os": "mac"
         ]
         if let searchTerm = searchTerm , !searchTerm.isEmpty {
             params["keywords"] = searchTerm
@@ -77,17 +81,18 @@ open class MovieManager: NetworkManager {
      - Parameter completion:    Completion handler for the request. Returns movie upon success, error upon failure.
      */
     open func getInfo(_ imdbId: String, completion: @escaping (Movie?, NSError?) -> Void) {
-        var params: [String: Any] = [
-            "imdb": imdbId
+        let params: [String: Any] = [
+            "imdb": imdbId,
+            "quality": "720p,1080p,2160p,2160,4k,4K,3d,3D,h265",
+            "os": "mac",
+            "ver": "6.1.2"
         ]
         self.manager.request(PopcornMovies.base + PopcornMovies.movie, parameters: params).validate().responseJSON { response in
             guard let value = response.result.value as? NSDictionary else {completion(nil, response.result.error as NSError?); return}
             DispatchQueue.global(qos: .background).async {
-                print(value)
                 let mappedItem = Mapper<Movie>().map(JSONObject: value)
                 DispatchQueue.main.sync{completion(mappedItem, nil)}
             }
-            
         }
     }
     
