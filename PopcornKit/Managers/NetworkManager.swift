@@ -64,13 +64,13 @@ public struct Trakt {
 }
 
 public struct PopcornShows {
-    static let base = "https://tv-v2.api-fetch.website"
+    static let base = "https://tv-v2.api-fetch.sh"
     static let shows = "/shows"
     static let show = "/show"
 }
 
 public struct PopcornMovies {
-    static let base = "https://movies-v2.api-fetch.website"
+    static let base = "https://movies-v2.api-fetch.sh"
     static let movies = "/movies"
     static let movie = "/movie"
 }
@@ -103,7 +103,7 @@ public struct Fanart {
 
 public struct OpenSubtitles {
     static let base = "https://rest.opensubtitles.org/"
-    static let userAgent = "Popcorn Time v1"
+    static let userAgent = "Popcorn Time NodeJS"
     
 //    static let logIn = "LogIn"
 //    static let logOut = "LogOut"
